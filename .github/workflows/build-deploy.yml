@@ -127,7 +127,7 @@ jobs:
   deploy:
     name: Deploy docker image
     needs: [env, vars, build]
-    uses: acdh-oeaw/gl-autodevops-minimal-port/.github/workflows/deploy.yml@main
+    uses: DARIAH-ERIC/gl-autodevops-minimal-port/.github/workflows/deploy.yml@main
     secrets: inherit
     with:
       environment: "${{ needs.env.outputs.environment }}"
