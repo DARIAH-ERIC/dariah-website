@@ -48,7 +48,13 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 # to mount secrets which need to be available at build time
 # @see https://docs.docker.com/build/building/secrets/
-RUN pnpm run build
+RUN --mount=type=secret,id=KEYSTATIC_GITHUB_CLIENT_ID,uid=1000 \
+		--mount=type=secret,id=KEYSTATIC_GITHUB_CLIENT_SECRET,uid=1000 \
+		--mount=type=secret,id=KEYSTATIC_SECRET,uid=1000 \
+		KEYSTATIC_GITHUB_CLIENT_ID=$(cat /run/secrets/KEYSTATIC_GITHUB_CLIENT_ID) \
+		KEYSTATIC_GITHUB_CLIENT_SECRET=$(cat /run/secrets/KEYSTATIC_GITHUB_CLIENT_SECRET) \
+		KEYSTATIC_SECRET=$(cat /run/secrets/KEYSTATIC_SECRET) \
+		pnpm run build
 
 # serve
 FROM node:22-alpine AS serve
