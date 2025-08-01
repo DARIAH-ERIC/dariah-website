@@ -1,0 +1,58 @@
+{
+	"links": [
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Veranstaltungen",
+				"link": {
+					"discriminant": "events-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Aktuelles",
+				"link": {
+					"discriminant": "news-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Projekte",
+				"link": {
+					"discriminant": "projects-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Ressourcen",
+				"link": {
+					"discriminant": "resources"
+				}
+			}
+		},
+		{
+			"discriminant": "menu",
+			"value": {
+				"label": "Über uns",
+				"items": [
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "in a Nutshell",
+							"link": {
+								"discriminant": "pages",
+								"value": "in-a-nutshell"
+							}
+						}
+					}
+				]
+			}
+		}
+	]
+}

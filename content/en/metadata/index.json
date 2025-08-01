@@ -1,0 +1,13 @@
+{
+	"title": "DARIAH Website",
+	"description": "lorem ipsum",
+	"twitter": {
+		"creator": "",
+		"site": ""
+	},
+	"manifest": {
+		"name": "DARIAH Website",
+		"short-name": "DARIAH Website",
+		"description": "DARIAH Website"
+	}
+}

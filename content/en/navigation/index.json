@@ -1,0 +1,97 @@
+{
+	"links": [
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Events",
+				"link": {
+					"discriminant": "events-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "News",
+				"link": {
+					"discriminant": "news-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Projects",
+				"link": {
+					"discriminant": "projects-overview"
+				}
+			}
+		},
+		{
+			"discriminant": "link",
+			"value": {
+				"label": "Resources",
+				"link": {
+					"discriminant": "resources"
+				}
+			}
+		},
+		{
+			"discriminant": "menu",
+			"value": {
+				"label": "About",
+				"items": [
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "In a Nutshell",
+							"link": {
+								"discriminant": "in-a-nutshell"
+							}
+						}
+					},
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "Vision & Strategy ",
+							"link": {
+								"discriminant": "pages",
+								"value": "vision-and-strategy"
+							}
+						}
+					},
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "How to join",
+							"link": {
+								"discriminant": "pages",
+								"value": "how-to-join"
+							}
+						}
+					},
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "Downloads",
+							"link": {
+								"discriminant": "pages",
+								"value": "downloads"
+							}
+						}
+					},
+					{
+						"discriminant": "link",
+						"value": {
+							"label": "Contact",
+							"link": {
+								"discriminant": "pages",
+								"value": "contact"
+							}
+						}
+					}
+				]
+			}
+		}
+	]
+}
