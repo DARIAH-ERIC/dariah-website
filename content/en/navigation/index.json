@@ -1,97 +1,269 @@
 {
-	"links": [
-		{
-			"discriminant": "link",
-			"value": {
-				"label": "Events",
-				"link": {
-					"discriminant": "events-overview"
-				}
-			}
-		},
-		{
-			"discriminant": "link",
-			"value": {
-				"label": "News",
-				"link": {
-					"discriminant": "news-overview"
-				}
-			}
-		},
-		{
-			"discriminant": "link",
-			"value": {
-				"label": "Projects",
-				"link": {
-					"discriminant": "projects-overview"
-				}
-			}
-		},
-		{
-			"discriminant": "link",
-			"value": {
-				"label": "Resources",
-				"link": {
-					"discriminant": "resources"
-				}
-			}
-		},
-		{
-			"discriminant": "menu",
-			"value": {
-				"label": "About",
-				"items": [
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "In a Nutshell",
-							"link": {
-								"discriminant": "in-a-nutshell"
-							}
-						}
-					},
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "Vision & Strategy ",
-							"link": {
-								"discriminant": "pages",
-								"value": "vision-and-strategy"
-							}
-						}
-					},
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "How to join",
-							"link": {
-								"discriminant": "pages",
-								"value": "how-to-join"
-							}
-						}
-					},
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "Downloads",
-							"link": {
-								"discriminant": "pages",
-								"value": "downloads"
-							}
-						}
-					},
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "Contact",
-							"link": {
-								"discriminant": "pages",
-								"value": "contact"
-							}
-						}
-					}
-				]
-			}
-		}
-	]
+  "links": [
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "About",
+        "items": [
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "DARIAH in a nutshell",
+              "link": {
+                "discriminant": "in-a-nutshell"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Strategy",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Organisation and Governance",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Impact Case Studies",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Documents and Policies",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "Network",
+        "items": [
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Members and Partners",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Regional Hubs",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Working Groups",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Partnerships & Collaborations",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "Resources",
+        "items": [
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "DARIAH Resource Catalogue",
+              "link": {
+                "discriminant": "resources"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "DARIAH-Campus",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Transformations",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "SSH Open Marketplace",
+              "link": {
+                "discriminant": "external",
+                "value": "https://marketplace.sshopencloud.eu/"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "link",
+      "value": {
+        "label": "Projects",
+        "link": {
+          "discriminant": "projects-overview"
+        }
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "News & Events",
+        "items": [
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "News",
+              "link": {
+                "discriminant": "news-overview"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Events Calendar",
+              "link": {
+                "discriminant": "events-overview"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Spotlight",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Annual Events",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Newsletters",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "discriminant": "menu",
+      "value": {
+        "label": "Get involved",
+        "items": [
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Join DARIAH",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "DARIAH Theme Funding",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Working Groups Funding Call",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          },
+          {
+            "discriminant": "link",
+            "value": {
+              "label": "Opportunities",
+              "link": {
+                "discriminant": "pages",
+                "value": "sample-page-1"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
 }
