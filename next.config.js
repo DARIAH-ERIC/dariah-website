@@ -16,7 +16,7 @@ const config = {
 	},
 	experimental: {
 		instrumentationHook: true,
-		outputFileTracingExcludes: {
+		outputFileTracingIncludes: {
 			"**/*": [
 				"./content/**/*",
 				"./public/assets/content/**/*",
