@@ -16,6 +16,13 @@ const config = {
 	},
 	experimental: {
 		instrumentationHook: true,
+		outputFileTracingExcludes: {
+			"**/*": [
+				"./content/**/*",
+				"./public/assets/content/**/*",
+				"./node_modules/.pnpm/@shikijs+langs/**/*",
+			],
+		},
 	},
 	headers() {
 		/** @type {Awaited<ReturnType<NonNullable<NextConfig["headers"]>>>} */
@@ -40,13 +47,6 @@ const config = {
 		},
 	},
 	output: env.BUILD_MODE,
-	outputFileTracingExcludes: {
-		"**/*": [
-			"./content/**/*",
-			"./public/assets/content/**/*",
-			"./node_modules/.pnpm/@shikijs+langs/**/*",
-		],
-	},
 	redirects() {
 		/** @type {Awaited<ReturnType<NonNullable<NextConfig["redirects"]>>>} */
 		const redirects = [
