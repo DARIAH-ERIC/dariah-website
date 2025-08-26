@@ -18,12 +18,28 @@ export function getLinkProps(params: LinkSchema) {
 			return { href: "/" };
 		}
 
+		case "documents-and-policies": {
+			return { href: `/documents-and-policies/${params.value}/` };
+		}
+
+		case "documents-and-policies-overview": {
+			return { href: `/documents-and-policies` };
+		}
+
 		case "events": {
 			return { href: `/events/${params.value}/` };
 		}
 
 		case "events-overview": {
 			return { href: "/events" };
+		}
+
+		case "impact-case-studies": {
+			return { href: `/impact-case-studies/${params.value}/` };
+		}
+
+		case "impact-case-studies-overview": {
+			return { href: `/impact-case-studies` };
 		}
 
 		case "news": {
@@ -34,16 +50,20 @@ export function getLinkProps(params: LinkSchema) {
 			return { href: "/news" };
 		}
 
-		case "in-a-nutshell": {
-			return { href: "/in-a-nutshell" };
-		}
-
 		case "projects": {
 			return { href: `/projects/${params.value}/` };
 		}
 
 		case "projects-overview": {
 			return { href: `/projects` };
+		}
+
+		case "strategies": {
+			return { href: `/strategies/${params.value}/` };
+		}
+
+		case "strategies-overview": {
+			return { href: `/strategies` };
 		}
 
 		case "pages": {

@@ -8,9 +8,10 @@
           {
             "discriminant": "link",
             "value": {
-              "label": "DARIAH in a nutshell",
+              "label": "DARIAH In a nutshell",
               "link": {
-                "discriminant": "in-a-nutshell"
+                "discriminant": "pages",
+                "value": "dariah-in-a-nutshell"
               }
             }
           },
@@ -19,8 +20,7 @@
             "value": {
               "label": "Strategy",
               "link": {
-                "discriminant": "pages",
-                "value": "sample-page-1"
+                "discriminant": "strategies-overview"
               }
             }
           },
@@ -39,8 +39,7 @@
             "value": {
               "label": "Impact Case Studies",
               "link": {
-                "discriminant": "pages",
-                "value": "sample-page-1"
+                "discriminant": "impact-case-studies-overview"
               }
             }
           },
@@ -49,8 +48,7 @@
             "value": {
               "label": "Documents and Policies",
               "link": {
-                "discriminant": "pages",
-                "value": "sample-page-1"
+                "discriminant": "documents-and-policies-overview"
               }
             }
           }

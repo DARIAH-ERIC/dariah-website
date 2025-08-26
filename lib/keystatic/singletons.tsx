@@ -1,21 +1,11 @@
 import {
 	createAssetOptions,
-	createContentFieldOptions,
 	createLabel,
 	createSingleton,
 	withI18nPrefix,
 } from "@acdh-oeaw/keystatic-lib";
 import { fields, singleton } from "@keystatic/core";
 
-import {
-	createFigure,
-	createFootnote,
-	createGrid,
-	createHeadingId,
-	createLink,
-	createLinkButton,
-	createVideo,
-} from "@/lib/keystatic/components";
 import { createLinkSchema } from "@/lib/keystatic/create-link-schema";
 import * as validation from "@/lib/keystatic/validation";
 
@@ -138,6 +128,28 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 														},
 													),
 												},
+												"document-or-policy": {
+													label: "Document or Policy card",
+													itemLabel(props) {
+														return props.fields.title.value;
+													},
+													schema: fields.object(
+														{
+															title: fields.text({
+																label: "Title",
+																validation: { isRequired: true },
+															}),
+															reference: fields.relationship({
+																label: "Document or Policy",
+																validation: { isRequired: true },
+																collection: withI18nPrefix("document-and-policies", locale),
+															}),
+														},
+														{
+															label: "Document or Policy card",
+														},
+													),
+												},
 												event: {
 													label: "Event card",
 													itemLabel(props) {
@@ -157,6 +169,28 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 														},
 														{
 															label: "Event card",
+														},
+													),
+												},
+												"impact-case-study": {
+													label: "Impact Case Study card",
+													itemLabel(props) {
+														return props.fields.title.value;
+													},
+													schema: fields.object(
+														{
+															title: fields.text({
+																label: "Title",
+																validation: { isRequired: true },
+															}),
+															reference: fields.relationship({
+																label: "Impact Case Study",
+																validation: { isRequired: true },
+																collection: withI18nPrefix("impact-case-studies", locale),
+															}),
+														},
+														{
+															label: "Impact Case Study card",
 														},
 													),
 												},
@@ -248,6 +282,28 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 														},
 													),
 												},
+												strategy: {
+													label: "Strategy card",
+													itemLabel(props) {
+														return props.fields.title.value;
+													},
+													schema: fields.object(
+														{
+															title: fields.text({
+																label: "Title",
+																validation: { isRequired: true },
+															}),
+															reference: fields.relationship({
+																label: "Strategy",
+																validation: { isRequired: true },
+																collection: withI18nPrefix("strategies", locale),
+															}),
+														},
+														{
+															label: "Strategy card",
+														},
+													),
+												},
 											},
 											{
 												label: "Cards",
@@ -273,6 +329,29 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 	});
 });
 
+export const createDocumentsAndPoliciesOverview = createSingleton(
+	"/documents-and-policies-overview/",
+	(paths, locale) => {
+		return singleton({
+			label: createLabel("Documents and Policies Overview", locale),
+			path: paths.contentPath,
+			format: { data: "json" },
+			entryLayout: "form",
+			schema: {
+				title: fields.text({
+					label: "Title",
+					validation: { isRequired: true },
+				}),
+				lead: fields.text({
+					label: "Lead",
+					validation: { isRequired: true },
+					multiline: true,
+				}),
+			},
+		});
+	},
+);
+
 export const createEventsOverview = createSingleton("/events-overview/", (paths, locale) => {
 	return singleton({
 		label: createLabel("Events Overview", locale),
@@ -293,6 +372,29 @@ export const createEventsOverview = createSingleton("/events-overview/", (paths,
 	});
 });
 
+export const createImpactCaseStudiesOverview = createSingleton(
+	"/impact-case-studies-overview/",
+	(paths, locale) => {
+		return singleton({
+			label: createLabel("Impact Case Studies Overview", locale),
+			path: paths.contentPath,
+			format: { data: "json" },
+			entryLayout: "form",
+			schema: {
+				title: fields.text({
+					label: "Title",
+					validation: { isRequired: true },
+				}),
+				lead: fields.text({
+					label: "Lead",
+					validation: { isRequired: true },
+					multiline: true,
+				}),
+			},
+		});
+	},
+);
+
 export const createNewsOverview = createSingleton("/news-overview/", (paths, locale) => {
 	return singleton({
 		label: createLabel("News Overview", locale),
@@ -308,41 +410,6 @@ export const createNewsOverview = createSingleton("/news-overview/", (paths, loc
 				label: "Lead",
 				validation: { isRequired: true },
 				multiline: true,
-			}),
-		},
-	});
-});
-
-export const createNutshell = createSingleton("/in-a-nutshell/", (paths, locale) => {
-	return singleton({
-		label: createLabel("In a Nutshell", locale),
-		path: paths.contentPath,
-		format: { data: "json" },
-		entryLayout: "form",
-		schema: {
-			title: fields.text({
-				label: "Title",
-				validation: { isRequired: true },
-			}),
-			lead: fields.mdx.inline({
-				label: "Lead",
-			}),
-			content: fields.mdx({
-				label: "Content",
-				options: createContentFieldOptions(paths),
-				components: {
-					//...createAvatar(paths, locale),
-					//...createDownloadButton(paths, locale),
-					...createFigure(paths, locale),
-					...createFootnote(paths, locale),
-					...createGrid(paths, locale),
-					...createHeadingId(paths, locale),
-					//...createImageLink(paths, locale),
-					...createLink(paths, locale),
-					...createLinkButton(paths, locale),
-					//...createTweet(paths, locale),
-					...createVideo(paths, locale),
-				},
 			}),
 		},
 	});
@@ -367,6 +434,29 @@ export const createProjectsOverview = createSingleton("/projects-overview/", (pa
 		},
 	});
 });
+
+export const createStrategiesOverview = createSingleton(
+	"/strategies-overview/",
+	(paths, locale) => {
+		return singleton({
+			label: createLabel("Strategies Overview", locale),
+			path: paths.contentPath,
+			format: { data: "json" },
+			entryLayout: "form",
+			schema: {
+				title: fields.text({
+					label: "Title",
+					validation: { isRequired: true },
+				}),
+				lead: fields.text({
+					label: "Lead",
+					validation: { isRequired: true },
+					multiline: true,
+				}),
+			},
+		});
+	},
+);
 
 export const createMetadata = createSingleton("/metadata/", (paths, locale) => {
 	return singleton({
