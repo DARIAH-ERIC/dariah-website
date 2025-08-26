@@ -6,30 +6,41 @@ import { env } from "@/config/env.config";
 import { locales } from "@/config/i18n.config";
 import {
 	createDocumentation,
+	createDocumentsAndPolicies,
 	createEvents,
+	createImpactCaseStudies,
 	createKeywords,
 	createNews,
 	createOrganisation,
 	createPages,
 	createPersons,
 	createProjects,
+	createStrategies,
 } from "@/lib/keystatic/collections";
 import {
+	createDocumentsAndPoliciesOverview,
 	createEventsOverview,
+	createImpactCaseStudiesOverview,
 	createIndexPage,
 	createMetadata,
 	createNavigation,
 	createNewsOverview,
-	createNutshell,
 	createProjectsOverview,
 	createResources,
 	createSearch,
+	createStrategiesOverview,
 } from "@/lib/keystatic/singletons";
 
 export default config({
 	collections: {
+		[withI18nPrefix("documents-and-policies", "de")]: createDocumentsAndPolicies("de"),
+		[withI18nPrefix("documents-and-policies", "en")]: createDocumentsAndPolicies("en"),
+
 		[withI18nPrefix("events", "de")]: createEvents("de"),
 		[withI18nPrefix("events", "en")]: createEvents("en"),
+
+		[withI18nPrefix("impact-case-studies", "de")]: createImpactCaseStudies("de"),
+		[withI18nPrefix("impact-case-studies", "en")]: createImpactCaseStudies("en"),
 
 		[withI18nPrefix("keywords", "de")]: createKeywords("de"),
 		[withI18nPrefix("keywords", "en")]: createKeywords("en"),
@@ -45,6 +56,9 @@ export default config({
 
 		[withI18nPrefix("projects", "de")]: createProjects("de"),
 		[withI18nPrefix("projects", "en")]: createProjects("en"),
+
+		[withI18nPrefix("strategies", "de")]: createStrategies("de"),
+		[withI18nPrefix("strategies", "en")]: createStrategies("en"),
 
 		[withI18nPrefix("pages", "de")]: createPages("de"),
 		[withI18nPrefix("pages", "en")]: createPages("en"),
@@ -62,20 +76,28 @@ export default config({
 		[withI18nPrefix("navigation", "de")]: createNavigation("de"),
 		[withI18nPrefix("navigation", "en")]: createNavigation("en"),
 
+		[withI18nPrefix("documents-and-policies-overview", "de")]:
+			createDocumentsAndPoliciesOverview("de"),
+		[withI18nPrefix("documents-and-policies-overview", "en")]:
+			createDocumentsAndPoliciesOverview("en"),
+
 		[withI18nPrefix("events-overview", "de")]: createEventsOverview("de"),
 		[withI18nPrefix("events-overview", "en")]: createEventsOverview("en"),
 
+		[withI18nPrefix("impact-case-studies-overview", "de")]: createImpactCaseStudiesOverview("de"),
+		[withI18nPrefix("impact-case-studies-overview", "en")]: createImpactCaseStudiesOverview("en"),
+
 		[withI18nPrefix("news-overview", "de")]: createNewsOverview("de"),
 		[withI18nPrefix("news-overview", "en")]: createNewsOverview("en"),
-
-		[withI18nPrefix("in-a-nutshell", "de")]: createNutshell("de"),
-		[withI18nPrefix("in-a-nutshell", "en")]: createNutshell("en"),
 
 		[withI18nPrefix("projects-overview", "de")]: createProjectsOverview("de"),
 		[withI18nPrefix("projects-overview", "en")]: createProjectsOverview("en"),
 
 		[withI18nPrefix("resources", "de")]: createResources("de"),
 		[withI18nPrefix("resources", "en")]: createResources("en"),
+
+		[withI18nPrefix("strategies-overview", "de")]: createStrategiesOverview("de"),
+		[withI18nPrefix("strategies-overview", "en")]: createStrategiesOverview("en"),
 
 		[withI18nPrefix("search", "de")]: createSearch("de"),
 		[withI18nPrefix("search", "en")]: createSearch("en"),
@@ -106,11 +128,23 @@ export default config({
 			HomePage: locales.map((locale) => {
 				return withI18nPrefix("index-page", locale);
 			}),
+			"Documents and Policies": locales.map((locale) => {
+				return withI18nPrefix("documents-and-policies", locale);
+			}),
+			"Documents and Policies Overview": locales.map((locale) => {
+				return withI18nPrefix("documents-and-policies-overview", locale);
+			}),
 			Events: locales.map((locale) => {
 				return withI18nPrefix("events", locale);
 			}),
 			"Events Overview": locales.map((locale) => {
 				return withI18nPrefix("events-overview", locale);
+			}),
+			"Impact case studies": locales.map((locale) => {
+				return withI18nPrefix("impact-case-studies", locale);
+			}),
+			"Impact case studies overview": locales.map((locale) => {
+				return withI18nPrefix("impact-case-studies-overview", locale);
 			}),
 			Keywords: locales.map((locale) => {
 				return withI18nPrefix("keywords", locale);
@@ -120,9 +154,6 @@ export default config({
 			}),
 			"News Overview": locales.map((locale) => {
 				return withI18nPrefix("news-overview", locale);
-			}),
-			"In a Nutshell": locales.map((locale) => {
-				return withI18nPrefix("in-a-nutshell", locale);
 			}),
 			Organisations: locales.map((locale) => {
 				return withI18nPrefix("organisations", locale);
@@ -135,6 +166,12 @@ export default config({
 			}),
 			"Projects Overview": locales.map((locale) => {
 				return withI18nPrefix("projects-overview", locale);
+			}),
+			Strategies: locales.map((locale) => {
+				return withI18nPrefix("strategies", locale);
+			}),
+			"Strategies Overview": locales.map((locale) => {
+				return withI18nPrefix("strategies-overview", locale);
 			}),
 			Pages: locales.map((locale) => {
 				return withI18nPrefix("pages", locale);

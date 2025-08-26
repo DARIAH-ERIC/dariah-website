@@ -40,18 +40,7 @@
 			"discriminant": "menu",
 			"value": {
 				"label": "Über uns",
-				"items": [
-					{
-						"discriminant": "link",
-						"value": {
-							"label": "in a Nutshell",
-							"link": {
-								"discriminant": "pages",
-								"value": "in-a-nutshell"
-							}
-						}
-					}
-				]
+				"items": []
 			}
 		}
 	]

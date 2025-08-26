@@ -74,6 +74,135 @@ export const createDocumentation = createCollection("/documentation/", (paths, l
 	});
 });
 
+export const createDocumentsAndPolicies = createCollection(
+	"/documents-and-policies/",
+	(paths, locale) => {
+		return collection({
+			label: createLabel("Documents and Policies", locale),
+			path: paths.contentPath,
+			format: { contentField: "content" },
+			slugField: "title",
+			columns: ["title"],
+			entryLayout: "content",
+			previewUrl: createPreviewUrl("/documents-and-policies/{slug}"),
+			schema: {
+				title: fields.slug({
+					name: {
+						label: "Title",
+						validation: { isRequired: true },
+					},
+				}),
+				image: fields.object({
+					src: fields.image({
+						label: "Image",
+						validation: { isRequired: true },
+						...createAssetOptions(paths.assetPath),
+					}),
+					caption: fields.mdx.inline({
+						label: "Image Caption",
+						options: {
+							heading: false,
+							orderedList: false,
+							unorderedList: false,
+							divider: false,
+							code: false,
+							codeBlock: false,
+							blockquote: false,
+							table: false,
+							image: false,
+							strikethrough: false,
+						},
+					}),
+				}),
+				summary: fields.object({
+					title: fields.text({
+						label: "Summary title",
+						validation: { isRequired: false },
+					}),
+					content: fields.mdx.inline({
+						label: "Summary content",
+						options: {
+							heading: false,
+							orderedList: false,
+							unorderedList: false,
+							divider: false,
+							code: false,
+							codeBlock: false,
+							blockquote: false,
+							table: false,
+							image: false,
+						},
+					}),
+				}),
+				links: fields.array(
+					fields.object(
+						{
+							label: fields.text({
+								label: "Label",
+								validation: { isRequired: true },
+							}),
+							url: fields.url({
+								label: "URL",
+								validation: { isRequired: true },
+							}),
+						},
+						{
+							label: "Link",
+						},
+					),
+					{
+						label: "Links",
+						itemLabel(props) {
+							return props.fields.label.value;
+						},
+					},
+				),
+				attachments: fields.array(
+					fields.object(
+						{
+							file: fields.file({
+								label: "File",
+								validation: { isRequired: true },
+								...createAssetOptions(paths.downloadPath),
+							}),
+							label: fields.text({
+								label: "Label",
+								validation: { isRequired: true },
+							}),
+						},
+						{
+							label: "Attachment",
+						},
+					),
+					{
+						label: "Attachments",
+						itemLabel(props) {
+							return props.fields.label.value;
+						},
+					},
+				),
+				content: fields.mdx({
+					label: "Content",
+					options: createContentFieldOptions(paths),
+					components: {
+						//...createAvatar(paths, locale),
+						//...createDownloadButton(paths, locale),
+						...createFigure(paths, locale),
+						...createFootnote(paths, locale),
+						...createGrid(paths, locale),
+						...createHeadingId(paths, locale),
+						//...createImageLink(paths, locale),
+						...createLink(paths, locale),
+						...createLinkButton(paths, locale),
+						//...createTweet(paths, locale),
+						...createVideo(paths, locale),
+					},
+				}),
+			},
+		});
+	},
+);
+
 export const createEvents = createCollection("/events/", (paths, locale) => {
 	return collection({
 		label: createLabel("Events", locale),
@@ -252,6 +381,135 @@ export const createEvents = createCollection("/events/", (paths, locale) => {
 		},
 	});
 });
+
+export const createImpactCaseStudies = createCollection(
+	"/impact-case-studies/",
+	(paths, locale) => {
+		return collection({
+			label: createLabel("Impact Case Studies", locale),
+			path: paths.contentPath,
+			format: { contentField: "content" },
+			slugField: "title",
+			columns: ["title"],
+			entryLayout: "content",
+			previewUrl: createPreviewUrl("/impact-case-studies/{slug}"),
+			schema: {
+				title: fields.slug({
+					name: {
+						label: "Title",
+						validation: { isRequired: true },
+					},
+				}),
+				image: fields.object({
+					src: fields.image({
+						label: "Image",
+						validation: { isRequired: true },
+						...createAssetOptions(paths.assetPath),
+					}),
+					caption: fields.mdx.inline({
+						label: "Image Caption",
+						options: {
+							heading: false,
+							orderedList: false,
+							unorderedList: false,
+							divider: false,
+							code: false,
+							codeBlock: false,
+							blockquote: false,
+							table: false,
+							image: false,
+							strikethrough: false,
+						},
+					}),
+				}),
+				summary: fields.object({
+					title: fields.text({
+						label: "Summary title",
+						validation: { isRequired: false },
+					}),
+					content: fields.mdx.inline({
+						label: "Summary content",
+						options: {
+							heading: false,
+							orderedList: false,
+							unorderedList: false,
+							divider: false,
+							code: false,
+							codeBlock: false,
+							blockquote: false,
+							table: false,
+							image: false,
+						},
+					}),
+				}),
+				links: fields.array(
+					fields.object(
+						{
+							label: fields.text({
+								label: "Label",
+								validation: { isRequired: true },
+							}),
+							url: fields.url({
+								label: "URL",
+								validation: { isRequired: true },
+							}),
+						},
+						{
+							label: "Link",
+						},
+					),
+					{
+						label: "Links",
+						itemLabel(props) {
+							return props.fields.label.value;
+						},
+					},
+				),
+				attachments: fields.array(
+					fields.object(
+						{
+							file: fields.file({
+								label: "File",
+								validation: { isRequired: true },
+								...createAssetOptions(paths.downloadPath),
+							}),
+							label: fields.text({
+								label: "Label",
+								validation: { isRequired: true },
+							}),
+						},
+						{
+							label: "Attachment",
+						},
+					),
+					{
+						label: "Attachments",
+						itemLabel(props) {
+							return props.fields.label.value;
+						},
+					},
+				),
+				content: fields.mdx({
+					label: "Content",
+					options: createContentFieldOptions(paths),
+					components: {
+						//...createAvatar(paths, locale),
+						//...createDownloadButton(paths, locale),
+						...createFigure(paths, locale),
+						...createFootnote(paths, locale),
+						...createGrid(paths, locale),
+						...createHeadingId(paths, locale),
+						//...createImageLink(paths, locale),
+						...createLink(paths, locale),
+						...createLinkButton(paths, locale),
+						//...createTweet(paths, locale),
+						...createVideo(paths, locale),
+					},
+				}),
+			},
+		});
+	},
+);
 
 export const createKeywords = createCollection("/keywords/", (paths, locale) => {
 	return collection({
@@ -700,6 +958,132 @@ export const createProjects = createCollection("/projects/", (paths, locale) => 
 				),
 				{
 					label: "Links",
+					itemLabel(props) {
+						return props.fields.label.value;
+					},
+				},
+			),
+			content: fields.mdx({
+				label: "Content",
+				options: createContentFieldOptions(paths),
+				components: {
+					//...createAvatar(paths, locale),
+					//...createDownloadButton(paths, locale),
+					...createFigure(paths, locale),
+					...createFootnote(paths, locale),
+					...createGrid(paths, locale),
+					...createHeadingId(paths, locale),
+					//...createImageLink(paths, locale),
+					...createLink(paths, locale),
+					...createLinkButton(paths, locale),
+					//...createTweet(paths, locale),
+					...createVideo(paths, locale),
+				},
+			}),
+		},
+	});
+});
+
+export const createStrategies = createCollection("/strategies/", (paths, locale) => {
+	return collection({
+		label: createLabel("Strategies", locale),
+		path: paths.contentPath,
+		format: { contentField: "content" },
+		slugField: "title",
+		columns: ["title"],
+		entryLayout: "content",
+		previewUrl: createPreviewUrl("/strategies/{slug}"),
+		schema: {
+			title: fields.slug({
+				name: {
+					label: "Title",
+					validation: { isRequired: true },
+				},
+			}),
+			image: fields.object({
+				src: fields.image({
+					label: "Image",
+					validation: { isRequired: true },
+					...createAssetOptions(paths.assetPath),
+				}),
+				caption: fields.mdx.inline({
+					label: "Image Caption",
+					options: {
+						heading: false,
+						orderedList: false,
+						unorderedList: false,
+						divider: false,
+						code: false,
+						codeBlock: false,
+						blockquote: false,
+						table: false,
+						image: false,
+						strikethrough: false,
+					},
+				}),
+			}),
+			summary: fields.object({
+				title: fields.text({
+					label: "Summary title",
+					validation: { isRequired: false },
+				}),
+				content: fields.mdx.inline({
+					label: "Summary content",
+					options: {
+						heading: false,
+						orderedList: false,
+						unorderedList: false,
+						divider: false,
+						code: false,
+						codeBlock: false,
+						blockquote: false,
+						table: false,
+						image: false,
+					},
+				}),
+			}),
+			links: fields.array(
+				fields.object(
+					{
+						label: fields.text({
+							label: "Label",
+							validation: { isRequired: true },
+						}),
+						url: fields.url({
+							label: "URL",
+							validation: { isRequired: true },
+						}),
+					},
+					{
+						label: "Link",
+					},
+				),
+				{
+					label: "Links",
+					itemLabel(props) {
+						return props.fields.label.value;
+					},
+				},
+			),
+			attachments: fields.array(
+				fields.object(
+					{
+						file: fields.file({
+							label: "File",
+							validation: { isRequired: true },
+							...createAssetOptions(paths.downloadPath),
+						}),
+						label: fields.text({
+							label: "Label",
+							validation: { isRequired: true },
+						}),
+					},
+					{
+						label: "Attachment",
+					},
+				),
+				{
+					label: "Attachments",
 					itemLabel(props) {
 						return props.fields.label.value;
 					},

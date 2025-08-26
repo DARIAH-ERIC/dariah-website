@@ -118,6 +118,25 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								</li>
 							);
 						}
+						case "document-or-policy": {
+							const id = card.value.reference;
+							const documentOrPolicy = await createCollectionResource(
+								"documents-and-policies",
+								locale,
+							).read(id);
+							const link = { label: "", href: `/documents-and-policies/${id}` };
+							return (
+								<li key={id}>
+									<Card
+										className="grid h-full grid-rows-[13rem,auto]"
+										discriminent="document-or-policy"
+										{...documentOrPolicy.data}
+										link={link}
+										locale={locale}
+									/>
+								</li>
+							);
+						}
 						case "event": {
 							const id = card.value.reference;
 							const event = await createCollectionResource("events", locale).read(id);
@@ -128,6 +147,42 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										className="grid h-full grid-rows-[13rem,auto]"
 										discriminent="event"
 										{...event.data}
+										link={link}
+										locale={locale}
+									/>
+								</li>
+							);
+						}
+						case "impact-case-study": {
+							const id = card.value.reference;
+							const impactCaseStudy = await createCollectionResource(
+								"impact-case-studies",
+								locale,
+							).read(id);
+							const link = { label: "", href: `/impact-case-studies/${id}` };
+							return (
+								<li key={id}>
+									<Card
+										className="grid h-full grid-rows-[13rem,auto]"
+										discriminent="impact-case-study"
+										{...impactCaseStudy.data}
+										link={link}
+										locale={locale}
+									/>
+								</li>
+							);
+						}
+
+						case "strategy": {
+							const id = card.value.reference;
+							const strategy = await createCollectionResource("strategies", locale).read(id);
+							const link = { label: "", href: `/strategies/${id}` };
+							return (
+								<li key={id}>
+									<Card
+										className="grid h-full grid-rows-[13rem,auto]"
+										discriminent="strategy"
+										{...strategy.data}
 										link={link}
 										locale={locale}
 									/>
