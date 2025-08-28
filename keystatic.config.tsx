@@ -3,7 +3,7 @@ import { config } from "@keystatic/core";
 
 import { Logo } from "@/components/logo";
 import { env } from "@/config/env.config";
-import { locales } from "@/config/i18n.config";
+import { defaultLocale, locales } from "@/lib/i18n/locales";
 import {
 	createDocumentation,
 	createDocumentsAndPolicies,
@@ -33,74 +33,53 @@ import {
 
 export default config({
 	collections: {
-		[withI18nPrefix("documents-and-policies", "de")]: createDocumentsAndPolicies("de"),
-		[withI18nPrefix("documents-and-policies", "en")]: createDocumentsAndPolicies("en"),
+		[withI18nPrefix("documents-and-policies", defaultLocale)]:
+			createDocumentsAndPolicies(defaultLocale),
 
-		[withI18nPrefix("events", "de")]: createEvents("de"),
-		[withI18nPrefix("events", "en")]: createEvents("en"),
+		[withI18nPrefix("events", defaultLocale)]: createEvents(defaultLocale),
 
-		[withI18nPrefix("impact-case-studies", "de")]: createImpactCaseStudies("de"),
-		[withI18nPrefix("impact-case-studies", "en")]: createImpactCaseStudies("en"),
+		[withI18nPrefix("impact-case-studies", defaultLocale)]: createImpactCaseStudies(defaultLocale),
 
-		[withI18nPrefix("keywords", "de")]: createKeywords("de"),
-		[withI18nPrefix("keywords", "en")]: createKeywords("en"),
+		[withI18nPrefix("keywords", defaultLocale)]: createKeywords(defaultLocale),
 
-		[withI18nPrefix("news", "de")]: createNews("de"),
-		[withI18nPrefix("news", "en")]: createNews("en"),
+		[withI18nPrefix("news", defaultLocale)]: createNews(defaultLocale),
 
-		[withI18nPrefix("organisations", "de")]: createOrganisation("de"),
-		[withI18nPrefix("organisations", "en")]: createOrganisation("en"),
+		[withI18nPrefix("organisations", defaultLocale)]: createOrganisation(defaultLocale),
 
-		[withI18nPrefix("persons", "de")]: createPersons("de"),
-		[withI18nPrefix("persons", "en")]: createPersons("en"),
+		[withI18nPrefix("persons", defaultLocale)]: createPersons(defaultLocale),
 
-		[withI18nPrefix("projects", "de")]: createProjects("de"),
-		[withI18nPrefix("projects", "en")]: createProjects("en"),
+		[withI18nPrefix("projects", defaultLocale)]: createProjects(defaultLocale),
 
-		[withI18nPrefix("strategies", "de")]: createStrategies("de"),
-		[withI18nPrefix("strategies", "en")]: createStrategies("en"),
+		[withI18nPrefix("strategies", defaultLocale)]: createStrategies(defaultLocale),
 
-		[withI18nPrefix("pages", "de")]: createPages("de"),
-		[withI18nPrefix("pages", "en")]: createPages("en"),
+		[withI18nPrefix("pages", defaultLocale)]: createPages(defaultLocale),
 
-		[withI18nPrefix("documentation", "de")]: createDocumentation("de"),
-		[withI18nPrefix("documentation", "en")]: createDocumentation("en"),
+		[withI18nPrefix("documentation", defaultLocale)]: createDocumentation(defaultLocale),
 	},
 	singletons: {
-		[withI18nPrefix("index-page", "de")]: createIndexPage("de"),
-		[withI18nPrefix("index-page", "en")]: createIndexPage("en"),
+		[withI18nPrefix("index-page", defaultLocale)]: createIndexPage(defaultLocale),
 
-		[withI18nPrefix("metadata", "de")]: createMetadata("de"),
-		[withI18nPrefix("metadata", "en")]: createMetadata("en"),
+		[withI18nPrefix("metadata", defaultLocale)]: createMetadata(defaultLocale),
 
-		[withI18nPrefix("navigation", "de")]: createNavigation("de"),
-		[withI18nPrefix("navigation", "en")]: createNavigation("en"),
+		[withI18nPrefix("navigation", defaultLocale)]: createNavigation(defaultLocale),
 
-		[withI18nPrefix("documents-and-policies-overview", "de")]:
-			createDocumentsAndPoliciesOverview("de"),
-		[withI18nPrefix("documents-and-policies-overview", "en")]:
-			createDocumentsAndPoliciesOverview("en"),
+		[withI18nPrefix("documents-and-policies-overview", defaultLocale)]:
+			createDocumentsAndPoliciesOverview(defaultLocale),
 
-		[withI18nPrefix("events-overview", "de")]: createEventsOverview("de"),
-		[withI18nPrefix("events-overview", "en")]: createEventsOverview("en"),
+		[withI18nPrefix("events-overview", defaultLocale)]: createEventsOverview(defaultLocale),
 
-		[withI18nPrefix("impact-case-studies-overview", "de")]: createImpactCaseStudiesOverview("de"),
-		[withI18nPrefix("impact-case-studies-overview", "en")]: createImpactCaseStudiesOverview("en"),
+		[withI18nPrefix("impact-case-studies-overview", defaultLocale)]:
+			createImpactCaseStudiesOverview(defaultLocale),
 
-		[withI18nPrefix("news-overview", "de")]: createNewsOverview("de"),
-		[withI18nPrefix("news-overview", "en")]: createNewsOverview("en"),
+		[withI18nPrefix("news-overview", defaultLocale)]: createNewsOverview(defaultLocale),
 
-		[withI18nPrefix("projects-overview", "de")]: createProjectsOverview("de"),
-		[withI18nPrefix("projects-overview", "en")]: createProjectsOverview("en"),
+		[withI18nPrefix("projects-overview", defaultLocale)]: createProjectsOverview(defaultLocale),
 
-		[withI18nPrefix("resources", "de")]: createResources("de"),
-		[withI18nPrefix("resources", "en")]: createResources("en"),
+		[withI18nPrefix("resources", defaultLocale)]: createResources(defaultLocale),
 
-		[withI18nPrefix("strategies-overview", "de")]: createStrategiesOverview("de"),
-		[withI18nPrefix("strategies-overview", "en")]: createStrategiesOverview("en"),
+		[withI18nPrefix("strategies-overview", defaultLocale)]: createStrategiesOverview(defaultLocale),
 
-		[withI18nPrefix("search", "de")]: createSearch("de"),
-		[withI18nPrefix("search", "en")]: createSearch("en"),
+		[withI18nPrefix("search", defaultLocale)]: createSearch(defaultLocale),
 	},
 	storage:
 		env.NEXT_PUBLIC_KEYSTATIC_MODE === "github" &&

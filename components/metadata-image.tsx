@@ -1,15 +1,14 @@
 import { ImageResponse } from "next/og";
 
-import type { Locale } from "@/config/i18n.config";
+import { defaultLocale } from "@/lib/i18n/locales";
 
 interface MetadataImageProps {
-	locale: Locale;
 	size: { width: number; height: number };
 	title: string;
 }
 
 export async function MetadataImage(props: Readonly<MetadataImageProps>): Promise<ImageResponse> {
-	const { locale, size, title } = props;
+	const { size, title } = props;
 
 	/**
 	 * FIXME: Variable fonts are currently not supported by `satori`.
@@ -25,7 +24,7 @@ export async function MetadataImage(props: Readonly<MetadataImageProps>): Promis
 	return new ImageResponse(
 		(
 			<div
-				lang={locale}
+				lang={defaultLocale}
 				style={{
 					display: "flex",
 					flexDirection: "column",

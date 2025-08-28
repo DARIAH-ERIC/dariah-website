@@ -1,11 +1,11 @@
-import type { Locale } from "@/config/i18n.config";
+import type { IntlLocale } from "@/lib/i18n/locales";
 import { createCollectionResource } from "@/lib/keystatic/resources";
 import type { Collection } from "@/types/keystatic";
 
 export async function getRelatedEntities(
 	slugs: Array<string>,
 	collection: Collection,
-	locale: Locale,
+	locale: IntlLocale,
 ): Promise<
 	Array<Awaited<ReturnType<Awaited<ReturnType<typeof createCollectionResource>["read"]>>>["data"]>
 > {

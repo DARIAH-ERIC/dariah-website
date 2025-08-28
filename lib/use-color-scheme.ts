@@ -5,6 +5,7 @@ import { useLocale } from "next-intl";
 import { useLayoutEffect, useSyncExternalStore } from "react";
 
 import type { ColorScheme, ColorSchemeState } from "@/lib/color-scheme-script";
+import type { IntlLocale } from "@/lib/i18n/locales";
 
 interface UseColorSchemeReturnValue {
 	colorSchemeState: ColorSchemeState;
@@ -19,7 +20,7 @@ export function useColorScheme(): UseColorSchemeReturnValue {
 	 */
 	assert(typeof document !== "undefined");
 
-	const locale = useLocale();
+	const locale = useLocale() as IntlLocale;
 
 	const state = useSyncExternalStore(window.__colorScheme.subscribe, window.__colorScheme.get);
 

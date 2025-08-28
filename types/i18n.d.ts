@@ -1,6 +1,6 @@
 import type { formats, Locale } from "@/config/i18n.config";
 import type metadata from "@/content/en/metadata/index.json";
-import type messages from "@/messages/en.json";
+import type messages from "@/messages/en-GB.json";
 
 declare global {
 	type Formats = typeof formats;

@@ -19,7 +19,7 @@ import {
 } from "react-aria";
 import type { LinkProps as AriaLinkProps } from "react-aria-components";
 
-import { LocaleLink, type LocaleLinkProps } from "@/lib/i18n/navigation";
+import { LocaleLink, type LocaleLinkProps } from "@/lib/navigation/navigation";
 import { useRenderProps } from "@/lib/use-render-props";
 
 /**
@@ -49,7 +49,6 @@ export const Link = forwardRef(function Link(
 	const ref = useRef<HTMLAnchorElement | HTMLSpanElement>(null);
 	const linkRef = useObjectRef(
 		useMemo(() => {
-			// eslint-disable-next-line react-compiler/react-compiler
 			return mergeRefs(forwardedRef, ref);
 		}, [forwardedRef, ref]),
 	);

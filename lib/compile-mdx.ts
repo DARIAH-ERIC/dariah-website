@@ -5,8 +5,8 @@ import type { MDXModule } from "mdx/types";
 import { cache } from "react";
 import * as runtime from "react/jsx-runtime";
 
-import type { Locale } from "@/config/i18n.config";
 import { createConfig as createMdxConfig } from "@/config/mdx.config";
+import type { IntlLocale } from "@/lib/i18n/locales";
 import { useMDXComponents } from "@/mdx-components";
 
 const createMdxProcessor = createMdxProcessors(createMdxConfig);
@@ -20,7 +20,7 @@ interface MdxContent<T extends Record<string, unknown>> extends MDXModule {
 
 export const compileMdx = cache(async function compileMdx<T extends Record<string, unknown>>(
 	content: string,
-	locale: Locale,
+	locale: IntlLocale,
 	baseUrl: URL,
 ): Promise<MdxContent<T>> {
 	const processor = await createMdxProcessor(locale);

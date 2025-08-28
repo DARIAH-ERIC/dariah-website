@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { Card } from "@/components/card";
 import { Link } from "@/components/link";
+import { defaultLocale } from "@/lib/i18n/locales";
 import { createCollectionResource } from "@/lib/keystatic/resources";
 import type { CardSectionProps } from "@/types/keystatic";
 
@@ -11,7 +12,7 @@ type CardSectionComponentProps = CardSectionProps & {
 };
 
 export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNode {
-	const { className, title, cards, locale } = props;
+	const { className, title, cards } = props;
 
 	return (
 		<section className={className}>
@@ -36,7 +37,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										<Card
 											className="grid h-full grid-rows-[13rem,auto]"
 											discriminent="custom"
-											locale={locale}
 											{...card.value}
 										/>
 									}
@@ -45,7 +45,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 						}
 						case "news": {
 							const id = card.value.reference;
-							const news = await createCollectionResource("news", locale).read(id);
+							const news = await createCollectionResource("news", defaultLocale).read(id);
 							const link = { label: "", href: `/news/${id}` };
 
 							return (
@@ -56,7 +56,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 											discriminent="news"
 											{...news.data}
 											link={link}
-											locale={locale}
 										/>
 									}
 								</li>
@@ -64,7 +63,10 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 						}
 						case "organisation": {
 							const id = card.value.reference;
-							const organisation = await createCollectionResource("organisations", locale).read(id);
+							const organisation = await createCollectionResource(
+								"organisations",
+								defaultLocale,
+							).read(id);
 							const link = { label: "", href: `/organisations/${id}` };
 
 							return (
@@ -75,7 +77,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 											discriminent="organisation"
 											{...organisation.data}
 											link={link}
-											locale={locale}
 											summary={{ content: organisation.data.description, title: "" }}
 											title={organisation.data.name}
 										/>
@@ -85,7 +86,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 						}
 						case "page": {
 							const id = card.value.reference;
-							const page = await createCollectionResource("pages", locale).read(id);
+							const page = await createCollectionResource("pages", defaultLocale).read(id);
 							const link = { label: "", href: `/${id}` };
 							return (
 								<li key={id}>
@@ -93,7 +94,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										className="grid h-full grid-rows-[13rem,auto] "
 										discriminent="page"
 										link={link}
-										locale={locale}
 										{...page.data}
 									/>
 								</li>
@@ -101,7 +101,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 						}
 						case "project": {
 							const id = card.value.reference;
-							const project = await createCollectionResource("projects", locale).read(id);
+							const project = await createCollectionResource("projects", defaultLocale).read(id);
 							const link = { label: "", href: `/projects/${id}` };
 
 							return (
@@ -112,7 +112,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 											discriminent="project"
 											{...project.data}
 											link={link}
-											locale={locale}
 										/>
 									}
 								</li>
@@ -122,7 +121,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							const id = card.value.reference;
 							const documentOrPolicy = await createCollectionResource(
 								"documents-and-policies",
-								locale,
+								defaultLocale,
 							).read(id);
 							const link = { label: "", href: `/documents-and-policies/${id}` };
 							return (
@@ -132,14 +131,13 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										discriminent="document-or-policy"
 										{...documentOrPolicy.data}
 										link={link}
-										locale={locale}
 									/>
 								</li>
 							);
 						}
 						case "event": {
 							const id = card.value.reference;
-							const event = await createCollectionResource("events", locale).read(id);
+							const event = await createCollectionResource("events", defaultLocale).read(id);
 							const link = { label: "", href: `/events/${id}` };
 							return (
 								<li key={id}>
@@ -148,7 +146,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										discriminent="event"
 										{...event.data}
 										link={link}
-										locale={locale}
 									/>
 								</li>
 							);
@@ -157,7 +154,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							const id = card.value.reference;
 							const impactCaseStudy = await createCollectionResource(
 								"impact-case-studies",
-								locale,
+								defaultLocale,
 							).read(id);
 							const link = { label: "", href: `/impact-case-studies/${id}` };
 							return (
@@ -167,7 +164,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										discriminent="impact-case-study"
 										{...impactCaseStudy.data}
 										link={link}
-										locale={locale}
 									/>
 								</li>
 							);
@@ -175,7 +171,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 
 						case "strategy": {
 							const id = card.value.reference;
-							const strategy = await createCollectionResource("strategies", locale).read(id);
+							const strategy = await createCollectionResource("strategies", defaultLocale).read(id);
 							const link = { label: "", href: `/strategies/${id}` };
 							return (
 								<li key={id}>
@@ -184,7 +180,6 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 										discriminent="strategy"
 										{...strategy.data}
 										link={link}
-										locale={locale}
 									/>
 								</li>
 							);

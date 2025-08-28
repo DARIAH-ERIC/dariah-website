@@ -1,7 +1,6 @@
 import { createUrl } from "@acdh-oeaw/lib";
 
 import { env } from "@/config/env.config";
-import { defaultLocale, locales } from "@/config/i18n.config";
 import { expect, test } from "@/e2e/lib/test";
 
 test.describe("app", () => {
@@ -50,17 +49,15 @@ test.describe("app", () => {
 			].join("\n"),
 		);
 
-		for (const locale of locales) {
-			for (const url of ["/", "/imprint"]) {
-				const loc = String(
-					createUrl({
-						baseUrl: env.NEXT_PUBLIC_APP_BASE_URL,
-						pathname: ["/", locale, url].join(""),
-					}),
-				);
+		for (const pathname of ["/", "/imprint"]) {
+			const loc = String(
+				createUrl({
+					baseUrl: env.NEXT_PUBLIC_APP_BASE_URL,
+					pathname,
+				}),
+			);
 
-				expect(body.toString()).toContain(`<loc>${loc}</loc>`);
-			}
+			expect(body.toString()).toContain(`<loc>${loc}</loc>`);
 		}
 	});
 
@@ -68,13 +65,15 @@ test.describe("app", () => {
 		const response = await request.get("/manifest.webmanifest");
 		const body = await response.body();
 
-		const i18n = await createI18n(defaultLocale);
+		const i18n = await createI18n();
+
+		const metadata = i18n.messages.metadata;
 
 		expect(body.toString()).toEqual(
 			JSON.stringify({
-				name: i18n.t("metadata.manifest.name"),
-				short_name: i18n.t("metadata.manifest.short-name"),
-				description: i18n.t("metadata.manifest.description"),
+				name: metadata.manifest.name,
+				short_name: metadata.manifest["short-name"],
+				description: metadata.manifest.description,
 				start_url: "/",
 				display: "standalone",
 				background_color: "#fff",
@@ -114,7 +113,7 @@ test.describe("app", () => {
 		test.use({ colorScheme: "no-preference" });
 
 		test("with no preference", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage(defaultLocale);
+			const { indexPage } = await createIndexPage();
 			await indexPage.goto();
 			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "light");
 		});
@@ -124,7 +123,7 @@ test.describe("app", () => {
 		test.use({ colorScheme: "light" });
 
 		test("in light mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage(defaultLocale);
+			const { indexPage } = await createIndexPage();
 			await indexPage.goto();
 			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "light");
 		});
@@ -134,14 +133,14 @@ test.describe("app", () => {
 		test.use({ colorScheme: "dark" });
 
 		test("in dark mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage(defaultLocale);
+			const { indexPage } = await createIndexPage();
 			await indexPage.goto();
 			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "dark");
 		});
 	});
 
 	test("should skip to main content with skip-link", async ({ createIndexPage }) => {
-		const { indexPage } = await createIndexPage(defaultLocale);
+		const { indexPage } = await createIndexPage();
 		await indexPage.goto();
 
 		await indexPage.page.keyboard.press("Tab");
@@ -155,7 +154,7 @@ test.describe("app", () => {
 		test.use({ viewport: { width: 1440, height: 1024 } });
 
 		test("on desktop", async ({ createIndexPage, page }) => {
-			const { indexPage, i18n } = await createIndexPage(defaultLocale);
+			const { indexPage, i18n } = await createIndexPage();
 			await indexPage.goto();
 
 			const homeLink = indexPage.page
@@ -181,7 +180,7 @@ test.describe("app", () => {
 		test.use({ viewport: { width: 393, height: 852 } });
 
 		test("on mobile", async ({ createIndexPage, page }) => {
-			const { indexPage, i18n } = await createIndexPage(defaultLocale);
+			const { indexPage, i18n } = await createIndexPage();
 			await indexPage.goto();
 
 			await indexPage.page.getByRole("navigation").getByRole("button").click();

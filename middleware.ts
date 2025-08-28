@@ -1,9 +1,13 @@
-import type { MiddlewareConfig, NextMiddleware } from "next/server";
+import {
+	type MiddlewareConfig,
+	type NextMiddleware,
+	type NextRequest,
+	NextResponse,
+} from "next/server";
 
-import { composeMiddleware } from "@/lib/compose-middlewares";
-import { i18nMiddlware } from "@/lib/i18n/i18n-middleware";
-
-export const middleware: NextMiddleware = composeMiddleware(i18nMiddlware);
+export const middleware: NextMiddleware = (_request: NextRequest) => {
+	return NextResponse.next();
+};
 
 export const config: MiddlewareConfig = {
 	matcher: [
@@ -13,7 +17,7 @@ export const config: MiddlewareConfig = {
 		 *
 		 * @see https://github.com/vercel/next.js/issues/56398
 		 */
-		"/(de|en)/:path*",
+		"/:path*",
 		"/api/:path*",
 	],
 };

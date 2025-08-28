@@ -1,11 +1,11 @@
 import type { Locator, Page } from "@playwright/test";
 
-import { defaultLocale, type Locale } from "@/config/i18n.config";
 import type { I18n } from "@/e2e/lib/fixtures/i18n";
+import { defaultLocale, type IntlLocale } from "@/lib/i18n/locales";
 
 export class IndexPage {
 	readonly page: Page;
-	readonly locale: Locale;
+	readonly locale: IntlLocale;
 	readonly i18n: I18n;
 	readonly url: string;
 	readonly mainContent: Locator;
@@ -16,7 +16,7 @@ export class IndexPage {
 		this.page = page;
 		this.locale = locale;
 		this.i18n = i18n;
-		this.url = `/${locale}`;
+		this.url = "/";
 		this.mainContent = page.getByRole("main");
 		this.title = page.getByRole("heading", { level: 1 });
 		this.skipLink = page.getByRole("link", { name: i18n.t("LocaleLayout.skip-to-main-content") });
