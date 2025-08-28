@@ -31,7 +31,6 @@ export type WithI18n<T> = T & { i18n: I18n };
 
 type Messages = typeof messages;
 type Metadata = typeof metadata;
-type SocialMediaKind = Metadata["social"][number]["kind"];
 
 async function getIntlMessages(locale: IntlLocale) {
 	const { default: _messages } = (await import(`@/messages/${locale}.json`, {
@@ -51,7 +50,7 @@ async function getIntlMessages(locale: IntlLocale) {
 		..._messages,
 		metadata: {
 			..._metadata,
-			social: _social as Record<SocialMediaKind, string>,
+			social: _social,
 		},
 	};
 
