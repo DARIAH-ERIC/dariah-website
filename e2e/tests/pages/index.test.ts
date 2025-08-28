@@ -1,9 +1,8 @@
 import { expect, test } from "@/e2e/lib/test";
-import { defaultLocale } from "@/lib/i18n/locales";
 
 test.describe("index page", () => {
 	test("should have document title", async ({ createIndexPage }) => {
-		const { i18n, indexPage } = await createIndexPage(defaultLocale);
+		const { i18n, indexPage } = await createIndexPage();
 		await indexPage.goto();
 		await expect(indexPage.page).toHaveTitle(i18n.t("metadata.title"));
 	});
@@ -12,7 +11,7 @@ test.describe("index page", () => {
 		createAccessibilityScanner,
 		createIndexPage,
 	}) => {
-		const { indexPage } = await createIndexPage(defaultLocale);
+		const { indexPage } = await createIndexPage();
 		await indexPage.goto();
 
 		const { getViolations } = await createAccessibilityScanner();
@@ -24,7 +23,7 @@ test.describe("index page", () => {
 		test.use({ colorScheme: "light" });
 
 		test("in light mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage(defaultLocale);
+			const { indexPage } = await createIndexPage();
 			await indexPage.goto();
 
 			await expect(indexPage.page).toHaveScreenshot();
@@ -36,7 +35,7 @@ test.describe("index page", () => {
 		test.use({ colorScheme: "dark" });
 
 		test("in dark mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage(defaultLocale);
+			const { indexPage } = await createIndexPage();
 			await indexPage.goto();
 			await expect(indexPage.page).toHaveScreenshot();
 		});

@@ -2,7 +2,7 @@ import type { Page } from "@playwright/test";
 import { createFormatter, createTranslator } from "next-intl";
 
 import type metadata from "@/content/en-GB/metadata/index.json";
-import { defaultLocale, getIntlLanguage, type IntlLocale } from "@/lib/i18n/locales";
+import { defaultLocale, type IntlLocale } from "@/lib/i18n/locales";
 import type { IntlMessages } from "@/lib/i18n/messages";
 import type messages from "@/messages/en-GB.json";
 
@@ -34,12 +34,10 @@ type Metadata = typeof metadata;
 type SocialMediaKind = Metadata["social"][number]["kind"];
 
 async function getIntlMessages(locale: IntlLocale) {
-	const language = getIntlLanguage(locale);
-
-	const { default: _messages } = (await import(`@/messages/${language}.json`, {
+	const { default: _messages } = (await import(`@/messages/${locale}.json`, {
 		with: { type: "json" },
 	})) as { default: Messages };
-	const { default: _metadata } = (await import(`@/content/${language}/metadata/index.json`, {
+	const { default: _metadata } = (await import(`@/content/${locale}/metadata/index.json`, {
 		with: { type: "json" },
 	})) as { default: Metadata };
 

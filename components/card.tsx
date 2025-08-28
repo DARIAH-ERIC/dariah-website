@@ -52,7 +52,10 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 			<div className="grid gap-y-6 p-8">
 				<div className="flex flex-col">
 					<h3 className="pb-2 font-heading text-heading-4 font-strong text-text-strong">
-						{summary.title ?? title}
+						{
+							// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+							summary.title || title
+						}
 					</h3>
 					{startDate ? (
 						<p className="grow text-small text-text-weak">

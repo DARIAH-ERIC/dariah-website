@@ -12,8 +12,8 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3(@keystatic/core@0.5.43(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@acdh-oeaw/lib':
-        specifier: ^0.1.12
-        version: 0.1.12
+        specifier: ^0.3.2
+        version: 0.3.5
       '@acdh-oeaw/mdx-lib':
         specifier: ^0.1.3
         version: 0.1.3(acorn@8.14.0)
@@ -366,6 +366,10 @@ packages:
   '@acdh-oeaw/lib@0.1.12':
     resolution: {integrity: sha512-yNAjUxcoqvEXX+YsqWqOqCOJeFg6oYL2Q+bVdhu6LEQU1MGpcMbo7haSTX12X8UYZjIU6oWpHrZfdKZZxRH23Q==}
     engines: {node: '>=20', pnpm: '>=9'}
+
+  '@acdh-oeaw/lib@0.3.5':
+    resolution: {integrity: sha512-4IwV5uMlO3skseYjlY12jx3OFL8IqEm5XzlYkcf2o74PXrKLWbT046YlK4uw3fmS0ZDWmuWrXuCYKnPlY+vvMQ==}
+    engines: {node: '>=22', pnpm: 10.x}
 
   '@acdh-oeaw/mdx-lib@0.1.3':
     resolution: {integrity: sha512-82j8sAHybD97gUFmxv1XMdpTkW1UpuT+xxxNXBVXFxl33VakgB619Epj3TXHL4pf7z1as5kYumYMIy+7bFBygA==}
@@ -5266,6 +5270,8 @@ snapshots:
       '@types/mdx': 2.0.13
 
   '@acdh-oeaw/lib@0.1.12': {}
+
+  '@acdh-oeaw/lib@0.3.5': {}
 
   '@acdh-oeaw/mdx-lib@0.1.3(acorn@8.14.0)':
     dependencies:

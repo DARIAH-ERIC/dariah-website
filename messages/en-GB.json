@@ -80,6 +80,7 @@
 		"table-of-contents": "Table of contents"
 	},
 	"metadata": {
+		"description": "DARIAH Website",
 		"manifest": {
 			"description": "DARIAH Website",
 			"name": "DARIAH Website",
