@@ -1,9 +1,4 @@
-import {
-	createAssetOptions,
-	createLabel,
-	createSingleton,
-	withI18nPrefix,
-} from "@acdh-oeaw/keystatic-lib";
+import { createAssetOptions, createSingleton, withI18nPrefix } from "@acdh-oeaw/keystatic-lib";
 import { fields, singleton } from "@keystatic/core";
 
 import { createLinkSchema } from "@/lib/keystatic/create-link-schema";
@@ -11,7 +6,7 @@ import * as validation from "@/lib/keystatic/validation";
 
 export const createIndexPage = createSingleton("/index-page/", (paths, locale) => {
 	return singleton({
-		label: createLabel("Home page", locale),
+		label: "Home page",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -331,9 +326,9 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 
 export const createDocumentsAndPoliciesOverview = createSingleton(
 	"/documents-and-policies-overview/",
-	(paths, locale) => {
+	(paths, _locale) => {
 		return singleton({
-			label: createLabel("Documents and Policies Overview", locale),
+			label: "Documents and Policies Overview",
 			path: paths.contentPath,
 			format: { data: "json" },
 			entryLayout: "form",
@@ -352,9 +347,9 @@ export const createDocumentsAndPoliciesOverview = createSingleton(
 	},
 );
 
-export const createEventsOverview = createSingleton("/events-overview/", (paths, locale) => {
+export const createEventsOverview = createSingleton("/events-overview/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("Events Overview", locale),
+		label: "Events Overview",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -374,9 +369,9 @@ export const createEventsOverview = createSingleton("/events-overview/", (paths,
 
 export const createImpactCaseStudiesOverview = createSingleton(
 	"/impact-case-studies-overview/",
-	(paths, locale) => {
+	(paths, _locale) => {
 		return singleton({
-			label: createLabel("Impact Case Studies Overview", locale),
+			label: "Impact Case Studies Overview",
 			path: paths.contentPath,
 			format: { data: "json" },
 			entryLayout: "form",
@@ -395,9 +390,9 @@ export const createImpactCaseStudiesOverview = createSingleton(
 	},
 );
 
-export const createNewsOverview = createSingleton("/news-overview/", (paths, locale) => {
+export const createNewsOverview = createSingleton("/news-overview/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("News Overview", locale),
+		label: "News Overview",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -415,9 +410,9 @@ export const createNewsOverview = createSingleton("/news-overview/", (paths, loc
 	});
 });
 
-export const createProjectsOverview = createSingleton("/projects-overview/", (paths, locale) => {
+export const createProjectsOverview = createSingleton("/projects-overview/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("Projects Overview", locale),
+		label: "Projects Overview",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -437,9 +432,9 @@ export const createProjectsOverview = createSingleton("/projects-overview/", (pa
 
 export const createStrategiesOverview = createSingleton(
 	"/strategies-overview/",
-	(paths, locale) => {
+	(paths, _locale) => {
 		return singleton({
-			label: createLabel("Strategies Overview", locale),
+			label: "Strategies Overview",
 			path: paths.contentPath,
 			format: { data: "json" },
 			entryLayout: "form",
@@ -458,9 +453,9 @@ export const createStrategiesOverview = createSingleton(
 	},
 );
 
-export const createMetadata = createSingleton("/metadata/", (paths, locale) => {
+export const createMetadata = createSingleton("/metadata/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("Metadata", locale),
+		label: "Metadata",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -515,7 +510,7 @@ export const createNavigation = createSingleton("/navigation/", (paths, locale) 
 	const link = createLinkSchema(paths.downloadPath, locale);
 
 	return singleton({
-		label: createLabel("Navigation", locale),
+		label: "Navigation",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -606,9 +601,9 @@ export const createNavigation = createSingleton("/navigation/", (paths, locale) 
 		},
 	});
 });
-export const createResources = createSingleton("/resources/", (paths, locale) => {
+export const createResources = createSingleton("/resources/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("Resources", locale),
+		label: "Resources",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",
@@ -626,9 +621,9 @@ export const createResources = createSingleton("/resources/", (paths, locale) =>
 	});
 });
 
-export const createSearch = createSingleton("/search/", (paths, locale) => {
+export const createSearch = createSingleton("/search/", (paths, _locale) => {
 	return singleton({
-		label: createLabel("Search", locale),
+		label: "Search",
 		path: paths.contentPath,
 		format: { data: "json" },
 		entryLayout: "form",

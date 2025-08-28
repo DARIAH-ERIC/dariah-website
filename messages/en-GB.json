@@ -1,0 +1,90 @@
+{
+	"AppFooter": {
+		"bmbwf": "Austrian Federal Ministry of Education, Science and Research",
+		"funded-by": "Funded by",
+		"links": {
+			"contact": "Contact",
+			"imprint": "Imprint"
+		},
+		"navigation-secondary": "Secondary",
+		"navigation-social-media": "Social media",
+		"social-media": {
+			"bluesky": "Bluesky",
+			"mastodon": "Mastodon",
+			"twitter": "Twitter",
+			"youtube": "YouTube"
+		}
+	},
+	"AppHeader": {
+		"links": {
+			"home": "Home",
+			"search": "Search"
+		},
+		"navigation-menu": "Navigation menu",
+		"navigation-menu-close": "Close navigation menu",
+		"navigation-menu-open": "Open navigation menu",
+		"navigation-primary": "Primary"
+	},
+	"Card": {
+		"read-more": "Read more"
+	},
+	"ColorSchemeSwitcher": {
+		"change-color-scheme": "Change color scheme",
+		"color-schemes": {
+			"dark": "Dark",
+			"light": "Light",
+			"system": "System"
+		}
+	},
+	"Error": {
+		"something-went-wrong": "Something went wrong!",
+		"try-again": "Try again"
+	},
+	"ImprintPage": {
+		"meta": {
+			"title": "Imprint"
+		},
+		"title": "Imprint"
+	},
+	"IndexPage": {
+		"lead-in": "lorem ipsum",
+		"title": "DARIAH Website"
+	},
+	"Loading": {
+		"loading": "Loading"
+	},
+	"LocaleLayout": {
+		"skip-to-main-content": "Skip to main content"
+	},
+	"LocaleSwitcher": {
+		"current-locale": "Current language: {locale}",
+		"switch-locale": "Switch locale",
+		"switch-locale-to": "Switch to {locale}"
+	},
+	"NotFoundPage": {
+		"meta": {
+			"title": "Page not found"
+		},
+		"title": "Page not found"
+	},
+	"ProjectPage": {
+		"keywords": "Keywords",
+		"partners": "project partners",
+		"project-end": "end",
+		"project-start": "start",
+		"responsible-persons": "responsible persons"
+	},
+	"mdx": {
+		"footnote-back-label": "Back to reference {reference}",
+		"footnotes": "Footnotes",
+		"table-of-contents": "Table of contents"
+	},
+	"metadata": {
+		"manifest": {
+			"description": "DARIAH Website",
+			"name": "DARIAH Website",
+			"short-name": "DARIAH Website"
+		},
+		"title": "DARIAH Website"
+	}
+}

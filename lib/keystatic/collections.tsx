@@ -2,7 +2,6 @@ import {
 	createAssetOptions,
 	createCollection,
 	createContentFieldOptions,
-	createLabel,
 	withI18nPrefix,
 } from "@acdh-oeaw/keystatic-lib";
 import { collection, fields } from "@keystatic/core";
@@ -24,7 +23,7 @@ import { createPreviewUrl } from "@/lib/keystatic/create-preview-url";
 
 export const createDocumentation = createCollection("/documentation/", (paths, locale) => {
 	return collection({
-		label: createLabel("Documentation", locale),
+		label: "Documentation",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -78,7 +77,7 @@ export const createDocumentsAndPolicies = createCollection(
 	"/documents-and-policies/",
 	(paths, locale) => {
 		return collection({
-			label: createLabel("Documents and Policies", locale),
+			label: "Documents and Policies",
 			path: paths.contentPath,
 			format: { contentField: "content" },
 			slugField: "title",
@@ -205,7 +204,7 @@ export const createDocumentsAndPolicies = createCollection(
 
 export const createEvents = createCollection("/events/", (paths, locale) => {
 	return collection({
-		label: createLabel("Events", locale),
+		label: "Events",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -386,7 +385,7 @@ export const createImpactCaseStudies = createCollection(
 	"/impact-case-studies/",
 	(paths, locale) => {
 		return collection({
-			label: createLabel("Impact Case Studies", locale),
+			label: "Impact Case Studies",
 			path: paths.contentPath,
 			format: { contentField: "content" },
 			slugField: "title",
@@ -513,7 +512,7 @@ export const createImpactCaseStudies = createCollection(
 
 export const createKeywords = createCollection("/keywords/", (paths, locale) => {
 	return collection({
-		label: createLabel("Keywords", locale),
+		label: "Keywords",
 		path: paths.contentPath,
 		format: { contentField: "description" },
 		slugField: "label",
@@ -583,7 +582,7 @@ export const createKeywords = createCollection("/keywords/", (paths, locale) => 
 
 export const createNews = createCollection("/news/", (paths, locale) => {
 	return collection({
-		label: createLabel("News", locale),
+		label: "News",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -714,7 +713,7 @@ export const createNews = createCollection("/news/", (paths, locale) => {
 
 export const createOrganisation = createCollection("/organisations/", (paths, locale) => {
 	return collection({
-		label: createLabel("Organisations", locale),
+		label: "Organisations",
 		path: paths.contentPath,
 		format: { contentField: "description" },
 		slugField: "name",
@@ -806,7 +805,7 @@ export const createOrganisation = createCollection("/organisations/", (paths, lo
 
 export const createProjects = createCollection("/projects/", (paths, locale) => {
 	return collection({
-		label: createLabel("Projects", locale),
+		label: "Projects",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -986,7 +985,7 @@ export const createProjects = createCollection("/projects/", (paths, locale) => 
 
 export const createStrategies = createCollection("/strategies/", (paths, locale) => {
 	return collection({
-		label: createLabel("Strategies", locale),
+		label: "Strategies",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -1112,7 +1111,7 @@ export const createStrategies = createCollection("/strategies/", (paths, locale)
 
 export const createPages = createCollection("/pages/", (paths, locale) => {
 	return collection({
-		label: createLabel("Pages", locale),
+		label: "Pages",
 		path: paths.contentPath,
 		format: { contentField: "content" },
 		slugField: "title",
@@ -1190,7 +1189,7 @@ export const createPages = createCollection("/pages/", (paths, locale) => {
 
 export const createPersons = createCollection("/persons/", (paths, locale) => {
 	return collection({
-		label: createLabel("Persons", locale),
+		label: "Persons",
 		path: paths.contentPath,
 		format: { contentField: "description" },
 		slugField: "name",

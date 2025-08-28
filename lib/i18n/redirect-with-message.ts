@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { cookies } from "next/headers";
 import * as v from "valibot";
 
-import { redirect } from "@/lib/i18n/navigation";
+import { redirect } from "@/lib/navigation/navigation";
 
 type RedirectParams = Parameters<typeof redirect>[0];
 

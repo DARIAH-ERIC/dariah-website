@@ -1,27 +1,22 @@
-import { locales } from "@/config/i18n.config";
 import { expect, test } from "@/e2e/lib/test";
+import { defaultLocale } from "@/lib/i18n/locales";
 
 test.describe("index page", () => {
 	test("should have document title", async ({ createIndexPage }) => {
-		for (const locale of locales) {
-			const { i18n, indexPage } = await createIndexPage(locale);
-			await indexPage.goto();
-
-			await expect(indexPage.page).toHaveTitle(i18n.t("metadata.title"));
-		}
+		const { i18n, indexPage } = await createIndexPage(defaultLocale);
+		await indexPage.goto();
+		await expect(indexPage.page).toHaveTitle(i18n.t("metadata.title"));
 	});
 
 	test("should not have any automatically detectable accessibility issues", async ({
 		createAccessibilityScanner,
 		createIndexPage,
 	}) => {
-		for (const locale of locales) {
-			const { indexPage } = await createIndexPage(locale);
-			await indexPage.goto();
+		const { indexPage } = await createIndexPage(defaultLocale);
+		await indexPage.goto();
 
-			const { getViolations } = await createAccessibilityScanner();
-			expect(await getViolations()).toEqual([]);
-		}
+		const { getViolations } = await createAccessibilityScanner();
+		expect(await getViolations()).toEqual([]);
 	});
 
 	// eslint-disable-next-line playwright/no-skipped-test
@@ -29,12 +24,10 @@ test.describe("index page", () => {
 		test.use({ colorScheme: "light" });
 
 		test("in light mode", async ({ createIndexPage }) => {
-			for (const locale of locales) {
-				const { indexPage } = await createIndexPage(locale);
-				await indexPage.goto();
+			const { indexPage } = await createIndexPage(defaultLocale);
+			await indexPage.goto();
 
-				await expect(indexPage.page).toHaveScreenshot();
-			}
+			await expect(indexPage.page).toHaveScreenshot();
 		});
 	});
 
@@ -43,12 +36,9 @@ test.describe("index page", () => {
 		test.use({ colorScheme: "dark" });
 
 		test("in dark mode", async ({ createIndexPage }) => {
-			for (const locale of locales) {
-				const { indexPage } = await createIndexPage(locale);
-				await indexPage.goto();
-
-				await expect(indexPage.page).toHaveScreenshot();
-			}
+			const { indexPage } = await createIndexPage(defaultLocale);
+			await indexPage.goto();
+			await expect(indexPage.page).toHaveScreenshot();
 		});
 	});
 });

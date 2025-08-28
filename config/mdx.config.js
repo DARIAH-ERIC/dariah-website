@@ -1,6 +1,6 @@
 /** @typedef {import("@acdh-oeaw/mdx-lib").MdxProcessorOptions} MdxProcessorOptions */
 /** @typedef {import("hast").ElementContent} ElementContent */
-/** @typedef {import("@/config/i18n.config").Locale} Locale */
+/** @typedef {import("@/lib/i18n/locales").IntlLanguage} IntlLanguage */
 
 import "server-only";
 
@@ -21,11 +21,15 @@ import withGfm from "remark-gfm";
 import withMdxFrontmatter from "remark-mdx-frontmatter";
 import withTypographicQuotes from "remark-smartypants";
 
+import { defaultLocale, getIntlLanguage } from "@/lib/i18n/locales";
+
 import { config as syntaxHighlighterConfig } from "./syntax-highlighter.config";
 
-/** @type {(locale: Locale) => Promise<MdxProcessorOptions>} */
-export async function createConfig(locale) {
-	const t = await getTranslations({ locale, namespace: "mdx" });
+/** @type {() => Promise<MdxProcessorOptions>} */
+export async function createConfig() {
+	const t = await getTranslations("mdx");
+
+	const locale = getIntlLanguage(defaultLocale);
 
 	/** @type {MdxProcessorOptions} */
 	const config = {

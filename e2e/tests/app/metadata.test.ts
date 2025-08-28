@@ -2,20 +2,18 @@ import { createUrl } from "@acdh-oeaw/lib";
 import { jsonLdScriptProps } from "react-schemaorg";
 
 import { env } from "@/config/env.config";
-import { defaultLocale, locales } from "@/config/i18n.config";
 import { expect, test } from "@/e2e/lib/test";
+import { defaultLocale, locales } from "@/lib/i18n/locales";
 
 test("should set a canonical url", async ({ createIndexPage }) => {
-	for (const locale of locales) {
-		const { indexPage } = await createIndexPage(locale);
-		await indexPage.goto();
+	const { indexPage } = await createIndexPage(defaultLocale);
+	await indexPage.goto();
 
-		const canonicalUrl = indexPage.page.locator('link[rel="canonical"]');
-		await expect(canonicalUrl).toHaveAttribute(
-			"href",
-			String(createUrl({ baseUrl: env.NEXT_PUBLIC_APP_BASE_URL, pathname: `/${locale}` })),
-		);
-	}
+	const canonicalUrl = indexPage.page.locator('link[rel="canonical"]');
+	await expect(canonicalUrl).toHaveAttribute(
+		"href",
+		String(createUrl({ baseUrl: env.NEXT_PUBLIC_APP_BASE_URL, pathname: `/` })),
+	);
 });
 
 /** FIXME: @see https://github.com/vercel/next.js/issues/45620 */
@@ -24,12 +22,6 @@ test.fixme("should set document title on not-found page", async ({ createI18n, p
 	await page.goto("/unknown");
 	await expect(page).toHaveTitle(
 		[en.t("NotFoundPage.meta.title"), en.t("metadata.title")].join(" | "),
-	);
-
-	const de = await createI18n("de");
-	await page.goto("/de/unknown");
-	await expect(page).toHaveTitle(
-		[de.t("NotFoundPage.meta.title"), de.t("metadata.title")].join(" | "),
 	);
 });
 

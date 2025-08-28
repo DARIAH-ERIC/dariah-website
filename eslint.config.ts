@@ -53,11 +53,11 @@ const config: Config = [
 				{
 					name: "next/navigation",
 					importNames: ["redirect", "permanentRedirect", "useRouter", "usePathname"],
-					message: "Please use `@/lib/i18n/navigation` instead.",
+					message: "Please use `@/lib/navigation/navigation` instead.",
 				},
 				{
 					name: "next/router",
-					message: "Please use `@/lib/i18n/navigation` instead.",
+					message: "Please use `@/lib/navigation/navigation` instead.",
 				},
 			],
 			"no-restricted-syntax": [

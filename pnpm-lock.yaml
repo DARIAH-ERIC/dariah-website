@@ -75,8 +75,8 @@ importers:
         specifier: ^14.2.25
         version: 14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       next-intl:
-        specifier: ^3.26.3
-        version: 3.26.3(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
+        specifier: ^4.1.10
+        version: 4.3.5(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(typescript@5.7.3)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -1861,6 +1861,9 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
+  '@schummar/icu-type-parser@1.21.5':
+    resolution: {integrity: sha512-bXHSaW5jRTmke9Vd0h5P7BtWZG9Znqb8gSDxZnxaGSJnGwPLDPfS+3g0BKzeWqzgZPsIVZkM7m2tbo18cm5HBw==}
+
   '@shikijs/core@1.29.1':
     resolution: {integrity: sha512-Mo1gGGkuOYjDu5H8YwzmOuly9vNr8KDVkqj9xiKhhhFS8jisAtDSEWB9hzqRHLVQgFdA310e8XRJcW4tYhRB2A==}
 
@@ -2809,8 +2812,8 @@ packages:
     peerDependencies:
       eslint: '>=8.40.0'
 
-  eslint-plugin-react-compiler@19.0.0-beta-e993439-20250405:
-    resolution: {integrity: sha512-8ZQU4qGc8NOfsM7u7tf7gXmZ+d4tSK+7BFb+Fvs4s9ItQ12m/G6ttSGxompH/Jq7nXgnJ20EqQRshwVG6GwUdA==}
+  eslint-plugin-react-compiler@19.1.0-rc.2:
+    resolution: {integrity: sha512-oKalwDGcD+RX9mf3NEO4zOoUMeLvjSvcbbEOpquzmzqEEM2MQdp7/FY/Hx9NzmUwFzH1W9SKTz5fihfMldpEYw==}
     engines: {node: ^14.17.0 || ^16.0.0 || >= 18.0.0}
     peerDependencies:
       eslint: '>=7'
@@ -3979,11 +3982,15 @@ packages:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
 
-  next-intl@3.26.3:
-    resolution: {integrity: sha512-6Y97ODrDsEE1J8cXKMHwg1laLdtkN66QMIqG8BzH4zennJRUNTtM8UMtBDyhfmF6uiZ+xsbWLXmHUgmUymUsfQ==}
+  next-intl@4.3.5:
+    resolution: {integrity: sha512-tT3SltfpPOCAQ9kVNr+8t6FUtVf8G0WFlJcVc8zj4WCMfuF8XFk4gZCN/MtjgDgkUISw5aKamOClJB4EsV95WQ==}
     peerDependencies:
-      next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+      next: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
+      typescript: ^5.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   next@14.2.26:
     resolution: {integrity: sha512-b81XSLihMwCfwiUVRRja3LphLo4uBBMZEzBBWMaISbKTwOmq3wPknIETy/8000tr7Gq4WmbuFYPS7jOYIf+ZJw==}
@@ -5024,10 +5031,10 @@ packages:
       '@urql/core': ^5.0.0
       react: '>= 16.8.0'
 
-  use-intl@3.26.3:
-    resolution: {integrity: sha512-yY0a2YseO17cKwHA9M6fcpiEJ2Uo81DEU0NOUxNTp6lJVNOuI6nULANPVVht6IFdrYFtlsMmMoc97+Eq9/Tnng==}
+  use-intl@4.3.5:
+    resolution: {integrity: sha512-qyL1TZNesVbzj/75ZbYsi+xzNSiFqp5rIVsiAN0JT8rPMSjX0/3KQz76aJIrngI1/wIQdVYFVdImWh5yAv+dWA==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
+      react: ^17.0.0 || ^18.0.0 || >=19.0.0-rc <19.0.0 || ^19.0.0
 
   use-sync-external-store@1.4.0:
     resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
@@ -5220,7 +5227,7 @@ snapshots:
       eslint-config-prettier: 9.1.0(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-react: 7.37.4(eslint@9.20.1(jiti@2.4.2))
-      eslint-plugin-react-compiler: 19.0.0-beta-e993439-20250405(eslint@9.20.1(jiti@2.4.2))
+      eslint-plugin-react-compiler: 19.1.0-rc.2(eslint@9.20.1(jiti@2.4.2))
       eslint-plugin-react-hooks: 5.1.0(eslint@9.20.1(jiti@2.4.2))
     transitivePeerDependencies:
       - eslint
@@ -7462,6 +7469,8 @@ snapshots:
       '@react-types/shared': 3.27.0(react@18.3.1)
       react: 18.3.1
 
+  '@schummar/icu-type-parser@1.21.5': {}
+
   '@shikijs/core@1.29.1':
     dependencies:
       '@shikijs/engine-javascript': 1.29.1
@@ -8601,7 +8610,7 @@ snapshots:
       eslint: 9.20.1(jiti@2.4.2)
       globals: 13.24.0
 
-  eslint-plugin-react-compiler@19.0.0-beta-e993439-20250405(eslint@9.20.1(jiti@2.4.2)):
+  eslint-plugin-react-compiler@19.1.0-rc.2(eslint@9.20.1(jiti@2.4.2)):
     dependencies:
       '@babel/core': 7.26.0
       '@babel/parser': 7.26.5
@@ -10197,13 +10206,15 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  next-intl@3.26.3(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1):
+  next-intl@4.3.5(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(typescript@5.7.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.10
       negotiator: 1.0.0
       next: 14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
-      use-intl: 3.26.3(react@18.3.1)
+      use-intl: 4.3.5(react@18.3.1)
+    optionalDependencies:
+      typescript: 5.7.3
 
   next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -11629,9 +11640,10 @@ snapshots:
       react: 18.3.1
       wonka: 6.3.4
 
-  use-intl@3.26.3(react@18.3.1):
+  use-intl@4.3.5(react@18.3.1):
     dependencies:
       '@formatjs/fast-memoize': 2.2.6
+      '@schummar/icu-type-parser': 1.21.5
       intl-messageformat: 10.7.14
       react: 18.3.1
 

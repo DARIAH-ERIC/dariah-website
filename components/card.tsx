@@ -5,7 +5,6 @@ import type { ReactNode } from "react";
 import { DateComponent } from "@/components/date";
 import { Image } from "@/components/image";
 import { Link } from "@/components/link";
-import type { Locale } from "@/config/i18n.config";
 import type { CardProps } from "@/types/keystatic";
 
 type CardComponentProps = CardProps & {
@@ -21,25 +20,14 @@ type CardComponentProps = CardProps & {
 	title: string;
 	endDate?: string | null;
 	startDate?: string | null;
-	locale: Locale;
 	location?: string;
 };
 
 export function Card(props: Readonly<CardComponentProps>): ReactNode {
 	const _t = useTranslations("Card");
 
-	const {
-		className,
-		discriminent,
-		endDate,
-		link,
-		locale,
-		location,
-		summary,
-		startDate,
-		title,
-		...rest
-	} = props;
+	const { className, discriminent, endDate, link, location, summary, startDate, title, ...rest } =
+		props;
 
 	const defaultClassNames =
 		"relative overflow-hidden rounded-4 border border-stroke-weak bg-background-raised shadow-raised hover:shadow-overlay";
@@ -64,17 +52,14 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 			<div className="grid gap-y-6 p-8">
 				<div className="flex flex-col">
 					<h3 className="pb-2 font-heading text-heading-4 font-strong text-text-strong">
-						{
-							// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-							summary.title || title
-						}
+						{summary.title ?? title}
 					</h3>
 					{startDate ? (
 						<p className="grow text-small text-text-weak">
 							<span>
-								<DateComponent date={startDate} dateLocale={locale} />
+								<DateComponent date={startDate} />
 								{endDate ? " - " : null}
-								{endDate ? <DateComponent date={endDate} dateLocale={locale} /> : null}
+								{endDate ? <DateComponent date={endDate} /> : null}
 							</span>
 						</p>
 					) : null}
