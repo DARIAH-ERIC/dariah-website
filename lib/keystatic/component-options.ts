@@ -43,6 +43,7 @@ export const linkKinds = [
 	{ label: "Events overview", value: "events-overview" },
 	{ label: "Impact case studies", value: "impact-case-studies" },
 	{ label: "Impact case studies overview", value: "impact-case-studies-overview" },
+	{ label: "Members and Partners overview", value: "members-and-partners-overview" },
 	{ label: "News overview", value: "news-overview" },
 	{ label: "News", value: "news" },
 	{ label: "News overview", value: "news-overview" },

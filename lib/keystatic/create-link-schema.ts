@@ -63,6 +63,7 @@ export function createLinkSchema<TPath extends `/${string}/`>(
 			"documents-and-policies-overview": fields.empty(),
 			"events-overview": fields.empty(),
 			"impact-case-studies-overview": fields.empty(),
+			"members-and-partners-overview": fields.empty(),
 			"news-overview": fields.empty(),
 			"projects-overview": fields.empty(),
 			"strategies-overview": fields.empty(),
