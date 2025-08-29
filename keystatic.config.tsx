@@ -22,6 +22,7 @@ import {
 	createEventsOverview,
 	createImpactCaseStudiesOverview,
 	createIndexPage,
+	createMembersAndPartnersOverview,
 	createMetadata,
 	createNavigation,
 	createNewsOverview,
@@ -70,6 +71,9 @@ export default config({
 
 		[withI18nPrefix("impact-case-studies-overview", defaultLocale)]:
 			createImpactCaseStudiesOverview(defaultLocale),
+
+		[withI18nPrefix("members-and-partners-overview", defaultLocale)]:
+			createMembersAndPartnersOverview(defaultLocale),
 
 		[withI18nPrefix("news-overview", defaultLocale)]: createNewsOverview(defaultLocale),
 
@@ -127,6 +131,9 @@ export default config({
 			}),
 			Keywords: locales.map((locale) => {
 				return withI18nPrefix("keywords", locale);
+			}),
+			"Members and Partners Overview": locales.map((locale) => {
+				return withI18nPrefix("members-and-partners-overview", locale);
 			}),
 			News: locales.map((locale) => {
 				return withI18nPrefix("news", locale);

@@ -42,6 +42,10 @@ export function getLinkProps(params: LinkSchema) {
 			return { href: `/impact-case-studies` };
 		}
 
+		case "members-and-partners-overview": {
+			return { href: "/members-and-partners" };
+		}
+
 		case "news": {
 			return { href: `/news/${params.value}/` };
 		}

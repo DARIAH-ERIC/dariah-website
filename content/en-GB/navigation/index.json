@@ -65,8 +65,7 @@
             "value": {
               "label": "Members and Partners",
               "link": {
-                "discriminant": "pages",
-                "value": "sample-page-1"
+                "discriminant": "members-and-partners-overview"
               }
             }
           },
