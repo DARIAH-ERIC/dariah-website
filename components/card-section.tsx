@@ -184,6 +184,26 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								</li>
 							);
 						}
+						case "working-group": {
+							const id = card.value.reference;
+							const workingGroup = await createCollectionResource(
+								"working-groups",
+								defaultLocale,
+							).read(id);
+							const link = { label: "", href: `/working-groups/${id}` };
+							return (
+								<li key={id}>
+									<Card
+										className="grid h-full grid-rows-[13rem,auto]"
+										discriminent="working-group"
+										{...workingGroup.data}
+										link={link}
+										reference={id}
+										title={workingGroup.data.name}
+									/>
+								</li>
+							);
+						}
 					}
 				})}
 			</ul>

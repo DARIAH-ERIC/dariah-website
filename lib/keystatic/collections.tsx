@@ -20,6 +20,7 @@ import {
 	createVideo,
 } from "@/lib/keystatic/components";
 import { createPreviewUrl } from "@/lib/keystatic/create-preview-url";
+import { readOnly, readOnlySlug } from "@/lib/keystatic/fields";
 
 export const createDocumentation = createCollection("/documentation/", (paths, locale) => {
 	return collection({
@@ -690,6 +691,18 @@ export const createNews = createCollection("/news/", (paths, locale) => {
 					},
 				},
 			),
+			"working-groups": fields.array(
+				fields.relationship({
+					label: "Working group",
+					collection: withI18nPrefix("working-groups", locale),
+				}),
+				{
+					label: "Working Groups",
+					itemLabel(props) {
+						return props.value ?? "";
+					},
+				},
+			),
 			content: fields.mdx({
 				label: "Content",
 				options: createContentFieldOptions(paths),
@@ -1281,6 +1294,30 @@ export const createPersons = createCollection("/persons/", (paths, locale) => {
 					//...createTweet(paths, locale),
 					...createVideo(paths, locale),
 				},
+			}),
+		},
+	});
+});
+
+export const createWorkingGroups = createCollection("/working-groups/", (paths, _locale) => {
+	return collection({
+		label: "Working groups",
+		path: paths.contentPath,
+		slugField: "name",
+		columns: ["name"],
+		entryLayout: "form",
+		schema: {
+			name: readOnlySlug({
+				label: "Name",
+				description: "Data Source: Dariah Knowledge Base",
+			}),
+			startDate: readOnly({
+				label: "Working group start date",
+				description: "Data Source: Dariah Knowledge Base",
+			}),
+			endDate: readOnly({
+				label: "Working group end date",
+				description: "Data Source: Dariah Knowledge Base",
 			}),
 		},
 	});

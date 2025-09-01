@@ -70,6 +70,14 @@ export function getLinkProps(params: LinkSchema) {
 			return { href: `/strategies` };
 		}
 
+		case "working-groups": {
+			return { href: `/working-groups/${params.value}/` };
+		}
+
+		case "working-groups-overview": {
+			return { href: `/working-groups` };
+		}
+
 		case "pages": {
 			return { href: `/${params.value}` };
 		}
