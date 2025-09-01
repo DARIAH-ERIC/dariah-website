@@ -30,3 +30,9 @@ export enum CountryType {
 	"member_country",
 	"other",
 }
+
+export interface WorkingGroup {
+	endDate: string;
+	name: string;
+	startDate: string;
+}

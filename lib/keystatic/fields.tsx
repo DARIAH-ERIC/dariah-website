@@ -1,5 +1,5 @@
 import { TextField } from "@keystar/ui/text-field";
-import type { BasicFormField, FormFieldStoredValue } from "@keystatic/core";
+import type { BasicFormField, FormFieldStoredValue, SlugFormField } from "@keystatic/core";
 
 interface ColorPickerFieldProps {
 	defaultValue?: string;
@@ -77,6 +77,94 @@ function IdentifierField(props: IdentifierFieldProps): BasicFormField<string> {
 	};
 }
 
+interface ReadOnlyFieldProps {
+	defaultValue?: string;
+	description?: string;
+	label: string;
+}
+
+function ReadOnlyField(props: ReadOnlyFieldProps): BasicFormField<string> {
+	const { defaultValue, description, label } = props;
+	const readOnlyLabel = `${label} (readonly field)`;
+
+	return {
+		kind: "form",
+		label: readOnlyLabel,
+		Input(props) {
+			return (
+				<TextField {...props} description={description} isReadOnly={true} label={readOnlyLabel} />
+			);
+		},
+		defaultValue() {
+			return defaultValue ?? "";
+		},
+		parse(value) {
+			return parseAsNormalField(value);
+		},
+		serialize(value) {
+			return { value: value === "" ? undefined : value };
+		},
+		validate(value) {
+			return validate(value);
+		},
+		reader: {
+			parse(value) {
+				return validate(parseAsNormalField(value));
+			},
+		},
+	};
+}
+
+interface ReadOnlySlugFieldProps {
+	defaultValue?: string;
+	description?: string;
+	label: string;
+}
+
+function ReadOnlySlugField(
+	props: ReadOnlySlugFieldProps,
+): SlugFormField<string, string, string, string> {
+	const { defaultValue, description, label } = props;
+	const readOnlyLabel = `${label} (readonly field)`;
+
+	return {
+		kind: "form",
+		formKind: "slug",
+		label: readOnlyLabel,
+		Input(props) {
+			return (
+				<TextField {...props} description={description} isReadOnly={true} label={readOnlyLabel} />
+			);
+		},
+		defaultValue() {
+			return defaultValue ?? "";
+		},
+		parse(value) {
+			return parseAsNormalField(value);
+		},
+		serialize(value) {
+			return { value: value === "" ? undefined : value };
+		},
+		serializeWithSlug(value) {
+			return {
+				slug: value,
+				value: parseAsNormalField(value),
+			};
+		},
+		validate(value) {
+			return validate(value);
+		},
+		reader: {
+			parse(value) {
+				return validate(parseAsNormalField(value));
+			},
+			parseWithSlug(value) {
+				return parseAsNormalField(value);
+			},
+		},
+	};
+}
+
 function parseAsNormalField(value: FormFieldStoredValue): string {
 	if (value === undefined) {
 		return "";
@@ -93,3 +181,5 @@ function validate(value: string): string {
 
 export const colorPicker = ColorPickerField;
 export const identifier = IdentifierField;
+export const readOnly = ReadOnlyField;
+export const readOnlySlug = ReadOnlySlugField;

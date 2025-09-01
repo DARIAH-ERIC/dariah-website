@@ -50,6 +50,11 @@ export function createLinkSchema<TPath extends `/${string}/`>(
 				validation: { isRequired: true },
 				collection: withI18nPrefix("pages", locale),
 			}),
+			"working-groups": fields.relationship({
+				label: "Working Group",
+				validation: { isRequired: true },
+				collection: withI18nPrefix("working-groups", locale),
+			}),
 			download: fields.file({
 				label: "Download",
 				validation: { isRequired: true },
@@ -67,6 +72,7 @@ export function createLinkSchema<TPath extends `/${string}/`>(
 			"news-overview": fields.empty(),
 			"projects-overview": fields.empty(),
 			"strategies-overview": fields.empty(),
+			"working-groups-overview": fields.empty(),
 			resources: fields.empty(),
 			search: fields.empty(),
 		},

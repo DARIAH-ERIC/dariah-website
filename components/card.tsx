@@ -13,7 +13,7 @@ type CardComponentProps = CardProps & {
 		label: string;
 		href: string;
 	};
-	summary: {
+	summary?: {
 		title?: string;
 		content: string;
 	};
@@ -54,7 +54,7 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 					<h3 className="pb-2 font-heading text-heading-4 font-strong text-text-strong">
 						{
 							// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-							summary.title || title
+							summary?.title || title
 						}
 					</h3>
 					{startDate ? (
@@ -68,7 +68,9 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 					) : null}
 					{location ? <p className="grow text-small text-text-weak">{location}</p> : null}
 					<div>
-						<p className="line-clamp-3 grow text-small text-text-weak">{summary.content}</p>
+						{summary ? (
+							<p className="line-clamp-3 grow text-small text-text-weak">{summary.content}</p>
+						) : null}
 					</div>
 					<footer>
 						{link !== undefined && (

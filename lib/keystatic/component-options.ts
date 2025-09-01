@@ -54,6 +54,8 @@ export const linkKinds = [
 	{ label: "Pages", value: "pages" },
 	{ label: "Resources", value: "resources" },
 	{ label: "Search", value: "search" },
+	{ label: "Working groups", value: "working-groups" },
+	{ label: "Working groups overview", value: "working-groups-overview" },
 ] as const;
 
 export type LinkKind = (typeof linkKinds)[number]["value"];

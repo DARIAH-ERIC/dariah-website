@@ -299,6 +299,28 @@ export const createIndexPage = createSingleton("/index-page/", (paths, locale) =
 														},
 													),
 												},
+												"working-group": {
+													label: "Working Group card",
+													itemLabel(props) {
+														return props.fields.title.value;
+													},
+													schema: fields.object(
+														{
+															title: fields.text({
+																label: "Title",
+																validation: { isRequired: true },
+															}),
+															reference: fields.relationship({
+																label: "Working Group",
+																validation: { isRequired: true },
+																collection: withI18nPrefix("working-groups", locale),
+															}),
+														},
+														{
+															label: "Working Group card",
+														},
+													),
+												},
 											},
 											{
 												label: "Cards",
@@ -624,6 +646,30 @@ export const createNavigation = createSingleton("/navigation/", (paths, locale) 
 		},
 	});
 });
+
+export const createWorkingGroupsOverview = createSingleton(
+	"/working-groups-overview/",
+	(paths, _locale) => {
+		return singleton({
+			label: "Working groups Overview",
+			path: paths.contentPath,
+			format: { data: "json" },
+			entryLayout: "form",
+			schema: {
+				title: fields.text({
+					label: "Title",
+					validation: { isRequired: true },
+				}),
+				lead: fields.text({
+					label: "Lead",
+					validation: { isRequired: true },
+					multiline: true,
+				}),
+			},
+		});
+	},
+);
+
 export const createResources = createSingleton("/resources/", (paths, _locale) => {
 	return singleton({
 		label: "Resources",

@@ -16,6 +16,7 @@ import {
 	createPersons,
 	createProjects,
 	createStrategies,
+	createWorkingGroups,
 } from "@/lib/keystatic/collections";
 import {
 	createDocumentsAndPoliciesOverview,
@@ -30,6 +31,7 @@ import {
 	createResources,
 	createSearch,
 	createStrategiesOverview,
+	createWorkingGroupsOverview,
 } from "@/lib/keystatic/singletons";
 
 export default config({
@@ -54,6 +56,8 @@ export default config({
 		[withI18nPrefix("strategies", defaultLocale)]: createStrategies(defaultLocale),
 
 		[withI18nPrefix("pages", defaultLocale)]: createPages(defaultLocale),
+
+		[withI18nPrefix("working-groups", defaultLocale)]: createWorkingGroups(defaultLocale),
 
 		[withI18nPrefix("documentation", defaultLocale)]: createDocumentation(defaultLocale),
 	},
@@ -84,6 +88,9 @@ export default config({
 		[withI18nPrefix("strategies-overview", defaultLocale)]: createStrategiesOverview(defaultLocale),
 
 		[withI18nPrefix("search", defaultLocale)]: createSearch(defaultLocale),
+
+		[withI18nPrefix("working-groups-overview", defaultLocale)]:
+			createWorkingGroupsOverview(defaultLocale),
 	},
 	storage:
 		env.NEXT_PUBLIC_KEYSTATIC_MODE === "github" &&
@@ -170,6 +177,12 @@ export default config({
 			}),
 			Resources: locales.map((locale) => {
 				return withI18nPrefix("resources", locale);
+			}),
+			"Working groups": locales.map((locale) => {
+				return withI18nPrefix("working-groups", locale);
+			}),
+			"Working groups Overview": locales.map((locale) => {
+				return withI18nPrefix("working-groups-overview", locale);
 			}),
 			Search: locales.map((locale) => {
 				return withI18nPrefix("search", locale);

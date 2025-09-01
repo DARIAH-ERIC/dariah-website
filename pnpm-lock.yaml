@@ -50,6 +50,9 @@ importers:
       '@shikijs/rehype':
         specifier: ^1.29.1
         version: 1.29.1
+      '@sindresorhus/slugify':
+        specifier: ^2.2.1
+        version: 2.2.1
       '@vercel/otel':
         specifier: ^1.10.0
         version: 1.10.0(@opentelemetry/api-logs@0.53.0)(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))
@@ -62,6 +65,9 @@ importers:
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       image-dimensions:
         specifier: ^2.3.0
         version: 2.3.0
@@ -231,9 +237,6 @@ importers:
       globals:
         specifier: ^15.14.0
         version: 15.14.0
-      gray-matter:
-        specifier: ^4.0.3
-        version: 4.0.3
       is-ci:
         specifier: ^3.0.1
         version: 3.0.1

@@ -84,8 +84,7 @@
             "value": {
               "label": "Working Groups",
               "link": {
-                "discriminant": "pages",
-                "value": "sample-page-1"
+                "discriminant": "working-groups-overview"
               }
             }
           },
