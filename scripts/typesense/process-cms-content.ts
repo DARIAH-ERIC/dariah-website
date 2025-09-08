@@ -14,7 +14,7 @@ import {
 	LANGUAGE_MAPPINGS,
 	TYPESENSE_DOCUMENTS_DIR,
 } from "@/lib/typesense/constants";
-import type { CMSContentTypes, Link, Resource, ResourceLanguage } from "@/types/resources";
+import type { CMSContentTypes, Link, Resource } from "@/types/resources";
 
 class TypesenseDocument implements Resource {
 	title: string;
@@ -22,7 +22,6 @@ class TypesenseDocument implements Resource {
 	kind: CMSContentTypes;
 	keywords: Array<string>;
 	links: Array<Link>;
-	language: ResourceLanguage;
 	importedAt: number;
 	constructor(
 		title: string,
@@ -30,7 +29,6 @@ class TypesenseDocument implements Resource {
 		kind: CMSContentTypes,
 		keywords: Array<string>,
 		links: Array<Link>,
-		language: ResourceLanguage,
 		importedAt: number,
 	) {
 		this.title = title;
@@ -38,13 +36,11 @@ class TypesenseDocument implements Resource {
 		this.kind = kind;
 		this.keywords = keywords;
 		this.links = links;
-		this.language = language;
 		this.importedAt = importedAt;
 	}
 }
 
 const CMSContentToTypesenseDocument = function (
-	lang: ResourceLanguage,
 	contentType: CMSContentTypes,
 	filePaths: Array<string>,
 ) {
@@ -78,7 +74,6 @@ const CMSContentToTypesenseDocument = function (
 				contentType,
 				keywords,
 				links,
-				lang,
 				importedAt,
 			);
 
@@ -94,7 +89,6 @@ CMS_CONTENT_TYPES.map((contentType) => {
 	Object.values(LANGUAGE_MAPPINGS).forEach((lang) => {
 		const filePaths = glob.sync(`${process.cwd()}/content/${lang}/${contentType}/**/index.mdx`);
 		const typesenseDocuments: Array<TypesenseDocument> = CMSContentToTypesenseDocument(
-			lang,
 			contentType,
 			filePaths,
 		);

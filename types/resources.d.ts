@@ -22,7 +22,32 @@ export interface Resource {
 
 /* SSHOC */
 
+interface LabeledCheckedCount {
+	count: number;
+	checked: boolean;
+	label: string;
+}
+
 type SShocItemCategory = (typeof SSHOC_ITEM_CATEGORIES)[number];
+
+interface SShocItemSearchResponse {
+	count: number;
+	hits: number;
+	order: SShocItemSearchResponseOrder;
+	page: number;
+	perpage: number;
+	pages: number;
+	q: string;
+	items: Array<Item>;
+	categories: Record<string, LabeledCheckedCount>;
+	facets: Record<string, unknown>;
+}
+
+enum SShocItemSearchResponseOrder {
+	"score",
+	"label",
+	"modified-on",
+}
 
 interface SShocActor {
 	id: number;
@@ -55,7 +80,7 @@ export interface Item {
 	version: string;
 	persistentId: string;
 	lastInfoUpdate: string;
-	accessibleAt: Array<string>;
+	accessibleAt?: Array<string>;
 }
 
 export interface ToolService {
@@ -117,21 +142,6 @@ interface ResourceSearchResponse extends SearchResponse {
 		| [];
 }
 
-/* Courses */
-
-interface Course {
-	id: number;
-	name: string;
-	description: string;
-	info_url: string;
-	language: CourseLanguage;
-}
-
-interface CourseLanguage {
-	id: number;
-	name: "German" | "English";
-}
-
 type CMSContentTypes = (typeof CMS_CONTENT_TYPES)[number];
 
-type ResourceCategory = SShocItemCategory | CMSContentTypes | "publication" | "course";
+type ResourceCategory = SShocItemCategory | CMSContentTypes | "publication";
