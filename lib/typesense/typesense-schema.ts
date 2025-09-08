@@ -23,12 +23,6 @@ export const collectionSchema: CollectionCreateSchema = {
 			facet: false,
 		},
 		{
-			name: "language",
-			type: "string",
-			facet: true,
-			optional: true,
-		},
-		{
 			name: "keywords",
 			type: "string[]",
 			facet: true,
