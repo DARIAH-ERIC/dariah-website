@@ -9,6 +9,8 @@ export interface KBApiResponse<T> {
 
 export interface Country {
 	code: string;
+	consortiumName: string;
+	description: string;
 	endDate: string;
 	name: string;
 	nationalRepresentativeInstitution: {
@@ -21,6 +23,9 @@ export interface Country {
 		urls: Array<string>;
 	} | null;
 	nationalCoordinators: Array<string>;
+	nationalCoordinatorDeputies: Array<string>;
+	outreachUrl: string;
+	partnerInstitutions: Array<Institution>;
 	startDate: string;
 	type: CountryType;
 }
@@ -35,4 +40,11 @@ export interface WorkingGroup {
 	endDate: string;
 	name: string;
 	startDate: string;
+}
+
+export interface Institution {
+	endDate: string;
+	name: string;
+	startDate: string;
+	website: Array<string>;
 }
