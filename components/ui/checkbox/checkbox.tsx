@@ -43,10 +43,7 @@ export const Checkbox = forwardRef(function Checkbox(
 				>
 					<CheckIcon
 						aria-hidden="true"
-						className={cn(
-							"fill-white",
-							"group-data-disabled:group-data-selected:fill-gray-400",
-						)}
+						className={cn("fill-white", "group-data-disabled:group-data-selected:fill-gray-400")}
 					/>
 				</div>
 			</div>
