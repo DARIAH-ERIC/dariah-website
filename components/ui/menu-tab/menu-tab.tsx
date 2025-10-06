@@ -28,7 +28,7 @@ export const MenuTab = forwardRef(function MenuTab(
 		"mx-3 my-[3px] box-border py-2 text-small uppercase text-primary-500",
 		"hover:font-bold",
 		"focus:m-0 focus:border-[3px] focus:border-primary-500 focus:px-2 focus:font-bold",
-		"data-[active]:mb-0 data-[active]:border-b-[3px] data-[active]:border-primary-500 data-[active]:font-bold",
+		"data-active:mb-0 data-active:border-b-[3px] data-active:border-primary-500 data-active:font-bold",
 		className,
 	);
 

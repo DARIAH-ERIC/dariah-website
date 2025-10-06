@@ -49,7 +49,7 @@ export default async function EventsOverviewPage(
 						return (
 							<li key={id}>
 								<Card
-									className="grid h-full grid-rows-[13rem,auto]"
+									className="grid h-full grid-rows-[13rem_auto]"
 									discriminent="event"
 									{...eventItem.data}
 									link={link}

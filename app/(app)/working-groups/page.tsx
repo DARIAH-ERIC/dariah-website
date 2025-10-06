@@ -57,7 +57,7 @@ export default async function WorkingGroupsOverviewPage(
 						return (
 							<li key={id}>
 								<Card
-									className="grid h-full grid-rows-[13rem,auto]"
+									className="grid h-full grid-rows-[13rem_auto]"
 									discriminent="working-group"
 									{...workingGroupItem.data}
 									link={link}

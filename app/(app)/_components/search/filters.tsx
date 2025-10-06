@@ -22,7 +22,7 @@ export function Filters(props: FilterProps): ReactNode {
 						<RefinementList
 							attribute={filter.value}
 							classNames={{
-								root: "min-h-[4rem] pt-2",
+								root: "min-h-16 pt-2",
 								label: "inline-flex w-full",
 								labelText: "ps-1",
 								count: "ml-auto",

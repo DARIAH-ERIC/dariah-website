@@ -19,7 +19,7 @@ export const NavTab = forwardRef(function NavTab(
 				"border-4 border-transparent bg-transparent px-2 text-regular font-bold leading-9 text-white",
 				"hover:border-gray-100 hover:bg-gray-100 hover:text-primary-500",
 				"focus:border-white focus:bg-transparent focus:text-primary-500",
-				"[&[data-pressed]]:bg-white [&[data-pressed]]:text-gray-900",
+				"data-pressed:bg-white data-pressed:text-gray-900",
 			)}
 		>
 			{children}

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import type { CalloutKind } from "@/lib/keystatic/component-options";
 
 const calloutStyles = styles({
-	base: "my-4 grid rounded-2 border p-4 [&_*::marker]:text-inherit [&_*]:text-inherit",
+	base: "my-4 grid rounded-2 border p-4 [&_*::marker]:text-inherit **:text-inherit",
 	variants: {
 		kind: {
 			caution: "border-stroke-error-weak bg-fill-error-weak text-text-error",

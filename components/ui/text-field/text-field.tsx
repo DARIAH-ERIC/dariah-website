@@ -34,7 +34,7 @@ export const TextField = forwardRef(function TextField(
 				)}
 			>
 				{startIcon}
-				<Input className="bg-transparent focus:outline-none" placeholder={placeholder} />
+				<Input className="bg-transparent focus:outline-hidden" placeholder={placeholder} />
 				{endIcon}
 			</div>
 		</AriaTextField>

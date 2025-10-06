@@ -102,7 +102,7 @@ export default async function DocumentAndPoliciesOverviewPage(
 						return (
 							<li key={id}>
 								<Card
-									className="grid h-full grid-rows-[13rem,auto]"
+									className="grid h-full grid-rows-[13rem_auto]"
 									discriminent="document-or-policy"
 									{...documentsPolicyItem.data}
 									link={link}

@@ -127,7 +127,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 										</Button>
 										<Popover
 											className={cn(
-												"min-w-[var(--trigger-width)] rounded-2 border border-stroke-weak bg-background-overlay shadow-overlay",
+												"min-w-(--trigger-width) rounded-2 border border-stroke-weak bg-background-overlay shadow-overlay",
 												"placement-bottom:translate-y-1 placement-bottom:slide-in-from-top-2 entering:animate-in entering:fade-in-0 exiting:animate-out exiting:fade-out-0 exiting:zoom-out-95",
 											)}
 											placement="bottom"
@@ -235,7 +235,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 			</nav>
 			<ModalOverlay
 				className={cn(
-					"fixed left-0 top-0 isolate z-20 h-[var(--visual-viewport-height)] w-full bg-fill-overlay",
+					"fixed left-0 top-0 isolate z-20 h-(--visual-viewport-height) w-full bg-fill-overlay",
 					"entering:duration-200 entering:ease-out entering:animate-in entering:fade-in",
 					"exiting:duration-200 exiting:ease-in exiting:animate-out exiting:fade-out",
 				)}

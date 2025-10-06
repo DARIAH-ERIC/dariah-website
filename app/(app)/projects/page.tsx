@@ -49,7 +49,7 @@ export default async function ProjectPage(
 						return (
 							<li key={id}>
 								<Card
-									className="grid h-full grid-rows-[13rem,auto]"
+									className="grid h-full grid-rows-[13rem_auto]"
 									discriminent="project"
 									{...projectItem.data}
 									link={link}
