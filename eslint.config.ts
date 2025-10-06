@@ -1,3 +1,5 @@
+import * as path from "node:path";
+
 import baseConfig from "@acdh-oeaw/eslint-config";
 import nextConfig from "@acdh-oeaw/eslint-config-next";
 import nodeConfig from "@acdh-oeaw/eslint-config-node";
@@ -5,17 +7,24 @@ import playwrightConfig from "@acdh-oeaw/eslint-config-playwright";
 import reactConfig from "@acdh-oeaw/eslint-config-react";
 import tailwindcssConfig from "@acdh-oeaw/eslint-config-tailwindcss";
 import gitignore from "eslint-config-flat-gitignore";
-// @ts-expect-error Missing type declaration.
 import checkFilePlugin from "eslint-plugin-check-file";
-import type { Config } from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 
-const config: Config = [
+const config = defineConfig(
 	gitignore({ strict: false }),
-	...baseConfig,
-	...reactConfig,
-	...nextConfig,
-	...tailwindcssConfig,
-	...playwrightConfig,
+	{ ignores: ["content/**", "public/**"] },
+	baseConfig,
+	reactConfig,
+	nextConfig,
+	tailwindcssConfig,
+	{
+		settings: {
+			tailwindcss: {
+				config: path.resolve("./styles/index.css"),
+			},
+		},
+	},
+	playwrightConfig,
 	{
 		plugins: {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -67,18 +76,14 @@ const config: Config = [
 					message: "Please use `@/config/env.config` instead.",
 				},
 			],
-			// "@typescript-eslint/explicit-module-boundary-types": "error",
 			"@typescript-eslint/require-array-sort-compare": "error",
-			// "@typescript-eslint/strict-boolean-expressions": "error",
 			"react/jsx-sort-props": ["error", { reservedFirst: true }],
 		},
 	},
-	...nodeConfig.map((config) => {
-		return {
-			files: ["db/**/*.ts", "lib/server/**/*.ts", "**/_actions/**/*.ts"],
-			...config,
-		};
-	}),
-];
+	{
+		files: ["db/**/*.ts", "lib/server/**/*.ts", "**/_actions/**/*.ts"],
+		extends: [nodeConfig],
+	},
+);
 
 export default config;
