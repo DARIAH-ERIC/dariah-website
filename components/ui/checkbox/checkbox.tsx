@@ -15,6 +15,7 @@ export const Checkbox = forwardRef(function Checkbox(
 	const ref = useRef<HTMLInputElement>(null);
 	const linkRef = useObjectRef(
 		useMemo(() => {
+			// eslint-disable-next-line react-compiler/react-compiler
 			return mergeRefs(forwardedRef, ref);
 		}, [forwardedRef, ref]),
 	);
@@ -32,7 +33,7 @@ export const Checkbox = forwardRef(function Checkbox(
 			>
 				<div
 					className={cn(
-						"flex size-[18px] items-center justify-center rounded-1 border border-gray-600 bg-white",
+						"rounded-1 flex size-[18px] items-center justify-center border border-gray-600 bg-white",
 						"group-data-focus-visible:border-2 group-data-focus-visible:border-black",
 						"group-data-pressed:border group-data-pressed:border-primary-500",
 						"group-data-disabled:border-gray-400 group-data-disabled:bg-gray-100",

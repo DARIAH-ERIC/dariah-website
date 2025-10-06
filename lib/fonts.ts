@@ -1,4 +1,4 @@
-import { Fira_Code, Roboto, Lato } from "next/font/google";
+import { Fira_Code, Lato, Roboto } from "next/font/google";
 
 export const body = Roboto({
 	subsets: ["latin"],

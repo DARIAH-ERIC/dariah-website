@@ -1,4 +1,5 @@
 /** Disabled temporarily, because of config type mismatch bewtween typescript-eslint and eslint. */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
 import * as path from "node:path";
@@ -9,9 +10,9 @@ import nodeConfig from "@acdh-oeaw/eslint-config-node";
 import playwrightConfig from "@acdh-oeaw/eslint-config-playwright";
 import reactConfig from "@acdh-oeaw/eslint-config-react";
 import tailwindcssConfig from "@acdh-oeaw/eslint-config-tailwindcss";
+import { defineConfig } from "eslint/config";
 import gitignore from "eslint-config-flat-gitignore";
 import checkFilePlugin from "eslint-plugin-check-file";
-import { defineConfig } from "eslint/config";
 
 const config = defineConfig(
 	gitignore({ strict: false }),
@@ -30,7 +31,6 @@ const config = defineConfig(
 	playwrightConfig,
 	{
 		plugins: {
-			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 			"check-file": checkFilePlugin,
 		},
 		rules: {
