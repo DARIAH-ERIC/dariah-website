@@ -45,15 +45,4 @@ test.describe("imprint page", () => {
 			await expect(imprintPage.page).toHaveScreenshot();
 		});
 	});
-
-	test.describe("should not have visible changes", () => {
-		test.use({ colorScheme: "dark" });
-
-		test("in dark mode", async ({ createImprintPage }) => {
-			const { imprintPage } = await createImprintPage();
-			await imprintPage.goto();
-
-			await expect(imprintPage.page).toHaveScreenshot();
-		});
-	});
 });

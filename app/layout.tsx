@@ -10,7 +10,7 @@ interface RootLayoutProps {
 }
 
 export const viewport: Viewport = {
-	colorScheme: "light dark",
+	colorScheme: "light",
 	initialScale: 1,
 	width: "device-width",
 };

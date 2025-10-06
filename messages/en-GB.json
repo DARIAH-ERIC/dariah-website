@@ -28,14 +28,6 @@
 	"Card": {
 		"read-more": "Read more"
 	},
-	"ColorSchemeSwitcher": {
-		"change-color-scheme": "Change color scheme",
-		"color-schemes": {
-			"dark": "Dark",
-			"light": "Light",
-			"system": "System"
-		}
-	},
 	"Error": {
 		"something-went-wrong": "Something went wrong!",
 		"try-again": "Try again"

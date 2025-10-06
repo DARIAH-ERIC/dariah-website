@@ -9,6 +9,5 @@ export const config = {
 	lazy: true,
 	themes: {
 		light: "github-light",
-		dark: "github-dark",
 	},
 };

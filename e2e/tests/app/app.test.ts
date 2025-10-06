@@ -109,36 +109,6 @@ test.describe("app", () => {
 		expect(status).toEqual(200);
 	});
 
-	test.describe("should set color mode according to system preference", () => {
-		test.use({ colorScheme: "no-preference" });
-
-		test("with no preference", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage();
-			await indexPage.goto();
-			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "light");
-		});
-	});
-
-	test.describe("should set color mode according to system preference", () => {
-		test.use({ colorScheme: "light" });
-
-		test("in light mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage();
-			await indexPage.goto();
-			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "light");
-		});
-	});
-
-	test.describe("should set color mode according to system preference", () => {
-		test.use({ colorScheme: "dark" });
-
-		test("in dark mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage();
-			await indexPage.goto();
-			await expect(indexPage.page.locator("html")).toHaveAttribute("data-ui-color-scheme", "dark");
-		});
-	});
-
 	test("should skip to main content with skip-link", async ({ createIndexPage }) => {
 		const { indexPage } = await createIndexPage();
 		await indexPage.goto();
