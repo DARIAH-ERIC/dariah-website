@@ -106,12 +106,18 @@
 }
 
 @layer base {
-	*,
-	*::after,
-	*::before {
-		margin: 0;
-		padding: 0;
-		border-color: var(--color-gray-200);
+	:root {
+		background-color: var(--color-white);
+		color: var(--color-neutral-900);
+		font-family: var(--font-body);
+		overflow-wrap: break-word;
+		font-synthesis: none;
+		text-rendering: optimizeLegibility;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		text-size-adjust: none;
+		-webkit-tap-highlight-color: transparent;
+		interpolate-size: allow-keywords;
 	}
 
 	:root,
@@ -119,68 +125,29 @@
 		block-size: 100%;
 	}
 
-	:root {
-		background-color: var(--color-white);
-		color: var(--color-gray-900);
-		font-family: var(--font-family-body);
-		overflow-wrap: break-word;
-		font-synthesis: none;
-		text-rendering: optimizeLegibility;
-		text-size-adjust: none;
-		-webkit-tap-highlight-color: transparent;
-		interpolate-size: allow-keywords;
+	:target {
+		scroll-margin-block: 2rlh;
 	}
 
-	:focus {
-		/** Transparent outline. */
-		@apply outline-hidden;
-	}
-
-	:focus-visible {
-		@apply outline-solid outline-2 outline-primary-700 outline-offset-2;
-	}
-
-	blockquote {
-		text-wrap: balance;
-	}
-
-	:is(h1, h2, h3, h4, h5, h6) {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
 		font-family: var(--font-heading);
-		text-wrap: balance;
 	}
 
 	iframe {
 		border: 0;
 	}
 
-	input[type="search"]:is(
-			::-webkit-search-cancel-button,
-			::-webkit-search-decoration,
-			::-webkit-search-results-button,
-			::-webkit-search-results-decoration
-		) {
-		display: none;
-	}
-
-	p {
-		text-wrap: pretty;
-	}
-
 	table {
 		font-variant-numeric: tabular-nums;
 	}
 
-	textarea {
-		field-sizing: content;
-		min-block-size: 3lh;
-	}
-
-	[id] {
-		scroll-margin-block-start: 2ex;
-	}
-
-	[inert] ::-webkit-scrollbar {
-		display: none;
+	[hidden] {
+		display: none !important;
 	}
 
 	/* stylelint-disable-next-line order/order */
@@ -200,5 +167,16 @@
 		:root {
 			font-size: 18px;
 		}
+	}
+}
+
+@layer base {
+	:focus {
+		/** Transparent outline. */
+		@apply outline-hidden;
+	}
+
+	:focus-visible {
+		@apply outline-solid outline-2 outline-primary-700 outline-offset-2;
 	}
 }
