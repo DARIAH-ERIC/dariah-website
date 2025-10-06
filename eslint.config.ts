@@ -1,3 +1,6 @@
+/** Disabled temporarily, because of config type mismatch bewtween typescript-eslint and eslint. */
+// @ts-nocheck
+
 import * as path from "node:path";
 
 import baseConfig from "@acdh-oeaw/eslint-config";
