@@ -15,11 +15,9 @@ import { id } from "@/components/main-content";
 import { SkipLink } from "@/components/skip-link";
 import { env } from "@/config/env.config";
 import { AnalyticsScript } from "@/lib/analytics-script";
-import { ColorSchemeScript } from "@/lib/color-scheme-script";
 import * as fonts from "@/lib/fonts";
 import { defaultLocale } from "@/lib/i18n/locales";
 import { getMetadata } from "@/lib/i18n/metadata";
-import { getToastMessage } from "@/lib/i18n/redirect-with-message";
 
 interface LocaleLayoutProps {
 	children: ReactNode;
@@ -45,11 +43,6 @@ export async function generateMetadata(
 			locale: defaultLocale,
 			type: "website",
 		},
-		/*twitter: {
-			card: "summary_large_image",
-			creator: meta.social.twitter,
-			site: meta.social.twitter,
-		},*/
 		verification: {
 			google: env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
 		},
@@ -66,9 +59,6 @@ export default async function LocaleLayout(props: Readonly<LocaleLayoutProps>): 
 	const messages = (await getMessages()) as IntlMessages;
 	const errorPageMessages = pick(messages, ["Error"]);
 
-	// TODO:
-	const _toastMessage = await getToastMessage();
-
 	return (
 		<html
 			className={cn(
@@ -78,10 +68,6 @@ export default async function LocaleLayout(props: Readonly<LocaleLayoutProps>): 
 				"bg-background-base text-text-strong antialiased",
 			)}
 			lang={defaultLocale}
-			/**
-			 * Suppressing hydration warning because we add `data-ui-color-scheme` before first paint.
-			 */
-			suppressHydrationWarning={true}
 		>
 			<body>
 				{/* @see https://nextjs.org/docs/app/building-your-application/optimizing/metadata#json-ld */}
@@ -93,8 +79,6 @@ export default async function LocaleLayout(props: Readonly<LocaleLayoutProps>): 
 						description: meta("description"),
 					})}
 				/>
-
-				<ColorSchemeScript />
 
 				{/**
 				 * @see https://react-spectrum.adobe.com/react-aria/ssr.html#optimizing-bundle-size
