@@ -31,10 +31,10 @@ export default async function ProjectPage(
 		<MainContent className="layout-grid content-start">
 			<section className="layout-subgrid relative gap-y-12 py-16 xs:py-24">
 				<header>
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-text-strong">
+					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
 						{projectsOverview.data.title}
 					</h1>
-					<p className="mt-6 font-heading text-heading-4 text-text-weak">
+					<p className="mt-6 font-heading text-heading-4 text-neutral-600">
 						{projectsOverview.data.lead}
 					</p>
 				</header>

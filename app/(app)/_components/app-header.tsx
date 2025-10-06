@@ -27,7 +27,7 @@ export async function AppHeader(): Promise<ReactNode> {
 	} as const;
 
 	return (
-		<header className="border-stroke-weak bg-fill-weaker border-b">
+		<header className="border-neutral-200 bg-fill-weaker border-b">
 			<div className="flex justify-between gap-x-12 px-6">
 				<AppNavigation home={home} label={label} navigation={links} />
 				<AppNavigationMobile
@@ -42,7 +42,7 @@ export async function AppHeader(): Promise<ReactNode> {
 				<div className="flex items-center gap-x-6">
 					<NavLink
 						className={cn(
-							"text-text-strong inline-flex px-4 py-6",
+							"text-neutral-900 inline-flex px-4 py-6",
 							"interactive focus-visible:focus-outline hover:hover-overlay pressed:press-overlay",
 							"aria-[current]:select-overlay aria-[current]:select-overlay-border-bottom",
 						)}

@@ -17,10 +17,10 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 	return (
 		<section className={className}>
 			<header className="max-w-text grid gap-y-4">
-				<h2 className="text-balance font-heading text-heading-2 font-strong text-text-strong">
+				<h2 className="text-balance font-heading text-heading-2 font-strong text-neutral-900">
 					{title}
 				</h2>
-				{/*<p className="font-heading text-heading-4 text-text-weak">
+				{/*<p className="font-heading text-heading-4 text-neutral-600">
 										This template comes with important features built in.
 									</p>*/}
 			</header>

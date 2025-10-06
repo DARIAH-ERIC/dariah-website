@@ -53,7 +53,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 	return (
 		<MainContent className="layout-grid content-start">
 			<section className="layout-subgrid relative py-16 xs:py-24">
-				<h1 className="text-balance font-heading text-heading-1 font-strong text-text-strong">
+				<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
 					{event.data.title}
 				</h1>
 				<Content />

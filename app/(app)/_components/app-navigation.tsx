@@ -69,7 +69,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 				)}
 				href={home.href}
 			>
-				<Logo className="h-12 w-auto text-text-strong" />
+				<Logo className="h-12 w-auto text-neutral-900" />
 				<span className="sr-only">{home.label}</span>
 			</NavLink>
 
@@ -85,7 +85,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 								<li key={key}>
 									<NavLink
 										className={cn(
-											"inline-flex px-4 py-6 text-text-strong",
+											"inline-flex px-4 py-6 text-neutral-900",
 											"interactive focus-visible:focus-outline hover:hover-overlay pressed:press-overlay",
 											"aria-[current]:select-overlay aria-[current]:select-overlay-border-bottom",
 										)}
@@ -101,7 +101,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 							return (
 								<Separator
 									key={key}
-									className="mx-1 h-full border-l border-stroke-weak"
+									className="mx-1 h-full border-l border-neutral-200"
 									elementType="li"
 									orientation="vertical"
 								/>
@@ -115,7 +115,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 									<MenuTrigger>
 										<Button
 											className={cn(
-												"inline-flex items-center gap-x-2 px-4 py-6 text-text-strong",
+												"inline-flex items-center gap-x-2 px-4 py-6 text-neutral-900",
 												"interactive focus-visible:focus-outline hover:hover-overlay pressed:press-overlay",
 											)}
 										>
@@ -127,7 +127,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 										</Button>
 										<Popover
 											className={cn(
-												"min-w-(--trigger-width) rounded-2 border border-stroke-weak bg-background-overlay shadow-overlay",
+												"min-w-(--trigger-width) rounded-2 border border-neutral-200 bg-white shadow-overlay",
 												"placement-bottom:translate-y-1 placement-bottom:slide-in-from-top-2 entering:animate-in entering:fade-in-0 exiting:animate-out exiting:fade-out-0 exiting:zoom-out-95",
 											)}
 											placement="bottom"
@@ -143,7 +143,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 																<NavigationMenuItem
 																	key={id}
 																	className={cn(
-																		"flex cursor-pointer select-none items-center gap-x-3 px-4 py-3 text-small text-text-strong",
+																		"flex cursor-pointer select-none items-center gap-x-3 px-4 py-3 text-small text-neutral-900",
 																		"interactive focus-visible:focus-outline focus-visible:-focus-outline-offset-2 hover:hover-overlay pressed:press-overlay",
 																	)}
 																	href={href}
@@ -158,7 +158,7 @@ export function AppNavigation(props: Readonly<AppNavigationProps>): ReactNode {
 															return (
 																<Separator
 																	key={id}
-																	className="my-1 w-full border-b border-stroke-weak"
+																	className="my-1 w-full border-b border-neutral-200"
 																/>
 															);
 														}
@@ -243,7 +243,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 			>
 				<Modal
 					className={cn(
-						"mr-12 size-full max-h-full max-w-sm bg-background-overlay shadow-overlay forced-colors:bg-[Canvas]",
+						"mr-12 size-full max-h-full max-w-sm bg-white shadow-overlay forced-colors:bg-[Canvas]",
 						"entering:duration-200 entering:ease-out entering:animate-in entering:slide-in-from-left",
 						"exiting:duration-200 exiting:ease-in exiting:animate-out exiting:slide-out-to-left",
 					)}
@@ -274,7 +274,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 										)}
 										href={home.href}
 									>
-										<Logo className="h-12 w-auto text-text-strong" />
+										<Logo className="h-12 w-auto text-neutral-900" />
 										<span className="sr-only">{home.label}</span>
 									</NavLink>
 									<ul className="text-small" role="list">
@@ -289,7 +289,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 														<li key={key}>
 															<NavLink
 																className={cn(
-																	"inline-flex w-full px-6 py-3 text-text-strong",
+																	"inline-flex w-full px-6 py-3 text-neutral-900",
 																	"interactive focus-visible:focus-outline focus-visible:-focus-outline-offset-2 hover:hover-overlay pressed:press-overlay",
 																	"aria-[current]:hover-overlay aria-[current]:select-overlay",
 																)}
@@ -306,7 +306,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 													return (
 														<Separator
 															key={key}
-															className="my-1 w-full border-b border-stroke-weak"
+															className="my-1 w-full border-b border-neutral-200"
 															elementType="li"
 														/>
 													);
@@ -320,7 +320,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 																<Heading>
 																	<Button
 																		className={cn(
-																			"inline-flex w-full items-center justify-between px-6 py-3 text-text-strong",
+																			"inline-flex w-full items-center justify-between px-6 py-3 text-neutral-900",
 																			"interactive focus-visible:focus-outline focus-visible:-focus-outline-offset-2 hover:hover-overlay pressed:press-overlay",
 																			"expanded:hover-overlay expanded:select-overlay",
 																		)}
@@ -345,7 +345,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 																						<li key={id}>
 																							<NavLink
 																								className={cn(
-																									"inline-flex w-full px-6 py-3 text-text-strong",
+																									"inline-flex w-full px-6 py-3 text-neutral-900",
 																									"interactive focus-visible:focus-outline focus-visible:-focus-outline-offset-2 hover:hover-overlay pressed:press-overlay",
 																									"aria-[current]:hover-overlay aria-[current]:select-overlay",
 																								)}
@@ -362,7 +362,7 @@ export function AppNavigationMobile(props: Readonly<AppNavigationMobileProps>): 
 																					return (
 																						<Separator
 																							key={id}
-																							className="my-1 w-full border-b border-stroke-weak"
+																							className="my-1 w-full border-b border-neutral-200"
 																							elementType="li"
 																						/>
 																					);

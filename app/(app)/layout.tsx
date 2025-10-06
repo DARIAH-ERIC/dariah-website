@@ -65,7 +65,7 @@ export default async function LocaleLayout(props: Readonly<LocaleLayoutProps>): 
 				fonts.body.variable,
 				fonts.heading.variable,
 				fonts.code.variable,
-				"bg-background-base text-text-strong antialiased",
+				"bg-white text-neutral-900 antialiased",
 			)}
 			lang={defaultLocale}
 		>
