@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -14,9 +14,9 @@ interface ImpactCaseStudyPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: ImpactCaseStudyPageProps["params"];
-}): Promise<Awaited<Array<Pick<ImpactCaseStudyPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<
+	Array<Pick<ImpactCaseStudyPageProps["params"], "id">>
+> {
 	const ids = await createCollectionResource("impact-case-studies", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -27,19 +27,17 @@ export async function generateStaticParams(_props: {
 
 export async function generateMetadata(
 	props: Readonly<ImpactCaseStudyPageProps>,
-	_parent: ResolvingMetadata,
 ): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const impactCaseStudyItem = await createCollectionResource(
-		"impact-case-studies",
-		defaultLocale,
-	).read(id);
+	const entry = await createCollectionResource("impact-case-studies", defaultLocale).read(id);
+
+	const { title } = entry.data;
 
 	const metadata: Metadata = {
-		title: impactCaseStudyItem.data.title,
+		title,
 	};
 
 	return metadata;
@@ -52,18 +50,11 @@ export default async function ImpactCaseStudyPage(
 
 	const id = decodeURIComponent(params.id);
 
-	const impactCaseStudyItem = await createCollectionResource(
-		"impact-case-studies",
-		defaultLocale,
-	).read(id);
-	const { default: Content } = await impactCaseStudyItem.compile(impactCaseStudyItem.data.content);
+	const entry = await createCollectionResource("impact-case-studies", defaultLocale).read(id);
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative bg-fill-weaker py-16 xs:py-24">
-				<h1>{impactCaseStudyItem.data.title}</h1>
-				<Content />
-			</section>
+		<MainContent>
+			<pre>{JSON.stringify(entry.data, null, 2)}</pre>
 		</MainContent>
 	);
 }

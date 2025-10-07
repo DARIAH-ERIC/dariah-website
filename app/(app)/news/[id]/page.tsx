@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -14,9 +14,7 @@ interface NewsPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: NewsPageProps["params"];
-}): Promise<Awaited<Array<Pick<NewsPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<Array<Pick<NewsPageProps["params"], "id">>> {
 	const ids = await createCollectionResource("news", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -25,18 +23,17 @@ export async function generateStaticParams(_props: {
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<NewsPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<NewsPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const newsItem = await createCollectionResource("news", defaultLocale).read(id);
+	const entry = await createCollectionResource("news", defaultLocale).read(id);
+
+	const { title } = entry.data;
 
 	const metadata: Metadata = {
-		title: newsItem.data.title,
+		title,
 	};
 
 	return metadata;
@@ -47,15 +44,11 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 
 	const id = decodeURIComponent(params.id);
 
-	const newsItem = await createCollectionResource("news", defaultLocale).read(id);
-	const { default: Content } = await newsItem.compile(newsItem.data.content);
+	const entry = await createCollectionResource("news", defaultLocale).read(id);
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative bg-fill-weaker py-16 xs:py-24">
-				<h1>{newsItem.data.title}</h1>
-				<Content />
-			</section>
+		<MainContent>
+			<pre>{JSON.stringify(entry.data, null, 2)}</pre>
 		</MainContent>
 	);
 }

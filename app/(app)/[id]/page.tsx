@@ -1,6 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import { notFound } from "next/navigation";
-import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -16,9 +14,9 @@ interface ContentPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: ContentPageProps["params"];
-}): Promise<Awaited<Array<Pick<ContentPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<
+	Array<Pick<ContentPageProps["params"], "id">>
+> {
 	const ids = await createCollectionResource("pages", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -27,23 +25,18 @@ export async function generateStaticParams(_props: {
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<ContentPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<ContentPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const metadata: Metadata = {};
+	const page = await createCollectionResource("pages", defaultLocale).read(id);
 
-	try {
-		const page = await createCollectionResource("pages", defaultLocale).read(id);
-		metadata.title = page.data.title;
-	} catch {
-		const t = await getTranslations("NotFoundPage");
-		metadata.title = t("meta.title");
-	}
+	const { title } = page.data;
+
+	const metadata: Metadata = {
+		title,
+	};
 
 	return metadata;
 }
@@ -53,22 +46,11 @@ export default async function ContentPage(props: Readonly<ContentPageProps>): Pr
 
 	const id = decodeURIComponent(params.id);
 
-	try {
-		const page = await createCollectionResource("pages", defaultLocale).read(id);
+	const page = await createCollectionResource("pages", defaultLocale).read(id);
 
-		const { default: Content } = await page.compile(page.data.content);
-
-		return (
-			<MainContent className="layout-grid content-start">
-				<section className="layout-subgrid prose relative py-16 xs:py-24">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
-						{page.data.title}
-					</h1>
-					<Content />
-				</section>
-			</MainContent>
-		);
-	} catch {
-		notFound();
-	}
+	return (
+		<MainContent>
+			<pre>{JSON.stringify(page.data, null, 2)}</pre>
+		</MainContent>
+	);
 }
