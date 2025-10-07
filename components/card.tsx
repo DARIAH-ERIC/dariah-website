@@ -30,14 +30,14 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 		props;
 
 	const defaultClassNames =
-		"relative overflow-hidden rounded-4 border border-stroke-weak bg-background-raised shadow-raised hover:shadow-overlay";
+		"relative overflow-hidden rounded-4 border border-neutral-200 bg-background-raised shadow-raised hover:shadow-overlay";
 
 	return (
 		<article className={cn(defaultClassNames, className)}>
 			{"image" in rest ? (
 				<Image
 					alt=""
-					className={cn("size-full border-b border-stroke-weak", {
+					className={cn("size-full border-b border-neutral-200", {
 						"object-cover": discriminent !== "organisation",
 						"object-contain": discriminent === "organisation",
 					})}
@@ -51,14 +51,14 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 			) : null}
 			<div className="grid gap-y-6 p-8">
 				<div className="flex flex-col">
-					<h3 className="pb-2 font-heading text-heading-4 font-strong text-text-strong">
+					<h3 className="pb-2 font-heading text-heading-4 font-strong text-neutral-900">
 						{
 							// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 							summary?.title || title
 						}
 					</h3>
 					{startDate ? (
-						<p className="grow text-small text-text-weak">
+						<p className="grow text-small text-neutral-600">
 							<span>
 								<DateComponent date={startDate} />
 								{endDate ? " - " : null}
@@ -66,10 +66,10 @@ export function Card(props: Readonly<CardComponentProps>): ReactNode {
 							</span>
 						</p>
 					) : null}
-					{location ? <p className="grow text-small text-text-weak">{location}</p> : null}
+					{location ? <p className="grow text-small text-neutral-600">{location}</p> : null}
 					<div>
 						{summary ? (
-							<p className="line-clamp-3 grow text-small text-text-weak">{summary.content}</p>
+							<p className="line-clamp-3 grow text-small text-neutral-600">{summary.content}</p>
 						) : null}
 					</div>
 					<footer>

@@ -4,7 +4,6 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
-import { ColorSchemeScript } from "@/lib/color-scheme-script";
 import * as fonts from "@/lib/fonts";
 import { defaultLocale } from "@/lib/i18n/locales";
 
@@ -37,21 +36,15 @@ export default async function NotFoundPage(): Promise<ReactNode> {
 			className={cn(
 				fonts.body.variable,
 				fonts.heading.variable,
-				fonts.mono.variable,
-				"bg-background-base text-text-strong antialiased",
+				fonts.code.variable,
+				"bg-white text-neutral-900 antialiased",
 			)}
 			lang={defaultLocale}
-			/**
-			 * Suppressing hydration warning because we add `data-ui-color-scheme` before first paint.
-			 */
-			suppressHydrationWarning={true}
 		>
 			<body>
-				<ColorSchemeScript />
-
 				<MainContent className="layout-grid min-h-full bg-fill-weaker">
 					<section className="grid place-content-center place-items-center py-16 xs:py-24">
-						<h1 className="text-balance text-center font-heading text-display font-strong text-text-strong">
+						<h1 className="text-balance text-center font-heading text-display font-strong text-neutral-900">
 							{t("title")}
 						</h1>
 					</section>

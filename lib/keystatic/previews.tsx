@@ -23,7 +23,7 @@ const calloutKindStyles = styles({
 			caution: "border border-stroke-error-weak bg-fill-error-weak text-text-error",
 			important:
 				"border border-stroke-information-weak bg-fill-information-weak text-text-information",
-			note: "border border-stroke-weak bg-fill-weak text-text-weak",
+			note: "border border-neutral-200 bg-fill-weak text-neutral-600",
 			tip: "border border-stroke-success-weak bg-fill-success-weak text-text-success",
 			warning: "border border-stroke-warning-weak bg-fill-warning-weak text-text-warning",
 		},
@@ -87,7 +87,7 @@ export function EmbedPreview(props: Readonly<EmbedPreviewProps>): ReactNode {
 					// eslint-disable-next-line jsx-a11y/iframe-has-title
 					<iframe
 						allowFullScreen={true}
-						className="aspect-video w-full overflow-hidden rounded-2 border border-stroke-weak"
+						className="aspect-video w-full overflow-hidden rounded-2 border border-neutral-200"
 						src={src}
 					/>
 				) : null}
@@ -117,7 +117,7 @@ export function FigurePreview(props: Readonly<FigurePreviewProps>): ReactNode {
 					// eslint-disable-next-line @next/next/no-img-element
 					<img
 						alt={alt}
-						className="w-full overflow-hidden rounded-2 border border-stroke-weak"
+						className="w-full overflow-hidden rounded-2 border border-neutral-200"
 						src={url}
 					/>
 				) : null}
@@ -184,7 +184,7 @@ export function HeadingIdPreview(props: Readonly<HeadingIdPreviewProps>): ReactN
 
 	return (
 		<NotEditable className="inline">
-			<span className="border-stroke-weak bg-fill-weak px-2 text-text-weak opacity-50">
+			<span className="border-neutral-200 bg-fill-weak px-2 text-neutral-600 opacity-50">
 				#{children}
 			</span>
 		</NotEditable>
@@ -267,7 +267,7 @@ export function VideoPreview(props: Readonly<VideoPreviewProps>): ReactNode {
 					<iframe
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						allowFullScreen={true}
-						className="aspect-video w-full overflow-hidden rounded-2 border border-stroke-weak"
+						className="aspect-video w-full overflow-hidden rounded-2 border border-neutral-200"
 						referrerPolicy="strict-origin-when-cross-origin"
 						src={href}
 					/>

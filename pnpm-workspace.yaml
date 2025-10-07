@@ -1,5 +1,5 @@
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - esbuild
   - sharp
   - simple-git-hooks
@@ -9,3 +9,8 @@ onlyBuiltDependencies:
 shellEmulator: true
 
 strictDepBuilds: true
+
+# Incorrect peer deps in `@keystar/ui` package.
+overrides:
+  "@types/react": "$@types/react"
+  "@types/react-dom": "$@types/react-dom"

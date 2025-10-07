@@ -29,15 +29,4 @@ test.describe("index page", () => {
 			await expect(indexPage.page).toHaveScreenshot();
 		});
 	});
-
-	// eslint-disable-next-line playwright/no-skipped-test
-	test.describe.skip("should not have visible changes", () => {
-		test.use({ colorScheme: "dark" });
-
-		test("in dark mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage();
-			await indexPage.goto();
-			await expect(indexPage.page).toHaveScreenshot();
-		});
-	});
 });

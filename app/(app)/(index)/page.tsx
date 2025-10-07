@@ -51,10 +51,10 @@ function HeroSection(props: Readonly<HeroSectionProps>): ReactNode {
 	return (
 		<section className="layout-subgrid relative gap-y-10 bg-fill-weaker py-16 xs:py-24">
 			<div className="max-w-text grid gap-y-6">
-				<h1 className="text-balance font-heading text-display font-strong text-text-strong">
+				<h1 className="text-balance font-heading text-display font-strong text-neutral-900">
 					{title}
 				</h1>
-				<p className="font-heading text-small text-text-weak xs:text-heading-4">{lead}</p>
+				<p className="font-heading text-small text-neutral-600 xs:text-heading-4">{lead}</p>
 			</div>
 		</section>
 	);
@@ -70,7 +70,7 @@ function FeaturesSection(props: Readonly<FeatureSectionProps>): ReactNode {
 					<CardSection
 						key={idx}
 						cards={section.value.cards}
-						className="layout-subgrid relative gap-y-12 border-t border-stroke-weak py-16 xs:py-24"
+						className="layout-subgrid relative gap-y-12 border-t border-neutral-200 py-16 xs:py-24"
 						title={section.value.title}
 					/>
 				);

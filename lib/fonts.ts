@@ -1,24 +1,18 @@
-import { Fira_Code, Inter } from "next/font/google";
+import { Fira_Code, Lato, Roboto } from "next/font/google";
 
-export const body = Inter({
-	axes: ["opsz"],
-	display: "swap",
-	style: ["normal", "italic"],
-	subsets: ["latin", "latin-ext"],
-	variable: "--font-body",
+export const body = Roboto({
+	subsets: ["latin"],
+	variable: "--_font-body",
+	weight: ["400"],
 });
 
-export const heading = Inter({
-	axes: ["opsz"],
-	display: "swap",
-	style: ["normal", "italic"],
-	subsets: ["latin", "latin-ext"],
-	variable: "--font-heading",
+export const heading = Lato({
+	subsets: ["latin"],
+	variable: "--_font-heading",
+	weight: ["700"],
 });
 
-export const mono = Fira_Code({
-	display: "swap",
+export const code = Fira_Code({
 	preload: false,
-	subsets: ["latin", "latin-ext"],
-	variable: "--font-mono",
+	variable: "--_font-code",
 });

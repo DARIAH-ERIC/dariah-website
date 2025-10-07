@@ -30,7 +30,7 @@ export default function InternalError(props: Readonly<InternalErrorProps>): Reac
 	return (
 		<MainContent className="layout-grid bg-fill-weaker">
 			<section className="grid place-content-center place-items-center gap-y-8 py-16 xs:py-24">
-				<h1 className="text-balance text-center font-heading text-display font-strong text-text-strong">
+				<h1 className="text-balance text-center font-heading text-display font-strong text-neutral-900">
 					{t("something-went-wrong")}
 				</h1>
 				<Button

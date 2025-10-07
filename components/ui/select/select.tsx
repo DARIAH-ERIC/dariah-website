@@ -61,12 +61,12 @@ export const Select = forwardRef(function Select<T extends object>(
 					"focus-within:border-accent-600 focus-within:bg-gray-200 hover:focus-within:border-accent-600",
 				)}
 			>
-				<Input className="bg-transparent text-regular focus:outline-none" />
+				<Input className="bg-transparent text-regular focus:outline-hidden" />
 				<Button className="text-primary-500">
 					{open ? <ChevronUpIcon /> : <ChevronDownIcon />}
 				</Button>
 			</div>
-			<Popover className="-ml-2.5 box-content w-[--trigger-width] bg-white px-2.5 text-regular text-black">
+			<Popover className="-ml-2.5 box-content w-(--trigger-width) bg-white px-2.5 text-regular text-black">
 				<ListBox
 					renderEmptyState={() => {
 						return <div className="p-2">{noOptionsText}</div>;

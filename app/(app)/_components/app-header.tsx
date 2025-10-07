@@ -3,7 +3,6 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { AppNavigation, AppNavigationMobile } from "@/app/(app)/_components/app-navigation";
-import { ColorSchemeSwitcher } from "@/app/(app)/_components/color-scheme-switcher";
 import { NavLink } from "@/components/nav-link";
 import { createHref } from "@/lib/create-href";
 import { defaultLocale } from "@/lib/i18n/locales";
@@ -28,7 +27,7 @@ export async function AppHeader(): Promise<ReactNode> {
 	} as const;
 
 	return (
-		<header className="border-b border-stroke-weak bg-fill-weaker">
+		<header className="border-neutral-200 bg-fill-weaker border-b">
 			<div className="flex justify-between gap-x-12 px-6">
 				<AppNavigation home={home} label={label} navigation={links} />
 				<AppNavigationMobile
@@ -41,10 +40,9 @@ export async function AppHeader(): Promise<ReactNode> {
 				/>
 
 				<div className="flex items-center gap-x-6">
-					<ColorSchemeSwitcher />
 					<NavLink
 						className={cn(
-							"inline-flex px-4 py-6 text-text-strong",
+							"text-neutral-900 inline-flex px-4 py-6",
 							"interactive focus-visible:focus-outline hover:hover-overlay pressed:press-overlay",
 							"aria-[current]:select-overlay aria-[current]:select-overlay-border-bottom",
 						)}

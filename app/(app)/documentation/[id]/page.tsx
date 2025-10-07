@@ -58,14 +58,14 @@ export default async function DocumentationPage(
 		<MainContent className="layout-grid content-start">
 			<section className="layout-subgrid relative bg-fill-weaker py-16 xs:py-20">
 				<div className="max-w-text grid gap-y-4">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-text-strong">
+					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
 						{title}
 					</h1>
-					<p className="font-heading text-small text-text-weak xs:text-heading-4">{lead}</p>
+					<p className="font-heading text-small text-neutral-600 xs:text-heading-4">{lead}</p>
 				</div>
 			</section>
 
-			<section className="layout-subgrid typography content-max-w-text relative border-t border-stroke-weak py-16 xs:py-20">
+			<section className="layout-subgrid typography content-max-w-text relative border-t border-neutral-200 py-16 xs:py-20">
 				<Content />
 			</section>
 		</MainContent>

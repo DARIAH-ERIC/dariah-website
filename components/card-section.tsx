@@ -17,10 +17,10 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 	return (
 		<section className={className}>
 			<header className="max-w-text grid gap-y-4">
-				<h2 className="text-balance font-heading text-heading-2 font-strong text-text-strong">
+				<h2 className="text-balance font-heading text-heading-2 font-strong text-neutral-900">
 					{title}
 				</h2>
-				{/*<p className="font-heading text-heading-4 text-text-weak">
+				{/*<p className="font-heading text-heading-4 text-neutral-600">
 										This template comes with important features built in.
 									</p>*/}
 			</header>
@@ -35,7 +35,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								<li key={idx}>
 									{
 										<Card
-											className="grid h-full grid-rows-[13rem,auto]"
+											className="grid h-full grid-rows-[13rem_auto]"
 											discriminent="custom"
 											{...card.value}
 										/>
@@ -52,7 +52,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								<li key={id}>
 									{
 										<Card
-											className="grid h-full grid-rows-[13rem,auto]"
+											className="grid h-full grid-rows-[13rem_auto]"
 											discriminent="news"
 											{...news.data}
 											link={link}
@@ -73,7 +73,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								<li key={id}>
 									{
 										<Card
-											className="grid h-full grid-rows-[13rem,auto]"
+											className="grid h-full grid-rows-[13rem_auto]"
 											discriminent="organisation"
 											{...organisation.data}
 											link={link}
@@ -91,7 +91,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto] "
+										className="grid h-full grid-rows-[13rem_auto] "
 										discriminent="page"
 										link={link}
 										{...page.data}
@@ -108,7 +108,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 								<li key={id}>
 									{
 										<Card
-											className="grid h-full grid-rows-[13rem,auto]"
+											className="grid h-full grid-rows-[13rem_auto]"
 											discriminent="project"
 											{...project.data}
 											link={link}
@@ -127,7 +127,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto]"
+										className="grid h-full grid-rows-[13rem_auto]"
 										discriminent="document-or-policy"
 										{...documentOrPolicy.data}
 										link={link}
@@ -142,7 +142,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto]"
+										className="grid h-full grid-rows-[13rem_auto]"
 										discriminent="event"
 										{...event.data}
 										link={link}
@@ -160,7 +160,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto]"
+										className="grid h-full grid-rows-[13rem_auto]"
 										discriminent="impact-case-study"
 										{...impactCaseStudy.data}
 										link={link}
@@ -176,7 +176,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto]"
+										className="grid h-full grid-rows-[13rem_auto]"
 										discriminent="strategy"
 										{...strategy.data}
 										link={link}
@@ -194,7 +194,7 @@ export function CardSection(props: Readonly<CardSectionComponentProps>): ReactNo
 							return (
 								<li key={id}>
 									<Card
-										className="grid h-full grid-rows-[13rem,auto]"
+										className="grid h-full grid-rows-[13rem_auto]"
 										discriminent="working-group"
 										{...workingGroup.data}
 										link={link}

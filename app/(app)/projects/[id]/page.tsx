@@ -89,7 +89,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 		<MainContent className="layout-grid content-start">
 			<section className="layout-subgrid relative bg-fill-weaker py-16">
 				<div className="max-w-text grid gap-y-8">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-text-strong">
+					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
 						{title}
 					</h1>
 					<dl className="grid  gap-y-2 pt-8">
@@ -135,7 +135,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 					</dl>
 				</div>
 			</section>
-			<section className="layout-subgrid typography content-max-w-text relative border-t border-stroke-weak py-16 xs:py-20">
+			<section className="layout-subgrid typography content-max-w-text relative border-t border-neutral-200 py-16 xs:py-20">
 				<Content />
 			</section>
 		</MainContent>

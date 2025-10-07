@@ -34,7 +34,7 @@ export default function NotFoundPage(_props: Readonly<NotFoundPageProps>): React
 	return (
 		<MainContent className="layout-grid bg-fill-weaker">
 			<section className="grid place-content-center place-items-center py-16 xs:py-24">
-				<h1 className="text-balance text-center font-heading text-display font-strong text-text-strong">
+				<h1 className="text-balance text-center font-heading text-display font-strong text-neutral-900">
 					{t("title")}
 				</h1>
 			</section>

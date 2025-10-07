@@ -19,7 +19,7 @@ export function AppFooter(): ReactNode {
 	};
 
 	return (
-		<footer className="layout-grid grid gap-y-6 border-t border-stroke-weak py-12">
+		<footer className="layout-grid grid gap-y-6 border-t border-neutral-200 py-12">
 			<div className="grid gap-y-8 xs:flex xs:justify-between">
 				<div className="grid gap-y-4">
 					<div>DARIAH EU</div>
@@ -32,7 +32,7 @@ export function AppFooter(): ReactNode {
 			<div className="grid gap-y-8">
 				<nav aria-label={t("navigation-secondary")}>
 					<ul
-						className="flex items-center gap-x-6 text-small text-text-weak xs:justify-center"
+						className="flex items-center gap-x-6 text-small text-neutral-600 xs:justify-center"
 						role="list"
 					>
 						<li>

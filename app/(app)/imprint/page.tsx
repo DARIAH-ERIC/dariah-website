@@ -32,7 +32,7 @@ export default async function ImprintPage(_props: Readonly<ImprintPageProps>): P
 		<MainContent className="layout-grid content-start">
 			<section className="layout-subgrid relative grid gap-y-6 bg-fill-weaker py-16 xs:py-20">
 				<div className="max-w-text grid gap-y-4">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-text-strong">
+					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
 						{t("title")}
 					</h1>
 				</div>
@@ -40,7 +40,7 @@ export default async function ImprintPage(_props: Readonly<ImprintPageProps>): P
 
 			<section
 				dangerouslySetInnerHTML={{ __html: html }}
-				className="layout-subgrid content-max-w-text typography relative border-t border-stroke-weak py-16 xs:py-20"
+				className="layout-subgrid content-max-w-text typography relative border-t border-neutral-200 py-16 xs:py-20"
 			/>
 		</MainContent>
 	);
