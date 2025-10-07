@@ -28,12 +28,20 @@ node_modules/
 
 # misc
 .DS_Store
+*.pem
 .idea/
 
 # next.js
 .next/
 next-env.d.ts
 out/
+
+# self-signed certificates
+certificates
+
+# i18n
+/content/**/*.d.json.ts
+/messages/**/*.d.json.ts
 
 # test
 /coverage/
@@ -44,13 +52,18 @@ out/
 /playwright-report/
 /test-results/
 
+# typesense
+scripts/typesense/documents/
+
 
 ## .dockerignore ##
 
 # git
 .git/
 .gitattributes
-.gitignore
+# must be allowed because `tailwindcss` v4 will use `.gitignore` to determine which
+# files and folders can be skipped by the compiler.
+# .gitignore
 
 # github
 .github/
@@ -69,6 +82,3 @@ playwright.config.ts
 
 # misc
 .editorconfig
-
-# typesense
-scripts/typesense/documents/
