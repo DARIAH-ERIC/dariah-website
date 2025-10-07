@@ -26,12 +26,20 @@ node_modules/
 
 # misc
 .DS_Store
+*.pem
 .idea/
 
 # next.js
 .next/
 next-env.d.ts
 out/
+
+# self-signed certificates
+certificates
+
+# i18n
+/content/**/*.d.json.ts
+/messages/**/*.d.json.ts
 
 # test
 /coverage/
