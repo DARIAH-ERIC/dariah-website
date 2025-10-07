@@ -1,5 +1,7 @@
-import type { Metadata, ResolvingMetadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { promise } from "@acdh-oeaw/lib";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -18,7 +20,7 @@ interface ProjectPageProps {
 export const dynamicParams = false;
 
 export async function generateStaticParams(): Promise<
-	Awaited<Array<Pick<ProjectPageProps["params"], "id">>>
+	Array<Pick<ProjectPageProps["params"], "id">>
 > {
 	const ids = await createCollectionResource("projects", defaultLocale).list();
 
@@ -28,18 +30,23 @@ export async function generateStaticParams(): Promise<
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<ProjectPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<ProjectPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const project = await createCollectionResource("projects", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("projects", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
+
+	const { title } = entry.data;
 
 	const metadata: Metadata = {
-		title: project.data.title,
+		title,
 	};
 
 	return metadata;
@@ -51,12 +58,15 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 	const id = decodeURIComponent(params.id);
 
 	const t = await getTranslations("ProjectPage");
+	const format = await getFormatter();
 
-	const project = await createCollectionResource("projects", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("projects", defaultLocale).read(id);
+	});
 
-	const { default: Content } = await project.compile(project.data.content);
-
-	const list = new Intl.ListFormat([defaultLocale]);
+	if (error != null) {
+		notFound();
+	}
 
 	const {
 		startDate,
@@ -65,7 +75,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 		responsiblePersons: responsiblePersonsSlugs,
 		title,
 		keywords: keywordsSlugs,
-	} = project.data;
+	} = entry.data;
 
 	const responsiblePersons = (await getRelatedEntities(
 		responsiblePersonsSlugs as Array<string>,
@@ -86,58 +96,56 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 	)) as unknown as Array<Keyword>;
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative bg-fill-weaker py-16">
-				<div className="max-w-text grid gap-y-8">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
-						{title}
-					</h1>
-					<dl className="grid  gap-y-2 pt-8">
-						{projectPartners.length > 0 && (
-							<div className="grid gap-y-1 text-sm">
-								<dt className="font-strong uppercase">{t("partners")}</dt>
-								<dd>
-									{projectPartners.map((partner) => {
-										const { name } = partner;
-										return name;
-									})}
-								</dd>
-							</div>
-						)}
-						{responsiblePersons.length > 0 && (
-							<div className="grid gap-y-1 text-sm">
-								<dt className="font-strong uppercase">{t("responsible-persons")}</dt>
-								<dd>
-									{responsiblePersons.map((person) => {
-										return person.name;
-									})}
-								</dd>
-							</div>
-						)}
+		<MainContent>
+			<div className="grid gap-y-8">
+				<h1 className="text-h1 text-balance">{title}</h1>
+
+				<dl className="grid  gap-y-2 pt-8">
+					{projectPartners.length > 0 ? (
 						<div className="grid gap-y-1 text-sm">
-							<dt className="font-strong uppercase">{t("project-start")}</dt>
-							<dd>{startDate}</dd>
-						</div>
-						<div className="grid gap-y-1 text-sm">
-							<dt className="font-strong uppercase">{t("project-end")}</dt>
-							<dd>{endDate}</dd>
-						</div>
-						<div className="grid gap-y-1 text-sm">
-							<dt className="font-strong uppercase">{t("keywords")}</dt>
+							<dt className="font-bold uppercase">{t("partners")}</dt>
 							<dd>
-								{list.format(
-									keywords.map((keyword) => {
-										return keyword.label;
-									}),
-								)}
+								{projectPartners.map((partner) => {
+									const { name } = partner;
+									return name;
+								})}
 							</dd>
 						</div>
-					</dl>
-				</div>
-			</section>
-			<section className="layout-subgrid typography content-max-w-text relative border-t border-neutral-200 py-16 xs:py-20">
-				<Content />
-			</section>
+					) : null}
+
+					{responsiblePersons.length > 0 ? (
+						<div className="grid gap-y-1 text-sm">
+							<dt className="font-bold uppercase">{t("responsible-persons")}</dt>
+							<dd>
+								{responsiblePersons.map((person) => {
+									return person.name;
+								})}
+							</dd>
+						</div>
+					) : null}
+
+					<div className="grid gap-y-1 text-sm">
+						<dt className="font-bold uppercase">{t("project-start")}</dt>
+						<dd>{startDate}</dd>
+					</div>
+
+					<div className="grid gap-y-1 text-sm">
+						<dt className="font-bold uppercase">{t("project-end")}</dt>
+						<dd>{endDate}</dd>
+					</div>
+
+					<div className="grid gap-y-1 text-sm">
+						<dt className="font-bold uppercase">{t("keywords")}</dt>
+						<dd>
+							{format.list(
+								keywords.map((keyword) => {
+									return keyword.label;
+								}),
+							)}
+						</dd>
+					</div>
+				</dl>
+			</div>
 		</MainContent>
 	);
 }

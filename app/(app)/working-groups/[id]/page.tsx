@@ -1,4 +1,6 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import { promise } from "@acdh-oeaw/lib";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -14,9 +16,9 @@ interface WorkingGroupPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: WorkingGroupPageProps["params"];
-}): Promise<Awaited<Array<Pick<WorkingGroupPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<
+	Awaited<Array<Pick<WorkingGroupPageProps["params"], "id">>>
+> {
 	const ids = await createCollectionResource("working-groups", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -25,18 +27,23 @@ export async function generateStaticParams(_props: {
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<WorkingGroupPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const strategyItem = await createCollectionResource("working-groups", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("working-groups", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
+
+	const { name } = entry.data;
 
 	const metadata: Metadata = {
-		title: strategyItem.data.name,
+		title: name,
 	};
 
 	return metadata;
@@ -49,15 +56,17 @@ export default async function WorkingGroupPage(
 
 	const id = decodeURIComponent(params.id);
 
-	const workingGroupItem = await createCollectionResource("working-groups", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("working-groups", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative bg-fill-weaker py-16 xs:py-24">
-				<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
-					{workingGroupItem.data.name}
-				</h1>
-			</section>
+		<MainContent>
+			<pre>{JSON.stringify(entry.data, null, 2)}</pre>
 		</MainContent>
 	);
 }

@@ -1,5 +1,5 @@
 import { HttpError, request } from "@acdh-oeaw/lib";
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -8,12 +8,7 @@ import { MainContent } from "@/components/main-content";
 import { createImprintUrl } from "@/config/imprint.config";
 import { defaultLocale, getIntlLanguage, type IntlLocale } from "@/lib/i18n/locales";
 
-interface ImprintPageProps {}
-
-export async function generateMetadata(
-	_props: Readonly<ImprintPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("ImprintPage");
 
 	const metadata: Metadata = {
@@ -23,25 +18,15 @@ export async function generateMetadata(
 	return metadata;
 }
 
-export default async function ImprintPage(_props: Readonly<ImprintPageProps>): Promise<ReactNode> {
+export default async function ImprintPage(): Promise<ReactNode> {
 	const t = await getTranslations("ImprintPage");
 
 	const html = await getImprintHtml(defaultLocale);
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative grid gap-y-6 bg-fill-weaker py-16 xs:py-20">
-				<div className="max-w-text grid gap-y-4">
-					<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
-						{t("title")}
-					</h1>
-				</div>
-			</section>
-
-			<section
-				dangerouslySetInnerHTML={{ __html: html }}
-				className="layout-subgrid content-max-w-text typography relative border-t border-neutral-200 py-16 xs:py-20"
-			/>
+		<MainContent>
+			<h1>{t("title")}</h1>
+			<div dangerouslySetInnerHTML={{ __html: html }} />
 		</MainContent>
 	);
 }

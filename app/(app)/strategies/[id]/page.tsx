@@ -1,4 +1,6 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import { promise } from "@acdh-oeaw/lib";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -14,9 +16,9 @@ interface StrategyPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: StrategyPageProps["params"];
-}): Promise<Awaited<Array<Pick<StrategyPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<
+	Array<Pick<StrategyPageProps["params"], "id">>
+> {
 	const ids = await createCollectionResource("strategies", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -25,18 +27,23 @@ export async function generateStaticParams(_props: {
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<StrategyPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<StrategyPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const strategyItem = await createCollectionResource("strategies", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("strategies", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
+
+	const { title } = entry.data;
 
 	const metadata: Metadata = {
-		title: strategyItem.data.title,
+		title,
 	};
 
 	return metadata;
@@ -47,15 +54,17 @@ export default async function StrategyPage(props: Readonly<StrategyPageProps>): 
 
 	const id = decodeURIComponent(params.id);
 
-	const strategyItem = await createCollectionResource("strategies", defaultLocale).read(id);
-	const { default: Content } = await strategyItem.compile(strategyItem.data.content);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("strategies", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative bg-fill-weaker py-16 xs:py-24">
-				<h1>{strategyItem.data.title}</h1>
-				<Content />
-			</section>
+		<MainContent>
+			<pre>{JSON.stringify(entry.data, null, 2)}</pre>
 		</MainContent>
 	);
 }

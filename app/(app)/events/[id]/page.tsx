@@ -1,4 +1,6 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import { promise } from "@acdh-oeaw/lib";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -14,9 +16,7 @@ interface EventPageProps {
 
 export const dynamicParams = false;
 
-export async function generateStaticParams(_props: {
-	params: EventPageProps["params"];
-}): Promise<Awaited<Array<Pick<EventPageProps["params"], "id">>>> {
+export async function generateStaticParams(): Promise<Array<Pick<EventPageProps["params"], "id">>> {
 	const ids = await createCollectionResource("events", defaultLocale).list();
 
 	return ids.map((id) => {
@@ -25,18 +25,23 @@ export async function generateStaticParams(_props: {
 	});
 }
 
-export async function generateMetadata(
-	props: Readonly<EventPageProps>,
-	_parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<EventPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const id = decodeURIComponent(params.id);
 
-	const event = await createCollectionResource("events", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("events", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
+
+	const { title } = entry.data;
 
 	const metadata: Metadata = {
-		title: event.data.title,
+		title,
 	};
 
 	return metadata;
@@ -47,17 +52,17 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 
 	const id = decodeURIComponent(params.id);
 
-	const event = await createCollectionResource("events", defaultLocale).read(id);
-	const { default: Content } = await event.compile(event.data.content);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("events", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
-		<MainContent className="layout-grid content-start">
-			<section className="layout-subgrid relative py-16 xs:py-24">
-				<h1 className="text-balance font-heading text-heading-1 font-strong text-neutral-900">
-					{event.data.title}
-				</h1>
-				<Content />
-			</section>
+		<MainContent>
+			<pre>{JSON.stringify(entry.data, null, 2)}</pre>
 		</MainContent>
 	);
 }
