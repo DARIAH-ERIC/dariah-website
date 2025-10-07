@@ -1,25 +1,31 @@
 import { expect, test } from "@/e2e/lib/test";
-import { defaultLocale, locales } from "@/lib/i18n/locales";
+import { getIntlLanguage, locales } from "@/lib/i18n/locales";
 
 test.describe("imprint page", () => {
 	test("should have document title", async ({ createImprintPage }) => {
-		const { i18n, imprintPage } = await createImprintPage();
-		await imprintPage.goto();
+		for (const locale of locales) {
+			const { i18n, imprintPage } = await createImprintPage(locale);
+			await imprintPage.goto();
 
-		await expect(imprintPage.page).toHaveTitle(
-			[i18n.t("ImprintPage.meta.title"), i18n.t("metadata.title")].join(" | "),
-		);
+			await expect(imprintPage.page).toHaveTitle(
+				[i18n.t("ImprintPage.meta.title"), i18n.messages.metadata.title].join(" | "),
+			);
+		}
 	});
 
 	test("should have imprint text", async ({ createImprintPage }) => {
 		const imprints = {
-			"en-GB": "Legal disclosure",
+			de: "Offenlegung",
+			en: "Legal disclosure",
 		};
 
-		const { imprintPage } = await createImprintPage();
-		await imprintPage.goto();
+		for (const locale of locales) {
+			const { imprintPage } = await createImprintPage(locale);
+			await imprintPage.goto();
 
-		await expect(imprintPage.page.getByRole("main")).toContainText(imprints[defaultLocale]);
+			const language = getIntlLanguage(locale);
+			await expect(imprintPage.page.getByRole("main")).toContainText(imprints[language]);
+		}
 	});
 
 	test("should not have any automatically detectable accessibility issues", async ({
@@ -35,15 +41,29 @@ test.describe("imprint page", () => {
 		}
 	});
 
-	// eslint-disable-next-line playwright/no-skipped-test
-	test.describe.skip("should not have visible changes", () => {
+	test.describe("should not have visible changes", () => {
 		test.use({ colorScheme: "light" });
 
 		test("in light mode", async ({ createImprintPage }) => {
-			const { imprintPage } = await createImprintPage();
-			await imprintPage.goto();
+			for (const locale of locales) {
+				const { imprintPage } = await createImprintPage(locale);
+				await imprintPage.goto();
 
-			await expect(imprintPage.page).toHaveScreenshot();
+				await expect(imprintPage.page).toHaveScreenshot({ fullPage: true });
+			}
+		});
+	});
+
+	test.describe("should not have visible changes", () => {
+		test.use({ colorScheme: "dark" });
+
+		test("in dark mode", async ({ createImprintPage }) => {
+			for (const locale of locales) {
+				const { imprintPage } = await createImprintPage(locale);
+				await imprintPage.goto();
+
+				await expect(imprintPage.page).toHaveScreenshot({ fullPage: true });
+			}
 		});
 	});
 });

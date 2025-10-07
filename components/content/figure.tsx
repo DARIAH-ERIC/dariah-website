@@ -1,8 +1,8 @@
-import { cn } from "@acdh-oeaw/style-variants";
+import cn from "clsx/lite";
 import type { ReactNode } from "react";
 
-import { ServerImage as Image } from "@/components/server-image";
-import type { FigureAlignment } from "@/lib/keystatic/component-options";
+import { Image } from "@/components/image";
+import type { FigureAlignment } from "@/lib/content/options";
 
 interface FigureProps {
 	/** @default "stretch" */
@@ -20,15 +20,8 @@ export function Figure(props: Readonly<FigureProps>): ReactNode {
 	const { alignment = "stretch", alt = "", children, height, src, width } = props;
 
 	return (
-		<figure className={cn("grid gap-y-2", alignment === "center" ? "justify-center" : undefined)}>
-			{/* @ts-expect-error @see https://github.com/vercel/next.js/discussions/67365 */}
-			<Image
-				alt={alt}
-				className="overflow-hidden rounded-2"
-				height={height}
-				src={src}
-				width={width}
-			/>
+		<figure className={cn("flex flex-col", alignment === "center" ? "justify-center" : undefined)}>
+			<Image alt={alt} height={height} src={src} width={width} />
 			<figcaption>{children}</figcaption>
 		</figure>
 	);

@@ -1,14 +1,8 @@
 "use client";
 
 import { filterDOMProps, mergeRefs } from "@react-aria/utils";
-import {
-	type ElementType,
-	type ForwardedRef,
-	forwardRef,
-	type ReactNode,
-	useMemo,
-	useRef,
-} from "react";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
+import { type ElementType, type ReactNode, type Ref, useMemo, useRef } from "react";
 import {
 	mergeProps,
 	useFocusable,
@@ -17,39 +11,36 @@ import {
 	useObjectRef,
 	usePress,
 } from "react-aria";
-import type { LinkProps as AriaLinkProps } from "react-aria-components";
-
-import { LocaleLink, type LocaleLinkProps } from "@/lib/navigation/navigation";
-import { useRenderProps } from "@/lib/use-render-props";
+import { type LinkProps as AriaLinkProps, useRenderProps } from "react-aria-components";
 
 /**
  * Not using `Link` from `react-aria-components` directly, because we want `next/link`'s built-in
  * prefetch behavior.
  *
- * @see https://github.com/vercel/next.js/discussions/73381
+ * @see {@link https://github.com/vercel/next.js/discussions/73381}
  *
- * @see https://github.com/adobe/react-spectrum/blob/main/packages/react-aria-components/src/Link.tsx
- * @see https://github.com/adobe/react-spectrum/blob/main/packages/%40react-aria/link/src/useLink.ts
+ * @see {@link https://github.com/adobe/react-spectrum/blob/main/packages/react-aria-components/src/Link.tsx}
+ * @see {@link https://github.com/adobe/react-spectrum/blob/main/packages/%40react-aria/link/src/useLink.ts}
  */
 
-export interface LinkProps
+interface LinkProps<T extends string>
 	extends Pick<
-			LocaleLinkProps,
-			"aria-current" | "href" | "id" | "locale" | "prefetch" | "replace" | "scroll" | "shallow"
+			NextLinkProps<T>,
+			"aria-current" | "id" | "prefetch" | "replace" | "scroll" | "shallow"
 		>,
-		Omit<AriaLinkProps, "elementType" | "href" | "routerOptions" | "slot"> {}
+		Omit<AriaLinkProps, "elementType" | "href" | "routerOptions" | "slot"> {
+	ref?: Ref<HTMLAnchorElement | HTMLSpanElement> | undefined;
+	href: string;
+}
 
-export const Link = forwardRef(function Link(
-	props: Readonly<LinkProps>,
-	forwardedRef: ForwardedRef<HTMLAnchorElement | HTMLSpanElement>,
-): ReactNode {
+export function Link<T extends string>(props: Readonly<LinkProps<T>>): ReactNode {
 	/** Ensure `className` is passed to `mergProps` only once to avoid duplication. */
-	const { className: _, ...interactionProps } = props;
+	const { className: _, ref: forwardedRef, ...interactionProps } = props;
 
 	const ref = useRef<HTMLAnchorElement | HTMLSpanElement>(null);
 	const linkRef = useObjectRef(
 		useMemo(() => {
-			// eslint-disable-next-line react-compiler/react-compiler
+			// eslint-disable-next-line react-hooks/refs
 			return mergeRefs(forwardedRef, ref);
 		}, [forwardedRef, ref]),
 	);
@@ -57,7 +48,7 @@ export const Link = forwardRef(function Link(
 	const isDisabled = props.isDisabled === true;
 	const isCurrent = Boolean(props["aria-current"]);
 	const isLinkElement = Boolean(props.href) && !isDisabled;
-	const ElementType: ElementType = isLinkElement ? LocaleLink : "span";
+	const ElementType: ElementType = isLinkElement ? NextLink : "span";
 
 	const { focusableProps } = useFocusable(interactionProps, linkRef);
 	const { pressProps, isPressed } = usePress({ ...interactionProps, ref: linkRef });
@@ -100,4 +91,4 @@ export const Link = forwardRef(function Link(
 			{renderProps.children}
 		</ElementType>
 	);
-});
+}

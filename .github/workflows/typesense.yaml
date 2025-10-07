@@ -1,0 +1,46 @@
+name: Populate typesense search index
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}-typesense"
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  typesense:
+    name: Populate typesense search index
+    if: ${{ startsWith(github.head_ref, 'content/') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # - name: Transform content
+      #   run: pnpm run content:build
+
+      - name: Populate typesense search index
+        run: pnpm run typesense:populate
+        env:
+          NEXT_PUBLIC_TYPESENSE_COLLECTION_NAME: "${{ vars.NEXT_PUBLIC_TYPESENSE_COLLECTION_NAME }}"
+          NEXT_PUBLIC_TYPESENSE_HOST: "${{ vars.NEXT_PUBLIC_TYPESENSE_HOST }}"
+          NEXT_PUBLIC_TYPESENSE_PORT: "${{ vars.NEXT_PUBLIC_TYPESENSE_PORT }}"
+          NEXT_PUBLIC_TYPESENSE_PROTOCOL: "${{ vars.NEXT_PUBLIC_TYPESENSE_PROTOCOL }}"
+          TYPESENSE_ADMIN_API_KEY: "${{ secrets.TYPESENSE_ADMIN_API_KEY }}"

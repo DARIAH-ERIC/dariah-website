@@ -1,12 +1,36 @@
-// eslint-disable-next-line no-restricted-imports
-import Link from "next/link";
-import type { ComponentPropsWithRef, FC } from "react";
+import type { ReactNode } from "react";
 
-// eslint-disable-next-line no-restricted-imports
-export { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
+export interface NavigationAction {
+	type: "action";
+	label: string;
+	icon?: ReactNode;
+	onAction: () => void;
+}
 
-export type LocaleLinkProps = Omit<ComponentPropsWithRef<typeof Link>, "href"> & {
-	href?: string | undefined;
-};
+export interface NavigationLink {
+	type: "link";
+	label: string;
+	icon?: ReactNode;
+	href: string;
+}
 
-export const LocaleLink = Link as FC<LocaleLinkProps>;
+export interface NavigationSeparator {
+	type: "separator";
+}
+
+export type NavigationMenuItem = NavigationLink | NavigationSeparator | NavigationAction;
+
+export interface NavigationMenu {
+	type: "menu";
+	label: string;
+	icon?: ReactNode;
+	children: Record<string, NavigationMenuItem>;
+}
+
+export type NavigationItem =
+	| NavigationAction
+	| NavigationLink
+	| NavigationSeparator
+	| NavigationMenu;
+
+export type NavigationConfig = Record<string, NavigationItem>;

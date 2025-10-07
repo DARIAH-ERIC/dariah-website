@@ -5,8 +5,12 @@ import { lazy } from "react";
 /**
  * Defer loading i18n functionality client-side until needed.
  *
- * @see https://next-intl-docs.vercel.app/docs/environments/error-files#errorjs
+ * @see {@link https://next-intl-docs.vercel.app/docs/environments/error-files#errorjs}
  */
-export default lazy(async () => {
-	return import("@/app/(app)/internal-error");
+const ErrorPage = lazy(() => {
+	return import("@/app/(app)/error-page").then((module) => {
+		return { default: module.ErrorPage };
+	});
 });
+
+export default ErrorPage;

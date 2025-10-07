@@ -1,13 +1,13 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactNode } from "react";
 
-import { Link, type LinkProps } from "@/components/link";
-import { useNavLink } from "@/lib/use-nav-link";
+import { Link } from "@/components/link";
+import { useNavLink } from "@/lib/navigation/use-nav-link";
 
-export interface NavLinkProps extends LinkProps {}
+interface NavLinkProps<T extends string> extends ComponentPropsWithRef<typeof Link<T>> {}
 
-export function NavLink(props: Readonly<NavLinkProps>): ReactNode {
+export function NavLink<T extends string>(props: Readonly<NavLinkProps<T>>): ReactNode {
 	const { children, ...rest } = props;
 
 	const navLinkProps = useNavLink(rest);

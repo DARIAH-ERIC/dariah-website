@@ -1,16 +1,17 @@
 onlyBuiltDependencies:
+  - "@parcel/watcher"
   - "@tailwindcss/oxide"
   - esbuild
+  - node
   - sharp
   - simple-git-hooks
-  - typesense-instantsearch-adapter
   - unrs-resolver
 
+patchedDependencies:
+  next: patches/next.patch
+
+# https://pnpm.io/settings#shellemulator
 shellEmulator: true
 
+# https://pnpm.io/settings#strictdepbuilds
 strictDepBuilds: true
-
-# Incorrect peer deps in `@keystar/ui` package.
-overrides:
-  "@types/react": "$@types/react"
-  "@types/react-dom": "$@types/react-dom"

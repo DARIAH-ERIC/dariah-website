@@ -1,12 +1,14 @@
 "use client";
 
-import { Children, isValidElement, type ReactElement, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
 	Tab as AriaTab,
 	TabList as AriaTabList,
 	TabPanel as AriaTabPanel,
 	Tabs as AriaTabs,
 } from "react-aria-components";
+
+import { getChildrenElements } from "@/components/content/get-children-elements";
 
 interface TabsProps {
 	children: ReactNode;
@@ -19,7 +21,7 @@ export function Tabs(props: Readonly<TabsProps>): ReactNode {
 
 	return (
 		<AriaTabs className="my-4">
-			<AriaTabList className="flex flex-wrap items-center gap-x-4 border-b border-neutral-200">
+			<AriaTabList className="my-4 flex flex-wrap items-center gap-x-4 border-b border-neutral-200">
 				{tabs.map((tab, index) => {
 					const { title } = tab.props;
 
@@ -28,7 +30,7 @@ export function Tabs(props: Readonly<TabsProps>): ReactNode {
 					return (
 						<AriaTab
 							key={id}
-							className="-mb-px cursor-default border-b-2 border-transparent py-3 transition selected:border-current selected:font-strong"
+							className="-mb-px cursor-default border-b-2 border-transparent py-3 transition selected:border-current selected:font-bold"
 							id={id}
 						>
 							{title}
@@ -43,7 +45,7 @@ export function Tabs(props: Readonly<TabsProps>): ReactNode {
 				const id = String(index);
 
 				return (
-					<AriaTabPanel key={id} className="grid" id={id}>
+					<AriaTabPanel key={id} id={id}>
 						{children}
 					</AriaTabPanel>
 				);
@@ -59,8 +61,4 @@ interface TabProps {
 
 export function Tab(_props: Readonly<TabProps>): ReactNode {
 	return null;
-}
-
-function getChildrenElements<TProps>(children: ReactNode): Array<ReactElement<TProps>> {
-	return Children.toArray(children).filter(isValidElement<TProps>);
 }

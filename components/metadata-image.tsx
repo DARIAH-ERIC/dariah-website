@@ -1,30 +1,37 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
-import { defaultLocale } from "@/lib/i18n/locales";
+import type { IntlLocale } from "@/lib/i18n/locales";
 
 interface MetadataImageProps {
+	locale: IntlLocale;
 	size: { width: number; height: number };
 	title: string;
 }
 
 export async function MetadataImage(props: Readonly<MetadataImageProps>): Promise<ImageResponse> {
-	const { size, title } = props;
+	const { locale, size, title } = props;
 
 	/**
-	 * FIXME: Variable fonts are currently not supported by `satori`.
+	 * Note that variable fonts are currently not supported.
 	 *
-	 * @see https://github.com/vercel/satori/issues/162
+	 * @see {@link https://github.com/vercel/satori/issues/162}
 	 */
-	const font = await fetch(
-		new URL("../public/assets/fonts/inter-semibold.ttf", import.meta.url),
-	).then((res) => {
-		return res.arrayBuffer();
-	});
+	const font = await readFile(
+		join(process.cwd(), "public", "assets", "fonts", "inter-semibold.ttf"),
+	);
+
+	/** @see {@link https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image#using-nodejs-runtime-with-local-assets} */
+	// const imagePath = join(process.cwd(), image);
+	// const imageData = await readFile(featuredImagePath);
+	// const imageSrc = Uint8Array.from(featuredImageData).buffer;
 
 	return new ImageResponse(
 		(
 			<div
-				lang={defaultLocale}
+				lang={locale}
 				style={{
 					display: "flex",
 					flexDirection: "column",
@@ -50,6 +57,8 @@ export async function MetadataImage(props: Readonly<MetadataImageProps>): Promis
 						fontSize: 48,
 						textAlign: "center",
 						textWrap: "balance",
+						/** @see {@link https://github.com/vercel/satori/issues/498} */
+						wordBreak: "break-word",
 					}}
 				>
 					{title}

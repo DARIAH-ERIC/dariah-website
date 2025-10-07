@@ -3,7 +3,7 @@ import { OTLPHttpJsonTraceExporter, registerOTel } from "@vercel/otel";
 
 import { env } from "@/config/env.config";
 
-export function register() {
+export function register(): void {
 	if (env.OPENTELEMETRY_COLLECTOR_URL != null && env.OPENTELEMETRY_SERVICE_NAME != null) {
 		const traceEndpoint = createUrl({
 			baseUrl: env.OPENTELEMETRY_COLLECTOR_URL,

@@ -1,7 +1,3 @@
-/** Disabled temporarily, because of config type mismatch bewtween typescript-eslint and eslint. */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
-
 import * as path from "node:path";
 
 import baseConfig from "@acdh-oeaw/eslint-config";
@@ -9,18 +5,90 @@ import nextConfig from "@acdh-oeaw/eslint-config-next";
 import nodeConfig from "@acdh-oeaw/eslint-config-node";
 import playwrightConfig from "@acdh-oeaw/eslint-config-playwright";
 import reactConfig from "@acdh-oeaw/eslint-config-react";
-import tailwindcssConfig from "@acdh-oeaw/eslint-config-tailwindcss";
+import tailwindConfig from "@acdh-oeaw/eslint-config-tailwindcss";
 import { defineConfig } from "eslint/config";
 import gitignore from "eslint-config-flat-gitignore";
 import checkFilePlugin from "eslint-plugin-check-file";
 
-const config = defineConfig(
+const restrictedImports = {
+	paths: [
+		{
+			allowTypeImports: true,
+			message: "Please use `@/components/image` instead.",
+			name: "next/image",
+		},
+		{
+			allowImportNames: ["useLinkStatus"],
+			message: "Please use `@/components/link` instead.",
+			name: "next/link",
+		},
+		{
+			message: "Please use `next/navigation` instead.",
+			name: "next/router",
+		},
+	],
+};
+
+export default defineConfig(
 	gitignore({ strict: false }),
 	{ ignores: ["content/**", "public/**"] },
-	baseConfig,
-	reactConfig,
+	{
+		extends: [baseConfig],
+		rules: {
+			"@typescript-eslint/explicit-module-boundary-types": "error",
+			"@typescript-eslint/no-restricted-imports": ["error", { paths: restrictedImports.paths }],
+			"@typescript-eslint/require-array-sort-compare": "error",
+			"@typescript-eslint/strict-boolean-expressions": "error",
+			"arrow-body-style": ["error", "always"],
+			"no-restricted-syntax": [
+				"error",
+				{
+					message: "Please use `@/config/env.config` instead.",
+					selector: 'MemberExpression[computed!=true][object.name="process"][property.name="env"]',
+				},
+			],
+			"object-shorthand": ["error", "always", { avoidExplicitReturnArrows: true }],
+			"preserve-caught-error": "error",
+		},
+	},
+	{
+		extends: [reactConfig],
+		rules: {
+			"@eslint-react/prefer-read-only-props": "error",
+			/** Avoid hardcoded, non-translated strings. */
+			"react/jsx-no-literals": [
+				"error",
+				{
+					allowedStrings: [
+						"&amp;",
+						"&apos;",
+						"&bull;",
+						"&copy;",
+						"&gt;",
+						"&lt;",
+						"&nbsp;",
+						"&quot;",
+						"&rarr;",
+						"&larr;",
+						"&mdash;",
+						"&ndash;",
+						".",
+						"!",
+						":",
+						";",
+						",",
+						"-",
+						"(",
+						")",
+						"|",
+						"/",
+					],
+				},
+			],
+		},
+	},
 	nextConfig,
-	tailwindcssConfig,
+	tailwindConfig,
 	{
 		settings: {
 			tailwindcss: {
@@ -30,6 +98,7 @@ const config = defineConfig(
 	},
 	playwrightConfig,
 	{
+		name: "file-naming-conventions",
 		plugins: {
 			"check-file": checkFilePlugin,
 		},
@@ -37,7 +106,7 @@ const config = defineConfig(
 			"check-file/filename-naming-convention": [
 				"error",
 				{
-					"**/*": "KEBAB_CASE",
+					"**/*": "?(_)+([a-z])*([a-z0-9])*(-+([a-z0-9]))",
 				},
 				{ ignoreMiddleExtensions: true },
 			],
@@ -50,43 +119,8 @@ const config = defineConfig(
 		},
 	},
 	{
-		rules: {
-			"arrow-body-style": ["error", "always"],
-			"no-restricted-imports": [
-				"error",
-				{
-					name: "next/image",
-					message: "Please use `@/components/image` or `@/components/server-image` instead.",
-				},
-				{
-					name: "next/link",
-					message: "Please use `@/components/link` instead.",
-				},
-				{
-					name: "next/navigation",
-					importNames: ["redirect", "permanentRedirect", "useRouter", "usePathname"],
-					message: "Please use `@/lib/navigation/navigation` instead.",
-				},
-				{
-					name: "next/router",
-					message: "Please use `@/lib/navigation/navigation` instead.",
-				},
-			],
-			"no-restricted-syntax": [
-				"error",
-				{
-					selector: 'MemberExpression[computed!=true][object.name="process"][property.name="env"]',
-					message: "Please use `@/config/env.config` instead.",
-				},
-			],
-			"@typescript-eslint/require-array-sort-compare": "error",
-			"react/jsx-sort-props": ["error", { reservedFirst: true }],
-		},
-	},
-	{
-		files: ["db/**/*.ts", "lib/server/**/*.ts", "**/_actions/**/*.ts"],
 		extends: [nodeConfig],
+		files: ["db/**/*.ts", "lib/server/**/*.ts", "**/_lib/actions/**/*.ts", "scripts/**/*.ts"],
+		name: "node-environment",
 	},
 );
-
-export default config;

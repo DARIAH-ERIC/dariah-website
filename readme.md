@@ -26,7 +26,7 @@ install dependencies:
 pnpm install
 ```
 
-run a development server on [http://localhost:3000](http://localhost:3000):
+run a development server on <http://localhost:3000>:
 
 ```bash
 pnpm run dev

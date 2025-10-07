@@ -50,7 +50,7 @@ function TableOfContentsLevel(props: Readonly<TableOfContentsLevelProps>): React
 					<li key={heading.id} className="grid justify-start gap-y-1.5">
 						{heading.id != null ? (
 							<a
-								className="inline-flex underline decoration-dotted transition hover:text-neutral-900 hover:decoration-solid"
+								className="inline-flex underline decoration-dotted transition hover:text-neutral-950 hover:decoration-solid"
 								href={`#${heading.id}`}
 							>
 								{heading.value}
