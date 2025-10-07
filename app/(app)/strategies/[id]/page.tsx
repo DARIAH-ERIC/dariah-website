@@ -1,4 +1,6 @@
+import { promise } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -30,7 +32,13 @@ export async function generateMetadata(props: Readonly<StrategyPageProps>): Prom
 
 	const id = decodeURIComponent(params.id);
 
-	const entry = await createCollectionResource("strategies", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("strategies", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	const { title } = entry.data;
 
@@ -46,7 +54,13 @@ export default async function StrategyPage(props: Readonly<StrategyPageProps>): 
 
 	const id = decodeURIComponent(params.id);
 
-	const entry = await createCollectionResource("strategies", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("strategies", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
 		<MainContent>

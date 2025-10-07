@@ -1,4 +1,6 @@
+import { promise } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -30,7 +32,13 @@ export async function generateMetadata(props: Readonly<DocumentationPageProps>):
 
 	const id = decodeURIComponent(params.id);
 
-	const page = await createCollectionResource("documentation", defaultLocale).read(id);
+	const { data: page, error } = await promise(() => {
+		return createCollectionResource("documentation", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	const { title } = page.data;
 
@@ -48,7 +56,13 @@ export default async function DocumentationPage(
 
 	const id = decodeURIComponent(params.id);
 
-	const page = await createCollectionResource("documentation", defaultLocale).read(id);
+	const { data: page, error } = await promise(() => {
+		return createCollectionResource("documentation", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
 		<MainContent>

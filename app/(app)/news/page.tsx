@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import { Card } from "@/components/card";
 import { MainContent } from "@/components/main-content";
 import { defaultLocale } from "@/lib/i18n/locales";
 import { createCollectionResource, createSingletonResource } from "@/lib/keystatic/resources";
@@ -30,22 +29,16 @@ export default async function NewsPage(): Promise<ReactNode> {
 			<h1 className="text-h1 text-balance">{title}</h1>
 			<p>{lead}</p>
 
-			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-8"
-				role="list"
-			>
-				{entries.map(async (newsobj) => {
-					const id = newsobj.id;
-					const newsItem = await createCollectionResource("news", defaultLocale).read(id);
-					const link = { label: "", href: `/news/${id}` };
+			<ul role="list">
+				{entries.map((entry) => {
+					const { id } = entry;
+					const _href = `/news/${id}`;
+
 					return (
 						<li key={id}>
-							<Card
-								className="grid h-full grid-rows-[13rem_auto]"
-								discriminent="news"
-								{...newsItem.data}
-								link={link}
-							></Card>
+							<article>
+								<pre>{JSON.stringify(entry.data, null, 2)}</pre>
+							</article>
 						</li>
 					);
 				})}

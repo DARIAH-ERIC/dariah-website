@@ -1,4 +1,6 @@
+import { promise } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
@@ -33,7 +35,13 @@ export async function generateMetadata(props: Readonly<ProjectPageProps>): Promi
 
 	const id = decodeURIComponent(params.id);
 
-	const entry = await createCollectionResource("projects", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("projects", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	const { title } = entry.data;
 
@@ -52,7 +60,13 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 	const t = await getTranslations("ProjectPage");
 	const format = await getFormatter();
 
-	const project = await createCollectionResource("projects", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("projects", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	const {
 		startDate,
@@ -61,7 +75,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 		responsiblePersons: responsiblePersonsSlugs,
 		title,
 		keywords: keywordsSlugs,
-	} = project.data;
+	} = entry.data;
 
 	const responsiblePersons = (await getRelatedEntities(
 		responsiblePersonsSlugs as Array<string>,

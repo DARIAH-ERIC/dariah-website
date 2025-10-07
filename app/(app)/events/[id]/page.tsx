@@ -1,4 +1,6 @@
+import { promise } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { MainContent } from "@/components/main-content";
@@ -28,7 +30,13 @@ export async function generateMetadata(props: Readonly<EventPageProps>): Promise
 
 	const id = decodeURIComponent(params.id);
 
-	const entry = await createCollectionResource("events", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("events", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	const { title } = entry.data;
 
@@ -44,7 +52,13 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 
 	const id = decodeURIComponent(params.id);
 
-	const entry = await createCollectionResource("events", defaultLocale).read(id);
+	const { data: entry, error } = await promise(() => {
+		return createCollectionResource("events", defaultLocale).read(id);
+	});
+
+	if (error != null) {
+		notFound();
+	}
 
 	return (
 		<MainContent>

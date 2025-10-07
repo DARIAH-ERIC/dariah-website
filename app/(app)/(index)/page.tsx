@@ -24,8 +24,11 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function IndexPage(): Promise<ReactNode> {
 	const page = await createSingletonResource("index-page", defaultLocale).read();
 
+	const { hero } = page.data;
+
 	return (
 		<MainContent>
+			<h1>{hero.title}</h1>
 			<pre>{JSON.stringify(page.data, null, 2)}</pre>
 		</MainContent>
 	);

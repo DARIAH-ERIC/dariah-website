@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-import { Card } from "@/components/card";
 import { MainContent } from "@/components/main-content";
 import { defaultLocale } from "@/lib/i18n/locales";
 import { createCollectionResource, createSingletonResource } from "@/lib/keystatic/resources";
@@ -30,22 +29,16 @@ export default async function ProjectsPage(): Promise<ReactNode> {
 			<h1 className="text-h1 text-balance">{title}</h1>
 			<p>{lead}</p>
 
-			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,18rem),1fr))] gap-8"
-				role="list"
-			>
-				{entries.map(async (project) => {
-					const id = project.id;
-					const projectItem = await createCollectionResource("projects", defaultLocale).read(id);
-					const link = { label: "", href: `/projects/${id}` };
+			<ul role="list">
+				{entries.map((entry) => {
+					const { id } = entry;
+					const _href = `/projects/${id}`;
+
 					return (
 						<li key={id}>
-							<Card
-								className="grid h-full grid-rows-[13rem_auto]"
-								discriminent="project"
-								{...projectItem.data}
-								link={link}
-							/>
+							<article>
+								<pre>{JSON.stringify(entry.data, null, 2)}</pre>
+							</article>
 						</li>
 					);
 				})}
