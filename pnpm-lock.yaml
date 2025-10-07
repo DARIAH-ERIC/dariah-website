@@ -4,6 +4,10 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@types/react': ^18.3.18
+  '@types/react-dom': ^18.3.5
+
 importers:
 
   .:
@@ -1169,7 +1173,7 @@ packages:
     resolution: {integrity: sha512-fSh4P3Y4E7oaKYc2oNzSIJVPDto7SMzAuQN1Iyx53UxzleA6QzRdNWRxmiPqtVDaDi5dELd2yICoG91csrGrAw==}
     engines: {node: '>=14.7.0'}
     peerDependencies:
-      '@types/react': '*'
+      '@types/react': ^18.3.18
       react: '*'
     peerDependenciesMeta:
       '@types/react':
@@ -2187,13 +2191,10 @@ packages:
   '@types/react-dom@18.3.5':
     resolution: {integrity: sha512-P4t6saawp+b/dFrUr2cvkVsfvPguwsxtH6dNIYRllMsefqFzkZk5UIjzyDOv5g1dXIPdG4Sp1yCR4Z6RCUsG/Q==}
     peerDependencies:
-      '@types/react': ^18.0.0
+      '@types/react': ^18.3.18
 
   '@types/react@18.3.18':
     resolution: {integrity: sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==}
-
-  '@types/react@19.2.1':
-    resolution: {integrity: sha512-1U5NQWh/GylZQ50ZMnnPjkYHEaGhg6t5i/KI0LDDh3t4E3h3T3vzm+GLY2BRzMfIjSBwzm6tginoZl5z0O/qsA==}
 
   '@types/shimmer@1.2.0':
     resolution: {integrity: sha512-UE7oxhQLLd9gub6JKIAhDq06T0F6FnztwMNRvYgjeQSBeMc1ZG/tA47EwfduvkuQS8apbkM/lpLpWsaCeYsXVg==}
@@ -6566,7 +6567,7 @@ snapshots:
       '@react-types/switch': 3.5.15(react@18.3.1)
       '@react-types/table': 3.13.4(react@18.3.1)
       '@react-types/tabs': 3.3.19(react@18.3.1)
-      '@types/react': 19.2.1
+      '@types/react': 18.3.18
       emery: 1.4.3
       facepaint: 1.2.1
       react: 18.3.1
@@ -6584,7 +6585,7 @@ snapshots:
       '@floating-ui/react': 0.24.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@internationalized/string': 3.2.7
       '@keystar/ui': 0.7.19(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@markdoc/markdoc': 0.4.0(@types/react@19.2.1)(react@18.3.1)
+      '@markdoc/markdoc': 0.4.0(@types/react@18.3.18)(react@18.3.1)
       '@react-aria/focus': 3.21.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/i18n': 3.12.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@react-aria/interactions': 3.25.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6601,7 +6602,7 @@ snapshots:
       '@sindresorhus/slugify': 1.1.2
       '@toeverything/y-indexeddb': 0.10.0-canary.9(yjs@13.6.23)
       '@ts-gql/tag': 0.7.3(graphql@16.10.0)
-      '@types/react': 19.2.1
+      '@types/react': 18.3.18
       '@urql/core': 5.1.0(graphql@16.10.0)
       '@urql/exchange-auth': 2.2.0(@urql/core@5.1.0(graphql@16.10.0))
       '@urql/exchange-graphcache': 7.2.1(@urql/core@5.1.0(graphql@16.10.0))(graphql@16.10.0)
@@ -6658,7 +6659,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.26.0
       '@keystatic/core': 0.5.48(next@14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/react': 19.2.1
+      '@types/react': 18.3.18
       chokidar: 3.6.0
       next: 14.2.26(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
@@ -6669,10 +6670,10 @@ snapshots:
     dependencies:
       buffer: 6.0.3
 
-  '@markdoc/markdoc@0.4.0(@types/react@19.2.1)(react@18.3.1)':
+  '@markdoc/markdoc@0.4.0(@types/react@18.3.18)(react@18.3.1)':
     optionalDependencies:
       '@types/markdown-it': 12.2.3
-      '@types/react': 19.2.1
+      '@types/react': 18.3.18
       react: 18.3.1
 
   '@mdx-js/mdx@3.1.0(acorn@8.15.0)':
@@ -8174,10 +8175,6 @@ snapshots:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
 
-  '@types/react@19.2.1':
-    dependencies:
-      csstype: 3.1.3
-
   '@types/shimmer@1.2.0': {}
 
   '@types/unist@2.0.11': {}
@@ -9035,7 +9032,7 @@ snapshots:
   esast-util-from-js@2.0.1:
     dependencies:
       '@types/estree-jsx': 1.0.5
-      acorn: 8.14.0
+      acorn: 8.15.0
       esast-util-from-estree: 2.0.0
       vfile-message: 4.0.2
 
