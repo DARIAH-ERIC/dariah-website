@@ -31,10 +31,7 @@ export function AppFooter(): ReactNode {
 
 			<div className="grid gap-y-8">
 				<nav aria-label={t("navigation-secondary")}>
-					<ul
-						className="flex items-center gap-x-6 text-small text-neutral-600 xs:justify-center"
-						role="list"
-					>
+					<ul className="flex items-center gap-x-6 text-small xs:justify-center" role="list">
 						<li>
 							&copy; {new Date().getUTCFullYear()}{" "}
 							<a
