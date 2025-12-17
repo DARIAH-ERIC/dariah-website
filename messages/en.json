@@ -1,0 +1,105 @@
+{
+	"DariahResourceCataloguePage": {
+		"meta": {
+			"title": "DARIAH resource catalogue"
+		},
+		"title": "DARIAH resource catalogue"
+	},
+	"DefaultLayout": {
+		"skip-link": "Skip to main content"
+	},
+	"ErrorPage": {
+		"meta": {
+			"title": "Error"
+		},
+		"reset": "Try again",
+		"title": "Something went wrong"
+	},
+	"EventsPage": {
+		"meta": {
+			"title": "Events"
+		},
+		"title": "Events"
+	},
+	"GlobalNotFoundPage": {
+		"meta": {
+			"title": "Page not found"
+		},
+		"title": "Page not found"
+	},
+	"ImpactCaseStudiesPage": {
+		"meta": {
+			"title": "Impact case studies"
+		},
+		"title": "Impact case studies"
+	},
+	"ImprintPage": {
+		"meta": {
+			"title": "Imprint"
+		},
+		"title": "Imprint"
+	},
+	"IndexPage": {
+		"title": "Home"
+	},
+	"NewsPage": {
+		"meta": {
+			"title": "News"
+		},
+		"title": "News"
+	},
+	"ProjectsPage": {
+		"meta": {
+			"title": "Projects"
+		},
+		"title": "Projects"
+	},
+	"SpotlightArticlesPage": {
+		"meta": {
+			"title": "Spotlight articles"
+		},
+		"title": "Spotlight articles"
+	},
+	"(default)": {
+		"Footer": {
+			"navigation": {
+				"items": {
+					"home": "Home",
+					"imprint": "Imprint"
+				},
+				"label": "Secondary"
+			},
+			"navigation-social-media": {
+				"items": {
+					"bluesky": "Bluesky",
+					"email": "Email",
+					"facebook": "Facebook",
+					"flickr": "Flickr",
+					"github": "GitHub",
+					"instagram": "Instagram",
+					"linkedin": "LinkedIn",
+					"mastodon": "Mastodon",
+					"orcid": "ORCID",
+					"rss": "RSS",
+					"twitter": "Twitter",
+					"website": "Website",
+					"youtube": "YouTube"
+				},
+				"label": "Social media"
+			}
+		},
+		"Header": {
+			"navigation": {
+				"drawer": {
+					"close": "Close navigation menu",
+					"label": "Navigation menu",
+					"open": "Open navigation menu"
+				},
+				"items": {
+					"home": "Home"
+				},
+				"label": "Main"
+			}
+		}
+	}
+}

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+
 import type { Locator, Page } from "@playwright/test";
 
 import type { I18n } from "@/e2e/lib/fixtures/i18n";
@@ -19,7 +21,7 @@ export class ImprintPage {
 		this.url = "/imprint";
 		this.mainContent = page.getByRole("main");
 		this.title = page.getByRole("heading", { level: 1 });
-		this.skipLink = page.getByRole("link", { name: i18n.t("LocaleLayout.skip-to-main-content") });
+		this.skipLink = page.getByRole("link", { name: i18n.t("DefaultLayout.skip-link") });
 	}
 
 	goto() {

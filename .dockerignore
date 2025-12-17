@@ -37,7 +37,7 @@ next-env.d.ts
 out/
 
 # self-signed certificates
-certificates
+/certificates/
 
 # i18n
 /content/**/*.d.json.ts
@@ -51,9 +51,6 @@ certificates
 /playwright/.cache/
 /playwright-report/
 /test-results/
-
-# typesense
-scripts/typesense/documents/
 
 
 ## .dockerignore ##
@@ -76,7 +73,6 @@ scripts/typesense/documents/
 .env.*
 
 # tests
-playwright.config.ts
 /e2e/
 /test/
 

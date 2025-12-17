@@ -1,5 +1,5 @@
 {
-	"$schema": "https://json.schemastore.org/tsconfig",
+	"$schema": "https://www.schemastore.org/tsconfig",
 	"extends": "@acdh-oeaw/tsconfig",
 	"compilerOptions": {
 		"paths": {
@@ -8,17 +8,13 @@
 		"plugins": [{ "name": "next" }]
 	},
 	"include": [
-		"./next-env.d.ts",
-		"./**/*.d.ts",
 		"./**/*.js",
-		// "./**/*.mdx",
 		"./**/*.ts",
 		"./**/*.tsx",
-		".next/types/**/*.ts"
+		"./next-env.d.ts",
+		".next/dev/types/**/*.ts",
+		".next/types/**/*.ts",
+		"./types/**/*.d.ts"
 	],
-	"exclude": ["node_modules", "out"],
-	"mdx": {
-		"checkMdx": false,
-		"plugins": ["remark-frontmatter", "remark-gfm"]
-	}
+	"exclude": ["node_modules", "out", "public"]
 }
