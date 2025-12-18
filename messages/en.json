@@ -1,4 +1,10 @@
 {
+	"ContactPage": {
+		"meta": {
+			"title": "Contact"
+		},
+		"title": "Contact"
+	},
 	"DariahResourceCataloguePage": {
 		"meta": {
 			"title": "DARIAH resource catalogue"

@@ -103,7 +103,7 @@ const events = f.helpers.multiple(
 				},
 				{ probability: 0.75 },
 			),
-			slug: f.helpers.slugify(title),
+			slug: f.helpers.slugify(title).toLowerCase(),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -127,7 +127,7 @@ const impactCaseStudies = f.helpers.multiple(
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
 			contributors: f.helpers.arrayElements(persons, { min: 0, max: 3 }),
-			slug: f.helpers.slugify(title),
+			slug: f.helpers.slugify(title).toLowerCase(),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -150,7 +150,7 @@ const news = f.helpers.multiple(
 			),
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
-			slug: f.helpers.slugify(title),
+			slug: f.helpers.slugify(title).toLowerCase(),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -173,7 +173,7 @@ const page = () => {
 		),
 		image: f.helpers.arrayElement(assets),
 		content: f.lorem.paragraphs(10),
-		slug: f.helpers.slugify(title),
+		slug: f.helpers.slugify(title).toLowerCase(),
 		publishedAt: f.date.recent(),
 	};
 };
@@ -190,7 +190,7 @@ const projects = f.helpers.multiple(
 			description: f.lorem.paragraphs(10),
 			startDate,
 			endDate: f.date.future({ refDate: startDate, years: 5 }),
-			slug: f.helpers.slugify(name),
+			slug: f.helpers.slugify(name).toLowerCase(),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -213,7 +213,7 @@ const spotlightArticles = f.helpers.multiple(
 			),
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
-			slug: f.helpers.slugify(title),
+			slug: f.helpers.slugify(title).toLowerCase(),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -399,6 +399,13 @@ export const client = {
 		};
 	},
 	events: {
+		async slugs() {
+			const slugs = events.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
 		async list() {
 			return {
 				items: events.map((item) => {
@@ -413,55 +420,75 @@ export const client = {
 				}),
 			};
 		},
+		async read(slug: string) {
+			const item = events.find((item) => {
+				return item.slug === slug;
+			});
+
+			if (item == null) {
+				return null;
+			}
+
+			return { item };
+		},
 	},
 	homePage: {
 		async read() {
 			const item = page();
 
 			return {
-				...item,
-				sections: {
-					events: {
-						title: "Upcoming events",
-						items: events
-							.toSorted((a, z) => {
-								return z.startDate.getTime() - a.startDate.getTime();
-							})
-							.slice(0, 3)
-							.map((item) => {
-								return {
-									id: item.id,
-									title: item.title,
-									summary: item.summary,
-									image: item.image,
-									slug: item.slug,
-									publishedAt: item.publishedAt,
-								};
-							}),
-					},
-					news: {
-						title: "Stay updated",
-						items: news
-							.toSorted((a, z) => {
-								return z.publishedAt.getTime() - a.publishedAt.getTime();
-							})
-							.slice(0, 3)
-							.map((item) => {
-								return {
-									id: item.id,
-									title: item.title,
-									summary: item.summary,
-									image: item.image,
-									slug: item.slug,
-									publishedAt: item.publishedAt,
-								};
-							}),
+				item: {
+					...item,
+					sections: {
+						events: {
+							title: "Upcoming events",
+							items: events
+								.toSorted((a, z) => {
+									return z.startDate.getTime() - a.startDate.getTime();
+								})
+								.slice(0, 3)
+								.map((item) => {
+									return {
+										id: item.id,
+										title: item.title,
+										summary: item.summary,
+										image: item.image,
+										slug: item.slug,
+										publishedAt: item.publishedAt,
+									};
+								}),
+						},
+						news: {
+							title: "Stay updated",
+							items: news
+								.toSorted((a, z) => {
+									return z.publishedAt.getTime() - a.publishedAt.getTime();
+								})
+								.slice(0, 3)
+								.map((item) => {
+									return {
+										id: item.id,
+										title: item.title,
+										summary: item.summary,
+										image: item.image,
+										slug: item.slug,
+										publishedAt: item.publishedAt,
+									};
+								}),
+						},
 					},
 				},
 			};
 		},
 	},
 	impactCaseStudies: {
+		async slugs() {
+			const slugs = impactCaseStudies.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
 		async list() {
 			return {
 				items: impactCaseStudies.map((item) => {
@@ -476,8 +503,26 @@ export const client = {
 				}),
 			};
 		},
+		async read(slug: string) {
+			const item = impactCaseStudies.find((item) => {
+				return item.slug === slug;
+			});
+
+			if (item == null) {
+				return null;
+			}
+
+			return { item };
+		},
 	},
 	news: {
+		async slugs() {
+			const slugs = news.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
 		async list() {
 			return {
 				items: news.map((item) => {
@@ -492,31 +537,37 @@ export const client = {
 				}),
 			};
 		},
+		async read(slug: string) {
+			const item = news.find((item) => {
+				return item.slug === slug;
+			});
+
+			if (item == null) {
+				return null;
+			}
+
+			return { item };
+		},
 	},
 	pages: {
 		async read(_slug: string) {
 			const item = page();
 
-			return item;
-		},
-	},
-	spotlightArticles: {
-		async list() {
-			return {
-				items: spotlightArticles.map((item) => {
-					return {
-						id: item.id,
-						title: item.title,
-						summary: item.summary,
-						image: item.image,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-					};
-				}),
-			};
+			// if (item == null) {
+			// 	return null;
+			// }
+
+			return { item };
 		},
 	},
 	projects: {
+		async slugs() {
+			const slugs = projects.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
 		async list() {
 			return {
 				items: projects.map((item) => {
@@ -531,6 +582,51 @@ export const client = {
 					};
 				}),
 			};
+		},
+		async read(slug: string) {
+			const item = projects.find((item) => {
+				return item.slug === slug;
+			});
+
+			if (item == null) {
+				return null;
+			}
+
+			return { item };
+		},
+	},
+	spotlightArticles: {
+		async slugs() {
+			const slugs = spotlightArticles.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
+		async list() {
+			return {
+				items: spotlightArticles.map((item) => {
+					return {
+						id: item.id,
+						title: item.title,
+						summary: item.summary,
+						image: item.image,
+						slug: item.slug,
+						publishedAt: item.publishedAt,
+					};
+				}),
+			};
+		},
+		async read(slug: string) {
+			const item = spotlightArticles.find((item) => {
+				return item.slug === slug;
+			});
+
+			if (item == null) {
+				return null;
+			}
+
+			return { item };
 		},
 	},
 };

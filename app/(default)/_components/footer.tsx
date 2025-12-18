@@ -25,15 +25,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 				<div className="flex flex-col gap-y-8 xs:flex-row xs:items-center xs:justify-between">
 					<NavLink className="mr-auto -ml-1" href={navigation.home.href} size="icon">
 						<span className="sr-only">{navigation.home.label}</span>
-						<Image
-							alt=""
-							className="h-8 w-auto"
-							decoding="auto"
-							fetchPriority="high"
-							loading="eager"
-							preload={true}
-							src={logo}
-						/>
+						<Image alt="" className="h-8 w-auto" src={logo} />
 					</NavLink>
 
 					<nav aria-label={t("navigation-social-media.label")}>
