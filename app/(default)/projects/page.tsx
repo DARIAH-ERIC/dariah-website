@@ -25,7 +25,9 @@ export default async function ProjectsPage(): Promise<ReactNode> {
 	const t = await getTranslations("ProjectsPage");
 	const format = await getFormatter();
 
-	const { items } = await client.projects.list();
+	const data = await client.projects.list();
+
+	const { items } = data;
 
 	return (
 		<Main className="container flex-1 px-8 py-12 xs:px-16">

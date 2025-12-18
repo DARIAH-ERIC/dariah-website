@@ -24,7 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const t = await getTranslations("SpotlightArticlesPage");
 
-	const { items } = await client.spotlightArticles.list();
+	const data = await client.spotlightArticles.list();
+
+	const { items } = data;
 
 	return (
 		<Main className="container flex-1 px-8 py-12 xs:px-16">

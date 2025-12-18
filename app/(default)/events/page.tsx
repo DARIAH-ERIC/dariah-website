@@ -24,7 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function EventsPage(): Promise<ReactNode> {
 	const t = await getTranslations("EventsPage");
 
-	const { items } = await client.events.list();
+	const data = await client.events.list();
+
+	const { items } = data;
 
 	return (
 		<Main className="container flex-1 px-8 py-12 xs:px-16">

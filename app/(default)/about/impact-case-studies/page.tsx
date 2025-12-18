@@ -24,7 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const t = await getTranslations("ImpactCaseStudiesPage");
 
-	const { items } = await client.impactCaseStudies.list();
+	const data = await client.impactCaseStudies.list();
+
+	const { items } = data;
 
 	return (
 		<Main className="container flex-1 px-8 py-12 xs:px-16">
