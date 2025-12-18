@@ -4,7 +4,8 @@ test.describe("index page", () => {
 	test("should have document title", async ({ createIndexPage }) => {
 		const { i18n, indexPage } = await createIndexPage();
 		await indexPage.goto();
-		await expect(indexPage.page).toHaveTitle(i18n.t("metadata.title"));
+
+		await expect(indexPage.page).toHaveTitle(i18n.messages.metadata.title);
 	});
 
 	test("should not have any automatically detectable accessibility issues", async ({
@@ -19,14 +20,10 @@ test.describe("index page", () => {
 	});
 
 	// eslint-disable-next-line playwright/no-skipped-test
-	test.describe.skip("should not have visible changes", () => {
-		test.use({ colorScheme: "light" });
+	test.skip("should not have visible changes", async ({ createIndexPage }) => {
+		const { indexPage } = await createIndexPage();
+		await indexPage.goto();
 
-		test("in light mode", async ({ createIndexPage }) => {
-			const { indexPage } = await createIndexPage();
-			await indexPage.goto();
-
-			await expect(indexPage.page).toHaveScreenshot();
-		});
+		await expect(indexPage.page).toHaveScreenshot({ fullPage: true });
 	});
 });

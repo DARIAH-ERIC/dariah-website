@@ -6,7 +6,7 @@ import { getIntlMessages } from "@/lib/i18n/messages";
 
 export default getRequestConfig(async () => {
 	const locale = defaultLocale;
-	const messages = await getIntlMessages();
+	const messages = await getIntlMessages(locale);
 
 	return {
 		formats,

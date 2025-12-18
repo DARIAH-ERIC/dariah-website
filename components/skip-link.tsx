@@ -1,34 +1,24 @@
-"use client";
+import cn from "clsx/lite";
+import type { ComponentProps, ReactNode } from "react";
 
-import type { ReactNode } from "react";
-
-import { Link } from "@/components/link";
-import { createHref } from "@/lib/create-href";
-
-interface SkipLinkProps {
+interface SkipLinkProps extends ComponentProps<"a"> {
 	children: ReactNode;
-	id?: string;
-	targetId: string;
+	href: `#${string}`;
 }
 
 export function SkipLink(props: Readonly<SkipLinkProps>): ReactNode {
-	const { children, id, targetId } = props;
-
-	/**
-	 * @see https://bugzilla.mozilla.org/show_bug.cgi?id=308064
-	 */
-	function onPress() {
-		document.getElementById(targetId)?.focus();
-	}
+	const { children, className, href, ...rest } = props;
 
 	return (
-		<Link
-			className="focus-visible:focus-outline fixed z-50 m-1 translate-y-[calc(-100%-0.25rem)] rounded-sm bg-background-inverse px-4 py-3 text-text-inverse-strong transition focus-visible:translate-y-0"
-			href={createHref({ hash: targetId })}
-			id={id}
-			onPress={onPress}
+		<a
+			{...rest}
+			className={cn(
+				"absolute -translate-y-3/2 focus:translate-y-0 focus:outline-2 focus:outline-offset-0",
+				className,
+			)}
+			href={href}
 		>
 			{children}
-		</Link>
+		</a>
 	);
 }

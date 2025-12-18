@@ -1,16 +1,16 @@
 onlyBuiltDependencies:
-  - "@tailwindcss/oxide"
+  - '@parcel/watcher'
+  - '@swc/core'
+  - '@tailwindcss/oxide'
   - esbuild
+  - node
   - sharp
   - simple-git-hooks
-  - typesense-instantsearch-adapter
   - unrs-resolver
+
+patchedDependencies:
+  next: patches/next.patch
 
 shellEmulator: true
 
 strictDepBuilds: true
-
-# Incorrect peer deps in `@keystar/ui` package.
-overrides:
-  "@types/react": "$@types/react"
-  "@types/react-dom": "$@types/react-dom"
