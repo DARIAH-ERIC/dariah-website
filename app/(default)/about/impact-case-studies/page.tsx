@@ -29,9 +29,12 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const { items } = data;
 
 	return (
-		<Main className="container flex-1 px-8 py-12 xs:px-16">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1>{t("title")}</h1>
-			<ul role="list">
+			<ul
+				className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-4"
+				role="list"
+			>
 				{items.map((item) => {
 					const { image, slug, summary, title } = item;
 
@@ -39,9 +42,13 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 
 					return (
 						<li key={slug}>
-							<article>
+							<article className="flex flex-col gap-2">
 								{/* eslint-disable-next-line @next/next/no-img-element */}
-								<img alt="" src={image.url} />
+								<img
+									alt=""
+									className="aspect-video w-full rounded-md object-cover"
+									src={image.url}
+								/>
 								<h2>
 									<Link href={href}>{title}</Link>
 								</h2>

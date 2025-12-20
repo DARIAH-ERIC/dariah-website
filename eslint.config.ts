@@ -5,6 +5,7 @@ import nextConfig from "@acdh-oeaw/eslint-config-next";
 import nodeConfig from "@acdh-oeaw/eslint-config-node";
 import playwrightConfig from "@acdh-oeaw/eslint-config-playwright";
 import reactConfig from "@acdh-oeaw/eslint-config-react";
+import storybookConfig from "@acdh-oeaw/eslint-config-storybook";
 import tailwindConfig from "@acdh-oeaw/eslint-config-tailwindcss";
 import { defineConfig, globalIgnores } from "eslint/config";
 import gitignore from "eslint-config-flat-gitignore";
@@ -25,7 +26,7 @@ const restrictedImports = {
 			name: "next/link",
 		},
 		{
-			message: "Please use `@/lib/navigation/navigation` instead.",
+			message: "Please use `next/navigation` instead.",
 			name: "next/router",
 		},
 	],
@@ -137,6 +138,14 @@ export default defineConfig(
 		},
 	},
 	playwrightConfig,
+	{
+		name: "storybook-config",
+		extends: [storybookConfig],
+		files: ["**/*.stories.ts", "**/*.stories.tsx"],
+		rules: {
+			"react/jsx-no-literals": "off",
+		},
+	},
 	{
 		name: "node-config",
 		extends: [nodeConfig],
