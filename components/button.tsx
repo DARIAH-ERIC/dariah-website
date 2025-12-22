@@ -1,6 +1,6 @@
 "use client";
 
-import { type GetVariantProps,styles } from "@acdh-oeaw/style-variants";
+import { type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 import {
 	Button as AriaButton,
