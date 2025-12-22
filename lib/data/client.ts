@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 
 import { faker as f } from "@faker-js/faker";
+import slugify from "@sindresorhus/slugify";
 
 import type { NavigationConfig } from "@/lib/navigation/navigation";
 
@@ -103,7 +104,7 @@ const events = f.helpers.multiple(
 				},
 				{ probability: 0.75 },
 			),
-			slug: f.helpers.slugify(title).toLowerCase(),
+			slug: slugify(title),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -127,7 +128,7 @@ const impactCaseStudies = f.helpers.multiple(
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
 			contributors: f.helpers.arrayElements(persons, { min: 0, max: 3 }),
-			slug: f.helpers.slugify(title).toLowerCase(),
+			slug: slugify(title),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -150,7 +151,7 @@ const news = f.helpers.multiple(
 			),
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
-			slug: f.helpers.slugify(title).toLowerCase(),
+			slug: slugify(title),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -172,7 +173,7 @@ const page = () => {
 		),
 		image: f.helpers.arrayElement(assets),
 		content: f.lorem.paragraphs(10),
-		slug: f.helpers.slugify(title).toLowerCase(),
+		slug: slugify(title),
 		publishedAt: f.date.recent(),
 	};
 };
@@ -189,7 +190,7 @@ const projects = f.helpers.multiple(
 			description: f.lorem.paragraphs(10),
 			startDate,
 			endDate: f.date.future({ refDate: startDate, years: 5 }),
-			slug: f.helpers.slugify(name).toLowerCase(),
+			slug: slugify(name),
 			publishedAt: f.date.recent(),
 		};
 	},
@@ -212,7 +213,7 @@ const spotlightArticles = f.helpers.multiple(
 			),
 			image: f.helpers.arrayElement(assets),
 			content: f.lorem.paragraphs(10),
-			slug: f.helpers.slugify(title).toLowerCase(),
+			slug: slugify(title),
 			publishedAt: f.date.recent(),
 		};
 	},
