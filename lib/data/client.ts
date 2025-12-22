@@ -34,7 +34,7 @@ const assets = f.helpers.multiple(
 			license: f.helpers.arrayElement(licenses),
 		};
 	},
-	{ count: 100 },
+	{ count: 150 },
 );
 
 const persons = f.helpers.multiple(
@@ -157,7 +157,6 @@ const news = f.helpers.multiple(
 	{ count: 25 },
 );
 
-// FIXME: shape?
 const page = () => {
 	const title = f.lorem.sentence();
 

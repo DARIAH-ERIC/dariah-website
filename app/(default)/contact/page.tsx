@@ -24,7 +24,7 @@ export default function ContactPage(): ReactNode {
 	const t = useTranslations("ContactPage");
 
 	return (
-		<Main className="container flex-1 px-8 py-12 xs:px-16">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1>{t("title")}</h1>
 		</Main>
 	);

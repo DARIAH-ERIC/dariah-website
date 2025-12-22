@@ -62,7 +62,7 @@ export default async function ImpactCaseStudyPage(
 	const { title } = item;
 
 	return (
-		<Main className="container flex-1 px-8 py-12 xs:px-16">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1>{title}</h1>
 		</Main>
 	);
