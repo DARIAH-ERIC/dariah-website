@@ -30,6 +30,7 @@ const result = createEnv({
 				NEXT_RUNTIME: v.optional(v.picklist(["edge", "nodejs"])),
 				OPENTELEMETRY_COLLECTOR_URL: v.optional(v.pipe(v.string(), v.url())),
 				OPENTELEMETRY_SERVICE_NAME: v.optional(v.pipe(v.string(), v.nonEmpty())),
+				TYPESENSE_ADMIN_API_KEY: v.optional(v.pipe(v.string(), v.nonEmpty())),
 			});
 
 			const result = v.safeParse(schema, environment);
@@ -118,6 +119,7 @@ const result = createEnv({
 		NODE_ENV: process.env.NODE_ENV,
 		OPENTELEMETRY_COLLECTOR_URL: process.env.OPENTELEMETRY_COLLECTOR_URL,
 		OPENTELEMETRY_SERVICE_NAME: process.env.OPENTELEMETRY_SERVICE_NAME,
+		TYPESENSE_ADMIN_API_KEY: process.env.TYPESENSE_ADMIN_API_KEY,
 	},
 	validation: v.parse(
 		v.optional(v.picklist(["disabled", "enabled", "public"]), "enabled"),

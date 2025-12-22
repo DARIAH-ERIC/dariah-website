@@ -34,11 +34,11 @@ jobs:
       NEXT_PUBLIC_APP_MATOMO_BASE_URL: "${{ vars.NEXT_PUBLIC_APP_MATOMO_BASE_URL }}"
       NEXT_PUBLIC_APP_MATOMO_ID: "${{ vars.NEXT_PUBLIC_APP_MATOMO_ID }}"
       NEXT_PUBLIC_APP_SERVICE_ID: "${{ vars.SERVICE_ID }}"
-      NEXT_PUBLIC_TYPESENSE_HOST: "${{ vars.NEXT_PUBLIC_TYPESENSE_HOST }}"
-      NEXT_PUBLIC_TYPESENSE_PORT: "${{ vars.NEXT_PUBLIC_TYPESENSE_PORT }}"
-      NEXT_PUBLIC_TYPESENSE_PROTOCOL: "${{ vars.NEXT_PUBLIC_TYPESENSE_PROTOCOL }}"
+      NEXT_PUBLIC_TYPESENSE_HOST: "localhost"
+      NEXT_PUBLIC_TYPESENSE_PORT: "8108"
+      NEXT_PUBLIC_TYPESENSE_PROTOCOL: "http"
       NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME: "dariah-resources"
-      NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY: "${{ vars.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY }}"
+      TYPESENSE_ADMIN_API_KEY: "31308e18f81519edfc65c4293c209e24ee7044d6a84251c22b15210b90b0496a"
 
     steps:
       - name: Checkout repository
@@ -97,11 +97,27 @@ jobs:
           key:
             "${{ matrix.os }}-${{ matrix.node-version }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}"
 
+      - name: Start typesense server and populate search index
+        run: |
+          touch .env.local
+          pnpm run dev:services:up
+          echo "Waiting for Typesense to be ready..."
+          until curl -s -o /dev/null -w "%{http_code}" -H "X-TYPESENSE-API-KEY: $TYPESENSE-API-KEY" http://localhost:8108/health | grep -q 200; do
+            echo -n "."
+            sleep 1
+          done
+          pnpm run search-index:collections:create
+          pnpm run search-index:collections:seed
+          echo NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY=$(pnpm run search-index:api-keys:generate | awk -F'"' '{print $2}') >> $GITHUB_ENV
+
       - name: Build app
         run: pnpm run build
 
       - name: Run e2e tests
         run: pnpm run test:e2e
+
+      - name: Stop typesense server
+        run: pnpm run dev:services:down
 
       - uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
