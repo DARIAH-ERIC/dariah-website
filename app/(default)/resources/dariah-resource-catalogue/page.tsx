@@ -49,7 +49,7 @@ export default async function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1>{t("title")}</h1>
+			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
 			<ul className="flex flex-col gap-4" role="list">
 				{items.map((item) => {
 					const { description, id, label } = item.document;

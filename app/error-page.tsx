@@ -25,7 +25,7 @@ export function ErrorPage(props: Readonly<ErrorPageProps>): ReactNode {
 
 	return (
 		<Main>
-			<h1>{t("title")}</h1>
+			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
 			<button
 				onClick={() => {
 					reset();

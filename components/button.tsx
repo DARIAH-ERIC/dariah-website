@@ -1,6 +1,6 @@
 "use client";
 
-import { styles } from "@acdh-oeaw/style-variants";
+import { type GetVariantProps,styles } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 import {
 	Button as AriaButton,
@@ -8,12 +8,7 @@ import {
 	composeRenderProps,
 } from "react-aria-components";
 
-interface ButtonProps extends AriaButtonProps {
-	/** @default "primary" */
-	variant?: "primary" | "secondary" | "quiet";
-}
-
-const button = styles({
+const buttonStyles = styles({
 	base: [
 		"relative inline-flex items-center justify-center gap-2 border h-9 px-3.5 py-0 font-body text-sm font-medium text-center transition rounded-lg cursor-default",
 		"[&:has(>svg:only-child)]:px-0 [&:has(>svg:only-child)]:size-8 [&>svg]:size-4",
@@ -36,6 +31,10 @@ const button = styles({
 	},
 });
 
+type ButtonStyleProps = GetVariantProps<typeof buttonStyles>;
+
+interface ButtonProps extends AriaButtonProps, ButtonStyleProps {}
+
 export function Button(props: Readonly<ButtonProps>): ReactNode {
 	const { children, className, variant, ...rest } = props;
 
@@ -43,14 +42,14 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 		<AriaButton
 			{...rest}
 			className={composeRenderProps(className, (className, renderProps) => {
-				return button({ ...renderProps, className, variant });
+				return buttonStyles({ ...renderProps, className, variant });
 			})}
 		>
 			{composeRenderProps(children, (children, { isPending }) => {
 				return (
 					<>
 						{children}
-						{isPending && (
+						{isPending ? (
 							<span
 								aria-hidden={true}
 								className="absolute inset-0 flex items-center justify-center"
@@ -81,7 +80,7 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 									/>
 								</svg>
 							</span>
-						)}
+						) : null}
 					</>
 				);
 			})}

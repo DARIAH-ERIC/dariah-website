@@ -52,6 +52,19 @@
 	--color-secondary-950: var(--color-sky-950);
 
 	/** TODO: Use colors from figma. */
+	--color-negative-50: var(--color-red-50);
+	--color-negative-100: var(--color-red-100);
+	--color-negative-200: var(--color-red-200);
+	--color-negative-300: var(--color-red-300);
+	--color-negative-400: var(--color-red-400);
+	--color-negative-500: var(--color-red-500);
+	--color-negative-600: var(--color-red-600);
+	--color-negative-700: var(--color-red-700);
+	--color-negative-800: var(--color-red-800);
+	--color-negative-900: var(--color-red-900);
+	--color-negative-950: var(--color-red-950);
+
+	/** TODO: Use colors from figma. */
 	--color-gray-50: var(--color-zinc-50);
 	--color-gray-100: var(--color-zinc-100);
 	--color-gray-200: var(--color-zinc-200);

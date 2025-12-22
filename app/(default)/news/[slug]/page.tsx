@@ -59,7 +59,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1>{title}</h1>
+			<h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
 		</Main>
 	);
 }

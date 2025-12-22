@@ -47,7 +47,7 @@ export default function GlobalErrorPage(props: Readonly<GlobalErrorPageProps>): 
 			<DocumentBody>
 				<Providers locale={locale}>
 					<Main>
-						<h1>{t.title}</h1>
+						<h1 className="text-2xl font-extrabold tracking-tight">{t.title}</h1>
 						<button
 							onClick={() => {
 								reset();

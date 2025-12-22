@@ -11,7 +11,14 @@ import * as fonts from "@/app/_lib/fonts";
 const preview: Preview = {
 	decorators(Story) {
 		return (
-			<div className={cn(fonts.body.variable, fonts.heading.variable, fonts.code.variable)}>
+			<div
+				className={cn(
+					fonts.body.variable,
+					fonts.heading.variable,
+					fonts.code.variable,
+					"font-body antialiased",
+				)}
+			>
 				<Story />
 			</div>
 		);
