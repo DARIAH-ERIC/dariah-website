@@ -75,7 +75,7 @@
 		"@acdh-oeaw/eslint-config-playwright": "^2.0.13",
 		"@acdh-oeaw/eslint-config-react": "^3.0.3",
 		"@acdh-oeaw/eslint-config-storybook": "^4.0.0",
-		"@acdh-oeaw/eslint-config-tailwindcss": "^4.0.2",
+		"@acdh-oeaw/eslint-config-tailwindcss": "^4.1.1",
 		"@acdh-oeaw/prettier-config": "^2.0.1",
 		"@acdh-oeaw/stylelint-config": "^2.3.2",
 		"@acdh-oeaw/tsconfig": "^1.5.1",

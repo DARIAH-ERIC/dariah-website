@@ -99,8 +99,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0(@acdh-oeaw/eslint-config@2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(storybook@10.1.10(@testing-library/dom@10.4.1)(prettier@3.7.4)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(typescript@5.9.3)
       '@acdh-oeaw/eslint-config-tailwindcss':
-        specifier: ^4.0.2
-        version: 4.0.2(@acdh-oeaw/eslint-config@2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)
+        specifier: ^4.1.1
+        version: 4.1.1(@acdh-oeaw/eslint-config@2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)
       '@acdh-oeaw/prettier-config':
         specifier: ^2.0.1
         version: 2.0.1(prettier@3.7.4)
@@ -247,8 +247,8 @@ packages:
     peerDependencies:
       '@acdh-oeaw/eslint-config': 2.0.11
 
-  '@acdh-oeaw/eslint-config-tailwindcss@4.0.2':
-    resolution: {integrity: sha512-cKNsZtXnGgjsI9gVYKY56FB4hT4yNGiWt2Q3RIvx7fLAz7pYSfA6Bp38kyJBDvSN/aHOEKCIttHaKv6R88bkZw==}
+  '@acdh-oeaw/eslint-config-tailwindcss@4.1.1':
+    resolution: {integrity: sha512-9aN1sWhXSVLRlF97LjtUG7Pe02zUF1MShuho+wqiMo+5JBhubpCoJyLSSyvQ/H88B5ZYPsxrc2t9f11ltShNQw==}
     engines: {node: '>=20.11'}
     peerDependencies:
       '@acdh-oeaw/eslint-config': 2.0.11
@@ -2999,12 +2999,18 @@ packages:
       eslint-plugin-import-x:
         optional: true
 
-  eslint-plugin-better-tailwindcss@4.0.0-beta.6:
-    resolution: {integrity: sha512-DBtvXwoDLM7xve7/HsT8Y6B1h5DsyUPoUo0eEHRxTCnsXiC7b/CM4JIOHOV7T1lEcQ+KxW6VwYh82w6t0m96sg==}
+  eslint-plugin-better-tailwindcss@4.0.0-rc.0:
+    resolution: {integrity: sha512-GhVpJvjDt5PpIe3ryyj/ahSVeMfYyd+oRExorluBL/1AYPwL2l0yiKKTIvdqyl2VXFDxD/v3NKMRBZvHkeySFA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=23.0.0}
     peerDependencies:
       eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-      tailwindcss: ^3.3.0 || ^4.1.15
+      oxlint: ^1.35.0
+      tailwindcss: ^3.3.0 || ^4.1.17
+    peerDependenciesMeta:
+      eslint:
+        optional: true
+      oxlint:
+        optional: true
 
   eslint-plugin-check-file@3.3.1:
     resolution: {integrity: sha512-b7fDkp8Y0T9vloTYSrkMnb5Cqpk1bc6+jDQdgKIhzdwb47NmLAvMFYo3SzHOPF8u4SEsOVhmrNSbo6Sp633syg==}
@@ -3459,8 +3465,8 @@ packages:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
     engines: {node: '>=6'}
 
-  import-in-the-middle@2.0.0:
-    resolution: {integrity: sha512-yNZhyQYqXpkT0AKq3F3KLasUSK4fHvebNH5hOsKQw2dhGSALvQ4U0BqUc5suziKvydO5u5hgN2hy1RJaho8U5A==}
+  import-in-the-middle@2.0.1:
+    resolution: {integrity: sha512-bruMpJ7xz+9jwGzrwEhWgvRrlKRYCRDBrfU+ur3FcasYXLJDxTruJ//8g2Noj+QFyRBeqbpj8Bhn4Fbw6HjvhA==}
 
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
@@ -5017,8 +5023,8 @@ packages:
       yaml:
         optional: true
 
-  watchpack@2.4.4:
-    resolution: {integrity: sha512-c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==}
+  watchpack@2.5.0:
+    resolution: {integrity: sha512-e6vZvY6xboSwLz2GD36c16+O/2Z6fKvIf4pOXptw2rY9MVwE/TXc6RGqxD3I3x0a28lwBY7DE+76uTPSsBrrCA==}
     engines: {node: '>=10.13.0'}
 
   webpack-sources@3.3.3:
@@ -5180,12 +5186,13 @@ snapshots:
       - supports-color
       - typescript
 
-  '@acdh-oeaw/eslint-config-tailwindcss@4.0.2(@acdh-oeaw/eslint-config@2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)':
+  '@acdh-oeaw/eslint-config-tailwindcss@4.1.1(@acdh-oeaw/eslint-config@2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)':
     dependencies:
       '@acdh-oeaw/eslint-config': 2.0.11(@eslint/config-helpers@0.4.2)(@typescript-eslint/utils@8.50.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript@5.9.3)
-      eslint-plugin-better-tailwindcss: 4.0.0-beta.6(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)
+      eslint-plugin-better-tailwindcss: 4.0.0-rc.0(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3)
     transitivePeerDependencies:
       - eslint
+      - oxlint
       - tailwindcss
       - typescript
 
@@ -5900,7 +5907,7 @@ snapshots:
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/api-logs': 0.208.0
-      import-in-the-middle: 2.0.0
+      import-in-the-middle: 2.0.1
       require-in-the-middle: 8.0.1
     transitivePeerDependencies:
       - supports-color
@@ -8366,18 +8373,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-better-tailwindcss@4.0.0-beta.6(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3):
+  eslint-plugin-better-tailwindcss@4.0.0-rc.0(eslint@9.39.2(jiti@2.6.1))(tailwindcss@4.1.18)(typescript@5.9.3):
     dependencies:
       '@eslint/css-tree': 3.6.8
       '@valibot/to-json-schema': 1.5.0(valibot@1.2.0(typescript@5.9.3))
       enhanced-resolve: 5.18.4
-      eslint: 9.39.2(jiti@2.6.1)
       jiti: 2.6.1
       synckit: 0.11.11
       tailwind-csstree: 0.1.4
       tailwindcss: 4.1.18
       tsconfig-paths-webpack-plugin: 4.2.0
       valibot: 1.2.0(typescript@5.9.3)
+    optionalDependencies:
+      eslint: 9.39.2(jiti@2.6.1)
     transitivePeerDependencies:
       - typescript
 
@@ -8982,7 +8990,7 @@ snapshots:
       parent-module: 1.0.1
       resolve-from: 4.0.0
 
-  import-in-the-middle@2.0.0:
+  import-in-the-middle@2.0.1:
     dependencies:
       acorn: 8.15.0
       acorn-import-attributes: 1.9.5(acorn@8.15.0)
@@ -10645,7 +10653,7 @@ snapshots:
       tsx: 4.21.0
       yaml: 2.8.2
 
-  watchpack@2.4.4:
+  watchpack@2.5.0:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
@@ -10679,7 +10687,7 @@ snapshots:
       schema-utils: 4.3.3
       tapable: 2.3.0
       terser-webpack-plugin: 5.3.16(esbuild@0.27.2)(webpack@5.104.1(esbuild@0.27.2))
-      watchpack: 2.4.4
+      watchpack: 2.5.0
       webpack-sources: 3.3.3
     transitivePeerDependencies:
       - '@swc/core'

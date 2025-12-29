@@ -1,6 +1,6 @@
 "use client";
 
-import { styles } from "@acdh-oeaw/style-variants";
+import { type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 import {
 	Button as AriaButton,
@@ -8,12 +8,7 @@ import {
 	composeRenderProps,
 } from "react-aria-components";
 
-interface ButtonProps extends AriaButtonProps {
-	/** @default "primary" */
-	variant?: "primary" | "secondary" | "quiet";
-}
-
-const button = styles({
+const buttonStyles = styles({
 	base: [
 		"relative inline-flex items-center justify-center gap-2 border h-9 px-3.5 py-0 font-body text-sm font-medium text-center transition rounded-lg cursor-default",
 		"[&:has(>svg:only-child)]:px-0 [&:has(>svg:only-child)]:size-8 [&>svg]:size-4",
@@ -24,17 +19,21 @@ const button = styles({
 	variants: {
 		variant: {
 			primary:
-				"border-transparent bg-primary-600 hover:bg-primary-700 pressed:bg-primary-800 text-white",
+				"border-transparent bg-primary-600 text-white hover:bg-primary-700 pressed:bg-primary-800",
 			secondary:
-				"border-black/10 bg-secondary-50 hover:bg-secondary-100 pressed:bg-secondary-200 text-secondary-800",
+				"border-black/10 bg-secondary-50 text-secondary-800 hover:bg-secondary-100 pressed:bg-secondary-200",
 			quiet:
-				"border-transparent bg-transparent hover:bg-neutral-200 pressed:bg-neutral-300 text-neutral-800",
+				"border-transparent bg-transparent text-neutral-800 hover:bg-neutral-200 pressed:bg-neutral-300",
 		},
 	},
 	defaults: {
 		variant: "primary",
 	},
 });
+
+type ButtonStyleProps = GetVariantProps<typeof buttonStyles>;
+
+interface ButtonProps extends AriaButtonProps, ButtonStyleProps {}
 
 export function Button(props: Readonly<ButtonProps>): ReactNode {
 	const { children, className, variant, ...rest } = props;
@@ -43,14 +42,14 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 		<AriaButton
 			{...rest}
 			className={composeRenderProps(className, (className, renderProps) => {
-				return button({ ...renderProps, className, variant });
+				return buttonStyles({ ...renderProps, className, variant });
 			})}
 		>
 			{composeRenderProps(children, (children, { isPending }) => {
 				return (
 					<>
 						{children}
-						{isPending && (
+						{isPending ? (
 							<span
 								aria-hidden={true}
 								className="absolute inset-0 flex items-center justify-center"
@@ -81,7 +80,7 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 									/>
 								</svg>
 							</span>
-						)}
+						) : null}
 					</>
 				);
 			})}

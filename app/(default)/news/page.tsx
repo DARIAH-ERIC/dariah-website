@@ -30,7 +30,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1>{t("title")}</h1>
+			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
 			<ul
 				className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-4"
 				role="list"

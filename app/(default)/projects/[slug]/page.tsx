@@ -59,7 +59,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1>{name}</h1>
+			<h1 className="text-2xl font-extrabold tracking-tight">{name}</h1>
 		</Main>
 	);
 }
