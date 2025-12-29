@@ -19,11 +19,11 @@ const buttonStyles = styles({
 	variants: {
 		variant: {
 			primary:
-				"border-transparent bg-primary-600 hover:bg-primary-700 pressed:bg-primary-800 text-white",
+				"border-transparent bg-primary-600 text-white hover:bg-primary-700 pressed:bg-primary-800",
 			secondary:
-				"border-black/10 bg-secondary-50 hover:bg-secondary-100 pressed:bg-secondary-200 text-secondary-800",
+				"border-black/10 bg-secondary-50 text-secondary-800 hover:bg-secondary-100 pressed:bg-secondary-200",
 			quiet:
-				"border-transparent bg-transparent hover:bg-neutral-200 pressed:bg-neutral-300 text-neutral-800",
+				"border-transparent bg-transparent text-neutral-800 hover:bg-neutral-200 pressed:bg-neutral-300",
 		},
 	},
 	defaults: {
