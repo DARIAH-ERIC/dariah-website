@@ -330,10 +330,10 @@ export const client = {
 						label: "Events",
 						href: "/events",
 					},
-					spotlight: {
+					spotlights: {
 						type: "link",
-						label: "Spotlight",
-						href: "/spotlight",
+						label: "Spotlights",
+						href: "/spotlights",
 					},
 					// "annual-events": {
 					// 	type: "link",
