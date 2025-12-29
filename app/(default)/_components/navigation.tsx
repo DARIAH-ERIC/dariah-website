@@ -1,7 +1,14 @@
 import type { ReactNode } from "react";
 
-import { NavLink } from "@/app/(default)/_components/nav-link";
 import { Image } from "@/components/image";
+import {
+	NavLink,
+	NavMenu,
+	NavMenuButton,
+	NavMenuItem,
+	NavMenuSeparator,
+	NavMenuTrigger,
+} from "@/components/navigation";
 import type { NavigationConfig, NavigationLink } from "@/lib/navigation/navigation";
 import logo from "@/public/assets/images/logo-dariah-eu.svg";
 
@@ -15,7 +22,7 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 
 	return (
 		<nav aria-label={label} className="hidden lg:flex lg:gap-x-6">
-			<NavLink href={navigation.home.href} size="icon">
+			<NavLink href={navigation.home.href}>
 				<span className="sr-only">{navigation.home.label}</span>
 				<Image
 					alt=""
@@ -28,7 +35,7 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 				/>
 			</NavLink>
 
-			<ul className="flex flex-wrap items-center" role="list">
+			<ul className="flex flex-wrap items-center gap-x-2" role="list">
 				{Object.entries(navigation).map(([id, item]) => {
 					switch (item.type) {
 						case "action": {
@@ -38,15 +45,44 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 						case "link": {
 							return (
 								<li key={id}>
-									<NavLink href={item.href} size="md">
-										{item.label}
-									</NavLink>
+									<NavLink href={item.href}>{item.label}</NavLink>
 								</li>
 							);
 						}
 
 						case "menu": {
-							return <li key={id}></li>;
+							return (
+								<li key={id}>
+									<NavMenuTrigger>
+										<NavMenuButton>{item.label}</NavMenuButton>
+										<NavMenu>
+											{Object.entries(item.children).map(([id, item]) => {
+												switch (item.type) {
+													case "action": {
+														return (
+															<NavMenuItem key={id} onAction={item.onAction}>
+																{item.label}
+															</NavMenuItem>
+														);
+													}
+
+													case "link": {
+														return (
+															<NavMenuItem key={id} href={item.href}>
+																{item.label}
+															</NavMenuItem>
+														);
+													}
+
+													case "separator": {
+														return <NavMenuSeparator key={id} />;
+													}
+												}
+											})}
+										</NavMenu>
+									</NavMenuTrigger>
+								</li>
+							);
 						}
 
 						case "separator": {
