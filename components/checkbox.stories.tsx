@@ -83,7 +83,11 @@ export const GroupWithDescription: Story = {
 export const GroupWithError: Story = {
 	render() {
 		return (
-			<CheckboxGroup errorMessage="Please select at least one option." isInvalid={true} label="Select at least one">
+			<CheckboxGroup
+				errorMessage="Please select at least one option."
+				isInvalid={true}
+				label="Select at least one"
+			>
 				<Checkbox value="option1">Option 1</Checkbox>
 				<Checkbox value="option2">Option 2</Checkbox>
 			</CheckboxGroup>
