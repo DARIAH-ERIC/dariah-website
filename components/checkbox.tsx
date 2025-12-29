@@ -62,11 +62,11 @@ export function Checkbox(props: Readonly<AriaCheckboxProps>): ReactNode {
 							className={cn(
 								"flex size-4.5 shrink-0 items-center justify-center rounded-sm border transition",
 								"border-(--color) bg-white [--color:var(--color-neutral-400)] group-pressed:[--color:var(--color-neutral-500)]",
-								"selected:border-(--color) selected:bg-(--color) selected:[--color:var(--color-neutral-700)] selected:group-pressed:[--color:var(--color-neutral-800)] selected:forced-colors:[--color:Highlight]!",
-								"indeterminate:border-(--color) indeterminate:bg-(--color) indeterminate:[--color:var(--color-neutral-700)] indeterminate:group-pressed:[--color:var(--color-neutral-800)] indeterminate:forced-colors:[--color:Highlight]!",
-								"outline-0 outline-offset-2 outline-primary-600 focus-visible:outline-2 forced-colors:outline-[Highlight]",
-								"invalid:[--color:var(--color-negative-700)] invalid:group-pressed:[--color:var(--color-negative-800)] invalid:forced-colors:[--color:Mark]!",
-								"disabled:[--color:var(--color-neutral-200)] disabled:forced-colors:[--color:GrayText]!",
+								"group-selected:border-(--color) group-selected:bg-(--color) group-selected:[--color:var(--color-neutral-700)] group-selected:group-pressed:[--color:var(--color-neutral-800)] group-selected:forced-colors:[--color:Highlight]!",
+								"group-indeterminate:border-(--color) group-indeterminate:bg-(--color) group-indeterminate:[--color:var(--color-neutral-700)] group-indeterminate:group-pressed:[--color:var(--color-neutral-800)] group-indeterminate:forced-colors:[--color:Highlight]!",
+								"outline-0 outline-offset-2 outline-primary-600 group-focus-visible:outline-2 forced-colors:outline-[Highlight]",
+								"group-invalid:[--color:var(--color-negative-700)] group-invalid:group-pressed:[--color:var(--color-negative-800)] group-invalid:forced-colors:[--color:Mark]!",
+								"group-disabled:[--color:var(--color-neutral-200)] group-disabled:forced-colors:[--color:GrayText]!",
 							)}
 						>
 							{isIndeterminate ? (
