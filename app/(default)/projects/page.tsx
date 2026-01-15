@@ -3,7 +3,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { Link } from "@/components/link";
+import { Link } from "@/components/ui/link/link";
 import { client } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {

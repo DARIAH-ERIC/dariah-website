@@ -33,7 +33,7 @@ export function Menu<T extends object>(props: Readonly<MenuProps<T>>): ReactNode
 		<AriaMenu
 			{...rest}
 			className={cn(
-				"max-h-[inherit] overflow-auto p-1 font-body outline-0 [clip-path:inset(0_0_0_0_round_.75rem)] empty:pb-2 empty:text-center",
+				"max-h-[inherit] overflow-auto p-1 font-body outline-0 rounded-none flex flex-col gap-1 empty:pb-2 empty:text-center",
 				className,
 			)}
 		/>
@@ -118,7 +118,7 @@ export function MenuTrigger(props: Readonly<MenuTriggerProps>): ReactNode {
 	return (
 		<AriaMenuTrigger {...rest}>
 			{trigger}
-			<Popover className="min-w-38" placement={placement}>
+			<Popover className="min-w-38 rounded-none!" placement={placement}>
 				{menu}
 			</Popover>
 		</AriaMenuTrigger>

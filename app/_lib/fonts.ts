@@ -8,7 +8,7 @@ export const body = Roboto({
 export const heading = Lato({
 	subsets: ["latin"],
 	variable: "--_font-heading",
-	weight: ["700"],
+	weight: ["300", "400", "700"],
 });
 
 export const code = Fira_Code({

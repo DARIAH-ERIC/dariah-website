@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { SearchIcon } from "lucide-react";
 
-import { Button } from "@/components/button";
+import { Button } from "@/components/ui/button/button";
 
 const meta = {
 	title: "Components/Button",
@@ -27,10 +27,17 @@ export const Primary: Story = {
 	},
 };
 
-export const Secondary: Story = {
+export const SecondaryBlue: Story = {
 	args: {
-		variant: "secondary",
-		children: "Secondary",
+		variant: "secondary-blue",
+		children: "Secondary blue",
+	},
+};
+
+export const SecondaryBlack: Story = {
+	args: {
+		variant: "secondary-black",
+		children: "Secondary black",
 	},
 };
 
@@ -69,7 +76,8 @@ export const AllVariants: Story = {
 		return (
 			<div className="flex flex-wrap items-center gap-3">
 				<Button variant="primary">Primary</Button>
-				<Button variant="secondary">Secondary</Button>
+				<Button variant="secondary-blue">Secondary blue</Button>
+				<Button variant="secondary-black">Secondary black</Button>
 				<Button variant="quiet">Quiet</Button>
 				<Button isDisabled={true}>Disabled</Button>
 				<Button isPending={true}>Pending</Button>

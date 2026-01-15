@@ -1,7 +1,7 @@
 import { type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
 import type { ComponentProps, ReactNode } from "react";
 
-import { NavLink as BaseNavLink } from "@/components/nav-link";
+import { NavLink as BaseNavLink } from "@/components/ui/link/nav-link";
 
 const navLinkStyles = styles({
 	base: [

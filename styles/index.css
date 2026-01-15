@@ -24,21 +24,76 @@
 	--font-code: var(--_font-code, var(--default-mono-font-family));
 }
 
-@theme inline {
-	/** TODO: Use colors from figma. */
-	--color-primary-50: var(--color-blue-50);
-	--color-primary-100: var(--color-blue-100);
-	--color-primary-200: var(--color-blue-200);
-	--color-primary-300: var(--color-blue-300);
-	--color-primary-400: var(--color-blue-400);
-	--color-primary-500: var(--color-blue-500);
+@theme {
+	--primary: rgb(8 112 172);
+	--primary-100: rgb(230 240 246);
+	--primary-200: rgb(205 226 238);
+	--primary-300: rgb(131 183 213);
+	--primary-400: rgb(57 140 188);
+	--primary-500: rgb(58 110 177);
+
+	--accent: rgb(30 57 108);
+	--accent-100: rgb(193 205 224);
+	--accent-200: rgb(170 184 207);
+	--accent-300: rgb(146 163 191);
+	--accent-400: rgb(123 142 174);
+	--accent-500: rgb(100 120 158);
+	--accent-600: rgb(77 99 141);
+	--accent-700: rgb(53 78 125);
+	--accent-800: rgb(17 42 90);
+
+	--gray: rgb(155 155 155);
+	--gray-100: rgb(250 250 250);
+	--gray-200: rgb(242 242 242);
+	--gray-300: rgb(231 231 231);
+	--gray-400: rgb(214 214 214);
+	--gray-500: rgb(194 194 194);
+	--gray-600: rgb(155 155 155);
+	--gray-700: rgb(124 124 124);
+	--gray-800: rgb(82 82 82);
+	--gray-900: rgb(51 51 51);
+
+	--white: rgb(255 255 255);
+	--black: rgb(38 38 38);
+
+	--section-text: rgb(39 47 62);
+	--section-box-bg: rgb(231 231 231);
+	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
+
+	--section-resources-top-bg: rgb(0 29 107);
+
+	--section-events-bg: linear-gradient(
+		99.49deg,
+		rgb(0 64 131) 3.62%,
+		rgb(0 170 188) 53.67%,
+		rgb(175 201 24) 99.71%
+	);
+
+	--event-card-bg: rgb(1 94 191 / 30%);
+	--event-card-details-bg: rgb(255 255 255 / 85%);
+	--event-card-details-bg-hover: rgb(255 255 255 / 74%);
+
+	--resource-container-bg: rgb(255 255 255 / 90%);
+
+	--tag-upcoming-bg: rgb(255 187 0);
+
+	--button-primary: rgb(0 102 153);
+	--in-text-link: rgb(6 89 137);
+	--text-link-bg: rgb(39 47 62);
+	--button-bg: rgb(226 239 246);
+
+	--blue: rgb(0 131 213);
+	--green: rgb(175 205 2);
+	--orange: rgb(253 132 2);
+	--purple: rgb(134 16 204);
+
+	/** SECTION TO DELETE AFTER FIGMA COLORS IN COMPONENTS ARE FINALIZED */
 	--color-primary-600: var(--color-blue-600);
 	--color-primary-700: var(--color-blue-700);
 	--color-primary-800: var(--color-blue-800);
 	--color-primary-900: var(--color-blue-900);
 	--color-primary-950: var(--color-blue-950);
 
-	/** TODO: Use colors from figma. */
 	--color-secondary-50: var(--color-sky-50);
 	--color-secondary-100: var(--color-sky-100);
 	--color-secondary-200: var(--color-sky-200);
@@ -51,7 +106,6 @@
 	--color-secondary-900: var(--color-sky-900);
 	--color-secondary-950: var(--color-sky-950);
 
-	/** TODO: Use colors from figma. */
 	--color-negative-50: var(--color-red-50);
 	--color-negative-100: var(--color-red-100);
 	--color-negative-200: var(--color-red-200);
@@ -64,18 +118,7 @@
 	--color-negative-900: var(--color-red-900);
 	--color-negative-950: var(--color-red-950);
 
-	/** TODO: Use colors from figma. */
 	--color-gray-50: var(--color-zinc-50);
-	--color-gray-100: var(--color-zinc-100);
-	--color-gray-200: var(--color-zinc-200);
-	--color-gray-300: var(--color-zinc-300);
-	--color-gray-400: var(--color-zinc-400);
-	--color-gray-500: var(--color-zinc-500);
-	--color-gray-600: var(--color-zinc-600);
-	--color-gray-700: var(--color-zinc-700);
-	--color-gray-800: var(--color-zinc-800);
-	--color-gray-900: var(--color-zinc-900);
-	--color-gray-950: var(--color-zinc-950);
 
 	--color-neutral-0: var(--color-white);
 	--color-neutral-50: var(--color-gray-50);
@@ -90,6 +133,70 @@
 	--color-neutral-900: var(--color-gray-900);
 	--color-neutral-950: var(--color-gray-950);
 	--color-neutral-1000: var(--color-black);
+
+	/** SECTION TO DELETE AFTER FIGMA COLORS IN COMPONENTS ARE FINALIZED */
+
+	/** FIGMA COLORS */
+	--shadow-footer: 0px 0px 30px 0px rgb(0 0 0 / 25%);
+	--shadow-header: 0px 0px 15px 0px rgb(0 0 0 / 15%);
+
+	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
+	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 25%);
+
+	--color-primary: var(--primary);
+	--color-primary-100: var(--primary-100);
+	--color-primary-200: var(--primary-200);
+	--color-primary-300: var(--primary-300);
+	--color-primary-400: var(--primary-400);
+	--color-primary-500: var(--primary-500);
+
+	--color-accent: var(--accent);
+	--color-accent-100: var(--accent-100);
+	--color-accent-200: var(--accent-200);
+	--color-accent-300: var(--accent-300);
+	--color-accent-400: var(--accent-400);
+	--color-accent-500: var(--accent-500);
+	--color-accent-600: var(--accent-600);
+	--color-accent-700: var(--accent-700);
+	--color-accent-800: var(--accent-800);
+
+	--color-gray: var(--gray);
+	--color-gray-100: var(--gray-100);
+	--color-gray-200: var(--gray-200);
+	--color-gray-300: var(--gray-300);
+	--color-gray-400: var(--gray-400);
+	--color-gray-500: var(--gray-500);
+	--color-gray-600: var(--gray-600);
+	--color-gray-700: var(--gray-700);
+	--color-gray-800: var(--gray-800);
+	--color-gray-900: var(--gray-900);
+
+	--color-white: var(--white);
+	--color-black: var(--black);
+
+	--color-section-text: var(--section-text);
+	--color-section-box-bg: var(--section-box-bg);
+	--color-section-news-bg: var(--section-news-bg);
+	--color-section-resources-top-bg: var(--section-resources-top-bg);
+	--color-section-events-bg: var(--section-events-bg);
+	--color-event-card-bg: var(--event-card-bg);
+	--color-event-card-details-bg: var(--event-card-details-bg);
+	--color-event-card-details-bg-hover: var(--event-card-details-bg-hover);
+	--color-resource-container-bg: var(--resource-container-bg);
+
+	--color-tag-upcoming-bg: var(--tag-upcoming-bg);
+
+	--color-button-primary: var(--button-primary);
+	--color-in-text-link: var(--in-text-link);
+	--color-text-link-bg: var(--text-link-bg);
+	--color-button-bg: var(--button-bg);
+
+	--color-palette-blue: var(--palette-blue);
+	--color-palette-green: var(--palette-green);
+	--color-palette-orange: var(--palette-orange);
+	--color-palette-purple: var(--palette-purple);
+
+	/** FIGMA COLORS */
 }
 
 @theme inline {
@@ -105,6 +212,66 @@
 	--color-stroke-weak: var(--color-neutral-200);
 	--color-icon-neutral: var(--color-neutral-600);
 	--color-focus-outline: var(--color-neutral-950);
+}
+
+@theme inline {
+	/** TYPOGRAPHY */
+	--font-size-h1: 2.5rem;
+	--font-size-h2: 1.75rem;
+	--font-size-h3: 1.5rem;
+	--font-size-h4: 1.125rem;
+	--font-size-regular: 1.125rem;
+	--font-size-small: 1rem;
+	--font-size-caption: 0.75rem;
+
+	--font-heading: "Lato";
+	--font-body: "Roboto";
+
+	--line-height-small: 120%;
+	--line-height-medium: 130%;
+	--line-height-large: 150%;
+
+	--letter-spacing-small: -1.5%;
+	--letter-spacing-medium: -1%;
+	--letter-spacing-none: 0%;
+
+	--font-weight-bold: 700;
+	--font-weight-regular: 400;
+
+	--text-h1: var(--font-size-h1);
+	--text-h1--line-height: var(--line-height-medium);
+	--text-h1--font-weight: var(--font-weight-bold);
+	--text-h1--letter-spacing: var(--letter-spacing-small);
+
+	--text-h2: var(--font-size-h2);
+	--text-h2--line-height: var(--line-height-small);
+	--text-h2--font-weight: var(--font-weight-bold);
+	--text-h2--letter-spacing: var(--letter-spacing-medium);
+
+	--text-h3: var(--font-size-h3);
+	--text-h3--line-height: var(--line-height-large);
+	--text-h3--font-weight: var(--font-weight-bold);
+	--text-h3--letter-spacing: var(--letter-spacing-medium);
+
+	--text-h4: var(--font-size-h4);
+	--text-h4--line-height: var(--line-height-large);
+	--text-h4--font-weight: var(--font-weight-bold);
+	--text-h4--letter-spacing: var(--letter-spacing-medium);
+
+	--text-regular: var(--font-size-regular);
+	--text-regular--line-height: var(--line-height-large);
+	--text-regular--font-weight: var(--font-weight-regular);
+	--text-regular--letter-spacing: var(--letter-spacing-none);
+
+	--text-small: var(--font-size-small);
+	--text-small--line-height: var(--line-height-large);
+	--text-small--font-weight: var(--font-weight-regular);
+	--text-small--letter-spacing: var(--letter-spacing-none);
+
+	--text-caption: var(--font-size-caption);
+	--text-caption--line-height: var(--line-height-large);
+	--text-caption--font-weight: var(--font-weight-regular);
+	--text-caption--letter-spacing: var(--letter-spacing-none);
 }
 
 /** ===============================================================================================

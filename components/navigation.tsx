@@ -6,7 +6,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { Button as AriaButton, type ButtonProps as AriaButtonProps } from "react-aria-components";
 
 import { Menu, MenuItem, MenuSeparator, MenuTrigger } from "@/components/menu";
-import { NavLink as BaseNavLink } from "@/components/nav-link";
+import { NavLink as BaseNavLink } from "@/components/ui/link/nav-link";
 
 interface NavLinkProps extends ComponentProps<typeof BaseNavLink> {}
 

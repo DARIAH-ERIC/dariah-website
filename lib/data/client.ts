@@ -382,14 +382,67 @@ export const client = {
 				href: "/",
 			},
 			contact: {
-				type: "link",
-				label: "Contact",
-				href: "/contact",
+				type: "menu",
+				label: "Contact Dariah",
+				children: {
+					helpdesk: {
+						type: "link",
+						label: "Helpdesk",
+						href: "/contact",
+					},
+				},
 			},
-			imprint: {
-				type: "link",
-				label: "Imprint",
-				href: "/imprint",
+			privacy: {
+				type: "menu",
+				label: "Privacy and Legal",
+				children: {
+					"legal-notice": {
+						type: "link",
+						label: "Legal notice",
+						href: "/",
+					},
+					practice: {
+						type: "link",
+						label: "Practice",
+						href: "/",
+					},
+					"accesibility-declaration": {
+						type: "link",
+						label: "Accessibility declaration",
+						href: "/",
+					},
+				},
+			},
+			"quick-menu": {
+				type: "menu",
+				label: "Quick menu",
+				children: {
+					"dariah-nutshell": {
+						type: "link",
+						label: "DARIAH in Nutshell",
+						href: "/",
+					},
+					"members-and-partners": {
+						type: "link",
+						label: "Members and Partners",
+						href: "/",
+					},
+					projects: {
+						type: "link",
+						label: "Projects",
+						href: "/",
+					},
+					"events-calendar": {
+						type: "link",
+						label: "Events Calendar",
+						href: "/",
+					},
+					"website-user-survey": {
+						type: "link",
+						label: "Website User Survey",
+						href: "/",
+					},
+				},
 			},
 		} satisfies NavigationConfig;
 
