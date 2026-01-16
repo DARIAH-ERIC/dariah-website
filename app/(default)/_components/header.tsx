@@ -17,8 +17,8 @@ export async function Header(props: Readonly<HeaderProps>): Promise<ReactNode> {
 	const { primary: navigation } = await client.navigation();
 
 	return (
-		<header {...rest} className={cn("border-b border-stroke-weak", className)}>
-			<div className="container flex items-center justify-between gap-x-12 px-8 py-4 xs:px-16">
+		<header {...rest} className={cn("bg-white shadow-header", className)}>
+			<div className="py-8 pl-34.5 pr-36.75 max-w-480 mx-auto">
 				<Navigation label={label} navigation={navigation} />
 			</div>
 		</header>

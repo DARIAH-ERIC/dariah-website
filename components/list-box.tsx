@@ -60,7 +60,7 @@ export function ListBoxItem<T extends object>(props: Readonly<ListBoxItemProps<T
 				return (
 					<Fragment>
 						{children}
-						<div className="absolute right-4 bottom-0 left-4 hidden h-px bg-white/20 forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
+						<div className="absolute inset-x-4 bottom-0 hidden h-px bg-white/20 forced-colors:bg-[HighlightText] [.group[data-selected]:has(+[data-selected])_&]:block" />
 					</Fragment>
 				);
 			})}
