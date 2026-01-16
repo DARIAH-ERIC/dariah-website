@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { Button } from "@/components/button";
 import {
 	Menu,
 	MenuItem,
@@ -9,6 +8,7 @@ import {
 	MenuTrigger,
 	SubmenuTrigger,
 } from "@/components/menu";
+import { Button } from "@/components/ui/button/button";
 
 const meta = {
 	title: "Components/Menu",
@@ -26,7 +26,7 @@ export const Simple: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<Button variant="secondary">Open Menu</Button>
+				<Button variant="secondary-black">Open Menu</Button>
 				<Menu>
 					<MenuItem>Home</MenuItem>
 					<MenuItem>About</MenuItem>
@@ -44,7 +44,7 @@ export const WithSubmenu: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<Button variant="secondary">Open Menu</Button>
+				<Button variant="secondary-black">Open Menu</Button>
 				<Menu>
 					<MenuItem>Home</MenuItem>
 					<MenuItem>About</MenuItem>
