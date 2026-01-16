@@ -41,7 +41,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						</p>
 						<nav aria-label={t("navigation.label")} className="flex justify-between">
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<h4 className="text-h4">{navigation.contact.label}</h4>
+								<p className="text-h4 font-heading">{navigation.contact.label}</p>
 								<p className="flex gap-2 text-primary">
 									<EmailIcon className="stroke-primary fill-transparent" />
 									{"info@dariah.pl"}
@@ -67,7 +67,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</ul>
 
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<h4 className="text-h4">{navigation.privacy.label}</h4>
+								<p className="text-h4 font-heading">{navigation.privacy.label}</p>
 								{Object.entries(navigation.privacy.children).map(([id, link]) => {
 									if (id === "home") {
 										return null;
@@ -89,7 +89,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</ul>
 
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<h4 className="text-h4">{navigation["quick-menu"].label}</h4>
+								<p className="text-h4 font-heading">{navigation["quick-menu"].label}</p>
 								{Object.entries(navigation["quick-menu"].children).map(([id, link]) => {
 									if (id === "home") {
 										return null;
