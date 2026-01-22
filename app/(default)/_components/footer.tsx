@@ -41,7 +41,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							}
 						</p>
 						<nav aria-label={t("navigation.label")} className="flex justify-between">
-							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading" variant="h4">
 									{navigation.contact.label}
 								</Typography>
@@ -49,73 +49,79 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 									<EmailIcon className="stroke-primary fill-transparent" />
 									{"info@dariah.pl"}
 								</p>
-								{Object.entries(navigation.contact.children).map(([id, link]) => {
-									if (id === "home") {
-										return null;
-									}
+								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+									{Object.entries(navigation.contact.children).map(([id, link]) => {
+										if (id === "home") {
+											return null;
+										}
 
-									return (
-										<li key={id}>
-											<Link
-												href={link.href}
-												leftIconReversed={true}
-												variant="secondary"
-												withLeftIcon={true}
-											>
-												{link.label}
-											</Link>
-										</li>
-									);
-								})}
-							</ul>
+										return (
+											<li key={id}>
+												<Link
+													href={link.href}
+													leftIconReversed={true}
+													variant="secondary"
+													withLeftIcon={true}
+												>
+													{link.label}
+												</Link>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
 
-							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading" variant="h4">
 									{navigation.privacy.label}
 								</Typography>
-								{Object.entries(navigation.privacy.children).map(([id, link]) => {
-									if (id === "home") {
-										return null;
-									}
+								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+									{Object.entries(navigation.privacy.children).map(([id, link]) => {
+										if (id === "home") {
+											return null;
+										}
 
-									return (
-										<li key={id}>
-											<Link
-												href={link.href}
-												leftIconReversed={true}
-												variant="secondary"
-												withLeftIcon={true}
-											>
-												{link.label}
-											</Link>
-										</li>
-									);
-								})}
-							</ul>
+										return (
+											<li key={id}>
+												<Link
+													href={link.href}
+													leftIconReversed={true}
+													variant="secondary"
+													withLeftIcon={true}
+												>
+													{link.label}
+												</Link>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
 
-							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading" variant="h4">
 									{navigation["quick-menu"].label}
 								</Typography>
-								{Object.entries(navigation["quick-menu"].children).map(([id, link]) => {
-									if (id === "home") {
-										return null;
-									}
+								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
+									{Object.entries(navigation["quick-menu"].children).map(([id, link]) => {
+										if (id === "home") {
+											return null;
+										}
 
-									return (
-										<li key={id}>
-											<Link
-												href={link.href}
-												leftIconReversed={true}
-												variant="secondary"
-												withLeftIcon={true}
-											>
-												{link.label}
-											</Link>
-										</li>
-									);
-								})}
-							</ul>
+										return (
+											<li key={id}>
+												<Link
+													href={link.href}
+													leftIconReversed={true}
+													variant="secondary"
+													withLeftIcon={true}
+												>
+													{link.label}
+												</Link>
+											</li>
+										);
+									})}
+								</ul>
+							</div>
 						</nav>
 					</div>
 					<div className="flex flex-col gap-y-8 max-w-154">
