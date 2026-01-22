@@ -1,13 +1,17 @@
 import React, { type ReactNode } from "react";
 
 import { Pillar } from "@/components/pillar/pillar";
+import { Typography } from "@/components/ui/typography/typography";
 
 export function PilarsSection(): ReactNode {
 	return (
 		<section className="px-33.5 pt-7.75 pb-23">
-			<p className="text-h1 font-heading text-[85px] font-light w-full px-2.5 py-17.5">
+			<Typography
+				className="font-heading text-[85px] font-light w-full px-2.5 py-17.5"
+				variant="h1"
+			>
 				{"Four Pillars of Our Work"}
-			</p>
+			</Typography>
 			<div className="flex justify-between">
 				<Pillar
 					description={

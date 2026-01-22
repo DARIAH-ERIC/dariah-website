@@ -9,6 +9,7 @@ import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import {
 	type ComponentProps,
 	type ElementType,
+	Fragment,
 	type ReactNode,
 	type Ref,
 	useMemo,
@@ -38,28 +39,35 @@ import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left";
  */
 
 const linkStyles = styles({
-	base: [
-		"cursor-pointer flex items-center text-section-text w-fit [&>svg]:size-5 [&>svg]:fill-primary [&>span]:text-wrap",
-		"focus-visible:outline-none",
-	],
+	base: ["cursor-pointer flex items-center [&>svg]:size-5 [&>svg]:fill-primary [&>span]:text-wrap"],
 	variants: {
 		variant: {
 			primary: cn(
-				"py-2 gap-2 text-h4",
-				"hover:underline hover:decoration-[10%] hover:text-primary hover:underline-offset-[24%]",
+				"py-2 gap-2 text-h4 text-section-text",
+				"w-fit hover:underline hover:decoration-[10%] hover:text-primary hover:underline-offset-[24%]",
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100 focus-visible:[&>svg]:fill-black",
+				"focus-visible:outline-none",
 			),
 			secondary: cn(
-				"gap-4 text-regular",
+				"gap-4 text-regular w-fit text-section-text",
 				"hover:text-primary",
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100 focus-visible:[&>span]:text-section-text focus-visible:[&>span]:font-medium",
+				"focus-visible:outline-none",
 			),
-			tertiary: cn("gap-2"), //todo hover and focus styles
+			tertiary: cn(
+				"gap-2 text-regular text-[14px] w-fit [&>span]:text-primary",
+				"hover:text-primary hover:underline hover:decoration-[10%] hover:underline-offset-[24%]",
+				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100",
+				"focus-visible:outline-none",
+				"disabled:[&>span]:text-black",
+			),
 			"color-bg": cn(
 				"bg-transparent text-white gap-2 h-11 [&>svg]:fill-white",
 				"hover:underline",
 				"focus-visible:underline focus-visible:decoration-[3px]",
+				"focus-visible:outline-none",
 			),
+			"breadcrumb-current": "text-regular text-black text-[14px] cursor-default!",
 			unstyled: "",
 		},
 	},
@@ -70,13 +78,13 @@ const linkStyles = styles({
 
 type LinkStyleProps = GetVariantProps<typeof linkStyles>;
 
-interface LinkProps
+export interface LinkProps
 	extends
 		LinkStyleProps,
 		Pick<NextLinkProps, "prefetch" | "replace" | "scroll" | "shallow">,
 		Omit<AriaLinkProps, "elementType" | "href" | "routerOptions" | "slot">,
 		Pick<ComponentProps<"a">, "aria-current" | "id"> {
-	href: Exclude<NextLinkProps["href"], UrlObject>;
+	href?: Exclude<NextLinkProps["href"], UrlObject>;
 	ref?: Ref<HTMLAnchorElement | HTMLSpanElement> | undefined;
 	withLeftIcon?: boolean;
 	leftIconReversed?: boolean;
@@ -107,6 +115,7 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 	const isCurrent = Boolean(interactionProps["aria-current"]);
 	const isLinkElement = Boolean(interactionProps.href) && !isDisabled;
 	const ElementType: ElementType = isLinkElement ? NextLink : "span";
+	const ChildrenWrapper: ElementType = variant === "unstyled" ? Fragment : "span";
 
 	const withLeftIconDefault = withLeftIcon && !leftIconReversed;
 	const withLeftIconReversed = withLeftIcon && leftIconReversed;
@@ -152,7 +161,7 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 		>
 			{withLeftIconDefault && <ChevronLeftIcon />}
 			{withLeftIconReversed && <ChevronForwardIcon />}
-			<span>{renderProps.children}</span>
+			<ChildrenWrapper>{renderProps.children}</ChildrenWrapper>
 			{withRightIcon && <ChevronForwardIcon />}
 		</ElementType>
 	);

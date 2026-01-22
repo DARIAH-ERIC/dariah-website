@@ -5,9 +5,9 @@ const tagStyles = styles({
 	base: ["rounded-sm px-1 py-0.5 shadow-light text-h4 text-[12px] text-black uppercase"],
 	variants: {
 		variant: {
-			past: "",
+			past: "bg-gray-200",
+			pending: "text-white bg-accent",
 			upcoming: "bg-tag-upcoming-bg",
-			pending: "",
 		},
 	},
 	defaults: {
@@ -18,7 +18,7 @@ const tagStyles = styles({
 type TagStyleProps = GetVariantProps<typeof tagStyles>;
 
 interface TagProps extends TagStyleProps {
-	text: string;
+	text?: string;
 }
 
 export function Tag(props: Readonly<TagProps>): ReactNode {
