@@ -2,16 +2,16 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
 import {
 	Menu,
-	MenuItem,
 	MenuSection,
 	MenuSeparator,
 	MenuTrigger,
 	SubmenuTrigger,
-} from "@/components/menu";
-import { Button } from "@/components/ui/button/button";
+} from "@/components/ui/menu/menu";
+import { NavButton } from "@/components/ui/navigation/nav-button";
+import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
 
 const meta = {
-	title: "Components/Menu",
+	title: "Components/UI/Menu",
 	component: MenuTrigger,
 	parameters: { layout: "centered" },
 	tags: ["autodocs"],
@@ -26,13 +26,13 @@ export const Simple: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<Button variant="secondary-black">Open Menu</Button>
+				<NavButton>Open Menu</NavButton>
 				<Menu>
-					<MenuItem>Home</MenuItem>
-					<MenuItem>About</MenuItem>
-					<MenuItem>Contact</MenuItem>
+					<NavMenuItem>Home</NavMenuItem>
+					<NavMenuItem>About</NavMenuItem>
+					<NavMenuItem>Contact</NavMenuItem>
 					<MenuSeparator />
-					<MenuItem>Settings</MenuItem>
+					<NavMenuItem>Settings</NavMenuItem>
 				</Menu>
 			</MenuTrigger>
 		);
@@ -44,21 +44,21 @@ export const WithSubmenu: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<Button variant="secondary-black">Open Menu</Button>
+				<NavButton>Open Menu</NavButton>
 				<Menu>
-					<MenuItem>Home</MenuItem>
-					<MenuItem>About</MenuItem>
+					<NavMenuItem>Home</NavMenuItem>
+					<NavMenuItem>About</NavMenuItem>
 					<MenuSection title="Projects">
-						<MenuItem>Project 1</MenuItem>
-						<MenuItem>Project 2</MenuItem>
+						<NavMenuItem>Project 1</NavMenuItem>
+						<NavMenuItem>Project 2</NavMenuItem>
 					</MenuSection>
 					<MenuSeparator />
 					<SubmenuTrigger>
-						<MenuItem>More Options</MenuItem>
+						<NavMenuItem>More Options</NavMenuItem>
 						<Menu>
-							<MenuItem>Option A</MenuItem>
-							<MenuItem>Option B</MenuItem>
-							<MenuItem>Option C</MenuItem>
+							<NavMenuItem>Option A</NavMenuItem>
+							<NavMenuItem>Option B</NavMenuItem>
+							<NavMenuItem>Option C</NavMenuItem>
 						</Menu>
 					</SubmenuTrigger>
 				</Menu>

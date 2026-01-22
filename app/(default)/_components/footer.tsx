@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button/button";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
 import { TextField } from "@/components/ui/text-field/text-field";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/client";
 import { getMetadata } from "@/lib/i18n/metadata";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
@@ -41,7 +42,9 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						</p>
 						<nav aria-label={t("navigation.label")} className="flex justify-between">
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<p className="text-h4 font-heading">{navigation.contact.label}</p>
+								<Typography className="font-heading" variant="h4">
+									{navigation.contact.label}
+								</Typography>
 								<p className="flex gap-2 text-primary">
 									<EmailIcon className="stroke-primary fill-transparent" />
 									{"info@dariah.pl"}
@@ -67,7 +70,9 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</ul>
 
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<p className="text-h4 font-heading">{navigation.privacy.label}</p>
+								<Typography className="font-heading" variant="h4">
+									{navigation.privacy.label}
+								</Typography>
 								{Object.entries(navigation.privacy.children).map(([id, link]) => {
 									if (id === "home") {
 										return null;
@@ -89,7 +94,9 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</ul>
 
 							<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-								<p className="text-h4 font-heading">{navigation["quick-menu"].label}</p>
+								<Typography className="font-heading" variant="h4">
+									{navigation["quick-menu"].label}
+								</Typography>
 								{Object.entries(navigation["quick-menu"].children).map(([id, link]) => {
 									if (id === "home") {
 										return null;
@@ -113,13 +120,15 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					</div>
 					<div className="flex flex-col gap-y-8 max-w-154">
 						<div className="flex flex-col gap-10">
-							<h1 className="text-h1 font-light">{"Subscribe to our newsletter"}</h1>
+							<Typography className="font-light" variant="h1">
+								{"Subscribe to our newsletter"}
+							</Typography>
 							<div className="flex flex-col gap-8.5">
-								<p className="text-regular">
+								<Typography variant="regular">
 									{"Get monthly updates on news, events, and resources from"}{" "}
 									<span className="font-bold">{"DARIAH"}</span>{" "}
 									{"and our community. Subscribing to it is the ideal way of staying informed!"}
-								</p>
+								</Typography>
 								<div className="flex gap-0.5">
 									<TextField className="flex-1" placeholder="Email address" />
 									<Button variant="secondary-blue">{"Subscribe"}</Button>
@@ -127,7 +136,9 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</div>
 						</div>
 						<nav aria-label={t("navigation-social-media.label")} className="flex flex-col gap-4">
-							<h1 className="text-h1 font-light">{"Follow us"}</h1>
+							<Typography className="font-light" variant="h1">
+								{"Follow us"}
+							</Typography>
 							<ul className="flex flex-wrap items-center gap-x-8 gap-y-2" role="list">
 								{Object.entries(meta.social).map(([_kind, href]) => {
 									const kind = _kind as keyof typeof meta.social;

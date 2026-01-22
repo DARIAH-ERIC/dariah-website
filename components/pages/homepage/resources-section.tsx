@@ -3,6 +3,7 @@ import React, { type ReactNode } from "react";
 import { Image } from "@/components/image";
 import { Button } from "@/components/ui/button/button";
 import { Link } from "@/components/ui/link/link";
+import { Typography } from "@/components/ui/typography/typography";
 
 export function ResourcesSection(): ReactNode {
 	return (
@@ -12,16 +13,19 @@ export function ResourcesSection(): ReactNode {
 			</div>
 			<div className="relative z-2 px-32.25 py-32.75 flex flex-col gap-38.5">
 				<div className="flex gap-56.25">
-					<p className="text-h2 text-white font-heading text-[85px] font-light w-95 tracking-(--letter-spacing-medium)">
+					<Typography
+						className="text-white font-heading text-[85px] font-light w-95 tracking-(--letter-spacing-medium)"
+						variant="h2"
+					>
 						{"Our Resources"}
-					</p>
+					</Typography>
 					<div className="flex flex-col gap-6 text-white w-178.25 pt-7">
-						<p className="text-h3">{"Resources Catalogue"}</p>
-						<p className="text-h3 font-normal">
+						<Typography variant="h3">{"Resources Catalogue"}</Typography>
+						<Typography className="font-normal" variant="h3">
 							{
 								"Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer."
 							}
-						</p>
+						</Typography>
 						<Button className="w-62.75 mt-2 [&>span]:py-0.5!" variant="primary">
 							{"Browse Catalogue"}
 						</Button>
@@ -38,11 +42,11 @@ export function ResourcesSection(): ReactNode {
 							/>
 						</div>
 						<div className="flex flex-col gap-1 px-10 pt-8 pb-6 bg-white">
-							<p className="text-regular h-27 line-clamp-4">
+							<Typography className="h-27 line-clamp-4" variant="regular">
 								{
 									"DARIAH-CAMPUS is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education."
 								}
-							</p>
+							</Typography>
 							<Link href={"/"} variant="primary" withRightIcon={true}>
 								{"Explore last publication"}
 							</Link>
@@ -58,11 +62,11 @@ export function ResourcesSection(): ReactNode {
 							/>
 						</div>
 						<div className="flex flex-col gap-1 px-10 pt-8 pb-6 bg-white">
-							<p className="text-regular h-27 line-clamp-4">
+							<Typography className="h-27 line-clamp-4" variant="regular">
 								{
 									"Transformations: A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities."
 								}
-							</p>
+							</Typography>
 							<Link href={"/"} variant="primary" withRightIcon={true}>
 								{"Explore last publication"}
 							</Link>
@@ -78,11 +82,11 @@ export function ResourcesSection(): ReactNode {
 							/>
 						</div>
 						<div className="flex flex-col gap-1 px-10 pt-8 pb-6 bg-white">
-							<p className="text-regular h-27 line-clamp-4">
+							<Typography className="h-27 line-clamp-4" variant="regular">
 								{
 									"SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research."
 								}
-							</p>
+							</Typography>
 							<Link href={"/"} variant="primary" withRightIcon={true}>
 								{"Explore last publication"}
 							</Link>

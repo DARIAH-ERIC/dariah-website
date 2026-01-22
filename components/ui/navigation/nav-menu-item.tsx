@@ -14,7 +14,7 @@ export function NavMenuItem<T extends object>(props: Readonly<AriaMenuItemProps<
 		<AriaMenuItem
 			{...rest}
 			className={cn(
-				"px-5 py-1 text-regular text-text-link-bg uppercase bg-transparent font-normal rounded-none",
+				"px-5 py-1 cursor-pointer text-regular text-text-link-bg uppercase bg-transparent font-normal rounded-none",
 				"hover:bg-button-bg",
 				"data-focused:bg-button-bg data-focused:outline-3 data-focused:outline-primary",
 				"pressed:text-primary pressed:bg-transparent pressed:outline-none",

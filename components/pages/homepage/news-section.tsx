@@ -12,14 +12,14 @@ export function NewsSection(): ReactNode {
 					description={
 						"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH"
 					}
-					imageUrl={"/assets/images/temp-news-1.svg"}
+					imageUrl={"/assets/images/temp-news-1.jpg"}
 					linkUrl={"#"}
 					title={"Launch of the DARIAH South-East European Regional Hub"}
 					variant="featured"
 				/>
 				<NewsCard
 					date={"2024-06-10"}
-					imageUrl={"/assets/images/temp-news-2.svg"}
+					imageUrl={"/assets/images/temp-news-2.png"}
 					linkUrl={"#"}
 					title={
 						"DARIAH publishes the CoARA Progress Report and Action Plan for the years 2025-2027"
@@ -28,7 +28,7 @@ export function NewsSection(): ReactNode {
 				/>
 				<NewsCard
 					date={"2024-06-10"}
-					imageUrl={"/assets/images/temp-news-3.svg"}
+					imageUrl={"/assets/images/temp-news-3.jpg"}
 					linkUrl={"#"}
 					title={
 						"OpenMethods metablog: From a DARIAH Core Service to a DARIAH-IT Community Service"

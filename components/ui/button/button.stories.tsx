@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
-import { SearchIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button/button";
+import { SearchIcon } from "@/components/ui/icons/search";
 
 const meta = {
-	title: "Components/Button",
+	title: "Components/UI/Button",
 	component: Button,
 	parameters: { layout: "centered" },
 	tags: ["autodocs"],
 	argTypes: {
 		variant: {
 			control: { type: "select" },
-			options: ["primary", "secondary", "quiet"],
+			options: ["primary", "secondary-blue", "secondary-black", "tertiary", "icon-button"],
 		},
 	},
 } satisfies Meta<typeof Button>;
@@ -41,32 +41,31 @@ export const SecondaryBlack: Story = {
 	},
 };
 
-export const Quiet: Story = {
+export const Tertiary: Story = {
 	args: {
-		variant: "quiet",
-		children: "Quiet",
+		variant: "tertiary",
+		children: "Tertiary",
 	},
 };
 
-export const Disabled: Story = {
+export const ColorBg: Story = {
 	args: {
-		isDisabled: true,
-		children: "Disabled",
+		variant: "color-bg",
+		children: "Color background",
 	},
-};
-
-export const Pending: Story = {
-	args: {
-		isPending: true,
-		variant: "primary",
-		children: "Pending",
+	render(args) {
+		return (
+			<div className="py-10 px-20 bg-primary">
+				<Button {...args} />
+			</div>
+		);
 	},
 };
 
 export const IconOnly: Story = {
 	args: {
 		"aria-label": "Search",
-		variant: "primary",
+		variant: "icon-button",
 		children: <SearchIcon aria-hidden={true} />,
 	},
 };
@@ -78,10 +77,11 @@ export const AllVariants: Story = {
 				<Button variant="primary">Primary</Button>
 				<Button variant="secondary-blue">Secondary blue</Button>
 				<Button variant="secondary-black">Secondary black</Button>
-				<Button variant="quiet">Quiet</Button>
-				<Button isDisabled={true}>Disabled</Button>
-				<Button isPending={true}>Pending</Button>
-				<Button aria-label="Search">
+				<Button variant="tertiary">Tertiary</Button>
+				<div className="py-10 px-20 bg-primary">
+					<Button variant="color-bg">Color background</Button>
+				</div>
+				<Button aria-label="Search" variant="icon-button">
 					<SearchIcon aria-hidden={true} />
 				</Button>
 			</div>

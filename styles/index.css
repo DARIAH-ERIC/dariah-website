@@ -72,8 +72,23 @@
 	--event-card-bg: rgb(1 94 191 / 30%);
 	--event-card-details-bg: rgb(255 255 255 / 85%);
 	--event-card-details-bg-hover: rgb(255 255 255 / 74%);
+	--event-card-list-bg-hover: rgb(234 241 249);
+
+	--case-study-gradient-start: rgb(95 121 111);
+	--case-study-gradient-end: rgb(0 87 143);
+	--case-study-gradient: linear-gradient(
+		90deg,
+		var(--case-study-gradient-start) -0.14%,
+		var(--case-study-gradient-end) 99.86%
+	);
 
 	--resource-container-bg: rgb(255 255 255 / 90%);
+	--resource-training-material: rgb(35 127 123);
+	--resource-workflow: rgb(132 75 110);
+	--resource-workflow-border: rgb(188 178 184);
+	--resource-publication: rgb(124 129 104);
+	--resource-publication-border: rgb(183 183 183);
+	--resource-service-text: rgb(36 78 103);
 
 	--tag-upcoming-bg: rgb(255 187 0);
 
@@ -139,6 +154,7 @@
 	/** FIGMA COLORS */
 	--shadow-footer: 0px 0px 30px 0px rgb(0 0 0 / 25%);
 	--shadow-header: 0px 0px 15px 0px rgb(0 0 0 / 15%);
+	--shadow-standard: 0px 12px 12px 0px rgb(0 0 0 / 12%);
 
 	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
 	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 25%);
@@ -182,7 +198,19 @@
 	--color-event-card-bg: var(--event-card-bg);
 	--color-event-card-details-bg: var(--event-card-details-bg);
 	--color-event-card-details-bg-hover: var(--event-card-details-bg-hover);
+	--color-event-card-list-bg-hover: var(--event-card-list-bg-hover);
+
+	--color-case-study-gradient-start: var(--case-study-gradient-start);
+	--color-case-study-gradient-end: var(--case-study-gradient-end);
+	--color-case-study-gradient: var(--case-study-gradient);
+
 	--color-resource-container-bg: var(--resource-container-bg);
+	--color-resource-training-material: var(--resource-training-material);
+	--color-resource-workflow: var(--resource-workflow);
+	--color-resource-workflow-border: var(--resource-workflow-border);
+	--color-resource-publication: var(--resource-publication);
+	--color-resource-publication-border: var(--resource-publication-border);
+	--color-resource-service-text: var(--resource-service-text);
 
 	--color-tag-upcoming-bg: var(--tag-upcoming-bg);
 
