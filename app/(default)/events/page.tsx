@@ -13,15 +13,6 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/client";
 import { parseDateToRangeString, sortEventsByMonth } from "@/utils/event-page.utils";
 
-{
-	/*
-	Event list working schema:
-	1. 8 events displayed at once
-	2. "See past events" is showing 8 recently ended events
-	3. After date is choosen list displays first 8 events starting after the date
-*/
-}
-
 const EVENT_CARD_VARIANT = "list";
 
 interface EventsSearchParams {
