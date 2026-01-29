@@ -2,9 +2,9 @@ import { cn } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
-import { NavLink } from "@/components/navigation";
 import type { EventCardProps } from "@/components/ui/event-card/event-card.types";
 import { LocationIcon } from "@/components/ui/icons/location";
+import { NavLink } from "@/components/ui/link/nav-link";
 import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 
@@ -16,7 +16,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 			className={cn(
 				"shadow-light w-292.25 max-w-full h-44.5 cursor-pointer p-4 bg-gray-100 group flex justify-between rounded-sm",
 				"hover:bg-event-card-list-bg-hover",
-				"focus-visible:outline-4 focus-visible:outline-accent focus-visible:hover:bg-event-card-list-bg-hover",
+				"focus-visible:outline-4 focus-visible:outline-accent focus-visible:bg-event-card-list-bg-hover",
 			)}
 			href={"/"}
 		>

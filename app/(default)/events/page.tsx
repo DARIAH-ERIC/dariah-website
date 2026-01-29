@@ -3,8 +3,31 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { Link } from "@/components/ui/link/link";
+import { EventPagination } from "@/components/pages/event-list-page/event-pagination";
+import { Filters } from "@/components/pages/event-list-page/filters";
+import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { EventCard } from "@/components/ui/event-card/event-card";
+import { ElipseIcon } from "@/components/ui/icons/elipse";
+import { LineIcon } from "@/components/ui/icons/line";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/client";
+import { parseDateToRangeString, sortEventsByMonth } from "@/utils/event-page.utils";
+
+{
+	/*
+	Event list working schema:
+	1. 8 events displayed at once
+	2. "See past events" is showing 8 recently ended events
+	3. After date is choosen list displays first 8 events starting after the date
+*/
+}
+
+const EVENT_CARD_VARIANT = "list";
+
+interface EventsSearchParams {
+	date?: string;
+	search?: string;
+}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("EventsPage");
@@ -21,43 +44,82 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function EventsPage(): Promise<ReactNode> {
+export default async function EventsPage({
+	searchParams,
+}: Readonly<{
+	searchParams: Promise<EventsSearchParams>;
+}>): Promise<ReactNode> {
+	const _params = await searchParams;
 	const t = await getTranslations("EventsPage");
 
 	const data = await client.events.list();
+	const breadcrumbs = await client.events.breadcrumbs();
 
 	const { items } = data;
+	const parsedItems = sortEventsByMonth(items);
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
-			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-4"
-				role="list"
-			>
-				{items.map((item) => {
-					const { image, slug, summary, title } = item;
+		<Main className="flex flex-1 flex-col gap-8 px-34.5 pt-8 pb-30 container">
+			<div className="flex flex-col gap-14">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				<div className="flex flex-col gap-11 py-2.5 px-13.5">
+					<Typography className="text-[45px] font-light" variant="h2">
+						{t("title")}
+					</Typography>
+					<Filters />
+				</div>
+			</div>
 
-					const href = `/events/${slug}`;
-
-					return (
-						<li key={slug}>
-							<article className="flex flex-col gap-2">
-								{/* eslint-disable-next-line @next/next/no-img-element */}
-								<img
-									alt=""
-									className="aspect-video w-full rounded-md object-cover"
-									src={image.url}
-								/>
-								<h2>
-									<Link href={href}>{title}</Link>
-								</h2>
-								<div>{summary}</div>
-							</article>
-						</li>
-					);
-				})}
-			</ul>
+			<div className="flex flex-col pt-10 mx-auto gap-12">
+				<EventPagination />
+				<div className="flex h-full gap-2.5">
+					<LineIcon className="stroke-gray-300 w-3" />
+					<div className="flex flex-col gap-10">
+						{Object.keys(parsedItems).map((key) => {
+							return (
+								<div key={key} className="flex flex-col gap-8">
+									<Typography className="text-gray-800" variant="h3">
+										{key}
+									</Typography>
+									{parsedItems[key]?.map((event) => {
+										return (
+											<div key={event.id} className="flex gap-4 relative justify-between">
+												<Typography
+													className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5"
+													variant="regular"
+												>
+													<ElipseIcon className="fill-gray-300" />
+													{parseDateToRangeString(event)}
+												</Typography>
+												<EventCard
+													endDate={event.publishedAt.toDateString()}
+													imageUrl={event.image.url}
+													localization={event.location}
+													startDate={event.publishedAt.toDateString()}
+													title={event.title}
+													type={"training"}
+													variant={EVENT_CARD_VARIANT}
+												/>
+											</div>
+										);
+									})}
+								</div>
+							);
+						})}
+					</div>
+				</div>
+				<EventPagination />
+			</div>
 		</Main>
 	);
 }

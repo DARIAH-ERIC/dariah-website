@@ -382,7 +382,7 @@
 
 @utility container {
 	width: 100%;
-	max-width: var(--breakpoint-2xl);
+	max-width: var(--breakpoint-3xl);
 	margin-inline: auto;
 }
 

@@ -25,6 +25,9 @@ const config: Config = {
 	},
 	output: env.BUILD_MODE,
 	reactCompiler: true,
+	images: {
+		domains: ["picsum.photos"],
+	},
 	turbopack: {
 		rules: {
 			/** @see {@link https://github.com/vercel/next.js/discussions/77721#discussioncomment-14576268} */
