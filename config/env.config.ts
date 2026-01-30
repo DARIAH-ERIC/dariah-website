@@ -47,6 +47,12 @@ const result = createEnv({
 		},
 		public(environment) {
 			const schema = v.object({
+				NEXT_PUBLIC_API_BASE_URL: v.pipe(v.string(), v.url(), v.transform(removeTrailingSlash)),
+				NEXT_PUBLIC_API_OPENAPI_PATHNAME: v.pipe(
+					v.string(),
+					v.nonEmpty(),
+					v.transform(removeTrailingSlash),
+				),
 				NEXT_PUBLIC_APP_BASE_URL: v.pipe(v.string(), v.url(), v.transform(removeTrailingSlash)),
 				NEXT_PUBLIC_APP_BOTS: v.optional(v.picklist(["disabled", "enabled"]), "disabled"),
 				NEXT_PUBLIC_APP_GOOGLE_SITE_VERIFICATION: v.optional(v.pipe(v.string(), v.nonEmpty())),
@@ -101,6 +107,8 @@ const result = createEnv({
 	environment: {
 		BUILD_MODE: process.env.BUILD_MODE,
 		CI: process.env.CI,
+		NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
+		NEXT_PUBLIC_API_OPENAPI_PATHNAME: process.env.NEXT_PUBLIC_API_OPENAPI_PATHNAME,
 		NEXT_PUBLIC_APP_BASE_URL: process.env.NEXT_PUBLIC_APP_BASE_URL,
 		NEXT_PUBLIC_APP_BOTS: process.env.NEXT_PUBLIC_APP_BOTS,
 		NEXT_PUBLIC_APP_GOOGLE_SITE_VERIFICATION: process.env.NEXT_PUBLIC_APP_GOOGLE_SITE_VERIFICATION,

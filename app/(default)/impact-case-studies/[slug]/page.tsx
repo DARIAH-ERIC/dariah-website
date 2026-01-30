@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
-interface ImpactCaseStudyPageProps extends PageProps<"/about/impact-case-studies/[slug]"> {}
+interface ImpactCaseStudyPageProps extends PageProps<"/impact-case-studies/[slug]"> {}
 
-export async function generateStaticParams(): Promise<
-	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
-> {
-	const slugs = await client.impactCaseStudies.slugs();
+// export async function generateStaticParams(): Promise<
+// 	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
+// > {
+// 	const slugs = await client.impactCaseStudies.slugs();
 
-	return slugs.map((slug) => {
-		return { slug };
-	});
-}
+// 	return slugs.map((slug) => {
+// 		return { slug };
+// 	});
+// }
 
 export async function generateMetadata(
 	props: Readonly<ImpactCaseStudyPageProps>,
@@ -25,13 +24,10 @@ export async function generateMetadata(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.impactCaseStudies.read(slug);
+	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	const metadata: Metadata = {
@@ -52,13 +48,10 @@ export default async function ImpactCaseStudyPage(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.impactCaseStudies.read(slug);
+	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	return (

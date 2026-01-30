@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
 interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
 
-export async function generateStaticParams(): Promise<
-	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
-> {
-	const slugs = await client.spotlightArticles.slugs();
+// export async function generateStaticParams(): Promise<
+// 	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
+// > {
+// 	const slugs = await client.spotlightArticles.slugs();
 
-	return slugs.map((slug) => {
-		return { slug };
-	});
-}
+// 	return slugs.map((slug) => {
+// 		return { slug };
+// 	});
+// }
 
 export async function generateMetadata(
 	props: Readonly<SpotlightArticlePageProps>,
@@ -25,13 +24,10 @@ export async function generateMetadata(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.spotlightArticles.read(slug);
+	const response = await client.spotlightArticles.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	const metadata: Metadata = {
@@ -52,13 +48,10 @@ export default async function SpotlightArticlePage(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.spotlightArticles.read(slug);
+	const response = await client.spotlightArticles.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	return (
