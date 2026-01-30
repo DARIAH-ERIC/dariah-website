@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
 interface NewsItemPageProps extends PageProps<"/news/[slug]"> {}
 
-export async function generateStaticParams(): Promise<
-	Array<Pick<Awaited<NewsItemPageProps["params"]>, "slug">>
-> {
-	const slugs = await client.news.slugs();
+// export async function generateStaticParams(): Promise<
+// 	Array<Pick<Awaited<NewsItemPageProps["params"]>, "slug">>
+// > {
+// 	const slugs = await client.news.slugs();
 
-	return slugs.map((slug) => {
-		return { slug };
-	});
-}
+// 	return slugs.map((slug) => {
+// 		return { slug };
+// 	});
+// }
 
 export async function generateMetadata(props: Readonly<NewsItemPageProps>): Promise<Metadata> {
 	const { params } = props;
@@ -23,13 +22,10 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.news.read(slug);
+	const response = await client.news.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	const metadata: Metadata = {
@@ -48,13 +44,10 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.news.read(slug);
+	const response = await client.news.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
+	const { data: item } = response;
 
-	const { item } = data;
 	const { title } = item;
 
 	return (
