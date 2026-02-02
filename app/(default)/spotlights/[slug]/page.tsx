@@ -6,15 +6,15 @@ import { client } from "@/lib/data/api-client";
 
 interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
 
-// export async function generateStaticParams(): Promise<
-// 	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
-// > {
-// 	const slugs = await client.spotlightArticles.slugs();
+export async function generateStaticParams(): Promise<
+	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
+> {
+	const { data } = await client.spotlightArticles.slugs();
 
-// 	return slugs.map((slug) => {
-// 		return { slug };
-// 	});
-// }
+	return data.data.map((item) => {
+		return { slug: item.entity.slug };
+	});
+}
 
 export async function generateMetadata(
 	props: Readonly<SpotlightArticlePageProps>,

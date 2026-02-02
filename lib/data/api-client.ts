@@ -51,6 +51,27 @@ export const client = {
 
 			return result.unwrap();
 		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/events/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/events/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/events/slugs"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, {
+				responseType: "json",
+			});
+
+			return result.unwrap();
+		}),
 	},
 	impactCaseStudies: {
 		bySlug: cache(async function bySlug({
@@ -88,6 +109,25 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/impact-case-studies"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, { responseType: "json" });
+
+			return result.unwrap();
+		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/impact-case-studies/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/impact-case-studies/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/impact-case-studies/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, { responseType: "json" });
 
 			return result.unwrap();
@@ -133,6 +173,25 @@ export const client = {
 
 			return result.unwrap();
 		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/members-partners/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/members-partners/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/members-partners/slugs"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, { responseType: "json" });
+
+			return result.unwrap();
+		}),
 	},
 	news: {
 		bySlug: cache(async function bySlug({
@@ -170,6 +229,25 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/news"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, { responseType: "json" });
+
+			return result.unwrap();
+		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/news/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/news/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/news/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, { responseType: "json" });
 
 			return result.unwrap();
@@ -215,6 +293,25 @@ export const client = {
 
 			return result.unwrap();
 		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/pages/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/pages/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/pages/slugs"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, { responseType: "json" });
+
+			return result.unwrap();
+		}),
 	},
 	spotlightArticles: {
 		bySlug: cache(async function bySlug({
@@ -252,6 +349,25 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/spotlight-articles"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, { responseType: "json" });
+
+			return result.unwrap();
+		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/spotlight-articles/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/spotlight-articles/slugs",
+				searchParams: createUrlSearchParams({
+					limit,
+					offset,
+				}),
+			});
+
+			const result = await request<
+				paths["/api/v1/spotlight-articles/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, { responseType: "json" });
 
 			return result.unwrap();

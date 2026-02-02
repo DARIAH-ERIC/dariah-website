@@ -6,15 +6,15 @@ import { client } from "@/lib/data/api-client";
 
 interface NewsItemPageProps extends PageProps<"/news/[slug]"> {}
 
-// export async function generateStaticParams(): Promise<
-// 	Array<Pick<Awaited<NewsItemPageProps["params"]>, "slug">>
-// > {
-// 	const slugs = await client.news.slugs();
+export async function generateStaticParams(): Promise<
+	Array<Pick<Awaited<NewsItemPageProps["params"]>, "slug">>
+> {
+	const { data } = await client.news.slugs();
 
-// 	return slugs.map((slug) => {
-// 		return { slug };
-// 	});
-// }
+	return data.data.map((item) => {
+		return { slug: item.entity.slug };
+	});
+}
 
 export async function generateMetadata(props: Readonly<NewsItemPageProps>): Promise<Metadata> {
 	const { params } = props;

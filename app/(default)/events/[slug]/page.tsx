@@ -6,15 +6,15 @@ import { client } from "@/lib/data/api-client";
 
 interface EventPageProps extends PageProps<"/events/[slug]"> {}
 
-// export async function generateStaticParams(): Promise<
-// 	Array<Pick<Awaited<EventPageProps["params"]>, "slug">>
-// > {
-// 	const slugs = await client.events.slugs();
+export async function generateStaticParams(): Promise<
+	Array<Pick<Awaited<EventPageProps["params"]>, "slug">>
+> {
+	const { data } = await client.events.slugs();
 
-// 	return slugs.map((slug) => {
-// 		return { slug };
-// 	});
-// }
+	return data.data.map((item) => {
+		return { slug: item.entity.slug };
+	});
+}
 
 export async function generateMetadata(props: Readonly<EventPageProps>): Promise<Metadata> {
 	const { params } = props;

@@ -6,15 +6,15 @@ import { client } from "@/lib/data/api-client";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/impact-case-studies/[slug]"> {}
 
-// export async function generateStaticParams(): Promise<
-// 	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
-// > {
-// 	const slugs = await client.impactCaseStudies.slugs();
+export async function generateStaticParams(): Promise<
+	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
+> {
+	const { data } = await client.impactCaseStudies.slugs();
 
-// 	return slugs.map((slug) => {
-// 		return { slug };
-// 	});
-// }
+	return data.data.map((item) => {
+		return { slug: item.entity.slug };
+	});
+}
 
 export async function generateMetadata(
 	props: Readonly<ImpactCaseStudyPageProps>,
