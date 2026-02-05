@@ -1,26 +1,5 @@
-import { Result, TaggedError } from "better-result";
+import { Result, TaggedError, UnhandledException } from "better-result";
 import isNetworkError from "is-network-error";
-
-export class AbortError extends TaggedError("AbortError")<{
-	cause?: Error;
-	request: Request;
-}>() {}
-
-export class HttpError extends TaggedError("HttpError")<{
-	cause?: Error;
-	request: Request;
-	response: Response;
-}>() {}
-
-export class NetworkError extends TaggedError("NetworkError")<{
-	cause?: Error;
-	request: Request;
-}>() {}
-
-export class TimeoutError extends TaggedError("TimeoutError")<{
-	cause?: Error;
-	request: Request;
-}>() {}
 
 export type HttpMethod = "delete" | "get" | "head" | "options" | "patch" | "post" | "put" | "trace";
 
@@ -46,15 +25,48 @@ export interface RequestOptions<TResponseType extends ResponseType = ResponseTyp
 	/** @default "get" */
 	method?: HttpMethod;
 	responseType: TResponseType;
+	retry?: {
+		backoff: "linear" | "constant" | "exponential";
+		delayMs: number;
+		shouldRetry?: (error: RequestError | UnhandledException) => boolean;
+		times: number;
+	};
 	/** @default 10_000 */
 	timeout?: number | false;
 }
 
-export type RequestError = AbortError | HttpError | NetworkError | TimeoutError;
+export class AbortError extends TaggedError("AbortError")<{
+	cause?: unknown;
+	request: Request;
+}>() {}
+
+export class ParseError extends TaggedError("ParseError")<{
+	cause?: unknown;
+	request: Request;
+	response: Response;
+}>() {}
+
+export class HttpError extends TaggedError("HttpError")<{
+	cause?: unknown;
+	request: Request;
+	response: Response;
+}>() {}
+
+export class NetworkError extends TaggedError("NetworkError")<{
+	cause?: unknown;
+	request: Request;
+}>() {}
+
+export class TimeoutError extends TaggedError("TimeoutError")<{
+	cause?: unknown;
+	request: Request;
+}>() {}
+
+export type RequestError = AbortError | ParseError | HttpError | NetworkError | TimeoutError;
 
 export type RequestResult<TData = unknown> = Result<
 	{ data: TData; headers: Headers },
-	RequestError
+	RequestError | UnhandledException
 >;
 
 export async function request(
@@ -72,6 +84,7 @@ export async function request(
 	options: RequestOptions<"bytes">,
 ): Promise<RequestResult<Uint8Array<ArrayBuffer>>>;
 
+/** @deprecated */
 export async function request(
 	url: URL | string,
 	options: RequestOptions<"formData">,
@@ -108,6 +121,7 @@ export async function request(url: URL | string, options: RequestOptions): Promi
 		headers: _headers,
 		method: _method,
 		responseType,
+		retry,
 		signal: _signal,
 		timeout = 10_000,
 		...rest
@@ -147,102 +161,111 @@ export async function request(url: URL | string, options: RequestOptions): Promi
 			? AbortSignal.any([_signal, timeoutSignal])
 			: (_signal ?? timeoutSignal);
 
-	const request = new Request(url, { ...rest, body, headers, method, signal });
+	const request = new Request(String(url), { ...rest, body, headers, method, signal });
 
-	try {
-		const response = await fetch(request);
+	return Result.tryPromise(
+		{
+			async try() {
+				const response = await fetch(request);
 
-		if (!response.ok) {
-			return Result.err(new HttpError({ request, response }));
-		}
-
-		if (method === "HEAD") {
-			const data = null;
-			return Result.ok({ data, headers: response.headers });
-		}
-
-		switch (responseType) {
-			case "arrayBuffer": {
-				const data = await response.arrayBuffer();
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
-
-			case "blob": {
-				const data = await response.blob();
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
-
-			case "bytes": {
-				const data = await response.bytes();
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
-
-			case "formData": {
-				const data = await response.formData();
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
-
-			case "json": {
-				if (response.status === 204 || response.headers.get("content-length") === "0") {
-					await response.body?.cancel();
-					const data = null;
-					const headers = response.headers;
-					return Result.ok({ data, headers });
+				if (!response.ok) {
+					throw new HttpError({ request, response });
 				}
 
-				const data = (await response.json()) as unknown;
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
+				if (method === "HEAD") {
+					const data = null;
+					return { data, headers: response.headers };
+				}
 
-			case "response": {
-				const data = response;
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
+				switch (responseType) {
+					case "arrayBuffer": {
+						const data = await response.arrayBuffer();
+						return { data, headers: response.headers };
+					}
 
-			case "stream": {
-				const data = response.body;
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
+					case "blob": {
+						const data = await response.blob();
+						return { data, headers: response.headers };
+					}
 
-			case "text": {
-				const data = await response.text();
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
+					case "bytes": {
+						const data = await response.bytes();
+						return { data, headers: response.headers };
+					}
 
-			case "void": {
-				await response.body?.cancel();
-				const data = null;
-				const headers = response.headers;
-				return Result.ok({ data, headers });
-			}
-		}
-	} catch (error) {
-		if (!(error instanceof Error)) {
-			throw error;
-		}
+					case "formData": {
+						// oxlint-disable-next-line typescript/no-deprecated
+						const data = await response.formData();
+						return { data, headers: response.headers };
+					}
 
-		if (error.name === "AbortError") {
-			return Result.err(new AbortError({ cause: error, request }));
-		}
+					case "json": {
+						if (response.status === 204 || response.headers.get("content-length") === "0") {
+							await response.body?.cancel();
+							const data = null;
+							return { data, headers: response.headers };
+						}
 
-		if (error.name === "TimeoutError") {
-			return Result.err(new TimeoutError({ cause: error, request }));
-		}
+						try {
+							const data = await response.json();
+							return { data, headers: response.headers };
+						} catch (error) {
+							throw new ParseError({ cause: error, request, response });
+						}
+					}
 
-		if (isNetworkError(error)) {
-			return Result.err(new NetworkError({ cause: error, request }));
-		}
+					case "response": {
+						const data = response;
+						return { data, headers: response.headers };
+					}
 
-		throw error;
-	}
+					case "stream": {
+						const data = response.body;
+						return { data, headers: response.headers };
+					}
+
+					case "text": {
+						const data = await response.text();
+						return { data, headers: response.headers };
+					}
+
+					case "void": {
+						await response.body?.cancel();
+						const data = null;
+						return { data, headers: response.headers };
+					}
+				}
+			},
+			catch(error) {
+				if (error instanceof Error) {
+					if (HttpError.is(error)) {
+						return error;
+					}
+
+					if (ParseError.is(error)) {
+						return error;
+					}
+
+					if (error.name === "AbortError") {
+						return new AbortError({ cause: error, request });
+					}
+
+					if (error.name === "TimeoutError") {
+						return new TimeoutError({ cause: error, request });
+					}
+
+					if (isNetworkError(error)) {
+						return new NetworkError({ cause: error, request });
+					}
+				}
+
+				return new UnhandledException({ cause: error });
+			},
+		},
+		{
+			retry,
+		},
+	);
 }
 
 type JsonPrimitive = string | number | boolean | null | undefined;
@@ -258,6 +281,7 @@ function isJsonBody(body: unknown): body is JsonValue {
 	}
 
 	if (
+		// oxlint-disable-next-line unicorn/no-instanceof-builtins
 		body instanceof ArrayBuffer ||
 		body instanceof Blob ||
 		body instanceof FormData ||
