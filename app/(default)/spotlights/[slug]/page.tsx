@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { client } from "@/lib/data/api-client";
+import { wait } from "@acdh-oeaw/lib";
 
 interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
 
@@ -10,6 +11,7 @@ export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
 > {
 	const { data } = await client.spotlightArticles.slugs();
+	await wait(10000);
 
 	return data.data.map((item) => {
 		return { slug: item.entity.slug };
