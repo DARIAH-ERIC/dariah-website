@@ -166,7 +166,7 @@ export async function request(url: URL | string, options: RequestOptions): Promi
 	return Result.tryPromise(
 		{
 			async try() {
-				const response = await fetch(request);
+				const response = await fetch(request, { keepalive: false });
 
 				if (!response.ok) {
 					throw new HttpError({ request, response });
