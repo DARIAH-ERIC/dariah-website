@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { client } from "@/lib/data/api-client";
-import { wait } from "@acdh-oeaw/lib";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/impact-case-studies/[slug]"> {}
 
@@ -11,7 +10,6 @@ export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
 > {
 	const { data } = await client.impactCaseStudies.slugs();
-	await wait(10000);
 
 	return data.data.map((item) => {
 		return { slug: item.entity.slug };
