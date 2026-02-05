@@ -22,7 +22,7 @@ export const client = {
 				paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -48,7 +48,7 @@ export const client = {
 				paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			return result.unwrap();
@@ -70,7 +70,7 @@ export const client = {
 				paths["/api/v1/events/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			return result.unwrap();
@@ -89,7 +89,7 @@ export const client = {
 				paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -113,7 +113,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/impact-case-studies"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -132,7 +132,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/impact-case-studies/slugs"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -150,7 +150,7 @@ export const client = {
 				paths["/api/v1/members-partners/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -174,7 +174,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/members-partners"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -193,7 +193,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/members-partners/slugs"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -211,7 +211,7 @@ export const client = {
 				paths["/api/v1/news/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -235,7 +235,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/news"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -254,7 +254,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/news/slugs"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -272,7 +272,7 @@ export const client = {
 				paths["/api/v1/pages/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -296,7 +296,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/pages"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -315,7 +315,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/pages/slugs"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -333,7 +333,7 @@ export const client = {
 				paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
-				retry: { times: 2, backoff: "exponential", delayMs: 200 },
+				retry: { times: 3, backoff: "exponential", delayMs: 10000 },
 			});
 
 			if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
@@ -357,7 +357,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/spotlight-articles"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
@@ -376,7 +376,7 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/spotlight-articles/slugs"]["get"]["responses"][200]["content"]["application/json"]
-			>(url, { responseType: "json", retry: { times: 2, backoff: "exponential", delayMs: 200 } });
+			>(url, { responseType: "json", retry: { times: 3, backoff: "exponential", delayMs: 10000 } });
 
 			return result.unwrap();
 		}),
