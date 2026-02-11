@@ -8,7 +8,6 @@ const config: Config = {
 	// cacheComponents: true,
 	experimental: {
 		browserDebugInfoInTerminal: true,
-		cpus: 2,
 		globalNotFound: true,
 	},
 	headers() {
