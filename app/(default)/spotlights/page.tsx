@@ -1,12 +1,20 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import * as v from "valibot";
 
 import { Main } from "@/app/(default)/_components/main";
 import { Link } from "@/components/ui/link/link";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
-export async function generateMetadata(): Promise<Metadata> {
+const SearchParamsSchema = v.object({
+	limit: v.fallback(v.pipe(v.string(), v.toNumber(), v.minValue(1), v.maxValue(100)), 10),
+	offset: v.fallback(v.pipe(v.string(), v.toNumber(), v.minValue(0)), 0),
+});
+
+interface SpotlightArticlesPageProps extends PageProps<"/spotlights"> {}
+
+export async function generateMetadata(_props: SpotlightArticlesPageProps): Promise<Metadata> {
 	const t = await getTranslations("SpotlightArticlesPage");
 
 	const title = t("meta.title");
@@ -21,12 +29,18 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function SpotlightArticlesPage(): Promise<ReactNode> {
+export default async function SpotlightArticlesPage(
+	props: Readonly<SpotlightArticlesPageProps>,
+): Promise<ReactNode> {
+	const { searchParams } = props;
+
 	const t = await getTranslations("SpotlightArticlesPage");
 
-	const data = await client.spotlightArticles.list();
+	const { limit, offset } = v.parse(SearchParamsSchema, await searchParams);
 
-	const { items } = data;
+	const response = await client.spotlightArticles.list({ limit, offset });
+
+	const { data: items } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
@@ -36,9 +50,10 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 				role="list"
 			>
 				{items.map((item) => {
-					const { image, slug, summary, title } = item;
+					const { entity, image, summary, title } = item;
+					const { slug } = entity;
 
-					const href = `/spotlight/${slug}`;
+					const href = `/spotlights/${slug}`;
 
 					return (
 						<li key={slug}>

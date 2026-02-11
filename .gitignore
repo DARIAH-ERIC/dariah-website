@@ -51,4 +51,7 @@ out/
 /test-results/
 
 # storybook
-storybook-static
+/storybook-static
+
+# generated api
+/lib/api/
