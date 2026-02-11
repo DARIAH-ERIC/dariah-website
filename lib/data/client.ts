@@ -682,4 +682,57 @@ export const client = {
 			return { item };
 		},
 	},
+	dariahResourceCatalogue: {
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "resources",
+				},
+				{
+					label: "resources catalogue",
+				},
+			];
+		},
+		async filters() {
+			return [
+				{
+					name: "type",
+					limit: 6,
+					showMore: true,
+					sortBy: ["name"],
+					subfilters: {
+						"tool-or-service": {
+							name: "kind",
+							limit: 6,
+							showMore: true,
+							sortBy: ["name"],
+						},
+					},
+				},
+				{
+					name: "source",
+					limit: 6,
+					showMore: true,
+					sortBy: ["name"],
+				},
+				{
+					name: "keywords",
+					limit: 6,
+					showMore: true,
+					sortBy: ["name"],
+				},
+				{
+					name: "type_kind",
+					limit: 6,
+					showMore: true,
+					sortBy: ["name"],
+				},
+			] satisfies Array<ResourceCatalogueFilter>;
+		},
+	},
 };

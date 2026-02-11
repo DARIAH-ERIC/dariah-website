@@ -9,7 +9,18 @@
 		"meta": {
 			"title": "DARIAH resource catalogue"
 		},
-		"title": "DARIAH resource catalogue"
+		"title": "Resource catalogue",
+		"description": "Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer.",
+		"filter": {
+			"title": "Filters",
+			"type": "Resource Type",
+			"source": "National Node/Country",
+			"kind": "Type of service"
+		},
+		"hits": {
+			"error": "An error occurred while getting resources",
+			"empty": "No resources found matching your criteria"
+		}
 	},
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"

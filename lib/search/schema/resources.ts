@@ -5,14 +5,17 @@ export const resources = createCollection({
 	name: env.NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME,
 	fields: [
 		{ name: "type", type: "string" },
+		{ name: "type_kind", type: "string[]", optional: true },
 		{ name: "label", type: "string" },
+		{ name: "source", type: "string" },
+		{ name: "kind", type: "string", optional: true },
 		{ name: "description", type: "string" },
 		{ name: "keywords", type: "string[]" },
 		{ name: "links", type: "string[]" },
 		{ name: "actor_ids", type: "string[]", optional: true },
 	],
 	queryableFields: ["label", "description", "actor_ids"],
-	facetableFields: ["type", "keywords", "actor_ids"],
+	facetableFields: ["type", "keywords", "actor_ids", "source", "kind", "type_kind"],
 	sortableFields: ["label"],
 });
 
@@ -47,7 +50,6 @@ interface ResourceCollectionDocumentBase {
 interface PublicationResourceDocument extends ResourceCollectionDocumentBase {
 	type: "publication";
 	source: "open-aire" | "zotero";
-	kind: string | null;
 	authors: Array<string>;
 	year: number | null;
 	pid: string | null;
@@ -58,6 +60,7 @@ interface ToolOrServiceResourceDocument extends ResourceCollectionDocumentBase {
 	source: "ssh-open-marketplace";
 	kind: ToolOrServiceKind;
 	actor_ids: Array<string>;
+	type_kind: Array<string>;
 }
 
 interface TrainingMaterialResourceDocument extends ResourceCollectionDocumentBase {
