@@ -26,7 +26,8 @@
 			"title": "Events"
 		},
 		"title": "Events",
-		"past-events": "See past events",
+		"previous-events": "See previous events",
+		"next-events": "See next events",
 		"filters": {
 			"confirm": "Find events",
 			"list": "List",

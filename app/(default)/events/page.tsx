@@ -93,12 +93,11 @@ export default async function EventsPage({
 													{parseDateToRangeString(event)}
 												</Typography>
 												<EventCard
-													endDate={event.publishedAt.toDateString()}
+													endDate={event.endDate}
 													imageUrl={event.image.url}
 													localization={event.location}
-													startDate={event.publishedAt.toDateString()}
+													startDate={event.startDate}
 													title={event.title}
-													type={"training"}
 													variant={EVENT_CARD_VARIANT}
 												/>
 											</div>

@@ -9,7 +9,9 @@ import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, imageUrl, type, status = "pending" } = props;
+	const { title, localization, imageUrl, startDate } = props;
+
+	const status = startDate < new Date() ? "past" : "upcoming";
 
 	return (
 		<NavLink
@@ -23,9 +25,9 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 			<div className="flex flex-col gap-4 w-133.75 h-36.5 justify-between">
 				<div>
 					<div className="flex gap-6">
-						<Typography className="flex gap-2 text-[14px] uppercase text-accent" variant="h4">
+						{/* <Typography className="flex gap-2 text-[14px] uppercase text-accent" variant="h4">
 							{type}
-						</Typography>
+						</Typography> */}
 						<Tag text={status} variant={status} />
 					</div>
 					<Typography

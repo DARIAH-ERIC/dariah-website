@@ -10,10 +10,10 @@ export function EventPagination(): ReactNode {
 	return (
 		<div className="flex justify-between">
 			<Link href="/" withLeftIcon={true}>
-				{t("past-events")}
+				{t("previous-events")}
 			</Link>
 			<Link href="/" withRightIcon={true}>
-				{t("past-events")}
+				{t("next-events")}
 			</Link>
 		</div>
 	);

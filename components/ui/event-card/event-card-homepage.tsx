@@ -23,11 +23,15 @@ const parseDates = (startDate: string, endDate: string) => {
 };
 
 export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, endDate, startDate, type, status = "pending" } = props;
+	const { title, localization, endDate, startDate } = props;
 
 	const { daysString, headerString } = useMemo(() => {
-		return parseDates(startDate, endDate);
+		return parseDates(
+			startDate.toDateString(),
+			endDate?.toDateString() ?? startDate.toDateString(),
+		);
 	}, [startDate, endDate]);
+	const status = startDate < new Date() ? "past" : "upcoming";
 
 	return (
 		<NavLink
@@ -44,9 +48,9 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 					</Typography>
 				</div>
 				<div className="flex gap-6">
-					<Typography className="flex gap-2 text-[14px] text-accent uppercase" variant="h4">
+					{/* <Typography className="flex gap-2 text-[14px] text-accent uppercase" variant="h4">
 						{type}
-					</Typography>
+					</Typography> */}
 					<Tag text={status} variant={status} />
 				</div>
 			</div>
