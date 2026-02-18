@@ -6,7 +6,7 @@ import { NewsCard } from "@/components/ui/news-card/news-card";
 export function NewsSection(): ReactNode {
 	return (
 		<section className="flex pb-10.5 flex-col gap-19 items-end bg-white">
-			<div className="flex px-32 gap-21.5 items-end w-full">
+			<div className="flex flex-wrap px-32 gap-21.5 justify-center w-full items-end">
 				<NewsCard
 					date={"2024-06-10"}
 					description={
@@ -36,8 +36,8 @@ export function NewsSection(): ReactNode {
 					variant="standard"
 				/>
 			</div>
-			<div className="bg-text-link-bg w-124.25 max-w-full py-5 px-6">
-				<Link href="/news" variant="color-bg" withRightIcon={true}>
+			<div className="bg-text-link-bg w-51.5 max-w-full py-5 px-6 lg:w-124.25">
+				<Link href="/news" variant="color-bg" withDefaultRightIcon={true}>
 					{"See all news"}
 				</Link>
 			</div>

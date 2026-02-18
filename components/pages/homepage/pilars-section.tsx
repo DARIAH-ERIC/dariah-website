@@ -5,14 +5,14 @@ import { Typography } from "@/components/ui/typography/typography";
 
 export function PilarsSection(): ReactNode {
 	return (
-		<section className="px-33.5 pt-7.75 pb-23">
+		<section className="px-4 pt-7.75 pb-23 lg:px-30.5">
 			<Typography
-				className="font-heading text-[85px] font-light w-full px-2.5 py-17.5"
+				className="font-heading text-[56px] font-light w-full px-2.5 py-17.5 lg:text-[85px]"
 				variant="h1"
 			>
 				{"Four Pillars of Our Work"}
 			</Typography>
-			<div className="flex justify-between">
+			<div className="flex flex-wrap justify-center gap-10 3xl:justify-between">
 				<Pillar
 					description={
 						"We make digital methods and tools an integral part of humanities research, promoting open, sustainable and responsible technologies."

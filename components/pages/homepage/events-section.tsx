@@ -6,11 +6,14 @@ import { Typography } from "@/components/ui/typography/typography";
 
 export function EventsSection(): ReactNode {
 	return (
-		<section className="bg-(image:--section-events-bg) px-31.5 py-17.5 flex flex-col gap-17.5 items-end">
-			<Typography className="text-white font-heading text-[85px] font-light w-full" variant="h1">
+		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative py-17.5 lg:px-31.5">
+			<Typography
+				className="text-white font-heading text-[56px] px-6 font-light w-full lg:text-[85px]"
+				variant="h1"
+			>
 				{"Upcoming Events"}
 			</Typography>
-			<div className="flex gap-32.25 w-full">
+			<div className="flex flex-wrap justify-center gap-32.25 w-full">
 				<EventCard
 					endDate={"2025-08-2"}
 					localization={"Besançon, France"}
@@ -41,8 +44,8 @@ export function EventsSection(): ReactNode {
 					variant="homepage"
 				/>
 			</div>
-			<div className="bg-white w-124.25 max-w-full py-5 px-6">
-				<Link href="/news" variant="primary" withRightIcon={true}>
+			<div className="bg-white w-51.5 max-w-full py-5 px-6 lg:w-124.25">
+				<Link href="/news" variant="primary" withDefaultRightIcon={true}>
 					{"See all news"}
 				</Link>
 			</div>

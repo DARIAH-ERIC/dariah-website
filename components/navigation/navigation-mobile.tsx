@@ -1,0 +1,111 @@
+import type { ReactNode } from "react";
+
+import { NavMenu, NavMenuSeparator } from "@/components/navigation";
+import {
+	Disclosure,
+	DisclosureGroup,
+	DisclosureHeader,
+	DisclosurePanel,
+} from "@/components/ui/disclosure/disclosure";
+import { SearchIcon } from "@/components/ui/icons/search";
+import { Link } from "@/components/ui/link/link";
+import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
+import type { NavigationConfig, NavigationLink } from "@/lib/navigation/navigation";
+
+interface NavigationMobileProps {
+	navigation: NavigationConfig & { home: NavigationLink };
+	handleMobileMenuToggle: () => void;
+}
+
+export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactNode {
+	const { navigation, handleMobileMenuToggle } = props;
+
+	return (
+		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 z-10 justify-between flex flex-col w-screen">
+			<DisclosureGroup className="flex flex-col w-full">
+				{Object.entries(navigation).map(([id, item]) => {
+					switch (item.type) {
+						case "action": {
+							return <li key={id}></li>;
+						}
+
+						case "link": {
+							return (
+								<li key={id}>
+									<Link
+										className="w-full py-4! px-6! font-heading uppercase text-regular h-fit"
+										href={item.href}
+										onClick={handleMobileMenuToggle}
+										variant="color-bg"
+									>
+										{item.label}
+									</Link>
+								</li>
+							);
+						}
+
+						case "menu": {
+							return (
+								<li key={id}>
+									<Disclosure>
+										<DisclosureHeader>{item.label}</DisclosureHeader>
+										<DisclosurePanel>
+											<NavMenu>
+												{Object.entries(item.children).map(([id, item]) => {
+													switch (item.type) {
+														case "action": {
+															return (
+																<NavMenuItem
+																	key={id}
+																	className="h-11 flex items-center"
+																	onAction={item.onAction}
+																	onClick={handleMobileMenuToggle}
+																>
+																	{item.label}
+																</NavMenuItem>
+															);
+														}
+
+														case "link": {
+															return (
+																<NavMenuItem
+																	key={id}
+																	className="h-11 flex items-center"
+																	href={item.href}
+																	onClick={handleMobileMenuToggle}
+																>
+																	{item.label}
+																</NavMenuItem>
+															);
+														}
+
+														case "separator": {
+															return <NavMenuSeparator key={id} />;
+														}
+													}
+												})}
+											</NavMenu>
+										</DisclosurePanel>
+									</Disclosure>
+								</li>
+							);
+						}
+
+						case "separator": {
+							return <li key={id}></li>;
+						}
+					}
+				})}
+			</DisclosureGroup>
+			<Link
+				className="w-full py-4! px-6! font-heading uppercase text-regular h-fit border-t border-t-gray-100"
+				href="/"
+				onClick={handleMobileMenuToggle}
+				startIcon={<SearchIcon className="size-6!" />}
+				variant="color-bg"
+			>
+				{"Search"}
+			</Link>
+		</div>
+	);
+}
