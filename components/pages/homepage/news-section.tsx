@@ -6,7 +6,7 @@ import { NewsCard } from "@/components/ui/news-card/news-card";
 export function NewsSection(): ReactNode {
 	return (
 		<section className="flex pb-10.5 flex-col gap-19 items-end bg-white">
-			<div className="flex flex-wrap px-32 gap-21.5 justify-center w-full items-end">
+			<div className="flex flex-wrap px-4 gap-21.5 justify-center w-full items-end lg:px-32">
 				<NewsCard
 					date={"2024-06-10"}
 					description={
