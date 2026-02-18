@@ -47,25 +47,26 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	const { imageWidth, imageHeight } = getImageSizeForVariant();
 
 	const containerVariants = {
-		featured: "w-188.75 h-147.25",
-		standard: "w-90.25 h-126",
-		"list-item": "w-188.25 h-55 gap-7",
-		"list-headline": "max-w-400 h-107.75 relative",
+		featured: "max-w-full w-188.75 h-147.25",
+		standard: "max-w-full w-90.25 h-126",
+		"list-item": "max-w-full h-113 w-188.25 lg:h-55 gap-7",
+		"list-headline": "max-w-full max-w-400 h-171.75 lg:h-107.75 relative",
 	};
 
 	const imageWrapperVariants = {
-		featured: "w-188.75 h-84.75",
-		standard: "w-90.25 h-61",
-		"list-item": "w-90.5 h-55",
-		"list-headline": "w-231.25 h-107.75",
+		featured: "max-w-full w-188.75 h-84.75",
+		standard: "max-w-full w-90.25 h-61",
+		"list-item": "w-full max-w-full lg:w-90.5 h-53.5 lg:h-55",
+		"list-headline": "w-full max-w-full h-80.5 lg:w-231.25 lg:h-107.75",
 	};
 
 	return (
 		<NavLink
 			className={cn(
-				"group flex cursor-pointer focus:outline-4 focus:outline-accent",
+				"group flex cursor-pointer flex-col focus:outline-4 focus:outline-accent",
 				containerVariants[variant],
-				!isListVariant && "flex-col gap-0",
+				!isListVariant && "gap-0",
+				isListVariant && "lg:flex-row",
 			)}
 			href={linkUrl}
 		>
@@ -99,9 +100,9 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				className={cn(
 					"flex flex-1 flex-col gap-4 justify-between",
 					!isListVariant && "pt-13",
-					variant === "list-item" && "gap-0! max-h-55 h-full",
+					variant === "list-item" && "gap-0! h-full lg:max-h-55",
 					variant === "list-headline" &&
-						"absolute right-0 z-10 max-w-197.25 bg-white justify-center p-6!",
+						"absolute h-119.75 top-[208] left-[24] z-10 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
 				)}
 			>
 				<div className="flex flex-col gap-2.5">
@@ -128,7 +129,10 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				</div>
 				{variantWithDescription && (
 					<Typography
-						className={cn("line-clamp-5", variant === "list-item" && "mb-2 line-clamp-3!")}
+						className={cn(
+							"line-clamp-8 lg:line-clamp-5",
+							variant === "list-item" && "mb-2 line-clamp-3!",
+						)}
 						variant={variant === "list-item" ? "small" : "regular"}
 					>
 						{description}

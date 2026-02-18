@@ -34,7 +34,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 
 	if (items.length === 0)
 		return (
-			<Main className="flex flex-1 flex-col gap-8 px-34.5 pt-8 pb-30 container">
+			<Main className="flex flex-1 flex-col gap-8 container px-4 py-8 lg:pb-30 lg:px-34.5 lg:pt-8">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -57,7 +57,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="container flex flex-col gap-20">
-			<div className="flex flex-col gap-9.25 px-34 py-8">
+			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -81,11 +81,14 @@ export default async function NewsPage(): Promise<ReactNode> {
 				)}
 			</div>
 
-			<div className="flex flex-col px-34 gap-14">
+			<div className="flex flex-col px-4 gap-14 lg:px-34">
 				<Typography className="text-[45px] font-light" variant="h2">
 					{t("title")}
 				</Typography>
-				<ul className="grid grid-cols-1 gap-y-16 gap-x-35.5 2xl:grid-cols-2" role="list">
+				<ul
+					className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-1 2xl:gap-x-35.5 2xl:grid-cols-2"
+					role="list"
+				>
 					{items.map((item) => {
 						const { image, slug, summary, title, publishedAt } = item;
 
@@ -107,7 +110,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 				</ul>
 			</div>
 
-			<div className="mb-20 pl-6 bg-pagination-bg max-w-125 w-125 h-21 flex items-center ml-auto">
+			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Pagination pageCount={5} schouldScroll={true} />
 			</div>
 		</Main>
