@@ -77,12 +77,12 @@ export function Filters(): ReactNode {
 	};
 
 	return (
-		<div className="flex gap-20 items-end">
-			<div className="flex gap-4 flex-1 items-end">
+		<div className="flex flex-col flex-wrap items-start gap-y-10 gap-x-20 lg:items-end lg:flex-row">
+			<div className="flex flex-wrap flex-1 items-end gap-y-6 gap-x-4">
 				<DatePicker label={t("filters.date")} onChange={handleDateChange} value={date} />
-				<div className="flex flex-1 gap-0.5">
+				<div className="flex gap-0.5 flex-wrap flex-col md:flex-row">
 					<TextField
-						className="flex-1"
+						className="flex-1 min-w-59.5 max-w-full xl:w-229"
 						onChange={handleSearchStringChange}
 						placeholder={t("filters.search")}
 						startIcon={<SearchIcon className="text-black size-6" />}

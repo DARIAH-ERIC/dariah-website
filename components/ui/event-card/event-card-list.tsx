@@ -16,13 +16,14 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"shadow-light w-292.25 max-w-full h-44.5 cursor-pointer p-4 bg-gray-100 group flex justify-between rounded-sm",
+				"flex-col shadow-light w-80.5 max-w-full cursor-pointer p-4 gap-y-6 bg-gray-100 group flex justify-between rounded-sm lg:w-292.25 lg:h-44.5",
+				"lg:flex-row",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:outline-4 focus-visible:outline-accent focus-visible:bg-event-card-list-bg-hover",
 			)}
 			href={"/"}
 		>
-			<div className="flex flex-col gap-4 w-133.75 h-36.5 justify-between">
+			<div className="flex flex-col gap-y-3 gap-x-4 w-133.75 max-w-full justify-between lg:h-36.5">
 				<div>
 					<div className="flex gap-6">
 						{/* <Typography className="flex gap-2 text-[14px] uppercase text-accent" variant="h4">

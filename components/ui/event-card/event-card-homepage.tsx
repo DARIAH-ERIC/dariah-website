@@ -35,11 +35,11 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 
 	return (
 		<NavLink
-			className="shadow-event-card min-w-116 w-116 max-w-full cursor-pointer bg-event-card-bg group flex-col focus-visible:outline-4 focus-visible:outline-accent"
+			className="shadow-event-card w-116 max-w-full cursor-pointer bg-event-card-bg group flex-col lg:min-w-116 focus-visible:outline-4 focus-visible:outline-accent"
 			href={"/"}
 		>
 			<div className="bg-white px-12.25 py-8 flex flex-col gap-4 w-full">
-				<div className="flex gap-4 items-end text-section-text">
+				<div className="flex flex-wrap gap-4 items-end text-section-text">
 					<Typography className="text-[50px] font-black" variant="h2">
 						{daysString}
 					</Typography>
