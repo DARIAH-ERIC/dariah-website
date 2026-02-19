@@ -48,7 +48,7 @@
 		"@acdh-oeaw/lib": "^0.3.7",
 		"@acdh-oeaw/style-variants": "^0.1.0",
 		"@acdh-oeaw/validate-env": "^0.2.1",
-		"@faker-js/faker": "^10.1.0",
+		"@faker-js/faker": "^10.3.0",
 		"@internationalized/date": "^3.10.1",
 		"@opentelemetry/api": "^1.9.0",
 		"@react-aria/utils": "^3.32.0",
