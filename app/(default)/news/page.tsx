@@ -55,6 +55,14 @@ export default async function NewsPage(): Promise<ReactNode> {
 
 	const headlineItem = items[0];
 
+	const {
+		image: headlineImage,
+		slug: headlineSlug,
+		summary: headlineSummary,
+		title: headlineTitle,
+		publishedAt: headlinePublishedAt,
+	} = headlineItem!;
+
 	return (
 		<Main className="container flex flex-col gap-20">
 			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34">
@@ -71,11 +79,11 @@ export default async function NewsPage(): Promise<ReactNode> {
 				)}
 				{headlineItem && (
 					<NewsCard
-						date={headlineItem.publishedAt.toDateString()}
-						description={headlineItem.summary}
-						imageUrl={headlineItem.image.url}
-						linkUrl={`/news/${headlineItem.slug}`}
-						title={headlineItem.title}
+						date={headlinePublishedAt.toDateString()}
+						description={headlineSummary}
+						imageUrl={headlineImage.url}
+						linkUrl={`/news/${headlineSlug}`}
+						title={headlineTitle}
 						variant="list-headline"
 					/>
 				)}
