@@ -155,7 +155,7 @@ const news = f.helpers.multiple(
 			publishedAt: f.date.recent(),
 		};
 	},
-	{ count: 25 },
+	{ count: 12 },
 );
 
 const page = () => {
@@ -589,6 +589,21 @@ export const client = {
 					};
 				}),
 			};
+		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "news and events",
+				},
+				{
+					label: "news",
+				},
+			];
 		},
 		async read(slug: string) {
 			const item = news.find((item) => {

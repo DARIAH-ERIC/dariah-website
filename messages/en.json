@@ -52,7 +52,8 @@
 		"meta": {
 			"title": "News"
 		},
-		"title": "News"
+		"title": "News",
+		"noNews": "No news found."
 	},
 	"ProjectsPage": {
 		"meta": {

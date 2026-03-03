@@ -40,3 +40,27 @@ export const Standard: Story = {
 		date: "November 5, 2025",
 	},
 };
+
+export const ListItem: Story = {
+	args: {
+		variant: "list-item",
+		title: "Launch of the DARIAH South-East European Regional Hub",
+		description:
+			"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH",
+		imageUrl: "/assets/images/temp-news-1.jpg",
+		linkUrl: "#",
+		date: "November 5, 2025",
+	},
+};
+
+export const ListHeadline: Story = {
+	args: {
+		variant: "list-headline",
+		title: "Launch of the DARIAH South-East European Regional Hub",
+		description:
+			"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH",
+		imageUrl: "/assets/images/temp-news-1.jpg",
+		linkUrl: "#",
+		date: "November 5, 2025",
+	},
+};
