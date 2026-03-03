@@ -74,11 +74,11 @@ export function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 			className={cn(
 				resourceTypeBorder,
 				resourceTypeBorderLeftColor,
-				"border-l-6 py-10 pl-6 pr-4 max-w-full flex gap-6 items-center",
+				"border-l-6 py-10 pl-6 pr-4 max-w-full flex flex-col gap-6 md:items-center md:flex-row",
 			)}
 		>
 			<div className="flex flex-1 flex-col gap-2">
-				<div className="flex gap-6">
+				<div className="flex gap-x-6 gap-y-2 flex-wrap">
 					<div
 						className={cn(
 							resourceTypeBgColor,

@@ -15,7 +15,8 @@
 			"title": "Filters",
 			"type": "Resource Type",
 			"source": "National Node/Country",
-			"kind": "Type of service"
+			"kind": "Type of service",
+			"showButton": "Show filters"
 		},
 		"hits": {
 			"error": "An error occurred while getting resources",

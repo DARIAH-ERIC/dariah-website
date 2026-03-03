@@ -13,12 +13,15 @@ export function Refinements({
 }: Readonly<{ refinements: Array<ResourceCatalogueFilter> }>): ReactNode {
 	const t = useTranslations("DariahResourceCataloguePage");
 	return (
-		<div className="flex flex-col gap-10 w-96 max-w-96">
-			<Typography variant="h4">{t("filter.title")}</Typography>
-			{refinements.map(({ name, subfilters, ...rest }) => {
-				return <RefinementList key={name} attribute={name} subfilters={subfilters} {...rest} />;
-			})}
-		</div>
+		<>
+			<div className="hidden flex-col gap-10 w-96 max-w-96 lg:flex">
+				<Typography variant="h4">{t("filter.title")}</Typography>
+				{refinements.map(({ name, subfilters, ...rest }) => {
+					return <RefinementList key={name} attribute={name} subfilters={subfilters} {...rest} />;
+				})}
+			</div>
+			<Button className="w-full lg:hidden">{t("filter.showButton")}</Button>
+		</>
 	);
 }
 
