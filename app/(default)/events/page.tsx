@@ -50,7 +50,7 @@ export default async function EventsPage({
 	const parsedItems = sortEventsByMonth(items);
 
 	return (
-		<Main className="flex flex-1 flex-col gap-8 px-4 pt-8 pb-30 container lg:items-center lg:px-34.5">
+		<Main className="flex flex-1 flex-col gap-8 px-4 pt-8 pb-30 container lg:items-center lg:px-31.5">
 			<div className="flex flex-col gap-14">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
@@ -86,10 +86,10 @@ export default async function EventsPage({
 										return (
 											<div
 												key={event.id}
-												className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row"
+												className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row lg:flex-nowrap"
 											>
 												<Typography
-													className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5"
+													className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap"
 													variant="regular"
 												>
 													<ElipseIcon className="fill-gray-300" />

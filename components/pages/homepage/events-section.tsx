@@ -12,19 +12,17 @@ export function EventsSection(): ReactNode {
 			</Typography>
 			<div className="flex gap-32.25 w-full">
 				<EventCard
-					endDate={"2025-08-2"}
+					endDate={new Date("2025-08-2")}
 					localization={"Besançon, France"}
-					startDate={"2025-07-21"}
-					status="upcoming"
+					startDate={new Date("2025-07-21")}
 					title={"European Summer University in Digital Humanities “Culture and Technology” 2025"}
 					type="training"
 					variant="homepage"
 				/>
 				<EventCard
-					endDate={"2025-08-8"}
+					endDate={new Date("2025-08-8")}
 					localization={"Riga / Latvia"}
-					startDate={"2025-08-4"}
-					status="upcoming"
+					startDate={new Date("2025-08-4")}
 					title={
 						"7th Baltic Summer School of Digital Humanities: Digital Methods for History Studies"
 					}
@@ -32,10 +30,9 @@ export function EventsSection(): ReactNode {
 					variant="homepage"
 				/>
 				<EventCard
-					endDate={"2025-09-1"}
+					endDate={new Date("2025-09-1")}
 					localization={"Berlin / Germany"}
-					startDate={"2025-09-5"}
-					status="upcoming"
+					startDate={new Date("2025-09-5")}
 					title={"ATRIUM Summer School on Automatic Text Recognition"}
 					type="training"
 					variant="homepage"
