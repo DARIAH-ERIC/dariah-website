@@ -50,7 +50,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 									<Disclosure>
 										<DisclosureHeader>{item.label}</DisclosureHeader>
 										<DisclosurePanel>
-											<NavMenu>
+											<NavMenu aria-labelledby={item.label}>
 												{Object.entries(item.children).map(([id, item]) => {
 													switch (item.type) {
 														case "action": {
