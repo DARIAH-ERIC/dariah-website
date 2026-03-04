@@ -5,6 +5,7 @@ import type { ComponentProps, ReactNode } from "react";
 import { NavLink } from "@/app/(default)/_components/nav-link";
 import { Image } from "@/components/image";
 import { Button } from "@/components/ui/button/button";
+import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
 import { TextField } from "@/components/ui/text-field/text-field";
@@ -27,20 +28,32 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 	return (
 		<footer {...rest} className={cn("border-t border-stroke-weak shadow-footer", className)}>
-			<div className="max-w-480 mx-auto relative">
-				<NavLink className="absolute top-14.5 left-17" href={navigation.home.href} size="icon">
+			<div className={cn("px-6 py-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
+				<NavLink
+					className="lg:absolute lg:top-14.5 lg:left-17"
+					href={navigation.home.href}
+					size="icon"
+				>
 					<span className="sr-only">{navigation.home.label}</span>
-					<Image alt="" className="h-38.5 w-107" src={logoDariah} />
+					<Image alt="" className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")} src={logoDariah} />
 				</NavLink>
 
-				<div className="flex gap-63.25 pt-57.5 px-35 pb-35">
-					<div className="flex flex-col gap-y-10 max-w-188.25">
+				<div
+					className={cn(
+						"flex flex-col gap-16",
+						"xl:flex-row xl:gap-63.25 lg:pt-57.5 lg:px-35 lg:pb-35",
+					)}
+				>
+					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
 						<p className="text-[25px] font-light font-heading tracking-[-1%] leading-[1.3]">
 							{
 								"DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society."
 							}
 						</p>
-						<nav aria-label={t("navigation.label")} className="flex justify-between">
+						<nav
+							aria-label={t("navigation.label")}
+							className={cn("flex flex-col gap-10 justify-between", "lg:gap-0 lg:flex-row")}
+						>
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading" variant="h4">
 									{navigation.contact.label}
@@ -59,9 +72,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 											<li key={id}>
 												<Link
 													href={link.href}
-													leftIconReversed={true}
+													startIcon={<ChevronForwardIcon />}
 													variant="secondary"
-													withLeftIcon={true}
 												>
 													{link.label}
 												</Link>
@@ -85,9 +97,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 											<li key={id}>
 												<Link
 													href={link.href}
-													leftIconReversed={true}
+													startIcon={<ChevronForwardIcon />}
 													variant="secondary"
-													withLeftIcon={true}
 												>
 													{link.label}
 												</Link>
@@ -111,9 +122,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 											<li key={id}>
 												<Link
 													href={link.href}
-													leftIconReversed={true}
+													startIcon={<ChevronForwardIcon />}
 													variant="secondary"
-													withLeftIcon={true}
 												>
 													{link.label}
 												</Link>
@@ -124,7 +134,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</div>
 						</nav>
 					</div>
-					<div className="flex flex-col gap-y-8 max-w-154">
+					<div className="flex flex-col gap-y-8 lg:max-w-154">
 						<div className="flex flex-col gap-10">
 							<Typography className="font-light" variant="h1">
 								{"Subscribe to our newsletter"}
@@ -170,7 +180,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					</div>
 				</div>
 
-				<div className="pt-3 pb-13 px-34.5 flex gap-2.5 items-center">
+				<div className={cn("py-6 px-0 flex gap-2.5 items-center", "lg:pt-3 lg:pb-13 lg:px-34.5")}>
 					<Image alt="" className="w-13.75 h-9.25" src={logoEu} />
 					{"Creative Commons Attribution (CC BY) licence"}
 				</div>

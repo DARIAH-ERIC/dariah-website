@@ -29,8 +29,8 @@ export const Primary: Story = {
 		variant: "primary",
 		href: "#",
 		children: "Primary",
-		withLeftIcon: true,
-		withRightIcon: true,
+		withDefaultLeftIcon: true,
+		withDefaultRightIcon: true,
 	},
 };
 
@@ -39,8 +39,8 @@ export const Secondary: Story = {
 		variant: "secondary",
 		href: "#",
 		children: "Secondary blue",
-		withLeftIcon: true,
-		withRightIcon: true,
+		withDefaultLeftIcon: true,
+		withDefaultRightIcon: true,
 	},
 };
 
@@ -49,8 +49,8 @@ export const Tertiary: Story = {
 		variant: "tertiary",
 		href: "#",
 		children: "Tertiary",
-		withLeftIcon: true,
-		withRightIcon: true,
+		withDefaultLeftIcon: true,
+		withDefaultRightIcon: true,
 	},
 };
 
@@ -58,7 +58,7 @@ export const ColorBg: Story = {
 	render() {
 		return (
 			<div className="bg-primary p-4">
-				<Link href="#" variant="color-bg" withLeftIcon={true} withRightIcon={true}>
+				<Link href="#" variant="color-bg" withDefaultLeftIcon={true} withDefaultRightIcon={true}>
 					Color Bg
 				</Link>
 			</div>
@@ -70,17 +70,17 @@ export const AllVariants: Story = {
 	render() {
 		return (
 			<div className="flex flex-wrap items-center gap-3">
-				<Link href="#" variant="primary" withLeftIcon={true} withRightIcon={true}>
+				<Link href="#" variant="primary" withDefaultLeftIcon={true} withDefaultRightIcon={true}>
 					Primary
 				</Link>
-				<Link href="#" variant="secondary" withLeftIcon={true} withRightIcon={true}>
+				<Link href="#" variant="secondary" withDefaultLeftIcon={true} withDefaultRightIcon={true}>
 					Secondary
 				</Link>
-				<Link href="#" variant="tertiary" withLeftIcon={true} withRightIcon={true}>
+				<Link href="#" variant="tertiary" withDefaultLeftIcon={true} withDefaultRightIcon={true}>
 					Tertiary
 				</Link>
 				<div className="bg-primary p-4">
-					<Link href="#" variant="color-bg" withLeftIcon={true} withRightIcon={true}>
+					<Link href="#" variant="color-bg" withDefaultLeftIcon={true} withDefaultRightIcon={true}>
 						Color Bg
 					</Link>
 				</div>

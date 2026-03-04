@@ -86,9 +86,10 @@ export interface LinkProps
 		Pick<ComponentProps<"a">, "aria-current" | "id"> {
 	href?: Exclude<NextLinkProps["href"], UrlObject>;
 	ref?: Ref<HTMLAnchorElement | HTMLSpanElement> | undefined;
-	withLeftIcon?: boolean;
-	leftIconReversed?: boolean;
-	withRightIcon?: boolean;
+	withDefaultLeftIcon?: boolean;
+	withDefaultRightIcon?: boolean;
+	startIcon?: ReactNode;
+	endIcon?: ReactNode;
 }
 
 export function Link(props: Readonly<LinkProps>): ReactNode {
@@ -96,10 +97,11 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 	const {
 		className,
 		variant,
+		startIcon,
+		endIcon,
 		ref: forwardedRef,
-		withLeftIcon = false,
-		leftIconReversed = false,
-		withRightIcon = false,
+		withDefaultLeftIcon = false,
+		withDefaultRightIcon = false,
 		...interactionProps
 	} = props;
 
@@ -116,9 +118,6 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 	const isLinkElement = Boolean(interactionProps.href) && !isDisabled;
 	const ElementType: ElementType = isLinkElement ? NextLink : "span";
 	const ChildrenWrapper: ElementType = variant === "unstyled" ? Fragment : "span";
-
-	const withLeftIconDefault = withLeftIcon && !leftIconReversed;
-	const withLeftIconReversed = withLeftIcon && leftIconReversed;
 
 	const { focusableProps } = useFocusable(interactionProps, linkRef);
 	const { pressProps, isPressed } = usePress({ ...interactionProps, ref: linkRef });
@@ -159,10 +158,11 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 			data-rac=""
 			role={!isLinkElement ? "link" : undefined}
 		>
-			{withLeftIconDefault && <ChevronLeftIcon />}
-			{withLeftIconReversed && <ChevronForwardIcon />}
+			{withDefaultLeftIcon && <ChevronLeftIcon />}
+			{startIcon}
 			<ChildrenWrapper>{renderProps.children}</ChildrenWrapper>
-			{withRightIcon && <ChevronForwardIcon />}
+			{endIcon}
+			{withDefaultRightIcon && <ChevronForwardIcon />}
 		</ElementType>
 	);
 }
