@@ -23,19 +23,23 @@ const parseDates = (startDate: string, endDate: string) => {
 };
 
 export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, endDate, startDate, type, status = "pending" } = props;
+	const { title, localization, endDate, startDate } = props;
 
 	const { daysString, headerString } = useMemo(() => {
-		return parseDates(startDate, endDate);
+		return parseDates(
+			startDate.toDateString(),
+			endDate?.toDateString() ?? startDate.toDateString(),
+		);
 	}, [startDate, endDate]);
+	const status = startDate < new Date() ? "past" : "upcoming";
 
 	return (
 		<NavLink
-			className="shadow-event-card min-w-116 w-116 max-w-full cursor-pointer bg-event-card-bg group flex-col focus-visible:outline-4 focus-visible:outline-accent"
+			className="shadow-event-card w-116 max-w-full cursor-pointer bg-event-card-bg group flex-col lg:min-w-116 focus-visible:outline-4 focus-visible:outline-accent"
 			href={"/"}
 		>
 			<div className="bg-white px-12.25 py-8 flex flex-col gap-4 w-full">
-				<div className="flex gap-4 items-end text-section-text">
+				<div className="flex flex-wrap gap-4 items-end text-section-text">
 					<Typography className="text-[50px] font-black" variant="h2">
 						{daysString}
 					</Typography>
@@ -44,9 +48,9 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 					</Typography>
 				</div>
 				<div className="flex gap-6">
-					<Typography className="flex gap-2 text-[14px] text-accent uppercase" variant="h4">
+					{/* <Typography className="flex gap-2 text-[14px] text-accent uppercase" variant="h4">
 						{type}
-					</Typography>
+					</Typography> */}
 					<Tag text={status} variant={status} />
 				</div>
 			</div>

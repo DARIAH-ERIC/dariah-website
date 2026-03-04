@@ -25,7 +25,17 @@
 		"meta": {
 			"title": "Events"
 		},
-		"title": "Events"
+		"title": "Events",
+		"previous-events": "See previous events",
+		"next-events": "See next events",
+		"filters": {
+			"confirm": "Find events",
+			"list": "List",
+			"calendar": "Calendar",
+			"date": "Events starting from",
+			"search": "Search with keywords",
+			"select": "View as"
+		}
 	},
 	"GlobalNotFoundPage": {
 		"meta": {
