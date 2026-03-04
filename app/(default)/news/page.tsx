@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
@@ -119,7 +119,9 @@ export default async function NewsPage(): Promise<ReactNode> {
 			</div>
 
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
-				<Pagination pageCount={5} schouldScroll={true} />
+				<Suspense>
+					<Pagination pageCount={5} schouldScroll={true} />
+				</Suspense>
 			</div>
 		</Main>
 	);
