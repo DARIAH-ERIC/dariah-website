@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 import {

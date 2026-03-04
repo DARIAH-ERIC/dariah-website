@@ -108,7 +108,7 @@ const events = f.helpers.multiple(
 			publishedAt: f.date.recent(),
 		};
 	},
-	{ count: 25 },
+	{ count: 8 },
 );
 
 const impactCaseStudies = f.helpers.multiple(
@@ -155,7 +155,7 @@ const news = f.helpers.multiple(
 			publishedAt: f.date.recent(),
 		};
 	},
-	{ count: 25 },
+	{ count: 12 },
 );
 
 const page = () => {
@@ -469,9 +469,27 @@ export const client = {
 						image: item.image,
 						slug: item.slug,
 						publishedAt: item.publishedAt,
+						startDate: item.startDate,
+						endDate: item.endDate,
+						location: item.location,
 					};
 				}),
 			};
+		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "news and events",
+				},
+				{
+					label: "events",
+				},
+			];
 		},
 		async read(slug: string) {
 			const item = events.find((item) => {
@@ -589,6 +607,21 @@ export const client = {
 					};
 				}),
 			};
+		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "news and events",
+				},
+				{
+					label: "news",
+				},
+			];
 		},
 		async read(slug: string) {
 			const item = news.find((item) => {

@@ -97,6 +97,7 @@
 	--in-text-link: rgb(6 89 137);
 	--text-link-bg: rgb(39 47 62);
 	--button-bg: rgb(226 239 246);
+	--pagination-bg: rgb(71 71 71);
 
 	--blue: rgb(0 131 213);
 	--green: rgb(175 205 2);
@@ -219,6 +220,7 @@
 	--color-in-text-link: var(--in-text-link);
 	--color-text-link-bg: var(--text-link-bg);
 	--color-button-bg: var(--button-bg);
+	--color-pagination-bg: var(--pagination-bg);
 
 	--color-palette-blue: var(--palette-blue);
 	--color-palette-green: var(--palette-green);
@@ -383,7 +385,7 @@
 
 @utility container {
 	width: 100%;
-	max-width: var(--breakpoint-2xl);
+	max-width: var(--breakpoint-3xl);
 	margin-inline: auto;
 }
 

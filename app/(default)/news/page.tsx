@@ -3,7 +3,10 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { Link } from "@/components/ui/link/link";
+import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { NewsCard } from "@/components/ui/news-card/news-card";
+import { Pagination } from "@/components/ui/pagination/pagination";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,41 +26,101 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function NewsPage(): Promise<ReactNode> {
 	const t = await getTranslations("NewsPage");
+	const breadcrumbs = await client.news.breadcrumbs();
 
 	const data = await client.news.list();
 
 	const { items } = data;
 
+	if (items.length === 0)
+		return (
+			<Main className="flex flex-1 flex-col gap-8 container px-4 py-8 lg:pb-30 lg:px-34.5 lg:pt-8">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				<Typography className="text-[45px] font-light" variant="h2">
+					{t("title")}
+				</Typography>
+				<p>{t("noNews")}</p>
+			</Main>
+		);
+
+	const headlineItem = items[0];
+
+	const {
+		image: headlineImage,
+		slug: headlineSlug,
+		summary: headlineSummary,
+		title: headlineTitle,
+		publishedAt: headlinePublishedAt,
+	} = headlineItem!;
+
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
-			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-4"
-				role="list"
-			>
-				{items.map((item) => {
-					const { image, slug, summary, title } = item;
+		<Main className="container flex flex-col gap-20">
+			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				{headlineItem && (
+					<NewsCard
+						date={headlinePublishedAt.toDateString()}
+						description={headlineSummary}
+						imageUrl={headlineImage.url}
+						linkUrl={`/news/${headlineSlug}`}
+						title={headlineTitle}
+						variant="list-headline"
+					/>
+				)}
+			</div>
 
-					const href = `/news/${slug}`;
+			<div className="flex flex-col px-4 gap-14 lg:px-34">
+				<Typography className="text-[45px] font-light" variant="h2">
+					{t("title")}
+				</Typography>
+				<ul
+					className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-1 2xl:gap-x-35.5 2xl:grid-cols-2"
+					role="list"
+				>
+					{items.map((item) => {
+						const { image, slug, summary, title, publishedAt } = item;
 
-					return (
-						<li key={slug}>
-							<article className="flex flex-col gap-2">
-								{/* eslint-disable-next-line @next/next/no-img-element */}
-								<img
-									alt=""
-									className="aspect-video w-full rounded-md object-cover"
-									src={image.url}
+						const href = `/news/${slug}`;
+
+						return (
+							<li key={slug} className="flex justify-center">
+								<NewsCard
+									date={publishedAt.toDateString()}
+									description={summary}
+									imageUrl={image.url}
+									linkUrl={href}
+									title={title}
+									variant="list-item"
 								/>
-								<h2>
-									<Link href={href}>{title}</Link>
-								</h2>
-								<div>{summary}</div>
-							</article>
-						</li>
-					);
-				})}
-			</ul>
+							</li>
+						);
+					})}
+				</ul>
+			</div>
+
+			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
+				<Pagination pageCount={5} schouldScroll={true} />
+			</div>
 		</Main>
 	);
 }
