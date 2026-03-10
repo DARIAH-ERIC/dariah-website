@@ -6,25 +6,26 @@ import { Typography } from "@/components/ui/typography/typography";
 
 export function EventsSection(): ReactNode {
 	return (
-		<section className="bg-(image:--section-events-bg) px-31.5 py-17.5 flex flex-col gap-17.5 items-end">
-			<Typography className="text-white font-heading text-[85px] font-light w-full" variant="h1">
+		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-6 py-17.5 lg:px-31.5">
+			<Typography
+				className="text-white font-heading text-[56px] px-6 font-light w-full lg:text-[85px]"
+				variant="h1"
+			>
 				{"Upcoming Events"}
 			</Typography>
-			<div className="flex gap-32.25 w-full">
+			<div className="flex flex-wrap justify-center gap-32.25 w-full">
 				<EventCard
-					endDate={"2025-08-2"}
+					endDate={new Date("2025-08-2")}
 					localization={"Besançon, France"}
-					startDate={"2025-07-21"}
-					status="upcoming"
+					startDate={new Date("2025-07-21")}
 					title={"European Summer University in Digital Humanities “Culture and Technology” 2025"}
 					type="training"
 					variant="homepage"
 				/>
 				<EventCard
-					endDate={"2025-08-8"}
+					endDate={new Date("2025-08-8")}
 					localization={"Riga / Latvia"}
-					startDate={"2025-08-4"}
-					status="upcoming"
+					startDate={new Date("2025-08-4")}
 					title={
 						"7th Baltic Summer School of Digital Humanities: Digital Methods for History Studies"
 					}
@@ -32,17 +33,16 @@ export function EventsSection(): ReactNode {
 					variant="homepage"
 				/>
 				<EventCard
-					endDate={"2025-09-1"}
+					endDate={new Date("2025-09-1")}
 					localization={"Berlin / Germany"}
-					startDate={"2025-09-5"}
-					status="upcoming"
+					startDate={new Date("2025-09-5")}
 					title={"ATRIUM Summer School on Automatic Text Recognition"}
 					type="training"
 					variant="homepage"
 				/>
 			</div>
-			<div className="bg-white w-124.25 max-w-full py-5 px-6">
-				<Link href="/news" variant="primary" withRightIcon={true}>
+			<div className="bg-white w-51.5 max-w-full py-5 px-6 lg:w-124.25">
+				<Link href="/news" variant="primary" withDefaultRightIcon={true}>
 					{"See all news"}
 				</Link>
 			</div>

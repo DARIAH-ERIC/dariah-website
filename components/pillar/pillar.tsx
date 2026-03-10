@@ -27,7 +27,7 @@ export function Pillar(props: Readonly<PillarProps>): ReactNode {
 						{description}
 					</Typography>
 				</div>
-				<Link href={"/"} variant="primary" withRightIcon={true}>
+				<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
 					{"Read more"}
 				</Link>
 			</div>
