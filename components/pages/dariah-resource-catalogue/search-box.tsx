@@ -1,3 +1,4 @@
+import { cn } from "@acdh-oeaw/style-variants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { type ReactNode, useRef, useState } from "react";
 import { useInstantSearch, useSearchBox, type UseSearchBoxProps } from "react-instantsearch";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button/button";
 import { SearchIcon } from "@/components/ui/icons/search";
 import { TextField } from "@/components/ui/text-field/text-field";
 
-export function SearchBox(props: UseSearchBoxProps): ReactNode {
+export function SearchBox(props: Readonly<UseSearchBoxProps & { className?: string }>): ReactNode {
 	const { query, refine } = useSearchBox(props);
 	const router = useRouter();
 	const pathname = usePathname();
@@ -14,6 +15,7 @@ export function SearchBox(props: UseSearchBoxProps): ReactNode {
 	const { status } = useInstantSearch();
 	const [inputValue, setInputValue] = useState(query);
 	const inputRef = useRef<HTMLInputElement>(null);
+	const { className } = props;
 
 	const isSearchStalled = status === "stalled";
 
@@ -34,7 +36,7 @@ export function SearchBox(props: UseSearchBoxProps): ReactNode {
 	return (
 		<form
 			action=""
-			className="flex w-full gap-0 items-end"
+			className={cn("flex w-full gap-0 items-end", className)}
 			noValidate={true}
 			onReset={(event) => {
 				event.preventDefault();

@@ -16,12 +16,13 @@
 			"type": "Resource Type",
 			"source": "National Node/Country",
 			"kind": "Type of service",
-			"showButton": "Show filters"
+			"showButton": "Show filters",
+			"keywords": "Keywords"
 		},
 		"hits": {
-			"error": "An error occurred while getting resources",
 			"empty": "No resources found matching your criteria"
-		}
+		},
+		"error": "An error occurred while connecting to resource catalogue"
 	},
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"

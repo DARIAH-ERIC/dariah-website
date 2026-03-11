@@ -160,7 +160,9 @@
 	--shadow-standard: 0px 12px 12px 0px rgb(0 0 0 / 12%);
 
 	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
-	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 25%);
+	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 / 25%);
+
+	--shadow-filters-mobile: 0px -1px 13.7px 0px rgb(0 0 0 / 25%);
 
 	--color-primary: var(--primary);
 	--color-primary-100: var(--primary-100);

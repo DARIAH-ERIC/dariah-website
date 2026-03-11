@@ -61,8 +61,15 @@ const buttonStyles = styles({
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100 focus-visible:[&>svg]:fill-black",
 				"focus-visible:outline-none",
 			),
-			"link-color-bg": cn(
-				"bg-transparent text-white gap-2 [&_svg]:fill-white",
+			"disclosure-white-bg": cn(
+				"bg-transparent text-gray-900 gap-2 px-2 py-4 max-w-screen [&_svg]:fill-gray-900",
+				"hover:underline",
+				"focus-visible:underline focus-visible:decoration-[3px]",
+				"focus-visible:outline-none",
+				"data-expanded:bg-gray-200 data-expanded:text-black data-expanded:font-medium data-expanded:[&_svg]:fill-primary",
+			),
+			"disclosure-color-bg": cn(
+				"bg-transparent text-white gap-2 py-4! px-6! [&_svg]:fill-white",
 				"hover:underline",
 				"focus-visible:underline focus-visible:decoration-[3px]",
 				"focus-visible:outline-none",

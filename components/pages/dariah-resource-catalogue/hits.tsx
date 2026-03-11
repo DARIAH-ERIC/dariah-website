@@ -31,16 +31,6 @@ export function Hits(
 
 	const Component: ElementType = hitComponent ?? Hit;
 
-	if (status === "error") {
-		return (
-			<div className="max-w-301 w-full">
-				<Typography className="text-center" variant="regular">
-					{t("hits.error")}
-				</Typography>
-			</div>
-		);
-	}
-
 	if (items.length === 0 && status === "idle") {
 		return (
 			<div className="max-w-301 w-full">
