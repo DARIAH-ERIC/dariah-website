@@ -68,6 +68,13 @@ const buttonStyles = styles({
 				"focus-visible:outline-none",
 				"data-expanded:bg-gray-200 data-expanded:text-black data-expanded:font-medium data-expanded:[&_svg]:fill-primary",
 			),
+			"select-button": cn(
+				"px-5 py-1 cursor-pointer text-regular text-text-link-bg uppercase bg-transparent font-normal rounded-none",
+				"hover:bg-button-bg",
+				"data-focused:bg-button-bg data-focused:outline-3 data-focused:outline-primary",
+				"pressed:text-primary pressed:bg-transparent pressed:outline-none",
+				"active:text-primary active:bg-transparent active:outline-none",
+			),
 			quiet:
 				"border-transparent bg-transparent text-neutral-800 hover:bg-neutral-200 pressed:bg-neutral-300",
 		},

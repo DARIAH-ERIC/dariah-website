@@ -232,11 +232,11 @@ export const client = {
 				type: "menu",
 				label: "About",
 				children: {
-					// "dariah-in-a-nutshell": {
-					// 	type: "link",
-					// 	label: "DARIAH in a nutshell",
-					// 	href: "/about/dariah-in-a-nutshell",
-					// },
+					"dariah-in-a-nutshell": {
+						type: "link",
+						label: "DARIAH in a nutshell",
+						href: "/about/dariah-in-a-nutshell",
+					},
 					// strategy: {
 					// 	type: "link",
 					// 	label: "Strategy",
