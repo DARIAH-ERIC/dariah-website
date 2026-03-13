@@ -69,7 +69,11 @@
 		"meta": {
 			"title": "Projects"
 		},
-		"title": "Projects"
+		"title": "Projects",
+		"description": {
+			"part1": "DARIAH ERIC, together with its national nodes, participates in several strategic EU funded projects relevant to its vision and mission, in the role of coordinator, partner or as affiliated partner. These projects are mostly funded in the framework of the Horizon 2020 programme, but also via ERASMUS+ grants and other national and European funding programmes. ",
+			"part2": "If you are interested to learn more about these projects, the several funding frameworks or DARIAH's role and actions in these projects, please contact us through the Helpdesk form."
+		}
 	},
 	"SpotlightArticlesPage": {
 		"meta": {
