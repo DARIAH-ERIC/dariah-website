@@ -61,6 +61,8 @@
 	--section-box-bg: rgb(231 231 231);
 	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
 
+	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
+
 	--section-resources-top-bg: rgb(0 29 107);
 
 	--section-events-bg: linear-gradient(
@@ -159,6 +161,7 @@
 
 	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
 	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 25%);
+	--shadow-carousel-button: 0px 4px 4px 0px rgb(0 0 0 / 25%);
 
 	--color-primary: var(--primary);
 	--color-primary-100: var(--primary-100);
@@ -195,6 +198,7 @@
 	--color-section-text: var(--section-text);
 	--color-section-box-bg: var(--section-box-bg);
 	--color-section-news-bg: var(--section-news-bg);
+	--color-static-pages-carousel-bg: var(--static-pages-carousel-bg);
 	--color-section-resources-top-bg: var(--section-resources-top-bg);
 	--color-section-events-bg: var(--section-events-bg);
 	--color-event-card-bg: var(--event-card-bg);
