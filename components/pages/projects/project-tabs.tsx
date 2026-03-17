@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 
@@ -28,13 +29,14 @@ interface ProjectTabsProps {
 }
 
 export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
+	const t = useTranslations("ProjectsPage");
 	const { items } = props;
 
 	return (
 		<Tabs>
 			<TabList aria-label="Tabs">
-				<Tab id="active">{"Active Projects"}</Tab>
-				<Tab id="past">{"Past Projects"}</Tab>
+				<Tab id="active">{t("tabs.active")}</Tab>
+				<Tab id="past">{t("tabs.past")}</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel id="active">
