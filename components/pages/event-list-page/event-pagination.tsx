@@ -9,10 +9,10 @@ export function EventPagination(): ReactNode {
 	const t = useTranslations("EventsPage");
 	return (
 		<div className="flex justify-between w-full">
-			<Link href="/" withLeftIcon={true}>
+			<Link href="/" withDefaultLeftIcon={true}>
 				{t("previous-events")}
 			</Link>
-			<Link className="[&>span]:text-end" href="/" withRightIcon={true}>
+			<Link className="[&>span]:text-end" href="/" withDefaultRightIcon={true}>
 				{t("next-events")}
 			</Link>
 		</div>

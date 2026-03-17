@@ -2,7 +2,7 @@ import { type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 
 const tagStyles = styles({
-	base: ["rounded-sm px-1 py-0.5 shadow-light text-h4 text-[12px] text-black uppercase"],
+	base: ["rounded-sm px-1 py-0.5 shadow-light text-caption font-bold text-black uppercase"],
 	variants: {
 		variant: {
 			past: "bg-gray-200",

@@ -77,6 +77,26 @@
 		},
 		"title": "Spotlight articles"
 	},
+	"WorkingGroupsPage": {
+		"meta": {
+			"title": "Working groups"
+		},
+		"title": "Working groups",
+		"description": "Working groups are joint activities in DARIAH. They are self-organized and work in a strategic area that is defined by DARIAH's Virtual Competence Centres. Their activities are complementary to individual contributions from DARIAH members. Working groups always have a certain purpose: They lead to services for the community, which can be scholarly, technical, editorial or organisational. This means, they contribute to building up and extending the DARIAH infrastructure. \n\nBelow you can find a list of DARIAH working groups, which have been approved by the DARIAH Senior Management Team (SMT).",
+		"contact-information": {
+			"title": "Contact Information",
+			"description": {
+				"part1": "If you are interested to learn more about the DARIAH working groups or you want to join an existing one or start a new one, please have a look at the ",
+				"link1": "Working Groups Policy",
+				"part2": " or contact us through our ",
+				"link2": "Helpdesk Form"
+			}
+		},
+		"tabs": {
+			"active": "Active Working Groups",
+			"past": "Past Working Groups"
+		}
+	},
 	"(default)": {
 		"Footer": {
 			"navigation": {
