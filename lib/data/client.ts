@@ -669,6 +669,17 @@ export const client = {
 				}),
 			};
 		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					label: "projects",
+				},
+			];
+		},
 		async read(slug: string) {
 			const item = projects.find((item) => {
 				return item.slug === slug;

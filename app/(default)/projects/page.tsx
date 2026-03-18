@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
-import { getFormatter, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { Link } from "@/components/ui/link/link";
+import { ProjectTabs } from "@/components/pages/projects/project-tabs";
+import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -23,42 +25,41 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ProjectsPage(): Promise<ReactNode> {
 	const t = await getTranslations("ProjectsPage");
-	const format = await getFormatter();
 
+	const breadcrumbs = await client.projects.breadcrumbs();
 	const data = await client.projects.list();
 
 	const { items } = data;
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
-			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(min(18rem,100%),1fr))] gap-4"
-				role="list"
-			>
-				{items.map((item) => {
-					const { endDate, image, name, slug, startDate } = item;
-
-					const href = `/projects/${slug}`;
-
-					return (
-						<li key={slug}>
-							<article className="flex flex-col gap-2">
-								{/* eslint-disable-next-line @next/next/no-img-element */}
-								<img
-									alt=""
-									className="aspect-video w-full rounded-md object-cover"
-									src={image.url}
-								/>
-								<h2>
-									<Link href={href}>{name}</Link>
-								</h2>
-								<div>{format.dateTimeRange(startDate, endDate, { dateStyle: "long" })}</div>
-							</article>
-						</li>
-					);
-				})}
-			</ul>
+		<Main className="container flex flex-1 flex-col gap-8">
+			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-31">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				<div className="flex flex-col gap-12.25 lg:px-12.25">
+					<Typography className="text-[45px] font-light" variant="h2">
+						{t("title")}
+					</Typography>
+					<div className="flex flex-col items-center gap-23.5 justify-between lg:flex-row">
+						<Typography className="text-[22px] lg:max-w-[50%]" variant="regular">
+							{t("description.part1")}
+						</Typography>
+						<Typography className="text-[22px] lg:max-w-[50%]" variant="regular">
+							{t("description.part2")}
+						</Typography>
+					</div>
+				</div>
+			</div>
+			<ProjectTabs items={items} />
 		</Main>
 	);
 }
