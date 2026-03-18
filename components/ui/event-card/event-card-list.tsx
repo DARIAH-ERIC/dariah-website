@@ -32,7 +32,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 						<Tag text={status} variant={status} />
 					</div>
 					<Typography
-						className="line-clamp-3 text-black group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
+						className="line-clamp-3 text-[18px] text-black group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
 						variant="h4"
 					>
 						{title}

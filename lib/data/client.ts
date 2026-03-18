@@ -197,6 +197,21 @@ const projects = f.helpers.multiple(
 	{ count: 25 },
 );
 
+const workingGroups = f.helpers.multiple(
+	() => {
+		const name = f.lorem.sentence();
+
+		return {
+			id: f.string.uuid(),
+			name,
+			description: f.lorem.paragraphs(10),
+			image: f.helpers.arrayElement(assets),
+			slug: slugify(name),
+		};
+	},
+	{ count: 25 },
+);
+
 const spotlightArticles = f.helpers.multiple(
 	() => {
 		const title = f.lorem.sentence();
@@ -259,32 +274,32 @@ export const client = {
 					// },
 				},
 			},
-			// network: {
-			// 	type: "menu",
-			// 	label: "Network",
-			// 	children: {
-			// 		"members-and-partners": {
-			// 			type: "link",
-			// 			label: "Members and partners",
-			// 			href: "/network/members-and-partners",
-			// 		},
-			// 		"regional-hubs": {
-			// 			type: "link",
-			// 			label: "Regional hubs",
-			// 			href: "/network/regional-hubs",
-			// 		},
-			// 		"working-groups": {
-			// 			type: "link",
-			// 			label: "Working groups",
-			// 			href: "/network/working-groups",
-			// 		},
-			// 		"partnerships-and-collaborations": {
-			// 			type: "link",
-			// 			label: "Partnerships and collaborations",
-			// 			href: "/network/partnerships-and-collaborations",
-			// 		},
-			// 	},
-			// },
+			network: {
+				type: "menu",
+				label: "Network",
+				children: {
+					// 		"members-and-partners": {
+					// 			type: "link",
+					// 			label: "Members and partners",
+					// 			href: "/network/members-and-partners",
+					// 		},
+					// 		"regional-hubs": {
+					// 			type: "link",
+					// 			label: "Regional hubs",
+					// 			href: "/network/regional-hubs",
+					// 		},
+					"working-groups": {
+						type: "link",
+						label: "Working groups",
+						href: "/network/working-groups",
+					},
+					// 		"partnerships-and-collaborations": {
+					// 			type: "link",
+					// 			label: "Partnerships and collaborations",
+					// 			href: "/network/partnerships-and-collaborations",
+					// 		},
+				},
+			},
 			resources: {
 				type: "menu",
 				label: "Resources",
@@ -690,6 +705,41 @@ export const client = {
 			}
 
 			return { item };
+		},
+	},
+	workingGroups: {
+		async slugs() {
+			const slugs = workingGroups.map((item) => {
+				return item.slug;
+			});
+
+			return slugs;
+		},
+		async list() {
+			return {
+				items: workingGroups.map((item) => {
+					return {
+						id: item.id,
+						name: item.name,
+						image: item.image,
+					};
+				}),
+			};
+		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "network",
+				},
+				{
+					label: "working groups",
+				},
+			];
 		},
 	},
 	spotlightArticles: {

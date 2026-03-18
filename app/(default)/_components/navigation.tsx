@@ -28,17 +28,19 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 		});
 	};
 
+	const { home, ...menuNavigation } = navigation;
+
 	return (
 		<>
 			<nav aria-label={label} className="justify-between flex items-center">
 				<Link
 					className="py-0!"
-					href={navigation.home.href}
+					href={home.href}
 					onClick={() => {
 						if (isMobileMenuOpen) handleMobileMenuToggle();
 					}}
 				>
-					<span className="sr-only">{navigation.home.label}</span>
+					<span className="sr-only">{home.label}</span>
 					<Image
 						alt=""
 						className="w-35.5 xl:w-50 xl:h-15"
@@ -50,7 +52,7 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 					/>
 				</Link>
 
-				<NavigationDesktop navigation={navigation} />
+				<NavigationDesktop navigation={menuNavigation} />
 				<Button className="lg:hidden" onClick={handleMobileMenuToggle} variant="icon-button">
 					{isMobileMenuOpen ? (
 						<CloseIcon className="fill-primary! size-8 lg:hidden" />
@@ -60,7 +62,10 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 				</Button>
 			</nav>
 			{isMobileMenuOpen && (
-				<NavigationMobile handleMobileMenuToggle={handleMobileMenuToggle} navigation={navigation} />
+				<NavigationMobile
+					handleMobileMenuToggle={handleMobileMenuToggle}
+					navigation={menuNavigation}
+				/>
 			)}
 		</>
 	);

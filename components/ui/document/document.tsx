@@ -21,8 +21,10 @@ export function Document(props: Readonly<DocumentProps>): ReactNode {
 			)}
 			href={documentUrl}
 		>
-			<Typography variant="h4">{title}</Typography>
-			<Typography className="flex gap-2 items-center" variant="h4">
+			<Typography className="text-[18px]" variant="h4">
+				{title}
+			</Typography>
+			<Typography className="flex gap-2 items-center text-[18px]" variant="h4">
 				{"View PDF"} <ChevronForwardIcon className="size-5" />
 			</Typography>
 		</NavLink>

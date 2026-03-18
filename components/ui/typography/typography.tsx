@@ -20,6 +20,10 @@ const typographyConfig = {
 		element: "h4",
 		className: "text-h4",
 	},
+	h5: {
+		element: "h5",
+		className: "text-h5",
+	},
 	regular: {
 		element: "p",
 		className: "text-regular",

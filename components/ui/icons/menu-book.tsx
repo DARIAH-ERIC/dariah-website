@@ -8,7 +8,7 @@ interface MenuBookProps extends SvgProps {
 }
 
 export function MenuBookIcon(props: Readonly<MenuBookProps>): ReactNode {
-	const { fill, gradientStartColorVar, gradientEndColorVar } = props;
+	const { fill, gradientStartColorVar, gradientEndColorVar, ...rest } = props;
 
 	return (
 		<svg
@@ -17,7 +17,7 @@ export function MenuBookIcon(props: Readonly<MenuBookProps>): ReactNode {
 			viewBox="0 0 20 20"
 			width="20"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{...rest}
 		>
 			<mask
 				height="20"
@@ -45,8 +45,8 @@ export function MenuBookIcon(props: Readonly<MenuBookProps>): ReactNode {
 					y1="10.0702"
 					y2="10.0702"
 				>
-					<stop stop-color={`var(${gradientStartColorVar})`} />
-					<stop offset="1" stop-color={`var(${gradientEndColorVar})`} />
+					<stop stopColor={`var(${gradientStartColorVar})`} />
+					<stop offset="1" stopColor={`var(${gradientEndColorVar})`} />
 				</linearGradient>
 			</defs>
 		</svg>
