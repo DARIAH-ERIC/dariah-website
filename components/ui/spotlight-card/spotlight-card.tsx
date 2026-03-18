@@ -37,7 +37,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 					</Typography>
 					<Typography
 						className={cn(
-							"line-clamp-2 lg:line-clamp-4",
+							"line-clamp-2 text-[18px] lg:line-clamp-4",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}
