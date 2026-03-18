@@ -75,7 +75,13 @@
 		"meta": {
 			"title": "Spotlight articles"
 		},
-		"title": "Spotlight articles"
+		"title": "Spotlight",
+		"subtitle": "Spotlight articles",
+		"description": {
+			"part1": "Making scholarship more visible",
+			"part2": "DARIAH Spotlight is monthly series launching in March 2025. Spotlight articles offer quick, engaging looks at the latest research connected to the DARIAH infrastructure - from innovative DARIAH Working Groups to inspiring DH projects across our network. ",
+			"part3": "Discover how scholars are pushing the boundaries of digital humanities, and get a window into the diverse work happening across Europe and beyond."
+		}
 	},
 	"(default)": {
 		"Footer": {

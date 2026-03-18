@@ -61,6 +61,8 @@
 	--section-box-bg: rgb(231 231 231);
 	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
 
+	--spotlight-list-divider: linear-gradient(180deg, var(--purple) -100%, transparent 80%);
+
 	--section-resources-top-bg: rgb(0 29 107);
 
 	--section-events-bg: linear-gradient(
@@ -150,6 +152,8 @@
 	--color-neutral-950: var(--color-gray-950);
 	--color-neutral-1000: var(--color-black);
 
+	--color-purple: var(--purple);
+
 	/** SECTION TO DELETE AFTER FIGMA COLORS IN COMPONENTS ARE FINALIZED */
 
 	/** FIGMA COLORS */
@@ -159,6 +163,8 @@
 
 	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
 	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 25%);
+
+	--shadow-spotlight-image: -2px -2px 4px 0px rgb(0 0 0 / 16%);
 
 	--color-primary: var(--primary);
 	--color-primary-100: var(--primary-100);
