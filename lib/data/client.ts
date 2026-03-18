@@ -764,6 +764,21 @@ export const client = {
 				}),
 			};
 		},
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "news and events",
+				},
+				{
+					label: "spotlight",
+				},
+			];
+		},
 		async read(slug: string) {
 			const item = spotlightArticles.find((item) => {
 				return item.slug === slug;
