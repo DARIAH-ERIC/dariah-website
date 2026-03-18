@@ -5,17 +5,19 @@ import { Image } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import { parseDateForProject } from "@/utils/project-page.utils";
 
 interface ProjectProps {
-	title: string;
+	endDate: Date;
+	href: string;
 	imageUrl: string;
+	startDate: Date;
+	title: string;
 	type: "Beneficiary" | "Coordinator";
-	startDate: string;
-	endDate: string;
 }
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
-	const { title, imageUrl, type, startDate, endDate } = props;
+	const { title, imageUrl, type, startDate, endDate, href } = props;
 	return (
 		<NavLink
 			className={cn(
@@ -23,9 +25,9 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
 			)}
-			href={"/"}
+			href={href}
 		>
-			<Image alt={title} height={249} src={imageUrl} width={385} />
+			<Image alt={title} className="w-96.25 h-62.25" height={249} src={imageUrl} width={385} />
 			<div className="flex gap-2 p-4 flex-col w-full">
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">
@@ -51,7 +53,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 				<div className="flex gap-4 flex-col">
 					<Typography
 						className={cn(
-							"text-[22px] text-black",
+							"text-[22px] text-black line-clamp-1",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}
@@ -62,7 +64,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 					<Typography
 						className="text-gray-800"
 						variant="small"
-					>{`Duration: ${startDate} - ${endDate}`}</Typography>
+					>{`Duration: ${parseDateForProject(startDate)} - ${parseDateForProject(endDate)}`}</Typography>
 				</div>
 			</div>
 		</NavLink>

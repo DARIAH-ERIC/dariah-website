@@ -69,7 +69,15 @@
 		"meta": {
 			"title": "Projects"
 		},
-		"title": "Projects"
+		"title": "Projects",
+		"description": {
+			"part1": "DARIAH ERIC, together with its national nodes, participates in several strategic EU funded projects relevant to its vision and mission, in the role of coordinator, partner or as affiliated partner. These projects are mostly funded in the framework of the Horizon 2020 programme, but also via ERASMUS+ grants and other national and European funding programmes. ",
+			"part2": "If you are interested to learn more about these projects, the several funding frameworks or DARIAH's role and actions in these projects, please contact us through the Helpdesk form."
+		},
+		"tabs": {
+			"active": "Active Projects",
+			"past": "Past Projects"
+		}
 	},
 	"SpotlightArticlesPage": {
 		"meta": {
@@ -81,6 +89,26 @@
 			"part1": "Making scholarship more visible",
 			"part2": "DARIAH Spotlight is monthly series launching in March 2025. Spotlight articles offer quick, engaging looks at the latest research connected to the DARIAH infrastructure - from innovative DARIAH Working Groups to inspiring DH projects across our network. ",
 			"part3": "Discover how scholars are pushing the boundaries of digital humanities, and get a window into the diverse work happening across Europe and beyond."
+		}
+	},
+	"WorkingGroupsPage": {
+		"meta": {
+			"title": "Working groups"
+		},
+		"title": "Working groups",
+		"description": "Working groups are joint activities in DARIAH. They are self-organized and work in a strategic area that is defined by DARIAH's Virtual Competence Centres. Their activities are complementary to individual contributions from DARIAH members. Working groups always have a certain purpose: They lead to services for the community, which can be scholarly, technical, editorial or organisational. This means, they contribute to building up and extending the DARIAH infrastructure. \n\nBelow you can find a list of DARIAH working groups, which have been approved by the DARIAH Senior Management Team (SMT).",
+		"contact-information": {
+			"title": "Contact Information",
+			"description": {
+				"part1": "If you are interested to learn more about the DARIAH working groups or you want to join an existing one or start a new one, please have a look at the ",
+				"link1": "Working Groups Policy",
+				"part2": " or contact us through our ",
+				"link2": "Helpdesk Form"
+			}
+		},
+		"tabs": {
+			"active": "Active Working Groups",
+			"past": "Past Working Groups"
 		}
 	},
 	"(default)": {

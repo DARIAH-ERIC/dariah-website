@@ -64,9 +64,7 @@ export default async function EventsPage({
 					</Breadcrumbs>
 				)}
 				<div className="flex flex-col gap-11 py-2.5 px-13.5">
-					<Typography className="text-[45px] font-light" variant="h2">
-						{t("title")}
-					</Typography>
+					<Typography variant="h2">{t("title")}</Typography>
 					<Filters />
 				</div>
 			</div>

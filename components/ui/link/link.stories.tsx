@@ -38,7 +38,7 @@ export const Secondary: Story = {
 	args: {
 		variant: "secondary",
 		href: "#",
-		children: "Secondary blue",
+		children: "Secondary",
 		withDefaultLeftIcon: true,
 		withDefaultRightIcon: true,
 	},
@@ -49,6 +49,16 @@ export const Tertiary: Story = {
 		variant: "tertiary",
 		href: "#",
 		children: "Tertiary",
+		withDefaultLeftIcon: true,
+		withDefaultRightIcon: true,
+	},
+};
+
+export const Paragraph: Story = {
+	args: {
+		variant: "paragraph",
+		href: "#",
+		children: "Paragraph",
 		withDefaultLeftIcon: true,
 		withDefaultRightIcon: true,
 	},

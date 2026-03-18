@@ -46,9 +46,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
-					{t("title")}
-				</Typography>
+				<Typography variant="h2">{t("title")}</Typography>
 				<p>{t("noNews")}</p>
 			</Main>
 		);
@@ -90,9 +88,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 			</div>
 
 			<div className="flex flex-col px-4 gap-14 lg:px-34">
-				<Typography className="text-[45px] font-light" variant="h2">
-					{t("title")}
-				</Typography>
+				<Typography variant="h2">{t("title")}</Typography>
 				<ul
 					className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-1 2xl:gap-x-35.5 2xl:grid-cols-2"
 					role="list"

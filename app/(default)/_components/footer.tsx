@@ -55,7 +55,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							className={cn("flex flex-col gap-10 justify-between", "lg:gap-0 lg:flex-row")}
 						>
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading" variant="h4">
+								<Typography className="font-heading text-[18px]" variant="h4">
 									{navigation.contact.label}
 								</Typography>
 								<p className="flex gap-2 text-primary">
@@ -84,7 +84,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</div>
 
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading" variant="h4">
+								<Typography className="font-heading text-[18px]" variant="h4">
 									{navigation.privacy.label}
 								</Typography>
 								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
@@ -109,7 +109,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</div>
 
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading" variant="h4">
+								<Typography className="font-heading text-[18px]" variant="h4">
 									{navigation["quick-menu"].label}
 								</Typography>
 								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
@@ -136,7 +136,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					</div>
 					<div className="flex flex-col gap-y-8 lg:max-w-154">
 						<div className="flex flex-col gap-10">
-							<Typography className="font-light" variant="h1">
+							<Typography className="font-light" variant="h2">
 								{"Subscribe to our newsletter"}
 							</Typography>
 							<div className="flex flex-col gap-8.5">
@@ -152,7 +152,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							</div>
 						</div>
 						<nav aria-label={t("navigation-social-media.label")} className="flex flex-col gap-4">
-							<Typography className="font-light" variant="h1">
+							<Typography className="font-light" variant="h2">
 								{"Follow us"}
 							</Typography>
 							<ul className="flex flex-wrap items-center gap-x-8 gap-y-2" role="list">
