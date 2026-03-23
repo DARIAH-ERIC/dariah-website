@@ -36,7 +36,7 @@ export function Select<T extends object>(props: Readonly<SelectProps<T>>): React
 			<Button
 				className={cn(
 					"flex w-full h-14.75 items-center gap-2.5 px-3.25 pt-4.5 pb-4 text-regular text-black placeholder-gray-700 text-[16px]",
-					"border-b-2 border-gray-200 border-b-gray-400 bg-gray-200",
+					"border-b-2 border-gray-200 border-b-gray-400 bg-gray-100",
 					"hover:border-b-primary hover:bg-gray-200",
 					"focus:px-2.75 focus:pt-4 focus:outline-none focus:border-2 focus:border-primary hover:focus:border-primary",
 				)}
@@ -53,7 +53,10 @@ export function Select<T extends object>(props: Readonly<SelectProps<T>>): React
 					<ChevronDownIcon className="text-primary" />
 				)}
 			</Button>
-			<Popover className="min-w-(--trigger-width) overflow-auto p-2 outline-none!">
+			<Popover
+				className="min-w-(--trigger-width) overflow-auto p-2 outline-none! rounded-none!"
+				offset={0}
+			>
 				<ListBox
 					className="outline-none"
 					renderEmptyState={() => {

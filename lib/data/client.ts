@@ -5,6 +5,8 @@ import { faker as f } from "@faker-js/faker";
 import slugify from "@sindresorhus/slugify";
 
 import type { NavigationConfig } from "@/lib/navigation/navigation";
+import countriesData from "@/public/assets/temp/countries.json";
+import geoData from "@/public/assets/temp/custom.geo.json";
 
 f.seed(42);
 f.setDefaultRefDate(new Date(Date.UTC(2025, 0, 1)));
@@ -278,11 +280,11 @@ export const client = {
 				type: "menu",
 				label: "Network",
 				children: {
-					// 		"members-and-partners": {
-					// 			type: "link",
-					// 			label: "Members and partners",
-					// 			href: "/network/members-and-partners",
-					// 		},
+					"members-and-partners": {
+						type: "link",
+						label: "Members and partners",
+						href: "/network/members-and-partners",
+					},
 					// 		"regional-hubs": {
 					// 			type: "link",
 					// 			label: "Regional hubs",
@@ -740,6 +742,29 @@ export const client = {
 					label: "working groups",
 				},
 			];
+		},
+	},
+	membersAndPartners: {
+		async breadcrumbs() {
+			return [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "network",
+				},
+				{
+					label: "members and partners",
+				},
+			];
+		},
+		async data() {
+			return {
+				geoJson: geoData,
+				countries: countriesData,
+			};
 		},
 	},
 	spotlightArticles: {

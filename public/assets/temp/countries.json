@@ -1,0 +1,1906 @@
+{
+	"UKR": {
+		"id": 14507,
+		"coordinators": "",
+		"name": "Ukraine",
+		"code": "UKR",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "48.379433",
+			"longitude": "31.165581"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"EGY": {
+		"id": 14389,
+		"coordinators": "",
+		"name": "Egypt",
+		"code": "EGY",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "30.033",
+			"longitude": "31.233"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			14383
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"BIH": {
+		"id": 10486,
+		"coordinators": [
+			"10490"
+		],
+		"name": "Bosnia and Herzegovina",
+		"code": "BIH",
+		"website": "",
+		"websitename": "",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 168,
+				"name": "Ministry of Civil Affairs",
+				"slug": "ministry-of-civil-affairs",
+				"term_group": 0,
+				"term_taxonomy_id": 168,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "43.856430",
+			"longitude": "18.413029"
+		},
+		"national": {
+			"persons": [
+				"10490"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16096,
+			15941,
+			15940,
+			15939,
+			15938,
+			10754,
+			10753,
+			10752,
+			10751,
+			10750,
+			10748,
+			10747,
+			10746,
+			10745,
+			10744
+		],
+		"nationalInstitutions": [
+			10491
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"TUR": {
+		"id": 3686,
+		"coordinators": "",
+		"name": "Turkey",
+		"code": "TUR",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "41.0082",
+			"longitude": "28.9784"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			15217
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"SVK": {
+		"id": 3680,
+		"coordinators": [
+			"16004"
+		],
+		"name": "Slovakia",
+		"code": "SVK",
+		"website": "https://dariah.sk/",
+		"websitename": "Visit the DARIAH-SK website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 193,
+				"name": "Ministry of Education Research Development and Youth of the Slovak Republic",
+				"slug": "ministry-of-education-research-development-and-youth-of-the-slovak-republic",
+				"term_group": 0,
+				"term_taxonomy_id": 193,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "48.1483616",
+			"longitude": "17.1031612"
+		},
+		"national": {
+			"persons": [
+				"16006"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16003,
+			16002,
+			16001,
+			16000,
+			15999,
+			15998
+		],
+		"nationalInstitutions": [
+			5421
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2019/01/DARIAH-SK_Horizontalna-verzia-logotypu.png"
+	},
+	"ISL": {
+		"id": 3670,
+		"coordinators": [
+			"15225",
+			"16042"
+		],
+		"name": "Iceland",
+		"code": "ISL",
+		"website": "",
+		"websitename": "",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 192,
+				"name": "Ministry of Culture Innovation and Higher Education",
+				"slug": "ministry-of-culture-innovation-and-higher-education",
+				"term_group": 0,
+				"term_taxonomy_id": 192,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "64.128288",
+			"longitude": "-21.827774"
+		},
+		"national": {
+			"persons": [
+				"15224"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			15258,
+			15242,
+			15241,
+			15240,
+			15239,
+			15238,
+			15237,
+			15236,
+			15235,
+			15231,
+			15232,
+			15230,
+			15229,
+			15228,
+			15227
+		],
+		"nationalInstitutions": [
+			12812
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"URY": {
+		"id": 3660,
+		"coordinators": "",
+		"name": "Uruguay",
+		"code": "URY",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "-58.0283107",
+			"longitude": "-32.6005596"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"RUS": {
+		"id": 1456,
+		"coordinators": "",
+		"name": "Russia",
+		"code": "RUS",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "61.524010",
+			"longitude": "105.318756"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"CAN": {
+		"id": 1393,
+		"coordinators": "",
+		"name": "Canada",
+		"code": "CAN",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "56.130367",
+			"longitude": "-106.346771"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"EST": {
+		"id": 572,
+		"coordinators": "",
+		"name": "Estonia",
+		"code": "EST",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "59.43696079999999",
+			"longitude": "24.75357459999998"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"LVA": {
+		"id": 544,
+		"coordinators": "",
+		"name": "Latvia",
+		"code": "LVA",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "56.9496487",
+			"longitude": "24.10518639999998"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			12811
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"BGR": {
+		"id": 506,
+		"coordinators": [
+			"4303",
+			"4595"
+		],
+		"name": "Bulgaria",
+		"code": "BGR",
+		"website": "https://clada-bg.eu/",
+		"websitename": "Visit the CLaDA-BG website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 140,
+				"name": "Ministry of Education and Science (Bulgaria)",
+				"slug": "ministry-of-education-and-science-republic-of-bulgaria",
+				"term_group": 0,
+				"term_taxonomy_id": 140,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "42.69770819999999",
+			"longitude": "23.321867500000053"
+		},
+		"national": {
+			"persons": [
+				"12043"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16265,
+			4608,
+			4607,
+			4606,
+			4605,
+			4604,
+			4603,
+			4602,
+			4601,
+			4600,
+			4599,
+			4598,
+			4597,
+			3665,
+			494
+		],
+		"nationalInstitutions": [
+			1498
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "CLaDA-BG consortium consists of leading research and teaching institutions in Bulgaria, public libraries, museums, and archives. It represents DARIAH as well as the CLARIN research infrastructures on a national level and conducts various activities in the fields of Digital Arts and Humanities and Natural Language Processing. It aims at creating networks of data and of researchers working on them in order to establish an information infrastructure for the storage and representation of local linguistic, historical, cultural, and artistic patrimony, putting it in an internationally relevant context and providing instruments for the investigation of contemporary language and society against its background.\r\n<h3>Key areas of activities</h3>\r\nLanguage Resources and Technologies, Cultural Heritage, Ontologies, Linked Open Data and Knowledge Graphs, Data Mining, Storage and Management, Big Data, 3D technology for DH, Cooperation with Cultural and Educational Institutions, National and International Networking and Collaboration in NLP and DH, Teaching Materials in DH and NLP, Open Science",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/CLADABG_logo.png"
+	},
+	"ROU": {
+		"id": 501,
+		"coordinators": "",
+		"name": "Romania",
+		"code": "ROU",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "44.439663",
+			"longitude": "26.096306"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			13189
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"LTU": {
+		"id": 499,
+		"coordinators": "",
+		"name": "Lithuania",
+		"code": "LTU",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "54.6871555",
+			"longitude": "25.279651400000034"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			15980,
+			15979
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"USA": {
+		"id": 452,
+		"coordinators": "",
+		"name": "United States of America",
+		"code": "USA",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "38.8951",
+			"longitude": "77.0364"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			14385,
+			10846
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"HUN": {
+		"id": 439,
+		"coordinators": "",
+		"name": "Hungary",
+		"code": "HUN",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "47.497912",
+			"longitude": "19.04023499999994"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			3468
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"ESP": {
+		"id": 407,
+		"coordinators": [
+			"12888"
+		],
+		"name": "Spain",
+		"code": "ESP",
+		"website": "",
+		"websitename": "",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 184,
+				"name": "Ministry of Science Innovation and Universities (MICIU)",
+				"slug": "ministry-of-science-innovation-and-universities-miciu",
+				"term_group": 0,
+				"term_taxonomy_id": 184,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "40.4167754",
+			"longitude": "-3.703790"
+		},
+		"national": {
+			"persons": [
+				"12889"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16095,
+			16094,
+			13499,
+			12959,
+			12957,
+			12954,
+			12952,
+			12950,
+			12947,
+			695,
+			415,
+			408
+		],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/CLARIAH-ES_marca.png"
+	},
+	"CZE": {
+		"id": 324,
+		"coordinators": [
+			"5095"
+		],
+		"name": "Czech Republic",
+		"code": "CZE",
+		"website": "https://clariah.lindat.cz/",
+		"websitename": "Visit the CLARIAH-CZ website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 148,
+				"name": "Ministry of Education Youth and Sports (Czech Republic)",
+				"slug": "ministry-of-education-youth-and-sports-czech-republic",
+				"term_group": 0,
+				"term_taxonomy_id": 148,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "50.0755381",
+			"longitude": "14.43780049999998"
+		},
+		"national": {
+			"persons": [
+				"9418"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16105,
+			16104,
+			16103,
+			16102,
+			5313,
+			5311,
+			5309,
+			5308,
+			5307,
+			5306,
+			5305,
+			5304,
+			595,
+			402
+		],
+		"nationalInstitutions": [
+			5303
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "The <strong>LINDAT/CLARIAH-CZ RI</strong> brings together the most prominent institutions in the <strong>area of language, linguistics and language technology</strong>, connected to the <a href=\"https://www.clarin.eu/\">CLARIN</a> network, and institutions, faculties and departments from the area of digital humanities and arts, which will work as part of the DARIAH network. These areas have a lot to offer - from the infrastructural point of view – to the Czech as well as to the European research community, to form a unique consortium serving the ideas behind DARIAH and Digital Humanities in general.\r\n\r\nThe project partners have all subscribed to the idea of <strong>digital data preparation</strong> and <strong>open sharing</strong>, <strong>development of new tools and common standards</strong> to provide information about their collections to the research community, and to the idea of mutual cooperation within the country and beyond, all within the DARIAH network. It is believed that given the rich cultural history of the Czech Republic and its predecessors dating back more than 1000 years (and beyond), the benefit and the impact to the research community as well as to the public will be mutual: researchers in the Czech Republic will be able to access the data and know-how of their European colleagues, while the European Digital Humanities researchers will be able to access the original and often precious Czech resources and help spread our national cultural heritage internationally.",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/LINDAT-CLARIAH-cz-scaled.png"
+	},
+	"ISR": {
+		"id": 322,
+		"coordinators": "",
+		"name": "Israel",
+		"code": "ISR",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "32.0852999",
+			"longitude": "34.78176759999997"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			427,
+			406
+		],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"FIN": {
+		"id": 321,
+		"coordinators": "",
+		"name": "Finland",
+		"code": "FIN",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "60.16985569999999",
+			"longitude": "24.93837899999994"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			1183,
+			405
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"GBR": {
+		"id": 320,
+		"coordinators": "",
+		"name": "United Kingdom",
+		"code": "GBR",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "51.5073509",
+			"longitude": "-0.12775829999998223"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			13186,
+			13182,
+			12804,
+			12802,
+			5423,
+			3661
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"NOR": {
+		"id": 319,
+		"coordinators": "",
+		"name": "Norway",
+		"code": "NOR",
+		"website": "",
+		"websitename": "",
+		"status": "cooperating-partners",
+		"statusName": "Cooperating Partners",
+		"entities": [],
+		"capital": {
+			"latitude": "59.9138688",
+			"longitude": "10.752245399999993"
+		},
+		"national": {
+			"persons": [],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [
+			3469
+		],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"SWE": {
+		"id": 318,
+		"coordinators": [
+			"14064"
+		],
+		"name": "Sweden",
+		"code": "SWE",
+		"website": "",
+		"websitename": "",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 187,
+				"name": "Swedish Research Council (Vetenskapsrådet – VR)",
+				"slug": "swedish-research-council-vetenskapsradet-vr",
+				"term_group": 0,
+				"term_taxonomy_id": 187,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "59.32932349999999",
+			"longitude": "18.068580800000063"
+		},
+		"national": {
+			"persons": [
+				"14379"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			14077,
+			14072,
+			14069,
+			14067,
+			14065,
+			12808,
+			12806,
+			3684,
+			1396,
+			578,
+			510
+		],
+		"nationalInstitutions": [
+			14081
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"CHE": {
+		"id": 317,
+		"coordinators": [
+			"11564",
+			"11215"
+		],
+		"name": "Switzerland",
+		"code": "CHE",
+		"website": "https://www.dariah.ch",
+		"websitename": "Switzerland is a full Member of DARIAH ERIC since 01.06.2023",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 174,
+				"name": "Swiss State Secretariat for Education Research and Innovation (SERI)",
+				"slug": "swiss-state-secretariat-for-education-research-and-innovation-seri",
+				"term_group": 0,
+				"term_taxonomy_id": 174,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "46.9479739",
+			"longitude": "7.447446799999966"
+		},
+		"national": {
+			"persons": [
+				"12754"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16171,
+			16168,
+			16170,
+			16169,
+			14583,
+			14582,
+			14581,
+			3478,
+			3477,
+			3476,
+			3475,
+			3474,
+			3473,
+			3198,
+			475
+		],
+		"nationalInstitutions": [
+			5422
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "<a href=\"https://www.dariah.ch\">Visit the DARIAH-CH website</a>.\r\n\r\n<span class=\"\">DARIAH-CH coordinates and promotes Swiss activities in the Digital Research Infrastructure for the Arts and Humanities (DARIAH). It is located at the Data and Service Center for the Humanities (DaSCH), the national infrastructure that </span><span class=\"\">operates a platform for humanities research data that ensures long-term access. Furthermore, the linking of data with other databases is promoted (linked open data), in order to create added value for further research and the interested public.</span>",
+		"countryLogo": null
+	},
+	"AUT": {
+		"id": 105,
+		"coordinators": [
+			"2621",
+			"216"
+		],
+		"name": "Austria",
+		"code": "AUT",
+		"website": "https://clariah.at/",
+		"websitename": "Visit the CLARIAH-AT website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 12,
+				"name": "Austrian Federal Ministry of Women Science and Research",
+				"slug": "austrian-federal-ministry",
+				"term_group": 0,
+				"term_taxonomy_id": 12,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "48.2081743",
+			"longitude": "16.37381890000006"
+		},
+		"national": {
+			"persons": [
+				"12981"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16101,
+			16100,
+			13985,
+			5508,
+			1145,
+			1143,
+			1142,
+			693,
+			549,
+			511,
+			158
+		],
+		"nationalInstitutions": [],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "<p style=\"font-weight: 400;\">CLARIAH-AT is the consortium of Austrian universities and research institutions that coordinates and drives Austrian activities in the European ESFRI research infrastructures CLARIN (Common Language Resources and Technology Infrastructure) and DARIAH (Digital Research Infrastructure for the Arts and Humanities).</p>\r\n<p style=\"font-weight: 400;\">The consortium brings together Austrian institutions with relevant expertise in research, development and teaching in the field of Digital Humanities as well as in the establishment and sustainable operation of research (data) infrastructures, which also play an active role in the Austrian development of Digital Humanities and the establishment and expansion of technical and social infrastructures for the humanities in general.</p>\r\n<p style=\"font-weight: 400;\">CLARIAH-AT activities are aligned with the <a href=\"http://gams.uni-graz.at/o:clariah.dha-strategie-2021-en\">Digital Humanities Austria Strategy 2021+</a>, which is based on preliminary work by the consortium and a consultation of the Austrian professional community in the field of Digital Humanities.\r\nIt defines four guidelines for the future development of Digital Humanities in Austria:</p>\r\n\r\n<ul style=\"font-weight: 400;\">\r\n \t<li>Research infrastructures and networks</li>\r\n \t<li>Research data and repositories</li>\r\n \t<li>Methods, and tools</li>\r\n \t<li>Education, training and knowledge transfer</li>\r\n</ul>\r\n<p style=\"font-weight: 400;\">In addition to these strategic pillars, the CLARIAH-AT consortium is particularly committed to promoting DH projects and <a href=\"https://clariah.at/en/funding-opportunities-for-junior-researcher/\">Early Career Digital Humanists</a>.</p>",
+		"countryLogo": null
+	},
+	"HRV": {
+		"id": 274,
+		"coordinators": [
+			"1204"
+		],
+		"name": "Croatia",
+		"code": "HRV",
+		"website": "http://www.dariah.hr",
+		"websitename": "Visit the DARIAH-HR website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 145,
+				"name": "Ministry of Science Education and Youth",
+				"slug": "ministry-of-science-education-and-youth",
+				"term_group": 0,
+				"term_taxonomy_id": 145,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "45.8175003",
+			"longitude": "15.9714513"
+		},
+		"national": {
+			"persons": [
+				"15330"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16161,
+			16160,
+			16159,
+			16157,
+			16158,
+			16156,
+			16155,
+			16154,
+			16153,
+			16152,
+			16151,
+			16149,
+			16150,
+			16146,
+			16147,
+			16148,
+			4611,
+			1169,
+			1168,
+			1167,
+			1166,
+			1165,
+			1164,
+			1163,
+			1162,
+			1161,
+			1160,
+			1159,
+			1158,
+			1157,
+			1156,
+			1155,
+			1154,
+			1153,
+			1152,
+			1151,
+			1149,
+			1148,
+			1147
+		],
+		"nationalInstitutions": [
+			161
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/DARIAH-HR.png"
+	},
+	"CYP": {
+		"id": 275,
+		"coordinators": [
+			"710"
+		],
+		"name": "Cyprus",
+		"code": "CYP",
+		"website": "http://www.dariah-cy.eu/",
+		"websitename": "Visit the DARIAH-CY website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 151,
+				"name": "Ministry of Education and Culture",
+				"slug": "ministry-of-education-and-culture",
+				"term_group": 0,
+				"term_taxonomy_id": 151,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "35.1855659",
+			"longitude": "33.38227640000002"
+		},
+		"national": {
+			"persons": [
+				"5141"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16145,
+			16144,
+			16143,
+			16142,
+			16141,
+			16140,
+			16139,
+			16138,
+			16137,
+			16136,
+			16135,
+			16134,
+			16133,
+			16132,
+			16131,
+			16130,
+			16129,
+			16128,
+			16127,
+			16126,
+			16118,
+			16117,
+			16116,
+			16115,
+			16114,
+			16113,
+			16112,
+			16111,
+			16110,
+			16109,
+			16108,
+			16107,
+			428
+		],
+		"nationalInstitutions": [
+			291
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"DNK": {
+		"id": 276,
+		"coordinators": [
+			"11553"
+		],
+		"name": "Denmark",
+		"code": "DNK",
+		"website": "",
+		"websitename": "",
+		"status": null,
+		"statusName": null,
+		"entities": [],
+		"capital": {
+			"latitude": "55.6760968",
+			"longitude": "12.568337100000008"
+		},
+		"national": {
+			"persons": [
+				"11551"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			1179,
+			1178,
+			1177,
+			1176,
+			416
+		],
+		"nationalInstitutions": [
+			290
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"FRA": {
+		"id": 84,
+		"coordinators": [
+			"12476",
+			"240"
+		],
+		"name": "France",
+		"code": "FRA",
+		"website": "http://www.huma-num.fr/international",
+		"websitename": "Visit the DARIAH-FR/Huma-Num International website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 185,
+				"name": "Ministry of Higher Education",
+				"slug": "ministry-of-higher-education",
+				"term_group": 0,
+				"term_taxonomy_id": 185,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			},
+			{
+				"term_id": 194,
+				"name": "Research and Space",
+				"slug": "research-and-space",
+				"term_group": 0,
+				"term_taxonomy_id": 194,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "48.856614",
+			"longitude": "2.3191664"
+		},
+		"national": {
+			"persons": [
+				"16248"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16099,
+			1189,
+			1188
+		],
+		"nationalInstitutions": [
+			100
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"GRC": {
+		"id": 277,
+		"coordinators": [
+			"9540"
+		],
+		"name": "Greece",
+		"code": "GRC",
+		"website": "http://www.dyas-net.gr/",
+		"websitename": "Visit the DARIAH-GR / DYAS website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 150,
+				"name": "Academy of Athens",
+				"slug": "academy-of-athens",
+				"term_group": 0,
+				"term_taxonomy_id": 150,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "37.9838096",
+			"longitude": "23.727538800000048"
+		},
+		"national": {
+			"persons": [
+				"9540"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			5328,
+			4618,
+			4617,
+			3651,
+			474
+		],
+		"nationalInstitutions": [
+			174
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "The national infrastructure has four areas of key actions. Firstly, it focuses on sharing digital resources, providing access to registries, thesauri, datasets and metadata. Secondly, it works towards providing tools and services for supporting the entire life cycle of digital arts and humanities, investing also on education and training activities. Finally, it supports communities of practice by promoting standards and best practices, engaging in dialogue on theoretical and methodological issues; and\r\nencouraging community engagement activities.\r\n<h4>National priorities</h4>\r\n• to support the Greek arts and humanities communities and to contribute to the development of research using information technologies\r\n• to broaden the scope of research through the interconnection of distributed digital resources of various kinds\r\n• to promote the access, use, creation and long-term preservation of research data in digital form\r\n• to support the exchange of knowledge, methods and work practices among scholarly communities",
+		"countryLogo": null
+	},
+	"LUX": {
+		"id": 280,
+		"coordinators": [
+			"13928"
+		],
+		"name": "Luxembourg",
+		"code": "LUX",
+		"website": "https://dariah.lu/",
+		"websitename": "Visit the DARIAH-LU website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 33,
+				"name": "Ministry for Higher Education and Research",
+				"slug": "ministry-higher-education-research",
+				"term_group": 0,
+				"term_taxonomy_id": 33,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "49.61162100000001",
+			"longitude": "6.131934600000022"
+		},
+		"national": {
+			"persons": [
+				"716"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16098,
+			16097
+		],
+		"nationalInstitutions": [
+			169
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"MLT": {
+		"id": 281,
+		"coordinators": [
+			"11559"
+		],
+		"name": "Malta",
+		"code": "MLT",
+		"website": "",
+		"websitename": "",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 173,
+				"name": "Ministry for Education Sport Youth Research and Innovation",
+				"slug": "ministry-for-education-sport-youth-research-and-innovation",
+				"term_group": 0,
+				"term_taxonomy_id": 173,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "35.89890849999999",
+			"longitude": "14.514552800000047"
+		},
+		"national": {
+			"persons": [
+				"14668"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [],
+		"nationalInstitutions": [
+			3675
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"NLD": {
+		"id": 282,
+		"coordinators": [
+			"9870"
+		],
+		"name": "Netherlands",
+		"code": "NLD",
+		"website": "https://www.clariah.nl/",
+		"websitename": "Visit the CLARIAH-NL website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 46,
+				"name": "Netherlands Organisation for Scientific Research",
+				"slug": "netherlands-organisation-for-scientific-research",
+				"term_group": 0,
+				"term_taxonomy_id": 46,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "52.3702157",
+			"longitude": "4.895167899999933"
+		},
+		"national": {
+			"persons": [
+				"717"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16195,
+			16196,
+			16194,
+			16193,
+			16191,
+			16192,
+			16190,
+			16188,
+			16187,
+			16189,
+			16182,
+			16183,
+			16186,
+			16184,
+			4685,
+			4684,
+			4683,
+			4558,
+			4123,
+			1402,
+			1381,
+			687,
+			538,
+			157
+		],
+		"nationalInstitutions": [
+			604
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/clariah-logo.png"
+	},
+	"POL": {
+		"id": 283,
+		"coordinators": [
+			"11562"
+		],
+		"name": "Poland",
+		"code": "POL",
+		"website": "http://www.dariah.pl",
+		"websitename": "Visit the DARIAH-PL website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 49,
+				"name": "Ministry of Science and Higher Education",
+				"slug": "ministry-science-higher-education",
+				"term_group": 0,
+				"term_taxonomy_id": 49,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "52.2296756",
+			"longitude": "21.012228700000037"
+		},
+		"national": {
+			"persons": [
+				"14378"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16164,
+			5417,
+			5416,
+			5414,
+			5413,
+			5411,
+			5410,
+			5409,
+			5408,
+			5407,
+			5406,
+			4688,
+			4687,
+			4686,
+			4535,
+			2990,
+			536,
+			437
+		],
+		"nationalInstitutions": [
+			171
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/DARIAH-PL-Logo-no-tagline-RGB.png"
+	},
+	"PRT": {
+		"id": 284,
+		"coordinators": [
+			"1448",
+			"14570"
+		],
+		"name": "Portugal",
+		"code": "PRT",
+		"website": "http://rossio.fcsh.unl.pt/",
+		"websitename": "Visit the DARIAH-PT / ROSSIO website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 155,
+				"name": "Fundação para a Ciência e a Tecnologia (Foundation for Science &amp; Technology)",
+				"slug": "fundacao-para-a-ciencia-e-a-tecnologia-foundation-for-science-technology",
+				"term_group": 0,
+				"term_taxonomy_id": 155,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "38.7222524",
+			"longitude": "-9.139336599999979"
+		},
+		"national": {
+			"persons": [
+				"5192"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16181,
+			16180,
+			16179,
+			16178,
+			16177,
+			16176,
+			16175,
+			16173,
+			16174,
+			5325,
+			5323,
+			5320,
+			5318,
+			5316
+		],
+		"nationalInstitutions": [
+			1447
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "<strong>ROSSIO infrastructure</strong> is the Portuguese representative of DARIAH. The infrastructure aims to be a place where researchers, teachers, students and citizens have open and intuitive access to unique and diversified digital resources in Portuguese language concerning Social Sciences, Arts and Humanities.\r\n\r\nSince 2014, ROSSIO integrates the Portuguese Roadmap of Research Infrastructures <em>(Category 1 – those that have demonstrated high scientific potential and are considered to have high strategic regional and/or national relevance)</em><em>.</em> It is funded by the European Council and supported by the Portuguese Foundation for Science and Technology.\r\n<h4><strong>National priorities</strong></h4>\r\nOne of the priorities of ROSSIO is to implement the national roadmap to Open Access and Open Data. Another main goal is to develop the use of digital methods and tools in the Social Sciences, Arts and Humanities research agenda. Also important is to foster the awareness and impact of the Digital Humanities community that has been growing in the past decade. ROSSIO collaboration with educational, cultural and heritage institutions and the implementation of guidelines for a deeper and more dynamic integration in the digital world is relevant for the creation of a more balanced, sustainable and inclusive society.\r\n\r\n&nbsp;",
+		"countryLogo": null
+	},
+	"SRB": {
+		"id": 285,
+		"coordinators": [
+			"3954"
+		],
+		"name": "Serbia",
+		"code": "SRB",
+		"website": "http://dariah.rs/en/",
+		"websitename": "Visit the DARIAH-RS website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 169,
+				"name": "Ministry of Science Technological Development and Innovation",
+				"slug": "ministry-of-science-technological-development-and-innovation",
+				"term_group": 0,
+				"term_taxonomy_id": 169,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "44.786568",
+			"longitude": "20.44892159999995"
+		},
+		"national": {
+			"persons": [
+				"13502"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			5419,
+			1371,
+			597,
+			172
+		],
+		"nationalInstitutions": [
+			3956
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"SVN": {
+		"id": 286,
+		"coordinators": [
+			"15083",
+			"14520"
+		],
+		"name": "Slovenia",
+		"code": "SVN",
+		"website": "http://www.dariah.si",
+		"websitename": "Visit the DARIAH-SI website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 51,
+				"name": "Ministry of Education Science and Sport",
+				"slug": "ministry-education-science-sport",
+				"term_group": 0,
+				"term_taxonomy_id": 51,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "46.0569465",
+			"longitude": "14.505751499999974"
+		},
+		"national": {
+			"persons": [
+				"1033"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			548
+		],
+		"nationalInstitutions": [
+			173
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"DEU": {
+		"id": 287,
+		"coordinators": [
+			"14416",
+			"5428"
+		],
+		"name": "Germany",
+		"code": "DEU",
+		"website": "https://de.dariah.eu/",
+		"websitename": "Visit the DARIAH-DE website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 191,
+				"name": "Federal Ministry of Research Technology and Space",
+				"slug": "federal-ministry-of-research-technology-and-space",
+				"term_group": 0,
+				"term_taxonomy_id": 191,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "51.5336646",
+			"longitude": "9.9321508"
+		},
+		"national": {
+			"persons": [
+				"14019"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16202,
+			16201,
+			16200,
+			16199,
+			16198,
+			16197,
+			12044,
+			5386,
+			5385,
+			1487,
+			1485,
+			1481,
+			1480,
+			1479,
+			1476,
+			1474,
+			1472,
+			694,
+			692,
+			691,
+			421
+		],
+		"nationalInstitutions": [
+			598
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "DARIAH-DE (Digital Research Infrastructure for the Arts and Humanities) is an initiative to create a digital research infrastructure for the humanities and cultural studies. For that purpose, DARIAH-DE supports research in the humanities and cultural studies that works with digital methods and procedures with a research infrastructure consisting of four pillars:\r\n<ul>\r\n \t<li>Teaching</li>\r\n \t<li>Research</li>\r\n \t<li>Research Data</li>\r\n \t<li>Technical components.</li>\r\n</ul>\r\nFunded by the German Federal Ministry of Education and Research (BMBF), the partners involved in DARIAH-DE have established a digital and distributed research infrastructure with diverse services for the humanities and cultural studies in <a class=\"no-padding\" href=\"https://de.dariah.eu/web/guest/dariah-de-iii-laufzeit-03/16-02/19-\" target=\"_blank\" rel=\"noopener\">three funding phases from March 2011 to February 2019</a>. <a class=\"no-padding\" href=\"https://de.dariah.eu/web/guest/dariah-de-betriebskooperation\" target=\"_blank\" rel=\"noopener\">16 national partners</a> as well as other <a class=\"no-padding\" href=\"https://de.dariah.eu/web/guest/memorandum-of-understanding-partner\" target=\"_blank\" rel=\"noopener\">Memorandum-of-Understanding partners</a> have transferred the basic services underlying the infrastructure into sustainable continuous operation within the framework of the DARIAH-DE operational cooperation (March 2019 to February 2021). The operational cooperation was an integral part of the BMBF-funded collaborative project <a class=\"no-padding\" href=\"https://www.clariah.de/en/\" target=\"\" rel=\"noopener\">CLARIAH-DE</a> (March 2019 to September 2021), which combined the different services of the two initiatives CLARIN-D and DARIAH-DE into a shared digital infrastructure. DARIAH-DE will be continued in the association <a class=\"no-padding\" href=\"https://forschungsinfrastrukturen.de/doku.php/start\">\"Geistes- und kulturwissenschaftliche Forschungsinfrastrukturen e.V.\"</a> as a transformation of TextGrid e.V.. Various parts of the DARIAH-DE offerings are also anchored in the NFDI initiatives <a class=\"no-padding\" href=\"https://www.text-plus.org/en/home/\" target=\"_blank\" rel=\"noopener\">Text+</a>, <a class=\"no-padding\" href=\"https://nfdi4culture.de/\" target=\"_blank\" rel=\"noopener\">NFDI4Culture</a>, <a class=\"no-padding\" href=\"https://4memory.de/\" target=\"_blank\" rel=\"noopener\">NFDI4Memory</a> and <a class=\"no-padding\" href=\"https://www.nfdi4objects.net/\" target=\"_blank\" rel=\"noopener\">NFDI4Objects</a>.\r\n<h3><strong>Operational coordination</strong></h3>\r\n<ul>\r\n \t<li><a class=\"no-padding\" href=\"https://de.dariah.eu/web/guest/kontakt1\" target=\"_blank\" rel=\"noopener\">DARIAH-DE Coordination Office</a></li>\r\n</ul>\r\n<img class=\"alignnone wp-image-12045 size-large\" src=\"https://www.dariah.eu/wp-content/uploads/2017/03/2021-08-31-DARIAH-DE-CLARIAH-DE-Phasen-dt-612x144.png\" alt=\"\" width=\"612\" height=\"144\" />\r\n\r\nTrust in digital research infrastructures is the basic prerequisite for its use and also forms the basis for the cultural shift towards FAIR principles and Open Access. Such trust is significantly strengthened by the sustainability factor.\r\n\r\nCLARIAH-DE, as a merger of the two established research infrastructures CLARIN-D and DARIAH-DE, created a sustainable structure for the humanities and cultural studies communities. To this end, a sustainability strategy was formulated that promotes and increases the further development and networking of research infrastructures in the humanities and cultural sciences in Germany and Europe. In order to achieve this goal, CLARIAH-DE, together with its partners and other interested parties, initiated an association transformation based on the already existing association TextGrid e.V. The legal form of an association offers the advantage of enabling the greatest possible participation of those using and offering the services as well as interdisciplinary and international participation.\r\n\r\nInformation on the structure of the association as well as on membership is provided on the website of the association: <a class=\"no-padding\" href=\"http://forschungsinfrastrukturen.de/\" target=\"\" rel=\"noopener\">Geistes- und kulturwissenschaftliche Forschungsinfrastrukturen e.V.</a>\r\n\r\nInquiries: <a class=\"no-padding\" href=\"mailto:kontakt@forschungsinfrastrukturen.de\">kontakt@forschungsinfrastrukturen.de</a>",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/dariah-de_logo.jpg"
+	},
+	"IRL": {
+		"id": 312,
+		"coordinators": [
+			"226",
+			"14604"
+		],
+		"name": "Ireland",
+		"code": "IRL",
+		"website": "https://dariah.ie/",
+		"websitename": "Visit the DARIAH-IE website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 189,
+				"name": "Research Ireland",
+				"slug": "research-ireland",
+				"term_group": 0,
+				"term_taxonomy_id": 189,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "53.3498053",
+			"longitude": "-6.260309699999993"
+		},
+		"national": {
+			"persons": [
+				"11207"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16167,
+			16166,
+			16162,
+			16165,
+			5507,
+			5506,
+			5505,
+			4553,
+			436,
+			163,
+			164,
+			165
+		],
+		"nationalInstitutions": [
+			419
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "<h4 dir=\"ltr\">DARIAH-IE Mission Statement</h4>\n<p dir=\"ltr\">Enhancing and supporting an ecosystem for digitally enabled research, teaching and practice across the Arts and Humanities in Ireland within the pan-European DARIAH infrastructure. Funded by Research Ireland.</p>\n\n<h4 dir=\"ltr\">DARIAH-IE National Principles</h4>\n<p dir=\"ltr\"><strong>Partnership-Based Infrastructure Development</strong> Building on strategic partnerships with existing Irish institutions (universities, libraries, cultural heritage organisations) and European infrastructures DARIAH-IE will leverage shared resources and expertise whilst developing its organisational identity and research focus.</p>\n<p dir=\"ltr\"><strong>Open Research and Best Practice Advocacy</strong> Championing Open Research by advocating for the adoption of FAIR data principles and international standards within the Irish research community, DARIAH-IE will provide guidance, training, and policy development that prepares researchers for future digital infrastructure whilst improving current practices.</p>\n<p dir=\"ltr\"><strong>Knowledge Brokerage and Capacity Building</strong> Providing expertise in navigating existing European and international digital humanities resources through training and support to help researchers access external infrastructures effectively.</p>\n<p dir=\"ltr\"><strong>Championing Digital Literacy</strong> Recognising that many Irish humanities scholars and arts practitioners may be at different stages of digital adoption DARIAH-IE aims to bridge this gap through training, advocacy, and collaborative projects that demonstrate the value of digital approaches.</p>\n<p dir=\"ltr\"><strong>Community-First Approach</strong> By identifying and engaging with Irish arts and humanities research communities DARIAH-IE seeks to understand their specific needs and challenges, DARIAH-IE will work to build services around these requirements, ensuring genuine scholarly impact from the outset.</p>",
+		"countryLogo": null
+	},
+	"ITA": {
+		"id": 279,
+		"coordinators": [
+			"14566",
+			"229"
+		],
+		"name": "Italy",
+		"code": "ITA",
+		"website": "http://it.dariah.eu/",
+		"websitename": "Visit the DARIAH-IT website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 43,
+				"name": "Ministry of Education - University and Research (MIUR)",
+				"slug": "ministry-education-university-research",
+				"term_group": 0,
+				"term_taxonomy_id": 43,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "41.90278349999999",
+			"longitude": "12.496365500000024"
+		},
+		"national": {
+			"persons": [
+				"1571"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16223,
+			16222,
+			16221,
+			16220,
+			16219,
+			16218,
+			16217,
+			16216,
+			16215,
+			16214,
+			16213,
+			16212,
+			16209,
+			16211,
+			16210,
+			16206,
+			16204,
+			16203,
+			16205,
+			14503,
+			5404,
+			5402,
+			5401,
+			5400,
+			5399,
+			5397,
+			5395,
+			5394,
+			5392,
+			5391,
+			596,
+			540,
+			513,
+			445,
+			417
+		],
+		"nationalInstitutions": [
+			168
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": null
+	},
+	"BEL": {
+		"id": 273,
+		"coordinators": [
+			"14940"
+		],
+		"name": "Belgium",
+		"code": "BEL",
+		"website": "http://be.dariah.eu/",
+		"websitename": "Visit the DARIAH-BE website",
+		"status": "members",
+		"statusName": "Members",
+		"entities": [
+			{
+				"term_id": 24,
+				"name": "Belgian Science Policy Office",
+				"slug": "belgian-science-policy-office",
+				"term_group": 0,
+				"term_taxonomy_id": 24,
+				"taxonomy": "dariah_country_entity",
+				"description": "",
+				"parent": 0,
+				"count": 1,
+				"filter": "raw"
+			}
+		],
+		"capital": {
+			"latitude": "50.8504500",
+			"longitude": "4.3487800"
+		},
+		"national": {
+			"persons": [
+				"708"
+			],
+			"institutions": []
+		},
+		"partnerInstitutions": [
+			16163,
+			4593,
+			4592,
+			4567,
+			4565,
+			4564,
+			4563,
+			4562,
+			4545,
+			4543,
+			1384,
+			686,
+			512,
+			433
+		],
+		"nationalInstitutions": [
+			160
+		],
+		"cooperatingInstitutions": [],
+		"projects": [],
+		"countryDescription": "",
+		"countryLogo": "https://www.dariah.eu/wp-content/uploads/2017/03/DARIAH-BE-logo.png"
+	}
+}

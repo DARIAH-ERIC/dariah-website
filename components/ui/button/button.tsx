@@ -46,7 +46,7 @@ const buttonStyles = styles({
 				"p-2.5 bg-gray-100 *:p-0! [&_svg]:fill-black",
 				"hover:bg-button-bg hover:[&_svg]:fill-primary",
 				"focus:bg-button-bg focus:outline-3 focus:outline-primary focus:[&_svg]:fill-primary",
-				"pressed:bg-transparent pressed:outline-none pressed:[&_svg]:fill-primary",
+				"pressed:bg-button-bg pressed:outline-none pressed:[&_svg]:fill-black",
 				"disabled:text-gray-400",
 			),
 			"icon-button-color-bg": cn(
