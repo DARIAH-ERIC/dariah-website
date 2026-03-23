@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 
-import type { Country, CountryGeoJSON } from "@/types/global";
+import type { Country, CountryGeoJSON } from "@/types/map";
 
 const Map = dynamic(
 	async () => {

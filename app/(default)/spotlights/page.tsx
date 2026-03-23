@@ -6,7 +6,8 @@ import { Main } from "@/app/(default)/_components/main";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { SpotlightCard } from "@/components/ui/spotlight-card/spotlight-card";
 import { Typography } from "@/components/ui/typography/typography";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("SpotlightArticlesPage");
@@ -26,10 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const t = await getTranslations("SpotlightArticlesPage");
 
-	const data = await client.spotlightArticles.list();
-	const breadcrumbs = await client.spotlightArticles.breadcrumbs();
+	const response = await client.spotlightArticles.list();
+	const breadcrumbs = navigation().breadcrumbs.spotlightArticles;
 
-	const { items } = data;
+	const { data: items } = response.data;
 
 	return (
 		<Main className="container relative flex flex-1 flex-col gap-16 pb-40 xl:gap-12 md:px-8">
@@ -70,7 +71,9 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 					role="list"
 				>
 					{items.map((item) => {
-						const { image, slug, summary, title, publishedAt } = item;
+						const { entity, image, summary, title } = item;
+						const { slug } = entity;
+						const publishedAt = new Date(); // FIXME:
 
 						const href = `/spotlight/${slug}`;
 

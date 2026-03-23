@@ -6,7 +6,8 @@ import { Main } from "@/app/(default)/_components/main";
 import { ProjectTabs } from "@/components/pages/projects/project-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Typography } from "@/components/ui/typography/typography";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("ProjectsPage");
@@ -26,10 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ProjectsPage(): Promise<ReactNode> {
 	const t = await getTranslations("ProjectsPage");
 
-	const breadcrumbs = await client.projects.breadcrumbs();
-	const data = await client.projects.list();
+	const response = await client.projects.list();
+	const breadcrumbs = navigation().breadcrumbs.projects;
 
-	const { items } = data;
+	const { data: items } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8">

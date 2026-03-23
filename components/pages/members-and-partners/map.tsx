@@ -13,7 +13,7 @@ import { MapLegend } from "@/components/pages/members-and-partners/map-legend";
 import { ZoomButtons } from "@/components/pages/members-and-partners/zoom-buttons";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
-import type { Country, CountryGeoJSON } from "@/types/global";
+import type { Country, CountryGeoJSON } from "@/types/map";
 import { useMediaQuery } from "@/utils/hooks/use-media-query";
 
 interface MapProps {

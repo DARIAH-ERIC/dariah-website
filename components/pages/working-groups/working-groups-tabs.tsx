@@ -1,5 +1,6 @@
 "use client";
 
+import { assert } from "@acdh-oeaw/lib";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
@@ -7,21 +8,10 @@ import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { WorkingGroupCard } from "@/components/ui/working-group-card/working-group-card";
+import type { WorkingGroupList } from "@/lib/data/api-client";
 
 interface WorkingGroupsTabsProps {
-	items: Array<{
-		id: string;
-		name: string;
-		image: {
-			readonly id: string;
-			readonly url: string;
-			readonly license: {
-				id: string;
-				name: string;
-				url: string;
-			};
-		};
-	}>;
+	items: WorkingGroupList["data"];
 }
 
 export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): ReactNode {
@@ -42,7 +32,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 					>
 						{items.map((item) => {
 							const { id, image, name } = item;
-
+							assert(image);
 							const href = `/network/working-groups/${id}`;
 
 							return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
@@ -56,7 +46,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 					>
 						{items.toReversed().map((item) => {
 							const { id, image, name } = item;
-
+							assert(image);
 							const href = `/network/working-groups/${id}`;
 
 							return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;

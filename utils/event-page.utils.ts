@@ -1,26 +1,3 @@
-import type { Event } from "@/types/global";
-
-export const sortEventsByMonth = (events: Array<Event>): Record<string, Array<Event>> => {
-	const parsedEvents: Record<string, Array<Event>> = {};
-
-	events.sort((a, b) => {
-		return a.startDate.getTime() - b.startDate.getTime();
-	});
-
-	events.map((event) => {
-		const eventDate = new Intl.DateTimeFormat("en-US", {
-			month: "long",
-			year: "numeric",
-		}).format(event.startDate);
-
-		parsedEvents[eventDate] ??= [];
-
-		parsedEvents[eventDate].push(event);
-	});
-
-	return parsedEvents;
-};
-
 export const formatDateToRangeString = (date: Date): string => {
 	return new Intl.DateTimeFormat("en-US", {
 		day: "2-digit",
@@ -28,9 +5,11 @@ export const formatDateToRangeString = (date: Date): string => {
 	}).format(date);
 };
 
-export const parseDateToRangeString = (event: Event): string => {
-	const startDate = event.startDate;
-	const endDate = event.endDate;
+export const parseDateToRangeString = (event: {
+	duration: { start: Date; end?: Date };
+}): string => {
+	const startDate = event.duration.start;
+	const endDate = event.duration.end;
 
 	const startDateString = formatDateToRangeString(startDate);
 
