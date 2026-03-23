@@ -12,7 +12,7 @@ import { PaginationItem } from "@/components/ui/pagination/pagination-item";
 interface PaginationProps {
 	pageCount: number;
 	pageUrlAlias?: string;
-	schouldScroll?: boolean;
+	shouldScroll?: boolean;
 	defaultCurrentPage?: string;
 }
 
@@ -20,7 +20,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 	const {
 		pageCount,
 		pageUrlAlias = "page",
-		schouldScroll = false,
+		shouldScroll: schouldScroll = false,
 		defaultCurrentPage = "1",
 	} = props;
 

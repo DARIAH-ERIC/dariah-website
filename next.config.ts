@@ -26,7 +26,7 @@ const config: Config = {
 	output: env.BUILD_MODE,
 	reactCompiler: true,
 	images: {
-		domains: ["picsum.photos"],
+		domains: ["imgproxy.acdh.oeaw.ac.at", "picsum.photos"],
 	},
 	turbopack: {
 		rules: {

@@ -1,5 +1,6 @@
+import { groupBy } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
@@ -10,10 +11,9 @@ import { EventCard } from "@/components/ui/event-card/event-card";
 import { ElipseIcon } from "@/components/ui/icons/elipse";
 import { LineIcon } from "@/components/ui/icons/line";
 import { Typography } from "@/components/ui/typography/typography";
-import { client } from "@/lib/data/client";
-import { parseDateToRangeString, sortEventsByMonth } from "@/utils/event-page.utils";
-
-const EVENT_CARD_VARIANT = "list";
+import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
+import { parseDateToRangeString } from "@/utils/event-page.utils";
 
 interface EventsSearchParams {
 	date?: string;
@@ -41,13 +41,33 @@ export default async function EventsPage({
 	searchParams: Promise<EventsSearchParams>;
 }>): Promise<ReactNode> {
 	const _params = await searchParams;
+
 	const t = await getTranslations("EventsPage");
+	const format = await getFormatter();
 
-	const data = await client.events.list();
-	const breadcrumbs = await client.events.breadcrumbs();
+	const response = await client.events.list();
+	const breadcrumbs = navigation().breadcrumbs.events;
 
-	const { items } = data;
-	const parsedItems = sortEventsByMonth(items);
+	const { data: items } = response.data;
+
+	const sortedItems = items
+		.map((item) => {
+			return {
+				...item,
+				duration: {
+					start: new Date(item.duration.start),
+					end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+				},
+			};
+		})
+		// eslint-disable-next-line unicorn/no-array-sort
+		.sort((a, z) => {
+			return a.duration.start.getTime() - z.duration.start.getTime();
+		});
+
+	const itemsByStartDate = groupBy(sortedItems, (item) => {
+		return format.dateTime(item.duration.start, { month: "long", year: "numeric" });
+	});
 
 	return (
 		<Main className="flex flex-1 flex-col gap-8 px-4 pt-8 pb-30 container lg:items-center lg:px-31.5">
@@ -74,13 +94,13 @@ export default async function EventsPage({
 				<div className="flex h-full gap-2.5 max-w-full">
 					<LineIcon className="stroke-gray-300 w-3" />
 					<div className="flex flex-col gap-10 max-w-full">
-						{Object.keys(parsedItems).map((key) => {
+						{Object.entries(itemsByStartDate).map(([startDate, events]) => {
 							return (
-								<div key={key} className="flex flex-col gap-8">
+								<div key={startDate} className="flex flex-col gap-8">
 									<Typography className="text-gray-800" variant="h3">
-										{key}
+										{startDate}
 									</Typography>
-									{parsedItems[key]?.map((event) => {
+									{events.map((event) => {
 										return (
 											<div
 												key={event.id}
@@ -94,12 +114,12 @@ export default async function EventsPage({
 													{parseDateToRangeString(event)}
 												</Typography>
 												<EventCard
-													endDate={event.endDate}
+													endDate={event.duration.end}
 													imageUrl={event.image.url}
 													localization={event.location}
-													startDate={event.startDate}
+													startDate={event.duration.start}
 													title={event.title}
-													variant={EVENT_CARD_VARIANT}
+													variant="list"
 												/>
 											</div>
 										);

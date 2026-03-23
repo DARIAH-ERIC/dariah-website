@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/about/impact-case-studies/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<ImpactCaseStudyPageProps["params"]>, "slug">>
 > {
-	const slugs = await client.impactCaseStudies.slugs();
+	const response = await client.impactCaseStudies.slugs();
 
-	return slugs.map((slug) => {
-		return { slug };
+	return response.data.data.map((item) => {
+		return { slug: item.entity.slug };
 	});
 }
 
@@ -25,14 +24,9 @@ export async function generateMetadata(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.impactCaseStudies.read(slug);
+	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
-
-	const { item } = data;
-	const { title } = item;
+	const { title } = response.data;
 
 	const metadata: Metadata = {
 		title,
@@ -52,14 +46,9 @@ export default async function ImpactCaseStudyPage(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.impactCaseStudies.read(slug);
+	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
-
-	const { item } = data;
-	const { title } = item;
+	const { title } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">

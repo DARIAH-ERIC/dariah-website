@@ -1,11 +1,12 @@
 "use client";
+
 import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 
 import { CountrySelect } from "@/components/pages/members-and-partners/country-select";
 import { Select, SelectItem } from "@/components/ui/select/select";
-import type { Country } from "@/types/global";
+import type { Country } from "@/types/map";
 
 const SELECT_OPTIONS: Array<{
 	value: string;

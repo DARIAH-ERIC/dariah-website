@@ -7,7 +7,8 @@ import { WorkingGroupsTabs } from "@/components/pages/working-groups/working-gro
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("WorkingGroupsPage");
@@ -26,8 +27,11 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function WorkingGroupsPage(): Promise<ReactNode> {
 	const t = await getTranslations("WorkingGroupsPage");
-	const breadcrumbs = await client.workingGroups.breadcrumbs();
-	const data = await client.workingGroups.list();
+
+	const response = await client.workingGroups.list();
+	const breadcrumbs = navigation().breadcrumbs.workingGroups;
+
+	const { data: items } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 xl:gap-0">
@@ -70,7 +74,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 					</div>
 				</div>
 			</div>
-			<WorkingGroupsTabs items={data.items} />
+			<WorkingGroupsTabs items={items} />
 		</Main>
 	);
 }

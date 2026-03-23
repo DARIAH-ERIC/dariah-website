@@ -18,5 +18,5 @@
 		"./.storybook/**/*.ts",
 		"./.storybook/**/*.tsx"
 	],
-	"exclude": ["node_modules", "out", "public"]
+	"exclude": ["node_modules", "out", "public", "storybook-static"]
 }

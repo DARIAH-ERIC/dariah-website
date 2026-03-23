@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 import { GeoJSON, Popup, useMap } from "react-leaflet";
 
 import { CountryPopup } from "@/components/pages/members-and-partners/country-popup";
-import type { Country, CountryGeoJSON, CountryProperties } from "@/types/global";
+import type { Country, CountryGeoJSON, CountryProperties } from "@/types/map";
 
 interface MapGeoJsonProps {
 	activeCountry: Country | undefined | null;

@@ -1,5 +1,6 @@
 "use client";
 
+import { assert } from "@acdh-oeaw/lib";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
@@ -7,25 +8,10 @@ import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 import { Project } from "@/components/ui/project/project";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
+import type { ProjectList } from "@/lib/data/api-client";
 
 interface ProjectTabsProps {
-	items: Array<{
-		id: string;
-		name: string;
-		image: {
-			readonly id: string;
-			readonly url: string;
-			readonly license: {
-				id: string;
-				name: string;
-				url: string;
-			};
-		};
-		startDate: Date;
-		endDate: Date;
-		slug: string;
-		publishedAt: Date;
-	}>;
+	items: ProjectList["data"];
 }
 
 export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
@@ -45,9 +31,13 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 						role="list"
 					>
 						{items.map((item) => {
-							const { endDate, image, name, slug, startDate } = item;
-
+							const { duration, entity, image, name } = item;
+							const { slug } = entity;
 							const href = `/projects/${slug}`;
+							assert(duration.end);
+							assert(image);
+							const endDate = new Date(duration.end);
+							const startDate = new Date(duration.start);
 
 							return (
 								<Project
@@ -69,9 +59,13 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 						role="list"
 					>
 						{items.toReversed().map((item) => {
-							const { endDate, image, name, slug, startDate } = item;
-
+							const { duration, entity, image, name } = item;
+							const { slug } = entity;
 							const href = `/projects/${slug}`;
+							assert(duration.end);
+							assert(image);
+							const endDate = new Date(duration.end);
+							const startDate = new Date(duration.start);
 
 							return (
 								<Project

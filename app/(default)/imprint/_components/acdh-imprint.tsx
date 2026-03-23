@@ -1,4 +1,4 @@
-import { createUrl, createUrlSearchParams, isErr } from "@acdh-oeaw/lib";
+import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -18,7 +18,7 @@ async function getImprintHtml(locale: IntlLocale): Promise<string> {
 
 	const result = await request(url, { responseType: "text" });
 
-	if (isErr(result)) {
+	if (result.isErr()) {
 		const error = result.error;
 
 		if (HttpError.is(error) && error.response.status === 404) {

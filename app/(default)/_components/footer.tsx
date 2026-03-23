@@ -10,7 +10,7 @@ import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
 import { TextField } from "@/components/ui/text-field/text-field";
 import { Typography } from "@/components/ui/typography/typography";
-import { client } from "@/lib/data/client";
+import { navigation } from "@/lib/data/client";
 import { getMetadata } from "@/lib/i18n/metadata";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
 import logoDariah from "@/public/assets/images/logo-dariah-eu.svg";
@@ -24,17 +24,17 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 	const t = await getTranslations("(default).Footer");
 	const meta = await getMetadata();
 
-	const { secondary: navigation } = await client.navigation();
+	const { secondary } = navigation();
 
 	return (
 		<footer {...rest} className={cn("border-t border-stroke-weak shadow-footer", className)}>
 			<div className={cn("px-6 py-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
 				<NavLink
 					className="lg:absolute lg:top-14.5 lg:left-17"
-					href={navigation.home.href}
+					href={secondary.home.href}
 					size="icon"
 				>
-					<span className="sr-only">{navigation.home.label}</span>
+					<span className="sr-only">{secondary.home.label}</span>
 					<Image alt="" className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")} src={logoDariah} />
 				</NavLink>
 
@@ -56,14 +56,14 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						>
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading text-[18px]" variant="h4">
-									{navigation.contact.label}
+									{secondary.contact.label}
 								</Typography>
 								<p className="flex gap-2 text-primary">
 									<EmailIcon className="stroke-primary fill-transparent" />
 									{"info@dariah.pl"}
 								</p>
 								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(navigation.contact.children).map(([id, link]) => {
+									{Object.entries(secondary.contact.children).map(([id, link]) => {
 										if (id === "home") {
 											return null;
 										}
@@ -85,10 +85,10 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading text-[18px]" variant="h4">
-									{navigation.privacy.label}
+									{secondary.privacy.label}
 								</Typography>
 								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(navigation.privacy.children).map(([id, link]) => {
+									{Object.entries(secondary.privacy.children).map(([id, link]) => {
 										if (id === "home") {
 											return null;
 										}
@@ -110,10 +110,10 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading text-[18px]" variant="h4">
-									{navigation["quick-menu"].label}
+									{secondary["quick-menu"].label}
 								</Typography>
 								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(navigation["quick-menu"].children).map(([id, link]) => {
+									{Object.entries(secondary["quick-menu"].children).map(([id, link]) => {
 										if (id === "home") {
 											return null;
 										}
