@@ -71,11 +71,9 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 					role="list"
 				>
 					{items.map((item) => {
-						const { entity, image, summary, title } = item;
+						const { entity, image, publishedAt, summary, title } = item;
 						const { slug } = entity;
-						const publishedAt = new Date(); // FIXME:
-
-						const href = `/spotlight/${slug}`;
+						const href = `/spotlights/${slug}`;
 
 						return (
 							<SpotlightCard

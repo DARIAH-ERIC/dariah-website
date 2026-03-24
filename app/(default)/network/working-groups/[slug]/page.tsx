@@ -5,30 +5,30 @@ import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { client } from "@/lib/data/api-client";
 
-interface ProjectPageProps extends PageProps<"/projects/[slug]"> {}
+interface WorkingGroupPageProps extends PageProps<"/network/working-groups/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
-	Array<Pick<Awaited<ProjectPageProps["params"]>, "slug">>
+	Array<Pick<Awaited<WorkingGroupPageProps["params"]>, "slug">>
 > {
-	const response = await client.projects.slugs();
+	const response = await client.workingGroups.slugs();
 
 	return response.data.data.map((item) => {
 		return { slug: item.entity.slug };
 	});
 }
 
-export async function generateMetadata(props: Readonly<ProjectPageProps>): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const response = await client.projects.bySlug({ slug });
+	const response = await client.workingGroups.bySlug({ slug });
 
-	const { name: title } = response.data;
+	const { name } = response.data;
 
 	const metadata: Metadata = {
-		title,
+		title: name,
 		// openGraph: {
 		// 	title,
 		// },
@@ -37,13 +37,15 @@ export async function generateMetadata(props: Readonly<ProjectPageProps>): Promi
 	return metadata;
 }
 
-export default async function ProjectPage(props: Readonly<ProjectPageProps>): Promise<ReactNode> {
+export default async function WorkingGroupPage(
+	props: Readonly<WorkingGroupPageProps>,
+): Promise<ReactNode> {
 	const { params } = props;
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const response = await client.projects.bySlug({ slug });
+	const response = await client.workingGroups.bySlug({ slug });
 
 	const { name, image, description } = response.data;
 
