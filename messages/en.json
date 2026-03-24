@@ -14,6 +14,12 @@
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"
 	},
+	"DocumentsPoliciesPage": {
+		"meta": {
+			"title": "Documents and policies"
+		},
+		"title": "Documents and policies"
+	},
 	"ErrorPage": {
 		"meta": {
 			"title": "Error"
@@ -64,6 +70,12 @@
 		},
 		"title": "News",
 		"noNews": "No news found."
+	},
+	"NewslettersPage": {
+		"meta": {
+			"title": "Newsletters"
+		},
+		"title": "Newsletters"
 	},
 	"ProjectsPage": {
 		"meta": {
