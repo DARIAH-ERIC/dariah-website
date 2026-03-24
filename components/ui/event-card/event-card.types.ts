@@ -1,5 +1,6 @@
 export interface EventCardProps {
 	title: string;
+	slug: string;
 	localization: string;
 	endDate: Date | undefined;
 	startDate: Date;

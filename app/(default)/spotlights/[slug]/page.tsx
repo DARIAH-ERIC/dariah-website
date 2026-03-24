@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { client } from "@/lib/data/api-client";
 
 interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
@@ -48,11 +49,13 @@ export default async function SpotlightArticlePage(
 
 	const response = await client.spotlightArticles.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, content, image } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
+			<img alt="" src={image.url} />
+			<ContentBlocks fields={content} />
 		</Main>
 	);
 }

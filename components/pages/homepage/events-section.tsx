@@ -17,6 +17,7 @@ export function EventsSection(): ReactNode {
 				<EventCard
 					endDate={new Date("2025-08-2")}
 					localization={"Besançon, France"}
+					slug={""}
 					startDate={new Date("2025-07-21")}
 					title={"European Summer University in Digital Humanities “Culture and Technology” 2025"}
 					type="training"
@@ -25,6 +26,7 @@ export function EventsSection(): ReactNode {
 				<EventCard
 					endDate={new Date("2025-08-8")}
 					localization={"Riga / Latvia"}
+					slug={""}
 					startDate={new Date("2025-08-4")}
 					title={
 						"7th Baltic Summer School of Digital Humanities: Digital Methods for History Studies"
@@ -35,6 +37,7 @@ export function EventsSection(): ReactNode {
 				<EventCard
 					endDate={new Date("2025-09-1")}
 					localization={"Berlin / Germany"}
+					slug={""}
 					startDate={new Date("2025-09-5")}
 					title={"ATRIUM Summer School on Automatic Text Recognition"}
 					type="training"

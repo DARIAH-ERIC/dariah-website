@@ -117,6 +117,7 @@ export default async function EventsPage({
 													endDate={event.duration.end}
 													imageUrl={event.image.url}
 													localization={event.location}
+													slug={event.entity.slug}
 													startDate={event.duration.start}
 													title={event.title}
 													variant="list"

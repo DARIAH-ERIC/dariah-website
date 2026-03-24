@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { client } from "@/lib/data/api-client";
 
 interface EventPageProps extends PageProps<"/events/[slug]"> {}
@@ -44,11 +45,13 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 
 	const response = await client.events.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, image, content } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
+			<img alt="" src={image.url} />
+			<ContentBlocks fields={content} />
 		</Main>
 	);
 }

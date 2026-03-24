@@ -45,9 +45,9 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 						role="list"
 					>
 						{items.toReversed().map((item) => {
-							const { id, image, name } = item;
+							const { id, image, name, entity } = item;
 							assert(image);
-							const href = `/network/working-groups/${id}`;
+							const href = `/network/working-groups/${entity.slug}`;
 
 							return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
 						})}
