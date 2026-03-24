@@ -26,10 +26,7 @@ const config: Config = {
 	output: env.BUILD_MODE,
 	reactCompiler: true,
 	images: {
-		remotePatterns: [
-			{ hostname: "imgproxy.acdh.oeaw.ac.at" },
-			{ hostname: "picsum.photos" }
-		],
+		remotePatterns: [{ hostname: "imgproxy.acdh.oeaw.ac.at" }, { hostname: "picsum.photos" }],
 	},
 	turbopack: {
 		rules: {
