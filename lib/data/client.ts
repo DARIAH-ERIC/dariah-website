@@ -38,11 +38,11 @@ export function navigation() {
 					label: "Impact case studies",
 					href: "/about/impact-case-studies",
 				},
-				// "documents-and-policies": {
-				// 	type: "link",
-				// 	label: "Documents and policies",
-				// 	href: "/about/documents-and-policies",
-				// },
+				"documents-and-policies": {
+					type: "link",
+					label: "Documents and policies",
+					href: "/about/documents",
+				},
 			},
 		},
 		network: {
@@ -121,16 +121,16 @@ export function navigation() {
 					label: "Spotlights",
 					href: "/spotlights",
 				},
-				// "annual-events": {
-				// 	type: "link",
-				// 	label: "Annual events",
-				// 	href: "/annual-events",
-				// },
-				// newsletters: {
-				// 	type: "link",
-				// 	label: "Newsletters",
-				// 	href: "/newsletters",
-				// },
+				"annual-events": {
+					type: "link",
+					label: "Annual events",
+					href: "https://annualevent.dariah.eu",
+				},
+				newsletters: {
+					type: "link",
+					label: "Newsletters",
+					href: "/newsletters",
+				},
 			},
 		},
 		// "get-involved": {
