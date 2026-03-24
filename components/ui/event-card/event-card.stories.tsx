@@ -24,6 +24,7 @@ export const Homepage: Story = {
 		variant: "homepage",
 		endDate: new Date("2025-08-02"),
 		localization: "Besançon, France",
+		slug: "",
 		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
@@ -35,6 +36,7 @@ export const ListWithoutImage: Story = {
 		variant: "list",
 		endDate: new Date("2025-08-2"),
 		localization: "Besançon, France",
+		slug: "",
 		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
@@ -45,6 +47,7 @@ export const ListWithImage: Story = {
 	args: {
 		variant: "list",
 		endDate: new Date("2025-08-02"),
+		slug: "",
 		localization: "Besançon, France",
 		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",

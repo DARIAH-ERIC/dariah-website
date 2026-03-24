@@ -59,9 +59,8 @@ export default async function NewsPage(): Promise<ReactNode> {
 		entity: { slug: headlineSlug },
 		summary: headlineSummary,
 		title: headlineTitle,
-		// publishedAt: headlinePublishedAt,
+		publishedAt: headlinePublishedAt,
 	} = headlineItem;
-	const headlinePublishedAt = new Date(); // FIXME:
 
 	return (
 		<Main className="container flex flex-col gap-20">
@@ -78,7 +77,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 					</Breadcrumbs>
 				)}
 				<NewsCard
-					date={headlinePublishedAt.toDateString()}
+					date={new Date(headlinePublishedAt).toDateString()}
 					description={headlineSummary}
 					imageUrl={headlineImage.url}
 					linkUrl={`/news/${headlineSlug}`}
@@ -94,16 +93,15 @@ export default async function NewsPage(): Promise<ReactNode> {
 					role="list"
 				>
 					{items.map((item) => {
-						const { entity, image, summary, title } = item;
+						const { entity, image, publishedAt, summary, title } = item;
 						const { slug } = entity;
-						const publishedAt = new Date(); // FIXME:
 
 						const href = `/news/${slug}`;
 
 						return (
 							<li key={slug} className="flex justify-center">
 								<NewsCard
-									date={publishedAt.toDateString()}
+									date={new Date(publishedAt).toDateString()}
 									description={summary}
 									imageUrl={image.url}
 									linkUrl={href}
