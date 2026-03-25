@@ -10,6 +10,8 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
+interface NewsPageProps extends PageProps<"/news"> {}
+
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("NewsPage");
 
@@ -25,13 +27,18 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function NewsPage(): Promise<ReactNode> {
+export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<ReactNode> {
+	const { searchParams } = props;
+	const { page = 1, per_page = 14 } = await searchParams;
 	const t = await getTranslations("NewsPage");
 
-	const response = await client.news.list();
+	const response = await client.news.list({
+		limit: Number(per_page),
+		offset: (Number(page) - 1) * Number(per_page),
+	});
 	const breadcrumbs = navigation().breadcrumbs.news;
 
-	const { data: items } = response.data;
+	const { data: items, total } = response.data;
 
 	if (items.length === 0)
 		return (
@@ -116,7 +123,7 @@ export default async function NewsPage(): Promise<ReactNode> {
 
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Suspense>
-					<Pagination pageCount={5} shouldScroll={true} />
+					<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
 				</Suspense>
 			</div>
 		</Main>
