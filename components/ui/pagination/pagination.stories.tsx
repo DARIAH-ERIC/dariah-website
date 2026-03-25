@@ -22,7 +22,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
-	args: { pageCount: 12, defaultCurrentPage: "1" },
+	args: { pageCount: 12, defaultCurrentPage: 1 },
 	render(args) {
 		return (
 			<div className="bg-black p-4 w-125">

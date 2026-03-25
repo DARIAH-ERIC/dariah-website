@@ -57,6 +57,7 @@
 		"@tiptap/starter-kit": "^3.20.4",
 		"@tiptap/static-renderer": "^3.20.4",
 		"@vercel/otel": "^2.1.0",
+		"algoliasearch": "^5.47.0",
 		"better-result": "^2.7.0",
 		"client-only": "^0.0.1",
 		"clsx": "^2.1.1",
@@ -69,11 +70,13 @@
 		"react-aria": "^3.45.0",
 		"react-aria-components": "^1.14.0",
 		"react-dom": "^19.2.4",
+		"react-instantsearch": "^7.23.0",
 		"react-leaflet": "5.0.0-rc.2",
 		"react-schemaorg": "^2.0.0",
 		"server-only": "^0.0.1",
 		"sharp": "^0.34.5",
 		"typesense": "^2.1.0",
+		"typesense-instantsearch-adapter": "^2.9.0",
 		"valibot": "^1.2.0"
 	},
 	"devDependencies": {

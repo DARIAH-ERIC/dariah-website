@@ -3,6 +3,7 @@
 import { faker as f } from "@faker-js/faker";
 
 import type { NavigationConfig } from "@/lib/navigation/navigation";
+import type { ResourceCatalogueFilter } from "@/types/global";
 
 f.seed(42);
 f.setDefaultRefDate(new Date(Date.UTC(2025, 0, 1)));
@@ -307,6 +308,29 @@ export function navigation() {
 				label: "working groups",
 			},
 		],
+		dariahResourceCatalogue: {
+			breadcrumbs: [
+				{
+					href: "/",
+					label: "home",
+				},
+				{
+					href: "/",
+					label: "resources",
+				},
+				{
+					label: "resources catalogue",
+				},
+			],
+			filters: [
+				{
+					name: "type",
+					limit: 6,
+					showMore: true,
+					sortBy: ["name"],
+				},
+			] satisfies Array<ResourceCatalogueFilter>,
+		},
 	};
 
 	return {

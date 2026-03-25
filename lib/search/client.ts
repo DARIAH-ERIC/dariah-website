@@ -1,5 +1,6 @@
 import { assert } from "@acdh-oeaw/lib";
 import { Client } from "typesense";
+import TypesenseInstantSearchAdapter, { type SearchClient } from "typesense-instantsearch-adapter";
 
 import { env } from "@/config/env.config";
 import { cacheSearchResultsForSeconds } from "@/config/search.config";
@@ -25,3 +26,29 @@ export function createClient(): Client {
 }
 
 export const client = createClient();
+
+export function createInstantClient(): SearchClient {
+	const apiKey = env.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY;
+	assert(apiKey, "Missing `NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY` environment variable.");
+	const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
+		server: {
+			apiKey,
+			cacheSearchResultsForSeconds,
+			connectionTimeoutSeconds: 3,
+			nodes: [
+				{
+					host: env.NEXT_PUBLIC_TYPESENSE_HOST,
+					port: env.NEXT_PUBLIC_TYPESENSE_PORT,
+					protocol: env.NEXT_PUBLIC_TYPESENSE_PROTOCOL,
+				},
+			],
+		},
+		additionalSearchParameters: {
+			query_by: "label,description,keywords",
+		},
+	});
+
+	return typesenseInstantsearchAdapter.searchClient;
+}
+
+export const searchClient = createInstantClient();

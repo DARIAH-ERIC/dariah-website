@@ -63,9 +63,9 @@ function generateDocuments() {
 					return {
 						...document,
 						type,
+						type_kind: [type],
 						source: f.helpers.arrayElement(["open-aire", "zotero"]),
 						source_id: f.string.alphanumeric(12),
-						kind: f.helpers.arrayElement(["article", "book", "conference", "thesis", null]),
 						authors: f.helpers.multiple(
 							() => {
 								return f.person.fullName();
@@ -84,12 +84,14 @@ function generateDocuments() {
 				}
 
 				case "tool-or-service": {
+					const kind = f.helpers.arrayElement(toolOrServiceKinds);
 					return {
 						...document,
 						type,
 						source: "ssh-open-marketplace",
 						source_id: f.string.alphanumeric(12),
-						kind: f.helpers.arrayElement(toolOrServiceKinds),
+						kind,
+						type_kind: [type, `${type} > ${kind}`],
 						actor_ids: f.helpers.multiple(
 							() => {
 								return f.string.alphanumeric(12);
@@ -103,6 +105,7 @@ function generateDocuments() {
 					return {
 						...document,
 						type,
+						type_kind: [type],
 						source: "ssh-open-marketplace",
 						source_id: f.string.alphanumeric(12),
 						actor_ids: f.helpers.multiple(
@@ -118,6 +121,7 @@ function generateDocuments() {
 					return {
 						...document,
 						type,
+						type_kind: [type],
 						source: "ssh-open-marketplace",
 						source_id: f.string.alphanumeric(12),
 						actor_ids: f.helpers.multiple(

@@ -32,21 +32,25 @@ export function Disclosure({ children, ...props }: Readonly<DisclosureProps>): R
 
 export interface DisclosureHeaderProps {
 	children?: React.ReactNode;
+	variant?: "color-bg" | "white-bg";
 }
 
-export function DisclosureHeader({ children }: Readonly<DisclosureHeaderProps>): ReactNode {
+export function DisclosureHeader({
+	children,
+	variant = "color-bg",
+}: Readonly<DisclosureHeaderProps>): ReactNode {
 	const { isExpanded } = use(DisclosureStateContext)!;
 	return (
 		<Button
-			className="w-full py-4! px-6! font-heading uppercase text-regular *:flex *:justify-between!"
+			className="w-full font-heading uppercase text-regular *:flex *:justify-between!"
 			data-expanded={isExpanded || undefined}
 			endIcon={
 				isExpanded ? <ChevronUpIcon className="size-6" /> : <ChevronDownIcon className="size-6" />
 			}
 			slot="trigger"
-			variant="link-color-bg"
+			variant={variant === "color-bg" ? "disclosure-color-bg" : "disclosure-white-bg"}
 		>
-			{children}
+			<span className="max-w-[90%] line-clamp-1 text-left">{children}</span>
 		</Button>
 	);
 }
