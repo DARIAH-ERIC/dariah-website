@@ -93,10 +93,10 @@ export function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 						</div>
 					)}
 				</div>
-				<Typography variant="h4">{title}</Typography>
-				<Typography className="line-clamp-3" variant="regular">
-					{description}
+				<Typography className="text-[18px]" variant="h4">
+					{title}
 				</Typography>
+				<Typography variant="regular">{description}</Typography>
 			</div>
 			<Button endIcon={<OpenInNewIcon className="size-5" />} href={resourceUrl} variant="tertiary">
 				{"Go to resource"}

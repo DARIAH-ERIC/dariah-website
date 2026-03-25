@@ -16,9 +16,10 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
 	args: {
 		imageUrl: "/assets/images/temp-news-1.jpg",
+		href: "#",
 		title: "ARTEMIS",
 		type: "Beneficiary",
-		startDate: "1 Jan 2025",
-		endDate: "31 Dec 2027",
+		startDate: new Date("1 Jan 2025"),
+		endDate: new Date("31 Dec 2027"),
 	},
 };

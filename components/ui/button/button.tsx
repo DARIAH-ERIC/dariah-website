@@ -18,22 +18,22 @@ const buttonStyles = styles({
 	variants: {
 		variant: {
 			primary: cn(
-				"bg-white outline-2 outline-primary text-in-text-link text-h3 text-[18px] w-58.75 *:py-2.5 *:px-4.5",
+				"bg-white outline-2 outline-primary text-in-text-link font-bold text-regular w-58.75 *:py-2.5 *:px-4.5",
 				"hover:bg-primary hover:outline-white hover:text-white",
 				"focus:bg-white focus:outline-primary focus:text-in-text-link focus:*:outline-2 focus:*:outline-primary",
 			),
 			"secondary-blue": cn(
-				"bg-primary outline-2 outline-white text-white text-h4 shadow-light *:py-2.5 *:px-4.5",
+				"bg-primary outline-2 outline-white text-white text-regular font-bold shadow-light *:py-2.5 *:px-4.5",
 				"hover:bg-white hover:outline-primary hover:text-primary",
 				"focus:bg-primary focus:text-white focus:outline-white focus:*:outline-2 focus:*:outline-white",
 			),
 			"secondary-black": cn(
-				"bg-text-link-bg outline-2 outline-white text-white text-h4 shadow-light *:py-2.5 *:px-4.5",
+				"bg-text-link-bg outline-2 outline-white text-white text-regular font-bold shadow-light *:py-2.5 *:px-4.5",
 				"hover:bg-white hover:outline-text-link-bg hover:text-text-link-bg",
 				"focus:bg-text-link-bg focus:text-white focus:outline-white focus:*:outline-2 focus:*:outline-white",
 			),
 			tertiary: cn(
-				"bg-primary outline-2 outline-white text-white text-regular text-[18px] w-62.75 *:py-0.5 *:px-4.5",
+				"bg-primary outline-2 outline-white text-white text-regular w-62.75 *:py-0.5 *:px-4.5",
 				"hover:bg-white hover:outline-primary hover:text-primary",
 				"focus:bg-primary focus:outline-white focus:text-white focus:*:outline-2 focus:*:outline-white",
 			),
@@ -46,7 +46,7 @@ const buttonStyles = styles({
 				"p-2.5 bg-gray-100 *:p-0! [&_svg]:fill-black",
 				"hover:bg-button-bg hover:[&_svg]:fill-primary",
 				"focus:bg-button-bg focus:outline-3 focus:outline-primary focus:[&_svg]:fill-primary",
-				"pressed:bg-transparent pressed:outline-none pressed:[&_svg]:fill-primary",
+				"pressed:bg-button-bg pressed:outline-none pressed:[&_svg]:fill-black",
 				"disabled:text-gray-400",
 			),
 			"icon-button-color-bg": cn(
@@ -56,7 +56,7 @@ const buttonStyles = styles({
 				"disabled:text-gray-400",
 			),
 			"link-primary": cn(
-				"py-2 gap-2 text-h4 text-section-text [&_svg]:fill-primary",
+				"py-2 gap-2 text-regular font-semibold text-section-text [&_svg]:fill-primary",
 				"w-fit hover:underline hover:decoration-[10%] hover:text-primary hover:underline-offset-[24%]",
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100 focus-visible:[&>svg]:fill-black",
 				"focus-visible:outline-none",

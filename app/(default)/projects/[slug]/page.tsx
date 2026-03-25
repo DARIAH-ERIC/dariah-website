@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { client } from "@/lib/data/client";
+import { ContentBlocks } from "@/components/content-blocks";
+import { client } from "@/lib/data/api-client";
 
 interface ProjectPageProps extends PageProps<"/projects/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<ProjectPageProps["params"]>, "slug">>
 > {
-	const slugs = await client.projects.slugs();
+	const response = await client.projects.slugs();
 
-	return slugs.map((slug) => {
-		return { slug };
+	return response.data.data.map((item) => {
+		return { slug: item.entity.slug };
 	});
 }
 
@@ -23,14 +23,9 @@ export async function generateMetadata(props: Readonly<ProjectPageProps>): Promi
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.projects.read(slug);
+	const response = await client.projects.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
-
-	const { item } = data;
-	const { name: title } = item;
+	const { name: title } = response.data;
 
 	const metadata: Metadata = {
 		title,
@@ -48,18 +43,15 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const data = await client.projects.read(slug);
+	const response = await client.projects.bySlug({ slug });
 
-	if (data == null) {
-		notFound();
-	}
-
-	const { item } = data;
-	const { name } = item;
+	const { name, image, description } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
 			<h1 className="text-2xl font-extrabold tracking-tight">{name}</h1>
+			{image != null ? <img alt="" src={image.url} /> : null}
+			<ContentBlocks fields={description} />
 		</Main>
 	);
 }

@@ -23,8 +23,10 @@ export function ResourcesSection(): ReactNode {
 						{"Our Resources"}
 					</Typography>
 					<div className="flex flex-col w-full gap-6 text-white pt-7 lg:w-178.25">
-						<Typography variant="h3">{"Resources Catalogue"}</Typography>
-						<Typography className="font-normal" variant="h3">
+						<Typography className="text-[24px]" variant="h3">
+							{"Resources Catalogue"}
+						</Typography>
+						<Typography className="font-normal text-[24px]" variant="h3">
 							{
 								"Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer."
 							}

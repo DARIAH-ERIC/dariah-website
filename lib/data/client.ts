@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-/* eslint-disable @typescript-eslint/require-await */
 
 import { faker as f } from "@faker-js/faker";
-import slugify from "@sindresorhus/slugify";
 
 import type { NavigationConfig } from "@/lib/navigation/navigation";
 import type { ResourceCatalogueFilter } from "@/types/global";
@@ -10,715 +8,308 @@ import type { ResourceCatalogueFilter } from "@/types/global";
 f.seed(42);
 f.setDefaultRefDate(new Date(Date.UTC(2025, 0, 1)));
 
-const licenses = [
-	{
-		id: f.string.uuid(),
-		name: "CC0 1.0",
-		url: "https://creativecommons.org/publicdomain/zero/1.0/",
-	},
-	{
-		id: f.string.uuid(),
-		name: "CC BY 4.0",
-		url: "https://creativecommons.org/licenses/by/4.0/",
-	},
-	{
-		id: f.string.uuid(),
-		name: "CC BY-SA 4.0",
-		url: "https://creativecommons.org/licenses/by-sa/4.0/",
-	},
-];
-
-const assets = f.helpers.multiple(
-	() => {
-		return {
-			id: f.string.uuid(),
-			url: f.image.url(),
-			license: f.helpers.arrayElement(licenses),
-		};
-	},
-	{ count: 150 },
-);
-
-const persons = f.helpers.multiple(
-	() => {
-		return {
-			id: f.string.uuid(),
-			name: f.person.fullName(),
-			image: f.helpers.arrayElement(assets),
-		};
-	},
-	{ count: 100 },
-);
-
-const events = f.helpers.multiple(
-	() => {
-		const title = f.lorem.sentence();
-		const startDate = f.date.past({ years: 5 });
-
-		return {
-			id: f.string.uuid(),
-			title,
-			summary: f.lorem.paragraph(),
-			leadIn: f.helpers.maybe(
-				() => {
-					return f.lorem.paragraph();
+export function navigation() {
+	const primary = {
+		home: {
+			type: "link",
+			label: "Home",
+			href: "/",
+		},
+		about: {
+			type: "menu",
+			label: "About",
+			children: {
+				// "dariah-in-a-nutshell": {
+				// 	type: "link",
+				// 	label: "DARIAH in a nutshell",
+				// 	href: "/about/dariah-in-a-nutshell",
+				// },
+				// strategy: {
+				// 	type: "link",
+				// 	label: "Strategy",
+				// 	href: "/about/strategy",
+				// },
+				// "organisation-and-governance": {
+				// 	type: "link",
+				// 	label: "Organisation and governance",
+				// 	href: "/about/organisation-and-governance",
+				// },
+				"impact-case-studies": {
+					type: "link",
+					label: "Impact case studies",
+					href: "/about/impact-case-studies",
 				},
-				{ probability: 0.75 },
-			),
-			image: f.helpers.arrayElement(assets),
-			content: f.lorem.paragraphs(10),
-			location: f.location.city(),
-			startDate,
-			startTime: f.helpers.maybe(
-				() => {
-					return f.date
-						.between({
-							from: new Date(Date.UTC(2025, 0, 1, 0, 0, 0)),
-							to: new Date(Date.UTC(2025, 0, 1, 23, 59, 59)),
-						})
-						.toTimeString()
-						.slice(0, 8);
+				"documents-and-policies": {
+					type: "link",
+					label: "Documents and policies",
+					href: "/about/documents",
 				},
-				{ probability: 0.1 },
-			),
-			endDate: f.helpers.maybe(
-				() => {
-					return f.date.soon({ refDate: startDate, days: 7 });
-				},
-				{ probability: 0.25 },
-			),
-			endTime: f.helpers.maybe(
-				() => {
-					return f.date
-						.between({
-							from: new Date(Date.UTC(2025, 0, 1, 0, 0, 0)),
-							to: new Date(Date.UTC(2025, 0, 1, 23, 59, 59)),
-						})
-						.toTimeString()
-						.slice(0, 8);
-				},
-				{ probability: 0.05 },
-			),
-			website: f.helpers.maybe(
-				() => {
-					return f.internet.url();
-				},
-				{ probability: 0.75 },
-			),
-			slug: slugify(title),
-			publishedAt: f.date.recent(),
-		};
-	},
-	{ count: 8 },
-);
-
-const impactCaseStudies = f.helpers.multiple(
-	() => {
-		const title = f.lorem.sentence();
-
-		return {
-			id: f.string.uuid(),
-			title,
-			summary: f.lorem.paragraph(),
-			leadIn: f.helpers.maybe(
-				() => {
-					return f.lorem.paragraph();
-				},
-				{ probability: 0.75 },
-			),
-			image: f.helpers.arrayElement(assets),
-			content: f.lorem.paragraphs(10),
-			contributors: f.helpers.arrayElements(persons, { min: 0, max: 3 }),
-			slug: slugify(title),
-			publishedAt: f.date.recent(),
-		};
-	},
-	{ count: 25 },
-);
-
-const news = f.helpers.multiple(
-	() => {
-		const title = f.lorem.sentence();
-
-		return {
-			id: f.string.uuid(),
-			title,
-			summary: f.lorem.paragraph(),
-			leadIn: f.helpers.maybe(
-				() => {
-					return f.lorem.paragraph();
-				},
-				{ probability: 0.75 },
-			),
-			image: f.helpers.arrayElement(assets),
-			content: f.lorem.paragraphs(10),
-			slug: slugify(title),
-			publishedAt: f.date.recent(),
-		};
-	},
-	{ count: 12 },
-);
-
-const page = () => {
-	const title = f.lorem.sentence();
-
-	return {
-		id: f.string.uuid(),
-		title,
-		// summary: f.lorem.paragraph(),
-		leadIn: f.helpers.maybe(
-			() => {
-				return f.lorem.paragraph();
 			},
-			{ probability: 0.75 },
-		),
-		image: f.helpers.arrayElement(assets),
-		content: f.lorem.paragraphs(10),
-		slug: slugify(title),
-		publishedAt: f.date.recent(),
-	};
-};
-
-const projects = f.helpers.multiple(
-	() => {
-		const name = f.lorem.sentence();
-		const startDate = f.date.past({ years: 5 });
-
-		return {
-			id: f.string.uuid(),
-			name,
-			image: f.helpers.arrayElement(assets),
-			description: f.lorem.paragraphs(10),
-			startDate,
-			endDate: f.date.future({ refDate: startDate, years: 5 }),
-			slug: slugify(name),
-			publishedAt: f.date.recent(),
-		};
-	},
-	{ count: 25 },
-);
-
-const spotlightArticles = f.helpers.multiple(
-	() => {
-		const title = f.lorem.sentence();
-
-		return {
-			id: f.string.uuid(),
-			title,
-			summary: f.lorem.paragraph(),
-			leadIn: f.helpers.maybe(
-				() => {
-					return f.lorem.paragraph();
+		},
+		network: {
+			type: "menu",
+			label: "Network",
+			children: {
+				"members-and-partners": {
+					type: "link",
+					label: "Members and partners",
+					href: "/network/members-and-partners",
 				},
-				{ probability: 0.75 },
-			),
-			image: f.helpers.arrayElement(assets),
-			content: f.lorem.paragraphs(10),
-			slug: slugify(title),
-			publishedAt: f.date.recent(),
-		};
-	},
-	{ count: 25 },
-);
+				// 		"regional-hubs": {
+				// 			type: "link",
+				// 			label: "Regional hubs",
+				// 			href: "/network/regional-hubs",
+				// 		},
+				"working-groups": {
+					type: "link",
+					label: "Working groups",
+					href: "/network/working-groups",
+				},
+				// 		"partnerships-and-collaborations": {
+				// 			type: "link",
+				// 			label: "Partnerships and collaborations",
+				// 			href: "/network/partnerships-and-collaborations",
+				// 		},
+			},
+		},
+		resources: {
+			type: "menu",
+			label: "Resources",
+			children: {
+				"dariah-resource-catalogue": {
+					type: "link",
+					label: "DARIAH resource catalogue",
+					href: "/resources/dariah-resource-catalogue",
+				},
+				// "dariah-campus": {
+				// 	type: "link",
+				// 	label: "DARIAH-Campus",
+				// 	href: "/resources/dariah-campus",
+				// },
+				// transformations: {
+				// 	type: "link",
+				// 	label: "Transformations",
+				// 	href: "/resources/transformations",
+				// },
+				// "ssh-open-marketplace": {
+				// 	type: "link",
+				// 	label: "SSH Open Marketplace",
+				// 	href: "/resources/ssh-open-marketplace",
+				// },
+			},
+		},
+		projects: {
+			type: "link",
+			label: "Projects",
+			href: "/projects",
+		},
+		"news-and-events": {
+			type: "menu",
+			label: "News and events",
+			children: {
+				news: {
+					type: "link",
+					label: "News",
+					href: "/news",
+				},
+				events: {
+					type: "link",
+					label: "Events",
+					href: "/events",
+				},
+				spotlights: {
+					type: "link",
+					label: "Spotlights",
+					href: "/spotlights",
+				},
+				"annual-events": {
+					type: "link",
+					label: "Annual events",
+					href: "https://annualevent.dariah.eu",
+				},
+				newsletters: {
+					type: "link",
+					label: "Newsletters",
+					href: "/newsletters",
+				},
+			},
+		},
+		// "get-involved": {
+		// 	type: "menu",
+		// 	label: "Get involved",
+		// 	children: {
+		// 		"join-dariah": {
+		// 			type: "link",
+		// 			label: "Join DARIAH",
+		// 			href: "/get-involved/join-dariah",
+		// 		},
+		// 		"dariah-funding-call": {
+		// 			type: "link",
+		// 			label: "DARIAH funding call",
+		// 			href: "/get-involved/dariah-funding-call",
+		// 		},
+		// 		"working-groups-funding-call": {
+		// 			type: "link",
+		// 			label: "Working groups funding call",
+		// 			href: "/get-involved/working-groups-funding-call",
+		// 		},
+		// 		opportunities: {
+		// 			type: "link",
+		// 			label: "Opportunities",
+		// 			href: "/get-involved/opportunities",
+		// 		},
+		// 	},
+		// },
+	} satisfies NavigationConfig;
 
-export const client = {
-	async navigation() {
-		const primary = {
-			home: {
-				type: "link",
-				label: "Home",
+	const secondary = {
+		home: {
+			type: "link",
+			label: "Home",
+			href: "/",
+		},
+		contact: {
+			type: "menu",
+			label: "Contact Dariah",
+			children: {
+				helpdesk: {
+					type: "link",
+					label: "Helpdesk",
+					href: "/contact",
+				},
+			},
+		},
+		privacy: {
+			type: "menu",
+			label: "Privacy and Legal",
+			children: {
+				"legal-notice": {
+					type: "link",
+					label: "Legal notice",
+					href: "/",
+				},
+				practice: {
+					type: "link",
+					label: "Practice",
+					href: "/",
+				},
+				"accesibility-declaration": {
+					type: "link",
+					label: "Accessibility declaration",
+					href: "/",
+				},
+			},
+		},
+		"quick-menu": {
+			type: "menu",
+			label: "Quick menu",
+			children: {
+				"dariah-nutshell": {
+					type: "link",
+					label: "DARIAH in Nutshell",
+					href: "/",
+				},
+				"members-and-partners": {
+					type: "link",
+					label: "Members and Partners",
+					href: "/",
+				},
+				projects: {
+					type: "link",
+					label: "Projects",
+					href: "/",
+				},
+				"events-calendar": {
+					type: "link",
+					label: "Events Calendar",
+					href: "/",
+				},
+				"website-user-survey": {
+					type: "link",
+					label: "Website User Survey",
+					href: "/",
+				},
+			},
+		},
+	} satisfies NavigationConfig;
+
+	const breadcrumbs = {
+		events: [
+			{
 				href: "/",
+				label: "home",
 			},
-			about: {
-				type: "menu",
-				label: "About",
-				children: {
-					// "dariah-in-a-nutshell": {
-					// 	type: "link",
-					// 	label: "DARIAH in a nutshell",
-					// 	href: "/about/dariah-in-a-nutshell",
-					// },
-					// strategy: {
-					// 	type: "link",
-					// 	label: "Strategy",
-					// 	href: "/about/strategy",
-					// },
-					// "organisation-and-governance": {
-					// 	type: "link",
-					// 	label: "Organisation and governance",
-					// 	href: "/about/organisation-and-governance",
-					// },
-					"impact-case-studies": {
-						type: "link",
-						label: "Impact case studies",
-						href: "/about/impact-case-studies",
-					},
-					// "documents-and-policies": {
-					// 	type: "link",
-					// 	label: "Documents and policies",
-					// 	href: "/about/documents-and-policies",
-					// },
-				},
-			},
-			// network: {
-			// 	type: "menu",
-			// 	label: "Network",
-			// 	children: {
-			// 		"members-and-partners": {
-			// 			type: "link",
-			// 			label: "Members and partners",
-			// 			href: "/network/members-and-partners",
-			// 		},
-			// 		"regional-hubs": {
-			// 			type: "link",
-			// 			label: "Regional hubs",
-			// 			href: "/network/regional-hubs",
-			// 		},
-			// 		"working-groups": {
-			// 			type: "link",
-			// 			label: "Working groups",
-			// 			href: "/network/working-groups",
-			// 		},
-			// 		"partnerships-and-collaborations": {
-			// 			type: "link",
-			// 			label: "Partnerships and collaborations",
-			// 			href: "/network/partnerships-and-collaborations",
-			// 		},
-			// 	},
-			// },
-			resources: {
-				type: "menu",
-				label: "Resources",
-				children: {
-					"dariah-resource-catalogue": {
-						type: "link",
-						label: "DARIAH resource catalogue",
-						href: "/resources/dariah-resource-catalogue",
-					},
-					// "dariah-campus": {
-					// 	type: "link",
-					// 	label: "DARIAH-Campus",
-					// 	href: "/resources/dariah-campus",
-					// },
-					// transformations: {
-					// 	type: "link",
-					// 	label: "Transformations",
-					// 	href: "/resources/transformations",
-					// },
-					// "ssh-open-marketplace": {
-					// 	type: "link",
-					// 	label: "SSH Open Marketplace",
-					// 	href: "/resources/ssh-open-marketplace",
-					// },
-				},
-			},
-			projects: {
-				type: "link",
-				label: "Projects",
-				href: "/projects",
-			},
-			"news-and-events": {
-				type: "menu",
-				label: "News and events",
-				children: {
-					news: {
-						type: "link",
-						label: "News",
-						href: "/news",
-					},
-					events: {
-						type: "link",
-						label: "Events",
-						href: "/events",
-					},
-					spotlights: {
-						type: "link",
-						label: "Spotlights",
-						href: "/spotlights",
-					},
-					// "annual-events": {
-					// 	type: "link",
-					// 	label: "Annual events",
-					// 	href: "/annual-events",
-					// },
-					// newsletters: {
-					// 	type: "link",
-					// 	label: "Newsletters",
-					// 	href: "/newsletters",
-					// },
-				},
-			},
-			// "get-involved": {
-			// 	type: "menu",
-			// 	label: "Get involved",
-			// 	children: {
-			// 		"join-dariah": {
-			// 			type: "link",
-			// 			label: "Join DARIAH",
-			// 			href: "/get-involved/join-dariah",
-			// 		},
-			// 		"dariah-funding-call": {
-			// 			type: "link",
-			// 			label: "DARIAH funding call",
-			// 			href: "/get-involved/dariah-funding-call",
-			// 		},
-			// 		"working-groups-funding-call": {
-			// 			type: "link",
-			// 			label: "Working groups funding call",
-			// 			href: "/get-involved/working-groups-funding-call",
-			// 		},
-			// 		opportunities: {
-			// 			type: "link",
-			// 			label: "Opportunities",
-			// 			href: "/get-involved/opportunities",
-			// 		},
-			// 	},
-			// },
-		} satisfies NavigationConfig;
-
-		const secondary = {
-			home: {
-				type: "link",
-				label: "Home",
+			{
 				href: "/",
+				label: "news and events",
 			},
-			contact: {
-				type: "menu",
-				label: "Contact Dariah",
-				children: {
-					helpdesk: {
-						type: "link",
-						label: "Helpdesk",
-						href: "/contact",
-					},
-				},
+			{
+				label: "events",
 			},
-			privacy: {
-				type: "menu",
-				label: "Privacy and Legal",
-				children: {
-					"legal-notice": {
-						type: "link",
-						label: "Legal notice",
-						href: "/",
-					},
-					practice: {
-						type: "link",
-						label: "Practice",
-						href: "/",
-					},
-					"accesibility-declaration": {
-						type: "link",
-						label: "Accessibility declaration",
-						href: "/",
-					},
-				},
+		],
+		membersAndPartners: [
+			{
+				href: "/",
+				label: "home",
 			},
-			"quick-menu": {
-				type: "menu",
-				label: "Quick menu",
-				children: {
-					"dariah-nutshell": {
-						type: "link",
-						label: "DARIAH in Nutshell",
-						href: "/",
-					},
-					"members-and-partners": {
-						type: "link",
-						label: "Members and Partners",
-						href: "/",
-					},
-					projects: {
-						type: "link",
-						label: "Projects",
-						href: "/",
-					},
-					"events-calendar": {
-						type: "link",
-						label: "Events Calendar",
-						href: "/",
-					},
-					"website-user-survey": {
-						type: "link",
-						label: "Website User Survey",
-						href: "/",
-					},
-				},
+			{
+				href: "/",
+				label: "network",
 			},
-		} satisfies NavigationConfig;
-
-		return {
-			primary,
-			secondary,
-		};
-	},
-	events: {
-		async slugs() {
-			const slugs = events.map((item) => {
-				return item.slug;
-			});
-
-			return slugs;
-		},
-		async list() {
-			return {
-				items: events.map((item) => {
-					return {
-						id: item.id,
-						title: item.title,
-						summary: item.summary,
-						image: item.image,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-						startDate: item.startDate,
-						endDate: item.endDate,
-						location: item.location,
-					};
-				}),
-			};
-		},
-		async breadcrumbs() {
-			return [
-				{
-					href: "/",
-					label: "home",
-				},
-				{
-					href: "/",
-					label: "news and events",
-				},
-				{
-					label: "events",
-				},
-			];
-		},
-		async read(slug: string) {
-			const item = events.find((item) => {
-				return item.slug === slug;
-			});
-
-			if (item == null) {
-				return null;
-			}
-
-			return { item };
-		},
-	},
-	homePage: {
-		async read() {
-			const item = page();
-
-			return {
-				item: {
-					...item,
-					sections: {
-						events: {
-							title: "Upcoming events",
-							items: events
-								.toSorted((a, z) => {
-									return z.startDate.getTime() - a.startDate.getTime();
-								})
-								.slice(0, 3)
-								.map((item) => {
-									return {
-										id: item.id,
-										title: item.title,
-										summary: item.summary,
-										image: item.image,
-										slug: item.slug,
-										publishedAt: item.publishedAt,
-									};
-								}),
-						},
-						news: {
-							title: "Stay updated",
-							items: news
-								.toSorted((a, z) => {
-									return z.publishedAt.getTime() - a.publishedAt.getTime();
-								})
-								.slice(0, 3)
-								.map((item) => {
-									return {
-										id: item.id,
-										title: item.title,
-										summary: item.summary,
-										image: item.image,
-										slug: item.slug,
-										publishedAt: item.publishedAt,
-									};
-								}),
-						},
-					},
-				},
-			};
-		},
-	},
-	impactCaseStudies: {
-		async slugs() {
-			const slugs = impactCaseStudies.map((item) => {
-				return item.slug;
-			});
-
-			return slugs;
-		},
-		async list() {
-			return {
-				items: impactCaseStudies.map((item) => {
-					return {
-						id: item.id,
-						title: item.title,
-						summary: item.summary,
-						image: item.image,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-					};
-				}),
-			};
-		},
-		async read(slug: string) {
-			const item = impactCaseStudies.find((item) => {
-				return item.slug === slug;
-			});
-
-			if (item == null) {
-				return null;
-			}
-
-			return { item };
-		},
-	},
-	news: {
-		async slugs() {
-			const slugs = news.map((item) => {
-				return item.slug;
-			});
-
-			return slugs;
-		},
-		async list() {
-			return {
-				items: news.map((item) => {
-					return {
-						id: item.id,
-						title: item.title,
-						summary: item.summary,
-						image: item.image,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-					};
-				}),
-			};
-		},
-		async breadcrumbs() {
-			return [
-				{
-					href: "/",
-					label: "home",
-				},
-				{
-					href: "/",
-					label: "news and events",
-				},
-				{
-					label: "news",
-				},
-			];
-		},
-		async read(slug: string) {
-			const item = news.find((item) => {
-				return item.slug === slug;
-			});
-
-			if (item == null) {
-				return null;
-			}
-
-			return { item };
-		},
-	},
-	pages: {
-		async read(_slug: string) {
-			const item = page();
-
-			// if (item == null) {
-			// 	return null;
-			// }
-
-			return { item };
-		},
-	},
-	projects: {
-		async slugs() {
-			const slugs = projects.map((item) => {
-				return item.slug;
-			});
-
-			return slugs;
-		},
-		async list() {
-			return {
-				items: projects.map((item) => {
-					return {
-						id: item.id,
-						name: item.name,
-						image: item.image,
-						startDate: item.startDate,
-						endDate: item.endDate,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-					};
-				}),
-			};
-		},
-		async read(slug: string) {
-			const item = projects.find((item) => {
-				return item.slug === slug;
-			});
-
-			if (item == null) {
-				return null;
-			}
-
-			return { item };
-		},
-	},
-	spotlightArticles: {
-		async slugs() {
-			const slugs = spotlightArticles.map((item) => {
-				return item.slug;
-			});
-
-			return slugs;
-		},
-		async list() {
-			return {
-				items: spotlightArticles.map((item) => {
-					return {
-						id: item.id,
-						title: item.title,
-						summary: item.summary,
-						image: item.image,
-						slug: item.slug,
-						publishedAt: item.publishedAt,
-					};
-				}),
-			};
-		},
-		async read(slug: string) {
-			const item = spotlightArticles.find((item) => {
-				return item.slug === slug;
-			});
-
-			if (item == null) {
-				return null;
-			}
-
-			return { item };
-		},
-	},
-	dariahResourceCatalogue: {
-		async breadcrumbs() {
-			return [
+			{
+				label: "members and partners",
+			},
+		],
+		news: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "news and events",
+			},
+			{
+				label: "news",
+			},
+		],
+		projects: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "projects",
+			},
+		],
+		spotlightArticles: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "news and events",
+			},
+			{
+				label: "spotlight",
+			},
+		],
+		workingGroups: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "network",
+			},
+			{
+				label: "working groups",
+			},
+		],
+		dariahResourceCatalogue: {
+			breadcrumbs: [
 				{
 					href: "/",
 					label: "home",
@@ -730,43 +321,21 @@ export const client = {
 				{
 					label: "resources catalogue",
 				},
-			];
-		},
-		async filters() {
-			return [
+			],
+			filters: [
 				{
 					name: "type",
 					limit: 6,
 					showMore: true,
 					sortBy: ["name"],
-					subfilters: {
-						"tool-or-service": {
-							name: "kind",
-							limit: 6,
-							showMore: true,
-							sortBy: ["name"],
-						},
-					},
 				},
-				{
-					name: "source",
-					limit: 6,
-					showMore: true,
-					sortBy: ["name"],
-				},
-				{
-					name: "keywords",
-					limit: 6,
-					showMore: true,
-					sortBy: ["name"],
-				},
-				// {
-				// 	name: "type_kind",
-				// 	limit: 6,
-				// 	showMore: true,
-				// 	sortBy: ["name"],
-				// },
-			] satisfies Array<ResourceCatalogueFilter>;
+			] satisfies Array<ResourceCatalogueFilter>,
 		},
-	},
-};
+	};
+
+	return {
+		primary,
+		secondary,
+		breadcrumbs,
+	};
+}

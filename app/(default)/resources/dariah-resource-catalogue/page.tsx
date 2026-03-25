@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { SearchContainer } from "@/components/pages/dariah-resource-catalogue/search-container";
-import { client } from "@/lib/data/client";
+import { navigation } from "@/lib/data/client";
 
 interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
 
@@ -23,11 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function DariahResourceCataloguePage(
+export default function DariahResourceCataloguePage(
 	_props: Readonly<DariahResourceCataloguePageProps>,
-): Promise<ReactNode> {
-	const breadcrumbs = await client.dariahResourceCatalogue.breadcrumbs();
-	const filters = await client.dariahResourceCatalogue.filters();
+): ReactNode {
+	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const filters = navigation().breadcrumbs.dariahResourceCatalogue.filters;
 
 	return (
 		<Main className="container flex flex-col gap-16 items-end">

@@ -1,4 +1,5 @@
 declare module "*.css";
+declare module "leaflet/dist/leaflet.css";
 
 export type ResourceCatalogueSubfilter = Record<
 	string,
@@ -17,6 +18,7 @@ export interface ResourceCatalogueFilter {
 	sortBy?: Array<SortByDirection<"name" | "count" | "isRefined">>;
 	subfilters?: ResourceCatalogueSubfilter;
 }
+
 export interface Event {
 	id: string;
 	title: string;

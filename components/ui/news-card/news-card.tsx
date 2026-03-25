@@ -121,7 +121,10 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						<span className="text-gray-800">{date}</span>
 					</div>
 					<Typography
-						className={cn(variant === "list-item" && "mb-3.5 line-clamp-2 h-13.5 text-[18px]")}
+						className={cn(
+							variant === "list-item" && "mb-3.5 line-clamp-2 h-13.5 text-[18px]",
+							variant === "list-headline" && "text-[24px]",
+						)}
 						variant="h3"
 					>
 						{title}
