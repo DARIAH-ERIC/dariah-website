@@ -6,7 +6,7 @@ import { type ReactNode, useState } from "react";
 
 import { CountrySelect } from "@/components/pages/members-and-partners/country-select";
 import { Select, SelectItem } from "@/components/ui/select/select";
-import type { Country } from "@/types/map";
+import type { MemberOrPartnerList } from "@/lib/data/api-client";
 
 const SELECT_OPTIONS: Array<{
 	value: string;
@@ -17,8 +17,8 @@ const SELECT_OPTIONS: Array<{
 ];
 
 interface CountriesPanelProps {
-	members: Array<Country>;
-	partners: Array<Country>;
+	members: MemberOrPartnerList["data"];
+	partners: MemberOrPartnerList["data"];
 	className: string;
 }
 
@@ -50,12 +50,12 @@ export function CountriesPanel(props: Readonly<CountriesPanelProps>): ReactNode 
 			</div>
 			<div className="pt-4 pb-20 px-6 flex flex-col gap-3 overflow-auto">
 				{selectedCountriesArray.map((country) => {
-					const href = `/network/members-and-partners/${country.code}`;
+					const href = `/network/members-and-partners/${country.entity.slug}`;
 					return (
 						<CountrySelect
 							key={country.id}
 							href={href}
-							label={country.statusName}
+							label={country.status}
 							title={country.name}
 						/>
 					);

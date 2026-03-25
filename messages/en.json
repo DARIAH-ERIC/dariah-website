@@ -153,6 +153,10 @@
 			"cooperating partners": "Cooperating Partner",
 			"members": "Member Country"
 		},
+		"status": {
+			"is_member": "Member",
+			"is_cooperating_partner": "Cooperating Partner"
+		},
 		"popup": {
 			"details": "See details"
 		},
