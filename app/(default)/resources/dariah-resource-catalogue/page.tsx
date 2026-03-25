@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { SearchContainer } from "@/components/pages/dariah-resource-catalogue/search-container";
@@ -31,7 +31,9 @@ export default function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container flex flex-col gap-16 items-end">
-			<SearchContainer breadcrumbs={breadcrumbs} filters={filters} />
+			<Suspense>
+				<SearchContainer breadcrumbs={breadcrumbs} filters={filters} />
+			</Suspense>
 		</Main>
 	);
 }
