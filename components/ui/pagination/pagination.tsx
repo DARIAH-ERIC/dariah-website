@@ -12,7 +12,7 @@ import { PaginationItem } from "@/components/ui/pagination/pagination-item";
 interface PaginationProps {
 	pageCount: number;
 	pageUrlAlias?: string;
-	schouldScroll?: boolean;
+	shouldScroll?: boolean;
 	defaultCurrentPage?: number;
 	firstPageIndex?: number;
 	refinePage?: (page: number) => void;
@@ -22,7 +22,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 	const {
 		pageCount,
 		pageUrlAlias = "page",
-		schouldScroll = false,
+		shouldScroll = false,
 		defaultCurrentPage,
 		firstPageIndex = 1,
 		refinePage,
@@ -53,7 +53,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 
 		refinePage?.(value);
 
-		router.replace(`?${params.toString()}`, { scroll: schouldScroll });
+		router.replace(`?${params.toString()}`, { scroll: shouldScroll });
 	};
 
 	const getVisiblePages = () => {
