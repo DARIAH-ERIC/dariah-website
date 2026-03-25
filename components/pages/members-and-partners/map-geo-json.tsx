@@ -5,17 +5,21 @@ import {
 	type LeafletEvent,
 	marker as LeafletMarker,
 } from "leaflet";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { GeoJSON, Popup, useMap } from "react-leaflet";
 
 import { CountryPopup } from "@/components/pages/members-and-partners/country-popup";
-import type { Country, CountryGeoJSON, CountryProperties } from "@/types/map";
+import type { MemberOrPartnerList } from "@/lib/data/api-client";
+import type { CountryGeoJSON, CountryProperties } from "@/types/map";
+
+type ActiveCountry = MemberOrPartnerList["data"][number] | undefined | null;
 
 interface MapGeoJsonProps {
-	activeCountry: Country | undefined | null;
+	activeCountry: ActiveCountry;
 	geoJson: CountryGeoJSON;
-	countries: Record<string, Country>;
-	handleActiveCountryChange: (country: Country | undefined | null) => void;
+	countries: MemberOrPartnerList["data"];
+	handleActiveCountryChange: (country: ActiveCountry) => void;
 }
 
 interface FeaturePropertiesProps extends CountryProperties {
@@ -24,13 +28,17 @@ interface FeaturePropertiesProps extends CountryProperties {
 }
 
 const STATUS_PROPS = {
-	members: { letter: "M", style: "fill-primary-600" },
-	"cooperating-partners": { letter: "C", style: "fill-primary-400" },
+	is_member: { letter: "M", style: "fill-primary-600" },
+	is_cooperating_partner: {
+		letter: "C",
+		style: "fill-primary-400",
+	},
 };
 
 export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 	const { activeCountry, geoJson, countries, handleActiveCountryChange } = props;
 	const map = useMap();
+	const t = useTranslations("MembersAndPartnersPage");
 
 	const createCountryLetterIcon = (letter: string) => {
 		return divIcon({
@@ -47,19 +55,18 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 			layer.feature?.type === "Feature"
 				? (layer.feature.properties as FeaturePropertiesProps)
 				: null;
-		const iso3 = featureProperties?.iso_a3_eh ?? "";
+		const name = featureProperties?.name ?? "";
 		let markerLetter = null;
 
 		layer.setStyle({ fillOpacity: 1 });
 
-		const layerCountry = countries[iso3];
+		const layerCountry = countries.find((country) => {
+			return country.name === name;
+		});
 		const target = event.target as { _path: HTMLElement };
 
 		target._path.classList.add("stroke-2");
-		if (
-			layerCountry &&
-			(layerCountry.status === "members" || layerCountry.status === "cooperating-partners")
-		) {
+		if (layerCountry) {
 			const countryProps = STATUS_PROPS[layerCountry.status];
 			markerLetter = countryProps.letter;
 			target._path.classList.add(countryProps.style, "stroke-white");
@@ -84,8 +91,10 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 	const onCountryClick = (event: LeafletEvent, layer: GeoJSONType) => {
 		const featureProperties =
 			layer.feature?.type === "Feature" ? (layer.feature.properties as CountryProperties) : null;
-		const iso3 = featureProperties?.iso_a3_eh ?? "";
-		const layerCountry = iso3 ? countries[iso3] : undefined;
+		const name = featureProperties?.name ?? "";
+		const layerCountry = countries.find((country) => {
+			return country.name === name;
+		});
 		const target = event.target as { _path: HTMLElement };
 
 		if (target._path.classList.contains("fill-primary-400")) {
@@ -116,16 +125,18 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		layer.on("popupclose", onPopupClose);
 	};
 
-	const { name: activeName, statusName: activeStatus } = activeCountry ?? {};
-	const href =
-		activeCountry && activeCountry.status !== null
-			? `/network/members-and-partners/${activeCountry.code}`
-			: undefined;
+	const { name: activeName, status, entity } = activeCountry ?? {};
+	const slug = entity?.slug;
+	const href = slug !== undefined ? `/network/members-and-partners/${slug}` : undefined;
 
 	return (
 		<GeoJSON data={geoJson} onEachFeature={onEachFeature}>
 			<Popup>
-				<CountryPopup href={href} label={activeStatus} title={activeName ?? ""} />
+				<CountryPopup
+					href={href}
+					label={status ? t(`status.${status}`) : ""}
+					title={activeName ?? ""}
+				/>
 			</Popup>
 		</GeoJSON>
 	);

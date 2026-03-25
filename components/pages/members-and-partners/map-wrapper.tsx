@@ -3,7 +3,8 @@
 import dynamic from "next/dynamic";
 import type { ReactNode } from "react";
 
-import type { Country, CountryGeoJSON } from "@/types/map";
+import type { MemberOrPartnerList } from "@/lib/data/api-client";
+import type { CountryGeoJSON } from "@/types/map";
 
 const Map = dynamic(
 	async () => {
@@ -24,7 +25,7 @@ const Map = dynamic(
 
 interface MapWrapperProps {
 	geoJson: CountryGeoJSON;
-	countries: Record<string, Country>;
+	countries: MemberOrPartnerList["data"];
 }
 
 export function MapWrapper(props: Readonly<MapWrapperProps>): ReactNode {

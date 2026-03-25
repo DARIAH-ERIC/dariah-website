@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import type { ComponentProps, ReactNode } from "react";
 import type { Link } from "react-aria-components";
 
@@ -7,12 +8,14 @@ import { Typography } from "@/components/ui/typography/typography";
 
 interface CountrySelectProps extends ComponentProps<typeof Link> {
 	title: string;
-	label?: string;
+	label?: "is_member" | "is_cooperating_partner";
 	className?: string;
 }
 
 export function CountrySelect(props: Readonly<CountrySelectProps>): ReactNode {
 	const { title, label, className, ...rest } = props;
+	const t = useTranslations("MembersAndPartnersPage");
+
 	return (
 		<NavLink
 			className={cn(
@@ -35,7 +38,7 @@ export function CountrySelect(props: Readonly<CountrySelectProps>): ReactNode {
 					className={cn("text-gray-900 font-body", "group-pressed:text-white")}
 					variant="caption"
 				>
-					{label}
+					{t(`status.${label}`)}
 				</Typography>
 			)}
 		</NavLink>

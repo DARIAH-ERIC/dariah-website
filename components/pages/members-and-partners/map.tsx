@@ -13,12 +13,15 @@ import { MapLegend } from "@/components/pages/members-and-partners/map-legend";
 import { ZoomButtons } from "@/components/pages/members-and-partners/zoom-buttons";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
-import type { Country, CountryGeoJSON } from "@/types/map";
+import type { MemberOrPartnerList } from "@/lib/data/api-client";
+import type { CountryGeoJSON } from "@/types/map";
 import { useMediaQuery } from "@/utils/hooks/use-media-query";
+
+type ActiveCountry = MemberOrPartnerList["data"][number] | undefined | null;
 
 interface MapProps {
 	geoJson: CountryGeoJSON;
-	countries: Record<string, Country>;
+	countries: MemberOrPartnerList["data"];
 }
 
 export function Map(props: Readonly<MapProps>): ReactNode {
@@ -27,22 +30,22 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 
 	const isLg = useMediaQuery("lg");
 
-	const [activeCountry, setActiveCountry] = useState<Country | undefined | null>(undefined);
+	const [activeCountry, setActiveCountry] = useState<ActiveCountry>(undefined);
 	const [selectedTab, setSelectedTab] = useState<Key>("map");
 	const currentTab = isLg ? "map" : selectedTab;
 
 	const { members, partners } = useMemo(() => {
 		const members = Object.values(countries).filter((country) => {
-			return country.status === "members";
+			return country.status === "is_member";
 		});
 		const partners = Object.values(countries).filter((country) => {
-			return country.status === "cooperating-partners";
+			return country.status === "is_cooperating_partner";
 		});
 
 		return { members, partners };
 	}, [countries]);
 
-	const handleActiveCountryChange = (country: Country | undefined | null) => {
+	const handleActiveCountryChange = (country: ActiveCountry) => {
 		setActiveCountry(country);
 	};
 
