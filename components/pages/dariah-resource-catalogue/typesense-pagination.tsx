@@ -15,7 +15,7 @@ export function TypesensePagination(props: Readonly<UsePaginationProps>): ReactN
 				pageCount={nbPages - 1}
 				pageUrlAlias="dariah-resources[page]"
 				refinePage={refine}
-				schouldScroll={true}
+				shouldScroll={true}
 			/>
 		</div>
 	);
