@@ -19,7 +19,7 @@ export const ToolOrService: Story = {
 		description:
 			"DARIAH Zotero library brings together collection of bibliographic items created within the DARIAH environment or citing DARIAH.",
 		serviceType: "core",
-		resourceCategory: "toolOrService",
+		resourceCategory: "tool-or-service",
 	},
 };
 
@@ -28,7 +28,7 @@ export const TrainingMaterial: Story = {
 		title: "DARIAH Zotero library",
 		description:
 			"DARIAH Zotero library brings together collection of bibliographic items created within the DARIAH environment or citing DARIAH.",
-		resourceCategory: "trainingMaterial",
+		resourceCategory: "training-material",
 	},
 };
 

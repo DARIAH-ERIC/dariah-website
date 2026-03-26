@@ -9,19 +9,20 @@ import { Typography } from "@/components/ui/typography/typography";
 
 interface ResourceCardProps {
 	serviceType?: "core" | "community";
-	resourceCategory: "toolOrService" | "trainingMaterial" | "workflow" | "publication";
+	resourceCategory: "tool-or-service" | "training-material" | "workflow" | "publication";
 	title: string;
 	description?: string;
+	resourceUrl?: string;
 }
 
 const typeConfiguration = {
-	toolOrService: {
+	"tool-or-service": {
 		border: "border-1 border-primary-300",
 		borderLeftColor: "border-l-in-text-link",
 		bgColor: "bg-in-text-link",
 		text: "tool or service",
 	},
-	trainingMaterial: {
+	"training-material": {
 		border: "border-1 border-accent-300",
 		borderLeftColor: "border-l-resource-training-material",
 		bgColor: "bg-resource-training-material",
@@ -57,7 +58,7 @@ const serviceConfiguration = {
 };
 
 export function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
-	const { serviceType, resourceCategory, title, description } = props;
+	const { serviceType, resourceCategory, title, description, resourceUrl } = props;
 
 	const { icon: serviceIcon, text: serviceText } = serviceConfiguration[serviceType ?? "empty"];
 
@@ -73,11 +74,11 @@ export function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 			className={cn(
 				resourceTypeBorder,
 				resourceTypeBorderLeftColor,
-				"border-l-6 py-10 pl-6 pr-4 w-226 max-w-full flex gap-6 items-center",
+				"border-l-6 py-10 pl-6 pr-4 max-w-full flex flex-col gap-6 md:items-center md:flex-row",
 			)}
 		>
-			<div className="flex flex-col gap-2 max-w-150.25">
-				<div className="flex gap-6">
+			<div className="flex flex-1 flex-col gap-2">
+				<div className="flex gap-x-6 gap-y-2 flex-wrap">
 					<div
 						className={cn(
 							resourceTypeBgColor,
@@ -92,10 +93,12 @@ export function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 						</div>
 					)}
 				</div>
-				<Typography variant="h4">{title}</Typography>
+				<Typography className="text-[18px]" variant="h4">
+					{title}
+				</Typography>
 				<Typography variant="regular">{description}</Typography>
 			</div>
-			<Button endIcon={<OpenInNewIcon className="size-5" />} variant="tertiary">
+			<Button endIcon={<OpenInNewIcon className="size-5" />} href={resourceUrl} variant="tertiary">
 				{"Go to resource"}
 			</Button>
 		</div>

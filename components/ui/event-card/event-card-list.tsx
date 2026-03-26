@@ -9,9 +9,11 @@ import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, imageUrl, startDate } = props;
+	const { title, localization, imageUrl, startDate, slug } = props;
 
 	const status = startDate < new Date() ? "past" : "upcoming";
+
+	const href = `/events/${slug}`;
 
 	return (
 		<NavLink
@@ -21,7 +23,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:outline-4 focus-visible:outline-accent focus-visible:bg-event-card-list-bg-hover",
 			)}
-			href={"/"}
+			href={href}
 		>
 			<div className="flex flex-col gap-y-3 gap-x-4 w-133.75 max-w-full justify-between lg:h-36.5">
 				<div>
@@ -32,7 +34,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 						<Tag text={status} variant={status} />
 					</div>
 					<Typography
-						className="line-clamp-3 text-black group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
+						className="line-clamp-3 text-[18px] text-black group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
 						variant="h4"
 					>
 						{title}

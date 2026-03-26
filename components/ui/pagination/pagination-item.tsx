@@ -14,7 +14,7 @@ export function PaginationItem(props: Readonly<PaginationItemProps>): ReactNode 
 	return (
 		<AriaButton
 			className={cn(
-				"p-2 bg-transparent text-white text-regular rounded-none",
+				"p-2 bg-transparent text-white text-regular rounded-none cursor-pointer",
 				"hover:bg-white hover:text-text-link-bg",
 				"focus:bg-transparent focus:text-white focus:outline-white focus:[&>span]:outline-2 focus:[&>span]:outline-white",
 				"active:border-b-2 active:pb-1.5",

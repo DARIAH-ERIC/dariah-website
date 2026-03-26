@@ -22,10 +22,10 @@ type Story = StoryObj<typeof meta>;
 export const Homepage: Story = {
 	args: {
 		variant: "homepage",
-		endDate: "2025-08-2",
+		endDate: new Date("2025-08-02"),
 		localization: "Besançon, France",
-		startDate: "2025-07-21",
-		status: "upcoming",
+		slug: "",
+		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
 	},
@@ -34,10 +34,10 @@ export const Homepage: Story = {
 export const ListWithoutImage: Story = {
 	args: {
 		variant: "list",
-		endDate: "2025-08-2",
+		endDate: new Date("2025-08-2"),
 		localization: "Besançon, France",
-		startDate: "2025-07-21",
-		status: "upcoming",
+		slug: "",
+		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
 	},
@@ -46,10 +46,10 @@ export const ListWithoutImage: Story = {
 export const ListWithImage: Story = {
 	args: {
 		variant: "list",
-		endDate: "2025-08-2",
+		endDate: new Date("2025-08-02"),
+		slug: "",
 		localization: "Besançon, France",
-		startDate: "2025-07-21",
-		status: "upcoming",
+		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
 		imageUrl: "/assets/images/temp-news-2.svg",

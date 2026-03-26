@@ -23,7 +23,7 @@ const parseDates = (startDate: string, endDate: string) => {
 };
 
 export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, endDate, startDate } = props;
+	const { title, localization, endDate, startDate, slug } = props;
 
 	const { daysString, headerString } = useMemo(() => {
 		return parseDates(
@@ -33,10 +33,12 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 	}, [startDate, endDate]);
 	const status = startDate < new Date() ? "past" : "upcoming";
 
+	const href = `/events/${slug}`;
+
 	return (
 		<NavLink
 			className="shadow-event-card w-116 max-w-full cursor-pointer bg-event-card-bg group flex-col lg:min-w-116 focus-visible:outline-4 focus-visible:outline-accent"
-			href={"/"}
+			href={href}
 		>
 			<div className="bg-white px-12.25 py-8 flex flex-col gap-4 w-full">
 				<div className="flex flex-wrap gap-4 items-end text-section-text">

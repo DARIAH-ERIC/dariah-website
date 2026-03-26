@@ -1,3 +1,6 @@
+ignoredBuiltDependencies:
+  - typesense-instantsearch-adapter
+
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - '@swc/core'

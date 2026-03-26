@@ -26,6 +26,8 @@ jobs:
         os: [ubuntu-24.04]
 
     env:
+      NEXT_PUBLIC_API_BASE_URL: "${{ vars.NEXT_PUBLIC_API_BASE_URL }}"
+      NEXT_PUBLIC_API_OPENAPI_PATHNAME: "${{ vars.NEXT_PUBLIC_API_OPENAPI_PATHNAME }}"
       NEXT_PUBLIC_APP_BASE_URL: "http://localhost:3000"
       NEXT_PUBLIC_APP_BOTS: "disabled"
       NEXT_PUBLIC_APP_IMPRINT_CUSTOM_CONFIG: "disabled"
@@ -38,7 +40,7 @@ jobs:
       NEXT_PUBLIC_TYPESENSE_PORT: "8108"
       NEXT_PUBLIC_TYPESENSE_PROTOCOL: "http"
       NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME: "dariah-resources"
-      TYPESENSE_ADMIN_API_KEY: "31308e18f81519edfc65c4293c209e24ee7044d6a84251c22b15210b90b0496a"
+      TYPESENSE_ADMIN_API_KEY: "${{ secrets.TEST_TYPESENSE_ADMIN_API_KEY }}"
 
     steps:
       - name: Checkout repository

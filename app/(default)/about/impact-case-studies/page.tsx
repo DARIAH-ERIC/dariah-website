@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { Link } from "@/components/ui/link/link";
-import { client } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("ImpactCaseStudiesPage");
@@ -24,9 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const t = await getTranslations("ImpactCaseStudiesPage");
 
-	const data = await client.impactCaseStudies.list();
+	const response = await client.impactCaseStudies.list();
 
-	const { items } = data;
+	const { data: items } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
@@ -36,8 +36,8 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 				role="list"
 			>
 				{items.map((item) => {
-					const { image, slug, summary, title } = item;
-
+					const { entity, image, summary, title } = item;
+					const { slug } = entity;
 					const href = `/about/impact-case-studies/${slug}`;
 
 					return (

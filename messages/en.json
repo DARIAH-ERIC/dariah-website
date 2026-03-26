@@ -9,10 +9,29 @@
 		"meta": {
 			"title": "DARIAH resource catalogue"
 		},
-		"title": "DARIAH resource catalogue"
+		"title": "Resource catalogue",
+		"description": "Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer.",
+		"filter": {
+			"title": "Filters",
+			"type": "Resource Type",
+			"source": "National Node/Country",
+			"kind": "Type of service",
+			"showButton": "Show filters",
+			"keywords": "Keywords"
+		},
+		"hits": {
+			"empty": "No resources found matching your criteria"
+		},
+		"error": "An error occurred while connecting to resource catalogue"
 	},
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"
+	},
+	"DocumentsPoliciesPage": {
+		"meta": {
+			"title": "Documents and policies"
+		},
+		"title": "Documents and policies"
 	},
 	"ErrorPage": {
 		"meta": {
@@ -65,17 +84,86 @@
 		"title": "News",
 		"noNews": "No news found."
 	},
+	"NewslettersPage": {
+		"meta": {
+			"title": "Newsletters"
+		},
+		"title": "Newsletters"
+	},
 	"ProjectsPage": {
 		"meta": {
 			"title": "Projects"
 		},
-		"title": "Projects"
+		"title": "Projects",
+		"description": {
+			"part1": "DARIAH ERIC, together with its national nodes, participates in several strategic EU funded projects relevant to its vision and mission, in the role of coordinator, partner or as affiliated partner. These projects are mostly funded in the framework of the Horizon 2020 programme, but also via ERASMUS+ grants and other national and European funding programmes. ",
+			"part2": "If you are interested to learn more about these projects, the several funding frameworks or DARIAH's role and actions in these projects, please contact us through the Helpdesk form."
+		},
+		"tabs": {
+			"active": "Active Projects",
+			"past": "Past Projects"
+		}
 	},
 	"SpotlightArticlesPage": {
 		"meta": {
 			"title": "Spotlight articles"
 		},
-		"title": "Spotlight articles"
+		"title": "Spotlight",
+		"subtitle": "Spotlight articles",
+		"description": {
+			"part1": "Making scholarship more visible",
+			"part2": "DARIAH Spotlight is monthly series launching in March 2025. Spotlight articles offer quick, engaging looks at the latest research connected to the DARIAH infrastructure - from innovative DARIAH Working Groups to inspiring DH projects across our network. ",
+			"part3": "Discover how scholars are pushing the boundaries of digital humanities, and get a window into the diverse work happening across Europe and beyond."
+		}
+	},
+	"WorkingGroupsPage": {
+		"meta": {
+			"title": "Working groups"
+		},
+		"title": "Working groups",
+		"description": "Working groups are joint activities in DARIAH. They are self-organized and work in a strategic area that is defined by DARIAH's Virtual Competence Centres. Their activities are complementary to individual contributions from DARIAH members. Working groups always have a certain purpose: They lead to services for the community, which can be scholarly, technical, editorial or organisational. This means, they contribute to building up and extending the DARIAH infrastructure. \n\nBelow you can find a list of DARIAH working groups, which have been approved by the DARIAH Senior Management Team (SMT).",
+		"contact-information": {
+			"title": "Contact Information",
+			"description": {
+				"part1": "If you are interested to learn more about the DARIAH working groups or you want to join an existing one or start a new one, please have a look at the ",
+				"link1": "Working Groups Policy",
+				"part2": " or contact us through our ",
+				"link2": "Helpdesk Form"
+			}
+		},
+		"tabs": {
+			"active": "Active Working Groups",
+			"past": "Past Working Groups"
+		}
+	},
+	"MembersAndPartnersPage": {
+		"meta": {
+			"title": "Members and partners"
+		},
+		"title": "Members and partners",
+		"description": {
+			"part1": "DARIAH Members or Observers can be countries (EU Member States and Associated Countries) or intergovernmental organisations.\n\nAlternatively, institutions from countries that are not yet DARIAH Members can participate as Cooperating Partners.",
+			"part2": "Currently, DARIAH has 23 Members and 17 Cooperating Partners in 10 non-Member countries: Egypt, Finland, Hungary, Latvia, Norway, Romania, Slovakia, Turkey, the United Kingdom, and the United States of America."
+		},
+		"filters": {
+			"cooperating partners": "COOPERATING PARTNERS",
+			"members": "MEMBERS"
+		},
+		"legend": {
+			"cooperating partners": "Cooperating Partner",
+			"members": "Member Country"
+		},
+		"status": {
+			"is_member": "Member",
+			"is_cooperating_partner": "Cooperating Partner"
+		},
+		"popup": {
+			"details": "See details"
+		},
+		"tabs": {
+			"list": "List",
+			"map": "Map"
+		}
 	},
 	"DariahInANutshell": {
 		"meta": {

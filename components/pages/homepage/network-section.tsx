@@ -28,7 +28,7 @@ export function NetworkSection(): ReactNode {
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
 									{"20"}
 								</p>
-								<Typography className="pb-5.5" variant="h3">
+								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"Member countries"}
 								</Typography>
 							</div>
@@ -46,7 +46,7 @@ export function NetworkSection(): ReactNode {
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
 									{"197"}
 								</p>
-								<Typography className="pb-5.5" variant="h3">
+								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"National Partner Institution"}
 								</Typography>
 							</div>
@@ -64,7 +64,7 @@ export function NetworkSection(): ReactNode {
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
 									{"19"}
 								</p>
-								<Typography className="pb-5.5" variant="h3">
+								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"Cooperating Partners"}
 								</Typography>
 							</div>
@@ -91,7 +91,7 @@ export function NetworkSection(): ReactNode {
 							<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
 								{"17"}
 							</p>
-							<Typography className="pb-5.5" variant="h3">
+							<Typography className="pb-5.5 text-[24px]" variant="h3">
 								{"Working Groups"}
 							</Typography>
 						</div>

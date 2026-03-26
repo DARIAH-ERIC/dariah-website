@@ -10,10 +10,10 @@ import {
 import { SearchIcon } from "@/components/ui/icons/search";
 import { Link } from "@/components/ui/link/link";
 import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
-import type { NavigationConfig, NavigationLink } from "@/lib/navigation/navigation";
+import type { NavigationConfig } from "@/lib/navigation/navigation";
 
 interface NavigationMobileProps {
-	navigation: NavigationConfig & { home: NavigationLink };
+	navigation: NavigationConfig;
 	handleMobileMenuToggle: () => void;
 }
 
