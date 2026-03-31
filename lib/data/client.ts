@@ -331,6 +331,19 @@ export function navigation() {
 				},
 			] satisfies Array<ResourceCatalogueFilter>,
 		},
+		documentsAndPolicies: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "About",
+			},
+			{
+				label: "documents and policies",
+			},
+		],
 	};
 
 	return {
