@@ -75,6 +75,19 @@ const buttonStyles = styles({
 				"focus-visible:outline-none",
 				"data-expanded:bg-gray-200 data-expanded:text-black data-expanded:font-medium data-expanded:[&_svg]:fill-primary",
 			),
+			"select-button": cn(
+				"px-5 py-1 cursor-pointer text-regular text-text-link-bg uppercase bg-transparent font-normal rounded-none",
+				"hover:bg-button-bg",
+				"data-focused:bg-button-bg data-focused:outline-3 data-focused:outline-primary",
+				"pressed:text-primary pressed:bg-transparent pressed:outline-none",
+				"active:text-primary active:bg-transparent active:outline-none",
+			),
+			"carousel-button": cn(
+				"px-0 py-3 bg-pagination-bg shadow-carousel-button md:p-3 [&_svg]:size-10 [&_svg]:fill-white",
+				"hover:bg-white hover:outline-text-link-bg hover:[&_svg]:fill-text-link-bg",
+				"focus:bg-pagination-bg focus:outline-white focus:outline-2 focus:[&_svg]:fill-white",
+				"",
+			),
 			quiet:
 				"border-transparent bg-transparent text-neutral-800 hover:bg-neutral-200 pressed:bg-neutral-300",
 		},

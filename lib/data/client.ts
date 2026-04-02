@@ -19,11 +19,11 @@ export function navigation() {
 			type: "menu",
 			label: "About",
 			children: {
-				// "dariah-in-a-nutshell": {
-				// 	type: "link",
-				// 	label: "DARIAH in a nutshell",
-				// 	href: "/about/dariah-in-a-nutshell",
-				// },
+				"dariah-in-a-nutshell": {
+					type: "link",
+					label: "DARIAH in a nutshell",
+					href: "/about/dariah-in-a-nutshell",
+				},
 				// strategy: {
 				// 	type: "link",
 				// 	label: "Strategy",
@@ -331,6 +331,19 @@ export function navigation() {
 				},
 			] satisfies Array<ResourceCatalogueFilter>,
 		},
+		documentsAndPolicies: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "About",
+			},
+			{
+				label: "documents and policies",
+			},
+		],
 	};
 
 	return {

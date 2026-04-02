@@ -7,15 +7,18 @@ import { Typography } from "@/components/ui/typography/typography";
 
 interface DocumentProps {
 	title: string;
-	documentUrl: string;
+	documentUrl?: string;
+	isEven?: boolean;
 }
 
 export function Document(props: Readonly<DocumentProps>): ReactNode {
-	const { title, documentUrl } = props;
+	const { title, documentUrl, isEven = false } = props;
 	return (
 		<NavLink
 			className={cn(
-				"px-4 py-3 flex items-center justify-between bg-transparent border-2 border-transparent text-black w-265",
+				"px-4 py-3 flex border-2 border-transparent text-black flex-col max-w-full items-start justify-between gap-2",
+				isEven ? "bg-gray-100" : "bg-transparent z-2",
+				"lg:flex-row lg:w-265 lg:justify-between lg:items-center lg:h-fit lg:gap-0",
 				"hover:bg-gray-100 hover:border-gray-100 hover:text-primary hover:shadow-light",
 				"focus-visible:bg-white focus-visible:outline-none focus-visible:border-accent focus-visible:text-primary focus-visible:shadow-light",
 			)}

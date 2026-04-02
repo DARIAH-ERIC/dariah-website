@@ -165,6 +165,12 @@
 			"map": "Map"
 		}
 	},
+	"DariahInANutshell": {
+		"meta": {
+			"title": "Dariah in a nutshell"
+		},
+		"title": "Dariah in a nutshell"
+	},
 	"(default)": {
 		"Footer": {
 			"navigation": {

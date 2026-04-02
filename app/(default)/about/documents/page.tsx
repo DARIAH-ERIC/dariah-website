@@ -3,7 +3,12 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { BackToTop } from "@/components/ui/back-to-top/back-to-top";
+import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { Document } from "@/components/ui/document/document";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DocumentsPoliciesPage");
@@ -21,23 +26,40 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
-	const _t = await getTranslations("DocumentsPoliciesPage");
+	const t = await getTranslations("DocumentsPoliciesPage");
 
-	const response = await client.documentsPolicies.list();
+	const response = await client.documentsPolicies.list({ limit: 100 });
+	const breadcrumbs = navigation().breadcrumbs.documentsAndPolicies;
 
 	const { data: items } = response.data;
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8">
-			<ul role="list">
-				{items.map((item) => {
-					return (
-						<li key={item.id}>
-							<pre>{JSON.stringify(item, null, 2)}</pre>
-						</li>
-					);
+		<Main className="flex flex-1 flex-col gap-14 px-4 pt-8 pb-30 container lg:items-center lg:px-31.5">
+			<div className="flex flex-col gap-14 w-full">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				<Typography variant="h2">{t("title")}</Typography>
+			</div>
+			<ul className="flex flex-col">
+				{items.map((item, index) => {
+					const {
+						id,
+						document: { url },
+						title,
+					} = item;
+					return <Document key={id} documentUrl={url} isEven={index % 2 === 0} title={title} />;
 				})}
 			</ul>
+			<BackToTop />
 		</Main>
 	);
 }
