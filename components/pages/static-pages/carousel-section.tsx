@@ -31,7 +31,7 @@ export function CarouselSection(props: Readonly<CarouselSectionProps>): ReactNod
 						width={1162}
 					/>
 				)}
-				<Carousel className="w-55 h-15.75 md:w-120 md:h-31.5 xl:w-290.5 xl:h-61.25">
+				<Carousel className="w-55 h-15.75 justify-center md:w-120 md:h-31.5 xl:w-290.5 xl:h-61.25">
 					{images.map((image) => {
 						const { id, url } = image;
 						const isSelected = id === selectedImage?.id;

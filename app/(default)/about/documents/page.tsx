@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { BackToTop } from "@/components/ui/back-to-top/back-to-top";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Document } from "@/components/ui/document/document";
 import { Typography } from "@/components/ui/typography/typography";
@@ -58,6 +59,7 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 					return <Document key={id} documentUrl={url} isEven={index % 2 === 0} title={title} />;
 				})}
 			</ul>
+			<BackToTop />
 		</Main>
 	);
 }

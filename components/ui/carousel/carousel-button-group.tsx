@@ -13,7 +13,7 @@ export function CarouselButtonGroup(props: Readonly<ButtonGroupProps>): ReactNod
 
 	const { totalItems, slidesToShow, currentSlide } = carouselState;
 
-	const isLastElement = currentSlide + slidesToShow === totalItems;
+	const isLastElement = currentSlide + slidesToShow >= totalItems;
 	const isFirstElement = currentSlide === 0;
 
 	return (
