@@ -4667,8 +4667,8 @@ packages:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
 
-  npm@10.9.7:
-    resolution: {integrity: sha512-17u9+Ssv6as3iua2l6abTv1H4TtQDhle/Qn+XJ4TjKR4SzIjk1Ox3SZXRVBUW48KojLttHNQUk/U00m7sh1OGw==}
+  npm@10.9.8:
+    resolution: {integrity: sha512-fYwb6ODSmHkqrJQQaCxY3M2lPf/mpgC7ik0HSzzIwG5CGtabRp4bNqikatvCoT42b5INQSqudVH0R7yVmC9hVg==}
     engines: {node: ^18.17.0 || >=20.5.0}
     hasBin: true
     bundledDependencies:
@@ -10888,7 +10888,7 @@ snapshots:
     dependencies:
       path-key: 3.1.1
 
-  npm@10.9.7: {}
+  npm@10.9.8: {}
 
   null-loader@4.0.1(webpack@5.104.1(esbuild@0.27.2)):
     dependencies:
@@ -11361,7 +11361,7 @@ snapshots:
     dependencies:
       core-js: 3.49.0
       install: 0.13.0
-      npm: 10.9.7
+      npm: 10.9.8
 
   react-schemaorg@2.0.0(react@19.2.4)(schema-dts@1.1.5)(typescript@5.9.3):
     dependencies:
