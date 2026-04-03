@@ -14,8 +14,10 @@ import { Link, type LinkProps } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function Breadcrumbs<T extends object>(props: Readonly<BreadcrumbsProps<T>>): ReactNode {
-	const { className } = props;
-	return <AriaBreadcrumbs className={cn("flex gap-2 items-center", className)} {...props} />;
+	const { className, ...rest } = props;
+	return (
+		<AriaBreadcrumbs className={cn("flex flex-wrap gap-2 items-center", className)} {...rest} />
+	);
 }
 
 export function Breadcrumb(

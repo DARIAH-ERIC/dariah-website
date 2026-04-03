@@ -61,6 +61,8 @@
 	--section-box-bg: rgb(231 231 231);
 	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
 
+	--working-group-detail-divider: linear-gradient(90deg, rgb(109 139 127) 0%, rgb(0 87 143) 100%);
+
 	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
 	--spotlight-list-divider: linear-gradient(180deg, var(--purple) -100%, transparent 80%);
 

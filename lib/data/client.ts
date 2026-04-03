@@ -308,6 +308,20 @@ export function navigation() {
 				label: "working groups",
 			},
 		],
+		workingGroupsDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "network",
+			},
+			{
+				href: "/network/working-groups/",
+				label: "working groups",
+			},
+		],
 		dariahResourceCatalogue: {
 			breadcrumbs: [
 				{
