@@ -136,6 +136,22 @@
 			"past": "Past Working Groups"
 		}
 	},
+	"WorkingGroupsDetailPage": {
+		"browseAll": "Browse all working groups",
+		"groupChars": {
+			"title": "Contact Working Group chairs",
+			"emptyState": "No Working Group chairs"
+		},
+		"joinGroup": {
+			"title": "Join our group",
+			"description": "DARIAH Working Groups bring together researchers, practitioners, and experts across Europe to collaborate on digital arts and humanities. Would you like to join this group? ",
+			"button": "Find out more"
+		},
+		"relatedContent": {
+			"title": "Related content",
+			"emptyState": "No related content for {name} working group."
+		}
+	},
 	"MembersAndPartnersPage": {
 		"meta": {
 			"title": "Members and partners"
