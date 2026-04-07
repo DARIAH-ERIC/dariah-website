@@ -104,6 +104,21 @@
 			"past": "Past Projects"
 		}
 	},
+	"ProjectsDetailPage": {
+		"browseAll": "Browse all projects",
+		"relatedContent": {
+			"title": "Related content",
+			"emptyState": "No related content."
+		},
+		"featuredOutcome": {
+			"title": "Featured outcome",
+			"emptyState": "No featured outcome."
+		},
+		"participants": {
+			"title": "Participants ({number})",
+			"emptyState": "No participants."
+		}
+	},
 	"SpotlightArticlesPage": {
 		"meta": {
 			"title": "Spotlight articles"

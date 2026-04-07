@@ -296,6 +296,16 @@ export function navigation() {
 				label: "projects",
 			},
 		],
+		projectsDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/projects",
+				label: "projects",
+			},
+		],
 		spotlightArticles: [
 			{
 				href: "/",
