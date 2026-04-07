@@ -181,6 +181,36 @@
 			"map": "Map"
 		}
 	},
+	"MembersAndPartnersDetailPage": {
+		"browseAll": "Brawse all members and partners",
+		"relatedContent": {
+			"title": "Related content",
+			"emptyState": "No related content."
+		},
+		"featuredOutcome": {
+			"title": "Featured outcome",
+			"emptyState": "No featured outcome."
+		},
+		"status": {
+			"is_member": "member",
+			"is_cooperating_partner": "cooperating partner"
+		},
+		"tabs": {
+			"details": "Details",
+			"institutions": "Partners' institution"
+		},
+		"socialMedia": {
+			"website": "Visit the website",
+			"other": "Visit the Social Media:"
+		},
+		"contributors": {
+			"title": "Contributors",
+			"empty": "No contributors."
+		},
+		"institutions": {
+			"empty": "No partners' institution."
+		}
+	},
 	"DariahInANutshell": {
 		"meta": {
 			"title": "Dariah in a nutshell"

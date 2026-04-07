@@ -260,6 +260,20 @@ export function navigation() {
 				label: "members and partners",
 			},
 		],
+		membersAndPartnersDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "network",
+			},
+			{
+				href: "/network/members-and-partners",
+				label: "members and partners",
+			},
+		],
 		news: [
 			{
 				href: "/",

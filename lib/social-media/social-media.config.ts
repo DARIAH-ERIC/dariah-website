@@ -10,6 +10,7 @@ import {
 	OrcidIcon,
 	RssIcon,
 	TwitterIcon,
+	VimeoIcon,
 	WebsiteIcon,
 	YouTubeIcon,
 } from "@/lib/social-media/social-media-icons";
@@ -28,6 +29,7 @@ export const config = {
 	twitter: { icon: TwitterIcon },
 	website: { icon: WebsiteIcon },
 	youtube: { icon: YouTubeIcon },
+	vimeo: { icon: VimeoIcon },
 };
 
 export type SocialMediaKind = keyof typeof config;
