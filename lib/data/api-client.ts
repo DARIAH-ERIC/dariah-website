@@ -47,9 +47,9 @@ export type PersonList =
 	paths["/api/v1/persons"]["get"]["responses"][200]["content"]["application/json"];
 
 export type Project =
-	paths["/api/v1/projects/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+	paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 export type ProjectList =
-	paths["/api/v1/projects"]["get"]["responses"][200]["content"]["application/json"];
+	paths["/api/v1/dariah-projects"]["get"]["responses"][200]["content"]["application/json"];
 
 export type SpotlightArticle =
 	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];

@@ -27,7 +27,13 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			)}
 			href={href}
 		>
-			<Image alt={title} className="w-96.25 h-62.25" height={249} src={imageUrl} width={385} />
+			<Image
+				alt={title}
+				className="w-96.25 h-62.25 object-cover"
+				height={249}
+				src={imageUrl}
+				width={385}
+			/>
 			<div className="flex gap-2 p-4 flex-col w-full">
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">
