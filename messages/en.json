@@ -90,6 +90,16 @@
 		},
 		"title": "Newsletters"
 	},
+	"NewssDetailPage": {
+		"relatedContent": {
+			"title": "Related content",
+			"emptyState": "No related content."
+		},
+		"latest": {
+			"title": "Latest news",
+			"emptyState": "No latest news."
+		}
+	},
 	"ProjectsPage": {
 		"meta": {
 			"title": "Projects"

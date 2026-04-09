@@ -8,7 +8,7 @@ export function NewsSection(): ReactNode {
 		<section className="flex pb-10.5 flex-col gap-19 items-end bg-white">
 			<div className="flex flex-wrap px-4 gap-21.5 justify-center w-full items-end lg:px-32">
 				<NewsCard
-					date={"2024-06-10"}
+					date={new Date("2024-06-10")}
 					description={
 						"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH"
 					}
@@ -18,7 +18,7 @@ export function NewsSection(): ReactNode {
 					variant="featured"
 				/>
 				<NewsCard
-					date={"2024-06-10"}
+					date={new Date("2024-06-10")}
 					imageUrl={"/assets/images/temp-news-2.png"}
 					linkUrl={"#"}
 					title={
@@ -27,7 +27,7 @@ export function NewsSection(): ReactNode {
 					variant="standard"
 				/>
 				<NewsCard
-					date={"2024-06-10"}
+					date={new Date("2024-06-10")}
 					imageUrl={"/assets/images/temp-news-3.jpg"}
 					linkUrl={"#"}
 					title={

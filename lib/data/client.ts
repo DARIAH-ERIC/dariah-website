@@ -287,6 +287,20 @@ export function navigation() {
 				label: "news",
 			},
 		],
+		newsDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "news and events",
+			},
+			{
+				href: "/news",
+				label: "news",
+			},
+		],
 		projects: [
 			{
 				href: "/",
