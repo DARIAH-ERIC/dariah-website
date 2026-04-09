@@ -84,7 +84,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 					</Breadcrumbs>
 				)}
 				<NewsCard
-					date={new Date(headlinePublishedAt).toDateString()}
+					date={new Date(headlinePublishedAt)}
 					description={headlineSummary}
 					imageUrl={headlineImage.url}
 					linkUrl={`/news/${headlineSlug}`}
@@ -108,7 +108,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 						return (
 							<li key={slug} className="flex justify-center">
 								<NewsCard
-									date={new Date(publishedAt).toDateString()}
+									date={new Date(publishedAt)}
 									description={summary}
 									imageUrl={image.url}
 									linkUrl={href}

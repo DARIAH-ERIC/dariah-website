@@ -8,13 +8,14 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import { getFormattedDateForNews } from "@/utils/news-page.utils";
 
 interface NewsCardProps {
 	title: string;
 	description?: string;
 	imageUrl: string;
 	linkUrl: string;
-	date: string;
+	date: Date;
 	variant: "featured" | "standard" | "list-item" | "list-headline";
 }
 
@@ -93,7 +94,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						<NewsIcon width="14px" />
 						<span>{"NEWS"}</span>
 					</div>
-					<span className="text-gray-800">{date}</span>
+					<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 				</div>
 			</div>
 			<div
@@ -118,7 +119,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 								{"NEWS"}
 							</Typography>
 						</div>
-						<span className="text-gray-800">{date}</span>
+						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 					</div>
 					<div className={variant === "list-item" ? "mb-3.5 h-13.5" : undefined}>
 						<Typography
