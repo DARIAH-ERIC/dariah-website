@@ -56,6 +56,9 @@ export type SpotlightArticle =
 export type SpotlightArticleList =
 	paths["/api/v1/spotlight-articles"]["get"]["responses"][200]["content"]["application/json"];
 
+export type Statistics =
+	paths["/api/v1/statistics"]["get"]["responses"][200]["content"]["application/json"];
+
 export type WorkingGroup =
 	paths["/api/v1/working-groups/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 export type WorkingGroupList =
@@ -146,6 +149,8 @@ export const client = {
 			return result.unwrap();
 		}),
 		list: cache(async function list({
+			from,
+			until,
 			limit = 10,
 			offset = 0,
 		}: paths["/api/v1/events"]["get"]["parameters"]["query"] = {}) {
@@ -153,6 +158,8 @@ export const client = {
 				baseUrl,
 				pathname: "/api/v1/events",
 				searchParams: createUrlSearchParams({
+					from,
+					until,
 					limit,
 					offset,
 				}),
@@ -186,6 +193,58 @@ export const client = {
 			});
 
 			return result.unwrap();
+		}),
+	},
+	homePage: {
+		get: cache(async function get() {
+			const now = new Date();
+
+			const eventsUrl = createUrl({
+				baseUrl,
+				pathname: "/api/v1/events",
+				searchParams: createUrlSearchParams({
+					from: [now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()].join("-"),
+					limit: 3,
+				}),
+			});
+
+			const newsUrl = createUrl({
+				baseUrl,
+				pathname: "/api/v1/news",
+				searchParams: createUrlSearchParams({
+					limit: 3,
+				}),
+			});
+
+			const statsUrl = createUrl({
+				baseUrl,
+				pathname: "/api/v1/statistics",
+			});
+
+			const [eventsResult, newsResult, statsResult] = await Promise.all([
+				request<EventList>(eventsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				}),
+				request<NewsItemList>(newsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				}),
+				request<Statistics>(statsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				}),
+			]);
+
+			const events = eventsResult.unwrap();
+			const news = newsResult.unwrap();
+			const stats = statsResult.unwrap();
+
+			return {
+				events,
+				news,
+				stats,
+			};
 		}),
 	},
 	impactCaseStudies: {
@@ -531,6 +590,7 @@ export const client = {
 			return result.unwrap();
 		}),
 		list: cache(async function list({
+			status,
 			limit = 10,
 			offset = 0,
 		}: paths["/api/v1/dariah-projects"]["get"]["parameters"]["query"] = {}) {
@@ -538,6 +598,7 @@ export const client = {
 				baseUrl,
 				pathname: "/api/v1/dariah-projects",
 				searchParams: createUrlSearchParams({
+					status,
 					limit,
 					offset,
 				}),
@@ -651,6 +712,7 @@ export const client = {
 			return result.unwrap();
 		}),
 		list: cache(async function list({
+			status,
 			limit = 10,
 			offset = 0,
 		}: paths["/api/v1/working-groups"]["get"]["parameters"]["query"] = {}) {
@@ -658,6 +720,7 @@ export const client = {
 				baseUrl,
 				pathname: "/api/v1/working-groups",
 				searchParams: createUrlSearchParams({
+					status,
 					limit,
 					offset,
 				}),
