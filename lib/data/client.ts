@@ -3,7 +3,7 @@
 import { faker as f } from "@faker-js/faker";
 
 import type { NavigationConfig } from "@/lib/navigation/navigation";
-import type { ResourceCatalogueFilter } from "@/types/global";
+import type { ResourceCatalogueFilter } from "@/types/filters";
 
 f.seed(42);
 f.setDefaultRefDate(new Date(Date.UTC(2025, 0, 1)));

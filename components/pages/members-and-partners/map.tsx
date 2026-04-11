@@ -36,10 +36,10 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 
 	const { members, partners } = useMemo(() => {
 		const members = Object.values(countries).filter((country) => {
-			return country.status === "is_member";
+			return country.status === "is_member_of";
 		});
 		const partners = Object.values(countries).filter((country) => {
-			return country.status === "is_cooperating_partner";
+			return country.status === "is_cooperating_partner_of";
 		});
 
 		return { members, partners };

@@ -82,9 +82,9 @@ export default async function MembersAndPartnersPage(
 					<div className="flex flex-col gap-8">
 						<Typography className="font-medium" variant="h2">
 							{name.toUpperCase()}{" "}
-							{status === "is_member"
-								? `(${t("status.is_member")})`
-								: `(${t("status.is_cooperating_partner")})`}
+							{status === "is_member_of"
+								? `(${t("status.is_member_of")})`
+								: `(${t("status.is_cooperating_partner_of")})`}
 						</Typography>
 						{image?.url !== undefined && (
 							<Image alt={name} height={72} src={image.url} width={207} />

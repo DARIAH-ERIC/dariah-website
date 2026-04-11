@@ -195,8 +195,9 @@
 			"members": "Member Country"
 		},
 		"status": {
-			"is_member": "Member",
-			"is_cooperating_partner": "Cooperating Partner"
+			"is_member_of": "Member",
+			"is_cooperating_partner_of": "Cooperating Partner",
+			"is_observer_of": "Observer"
 		},
 		"popup": {
 			"details": "See details"
@@ -217,8 +218,8 @@
 			"emptyState": "No featured outcome."
 		},
 		"status": {
-			"is_member": "member",
-			"is_cooperating_partner": "cooperating partner"
+			"is_member_of": "member",
+			"is_cooperating_partner_of": "cooperating partner"
 		},
 		"tabs": {
 			"details": "Details",
@@ -264,6 +265,7 @@
 					"orcid": "ORCID",
 					"rss": "RSS",
 					"twitter": "Twitter",
+					"vimeo": "Vimeo",
 					"website": "Website",
 					"youtube": "YouTube"
 				},

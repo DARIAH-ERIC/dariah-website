@@ -8,7 +8,7 @@ import { Typography } from "@/components/ui/typography/typography";
 
 interface CountrySelectProps extends ComponentProps<typeof Link> {
 	title: string;
-	label?: "is_member" | "is_cooperating_partner";
+	label?: "is_member_of" | "is_cooperating_partner_of" | "is_observer_of";
 	className?: string;
 }
 
