@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button/button";
 import { DisclosureGroup } from "@/components/ui/disclosure/disclosure";
 import { CloseIcon } from "@/components/ui/icons/close";
 import { Typography } from "@/components/ui/typography/typography";
-import type { ResourceCatalogueFilter } from "@/types/global";
+import type { ResourceCatalogueFilter } from "@/types/filters";
 
 export function MobileRefinements(
 	props: Readonly<{

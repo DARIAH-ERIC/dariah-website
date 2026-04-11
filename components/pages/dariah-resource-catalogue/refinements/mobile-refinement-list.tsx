@@ -8,7 +8,7 @@ import {
 	DisclosureHeader,
 	DisclosurePanel,
 } from "@/components/ui/disclosure/disclosure";
-import type { ResourceCatalogueSubfilter } from "@/types/global";
+import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
 export function MobileRefinementList(
 	props: Readonly<UseRefinementListProps & { subfilters?: ResourceCatalogueSubfilter }>,

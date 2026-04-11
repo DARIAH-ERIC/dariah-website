@@ -4,7 +4,7 @@ import { type ReactNode, useState } from "react";
 import { DesktopRefinements } from "@/components/pages/dariah-resource-catalogue/refinements/desktop-refinements";
 import { MobileRefinements } from "@/components/pages/dariah-resource-catalogue/refinements/mobile-refinements";
 import { Button } from "@/components/ui/button/button";
-import type { ResourceCatalogueFilter } from "@/types/global";
+import type { ResourceCatalogueFilter } from "@/types/filters";
 
 export function Refinements(
 	props: Readonly<{ refinements: Array<ResourceCatalogueFilter> }>,

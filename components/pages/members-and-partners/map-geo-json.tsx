@@ -28,11 +28,12 @@ interface FeaturePropertiesProps extends CountryProperties {
 }
 
 const STATUS_PROPS = {
-	is_member: { letter: "M", style: "fill-primary-600" },
-	is_cooperating_partner: {
+	is_member_of: { letter: "M", style: "fill-primary-600" },
+	is_cooperating_partner_of: {
 		letter: "C",
 		style: "fill-primary-400",
 	},
+	is_observer_of: { letter: "O", style: "fill-primary-200" },
 };
 
 export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {

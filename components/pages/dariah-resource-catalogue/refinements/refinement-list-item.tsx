@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { ChevronUpIcon } from "@/components/ui/icons/chevron-up";
-import type { ResourceCatalogueSubfilter } from "@/types/global";
+import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
 export interface RefinementListItem {
 	value: string;

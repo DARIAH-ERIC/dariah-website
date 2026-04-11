@@ -15,7 +15,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { env } from "@/config/env.config";
 import { searchClient } from "@/lib/search/client";
-import type { ResourceCatalogueFilter } from "@/types/global";
+import type { ResourceCatalogueFilter } from "@/types/filters";
 
 interface SearchContainerProps {
 	breadcrumbs: Array<{ href: string; label: string } | { label: string; href?: undefined }>;

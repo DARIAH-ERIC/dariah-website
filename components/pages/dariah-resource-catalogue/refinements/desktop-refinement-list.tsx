@@ -4,7 +4,7 @@ import { useRefinementList, type UseRefinementListProps } from "react-instantsea
 
 import { RefinementListItems } from "@/components/pages/dariah-resource-catalogue/refinements/refinement-list-item";
 import { Typography } from "@/components/ui/typography/typography";
-import type { ResourceCatalogueSubfilter } from "@/types/global";
+import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
 export function DesktopRefinementList(
 	props: Readonly<UseRefinementListProps & { subfilters?: ResourceCatalogueSubfilter }>,

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import { DesktopRefinementList } from "@/components/pages/dariah-resource-catalogue/refinements/desktop-refinement-list";
 import { Typography } from "@/components/ui/typography/typography";
-import type { ResourceCatalogueFilter } from "@/types/global";
+import type { ResourceCatalogueFilter } from "@/types/filters";
 
 export function DesktopRefinements(
 	props: Readonly<{ refinements: Array<ResourceCatalogueFilter> }>,

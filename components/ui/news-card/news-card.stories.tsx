@@ -27,7 +27,7 @@ export const Featured: Story = {
 			"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH",
 		imageUrl: "/assets/images/temp-news-1.jpg",
 		linkUrl: "#",
-		date: "November 5, 2025",
+		date: new Date("2025-11-05"),
 	},
 };
 
@@ -37,7 +37,7 @@ export const Standard: Story = {
 		title: "DARIAH publishes the CoARA Progress Report and Action Plan for the years 2025-2027",
 		imageUrl: "/assets/images/temp-news-2.png",
 		linkUrl: "#",
-		date: "November 5, 2025",
+		date: new Date("2025-11-05"),
 	},
 };
 
@@ -49,7 +49,7 @@ export const ListItem: Story = {
 			"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH",
 		imageUrl: "/assets/images/temp-news-1.jpg",
 		linkUrl: "#",
-		date: "November 5, 2025",
+		date: new Date("2025-11-05"),
 	},
 };
 
@@ -61,6 +61,6 @@ export const ListHeadline: Story = {
 			"On October 22nd, 2025 the DARIAH South-East European (SEE) Regional Hub officially launched, during an event at the Vučedol Culture Museum in Osijek, Croatia. The launch was organised on the side of the Digital Humanities and Heritage conference, an annual international conference run by DARIAH-HR. The SEE Hub is the first DARIAH",
 		imageUrl: "/assets/images/temp-news-1.jpg",
 		linkUrl: "#",
-		date: "November 5, 2025",
+		date: new Date("2025-11-05"),
 	},
 };
