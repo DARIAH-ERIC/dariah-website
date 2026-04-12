@@ -13,11 +13,12 @@ interface ProjectProps {
 	imageUrl: string;
 	startDate: Date;
 	title: string;
-	type: "Beneficiary" | "Coordinator";
+	type: "coordinator" | "participant";
 }
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
 	const { title, imageUrl, type, startDate, endDate, href } = props;
+
 	return (
 		<NavLink
 			className={cn(
@@ -50,7 +51,10 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 						</Typography>
 					</div>
 					<Typography
-						className={cn("text-[16px]", type === "Coordinator" ? "bg-primary-200" : "bg-gray-300")}
+						className={cn(
+							"text-[16px] capitalize",
+							type === "coordinator" ? "bg-primary-200" : "bg-gray-300",
+						)}
 						variant="regular"
 					>
 						{type}

@@ -1,6 +1,6 @@
 "use client";
 
-import { assert } from "@acdh-oeaw/lib";
+import { assert, includes } from "@acdh-oeaw/lib";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
@@ -31,11 +31,12 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 						role="list"
 					>
 						{items.map((item) => {
-							const { duration, entity, image, name } = item;
+							const { duration, entity, image, name, role } = item;
 							const { slug } = entity;
 							const href = `/projects/${slug}`;
 							assert(duration.end);
 							assert(image);
+							assert(includes(["coordinator", "participant"] as const, role));
 
 							return (
 								<Project
@@ -45,7 +46,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 									imageUrl={image.url}
 									startDate={duration.start}
 									title={name}
-									type={"Beneficiary"}
+									type={role}
 								/>
 							);
 						})}
@@ -57,11 +58,12 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 						role="list"
 					>
 						{items.toReversed().map((item) => {
-							const { duration, entity, image, name } = item;
+							const { duration, entity, image, name, role } = item;
 							const { slug } = entity;
 							const href = `/projects/${slug}`;
 							assert(duration.end);
 							assert(image);
+							assert(includes(["coordinator", "participant"] as const, role));
 
 							return (
 								<Project
@@ -71,7 +73,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 									imageUrl={image.url}
 									startDate={duration.start}
 									title={name}
-									type={"Beneficiary"}
+									type={role}
 								/>
 							);
 						})}
