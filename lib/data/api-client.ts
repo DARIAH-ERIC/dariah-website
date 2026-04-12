@@ -8,61 +8,122 @@ import { HttpError, request } from "@/lib/utils/request";
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
-export type DocumentOrPolicy =
+type WithPublishedAt<T extends { publishedAt: string }> = Omit<T, "publishedAt"> & {
+	publishedAt: Date;
+};
+
+type WithDuration<T extends { duration: { start: string; end?: string } }> = Omit<T, "duration"> & {
+	duration: { start: Date; end?: Date };
+};
+
+type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type DocumentOrPolicyList =
+type DocumentOrPolicyListResponse =
 	paths["/api/v1/documents-policies"]["get"]["responses"][200]["content"]["application/json"];
 
-export type Event =
+type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type EventList =
+type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
 
-export type ImpactCaseStudy =
+type ImpactCaseStudyResponse =
 	paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type ImpactCaseStudyList =
+type ImpactCaseStudyListResponse =
 	paths["/api/v1/impact-case-studies"]["get"]["responses"][200]["content"]["application/json"];
 
-export type MemberOrPartner =
+type MemberOrPartnerResponse =
 	paths["/api/v1/members-partners/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type MemberOrPartnerList =
+type MemberOrPartnerListResponse =
 	paths["/api/v1/members-partners"]["get"]["responses"][200]["content"]["application/json"];
 
-export type NewsItem =
+type NewsItemResponse =
 	paths["/api/v1/news/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type NewsItemList =
+type NewsItemListResponse =
 	paths["/api/v1/news"]["get"]["responses"][200]["content"]["application/json"];
+
+type NewsletterListResponse =
+	paths["/api/v1/newsletters"]["get"]["responses"][200]["content"]["application/json"];
+
+type PageResponse =
+	paths["/api/v1/pages/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type PageListResponse =
+	paths["/api/v1/pages"]["get"]["responses"][200]["content"]["application/json"];
+
+type PersonResponse =
+	paths["/api/v1/persons/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type PersonListResponse =
+	paths["/api/v1/persons"]["get"]["responses"][200]["content"]["application/json"];
+
+type ProjectResponse =
+	paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type ProjectListResponse =
+	paths["/api/v1/dariah-projects"]["get"]["responses"][200]["content"]["application/json"];
+
+type SpotlightArticleResponse =
+	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type SpotlightArticleListResponse =
+	paths["/api/v1/spotlight-articles"]["get"]["responses"][200]["content"]["application/json"];
+
+type WorkingGroupResponse =
+	paths["/api/v1/working-groups/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type WorkingGroupListResponse =
+	paths["/api/v1/working-groups"]["get"]["responses"][200]["content"]["application/json"];
+
+export type DocumentOrPolicy = WithPublishedAt<DocumentOrPolicyResponse>;
+export type DocumentOrPolicyList = Omit<DocumentOrPolicyListResponse, "data"> & {
+	data: Array<WithPublishedAt<DocumentOrPolicyListResponse["data"][number]>>;
+};
+
+export type Event = WithPublishedAt<WithDuration<EventResponse>>;
+export type EventList = Omit<EventListResponse, "data"> & {
+	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
+};
+
+export type ImpactCaseStudy = WithPublishedAt<ImpactCaseStudyResponse>;
+export type ImpactCaseStudyList = Omit<ImpactCaseStudyListResponse, "data"> & {
+	data: Array<WithPublishedAt<ImpactCaseStudyListResponse["data"][number]>>;
+};
+
+export type MemberOrPartner = WithPublishedAt<MemberOrPartnerResponse>;
+export type MemberOrPartnerList = Omit<MemberOrPartnerListResponse, "data"> & {
+	data: Array<WithPublishedAt<MemberOrPartnerListResponse["data"][number]>>;
+};
+
+export type NewsItem = WithPublishedAt<NewsItemResponse>;
+export type NewsItemList = Omit<NewsItemListResponse, "data"> & {
+	data: Array<WithPublishedAt<NewsItemListResponse["data"][number]>>;
+};
 
 export type NewsletterList =
 	paths["/api/v1/newsletters"]["get"]["responses"][200]["content"]["application/json"];
 
-export type Page =
-	paths["/api/v1/pages/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type PageList =
-	paths["/api/v1/pages"]["get"]["responses"][200]["content"]["application/json"];
+export type Page = WithPublishedAt<PageResponse>;
+export type PageList = Omit<PageListResponse, "data"> & {
+	data: Array<WithPublishedAt<PageListResponse["data"][number]>>;
+};
 
-export type Person =
-	paths["/api/v1/persons/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type PersonList =
-	paths["/api/v1/persons"]["get"]["responses"][200]["content"]["application/json"];
+export type Person = WithPublishedAt<PersonResponse>;
+export type PersonList = Omit<PersonListResponse, "data"> & {
+	data: Array<WithPublishedAt<PersonListResponse["data"][number]>>;
+};
 
-export type Project =
-	paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type ProjectList =
-	paths["/api/v1/dariah-projects"]["get"]["responses"][200]["content"]["application/json"];
+export type Project = WithPublishedAt<WithDuration<ProjectResponse>>;
+export type ProjectList = Omit<ProjectListResponse, "data"> & {
+	data: Array<WithPublishedAt<WithDuration<ProjectListResponse["data"][number]>>>;
+};
 
-export type SpotlightArticle =
-	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type SpotlightArticleList =
-	paths["/api/v1/spotlight-articles"]["get"]["responses"][200]["content"]["application/json"];
+export type SpotlightArticle = WithPublishedAt<SpotlightArticleResponse>;
+export type SpotlightArticleList = Omit<SpotlightArticleListResponse, "data"> & {
+	data: Array<WithPublishedAt<SpotlightArticleListResponse["data"][number]>>;
+};
 
 export type Statistics =
 	paths["/api/v1/statistics"]["get"]["responses"][200]["content"]["application/json"];
 
-export type WorkingGroup =
-	paths["/api/v1/working-groups/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
-export type WorkingGroupList =
-	paths["/api/v1/working-groups"]["get"]["responses"][200]["content"]["application/json"];
+export type WorkingGroup = WithPublishedAt<WorkingGroupResponse>;
+export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
+	data: Array<WithPublishedAt<WorkingGroupListResponse["data"][number]>>;
+};
 
 export const client = {
 	documentsPolicies: {
@@ -74,7 +135,7 @@ export const client = {
 				pathname: `/api/v1/documents-policies/slugs/${slug}`,
 			});
 
-			const result = await request<DocumentOrPolicy>(url, {
+			const result = await request<DocumentOrPolicyResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -83,7 +144,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -98,12 +163,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<DocumentOrPolicyList>(url, {
+			const result = await request<DocumentOrPolicyListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -137,7 +214,7 @@ export const client = {
 				pathname: `/api/v1/events/slugs/${slug}`,
 			});
 
-			const result = await request<Event>(url, {
+			const result = await request<EventResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -146,7 +223,21 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end !== undefined
+								? new Date(response.data.duration.end)
+								: undefined,
+					},
+				},
+			};
 		}),
 		list: cache(async function list({
 			from,
@@ -165,12 +256,28 @@ export const client = {
 				}),
 			});
 
-			const result = await request<EventList>(url, {
+			const result = await request<EventListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+							duration: {
+								start: new Date(item.duration.start),
+								end: item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
+							},
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -222,11 +329,11 @@ export const client = {
 			});
 
 			const [eventsResult, newsResult, statsResult] = await Promise.all([
-				request<EventList>(eventsUrl, {
+				request<EventListResponse>(eventsUrl, {
 					responseType: "json",
 					retry: { backoff: "exponential", delayMs: 200, times: 2 },
 				}),
-				request<NewsItemList>(newsUrl, {
+				request<NewsItemListResponse>(newsUrl, {
 					responseType: "json",
 					retry: { backoff: "exponential", delayMs: 200, times: 2 },
 				}),
@@ -236,13 +343,39 @@ export const client = {
 				}),
 			]);
 
-			const events = eventsResult.unwrap();
-			const news = newsResult.unwrap();
+			const eventsResponse = eventsResult.unwrap();
+			const newsResponse = newsResult.unwrap();
 			const stats = statsResult.unwrap();
 
 			return {
-				events,
-				news,
+				events: {
+					...eventsResponse,
+					data: {
+						...eventsResponse.data,
+						data: eventsResponse.data.data.map((item) => {
+							return {
+								...item,
+								publishedAt: new Date(item.publishedAt),
+								duration: {
+									start: new Date(item.duration.start),
+									end: item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
+								},
+							};
+						}),
+					},
+				},
+				news: {
+					...newsResponse,
+					data: {
+						...newsResponse.data,
+						data: newsResponse.data.data.map((item) => {
+							return {
+								...item,
+								publishedAt: new Date(item.publishedAt),
+							};
+						}),
+					},
+				},
 				stats,
 			};
 		}),
@@ -256,7 +389,7 @@ export const client = {
 				pathname: `/api/v1/impact-case-studies/slugs/${slug}`,
 			});
 
-			const result = await request<ImpactCaseStudy>(url, {
+			const result = await request<ImpactCaseStudyResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -265,7 +398,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -280,12 +417,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<ImpactCaseStudyList>(url, {
+			const result = await request<ImpactCaseStudyListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -316,7 +465,7 @@ export const client = {
 				pathname: `/api/v1/members-partners/slugs/${slug}`,
 			});
 
-			const result = await request<MemberOrPartner>(url, {
+			const result = await request<MemberOrPartnerResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -325,7 +474,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -340,12 +493,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<MemberOrPartnerList>(url, {
+			const result = await request<MemberOrPartnerListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -376,7 +541,7 @@ export const client = {
 				pathname: `/api/v1/news/slugs/${slug}`,
 			});
 
-			const result = await request<NewsItem>(url, {
+			const result = await request<NewsItemResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -385,7 +550,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -400,12 +569,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<NewsItemList>(url, {
+			const result = await request<NewsItemListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -441,7 +622,7 @@ export const client = {
 				}),
 			});
 
-			const result = await request<NewsletterList>(url, {
+			const result = await request<NewsletterListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -458,7 +639,7 @@ export const client = {
 				pathname: `/api/v1/pages/slugs/${slug}`,
 			});
 
-			const result = await request<Page>(url, {
+			const result = await request<PageResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -467,7 +648,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -482,12 +667,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<PageList>(url, {
+			const result = await request<PageListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -518,7 +715,7 @@ export const client = {
 				pathname: `/api/v1/persons/slugs/${slug}`,
 			});
 
-			const result = await request<Person>(url, {
+			const result = await request<PersonResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -527,7 +724,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -542,12 +743,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<PersonList>(url, {
+			const result = await request<PersonListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -578,7 +791,7 @@ export const client = {
 				pathname: `/api/v1/dariah-projects/slugs/${slug}`,
 			});
 
-			const result = await request<Project>(url, {
+			const result = await request<ProjectResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -587,7 +800,21 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end !== undefined
+								? new Date(response.data.duration.end)
+								: undefined,
+					},
+				},
+			};
 		}),
 		list: cache(async function list({
 			status,
@@ -604,12 +831,28 @@ export const client = {
 				}),
 			});
 
-			const result = await request<ProjectList>(url, {
+			const result = await request<ProjectListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+							duration: {
+								start: new Date(item.duration.start),
+								end: item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
+							},
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -640,7 +883,7 @@ export const client = {
 				pathname: `/api/v1/spotlight-articles/slugs/${slug}`,
 			});
 
-			const result = await request<SpotlightArticle>(url, {
+			const result = await request<SpotlightArticleResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -649,7 +892,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			limit = 10,
@@ -664,12 +911,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<SpotlightArticleList>(url, {
+			const result = await request<SpotlightArticleListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,
@@ -700,7 +959,7 @@ export const client = {
 				pathname: `/api/v1/working-groups/slugs/${slug}`,
 			});
 
-			const result = await request<WorkingGroup>(url, {
+			const result = await request<WorkingGroupResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
@@ -709,7 +968,11 @@ export const client = {
 				notFound();
 			}
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
 		}),
 		list: cache(async function list({
 			status,
@@ -726,12 +989,24 @@ export const client = {
 				}),
 			});
 
-			const result = await request<WorkingGroupList>(url, {
+			const result = await request<WorkingGroupListResponse>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			});
 
-			return result.unwrap();
+			const response = result.unwrap();
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+						};
+					}),
+				},
+			};
 		}),
 		slugs: cache(async function slugs({
 			limit = 10,

@@ -82,9 +82,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							<Typography className="font-bold" variant="h2">
 								{title}
 							</Typography>
-							<Typography variant="regular">
-								{getFormattedDateForNews(new Date(publishedAt))}
-							</Typography>
+							<Typography variant="regular">{getFormattedDateForNews(publishedAt)}</Typography>
 						</div>
 						<Typography variant="h4">{summary}</Typography>
 						<Image alt={title} className="w-full" height={628.25} src={image.url} width={1150} />
@@ -108,7 +106,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							return (
 								<NewsCard
 									key={newsItem.id}
-									date={new Date(newsItem.publishedAt)}
+									date={newsItem.publishedAt}
 									description={newsItem.summary}
 									imageUrl={newsItem.image.url}
 									linkUrl={`/news/${newsItem.entity.slug}`}

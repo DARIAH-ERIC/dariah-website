@@ -50,20 +50,9 @@ export default async function EventsPage({
 
 	const { data: items } = response.data;
 
-	const sortedItems = items
-		.map((item) => {
-			return {
-				...item,
-				duration: {
-					start: new Date(item.duration.start),
-					end: item.duration.end != null ? new Date(item.duration.end) : undefined,
-				},
-			};
-		})
-		// eslint-disable-next-line unicorn/no-array-sort
-		.sort((a, z) => {
-			return a.duration.start.getTime() - z.duration.start.getTime();
-		});
+	const sortedItems = items.toSorted((a, z) => {
+		return a.duration.start.getTime() - z.duration.start.getTime();
+	});
 
 	const itemsByStartDate = groupBy(sortedItems, (item) => {
 		return format.dateTime(item.duration.start, { month: "long", year: "numeric" });

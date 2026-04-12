@@ -36,16 +36,14 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							const href = `/projects/${slug}`;
 							assert(duration.end);
 							assert(image);
-							const endDate = new Date(duration.end);
-							const startDate = new Date(duration.start);
 
 							return (
 								<Project
 									key={slug}
-									endDate={endDate}
+									endDate={duration.end}
 									href={href}
 									imageUrl={image.url}
-									startDate={startDate}
+									startDate={duration.start}
 									title={name}
 									type={"Beneficiary"}
 								/>
@@ -64,16 +62,14 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							const href = `/projects/${slug}`;
 							assert(duration.end);
 							assert(image);
-							const endDate = new Date(duration.end);
-							const startDate = new Date(duration.start);
 
 							return (
 								<Project
 									key={slug}
-									endDate={endDate}
+									endDate={duration.end}
 									href={href}
 									imageUrl={image.url}
-									startDate={startDate}
+									startDate={duration.start}
 									title={name}
 									type={"Beneficiary"}
 								/>

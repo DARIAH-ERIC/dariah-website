@@ -17,7 +17,7 @@ export const Basic: Story = {
 	args: {
 		imageUrl: "/assets/images/temp-news-1.jpg",
 		title: "The DARIAH Working Group on Research Data Management is five years old!",
-		publishedAt: "1 May 2025",
+		publishedAt: new Date("2025-05-01"),
 		summary: "By Francesco Gelati and Françoise Gouzi",
 		href: "/",
 	},

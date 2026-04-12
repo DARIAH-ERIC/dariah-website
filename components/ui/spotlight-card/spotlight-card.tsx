@@ -11,7 +11,7 @@ interface SpotlightCardProps {
 	summary: string;
 	imageUrl: string;
 	href: string;
-	publishedAt: string;
+	publishedAt: Date;
 }
 
 export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
@@ -33,7 +33,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 						className="text-[20px] font-medium text-accent-700 uppercase"
 						variant="regular"
 					>
-						{getFormattedDateForCard(new Date(publishedAt))}
+						{getFormattedDateForCard(publishedAt)}
 					</Typography>
 					<Typography
 						className={cn(
