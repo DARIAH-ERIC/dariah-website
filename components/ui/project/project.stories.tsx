@@ -18,7 +18,7 @@ export const Basic: Story = {
 		imageUrl: "/assets/images/temp-news-1.jpg",
 		href: "#",
 		title: "ARTEMIS",
-		type: "Beneficiary",
+		type: "participant",
 		startDate: new Date("1 Jan 2025"),
 		endDate: new Date("31 Dec 2027"),
 	},
