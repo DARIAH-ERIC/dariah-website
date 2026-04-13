@@ -4,7 +4,23 @@ import { EventCard } from "@/components/ui/event-card/event-card";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
-export function EventsSection(): ReactNode {
+interface EventsSectionProps {
+	events: Array<{
+		id: string;
+		title: string;
+		summary: string;
+		location: string;
+		isFullDay: boolean;
+		image: { url: string };
+		entity: { slug: string };
+		publishedAt: Date;
+		duration: { start: Date; end: Date | undefined };
+	}>;
+}
+
+export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
+	const { events } = props;
+
 	return (
 		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-6 py-17.5 lg:px-31.5">
 			<Typography
@@ -14,35 +30,22 @@ export function EventsSection(): ReactNode {
 				{"Upcoming Events"}
 			</Typography>
 			<div className="flex flex-wrap justify-center gap-32.25 w-full">
-				<EventCard
-					endDate={new Date("2025-08-2")}
-					localization={"Besançon, France"}
-					slug={""}
-					startDate={new Date("2025-07-21")}
-					title={"European Summer University in Digital Humanities “Culture and Technology” 2025"}
-					type="training"
-					variant="homepage"
-				/>
-				<EventCard
-					endDate={new Date("2025-08-8")}
-					localization={"Riga / Latvia"}
-					slug={""}
-					startDate={new Date("2025-08-4")}
-					title={
-						"7th Baltic Summer School of Digital Humanities: Digital Methods for History Studies"
-					}
-					type="training"
-					variant="homepage"
-				/>
-				<EventCard
-					endDate={new Date("2025-09-1")}
-					localization={"Berlin / Germany"}
-					slug={""}
-					startDate={new Date("2025-09-5")}
-					title={"ATRIUM Summer School on Automatic Text Recognition"}
-					type="training"
-					variant="homepage"
-				/>
+				{events.map((event) => {
+					const { duration, entity, id, location, title } = event;
+
+					return (
+						<EventCard
+							key={id}
+							endDate={duration.end}
+							localization={location}
+							slug={entity.slug}
+							startDate={duration.start}
+							title={title}
+							type="training"
+							variant="homepage"
+						/>
+					);
+				})}
 			</div>
 			<div className="bg-white w-51.5 max-w-full py-5 px-6 lg:w-124.25">
 				<Link href="/news" variant="primary" withDefaultRightIcon={true}>
