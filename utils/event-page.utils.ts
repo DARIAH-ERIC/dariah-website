@@ -49,3 +49,18 @@ export const formatDateToIso = (date: Date): string => {
 
 	return `${year}-${month}-${day}`;
 };
+
+export const getFormattedDateForEventDetails = (date: Date): string => {
+	return new Intl.DateTimeFormat("en-GB", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	}).format(date);
+};
+
+export const getFormattedDateForGoogleCalendar = (date: Date): string | undefined => {
+	const isoDate = date.toISOString().replaceAll(/[-:]/g, "").split(".")[0];
+	if (isoDate === undefined) return undefined;
+
+	return `${isoDate}Z`;
+};

@@ -247,6 +247,20 @@ export function navigation() {
 				label: "events",
 			},
 		],
+		eventsDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "news and events",
+			},
+			{
+				href: "/events",
+				label: "events",
+			},
+		],
 		membersAndPartners: [
 			{
 				href: "/",
