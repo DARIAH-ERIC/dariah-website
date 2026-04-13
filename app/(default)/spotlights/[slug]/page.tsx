@@ -55,7 +55,7 @@ export default async function SpotlightArticlePage(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
-	const breadcrumbs = navigation().breadcrumbs.projectsDetailPage;
+	const breadcrumbs = navigation().breadcrumbs.spotlightArticlesDetailPage;
 	const response = await client.spotlightArticles.bySlug({ slug });
 
 	const { title, content, image, publishedAt } = response.data;
@@ -73,7 +73,7 @@ export default async function SpotlightArticlePage(
 									</Breadcrumb>
 								);
 							})}
-							<Breadcrumb>{slug}</Breadcrumb>
+							<Breadcrumb>{title}</Breadcrumb>
 						</Breadcrumbs>
 					)}
 					<Link href="/spotlights" variant="secondary" withDefaultLeftIcon={true}>

@@ -347,6 +347,20 @@ export function navigation() {
 				label: "spotlight",
 			},
 		],
+		spotlightArticlesDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "news and events",
+			},
+			{
+				href: "/spotlights",
+				label: "spotlight",
+			},
+		],
 		workingGroups: [
 			{
 				href: "/",
