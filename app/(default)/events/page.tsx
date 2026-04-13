@@ -4,8 +4,8 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { EventPagination } from "@/components/pages/event-list-page/event-pagination";
-import { Filters } from "@/components/pages/event-list-page/filters";
+import { EventPagination } from "@/components/pages/events/event-list-page/event-pagination";
+import { Filters } from "@/components/pages/events/event-list-page/filters";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { EventCard } from "@/components/ui/event-card/event-card";
 import { ElipseIcon } from "@/components/ui/icons/elipse";

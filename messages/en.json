@@ -56,6 +56,19 @@
 			"select": "View as"
 		}
 	},
+	"EventsDetailPage": {
+		"browseAll": "Browse all Events",
+		"addToCalendar": "Add to calendar",
+		"details": "Details",
+		"prevEvent": "Previous Event",
+		"nextEvent": "Next Event",
+		"infoSection": {
+			"start": "Start",
+			"end": "End",
+			"venue": "Venue:",
+			"website": "Website:"
+		}
+	},
 	"GlobalNotFoundPage": {
 		"meta": {
 			"title": "Page not found"
