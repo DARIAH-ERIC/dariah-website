@@ -50,7 +50,13 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 				</div>
 			</div>
 			{imageUrl != null && (
-				<Image alt={title} className="w-67 h-36.5" height={146} src={imageUrl} width={268} />
+				<Image
+					alt={title}
+					className="w-67 h-36.5 object-contain"
+					height={146}
+					src={imageUrl}
+					width={268}
+				/>
 			)}
 		</NavLink>
 	);

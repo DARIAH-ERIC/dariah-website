@@ -114,7 +114,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</Breadcrumbs>
 			)}
 			<div className="flex flex-col gap-10 lg:px-40">
-				<Link href="/network/working-groups" variant="secondary" withDefaultLeftIcon={true}>
+				<Link href="/events" variant="secondary" withDefaultLeftIcon={true}>
 					{t("browseAll")}
 				</Link>
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:px-0">

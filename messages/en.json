@@ -154,6 +154,17 @@
 			"part3": "Discover how scholars are pushing the boundaries of digital humanities, and get a window into the diverse work happening across Europe and beyond."
 		}
 	},
+	"SpotlightArticlesDetailPage": {
+		"browseAll": "Browse all Spotlight Articles",
+		"relatedContent": {
+			"title": "Related content",
+			"emptyState": "No related content."
+		},
+		"contributors": {
+			"title": "Contributors",
+			"empty": "No contributors."
+		}
+	},
 	"WorkingGroupsPage": {
 		"meta": {
 			"title": "Working groups"
