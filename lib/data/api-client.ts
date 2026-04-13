@@ -310,7 +310,11 @@ export const client = {
 				baseUrl,
 				pathname: "/api/v1/events",
 				searchParams: createUrlSearchParams({
-					from: [now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()].join("-"),
+					from: [
+						now.getUTCFullYear(),
+						String(now.getUTCMonth() + 1).padStart(2, "0"),
+						String(now.getUTCDate()).padStart(2, "0"),
+					].join("-"),
 					limit: 3,
 				}),
 			});

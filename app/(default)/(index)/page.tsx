@@ -9,6 +9,7 @@ import { NetworkSection } from "@/components/pages/homepage/network-section";
 import { NewsSection } from "@/components/pages/homepage/news-section";
 import { PilarsSection } from "@/components/pages/homepage/pilars-section";
 import { ResourcesSection } from "@/components/pages/homepage/resources-section";
+import { client } from "@/lib/data/api-client";
 
 export function generateMetadata(): Metadata {
 	const metadata: Metadata = {
@@ -22,15 +23,17 @@ export function generateMetadata(): Metadata {
 	return metadata;
 }
 
-export default function IndexPage(): ReactNode {
+export default async function IndexPage(): Promise<ReactNode> {
+	const { events, news, stats } = await client.homePage.get();
+
 	return (
 		<Main className="mx-auto flex flex-1 flex-col w-full max-w-480">
 			<HeroSection />
-			<NewsSection />
-			<EventsSection />
+			<NewsSection news={news.data.data} />
+			<EventsSection events={events.data.data} />
 			<PilarsSection />
 			<ResourcesSection />
-			<NetworkSection />
+			<NetworkSection stats={stats.data} />
 			<GetInvolvedSection />
 		</Main>
 	);

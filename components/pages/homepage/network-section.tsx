@@ -4,7 +4,18 @@ import { Image } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
-export function NetworkSection(): ReactNode {
+interface NetworkSectionProps {
+	stats: {
+		memberCountries: number;
+		partnerInstitutions: number;
+		cooperatingPartners: number;
+		workingGroups: number;
+	};
+}
+
+export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode {
+	const { stats } = props;
+
 	return (
 		<section className="w-full px-6 py-20 items-center flex flex-col lg:px-26.25 lg:py-22.5">
 			<Typography
@@ -26,7 +37,7 @@ export function NetworkSection(): ReactNode {
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
-									{"20"}
+									{stats.memberCountries}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"Member countries"}
@@ -44,7 +55,7 @@ export function NetworkSection(): ReactNode {
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
-									{"197"}
+									{stats.partnerInstitutions}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"National Partner Institution"}
@@ -62,7 +73,7 @@ export function NetworkSection(): ReactNode {
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
 								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
-									{"19"}
+									{stats.cooperatingPartners}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
 									{"Cooperating Partners"}
@@ -89,7 +100,7 @@ export function NetworkSection(): ReactNode {
 						/>
 						<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
 							<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
-								{"17"}
+								{stats.workingGroups}
 							</p>
 							<Typography className="pb-5.5 text-[24px]" variant="h3">
 								{"Working Groups"}
