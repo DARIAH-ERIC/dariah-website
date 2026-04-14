@@ -261,6 +261,19 @@ export function navigation() {
 				label: "events",
 			},
 		],
+		impactCaseStudy: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "about",
+			},
+			{
+				label: "impact case studies",
+			},
+		],
 		membersAndPartners: [
 			{
 				href: "/",

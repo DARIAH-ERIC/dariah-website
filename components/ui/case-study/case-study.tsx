@@ -9,20 +9,27 @@ import { Typography } from "@/components/ui/typography/typography";
 interface CaseStudyProps {
 	title: string;
 	imageUrl: string;
+	href?: string;
 }
 
 export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
-	const { title, imageUrl } = props;
+	const { title, imageUrl, href } = props;
 	return (
 		<NavLink
 			className={cn(
-				"bg-white shadow-standard rounded-sm group flex-col w-133.75 h-113.75",
+				"bg-white shadow-standard items-start rounded-sm group flex-col w-82 h-100 lg:h-113.75 lg:w-133.75",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
 			)}
-			href={"/"}
+			href={href}
 		>
-			<Image alt={title} height={313} src={imageUrl} width={535} />
+			<Image
+				alt={title}
+				className="w-82 h-64.5 object-contain lg:w-133.75 lg:h-78.25"
+				height={313}
+				src={imageUrl}
+				width={535}
+			/>
 			<div className="flex gap-2 p-4 flex-col">
 				<div className="flex gap-2 items-center">
 					<MenuBookIcon
@@ -39,7 +46,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 				</div>
 				<Typography
 					className={cn(
-						"text-[22px] text-gray-800",
+						"text-[22px] text-gray-800 line-clamp-3",
 						"group-hover:text-primary group-hover:underline",
 						"group-focus:text-primary group-focus:underline",
 					)}
