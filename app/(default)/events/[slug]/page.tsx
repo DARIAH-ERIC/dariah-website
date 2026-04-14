@@ -62,21 +62,12 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 		title,
 		image,
 		location,
-		links: { prev: prevEventLink, next: nextEventLink },
+		links,
 		content,
 		duration: { start: startDate, end: endDate },
 	} = response.data;
 
-	const [prevEvent, nextEvent] = await Promise.all([
-		prevEventLink !== null
-			? client.events.bySlug({ slug: prevEventLink.entity.slug })
-			: Promise.resolve(undefined),
-		nextEventLink !== null
-			? client.events.bySlug({ slug: nextEventLink.entity.slug })
-			: Promise.resolve(undefined),
-	]).then(([prevResponse, nextResponse]) => {
-		return [prevResponse?.data, nextResponse?.data];
-	});
+	const { prev: prevEvent, next: nextEvent } = links;
 
 	const getAddCalendarUrl = (): string | undefined => {
 		const baseUrl = "https://www.google.com/calendar/render";
@@ -114,7 +105,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</Breadcrumbs>
 			)}
 			<div className="flex flex-col gap-10 lg:px-40">
-				<Link href="/network/working-groups" variant="secondary" withDefaultLeftIcon={true}>
+				<Link href="/events" variant="secondary" withDefaultLeftIcon={true}>
 					{t("browseAll")}
 				</Link>
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:px-0">
@@ -148,27 +139,27 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</div>
 				<hr className="w-full h-0.5 border-t-2 border-gray-300" />
 				<div className="flex w-full gap-10 flex-col items-center xl:justify-between xl:flex-row">
-					{prevEvent !== undefined && (
+					{prevEvent && (
 						<div className="px-2 gap-10 flex flex-col">
 							<Typography variant="h4">{t("prevEvent")}</Typography>
 							<EventCard
 								endDate={prevEvent.duration.end}
 								localization={prevEvent.location}
 								slug={prevEvent.entity.slug}
-								startDate={prevEvent.duration.start}
+								startDate={new Date(prevEvent.duration.start)}
 								title={prevEvent.title}
 								variant="homepage"
 							/>
 						</div>
 					)}
-					{nextEvent !== undefined && (
+					{nextEvent && (
 						<div className="px-2 gap-10 flex flex-col">
 							<Typography variant="h4">{t("nextEvent")}</Typography>
 							<EventCard
 								endDate={nextEvent.duration.end}
 								localization={nextEvent.location}
 								slug={nextEvent.entity.slug}
-								startDate={nextEvent.duration.start}
+								startDate={new Date(nextEvent.duration.start)}
 								title={nextEvent.title}
 								variant="homepage"
 							/>

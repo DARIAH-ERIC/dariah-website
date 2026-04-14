@@ -236,6 +236,32 @@ export const client = {
 								? new Date(response.data.duration.end)
 								: undefined,
 					},
+					links: {
+						prev: response.data.links.prev
+							? {
+									...response.data.links.prev,
+									duration: {
+										start: new Date(response.data.links.prev.duration.start),
+										end:
+											response.data.links.prev.duration.end !== undefined
+												? new Date(response.data.links.prev.duration.end)
+												: undefined,
+									},
+								}
+							: null,
+						next: response.data.links.next
+							? {
+									...response.data.links.next,
+									duration: {
+										start: new Date(response.data.links.next.duration.start),
+										end:
+											response.data.links.next.duration.end !== undefined
+												? new Date(response.data.links.next.duration.end)
+												: undefined,
+									},
+								}
+							: null,
+					},
 				},
 			};
 		}),
