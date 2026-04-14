@@ -274,6 +274,20 @@ export function navigation() {
 				label: "impact case studies",
 			},
 		],
+		impactCaseStudyDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "about",
+			},
+			{
+				href: "/about/impact-case-studies",
+				label: "impact case studies",
+			},
+		],
 		membersAndPartners: [
 			{
 				href: "/",

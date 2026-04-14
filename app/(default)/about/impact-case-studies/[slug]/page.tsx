@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
+import { Image } from "@/components/image";
+import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
+import { navigation } from "@/lib/data/client";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/about/impact-case-studies/[slug]"> {}
 
@@ -43,19 +48,45 @@ export default async function ImpactCaseStudyPage(
 	props: Readonly<ImpactCaseStudyPageProps>,
 ): Promise<ReactNode> {
 	const { params } = props;
+	const t = await getTranslations("ImpactCaseStudiesDetailPage");
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
 	const response = await client.impactCaseStudies.bySlug({ slug });
+	const breadcrumbs = navigation().breadcrumbs.impactCaseStudyDetailPage;
 
 	const { title, image, content } = response.data;
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xs:px-16">
-			<h1 className="text-2xl font-extrabold tracking-tight">{title}</h1>
-			<img alt="" src={image.url} />
-			<ContentBlocks fields={content} />
+		<Main className="container flex flex-1 flex-col gap-14">
+			<div className="flex flex-col gap-14 pt-8">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs className="px-4 lg:px-34.5">
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} className="w-fit" href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+						<Breadcrumb>{slug.replaceAll("-", " ")}</Breadcrumb>
+					</Breadcrumbs>
+				)}
+				<Typography className="px-4 lg:px-60 xl:px-98.5" variant="h2">
+					{title}
+				</Typography>
+			</div>
+			<div className="flex flex-col gap-11.5">
+				<Image alt={title} height={621} src={image.url} width={1920} />
+				<div className="px-4 lg:px-62 xl:px-102.5">
+					<ContentBlocks fields={content} />
+				</div>
+			</div>
+			<div className="flex flex-col gap-10 pb-14 px-4 lg:px-62 xl:px-102.5">
+				<Typography variant="h4">{t("contributors.title")}</Typography>
+				<Typography variant="regular">{t("contributors.empty")}</Typography>
+			</div>
 		</Main>
 	);
 }
