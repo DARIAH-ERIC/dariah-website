@@ -85,6 +85,12 @@
 			"part2": "We add three new case studies each year, building a growing collection that demonstrates the diverse audiences, research topics, and tangible outcomes connected to DARIAH.\n\nExplore these impact case studies for a glimpse of the diverse audience, research topics and excellent research outputs linked to the DARIAH infrastructure."
 		}
 	},
+	"ImpactCaseStudiesDetailPage": {
+		"contributors": {
+			"title": "Contributors",
+			"empty": "No contributors."
+		}
+	},
 	"ImprintPage": {
 		"meta": {
 			"title": "Imprint"
