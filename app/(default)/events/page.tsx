@@ -74,7 +74,7 @@ export default async function EventsPage({
 				)}
 				<div className="flex flex-col gap-11 py-2.5 px-13.5">
 					<Typography variant="h2">{t("title")}</Typography>
-					<Filters />
+					<Filters currentView="list" />
 				</div>
 			</div>
 

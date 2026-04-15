@@ -80,6 +80,8 @@
 	--event-card-details-bg-hover: rgb(255 255 255 / 74%);
 	--event-card-list-bg-hover: rgb(234 241 249);
 
+	--event-bg-calendar: rgb(193 205 224 / 24%);
+
 	--case-study-gradient-start: rgb(95 121 111);
 	--case-study-gradient-end: rgb(0 87 143);
 	--case-study-gradient: linear-gradient(
@@ -216,6 +218,7 @@
 	--color-event-card-details-bg: var(--event-card-details-bg);
 	--color-event-card-details-bg-hover: var(--event-card-details-bg-hover);
 	--color-event-card-list-bg-hover: var(--event-card-list-bg-hover);
+	--color-event-bg-calendar: var(--event-bg-calendar);
 
 	--color-case-study-gradient-start: var(--case-study-gradient-start);
 	--color-case-study-gradient-end: var(--case-study-gradient-end);

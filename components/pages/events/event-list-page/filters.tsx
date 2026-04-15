@@ -7,7 +7,7 @@ import {
 	parseDate,
 	type ZonedDateTime,
 } from "@internationalized/date";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode, useState } from "react";
 import type { Key } from "react-aria";
@@ -30,14 +30,18 @@ const VIEW_OPTIONS: Array<{
 	{ value: "calendar", name: "calendar", icon: <CalendarIcon className="size-5 fill-black" /> },
 ];
 
-export function Filters(): ReactNode {
+interface FiltersProps {
+	currentView: "list" | "calendar";
+}
+
+export function Filters(props: Readonly<FiltersProps>): ReactNode {
+	const { currentView } = props;
 	const t = useTranslations("EventsPage");
 	const router = useRouter();
 	const pathname = usePathname();
 	const searchParams = useSearchParams();
 
 	const currentDate = formatDateToIso(new Date());
-	const selectedView = searchParams.get("view") ?? "list";
 
 	const [date, setDate] = useState<DateValue>((): DateValue => {
 		return parseDate(searchParams.get("date") ?? currentDate);
@@ -47,12 +51,8 @@ export function Filters(): ReactNode {
 	);
 
 	const handleSelectedViewChange = (value: Key | null) => {
-		const params = new URLSearchParams(searchParams.toString());
-
-		if (value !== null && value !== "list") params.set("view", value.toString());
-		else params.delete("view");
-
-		router.push(`${pathname}?${params.toString()}`, { scroll: false });
+		if (value !== null && value !== "list") redirect(`/events/calendar`);
+		else redirect(`/events/`);
 	};
 
 	const handleSearchStringChange = (value: string) => {
@@ -97,7 +97,7 @@ export function Filters(): ReactNode {
 				className="w-48 max-w-full"
 				label={t("filters.select")}
 				onChange={handleSelectedViewChange}
-				value={selectedView}
+				value={currentView}
 			>
 				{VIEW_OPTIONS.map((option) => {
 					return (
