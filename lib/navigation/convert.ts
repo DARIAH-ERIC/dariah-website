@@ -17,7 +17,7 @@ export function convertNavigationMenu(
 					type: "link",
 					label: child.label,
 					href: getHref(child),
-					target: item.isExternal ? "_blank" : undefined,
+					target: child.isExternal ? "_blank" : undefined,
 				};
 			}
 
@@ -26,14 +26,14 @@ export function convertNavigationMenu(
 				label: item.label,
 				children,
 			};
+		} else {
+			config[item.id] = {
+				type: "link",
+				label: item.label,
+				href: getHref(item),
+				target: item.isExternal ? "_blank" : undefined,
+			};
 		}
-
-		config[item.id] = {
-			type: "link",
-			label: item.label,
-			href: getHref(item),
-			target: item.isExternal ? "_blank" : undefined,
-		};
 	}
 
 	return config;
