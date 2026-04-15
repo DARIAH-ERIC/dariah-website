@@ -12,6 +12,7 @@ export interface NavigationLink {
 	label: string;
 	icon?: ReactNode;
 	href: string;
+	target?: "_blank";
 }
 
 export interface NavigationSeparator {

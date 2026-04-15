@@ -14,10 +14,19 @@ interface NavButtonProps extends Omit<AriaButtonProps, "children"> {
 	children: ReactNode;
 	active?: boolean;
 	href?: string;
+	target?: "_blank";
 }
 
 export function NavButton(props: Readonly<NavButtonProps>): ReactNode {
-	const { isLinkElement = false, children, href, className, active = false, ...rest } = props;
+	const {
+		isLinkElement = false,
+		children,
+		href,
+		className,
+		active = false,
+		target,
+		...rest
+	} = props;
 	const ElementType: ElementType = isLinkElement ? NavLink : AriaButton;
 	const { isPressed } = usePress({ ...rest });
 
@@ -34,6 +43,7 @@ export function NavButton(props: Readonly<NavButtonProps>): ReactNode {
 			)}
 			data-active={active || undefined}
 			href={href}
+			target={target}
 		>
 			{children}
 			{isPressed ? (

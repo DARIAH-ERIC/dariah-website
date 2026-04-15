@@ -36,6 +36,9 @@ type MemberOrPartnerResponse =
 type MemberOrPartnerListResponse =
 	paths["/api/v1/members-partners"]["get"]["responses"][200]["content"]["application/json"];
 
+type NavigationResponse =
+	paths["/api/v1/navigation"]["get"]["responses"][200]["content"]["application/json"];
+
 type NewsItemResponse =
 	paths["/api/v1/news/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type NewsItemListResponse =
@@ -58,6 +61,9 @@ type ProjectResponse =
 	paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type ProjectListResponse =
 	paths["/api/v1/dariah-projects"]["get"]["responses"][200]["content"]["application/json"];
+
+type SiteMetadataResponse =
+	paths["/api/v1/site-metadata"]["get"]["responses"][200]["content"]["application/json"];
 
 type SpotlightArticleResponse =
 	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -562,6 +568,26 @@ export const client = {
 			return result.unwrap();
 		}),
 	},
+	navigation: {
+		get: cache(async function get({
+			menu,
+		}: paths["/api/v1/navigation"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/navigation",
+				searchParams: createUrlSearchParams({
+					menu,
+				}),
+			});
+
+			const result = await request<NavigationResponse>(url, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			});
+
+			return result.unwrap();
+		}),
+	},
 	news: {
 		bySlug: cache(async function bySlug({
 			slug,
@@ -900,6 +926,21 @@ export const client = {
 			const result = await request<
 				paths["/api/v1/dariah-projects/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, { responseType: "json", retry: { backoff: "exponential", delayMs: 200, times: 2 } });
+
+			return result.unwrap();
+		}),
+	},
+	siteMetadata: {
+		get: cache(async function get() {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/site-metadata",
+			});
+
+			const result = await request<SiteMetadataResponse>(url, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			});
 
 			return result.unwrap();
 		}),

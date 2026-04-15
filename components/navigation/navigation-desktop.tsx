@@ -25,7 +25,7 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 						case "link": {
 							return (
 								<li key={id}>
-									<NavButton href={item.href} isLinkElement={true}>
+									<NavButton href={item.href} isLinkElement={true} target={item.target}>
 										{item.label}
 									</NavButton>
 								</li>
@@ -50,7 +50,7 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 
 													case "link": {
 														return (
-															<NavMenuItem key={id} href={item.href}>
+															<NavMenuItem key={id} href={item.href} target={item.target}>
 																{item.label}
 															</NavMenuItem>
 														);
