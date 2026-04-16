@@ -1,4 +1,5 @@
 import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
+import { unstable_cache as nextCache } from "next/cache";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
@@ -569,24 +570,30 @@ export const client = {
 		}),
 	},
 	navigation: {
-		get: cache(async function get({
-			menu,
-		}: paths["/api/v1/navigation"]["get"]["parameters"]["query"] = {}) {
-			const url = createUrl({
-				baseUrl,
-				pathname: "/api/v1/navigation",
-				searchParams: createUrlSearchParams({
+		get: cache(
+			nextCache(
+				async function get({
 					menu,
-				}),
-			});
+				}: paths["/api/v1/navigation"]["get"]["parameters"]["query"] = {}) {
+					const url = createUrl({
+						baseUrl,
+						pathname: "/api/v1/navigation",
+						searchParams: createUrlSearchParams({
+							menu,
+						}),
+					});
 
-			const result = await request<NavigationResponse>(url, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-			});
+					const result = await request<NavigationResponse>(url, {
+						responseType: "json",
+						retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					});
 
-			return result.unwrap();
-		}),
+					return result.unwrap();
+				},
+				["navigation"],
+				{ revalidate: 3600, tags: ["navigation"] },
+			),
+		),
 	},
 	news: {
 		bySlug: cache(async function bySlug({
