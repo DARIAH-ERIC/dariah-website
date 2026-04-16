@@ -36,6 +36,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 										className="w-full py-4! px-6! font-heading uppercase text-regular h-fit"
 										href={item.href}
 										onClick={handleMobileMenuToggle}
+										target={item.target}
 										variant="color-bg"
 									>
 										{item.label}
@@ -73,6 +74,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 																	className="h-11 flex items-center"
 																	href={item.href}
 																	onClick={handleMobileMenuToggle}
+																	target={item.target}
 																>
 																	{item.label}
 																</NavMenuItem>
