@@ -152,81 +152,578 @@ export const cacheTags = {
 	workingGroups: "working-groups",
 } as const;
 
+/**
+ * `unstable_cache` serializes return values as JSON, which means `Date` objects are coerced to
+ * strings on write and come back as strings on a cache hit. To avoid type/runtime mismatches,
+ * all `nextCache`-wrapped functions return raw string dates. The `cache()`-wrapped outer functions
+ * below handle the `new Date()` conversions after retrieval, where no serialization occurs.
+ */
+
+const _documentsPoliciesBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/documents-policies/slugs/${slug}`,
+		});
+
+		const result = await request<DocumentOrPolicyResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.documentsPolicies],
+	{ revalidate: 3600, tags: [cacheTags.documentsPolicies] },
+);
+
+const _documentsPoliciesList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/documents-policies"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/documents-policies",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<DocumentOrPolicyListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.documentsPolicies],
+	{ revalidate: 3600, tags: [cacheTags.documentsPolicies] },
+);
+
+const _eventsBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/events/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/events/slugs/${slug}`,
+		});
+
+		const result = await request<EventResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.events],
+	{ revalidate: 3600, tags: [cacheTags.events] },
+);
+
+const _eventsList = nextCache(
+	async function list({
+		from,
+		until,
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/events"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/events",
+			searchParams: createUrlSearchParams({ from, until, limit, offset }),
+		});
+
+		const result = await request<EventListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.events],
+	{ revalidate: 3600, tags: [cacheTags.events] },
+);
+
+const _homePageGet = nextCache(
+	async function get() {
+		const now = new Date();
+
+		const eventsUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/events",
+			searchParams: createUrlSearchParams({
+				from: [
+					now.getUTCFullYear(),
+					String(now.getUTCMonth() + 1).padStart(2, "0"),
+					String(now.getUTCDate()).padStart(2, "0"),
+				].join("-"),
+				limit: 3,
+			}),
+		});
+
+		const newsUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/news",
+			searchParams: createUrlSearchParams({ limit: 3 }),
+		});
+
+		const statsUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/statistics",
+		});
+
+		const [eventsResult, newsResult, statsResult] = await Promise.all([
+			request<EventListResponse>(eventsUrl, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			}),
+			request<NewsItemListResponse>(newsUrl, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			}),
+			request<Statistics>(statsUrl, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			}),
+		]);
+
+		return {
+			events: eventsResult.unwrap(),
+			news: newsResult.unwrap(),
+			stats: statsResult.unwrap(),
+		};
+	},
+	[cacheTags.home],
+	{ revalidate: 3600, tags: [cacheTags.home, cacheTags.events, cacheTags.news] },
+);
+
+const _impactCaseStudiesBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/impact-case-studies/slugs/${slug}`,
+		});
+
+		const result = await request<ImpactCaseStudyResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.impactCaseStudies],
+	{ revalidate: 3600, tags: [cacheTags.impactCaseStudies] },
+);
+
+const _impactCaseStudiesList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/impact-case-studies"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/impact-case-studies",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<ImpactCaseStudyListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.impactCaseStudies],
+	{ revalidate: 3600, tags: [cacheTags.impactCaseStudies] },
+);
+
+const _membersAndPartnersBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/members-partners/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/members-partners/slugs/${slug}`,
+		});
+
+		const result = await request<MemberOrPartnerResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.membersAndPartners],
+	{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
+);
+
+const _membersAndPartnersList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/members-partners"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/members-partners",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<MemberOrPartnerListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.membersAndPartners],
+	{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
+);
+
+const _newsBySlug = nextCache(
+	async function bySlug({ slug }: paths["/api/v1/news/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/news/slugs/${slug}`,
+		});
+
+		const result = await request<NewsItemResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.news],
+	{ revalidate: 3600, tags: [cacheTags.news] },
+);
+
+const _newsList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/news"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/news",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<NewsItemListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.news],
+	{ revalidate: 3600, tags: [cacheTags.news] },
+);
+
+const _pagesBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/pages/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/pages/slugs/${slug}`,
+		});
+
+		const result = await request<PageResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.pages] },
+);
+
+const _pagesList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/pages"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/pages",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<PageListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.pages] },
+);
+
+const _personsBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/persons/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/persons/slugs/${slug}`,
+		});
+
+		const result = await request<PersonResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.persons],
+	{ revalidate: 3600, tags: [cacheTags.persons] },
+);
+
+const _personsList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/persons"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/persons",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<PersonListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.persons],
+	{ revalidate: 3600, tags: [cacheTags.persons] },
+);
+
+const _projectsBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/dariah-projects/slugs/${slug}`,
+		});
+
+		const result = await request<ProjectResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.projects],
+	{ revalidate: 3600, tags: [cacheTags.projects] },
+);
+
+const _projectsList = nextCache(
+	async function list({
+		status,
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/dariah-projects"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/dariah-projects",
+			searchParams: createUrlSearchParams({ status, limit, offset }),
+		});
+
+		const result = await request<ProjectListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.projects],
+	{ revalidate: 3600, tags: [cacheTags.projects] },
+);
+
+const _spotlightArticlesBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/spotlight-articles/slugs/${slug}`,
+		});
+
+		const result = await request<SpotlightArticleResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.spotlightArticles],
+	{ revalidate: 3600, tags: [cacheTags.spotlightArticles] },
+);
+
+const _spotlightArticlesList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/spotlight-articles"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/spotlight-articles",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<SpotlightArticleListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.spotlightArticles],
+	{ revalidate: 3600, tags: [cacheTags.spotlightArticles] },
+);
+
+const _workingGroupsBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/working-groups/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/working-groups/slugs/${slug}`,
+		});
+
+		const result = await request<WorkingGroupResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.workingGroups],
+	{ revalidate: 3600, tags: [cacheTags.workingGroups] },
+);
+
+const _workingGroupsList = nextCache(
+	async function list({
+		status,
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/working-groups"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/working-groups",
+			searchParams: createUrlSearchParams({ status, limit, offset }),
+		});
+
+		const result = await request<WorkingGroupListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.workingGroups],
+	{ revalidate: 3600, tags: [cacheTags.workingGroups] },
+);
+
 export const client = {
 	documentsPolicies: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/documents-policies/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _documentsPoliciesBySlug(params);
 
-					const result = await request<DocumentOrPolicyResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/documents-policies"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _documentsPoliciesList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.documentsPolicies],
-				{ revalidate: 3600, tags: [cacheTags.documentsPolicies] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/documents-policies"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/documents-policies",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<DocumentOrPolicyListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.documentsPolicies],
-				{ revalidate: 3600, tags: [cacheTags.documentsPolicies] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -234,10 +731,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/documents-policies/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -252,123 +746,72 @@ export const client = {
 		}),
 	},
 	events: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/events/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/events/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/events/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _eventsBySlug(params);
 
-					const result = await request<EventResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							publishedAt: new Date(response.data.publishedAt),
-							duration: {
-								start: new Date(response.data.duration.start),
-								end:
-									response.data.duration.end !== undefined
-										? new Date(response.data.duration.end)
-										: undefined,
-							},
-							links: {
-								prev: response.data.links.prev
-									? {
-											...response.data.links.prev,
-											duration: {
-												start: new Date(response.data.links.prev.duration.start),
-												end:
-													response.data.links.prev.duration.end !== undefined
-														? new Date(response.data.links.prev.duration.end)
-														: undefined,
-											},
-										}
-									: null,
-								next: response.data.links.next
-									? {
-											...response.data.links.next,
-											duration: {
-												start: new Date(response.data.links.next.duration.start),
-												end:
-													response.data.links.next.duration.end !== undefined
-														? new Date(response.data.links.next.duration.end)
-														: undefined,
-											},
-										}
-									: null,
-							},
-						},
-					};
-				},
-				[cacheTags.events],
-				{ revalidate: 3600, tags: [cacheTags.events] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					from,
-					until,
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/events"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/events",
-						searchParams: createUrlSearchParams({
-							from,
-							until,
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<EventListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end != null ? new Date(response.data.duration.end) : undefined,
+					},
+					links: {
+						prev: response.data.links.prev
+							? {
+									...response.data.links.prev,
 									duration: {
-										start: new Date(item.duration.start),
-										end: item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
+										start: new Date(response.data.links.prev.duration.start),
+										end:
+											response.data.links.prev.duration.end != null
+												? new Date(response.data.links.prev.duration.end)
+												: undefined,
 									},
-								};
-							}),
-						},
-					};
+								}
+							: null,
+						next: response.data.links.next
+							? {
+									...response.data.links.next,
+									duration: {
+										start: new Date(response.data.links.next.duration.start),
+										end:
+											response.data.links.next.duration.end != null
+												? new Date(response.data.links.next.duration.end)
+												: undefined,
+									},
+								}
+							: null,
+					},
 				},
-				[cacheTags.events],
-				{ revalidate: 3600, tags: [cacheTags.events] },
-			),
-		),
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/events"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _eventsList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+							duration: {
+								start: new Date(item.duration.start),
+								end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+							},
+						};
+					}),
+				},
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -376,10 +819,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/events/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -394,171 +834,65 @@ export const client = {
 		}),
 	},
 	homePage: {
-		get: cache(
-			nextCache(
-				async function get() {
-					const now = new Date();
+		get: cache(async function get() {
+			const { events: eventsResponse, news: newsResponse, stats } = await _homePageGet();
 
-					const eventsUrl = createUrl({
-						baseUrl,
-						pathname: "/api/v1/events",
-						searchParams: createUrlSearchParams({
-							from: [
-								now.getUTCFullYear(),
-								String(now.getUTCMonth() + 1).padStart(2, "0"),
-								String(now.getUTCDate()).padStart(2, "0"),
-							].join("-"),
-							limit: 3,
+			return {
+				events: {
+					...eventsResponse,
+					data: {
+						...eventsResponse.data,
+						data: eventsResponse.data.data.map((item) => {
+							return {
+								...item,
+								publishedAt: new Date(item.publishedAt),
+								duration: {
+									start: new Date(item.duration.start),
+									end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+								},
+							};
 						}),
-					});
-
-					const newsUrl = createUrl({
-						baseUrl,
-						pathname: "/api/v1/news",
-						searchParams: createUrlSearchParams({
-							limit: 3,
-						}),
-					});
-
-					const statsUrl = createUrl({
-						baseUrl,
-						pathname: "/api/v1/statistics",
-					});
-
-					const [eventsResult, newsResult, statsResult] = await Promise.all([
-						request<EventListResponse>(eventsUrl, {
-							responseType: "json",
-							retry: { backoff: "exponential", delayMs: 200, times: 2 },
-							headers: apiHeaders,
-						}),
-						request<NewsItemListResponse>(newsUrl, {
-							responseType: "json",
-							retry: { backoff: "exponential", delayMs: 200, times: 2 },
-							headers: apiHeaders,
-						}),
-						request<Statistics>(statsUrl, {
-							responseType: "json",
-							retry: { backoff: "exponential", delayMs: 200, times: 2 },
-							headers: apiHeaders,
-						}),
-					]);
-
-					const eventsResponse = eventsResult.unwrap();
-					const newsResponse = newsResult.unwrap();
-					const stats = statsResult.unwrap();
-
-					return {
-						events: {
-							...eventsResponse,
-							data: {
-								...eventsResponse.data,
-								data: eventsResponse.data.data.map((item) => {
-									return {
-										...item,
-										publishedAt: new Date(item.publishedAt),
-										duration: {
-											start: new Date(item.duration.start),
-											end:
-												item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
-										},
-									};
-								}),
-							},
-						},
-						news: {
-							...newsResponse,
-							data: {
-								...newsResponse.data,
-								data: newsResponse.data.data.map((item) => {
-									return {
-										...item,
-										publishedAt: new Date(item.publishedAt),
-									};
-								}),
-							},
-						},
-						stats,
-					};
+					},
 				},
-				[cacheTags.home],
-				{ revalidate: 3600, tags: [cacheTags.home, cacheTags.events, cacheTags.news] },
-			),
-		),
+				news: {
+					...newsResponse,
+					data: {
+						...newsResponse.data,
+						data: newsResponse.data.data.map((item) => {
+							return { ...item, publishedAt: new Date(item.publishedAt) };
+						}),
+					},
+				},
+				stats,
+			};
+		}),
 	},
 	impactCaseStudies: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/impact-case-studies/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _impactCaseStudiesBySlug(params);
 
-					const result = await request<ImpactCaseStudyResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/impact-case-studies"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _impactCaseStudiesList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.impactCaseStudies],
-				{ revalidate: 3600, tags: [cacheTags.impactCaseStudies] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/impact-case-studies"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/impact-case-studies",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<ImpactCaseStudyListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.impactCaseStudies],
-				{ revalidate: 3600, tags: [cacheTags.impactCaseStudies] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -566,10 +900,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/impact-case-studies/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -584,79 +915,31 @@ export const client = {
 		}),
 	},
 	membersAndPartners: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/members-partners/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/members-partners/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/members-partners/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _membersAndPartnersBySlug(params);
 
-					const result = await request<MemberOrPartnerResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/members-partners"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _membersAndPartnersList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.membersAndPartners],
-				{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/members-partners"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/members-partners",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<MemberOrPartnerListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.membersAndPartners],
-				{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -664,10 +947,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/members-partners/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -690,9 +970,7 @@ export const client = {
 					const url = createUrl({
 						baseUrl,
 						pathname: "/api/v1/navigation",
-						searchParams: createUrlSearchParams({
-							menu,
-						}),
+						searchParams: createUrlSearchParams({ menu }),
 					});
 
 					const result = await request<NavigationResponse>(url, {
@@ -709,79 +987,31 @@ export const client = {
 		),
 	},
 	news: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/news/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/news/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/news/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _newsBySlug(params);
 
-					const result = await request<NewsItemResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/news"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _newsList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.news],
-				{ revalidate: 3600, tags: [cacheTags.news] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/news"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/news",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<NewsItemListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.news],
-				{ revalidate: 3600, tags: [cacheTags.news] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -789,10 +1019,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/news/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -816,10 +1043,7 @@ export const client = {
 					const url = createUrl({
 						baseUrl,
 						pathname: "/api/v1/newsletters",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
+						searchParams: createUrlSearchParams({ limit, offset }),
 					});
 
 					const result = await request<NewsletterListResponse>(url, {
@@ -836,79 +1060,31 @@ export const client = {
 		),
 	},
 	pages: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/pages/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/pages/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/pages/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _pagesBySlug(params);
 
-					const result = await request<PageResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/pages"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _pagesList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.pages],
-				{ revalidate: 3600, tags: [cacheTags.pages] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/pages"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/pages",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<PageListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.pages],
-				{ revalidate: 3600, tags: [cacheTags.pages] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -916,10 +1092,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/pages/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -934,79 +1107,31 @@ export const client = {
 		}),
 	},
 	persons: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/persons/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/persons/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/persons/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _personsBySlug(params);
 
-					const result = await request<PersonResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/persons"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _personsList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.persons],
-				{ revalidate: 3600, tags: [cacheTags.persons] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/persons"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/persons",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<PersonListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.persons],
-				{ revalidate: 3600, tags: [cacheTags.persons] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -1014,10 +1139,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/persons/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -1032,95 +1154,46 @@ export const client = {
 		}),
 	},
 	projects: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/dariah-projects/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/dariah-projects/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _projectsBySlug(params);
 
-					const result = await request<ProjectResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end != null ? new Date(response.data.duration.end) : undefined,
+					},
+				},
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/dariah-projects"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _projectsList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							publishedAt: new Date(response.data.publishedAt),
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
 							duration: {
-								start: new Date(response.data.duration.start),
-								end:
-									response.data.duration.end !== undefined
-										? new Date(response.data.duration.end)
-										: undefined,
+								start: new Date(item.duration.start),
+								end: item.duration.end != null ? new Date(item.duration.end) : undefined,
 							},
-						},
-					};
+						};
+					}),
 				},
-				[cacheTags.projects],
-				{ revalidate: 3600, tags: [cacheTags.projects] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					status,
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/dariah-projects"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/dariah-projects",
-						searchParams: createUrlSearchParams({
-							status,
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<ProjectListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-									duration: {
-										start: new Date(item.duration.start),
-										end: item.duration.end !== undefined ? new Date(item.duration.end) : undefined,
-									},
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.projects],
-				{ revalidate: 3600, tags: [cacheTags.projects] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -1128,10 +1201,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/dariah-projects/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -1168,79 +1238,31 @@ export const client = {
 		),
 	},
 	spotlightArticles: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/spotlight-articles/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _spotlightArticlesBySlug(params);
 
-					const result = await request<SpotlightArticleResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/spotlight-articles"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _spotlightArticlesList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.spotlightArticles],
-				{ revalidate: 3600, tags: [cacheTags.spotlightArticles] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/spotlight-articles"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/spotlight-articles",
-						searchParams: createUrlSearchParams({
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<SpotlightArticleListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.spotlightArticles],
-				{ revalidate: 3600, tags: [cacheTags.spotlightArticles] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -1248,10 +1270,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/spotlight-articles/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
@@ -1266,81 +1285,31 @@ export const client = {
 		}),
 	},
 	workingGroups: {
-		bySlug: cache(
-			nextCache(
-				async function bySlug({
-					slug,
-				}: paths["/api/v1/working-groups/slugs/{slug}"]["get"]["parameters"]["path"]) {
-					const url = createUrl({
-						baseUrl,
-						pathname: `/api/v1/working-groups/slugs/${slug}`,
-					});
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/working-groups/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _workingGroupsBySlug(params);
 
-					const result = await request<WorkingGroupResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
+			return {
+				...response,
+				data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/working-groups"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _workingGroupsList(params);
 
-					if (
-						result.isErr() &&
-						HttpError.is(result.error) &&
-						result.error.response.status === 404
-					) {
-						notFound();
-					}
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: { ...response.data, publishedAt: new Date(response.data.publishedAt) },
-					};
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
 				},
-				[cacheTags.workingGroups],
-				{ revalidate: 3600, tags: [cacheTags.workingGroups] },
-			),
-		),
-		list: cache(
-			nextCache(
-				async function list({
-					status,
-					limit = 10,
-					offset = 0,
-				}: paths["/api/v1/working-groups"]["get"]["parameters"]["query"] = {}) {
-					const url = createUrl({
-						baseUrl,
-						pathname: "/api/v1/working-groups",
-						searchParams: createUrlSearchParams({
-							status,
-							limit,
-							offset,
-						}),
-					});
-
-					const result = await request<WorkingGroupListResponse>(url, {
-						responseType: "json",
-						retry: { backoff: "exponential", delayMs: 200, times: 2 },
-						headers: apiHeaders,
-					});
-
-					const response = result.unwrap();
-					return {
-						...response,
-						data: {
-							...response.data,
-							data: response.data.data.map((item) => {
-								return {
-									...item,
-									publishedAt: new Date(item.publishedAt),
-								};
-							}),
-						},
-					};
-				},
-				[cacheTags.workingGroups],
-				{ revalidate: 3600, tags: [cacheTags.workingGroups] },
-			),
-		),
+			};
+		}),
 		slugs: cache(async function slugs({
 			limit = 10,
 			offset = 0,
@@ -1348,10 +1317,7 @@ export const client = {
 			const url = createUrl({
 				baseUrl,
 				pathname: "/api/v1/working-groups/slugs",
-				searchParams: createUrlSearchParams({
-					limit,
-					offset,
-				}),
+				searchParams: createUrlSearchParams({ limit, offset }),
 			});
 
 			const result = await request<
