@@ -9,9 +9,8 @@ import { HttpError, request } from "@/lib/utils/request";
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
-const apiHeaders: HeadersInit | undefined = env.API_ACCESS_TOKEN
-	? { "x-api-access-token": env.API_ACCESS_TOKEN }
-	: undefined;
+const apiHeaders: HeadersInit | undefined =
+	env.API_ACCESS_TOKEN != null ? { "x-api-access-token": env.API_ACCESS_TOKEN } : undefined;
 
 type WithPublishedAt<T extends { publishedAt: string }> = Omit<T, "publishedAt"> & {
 	publishedAt: Date;

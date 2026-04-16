@@ -4,8 +4,8 @@ import { type NextRequest, NextResponse } from "next/server";
 import { env } from "@/config/env.config";
 import { cacheTags } from "@/lib/data/api-client";
 
-export async function POST(request: NextRequest) {
-	if (!env.REVALIDATION_SECRET) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
+	if (env.REVALIDATION_SECRET == null) {
 		return new NextResponse(null, { status: 404 });
 	}
 
@@ -17,9 +17,11 @@ export async function POST(request: NextRequest) {
 	let tag: string | undefined;
 	try {
 		const body = (await request.json()) as { tag?: string };
-		if (typeof body.tag === "string") tag = body.tag;
-	} catch (_error) {
-		// no body or invalid JSON — revalidate all tags
+		if (typeof body.tag === "string") {
+			tag = body.tag;
+		}
+	} catch {
+		/** No body or invalid JSON - revalidate all tags. */
 	}
 
 	const tags = tag != null ? [tag] : Object.values(cacheTags);
