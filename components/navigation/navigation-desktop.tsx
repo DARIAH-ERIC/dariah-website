@@ -14,8 +14,8 @@ interface NavigationDesktopProps {
 export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): ReactNode {
 	const { navigation } = props;
 	return (
-		<div className="hidden flex-wrap items-center gap-6 lg:flex 2xl:gap-22">
-			<ul className="flex flex-wrap items-center gap-x-6" role="list">
+		<div className="hidden flex-wrap items-center justify-end gap-6 lg:flex 2xl:gap-22">
+			<ul className="flex flex-wrap items-center justify-end gap-x-6" role="list">
 				{Object.entries(navigation).map(([id, item]) => {
 					switch (item.type) {
 						case "action": {
