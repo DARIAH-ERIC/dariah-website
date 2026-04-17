@@ -49,6 +49,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				link: {
 					HTMLAttributes: {
+						// eslint-disable-next-line better-tailwindcss/no-unknown-classes
 						class: cn(linkStyles({ variant: "paragraph" }), "inline"),
 					},
 				},

@@ -3,41 +3,14 @@
 import type { UrlObject } from "node:url";
 
 import type { GetVariantProps } from "@acdh-oeaw/style-variants";
-import { filterDOMProps, mergeRefs } from "@react-aria/utils";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import NextLink, { type LinkProps as NextLinkProps } from "next/link";
-import {
-	type ComponentProps,
-	type ElementType,
-	Fragment,
-	type ReactNode,
-	type Ref,
-	useMemo,
-	useRef,
-} from "react";
-import {
-	mergeProps,
-	useFocusable,
-	useFocusRing,
-	useHover,
-	useObjectRef,
-	usePress,
-} from "react-aria";
-import { type LinkProps as AriaLinkProps, useRenderProps } from "react-aria-components";
+import { type ComponentProps, type ElementType, Fragment, type ReactNode } from "react";
+import { Link as AriaLink, type LinkProps as AriaLinkProps } from "react-aria-components";
 
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { ChevronLeftIcon } from "@/components/ui/icons/chevron-left";
 import { linkStyles } from "@/components/ui/link/link.styles";
-
-/**
- * Not using `Link` from `react-aria-components` directly, because we want `next/link`'s built-in
- * prefetch behavior.
- *
- * @see {@link https://github.com/vercel/next.js/discussions/73381}
- *
- * @see {@link https://github.com/adobe/react-spectrum/blob/main/packages/react-aria-components/src/Link.tsx}
- * @see {@link https://github.com/adobe/react-spectrum/blob/main/packages/%40react-aria/link/src/useLink.ts}
- */
 
 type LinkStyleProps = GetVariantProps<typeof linkStyles>;
 
@@ -48,7 +21,7 @@ export interface LinkProps
 		Omit<AriaLinkProps, "elementType" | "href" | "routerOptions" | "slot">,
 		Pick<ComponentProps<"a">, "aria-current" | "id"> {
 	href?: Exclude<NextLinkProps["href"], UrlObject>;
-	ref?: Ref<HTMLAnchorElement | HTMLSpanElement> | undefined;
+	children?: ReactNode;
 	withDefaultLeftIcon?: boolean;
 	withDefaultRightIcon?: boolean;
 	startIcon?: ReactNode;
@@ -56,76 +29,44 @@ export interface LinkProps
 }
 
 export function Link(props: Readonly<LinkProps>): ReactNode {
-	/** Ensure `className` is passed to `mergProps` only once to avoid duplication. */
 	const {
+		children,
 		className,
 		variant,
 		startIcon,
 		endIcon,
-		ref: forwardedRef,
 		withDefaultLeftIcon = false,
 		withDefaultRightIcon = false,
-		...interactionProps
+		...rest
 	} = props;
 
-	const ref = useRef<HTMLAnchorElement | HTMLSpanElement>(null);
-	const linkRef = useObjectRef(
-		useMemo(() => {
-			// eslint-disable-next-line react-hooks/refs
-			return mergeRefs(forwardedRef, ref);
-		}, [forwardedRef, ref]),
-	);
-
-	const isDisabled = interactionProps.isDisabled === true;
-	const isCurrent = Boolean(interactionProps["aria-current"]);
-	const isLinkElement = Boolean(interactionProps.href) && !isDisabled;
-	const ElementType: ElementType = isLinkElement ? NextLink : "span";
 	const ChildrenWrapper: ElementType = variant === "unstyled" ? Fragment : "span";
 
-	const { focusableProps } = useFocusable(interactionProps, linkRef);
-	const { pressProps, isPressed } = usePress({ ...interactionProps, ref: linkRef });
-	const { hoverProps, isHovered } = useHover(interactionProps);
-	const { focusProps, isFocused, isFocusVisible } = useFocusRing();
-
-	const renderProps = useRenderProps({
-		...props,
-		values: {
-			isCurrent,
-			isDisabled,
-			isPressed,
-			isHovered,
-			isFocused,
-			isFocusVisible,
-		},
-	});
-
 	return (
-		<ElementType
-			ref={linkRef}
-			{...mergeProps(
-				renderProps,
-				filterDOMProps(props, { labelable: true, isLink: isLinkElement }),
-				focusableProps,
-				pressProps,
-				hoverProps,
-				focusProps,
-			)}
-			aria-disabled={isDisabled || undefined}
-			className={linkStyles({ ...renderProps, variant, className })}
-			data-current={isCurrent || undefined}
-			data-disabled={isDisabled || undefined}
-			data-focus-visible={isFocusVisible || undefined}
-			data-focused={isFocused || undefined}
-			data-hovered={isHovered || undefined}
-			data-pressed={isPressed || undefined}
-			data-rac=""
-			role={!isLinkElement ? "link" : undefined}
+		<AriaLink
+			{...rest}
+			className={(renderProps) => {
+				return linkStyles({ ...renderProps, className, variant });
+			}}
+			render={(domProps, renderProps) => {
+				if ("href" in domProps && domProps.href && !renderProps.isDisabled) {
+					return <NextLink {...domProps} />;
+				}
+
+				return (
+					<span
+						{...domProps}
+						// @ts-expect-error -- Link may be disabled but have `href`.
+						href={undefined}
+					/>
+				);
+			}}
 		>
-			{withDefaultLeftIcon && <ChevronLeftIcon />}
+			{withDefaultLeftIcon ? <ChevronLeftIcon /> : null}
 			{startIcon}
-			<ChildrenWrapper>{renderProps.children}</ChildrenWrapper>
+			<ChildrenWrapper>{children}</ChildrenWrapper>
 			{endIcon}
-			{withDefaultRightIcon && <ChevronForwardIcon />}
-		</ElementType>
+			{withDefaultRightIcon ? <ChevronForwardIcon /> : null}
+		</AriaLink>
 	);
 }
