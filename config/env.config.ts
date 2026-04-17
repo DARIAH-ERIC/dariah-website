@@ -31,7 +31,7 @@ const result = createEnv({
 				NEXT_RUNTIME: v.optional(v.picklist(["edge", "nodejs"])),
 				OPENTELEMETRY_COLLECTOR_URL: v.optional(v.pipe(v.string(), v.url())),
 				OPENTELEMETRY_SERVICE_NAME: v.optional(v.pipe(v.string(), v.nonEmpty())),
-				REVALIDATION_SECRET: v.optional(v.pipe(v.string(), v.nonEmpty())),
+				REVALIDATION_WEBHOOK_SECRET: v.optional(v.pipe(v.string(), v.nonEmpty())),
 				TYPESENSE_ADMIN_API_KEY: v.optional(v.pipe(v.string(), v.nonEmpty())),
 			});
 
@@ -130,7 +130,7 @@ const result = createEnv({
 		NODE_ENV: process.env.NODE_ENV,
 		OPENTELEMETRY_COLLECTOR_URL: process.env.OPENTELEMETRY_COLLECTOR_URL,
 		OPENTELEMETRY_SERVICE_NAME: process.env.OPENTELEMETRY_SERVICE_NAME,
-		REVALIDATION_SECRET: process.env.REVALIDATION_SECRET,
+		REVALIDATION_WEBHOOK_SECRET: process.env.REVALIDATION_WEBHOOK_SECRET,
 		TYPESENSE_ADMIN_API_KEY: process.env.TYPESENSE_ADMIN_API_KEY,
 	},
 	validation: v.parse(
