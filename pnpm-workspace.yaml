@@ -1,16 +1,14 @@
-ignoredBuiltDependencies:
-  - core-js
-  - typesense-instantsearch-adapter
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  core-js: false
+  esbuild: true
+  sharp: true
+  simple-git-hooks: true
+  typesense-instantsearch-adapter: false
+  unrs-resolver: false
 
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@swc/core'
-  - '@tailwindcss/oxide'
-  - esbuild
-  - node
-  - sharp
-  - simple-git-hooks
-  - unrs-resolver
+minimumReleaseAge: 1440
 
 patchedDependencies:
   next: patches/next.patch

@@ -7,7 +7,6 @@ const config: Config = {
 	allowedDevOrigins: ["127.0.0.1"],
 	// cacheComponents: true,
 	experimental: {
-		browserDebugInfoInTerminal: true,
 		globalNotFound: true,
 	},
 	headers() {
@@ -19,6 +18,7 @@ const config: Config = {
 		return headers;
 	},
 	logging: {
+		browserToTerminal: true,
 		fetches: {
 			fullUrl: true,
 		},
