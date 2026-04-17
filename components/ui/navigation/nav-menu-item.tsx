@@ -1,6 +1,8 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import NextLink from "next/link";
 import React, { type ReactNode } from "react";
 import {
 	MenuItem as AriaMenuItem,
@@ -20,6 +22,19 @@ export function NavMenuItem<T extends object>(props: Readonly<AriaMenuItemProps<
 				"pressed:text-primary pressed:bg-transparent pressed:outline-none",
 				className,
 			)}
+			render={(domProps, renderProps) => {
+				if ("href" in domProps && domProps.href && !renderProps.isDisabled) {
+					return <NextLink {...domProps} />;
+				}
+
+				return (
+					<div
+						{...domProps}
+						// @ts-expect-error -- Link may be disabled but have `href`.
+						href={undefined}
+					/>
+				);
+			}}
 		>
 			{children}
 		</AriaMenuItem>
