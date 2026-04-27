@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useState } from "react";
+import { Fragment, type ReactNode, useState } from "react";
 
 import { Image } from "@/components/image";
 import { NavigationDesktop } from "@/components/navigation/navigation-desktop";
@@ -31,7 +31,7 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 	const { home, ...menuNavigation } = navigation;
 
 	return (
-		<>
+		<Fragment>
 			<nav aria-label={label} className="justify-between flex items-center">
 				<Link
 					className="py-0!"
@@ -61,12 +61,13 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 					)}
 				</Button>
 			</nav>
+
 			{isMobileMenuOpen && (
 				<NavigationMobile
 					handleMobileMenuToggle={handleMobileMenuToggle}
 					navigation={menuNavigation}
 				/>
 			)}
-		</>
+		</Fragment>
 	);
 }

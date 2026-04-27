@@ -14,10 +14,19 @@ interface NavButtonProps extends Omit<AriaButtonProps, "children"> {
 	children: ReactNode;
 	active?: boolean;
 	href?: string;
+	target?: "_blank";
 }
 
 export function NavButton(props: Readonly<NavButtonProps>): ReactNode {
-	const { isLinkElement = false, children, href, className, active = false, ...rest } = props;
+	const {
+		isLinkElement = false,
+		children,
+		href,
+		className,
+		active = false,
+		target,
+		...rest
+	} = props;
 	const ElementType: ElementType = isLinkElement ? NavLink : AriaButton;
 	const { isPressed } = usePress({ ...rest });
 
@@ -25,7 +34,7 @@ export function NavButton(props: Readonly<NavButtonProps>): ReactNode {
 		<ElementType
 			{...rest}
 			className={cn(
-				"group cursor-pointer bg-transparent p-2 flex gap-1 text-text-link-bg items-center box-border uppercase [&>svg]:size-5",
+				"group cursor-pointer bg-transparent p-2 flex gap-1 text-text-link-bg items-center uppercase [&>svg]:size-5",
 				"hover:border-b-2 hover:pb-1.5 hover:border-b-primary hover:bg-white",
 				"data-focused:border-3 data-focused:border-primary data-focused:p-1.25 data-focused:outline-none",
 				"aria-expanded:border-b-3 aria-expanded:pb-1.5 aria-expanded:border-b-primary aria-expanded:bg-white",
@@ -34,12 +43,13 @@ export function NavButton(props: Readonly<NavButtonProps>): ReactNode {
 			)}
 			data-active={active || undefined}
 			href={href}
+			target={target}
 		>
 			{children}
 			{isPressed ? (
-				<ChevronUpIcon className={isLinkElement ? "hidden" : ""} />
+				<ChevronUpIcon className={isLinkElement ? "hidden" : "shrink-0"} />
 			) : (
-				<ChevronDownIcon className={isLinkElement ? "hidden" : ""} />
+				<ChevronDownIcon className={isLinkElement ? "hidden" : "shrink-0"} />
 			)}
 		</ElementType>
 	);
