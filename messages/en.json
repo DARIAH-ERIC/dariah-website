@@ -56,6 +56,13 @@
 			"select": "View as"
 		}
 	},
+	"EventsCalendar": {
+		"meta": {
+			"title": "Events calendar"
+		},
+		"title": "Events calendar",
+		"eventsFor": "Events for {dateString}"
+	},
 	"EventsDetailPage": {
 		"browseAll": "Browse all Events",
 		"addToCalendar": "Add to calendar",

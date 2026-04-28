@@ -59,8 +59,8 @@ export default async function EventsPage({
 	});
 
 	return (
-		<Main className="flex flex-1 flex-col gap-8 px-4 pt-8 pb-30 container lg:items-center lg:px-31.5">
-			<div className="flex flex-col gap-14">
+		<Main className="flex flex-1 flex-col gap-8 px-4 pt-8 pb-30 container md:items-center md:px-31.5">
+			<div className="flex flex-col gap-14 w-full">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -74,7 +74,7 @@ export default async function EventsPage({
 				)}
 				<div className="flex flex-col gap-11 py-2.5 px-13.5">
 					<Typography variant="h2">{t("title")}</Typography>
-					<Filters />
+					<Filters currentView="list" />
 				</div>
 			</div>
 
