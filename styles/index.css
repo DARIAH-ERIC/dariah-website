@@ -41,7 +41,8 @@
 	--accent-500: rgb(100 120 158);
 	--accent-600: rgb(77 99 141);
 	--accent-700: rgb(53 78 125);
-	--accent-800: rgb(17 42 90);
+	--accent-800: rgb(30 57 108);
+	--accent-900: rgb(17 42 90);
 
 	--gray: rgb(155 155 155);
 	--gray-100: rgb(250 250 250);
@@ -193,6 +194,7 @@
 	--color-accent-600: var(--accent-600);
 	--color-accent-700: var(--accent-700);
 	--color-accent-800: var(--accent-800);
+	--color-accent-900: var(--accent-900);
 
 	--color-gray: var(--gray);
 	--color-gray-100: var(--gray-100);

@@ -11,6 +11,7 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import {
+	convertDateToCalendarDate,
 	convertParamToCalendarDate,
 	formatDateToMonthYear,
 	formatToDateParam,
@@ -19,10 +20,11 @@ import {
 
 interface EventsSearchParams {
 	events_in?: string;
+	date?: string;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-	const t = await getTranslations("EventsPage");
+	const t = await getTranslations("EventsCalendar");
 
 	const title = t("meta.title");
 
@@ -41,11 +43,16 @@ export default async function EventsCalendarPage({
 }: Readonly<{
 	searchParams: Promise<EventsSearchParams>;
 }>): Promise<ReactNode> {
-	const { events_in } = await searchParams;
+	const params = await searchParams;
+	const { events_in, date } = params;
 	const selectedDate = convertParamToCalendarDate(events_in);
-	const { startDate, endDate } = getEdgeDates(selectedDate);
+	const dateParam =
+		date !== undefined && date !== "" ? convertDateToCalendarDate(new Date(date)) : undefined;
+	const { startDate, endDate, displayedMonth } = getEdgeDates(selectedDate, dateParam);
 
-	const t = await getTranslations("EventsPage");
+	const displayedDate = displayedMonth !== undefined && dateParam ? dateParam : selectedDate;
+
+	const t = await getTranslations("EventsCalendar");
 
 	const response = await client.events.list({
 		from: startDate.toString(),
@@ -55,16 +62,12 @@ export default async function EventsCalendarPage({
 
 	const { data: items } = response.data;
 
-	// const sortedItems = items.toSorted((a, z) => {
-	// 	return a.duration.start.getTime() - z.duration.start.getTime();
-	// });
-
-	const prevMonthDate = selectedDate.subtract({ months: 1 });
-	const nextMonthDate = selectedDate.add({ months: 1 });
+	const prevMonthDate = displayedDate.subtract({ months: 1 });
+	const nextMonthDate = displayedDate.add({ months: 1 });
 
 	return (
 		<Main className="flex flex-1 flex-col gap-8 pt-8 pb-30 container lg:gap-16 lg:items-center xl:px-31.5">
-			<div className="flex flex-col px-4 gap-14">
+			<div className="flex flex-col px-4 gap-14 w-full">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -81,8 +84,8 @@ export default async function EventsCalendarPage({
 					<Filters currentView="calendar" />
 				</div>
 			</div>
-			<div className="px-4 gap-6 max-w-full 2xl:px-40">
-				<Typography variant="h3">{formatDateToMonthYear(selectedDate)}</Typography>
+			<div className="px-4 gap-6 max-w-full lg:w-full 2xl:px-40">
+				<Typography variant="h3">{formatDateToMonthYear(displayedDate)}</Typography>
 				<div className="flex w-full justify-between">
 					<Link
 						href={`/events/calendar?events_in=${formatToDateParam(prevMonthDate)}`}
@@ -97,7 +100,7 @@ export default async function EventsCalendarPage({
 						{formatDateToMonthYear(nextMonthDate)}
 					</Link>
 				</div>
-				<EventCalendar events={items} eventsIn={events_in} />
+				<EventCalendar events={items} eventsIn={displayedMonth ?? events_in} />
 			</div>
 		</Main>
 	);

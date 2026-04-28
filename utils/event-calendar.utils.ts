@@ -31,7 +31,8 @@ export const convertParamToCalendarDate = (dateParam?: string): CalendarDate => 
 
 export const getEdgeDates = (
 	currentDate: CalendarDate,
-): { startDate: CalendarDate; endDate: CalendarDate } => {
+	dateParam?: CalendarDate,
+): { startDate: CalendarDate; endDate: CalendarDate; displayedMonth?: string } => {
 	const startDay = startOfMonth(currentDate);
 	const endDay = endOfMonth(currentDate);
 
@@ -42,6 +43,25 @@ export const getEdgeDates = (
 	const endOffset = 6 - dayOfWeekEnd;
 
 	const endDate = endDay.add({ days: endOffset });
+
+	if (dateParam) {
+		if (!checkIfDatesMonthIsEqual(currentDate, dateParam)) {
+			const endDayFromDateParam = endOfMonth(dateParam);
+
+			const dayOfWeekEndFromDateParam = getDayOfWeek(endDayFromDateParam, "en-150");
+			const endOffsetFromDateParam = 6 - dayOfWeekEndFromDateParam;
+
+			const endDateFromDateParam = endDay.add({ days: endOffsetFromDateParam });
+			return {
+				startDate: dateParam,
+				endDate: endDateFromDateParam,
+				displayedMonth: formatToDateParam(dateParam),
+			};
+		}
+		if (dateParam.compare(startDate) > 0) {
+			return { startDate: dateParam, endDate };
+		}
+	}
 
 	return { startDate, endDate };
 };
@@ -54,7 +74,6 @@ export const getCalendarGrid = (currentDate: CalendarDate): Array<Array<Calendar
 	while (currentPointer.compare(endDate) <= 0) {
 		const week: Array<CalendarDate> = [];
 
-		// Wewnętrzna pętla zawsze wypełnia dokładnie 7 dni (jeden tydzień)
 		for (let i = 0; i < 7; i++) {
 			week.push(currentPointer);
 			currentPointer = currentPointer.add({ days: 1 });
@@ -73,8 +92,19 @@ export const formatDateToMonthYear = (date: CalendarDate): string => {
 	}).format(date.toDate("UTC"));
 };
 
-export const formatToDateParam = (d: CalendarDate): string => {
-	return `${String(d.month).padStart(2, "0")}-${d.year.toString()}`;
+export const formatToDateParam = (date: CalendarDate): string => {
+	return `${String(date.month).padStart(2, "0")}-${date.year.toString()}`;
+};
+
+export const formatDateForSelectedDay = (date?: CalendarDate): string => {
+	if (!date) return "";
+	return new DateFormatter("en-150", { year: "numeric", month: "long", day: "numeric" }).format(
+		date.toDate("UTC"),
+	);
+};
+
+const checkIfDatesMonthIsEqual = (dateA: CalendarDate, dateB: CalendarDate): boolean => {
+	return dateA.year === dateB.year && dateA.month === dateB.month;
 };
 
 export const filterEventsForDates = (

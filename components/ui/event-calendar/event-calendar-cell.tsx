@@ -4,6 +4,7 @@ import { cn, styles } from "@acdh-oeaw/style-variants";
 import { getLocalTimeZone, parseDate, today } from "@internationalized/date";
 import type { ReactNode } from "react";
 
+import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import type { CalendarEvent } from "@/types/calendar";
 import { convertParamToCalendarDate } from "@/utils/event-calendar.utils";
@@ -12,7 +13,7 @@ import { useMediaQuery } from "@/utils/hooks/use-media-query";
 interface EventCalendarCellProps {
 	dayDateString: string;
 	eventsIn?: string;
-
+	handleDaySelection: () => void;
 	events?: Array<CalendarEvent>;
 }
 
@@ -37,7 +38,7 @@ const eventCalendarCellVariants = styles({
 });
 
 export function EventCalendarCell(props: Readonly<EventCalendarCellProps>): ReactNode {
-	const { dayDateString, eventsIn, events } = props;
+	const { dayDateString, eventsIn, events, handleDaySelection } = props;
 	const selectedMonth = convertParamToCalendarDate(eventsIn).month;
 	const dayDate = parseDate(dayDateString);
 	const dayDateMonth = dayDate.month;
@@ -47,7 +48,7 @@ export function EventCalendarCell(props: Readonly<EventCalendarCellProps>): Reac
 	const isCurrentMonth = selectedMonth === dayDateMonth;
 	const isCurrentDay = dayDate.compare(today(getLocalTimeZone())) === 0;
 
-	const isMd = useMediaQuery("md");
+	const isLg = useMediaQuery("lg");
 
 	const getVariantForDay = () => {
 		if (isCurrentDay) {
@@ -63,23 +64,39 @@ export function EventCalendarCell(props: Readonly<EventCalendarCellProps>): Reac
 
 	return (
 		<td className={eventCalendarCellVariants({ variant: dayVariant })}>
-			<Typography className={isMd ? "" : "h-full"} tabIndex={0} variant="small">
-				{isCurrentDay && <div className="size-2 rounded-full bg-white" />}
+			<Typography
+				className={cn(
+					"flex items-center gap-2.5 cursor-pointer lg:cursor-default",
+					"focus:underline focus:outline-2 focus:outline-primary",
+					"h-full lg:h-fit",
+				)}
+				onClick={() => {
+					if (!isLg) handleDaySelection();
+				}}
+				onKeyDown={(e) => {
+					if (!isLg && e.code === "Enter") handleDaySelection();
+				}}
+				tabIndex={0}
+				variant="small"
+			>
+				{isCurrentDay && <span className="size-2 rounded-full bg-white" />}
 				{dayNumber}
 			</Typography>
 			{events?.map((event) => {
+				const eventUrl = `/events/${event.entity.slug}`;
 				return (
-					<div
+					<NavLink
 						key={event.id}
 						className={cn(
-							"bg-event-bg-calendar border border-gray-400 text-primary pt-2 px-4",
-							!isMd && "hidden",
+							"bg-event-bg-calendar border border-gray-400 text-primary pt-2 px-4 line-clamp-5",
+							"hidden lg:flex",
+							"hover:underline",
+							"focus:underline focus:outline-2 focus:outline-primary",
 						)}
-						role="button"
-						tabIndex={0}
+						href={eventUrl}
 					>
 						{event.title}
-					</div>
+					</NavLink>
 				);
 			})}
 		</td>
