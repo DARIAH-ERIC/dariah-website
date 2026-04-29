@@ -7,6 +7,7 @@ import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { NewsCard } from "@/components/ui/news-card/news-card";
+import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -58,7 +59,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 		client.news.list({ limit: 4 }),
 	]);
 
-	const { title, image, content, summary, publishedAt } = response.data;
+	const { title, image, content, summary, publishedAt, relatedEntities } = response.data;
 	const { data: latestNews } = latestNewsResponse.data;
 
 	return (
@@ -93,7 +94,30 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 					<div className="flex flex-col gap-23.25 lg:pt-12 lg:w-109">
 						<div className="flex flex-col gap-6">
 							<Typography variant="h2">{t("relatedContent.title")}</Typography>
-							<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+							{relatedEntities.length > 0 ? (
+								relatedEntities.map((entity) => {
+									const { id, entityType, label } = entity;
+									return (
+										<RelatedContent
+											key={id}
+											category={
+												entityType as
+													| "news"
+													| "working-group"
+													| "opportunity"
+													| "event"
+													| "project"
+													| "spotlight-article"
+													| "case-study"
+													| "resources"
+											}
+											title={label ?? ""}
+										/>
+									);
+								})
+							) : (
+								<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+							)}
 						</div>
 					</div>
 				</div>

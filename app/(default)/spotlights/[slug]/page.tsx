@@ -7,6 +7,8 @@ import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { PersonCard } from "@/components/ui/person-card/person-card";
+import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -58,7 +60,7 @@ export default async function SpotlightArticlePage(
 	const breadcrumbs = navigation().breadcrumbs.spotlightArticlesDetailPage;
 	const response = await client.spotlightArticles.bySlug({ slug });
 
-	const { title, content, image, publishedAt } = response.data;
+	const { title, content, image, publishedAt, contributors, relatedEntities } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
@@ -97,13 +99,64 @@ export default async function SpotlightArticlePage(
 					</div>
 					<div className="flex flex-col gap-10 pt-6 pb-9">
 						<Typography variant="h4">{t("contributors.title")}</Typography>
-						<Typography variant="regular">{t("contributors.empty")}</Typography>
+						{contributors.length > 0 ? (
+							<div className="flex flex-wrap gap-x-23 gap-y-10">
+								{contributors.map((contributor) => {
+									const {
+										id,
+										name,
+										position,
+										image: { url: imageUrl },
+									} = contributor;
+
+									const positionNames = position
+										? position.map((positionObj) => {
+												return positionObj.name;
+											})
+										: [];
+
+									return (
+										<PersonCard
+											key={id}
+											imageUrl={imageUrl}
+											name={name}
+											position={positionNames.join(", ")}
+										/>
+									);
+								})}
+							</div>
+						) : (
+							<Typography variant="regular">{t("contributors.empty")}</Typography>
+						)}
 					</div>
 				</div>
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
 					<div className="flex flex-col gap-6">
 						<Typography variant="h2">{t("relatedContent.title")}</Typography>
-						<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+						{relatedEntities.length > 0 ? (
+							relatedEntities.map((entity) => {
+								const { id, entityType, label } = entity;
+								return (
+									<RelatedContent
+										key={id}
+										category={
+											entityType as
+												| "news"
+												| "working-group"
+												| "opportunity"
+												| "event"
+												| "project"
+												| "spotlight-article"
+												| "case-study"
+												| "resources"
+										}
+										title={label ?? ""}
+									/>
+								);
+							})
+						) : (
+							<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+						)}
 					</div>
 				</div>
 			</div>

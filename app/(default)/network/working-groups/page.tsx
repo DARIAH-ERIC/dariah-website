@@ -10,6 +10,8 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
+interface WorkingGroupsPageProps extends PageProps<"/network/working-groups"> {}
+
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("WorkingGroupsPage");
 
@@ -25,10 +27,18 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function WorkingGroupsPage(): Promise<ReactNode> {
+export default async function WorkingGroupsPage(
+	props: Readonly<WorkingGroupsPageProps>,
+): Promise<ReactNode> {
+	const { searchParams } = props;
+	const { status = "active" } = await searchParams;
 	const t = await getTranslations("WorkingGroupsPage");
 
-	const response = await client.workingGroups.list();
+	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
+
+	const response = await client.workingGroups.list({
+		status: parsedStatus,
+	});
 	const breadcrumbs = navigation().breadcrumbs.workingGroups;
 
 	const { data: items } = response.data;
@@ -74,7 +84,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 					</div>
 				</div>
 			</div>
-			<WorkingGroupsTabs items={items} />
+			<WorkingGroupsTabs items={items} status={parsedStatus} />
 		</Main>
 	);
 }

@@ -6,6 +6,7 @@ import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -98,10 +99,23 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 								<Typography variant="regular">{t("participants.emptyState")}</Typography>
 							) : (
 								participants.map((participant) => {
+									const { id, socialMedia } = participant;
+									const website = socialMedia.find((social) => {
+										return social.type === "website";
+									});
+
+									const { url: websiteUrl } = website ?? {};
+
 									return (
-										<Typography key={participant.id} variant="regular">
+										<Link
+											key={id}
+											endIcon={<OpenInNewIcon className="size-5" />}
+											href={websiteUrl}
+											target="_blank"
+											variant="paragraph"
+										>
 											{participant.name}
-										</Typography>
+										</Link>
 									);
 								})
 							)}
