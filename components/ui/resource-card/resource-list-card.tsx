@@ -15,6 +15,12 @@ const typeConfiguration = {
 		bgColor: "bg-in-text-link",
 		text: "tool or service",
 	},
+	software: {
+		border: "border-1 border-primary-300",
+		borderLeftColor: "border-l-in-text-link",
+		bgColor: "bg-in-text-link",
+		text: "tool or service",
+	},
 	"training-material": {
 		border: "border-1 border-accent-300",
 		borderLeftColor: "border-l-resource-training-material",

@@ -11,6 +11,10 @@ const typeConfiguration = {
 		bgColor: "bg-in-text-link",
 		text: "tool or service",
 	},
+	software: {
+		bgColor: "bg-in-text-link",
+		text: "tool or service",
+	},
 	"training-material": {
 		bgColor: "bg-resource-training-material",
 		text: "training material",
