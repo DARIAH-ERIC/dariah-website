@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 
-import { DesktopRefinements } from "@/components/pages/dariah-resource-catalogue/refinements/desktop-refinements";
-import { MobileRefinements } from "@/components/pages/dariah-resource-catalogue/refinements/mobile-refinements";
+import { DesktopRefinements } from "@/components/pages/resources/dariah-resource-catalogue/refinements/desktop-refinements";
+import { MobileRefinements } from "@/components/pages/resources/dariah-resource-catalogue/refinements/mobile-refinements";
 import { Button } from "@/components/ui/button/button";
 import type { ResourceCatalogueFilter } from "@/types/filters";
 

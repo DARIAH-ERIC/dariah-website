@@ -66,6 +66,7 @@
 
 	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
 	--spotlight-list-divider: linear-gradient(180deg, var(--purple) -100%, transparent 80%);
+	--resource-catalogue-divider: linear-gradient(180deg, rgb(0 131 213) -100%, transparent 80%);
 
 	--section-resources-top-bg: rgb(0 29 107);
 

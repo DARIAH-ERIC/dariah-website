@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { useRefinementList, type UseRefinementListProps } from "react-instantsearch";
 
-import type { RefinementListItem } from "@/components/pages/dariah-resource-catalogue/refinements/refinement-list-item";
+import type { RefinementListItem } from "@/components/pages/resources/dariah-resource-catalogue/refinements/refinement-list-item";
 import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";

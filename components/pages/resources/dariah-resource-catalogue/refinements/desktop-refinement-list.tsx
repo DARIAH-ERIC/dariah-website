@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { useRefinementList, type UseRefinementListProps } from "react-instantsearch";
 
-import { RefinementListItems } from "@/components/pages/dariah-resource-catalogue/refinements/refinement-list-item";
+import { RefinementListItems } from "@/components/pages/resources/dariah-resource-catalogue/refinements/refinement-list-item";
 import { Typography } from "@/components/ui/typography/typography";
 import type { ResourceCatalogueSubfilter } from "@/types/filters";
 

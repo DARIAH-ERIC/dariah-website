@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-import { SubrefinementList } from "@/components/pages/dariah-resource-catalogue/refinements/subrefinement-list";
+import { SubrefinementList } from "@/components/pages/resources/dariah-resource-catalogue/refinements/subrefinement-list";
 import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";

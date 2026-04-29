@@ -2,7 +2,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-import { MobileRefinementList } from "@/components/pages/dariah-resource-catalogue/refinements/mobile-refinement-list";
+import { MobileRefinementList } from "@/components/pages/resources/dariah-resource-catalogue/refinements/mobile-refinement-list";
 import { Button } from "@/components/ui/button/button";
 import { DisclosureGroup } from "@/components/ui/disclosure/disclosure";
 import { CloseIcon } from "@/components/ui/icons/close";
