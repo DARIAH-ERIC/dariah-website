@@ -17,7 +17,6 @@ import { parseDateToRangeString } from "@/utils/event-page.utils";
 
 interface EventsSearchParams {
 	date?: string;
-	search?: string;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -40,12 +39,13 @@ export default async function EventsPage({
 }: Readonly<{
 	searchParams: Promise<EventsSearchParams>;
 }>): Promise<ReactNode> {
-	const _params = await searchParams;
+	const params = await searchParams;
+	const { date } = params;
 
 	const t = await getTranslations("EventsPage");
 	const format = await getFormatter();
 
-	const response = await client.events.list();
+	const response = await client.events.list({ from: date });
 	const breadcrumbs = navigation().breadcrumbs.events;
 
 	const { data: items } = response.data;

@@ -9,6 +9,8 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
+interface ProjectsPageProps extends PageProps<"/projects"> {}
+
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("ProjectsPage");
 
@@ -24,10 +26,16 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function ProjectsPage(): Promise<ReactNode> {
+export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): Promise<ReactNode> {
+	const { searchParams } = props;
+	const { status = "active" } = await searchParams;
 	const t = await getTranslations("ProjectsPage");
 
-	const response = await client.projects.list();
+	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
+
+	const response = await client.projects.list({
+		status: parsedStatus,
+	});
 	const breadcrumbs = navigation().breadcrumbs.projects;
 
 	const { data: items } = response.data;
@@ -60,7 +68,7 @@ export default async function ProjectsPage(): Promise<ReactNode> {
 					</div>
 				</div>
 			</div>
-			<ProjectTabs items={items} />
+			<ProjectTabs items={items} status={parsedStatus} />
 		</Main>
 	);
 }

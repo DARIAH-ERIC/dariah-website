@@ -6,6 +6,7 @@ import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { PersonCard } from "@/components/ui/person-card/person-card";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -56,7 +57,7 @@ export default async function ImpactCaseStudyPage(
 	const response = await client.impactCaseStudies.bySlug({ slug });
 	const breadcrumbs = navigation().breadcrumbs.impactCaseStudyDetailPage;
 
-	const { title, image, content } = response.data;
+	const { title, image, content, contributors } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-14">
@@ -85,7 +86,35 @@ export default async function ImpactCaseStudyPage(
 			</div>
 			<div className="flex flex-col gap-10 pb-14 px-4 lg:px-62 xl:px-102.5">
 				<Typography variant="h4">{t("contributors.title")}</Typography>
-				<Typography variant="regular">{t("contributors.empty")}</Typography>
+				{contributors.length > 0 ? (
+					<div className="flex flex-wrap gap-x-23 gap-y-10">
+						{contributors.map((contributor) => {
+							const {
+								id,
+								name,
+								position,
+								image: { url: imageUrl },
+							} = contributor;
+
+							const positionNames = position
+								? position.map((positionObj) => {
+										return positionObj.name;
+									})
+								: [];
+
+							return (
+								<PersonCard
+									key={id}
+									imageUrl={imageUrl}
+									name={name}
+									position={positionNames.join(", ")}
+								/>
+							);
+						})}
+					</div>
+				) : (
+					<Typography variant="regular">{t("contributors.empty")}</Typography>
+				)}
 			</div>
 		</Main>
 	);

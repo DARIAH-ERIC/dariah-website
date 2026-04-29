@@ -12,17 +12,22 @@ import type { ProjectList } from "@/lib/data/api-client";
 
 interface ProjectTabsProps {
 	items: ProjectList["data"];
+	status: "active" | "inactive" | undefined;
 }
 
 export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 	const t = useTranslations("ProjectsPage");
-	const { items } = props;
+	const { items, status } = props;
 
 	return (
-		<Tabs>
+		<Tabs defaultSelectedKey={status === "inactive" ? "inactive" : "active"}>
 			<TabList aria-label="Tabs">
-				<Tab id="active">{t("tabs.active")}</Tab>
-				<Tab id="past">{t("tabs.past")}</Tab>
+				<Tab href={status === "inactive" ? "/projects" : null} id="active">
+					{t("tabs.active")}
+				</Tab>
+				<Tab href={status !== "inactive" ? "/projects?status=inactive" : null} id="inactive">
+					{t("tabs.past")}
+				</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel id="active">
@@ -52,7 +57,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 						})}
 					</ul>
 				</TabPanel>
-				<TabPanel id="past">
+				<TabPanel id="inactive">
 					<ul
 						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20"
 						role="list"

@@ -12,17 +12,25 @@ import type { WorkingGroupList } from "@/lib/data/api-client";
 
 interface WorkingGroupsTabsProps {
 	items: WorkingGroupList["data"];
+	status: "active" | "inactive" | undefined;
 }
 
 export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): ReactNode {
-	const { items } = props;
+	const { items, status } = props;
 	const t = useTranslations("WorkingGroupsPage");
 
 	return (
-		<Tabs>
+		<Tabs defaultSelectedKey={status === "inactive" ? "inactive" : "active"}>
 			<TabList aria-label="Tabs">
-				<Tab id="active">{t("tabs.active")}</Tab>
-				<Tab id="past">{t("tabs.past")}</Tab>
+				<Tab href={status === "inactive" ? "/network/working-groups" : null} id="active">
+					{t("tabs.active")}
+				</Tab>
+				<Tab
+					href={status !== "inactive" ? "/network/working-groups?status=inactive" : null}
+					id="inactive"
+				>
+					{t("tabs.past")}
+				</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel id="active">
@@ -39,7 +47,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 						})}
 					</ul>
 				</TabPanel>
-				<TabPanel id="past">
+				<TabPanel id="inactive">
 					<ul
 						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20"
 						role="list"
