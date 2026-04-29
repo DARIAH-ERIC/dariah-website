@@ -5,12 +5,12 @@ import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 
-import { Hit, Hits } from "@/components/pages/dariah-resource-catalogue/hits";
-import { Refinements } from "@/components/pages/dariah-resource-catalogue/refinements/refinements";
-import { SearchBox } from "@/components/pages/dariah-resource-catalogue/search-box";
-import { SearchError } from "@/components/pages/dariah-resource-catalogue/search-error";
-import { SearchErrorBoundary } from "@/components/pages/dariah-resource-catalogue/search-error-boundary";
-import { TypesensePagination } from "@/components/pages/dariah-resource-catalogue/typesense-pagination";
+import { Hit, Hits } from "@/components/pages/resources/dariah-resource-catalogue/hits";
+import { Refinements } from "@/components/pages/resources/dariah-resource-catalogue/refinements/refinements";
+import { SearchBox } from "@/components/pages/resources/dariah-resource-catalogue/search-box";
+import { SearchError } from "@/components/pages/resources/dariah-resource-catalogue/search-error";
+import { SearchErrorBoundary } from "@/components/pages/resources/dariah-resource-catalogue/search-error-boundary";
+import { TypesensePagination } from "@/components/pages/resources/dariah-resource-catalogue/typesense-pagination";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Typography } from "@/components/ui/typography/typography";
 import { env } from "@/config/env.config";

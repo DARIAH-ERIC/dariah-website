@@ -24,6 +24,33 @@
 		},
 		"error": "An error occurred while connecting to resource catalogue"
 	},
+	"DariahCampusResourcesPage": {
+		"meta": {
+			"title": "DARIAH-CAMPUS"
+		},
+		"title": "DARIAH-CAMPUS",
+		"description": "DARIAH-CAMPUS is both a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education. It brings together external resources as well as hosting original training resources that can be reused by academics in the community to create bespoke training. DARIAH-CAMPUS also offers 'pathfinders', a curated discussion of resources related to a specific area, and the 'captured events' tool, sustaining training events for future use.",
+		"explore": "Explore more resources"
+	},
+	"DariahTransformationsResourcesPage": {
+		"meta": {
+			"title": "Transformation: A DARIAH Journal"
+		},
+		"title": "Transformation: A DARIAH Journal",
+		"description": "Transformations: A DARIAH Journal is a multilingual journal created in 2024 by the European research infrastructure DARIAH ERIC. This journal is an ongoing publication with thematic issues in Digital Humanities, humanities, social sciences, and the arts. The journal is particularly interested in the use of digital tools, methods, and resources in a reproducible approach. It welcomes scientific contributions on collections of data, workflows and software analysis.",
+		"explore": "Explore more resources"
+	},
+	"SSHMarketplaceResourcesPage": {
+		"meta": {
+			"title": "SSH Open Marketplace"
+		},
+		"title": "SSH Open Marketplace",
+		"description": "The Social Sciences and Humanities Open Marketplace, built as part of the Social Sciences and Humanities Open Cloud project (SSHOC), is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research communities: tools, services, training materials, datasets, publications and workflows. The Marketplace highlights and showcases solutions and research practices for every step of the SSH research data life cycle.",
+		"explore": "Explore more resources"
+	},
+	"DariahResourcesPage": {
+		"discover": "Discover the latest resources"
+	},
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"
 	},

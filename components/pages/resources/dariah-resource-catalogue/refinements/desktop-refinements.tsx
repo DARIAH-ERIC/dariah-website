@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-import { DesktopRefinementList } from "@/components/pages/dariah-resource-catalogue/refinements/desktop-refinement-list";
+import { DesktopRefinementList } from "@/components/pages/resources/dariah-resource-catalogue/refinements/desktop-refinement-list";
 import { Typography } from "@/components/ui/typography/typography";
 import type { ResourceCatalogueFilter } from "@/types/filters";
 
