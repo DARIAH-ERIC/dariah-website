@@ -101,7 +101,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 			</DisclosureGroup>
 			<Link
 				className="w-full py-4! px-6! font-heading uppercase text-regular h-fit border-t border-t-gray-100"
-				href="/"
+				href="/search"
 				onClick={handleMobileMenuToggle}
 				startIcon={<SearchIcon className="size-6!" />}
 				variant="color-bg"

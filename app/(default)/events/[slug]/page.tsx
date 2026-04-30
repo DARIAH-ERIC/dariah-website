@@ -124,6 +124,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						<Button
 							href={addToCalendarUrl}
 							startIcon={<AddIcon className="size-5" />}
+							target="_blank"
 							variant="tertiary"
 						>
 							{t("addToCalendar")}

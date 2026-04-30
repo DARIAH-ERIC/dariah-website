@@ -73,7 +73,7 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 					}
 				})}
 			</ul>
-			<Button variant="icon-button">
+			<Button href="/search" variant="icon-button">
 				<SearchIcon className="size-6" />
 			</Button>
 		</div>

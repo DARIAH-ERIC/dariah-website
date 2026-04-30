@@ -27,7 +27,7 @@ export function createClient(): Client {
 
 export const client = createClient();
 
-export function createInstantClient(): SearchClient {
+export function createInstantClient(query_by: string): SearchClient {
 	const apiKey = env.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY;
 	assert(apiKey, "Missing `NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY` environment variable.");
 	const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
@@ -44,11 +44,13 @@ export function createInstantClient(): SearchClient {
 			],
 		},
 		additionalSearchParameters: {
-			query_by: "label,description,keywords",
+			query_by,
 		},
 	});
 
 	return typesenseInstantsearchAdapter.searchClient;
 }
 
-export const searchClient = createInstantClient();
+export const searchResourceClient = createInstantClient("label,description,keywords");
+
+export const searchSearchClient = createInstantClient("label,description");
