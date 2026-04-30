@@ -361,6 +361,15 @@ export function navigation() {
 				label: "projects",
 			},
 		],
+		search: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "search results",
+			},
+		],
 		spotlightArticles: [
 			{
 				href: "/",

@@ -5,29 +5,27 @@ import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 
-import { Hit, Hits } from "@/components/pages/resources/dariah-resource-catalogue/hits";
-import { Refinements } from "@/components/pages/resources/dariah-resource-catalogue/refinements/refinements";
-import { SearchBox } from "@/components/pages/resources/dariah-resource-catalogue/search-box";
+import { Hit, Hits } from "@/components/pages/resources/search/hits";
+import { MenuSelect } from "@/components/pages/resources/search/menu-select";
+import { SearchBox } from "@/components/pages/resources/search/search-box";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { SearchError } from "@/components/ui/typesense-multiuse/search-error";
 import { SearchErrorBoundary } from "@/components/ui/typesense-multiuse/search-error-boundary";
 import { TypesensePagination } from "@/components/ui/typesense-multiuse/typesense-pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { env } from "@/config/env.config";
-import { searchResourceClient } from "@/lib/search/client";
-import type { ResourceCatalogueFilter } from "@/types/filters";
+import { searchSearchClient } from "@/lib/search/client";
 
 interface SearchContainerProps {
 	breadcrumbs: Array<{ href: string; label: string } | { label: string; href?: undefined }>;
-	filters: Array<ResourceCatalogueFilter>;
 }
 
 export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNode {
-	const t = useTranslations("DariahResourceCataloguePage");
-	const { breadcrumbs, filters } = props;
+	const t = useTranslations("SearchPage");
+	const { breadcrumbs } = props;
 	const searchParams = useSearchParams();
 
-	const envCollectionName = env.NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME;
+	const envCollectionName = env.NEXT_PUBLIC_TYPESENSE_SEARCH_COLLECTION_NAME;
 
 	const query = searchParams.get("query") ?? "";
 	const pageUrlStringValue = searchParams.get("page");
@@ -43,12 +41,12 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 				},
 			}}
 			routing={true}
-			searchClient={searchResourceClient}
+			searchClient={searchSearchClient}
 		>
-			<Configure hitsPerPage={12} />
+			<Configure hitsPerPage={8} />
 			<SearchErrorBoundary fallback={<SearchError />}>
-				<div className="flex-col px-4 gap-16 w-full flex xl:px-40">
-					<div className="flex flex-col gap-14 pt-8">
+				<div className="flex-col gap-8 w-full flex">
+					<div className="px-4 pt-8 lg:px-34.5">
 						{breadcrumbs.length > 0 && (
 							<Breadcrumbs>
 								{breadcrumbs.map(({ label, href }) => {
@@ -60,23 +58,18 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 								})}
 							</Breadcrumbs>
 						)}
-						<div className="flex flex-col gap-12 lg:gap-7 xl:px-39">
-							<div className="flex flex-col gap-7">
-								<Typography className="font-heading text-[45px] font-light" variant="h1">
-									{t("title")}
-								</Typography>
-								<Typography variant="regular">{t("description")}</Typography>
-							</div>
-							<SearchBox />
-						</div>
 					</div>
-					<div className="flex flex-col gap-18 lg:gap-3.5 lg:flex-row">
-						<Refinements refinements={filters} />
+					<div className="flex flex-col px-4 gap-10 lg:px-40 2xl:px-110">
+						<Typography variant="h2">{t("title")}</Typography>
+						<div className="flex flex-wrap w-full justify-between items-end gap-8">
+							<SearchBox />
+							<MenuSelect attribute="type" />
+						</div>
 						<Hits hitComponent={Hit} />
 					</div>
 				</div>
 			</SearchErrorBoundary>
-			<TypesensePagination pageUrlAlias="dariah-resources[page]" />
+			<TypesensePagination pageUrlAlias="dariah-website[page]" />
 		</InstantSearch>
 	);
 }

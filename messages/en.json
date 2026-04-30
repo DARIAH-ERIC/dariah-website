@@ -311,6 +311,45 @@
 		},
 		"title": "Dariah in a nutshell"
 	},
+	"SearchPage": {
+		"meta": {
+			"title": "Search results"
+		},
+		"title": "Search results",
+		"resultsInfo": "{count} results {query}",
+		"hits": {
+			"empty": "No search results found."
+		},
+		"categories": {
+			"country": "Country",
+			"document-or-policy": "Document or Policy",
+			"event": "Event",
+			"funding-call": "Funding Call",
+			"impact-case-study": "Impact Case Study",
+			"institution": "Institution",
+			"national-consortium": "National Consortium",
+			"news-item": "News Item",
+			"opportunity": "Opportunity",
+			"page": "Page",
+			"person": "Person",
+			"project": "Project",
+			"spotlight-article": "Spotlight Article",
+			"working-group": "Working Group",
+			"publication": "Publication",
+			"service": "Service",
+			"software": "Software",
+			"training-material": "Training Material",
+			"workflow": "Workflow"
+		},
+		"category": {
+			"label": "Category",
+			"placeholder": "All categories"
+		},
+		"searchBox": {
+			"placeholder": "Search with keywords",
+			"buttonLabel": "Search"
+		}
+	},
 	"(default)": {
 		"Footer": {
 			"navigation": {

@@ -103,10 +103,12 @@ interface ButtonProps extends AriaButtonProps, ButtonStyleProps {
 	startIcon?: ReactNode;
 	endIcon?: ReactNode;
 	href?: string;
+	target?: string;
 }
 
 export function Button(props: Readonly<ButtonProps>): ReactNode {
-	const { className, variant, isDisabled, isPending, startIcon, endIcon, href, ...rest } = props;
+	const { className, variant, isDisabled, isPending, startIcon, endIcon, href, target, ...rest } =
+		props;
 
 	const { isPressed } = usePress({ ...rest });
 	const { isHovered } = useHover(rest);
@@ -133,7 +135,7 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 				return buttonStyles({ ...renderProps, className, variant });
 			})}
 		>
-			<WrapperComponent href={href} target="_blank">
+			<WrapperComponent href={href} target={target}>
 				{variant !== "icon-button" && startIcon}
 				{renderProps.children}
 				{variant !== "icon-button" && endIcon}

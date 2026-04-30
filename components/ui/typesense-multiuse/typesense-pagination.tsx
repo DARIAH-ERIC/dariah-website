@@ -3,8 +3,13 @@ import { usePagination, type UsePaginationProps } from "react-instantsearch";
 
 import { Pagination } from "@/components/ui/pagination/pagination";
 
-export function TypesensePagination(props: Readonly<UsePaginationProps>): ReactNode {
-	const { nbPages, refine } = usePagination(props);
+type TypesensePaginationProps = UsePaginationProps & {
+	pageUrlAlias: string;
+};
+
+export function TypesensePagination(props: Readonly<TypesensePaginationProps>): ReactNode {
+	const { pageUrlAlias, ...rest } = props;
+	const { nbPages, refine } = usePagination(rest);
 
 	if (!nbPages || nbPages === 1) return <div className="mb-15" />;
 
@@ -13,7 +18,7 @@ export function TypesensePagination(props: Readonly<UsePaginationProps>): ReactN
 			<Pagination
 				firstPageIndex={0}
 				pageCount={nbPages - 1}
-				pageUrlAlias="dariah-resources[page]"
+				pageUrlAlias={pageUrlAlias}
 				refinePage={refine}
 				shouldScroll={true}
 			/>

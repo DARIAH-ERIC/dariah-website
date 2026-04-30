@@ -41,7 +41,7 @@ export function Select<T extends object>(props: Readonly<SelectProps<T>>): React
 					"focus:px-2.75 focus:pt-4 focus:outline-none focus:border-2 focus:border-primary hover:focus:border-primary",
 				)}
 			>
-				<SelectValue className="bg-transparent text-regular w-full items-center flex gap-2 focus:outline-none">
+				<SelectValue className="bg-transparent text-regular w-full items-center text-left flex gap-2 focus:outline-none">
 					{({ selectedText, defaultChildren }) => {
 						return defaultChildren ?? selectedText;
 					}}

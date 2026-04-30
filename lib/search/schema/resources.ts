@@ -80,3 +80,35 @@ export type ResourceCollectionDocument =
 	| ToolOrServiceResourceDocument
 	| TrainingMaterialResourceDocument
 	| WorkflowResourceDocument;
+
+export interface SearchCollectionItem {
+	id: string;
+	description: string;
+	kind: string;
+	label: string;
+	link: string;
+	objectID: string;
+	source: string;
+	source_id: string;
+	type:
+		| "country"
+		| "document-or-policy"
+		| "event"
+		| "funding-call"
+		| "impact-case-study"
+		| "institution"
+		| "national-consortium"
+		| "news-item"
+		| "opportunity"
+		| "page"
+		| "person"
+		| "project"
+		| "spotlight-article"
+		| "working-group"
+		| "publication"
+		| "service"
+		| "software"
+		| "training-material"
+		| "workflow";
+	imported_at: number;
+}
