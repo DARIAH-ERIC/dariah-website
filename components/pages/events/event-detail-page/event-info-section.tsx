@@ -10,11 +10,12 @@ interface EventInfoSectionProps {
 	location: string;
 	startDate: Date;
 	endDate?: Date;
+	website?: string;
 }
 
 export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactNode {
 	const t = useTranslations("EventsDetailPage");
-	const { location, startDate, endDate } = props;
+	const { location, startDate, endDate, website } = props;
 
 	return (
 		<div className="flex flex-col gap-2">
@@ -38,17 +39,19 @@ export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactN
 					{location}
 				</Typography>
 			</div>
-			<div>
-				<Typography variant="regular">{t("infoSection.website")}</Typography>
-				<Link
-					className="text-[18px]"
-					endIcon={<OpenInNewIcon className="size-5" />}
-					href="/events"
-					variant="tertiary"
-				>
-					{"website"}
-				</Link>
-			</div>
+			{website !== undefined && (
+				<div>
+					<Typography variant="regular">{t("infoSection.website")}</Typography>
+					<Link
+						className="text-[18px]"
+						endIcon={<OpenInNewIcon className="size-5" />}
+						href={website}
+						variant="tertiary"
+					>
+						{"website"}
+					</Link>
+				</div>
+			)}
 		</div>
 	);
 }

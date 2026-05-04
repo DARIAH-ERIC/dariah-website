@@ -1,12 +1,16 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import { type ReactNode, useState } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 
 import { ContentBlocks } from "@/components/content-blocks";
+import { Button } from "@/components/ui/button/button";
+import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
+import { ChevronUpIcon } from "@/components/ui/icons/chevron-up";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
+import { PersonCard } from "@/components/ui/person-card/person-card";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { Typography } from "@/components/ui/typography/typography";
@@ -18,10 +22,13 @@ interface MembersAndPartnersTabsProps {
 }
 
 export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsProps>): ReactNode {
+	const [displayAllInstitutions, setDisplayAllInstitutions] = useState(false);
 	const t = useTranslations("MembersAndPartnersDetailPage");
 	const {
-		memberOrPartner: { name, description, socialMedia },
+		memberOrPartner: { name, description, socialMedia, contributors, institutions },
 	} = props;
+
+	const displayShowMoreButton = institutions.length > 10;
 
 	const { website, otherSocialMedia } = socialMedia.reduce(
 		(acc, item) => {
@@ -38,6 +45,14 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 		},
 	);
 
+	const handleShowMoreButtonClick = () => {
+		setDisplayAllInstitutions((prev) => {
+			return !prev;
+		});
+	};
+
+	const institutionsToDisplay = displayAllInstitutions ? institutions : institutions.slice(0, 10);
+
 	return (
 		<Tabs>
 			<TabList aria-label="Tabs" className="lg:px-0!">
@@ -51,7 +66,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							<Typography className="uppercase" variant="h4">
 								{name}
 							</Typography>
-							<div className="flex gap-6">
+							<div className="flex gap-6 items-center">
 								{website && (
 									<Link
 										endIcon={<OpenInNewIcon className="size-5" />}
@@ -82,13 +97,74 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 						</div>
 						<div className="flex flex-col gap-10 pt-6 pb-9">
 							<Typography variant="h4">{t("contributors.title")}</Typography>
-							<Typography variant="regular">{t("contributors.empty")}</Typography>
+							{contributors.length > 0 ? (
+								<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
+									{contributors.map((contributor) => {
+										const {
+											id,
+											name,
+											position,
+											image: { url: imageUrl },
+										} = contributor;
+
+										const positionNames = position
+											? position.map((positionObj) => {
+													return positionObj.name;
+												})
+											: [];
+
+										return (
+											<PersonCard
+												key={id}
+												imageUrl={imageUrl}
+												name={name}
+												position={positionNames.join(", ")}
+											/>
+										);
+									})}
+								</div>
+							) : (
+								<Typography variant="regular">{t("contributors.empty")}</Typography>
+							)}
 						</div>
 					</div>
 				</TabPanel>
 				<TabPanel id="institutions">
 					<div className="flex flex-col gap-6 pt-10">
-						<Typography variant="regular">{t("institutions.empty")}</Typography>
+						{institutionsToDisplay.length > 0 ? (
+							<>
+								{institutionsToDisplay.map((institution) => {
+									const { slug, name, website } = institution;
+									return (
+										<Link
+											key={slug}
+											endIcon={<OpenInNewIcon className="size-5" />}
+											href={website ?? ""}
+											variant="paragraph"
+										>
+											{name}
+										</Link>
+									);
+								})}
+								{displayShowMoreButton && (
+									<Button
+										endIcon={
+											displayAllInstitutions ? (
+												<ChevronUpIcon className="size-5" />
+											) : (
+												<ChevronDownIcon className="size-5" />
+											)
+										}
+										onClick={handleShowMoreButtonClick}
+										variant="link-primary"
+									>
+										{displayAllInstitutions ? t("showLess") : t("showMore")}
+									</Button>
+								)}
+							</>
+						) : (
+							<Typography variant="regular">{t("institutions.empty")}</Typography>
+						)}
 					</div>
 				</TabPanel>
 			</TabPanels>

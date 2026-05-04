@@ -65,6 +65,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 		links,
 		content,
 		duration: { start: startDate, end: endDate },
+		website,
 	} = response.data;
 
 	const { prev: prevEvent, next: nextEvent } = links;
@@ -120,7 +121,12 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						<Typography className="mb-8.5" variant="h3">
 							{title}
 						</Typography>
-						<EventInfoSection endDate={endDate} location={location} startDate={startDate} />
+						<EventInfoSection
+							endDate={endDate}
+							location={location}
+							startDate={startDate}
+							website={website ?? undefined}
+						/>
 						<Button
 							href={addToCalendarUrl}
 							startIcon={<AddIcon className="size-5" />}

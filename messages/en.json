@@ -303,7 +303,9 @@
 		},
 		"institutions": {
 			"empty": "No partners' institution."
-		}
+		},
+		"showMore": "See more",
+		"showLess": "See less"
 	},
 	"DariahInANutshell": {
 		"meta": {
