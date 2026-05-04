@@ -34,7 +34,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 	const pageUrlValue = searchParams.get(pageUrlAlias);
 	const currentPage =
 		pageUrlValue !== null
-			? Number.parseInt(pageUrlValue) - pagesToTextDiff
+			? Math.max(Number.parseInt(pageUrlValue) - pagesToTextDiff, 0)
 			: (defaultCurrentPage ?? firstPageIndex);
 
 	const isFirstPage = currentPage === firstPageIndex;
