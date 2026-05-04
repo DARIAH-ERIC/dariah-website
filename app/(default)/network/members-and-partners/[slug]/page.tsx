@@ -7,6 +7,7 @@ import { Image } from "@/components/image";
 import { MembersAndPartnersTabs } from "@/components/pages/members-and-partners/detail-page/members-and-partners-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -58,12 +59,12 @@ export default async function MembersAndPartnersPage(
 
 	const response = await client.membersAndPartners.bySlug({ slug });
 
-	const { name, image, status } = response.data;
+	const { name, image, status, relatedEntities, relatedResources } = response.data;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
-			<div className="flex flex-col gap-10 lg:flex-row lg:gap-33.5">
-				<div className="flex flex-col gap-12 max-w-full lg:gap-10 lg:w-265">
+			<div className="flex flex-col gap-8 lg:flex-row lg:gap-30">
+				<div className="flex flex-col gap-12 max-w-full lg:gap-10 lg:w-275">
 					{breadcrumbs.length > 0 && (
 						<Breadcrumbs>
 							{breadcrumbs.map(({ label, href }) => {
@@ -95,9 +96,39 @@ export default async function MembersAndPartnersPage(
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
 					<div className="flex flex-col gap-6">
 						<Typography variant="h2">{t("relatedContent.title")}</Typography>
-						<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+						{relatedEntities.length > 0 ? (
+							relatedEntities.map((entity) => {
+								const { id, entityType, label } = entity;
+								return (
+									<RelatedContent
+										key={id}
+										category={
+											entityType as
+												| "news"
+												| "working-group"
+												| "opportunity"
+												| "event"
+												| "project"
+												| "spotlight-article"
+												| "case-study"
+												| "resources"
+										}
+										title={label ?? ""}
+									/>
+								);
+							})
+						) : (
+							<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
+						)}
 						<Typography variant="h2">{t("featuredOutcome.title")}</Typography>
-						<Typography variant="regular">{t("featuredOutcome.emptyState")}</Typography>
+						{relatedResources.length > 0 ? (
+							relatedResources.map((entity) => {
+								const { id, label } = entity;
+								return <RelatedContent key={id} category="resources" title={label} />;
+							})
+						) : (
+							<Typography variant="regular">{t("featuredOutcome.emptyState")}</Typography>
+						)}
 					</div>
 				</div>
 			</div>
