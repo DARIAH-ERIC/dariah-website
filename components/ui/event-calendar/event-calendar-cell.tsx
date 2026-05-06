@@ -66,7 +66,7 @@ export function EventCalendarCell(props: Readonly<EventCalendarCellProps>): Reac
 		<td className={eventCalendarCellVariants({ variant: dayVariant })}>
 			<Typography
 				className={cn(
-					"flex items-center gap-2.5 cursor-pointer lg:cursor-default",
+					"flex items-center gap-2.5 justify-center cursor-pointer lg:cursor-default lg:justify-start",
 					"focus:underline focus:outline-2 focus:outline-primary",
 					"h-full lg:h-fit",
 				)}

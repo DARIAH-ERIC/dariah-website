@@ -34,7 +34,7 @@ export async function Header(props: Readonly<HeaderProps>): Promise<ReactNode> {
 
 	return (
 		<header {...rest} className={cn("bg-white shadow-header z-10", className)}>
-			<div className="p-4 max-w-480 mx-auto xl:py-8 xl:pl-34.5 xl:pr-36.75">
+			<div className="p-4 max-w-480 mx-auto xl:py-6 xl:px-8 2xl:py-8 2xl:pl-34.5 2xl:pr-36.75">
 				<Navigation label={label} navigation={items} />
 			</div>
 		</header>

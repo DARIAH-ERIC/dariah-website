@@ -79,7 +79,7 @@ export default async function EventsCalendarPage({
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="flex flex-col gap-11 py-2.5 px-13.5">
+				<div className="flex flex-col gap-11 py-2.5 xl:px-13.5">
 					<Typography variant="h2">{t("title")}</Typography>
 					<Filters currentView="calendar" />
 				</div>

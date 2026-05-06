@@ -62,7 +62,7 @@ export default async function MembersAndPartnersPage(
 	const { name, image, status, relatedEntities, relatedResources } = response.data;
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
+		<Main className="container flex flex-1 flex-col gap-8 p-4 lg:px-8 lg:py-12 xl:px-30">
 			<div className="flex flex-col gap-8 lg:flex-row lg:gap-30">
 				<div className="flex flex-col gap-12 max-w-full lg:gap-10 lg:w-275">
 					{breadcrumbs.length > 0 && (

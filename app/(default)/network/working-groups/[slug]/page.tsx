@@ -59,12 +59,16 @@ export default async function WorkingGroupPage(
 
 	const response = await client.workingGroups.bySlug({ slug });
 
-	const { name, image, description, relatedEntities, chairs } = response.data;
+	const { name, image, description, relatedEntities, chairs, socialMedia } = response.data;
+
+	const website = socialMedia.find((media) => {
+		return media.type === "website";
+	});
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
-			<div className="flex flex-col gap-10 lg:flex-row lg:gap-33.5">
-				<div className="flex flex-col gap-12 max-w-full lg:gap-14 lg:w-265">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 2xl:px-30">
+			<div className="flex flex-col gap-10 xl:flex-wrap xl:flex-row 2xl:gap-33.5">
+				<div className="flex flex-col gap-12 max-w-full lg:gap-14 2xl:w-265">
 					{breadcrumbs.length > 0 && (
 						<Breadcrumbs>
 							{breadcrumbs.map(({ label, href }) => {
@@ -135,7 +139,7 @@ export default async function WorkingGroupPage(
 							<hr className="w-22.5 h-0.5 bg-(image:--working-group-detail-divider)" />
 						</div>
 						<Typography variant="regular">{t("joinGroup.description")}</Typography>
-						<Button className="w-fit" variant="tertiary">
+						<Button className="w-fit" href={website?.url} variant="tertiary">
 							{t("joinGroup.button")}
 						</Button>
 					</div>

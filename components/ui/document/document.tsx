@@ -16,9 +16,9 @@ export function Document(props: Readonly<DocumentProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"px-4 py-3 flex border-2 border-transparent text-black flex-col max-w-full items-start justify-between gap-2",
+				"px-4 py-3 flex border-2 border-transparent text-black flex-wrap flex-col max-w-full items-start justify-between gap-2",
 				isEven ? "bg-gray-100" : "bg-transparent z-2",
-				"lg:flex-row lg:w-265 lg:justify-between lg:items-center lg:h-fit lg:gap-0",
+				"lg:flex-row lg:items-center lg:h-fit 2xl:gap-0 2xl:w-265 xl:justify-between",
 				"hover:bg-gray-100 hover:border-gray-100 hover:text-primary hover:shadow-light",
 				"focus-visible:bg-white focus-visible:outline-none focus-visible:border-accent focus-visible:text-primary focus-visible:shadow-light",
 			)}

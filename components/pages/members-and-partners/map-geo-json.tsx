@@ -84,7 +84,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 				marker.addTo(map);
 			}
 		} else {
-			target._path.classList.add("fill-primary-100", "stroke-gray-400");
+			target._path.classList.add("fill-primary-100", "stroke-gray-400", "pointer-events-none!");
 			layer.options.interactive = false;
 		}
 	};
@@ -93,9 +93,11 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		const featureProperties =
 			layer.feature?.type === "Feature" ? (layer.feature.properties as CountryProperties) : null;
 		const name = featureProperties?.name ?? "";
+
 		const layerCountry = countries.find((country) => {
 			return country.name === name;
 		});
+
 		const target = event.target as { _path: HTMLElement };
 
 		if (target._path.classList.contains("fill-primary-400")) {
@@ -103,6 +105,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		} else if (target._path.classList.contains("fill-primary-600")) {
 			target._path.classList.add("fill-primary-700");
 		}
+
 		handleActiveCountryChange(layerCountry);
 	};
 

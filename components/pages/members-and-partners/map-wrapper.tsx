@@ -31,7 +31,7 @@ interface MapWrapperProps {
 export function MapWrapper(props: Readonly<MapWrapperProps>): ReactNode {
 	const { geoJson, countries } = props;
 	return (
-		<div className="w-full z-1 h-257 lg:h-216">
+		<div className="w-full z-1">
 			<Map countries={countries} geoJson={geoJson} />
 		</div>
 	);

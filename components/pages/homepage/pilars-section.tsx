@@ -1,45 +1,39 @@
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Pillar } from "@/components/pillar/pillar";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function PilarsSection(): ReactNode {
+	const t = useTranslations("HomePage");
 	return (
 		<section className="px-4 pt-7.75 pb-23 lg:px-30.5">
 			<Typography
 				className="font-heading text-[56px] font-light w-full px-2.5 py-17.5 lg:text-[85px]"
 				variant="h1"
 			>
-				{"Four Pillars of Our Work"}
+				{t("PillarsSection.header")}
 			</Typography>
 			<div className="flex flex-wrap justify-center gap-10 3xl:justify-between">
 				<Pillar
-					description={
-						"We make digital methods and tools an integral part of humanities research, promoting open, sustainable and responsible technologies."
-					}
+					description={t("PillarsSection.technology.description")}
 					image={"/assets/images/pillar-technology.svg"}
-					title={"Technology"}
+					title={t("PillarsSection.technology.title")}
 				/>
 				<Pillar
-					description={
-						"We foster a culture of shared learning, ensuring that knowledge remains a driving force for innovation and collaboration. "
-					}
+					description={t("PillarsSection.knowledge.description")}
 					image={"/assets/images/pillar-knowledge.svg"}
-					title={"Knowledge"}
+					title={t("PillarsSection.knowledge.title")}
 				/>
 				<Pillar
-					description={
-						"We connect researchers, institution, and networks across disciplines and countries, fostering inclusive collaboration and supportive communities."
-					}
+					description={t("PillarsSection.communities.description")}
 					image={"/assets/images/pillar-communities.svg"}
-					title={"Communities"}
+					title={t("PillarsSection.communities.title")}
 				/>
 				<Pillar
-					description={
-						"We advocate for and shape inclusive and sustainable research infrastructure."
-					}
+					description={t("PillarsSection.policy.description")}
 					image={"/assets/images/pillar-policy.svg"}
-					title={"Policy"}
+					title={t("PillarsSection.policy.title")}
 				/>
 			</div>
 		</section>

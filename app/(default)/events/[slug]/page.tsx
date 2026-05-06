@@ -109,7 +109,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				<Link href="/events" variant="secondary" withDefaultLeftIcon={true}>
 					{t("browseAll")}
 				</Link>
-				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:px-0">
+				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:flex-wrap lg:px-0">
 					<Image
 						alt={title}
 						className="w-82 h-40 object-contain lg:w-197.5 lg:h-101.25"
@@ -147,7 +147,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				<hr className="w-full h-0.5 border-t-2 border-gray-300" />
 				<div className="flex w-full gap-10 flex-col items-center xl:justify-between xl:flex-row">
 					{prevEvent && (
-						<div className="px-2 gap-10 flex flex-col">
+						<div className="px-2 gap-10 flex flex-col max-w-full">
 							<Typography variant="h4">{t("prevEvent")}</Typography>
 							<EventCard
 								endDate={prevEvent.duration.end}
@@ -160,7 +160,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						</div>
 					)}
 					{nextEvent && (
-						<div className="px-2 gap-10 flex flex-col">
+						<div className="px-2 gap-10 flex flex-col max-w-full">
 							<Typography variant="h4">{t("nextEvent")}</Typography>
 							<EventCard
 								endDate={nextEvent.duration.end}
