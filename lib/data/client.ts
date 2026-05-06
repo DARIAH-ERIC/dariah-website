@@ -207,22 +207,22 @@ export function navigation() {
 				"dariah-nutshell": {
 					type: "link",
 					label: "DARIAH in Nutshell",
-					href: "/",
+					href: "/about/dariah-in-a-nutshell",
 				},
 				"members-and-partners": {
 					type: "link",
 					label: "Members and Partners",
-					href: "/",
+					href: "/network/members-and-partners",
 				},
 				projects: {
 					type: "link",
 					label: "Projects",
-					href: "/",
+					href: "/projects",
 				},
 				"events-calendar": {
 					type: "link",
 					label: "Events Calendar",
-					href: "/",
+					href: "/events",
 				},
 				"website-user-survey": {
 					type: "link",

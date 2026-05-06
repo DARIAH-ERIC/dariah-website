@@ -33,7 +33,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const { data: items } = response.data;
 
 	return (
-		<Main className="container relative flex flex-1 flex-col gap-16 pb-40 xl:gap-12 md:px-8">
+		<Main className="container relative flex flex-1 flex-col pb-16 gap-16 xl:pb-40 xl:gap-12 md:px-8">
 			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[80px]" />
 			<div className="flex flex-col gap-13 px-4 pt-8 lg:px-28">
 				{breadcrumbs.length > 0 && (

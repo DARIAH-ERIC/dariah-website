@@ -9,6 +9,8 @@ export function convertNavigationMenu(
 	const config: NavigationConfig = {};
 
 	for (const item of items) {
+		if (item.label === "Home") continue;
+
 		if (item.children.length > 0) {
 			const children: Record<string, NavigationLink> = {};
 

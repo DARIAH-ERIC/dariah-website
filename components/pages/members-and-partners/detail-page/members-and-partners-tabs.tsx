@@ -62,11 +62,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 			<TabPanels>
 				<TabPanel id="details">
 					<div className="flex flex-col px-2 py-4">
-						<div className="flex w-full justify-between">
+						<div className="flex flex-col w-full justify-between lg:flex-row lg:flex-wrap">
 							<Typography className="uppercase" variant="h4">
 								{name}
 							</Typography>
-							<div className="flex gap-6 items-center">
+							<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
 								{website && (
 									<Link
 										endIcon={<OpenInNewIcon className="size-5" />}
@@ -78,7 +78,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 									</Link>
 								)}
 								{otherSocialMedia.length > 0 && (
-									<>
+									<div className="flex gap-6 items-center">
 										<Typography variant="regular">{t("socialMedia.other")}</Typography>
 										{otherSocialMedia.map((item) => {
 											const Icon = socialMediaConfig[item.type].icon;
@@ -88,7 +88,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 												</Link>
 											);
 										})}
-									</>
+									</div>
 								)}
 							</div>
 						</div>

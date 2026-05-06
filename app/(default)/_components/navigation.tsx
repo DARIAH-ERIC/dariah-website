@@ -53,11 +53,11 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 				</Link>
 
 				<NavigationDesktop navigation={menuNavigation} />
-				<Button className="lg:hidden" onClick={handleMobileMenuToggle} variant="icon-button">
+				<Button className="xl:hidden" onClick={handleMobileMenuToggle} variant="icon-button">
 					{isMobileMenuOpen ? (
-						<CloseIcon className="fill-primary! size-8 lg:hidden" />
+						<CloseIcon className="fill-primary! size-8 xl:hidden" />
 					) : (
-						<MenuIcon className="fill-primary! size-8 lg:hidden" />
+						<MenuIcon className="fill-primary! size-8 xl:hidden" />
 					)}
 				</Button>
 			</nav>

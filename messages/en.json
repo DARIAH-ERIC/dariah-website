@@ -5,6 +5,71 @@
 		},
 		"title": "Contact"
 	},
+	"HomePage": {
+		"HeroSection": {
+			"header": "The pan-European infrastructure for Arts & Humanities scholars",
+			"getInvolved": "Get involved",
+			"learnMore": "Learn more about DARIAH-EU",
+			"stayUpdated": "Stay updated"
+		},
+		"NewsSection": {
+			"seeAll": "See all news"
+		},
+		"EventsSection": {
+			"upcomingEvents": "Upcoming Events",
+			"seeAll": "See all events"
+		},
+		"PillarsSection": {
+			"header": "Four Pillars of Our Work",
+			"technology": {
+				"title": "Technology",
+				"description": "We make digital methods and tools an integral part of humanities research, promoting open, sustainable and responsible technologies."
+			},
+			"knowledge": {
+				"title": "Knowledge",
+				"description": "We foster a culture of shared learning, ensuring that knowledge remains a driving force for innovation and collaboration. "
+			},
+			"communities": {
+				"title": "Communities",
+				"description": "We connect researchers, institution, and networks across disciplines and countries, fostering inclusive collaboration and supportive communities."
+			},
+			"policy": {
+				"title": "Policy",
+				"description": "We advocate for and shape inclusive and sustainable research infrastructure."
+			}
+		},
+		"ResourcesSection": {
+			"title": "Our Resources",
+			"description": {
+				"header": "Resources Catalogue",
+				"content": "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer.",
+				"button": "Browse Catalogue"
+			},
+			"dariahCampus": "DARIAH-CAMPUS is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education.",
+			"transformations": "Transformations: A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities.",
+			"sshOpenMarketplace": "SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research.",
+			"explore": "Explore last publication"
+		},
+		"NetworkSection": {
+			"title": "Our Network",
+			"countries": "Member countries",
+			"partnerInstitutions": "National Partner Institution",
+			"cooperatingPartners": "Cooperating Partners",
+			"workingGroups": "Working Groups",
+			"readMore": {
+				"membersAndPartners": "Read more about Members and Partners",
+				"workingGroups": "Read more about Working Groups"
+			}
+		},
+		"GetInvolvedSection": {
+			"title": {
+				"part1": "DARIAH-EU",
+				"part2": " thrives because of its network. ",
+				"part3": "Be part of it!"
+			},
+			"button": "Get involved"
+		}
+	},
 	"DariahResourceCataloguePage": {
 		"meta": {
 			"title": "DARIAH resource catalogue"
@@ -359,7 +424,19 @@
 					"home": "Home",
 					"imprint": "Imprint"
 				},
-				"label": "Secondary"
+				"label": "Secondary",
+				"newsletter": {
+					"header": "Subscribe to our newsletter",
+					"description": {
+						"part1": "Get monthly updates on news, events, and resources from",
+						"part2": " DARIAH ",
+						"part3": "and our community. Subscribing to it is the ideal way of staying informed!"
+					},
+					"form": {
+						"placeholder": "Email address",
+						"button": "Subscribe"
+					}
+				}
 			},
 			"navigation-social-media": {
 				"items": {

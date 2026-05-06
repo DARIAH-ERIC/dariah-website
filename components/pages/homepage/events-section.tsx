@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { EventCard } from "@/components/ui/event-card/event-card";
@@ -20,6 +21,7 @@ interface EventsSectionProps {
 
 export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 	const { events } = props;
+	const t = useTranslations("HomePage");
 
 	return (
 		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-6 py-17.5 lg:px-31.5">
@@ -27,7 +29,7 @@ export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 				className="text-white font-heading text-[56px] px-6 font-light w-full lg:text-[85px]"
 				variant="h1"
 			>
-				{"Upcoming Events"}
+				{t("EventsSection.upcomingEvents")}
 			</Typography>
 			<div className="flex flex-wrap justify-center gap-32.25 w-full">
 				{events.map((event) => {
@@ -48,8 +50,8 @@ export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 				})}
 			</div>
 			<div className="bg-white w-51.5 max-w-full py-5 px-6 lg:w-124.25">
-				<Link href="/news" variant="primary" withDefaultRightIcon={true}>
-					{"See all news"}
+				<Link href="/events" variant="primary" withDefaultRightIcon={true}>
+					{t("EventsSection.seeAll")}
 				</Link>
 			</div>
 		</section>

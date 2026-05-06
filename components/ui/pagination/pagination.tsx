@@ -82,7 +82,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 	if (pageCount <= 0) return null;
 
 	return (
-		<div className="flex gap-5">
+		<div className="flex gap-4 md:gap-5">
 			<Button
 				className={cn("[&_svg]:size-10.75", isFirstPage ? "hidden" : "")}
 				isDisabled={isFirstPage}

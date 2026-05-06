@@ -9,10 +9,11 @@ import { useMediaQuery } from "@/utils/hooks/use-media-query";
 
 interface SectionPanelProps {
 	sections: Array<string>;
+	className?: string;
 }
 
 export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
-	const { sections } = props;
+	const { sections, className } = props;
 	const isLg = useMediaQuery("lg");
 
 	const activeId = useActiveHeading(sections);
@@ -27,7 +28,12 @@ export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
 	if (sections.length === 0) return;
 
 	return (
-		<div className="flex flex-col gap-4 border-l border-l-gray-500 h-fit lg:sticky lg:top-4">
+		<div
+			className={cn(
+				"flex flex-col gap-4 border-l border-l-gray-500 h-fit lg:sticky lg:top-4",
+				className,
+			)}
+		>
 			{sections.map((section) => {
 				const isActive = section === activeId;
 				return (

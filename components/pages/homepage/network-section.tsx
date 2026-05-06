@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -16,13 +17,15 @@ interface NetworkSectionProps {
 export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode {
 	const { stats } = props;
 
+	const t = useTranslations("HomePage");
+
 	return (
 		<section className="w-full px-6 py-20 items-center flex flex-col lg:px-26.25 lg:py-22.5">
 			<Typography
 				className="font-heading text-[56px] font-light w-full lg:px-7.25 lg:text-[85px]"
 				variant="h1"
 			>
-				{"Our Network"}
+				{t("NetworkSection.title")}
 			</Typography>
 			<div className="flex flex-col justify-center gap-6 mt-7.75 lg:flex-row lg:flex-wrap lg:mt-0">
 				<div className="flex flex-col gap-6 items-center">
@@ -40,7 +43,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 									{stats.memberCountries}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
-									{"Member countries"}
+									{t("NetworkSection.countries")}
 								</Typography>
 							</div>
 						</div>
@@ -58,7 +61,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 									{stats.partnerInstitutions}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
-									{"National Partner Institution"}
+									{t("NetworkSection.partnerInstitutions")}
 								</Typography>
 							</div>
 						</div>
@@ -76,15 +79,19 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 									{stats.cooperatingPartners}
 								</p>
 								<Typography className="pb-5.5 text-[24px]" variant="h3">
-									{"Cooperating Partners"}
+									{t("NetworkSection.cooperatingPartners")}
 								</Typography>
 							</div>
 						</div>
 					</div>
 
 					<div className="bg-gray-200 w-78 max-w-full py-5 px-6.25 flex justify-center mt-8.75 lg:w-full">
-						<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
-							{"Read more about Members and Partners"}
+						<Link
+							href={"/network/members-and-partners"}
+							variant="primary"
+							withDefaultRightIcon={true}
+						>
+							{t("NetworkSection.readMore.membersAndPartners")}
 						</Link>
 					</div>
 				</div>
@@ -103,14 +110,14 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								{stats.workingGroups}
 							</p>
 							<Typography className="pb-5.5 text-[24px]" variant="h3">
-								{"Working Groups"}
+								{t("NetworkSection.workingGroups")}
 							</Typography>
 						</div>
 					</div>
 
 					<div className="bg-text-link-bg w-78 max-w-102.25 py-5 px-6.25 flex justify-center mt-8.75 lg:w-102.25">
-						<Link href={"/"} variant="color-bg" withDefaultRightIcon={true}>
-							{"Read more about Working Groups"}
+						<Link href={"/network/working-groups"} variant="color-bg" withDefaultRightIcon={true}>
+							{t("NetworkSection.readMore.workingGroups")}
 						</Link>
 					</div>
 				</div>

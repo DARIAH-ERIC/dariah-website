@@ -57,12 +57,16 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 			</TabList>
 			<TabPanels>
 				<TabPanel id="list">
-					<CountriesPanel className="w-full lg:hidden" members={members} partners={partners} />
+					<CountriesPanel
+						className="w-full h-[90dvh] lg:hidden"
+						members={members}
+						partners={partners}
+					/>
 				</TabPanel>
-				<TabPanel id="map">
+				<TabPanel className="w-full z-1 lg:h-216" id="map">
 					<MapContainer
 						center={[55, -25]}
-						className="w-full h-257 z-1 lg:h-216"
+						className="w-full h-[90dvh] z-1 lg:h-216"
 						scrollWheelZoom={false}
 						worldCopyJump={true}
 						zoom={4}

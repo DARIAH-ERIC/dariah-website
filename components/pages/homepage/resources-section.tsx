@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -9,6 +10,8 @@ import logoDariahTransformations from "@/public/assets/images/logo-dariah-transf
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
 
 export function ResourcesSection(): ReactNode {
+	const t = useTranslations("HomePage");
+
 	return (
 		<section className="relative w-full bg-[url(/assets/images/background-resources.svg)]">
 			<div className="absolute top-0 left-0 backdrop-blur-[50px] bg-(image:--section-news-bg) size-full opacity-80 z-1">
@@ -20,19 +23,17 @@ export function ResourcesSection(): ReactNode {
 						className="text-white font-heading text-[56px] font-light w-95 tracking-(--letter-spacing-medium) lg:text-[85px]"
 						variant="h2"
 					>
-						{"Our Resources"}
+						{t("ResourcesSection.title")}
 					</Typography>
 					<div className="flex flex-col w-full gap-6 text-white pt-7 lg:w-178.25">
 						<Typography className="text-[24px]" variant="h3">
-							{"Resources Catalogue"}
+							{t("ResourcesSection.description.header")}
 						</Typography>
 						<Typography className="font-normal text-[24px]" variant="h3">
-							{
-								"Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer."
-							}
+							{t("ResourcesSection.description.content")}
 						</Typography>
 						<Button className="w-full mt-2 lg:w-62.75 [&>span]:py-0.5!" variant="primary">
-							{"Browse Catalogue"}
+							{t("ResourcesSection.description.button")}
 						</Button>
 					</div>
 				</div>
@@ -47,12 +48,10 @@ export function ResourcesSection(): ReactNode {
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
 							<Typography className="h-27 line-clamp-4" variant="regular">
-								{
-									"DARIAH-CAMPUS is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education."
-								}
+								{t("ResourcesSection.dariahCampus")}
 							</Typography>
-							<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
-								{"Explore last publication"}
+							<Link href={"/resources/dariah-campus"} variant="primary" withDefaultRightIcon={true}>
+								{t("ResourcesSection.explore")}
 							</Link>
 						</div>
 					</div>
@@ -66,12 +65,14 @@ export function ResourcesSection(): ReactNode {
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
 							<Typography className="h-27 line-clamp-4" variant="regular">
-								{
-									"Transformations: A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities."
-								}
+								{t("ResourcesSection.transformations")}
 							</Typography>
-							<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
-								{"Explore last publication"}
+							<Link
+								href={"/resources/transformations"}
+								variant="primary"
+								withDefaultRightIcon={true}
+							>
+								{t("ResourcesSection.explore")}
 							</Link>
 						</div>
 					</div>
@@ -81,12 +82,14 @@ export function ResourcesSection(): ReactNode {
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
 							<Typography className="h-27 line-clamp-4" variant="regular">
-								{
-									"SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research."
-								}
+								{t("ResourcesSection.sshOpenMarketplace")}
 							</Typography>
-							<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
-								{"Explore last publication"}
+							<Link
+								href={"/resources/ssh-open-marketplace"}
+								variant="primary"
+								withDefaultRightIcon={true}
+							>
+								{t("ResourcesSection.explore")}
 							</Link>
 						</div>
 					</div>

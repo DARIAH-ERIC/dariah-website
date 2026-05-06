@@ -21,7 +21,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 	const { navigation, handleMobileMenuToggle } = props;
 
 	return (
-		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 z-10 justify-between flex flex-col w-screen">
+		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 z-10 justify-between flex flex-col w-screen xl:hidden">
 			<DisclosureGroup className="flex flex-col w-full">
 				{Object.entries(navigation).map(([id, item]) => {
 					switch (item.type) {

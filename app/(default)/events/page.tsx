@@ -17,6 +17,7 @@ import { parseDateToRangeString } from "@/utils/event-page.utils";
 
 interface EventsSearchParams {
 	date?: string;
+	page?: string;
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,21 +35,29 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
+const DEFAULT_PER_PAGE = 10;
+
 export default async function EventsPage({
 	searchParams,
 }: Readonly<{
 	searchParams: Promise<EventsSearchParams>;
 }>): Promise<ReactNode> {
 	const params = await searchParams;
-	const { date } = params;
+	const { date, page = "1" } = params;
 
 	const t = await getTranslations("EventsPage");
 	const format = await getFormatter();
 
-	const response = await client.events.list({ from: date });
+	const response = await client.events.list({
+		from: date,
+		offset: DEFAULT_PER_PAGE * (Number.parseInt(page) - 1),
+	});
 	const breadcrumbs = navigation().breadcrumbs.events;
 
-	const { data: items } = response.data;
+	const { data: items, offset, total } = response.data;
+
+	const hasPrevEvents = offset >= DEFAULT_PER_PAGE;
+	const hasNextEvents = offset + DEFAULT_PER_PAGE < total;
 
 	const sortedItems = items.toSorted((a, z) => {
 		return a.duration.start.getTime() - z.duration.start.getTime();
@@ -72,14 +81,18 @@ export default async function EventsPage({
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="flex flex-col gap-11 py-2.5 px-13.5">
+				<div className="flex flex-col gap-11 py-2.5 xl:px-13.5">
 					<Typography variant="h2">{t("title")}</Typography>
 					<Filters currentView="list" />
 				</div>
 			</div>
 
 			<div className="flex flex-col pt-10 gap-12 items-center max-w-full w-332.5 pl-0.5 px-4">
-				<EventPagination />
+				<EventPagination
+					currentPage={page}
+					hasNextEvents={hasNextEvents}
+					hasPrevEvents={hasPrevEvents}
+				/>
 				<div className="flex h-full gap-2.5 max-w-full">
 					<LineIcon className="stroke-gray-300 w-3" />
 					<div className="flex flex-col gap-10 max-w-full">
@@ -119,7 +132,11 @@ export default async function EventsPage({
 						})}
 					</div>
 				</div>
-				<EventPagination />
+				<EventPagination
+					currentPage={page}
+					hasNextEvents={hasNextEvents}
+					hasPrevEvents={hasPrevEvents}
+				/>
 			</div>
 		</Main>
 	);

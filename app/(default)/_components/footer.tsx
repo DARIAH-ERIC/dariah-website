@@ -27,7 +27,10 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 	const { secondary } = navigation();
 
 	return (
-		<footer {...rest} className={cn("border-t border-stroke-weak shadow-footer", className)}>
+		<footer
+			{...rest}
+			className={cn("border-t border-stroke-weak shadow-footer z-10 bg-white", className)}
+		>
 			<div className={cn("px-6 py-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
 				<NavLink
 					className="lg:absolute lg:top-14.5 lg:left-17"
@@ -137,17 +140,20 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					<div className="flex flex-col gap-y-8 lg:max-w-154">
 						<div className="flex flex-col gap-10">
 							<Typography className="font-light" variant="h2">
-								{"Subscribe to our newsletter"}
+								{t("navigation.newsletter.header")}
 							</Typography>
 							<div className="flex flex-col gap-8.5">
 								<Typography variant="regular">
-									{"Get monthly updates on news, events, and resources from"}{" "}
-									<span className="font-bold">{"DARIAH"}</span>{" "}
-									{"and our community. Subscribing to it is the ideal way of staying informed!"}
+									{t("navigation.newsletter.description.part1")}
+									<span className="font-bold">{t("navigation.newsletter.description.part2")}</span>
+									{t("navigation.newsletter.description.part3")}
 								</Typography>
 								<div className="flex gap-0.5">
-									<TextField className="flex-1" placeholder="Email address" />
-									<Button variant="secondary-blue">{"Subscribe"}</Button>
+									<TextField
+										className="flex-1"
+										placeholder={t("navigation.newsletter.form.placeholder")}
+									/>
+									<Button variant="secondary-blue">{t("navigation.newsletter.form.button")}</Button>
 								</div>
 							</div>
 						</div>
