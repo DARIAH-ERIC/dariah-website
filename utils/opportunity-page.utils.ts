@@ -4,13 +4,21 @@ export const convertDateToCalendarDate = (date: Date): CalendarDate => {
 	return new CalendarDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
 };
 
-export const checkIfOpportunityIsOpen = (startDate: Date, endDate: Date): boolean => {
+export const getOpportunityStatus = (
+	startDate: Date,
+	endDate: Date,
+): "open" | "closed" | "upcoming" => {
 	const startCalendarDate = convertDateToCalendarDate(startDate);
 	const endCalendarDate = convertDateToCalendarDate(endDate);
 
 	const currentTime = now(getLocalTimeZone());
 
-	return currentTime.compare(startCalendarDate) >= 0 && currentTime.compare(endCalendarDate) <= 0;
+	if (currentTime.compare(startCalendarDate) <= 0 && currentTime.compare(endCalendarDate) <= 0)
+		return "upcoming";
+	if (currentTime.compare(startCalendarDate) >= 0 && currentTime.compare(endCalendarDate) <= 0)
+		return "open";
+
+	return "closed";
 };
 
 export const getFormattedDateForOpportunity = (date: Date): string => {

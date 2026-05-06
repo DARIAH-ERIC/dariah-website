@@ -390,12 +390,13 @@
 				"select": "Availability",
 				"open": "Open",
 				"closed": "Closed",
+				"upcoming": "Upcoming",
 				"placeholder": "Any"
 			},
 			"source": {
 				"select": "Source",
 				"dariah": "DARIAH",
-				"external": "EXTERNAL",
+				"external": "External",
 				"placeholder": "Any"
 			}
 		},

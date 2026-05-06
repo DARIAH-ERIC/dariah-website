@@ -493,13 +493,15 @@ const _opportunitiesBySlug = nextCache(
 
 const _opportunitiesList = nextCache(
 	async function list({
+		status,
+		source,
 		limit = 10,
 		offset = 0,
 	}: paths["/api/v1/opportunities"]["get"]["parameters"]["query"] = {}) {
 		const url = createUrl({
 			baseUrl,
 			pathname: "/api/v1/opportunities",
-			searchParams: createUrlSearchParams({ limit, offset }),
+			searchParams: createUrlSearchParams({ status, source, limit, offset }),
 		});
 
 		const result = await request<OpportunityListResponse>(url, {
