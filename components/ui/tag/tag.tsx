@@ -1,4 +1,4 @@
-import { type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
+import { cn, type GetVariantProps, styles } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 
 const tagStyles = styles({
@@ -8,6 +8,7 @@ const tagStyles = styles({
 			past: "bg-gray-200",
 			pending: "text-white bg-accent",
 			upcoming: "bg-tag-upcoming-bg",
+			internal: "bg-primary text-white",
 		},
 	},
 	defaults: {
@@ -19,9 +20,10 @@ type TagStyleProps = GetVariantProps<typeof tagStyles>;
 
 interface TagProps extends TagStyleProps {
 	text?: string;
+	className?: string;
 }
 
 export function Tag(props: Readonly<TagProps>): ReactNode {
-	const { text, variant } = props;
-	return <div className={tagStyles({ variant })}>{text}</div>;
+	const { text, variant, className } = props;
+	return <div className={cn(tagStyles({ variant }), className)}>{text}</div>;
 }

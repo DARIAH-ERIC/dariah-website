@@ -117,7 +117,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						src={image.url}
 						width={790}
 					/>
-					<div className="flex flex-col gap-6.5">
+					<div className="flex flex-col gap-6.5 flex-1">
 						<Typography className="mb-8.5" variant="h3">
 							{title}
 						</Typography>
