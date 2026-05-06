@@ -100,8 +100,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 			<div
 				className={cn(
 					"flex flex-1 flex-col gap-4 justify-between",
-					variant === "standard" && "size-full",
-					!isListVariant && "pt-13",
+					!isListVariant && "pt-13 size-full",
 					variant === "list-item" && "gap-0! lg:max-h-55",
 					variant === "list-headline" &&
 						"absolute h-119.75 top-[208] left-[24] z-10 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
