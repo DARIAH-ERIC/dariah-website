@@ -12,7 +12,11 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
-interface OpportunitiesPageProps extends PageProps<"/get-involved/opportunities"> {}
+interface OpportunitiesSearchParams {
+	page?: string;
+	availability?: "open" | "closed" | "upcoming";
+	source?: "dariah" | "external";
+}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("Opportunities");
@@ -29,15 +33,22 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function OpportunitiesPage(
-	props: Readonly<OpportunitiesPageProps>,
-): Promise<ReactNode> {
-	const { searchParams } = props;
-	const { page = 1, per_page = 10 } = await searchParams;
+const DEFAULT_PER_PAGE = 10;
+
+export default async function OpportunitiesPage({
+	searchParams,
+}: Readonly<{
+	searchParams: Promise<OpportunitiesSearchParams>;
+}>): Promise<ReactNode> {
+	const params = await searchParams;
+	const { page = 1, availability, source } = params;
 	const t = await getTranslations("Opportunities");
+
 	const response = await client.opportunities.list({
-		limit: Number(per_page),
-		offset: (Number(page) - 1) * Number(per_page),
+		limit: DEFAULT_PER_PAGE,
+		offset: (Number(page) - 1) * DEFAULT_PER_PAGE,
+		source: source !== undefined ? [source] : source,
+		status: availability !== undefined ? [availability] : availability,
 	});
 	const breadcrumbs = navigation().breadcrumbs.opportunities;
 
@@ -117,7 +128,7 @@ export default async function OpportunitiesPage(
 			{total > 10 && (
 				<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 					<Suspense>
-						<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
+						<Pagination pageCount={Math.ceil(total / DEFAULT_PER_PAGE)} shouldScroll={true} />
 					</Suspense>
 				</div>
 			)}
