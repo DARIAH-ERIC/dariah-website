@@ -342,6 +342,15 @@ export function navigation() {
 				label: "news",
 			},
 		],
+		opportunities: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "opportunities",
+			},
+		],
 		projects: [
 			{
 				href: "/",

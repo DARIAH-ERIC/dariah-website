@@ -51,6 +51,11 @@ type NewsItemListResponse =
 type NewsletterListResponse =
 	paths["/api/v1/newsletters"]["get"]["responses"][200]["content"]["application/json"];
 
+type OpportunityResponse =
+	paths["/api/v1/opportunities/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type OpportunityListResponse =
+	paths["/api/v1/opportunities"]["get"]["responses"][200]["content"]["application/json"];
+
 type PageResponse =
 	paths["/api/v1/pages/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type PageListResponse =
@@ -104,6 +109,11 @@ export type NewsItemList = Omit<NewsItemListResponse, "data"> & {
 	data: Array<WithPublishedAt<NewsItemListResponse["data"][number]>>;
 };
 
+export type Opportunity = WithPublishedAt<OpportunityResponse>;
+export type OpportunityList = Omit<OpportunityListResponse, "data"> & {
+	data: Array<WithPublishedAt<OpportunityListResponse["data"][number]>>;
+};
+
 export type NewsletterList =
 	paths["/api/v1/newsletters"]["get"]["responses"][200]["content"]["application/json"];
 
@@ -144,6 +154,7 @@ export const cacheTags = {
 	navigation: "navigation",
 	news: "news",
 	newsletters: "newsletters",
+	opportunities: "opportunities",
 	pages: "pages",
 	persons: "persons",
 	projects: "projects",
@@ -453,6 +464,54 @@ const _newsList = nextCache(
 	},
 	[cacheTags.news],
 	{ revalidate: 3600, tags: [cacheTags.news] },
+);
+
+const _opportunitiesBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/opportunities/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/opportunities/slugs/${slug}`,
+		});
+
+		const result = await request<OpportunityResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+);
+
+const _opportunitiesList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/opportunities"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/opportunities",
+			searchParams: createUrlSearchParams({ limit, offset }),
+		});
+
+		const result = await request<OpportunityListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.opportunities] },
 );
 
 const _pagesBySlug = nextCache(
@@ -1058,6 +1117,68 @@ export const client = {
 				{ revalidate: 3600, tags: [cacheTags.newsletters] },
 			),
 		),
+	},
+	opportunities: {
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/opportunities/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _opportunitiesBySlug(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end != null ? new Date(response.data.duration.end) : undefined,
+					},
+				},
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/opportunities"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _opportunitiesList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+							duration: {
+								start: new Date(item.duration.start),
+								end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+							},
+						};
+					}),
+				},
+			};
+		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/opportunities/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/opportunities/slugs",
+				searchParams: createUrlSearchParams({ limit, offset }),
+			});
+
+			const result = await request<
+				paths["/api/v1/opportunities/slugs"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			});
+
+			return result.unwrap();
+		}),
 	},
 	pages: {
 		bySlug: cache(async function bySlug(
