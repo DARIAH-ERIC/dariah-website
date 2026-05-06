@@ -6,8 +6,13 @@ import { Link } from "@/components/ui/link/link";
 import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 import {
+<<<<<<< feat/opportunities-list
 	getFormattedDateForOpportunity,
 	getOpportunityStatus,
+=======
+	checkIfOpportunityIsOpen,
+	getFormattedDateForOpportunity,
+>>>>>>> main
 } from "@/utils/opportunity-page.utils";
 
 export const opportunityCardStyles = styles({
@@ -38,7 +43,11 @@ export function OpportunityCard(props: Readonly<OpportunityCardProps>): ReactNod
 	const { variant, title, website, startDate, endDate, summary } = props;
 	const t = useTranslations("Opportunities");
 
+<<<<<<< feat/opportunities-list
 	const status = getOpportunityStatus(startDate, endDate ?? startDate);
+=======
+	const isOpen = checkIfOpportunityIsOpen(startDate, endDate ?? startDate);
+>>>>>>> main
 
 	return (
 		<div className={cn(opportunityCardStyles({ variant }))}>
@@ -46,6 +55,7 @@ export function OpportunityCard(props: Readonly<OpportunityCardProps>): ReactNod
 				{title}
 			</Link>
 			<div className="flex gap-4 items-center">
+<<<<<<< feat/opportunities-list
 				{["open", "upcoming"].includes(status) && (
 					<>
 						<Tag
@@ -60,6 +70,14 @@ export function OpportunityCard(props: Readonly<OpportunityCardProps>): ReactNod
 						<div className="border-l border-gray-400 h-4" />
 					</>
 				)}
+=======
+				<Tag
+					className="rounded-none!"
+					text={isOpen ? t("filters.availability.open") : t("filters.availability.closed")}
+					variant={isOpen ? "upcoming" : "past"}
+				/>
+				<div className="border-l border-gray-400 h-4" />
+>>>>>>> main
 				<Tag
 					className="rounded-none! px-2"
 					text={t(`filters.source.${variant}`)}
