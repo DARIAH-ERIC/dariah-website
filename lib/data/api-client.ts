@@ -30,6 +30,11 @@ type EventResponse =
 type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
 
+type FundingCallsResponse =
+	paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
+type FundingCallsListResponse =
+	paths["/api/v1/funding-calls"]["get"]["responses"][200]["content"]["application/json"];
+
 type ImpactCaseStudyResponse =
 	paths["/api/v1/impact-case-studies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type ImpactCaseStudyListResponse =
@@ -92,6 +97,11 @@ export type DocumentOrPolicyList = Omit<DocumentOrPolicyListResponse, "data"> & 
 export type Event = WithPublishedAt<WithDuration<EventResponse>>;
 export type EventList = Omit<EventListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
+};
+
+export type FundingCall = WithPublishedAt<FundingCallsResponse>;
+export type FundingCallList = Omit<FundingCallsListResponse, "data"> & {
+	data: Array<WithPublishedAt<FundingCallsListResponse["data"][number]>>;
 };
 
 export type ImpactCaseStudy = WithPublishedAt<ImpactCaseStudyResponse>;
@@ -266,6 +276,55 @@ const _eventsList = nextCache(
 	},
 	[cacheTags.events],
 	{ revalidate: 3600, tags: [cacheTags.events] },
+);
+
+const _fundingCallsBySlug = nextCache(
+	async function bySlug({
+		slug,
+	}: paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["parameters"]["path"]) {
+		const url = createUrl({
+			baseUrl,
+			pathname: `/api/v1/funding-calls/slugs/${slug}`,
+		});
+
+		const result = await request<FundingCallsResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		if (result.isErr() && HttpError.is(result.error) && result.error.response.status === 404) {
+			notFound();
+		}
+
+		return result.unwrap();
+	},
+	[cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+);
+
+const _fundingCallsList = nextCache(
+	async function list({
+		status,
+		limit = 10,
+		offset = 0,
+	}: paths["/api/v1/funding-calls"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/funding-calls",
+			searchParams: createUrlSearchParams({ status, limit, offset }),
+		});
+
+		const result = await request<FundingCallsListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.opportunities] },
 );
 
 const _homePageGet = nextCache(
@@ -885,6 +944,68 @@ export const client = {
 
 			const result = await request<
 				paths["/api/v1/events/slugs"]["get"]["responses"][200]["content"]["application/json"]
+			>(url, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			});
+
+			return result.unwrap();
+		}),
+	},
+	fundingCalls: {
+		bySlug: cache(async function bySlug(
+			params: paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["parameters"]["path"],
+		) {
+			const response = await _fundingCallsBySlug(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					publishedAt: new Date(response.data.publishedAt),
+					duration: {
+						start: new Date(response.data.duration.start),
+						end:
+							response.data.duration.end != null ? new Date(response.data.duration.end) : undefined,
+					},
+				},
+			};
+		}),
+		list: cache(async function list(
+			params: paths["/api/v1/funding-calls"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _fundingCallsList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return {
+							...item,
+							publishedAt: new Date(item.publishedAt),
+							duration: {
+								start: new Date(item.duration.start),
+								end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+							},
+						};
+					}),
+				},
+			};
+		}),
+		slugs: cache(async function slugs({
+			limit = 10,
+			offset = 0,
+		}: paths["/api/v1/funding-calls/slugs"]["get"]["parameters"]["query"] = {}) {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/funding-calls/slugs",
+				searchParams: createUrlSearchParams({ limit, offset }),
+			});
+
+			const result = await request<
+				paths["/api/v1/funding-calls/slugs"]["get"]["responses"][200]["content"]["application/json"]
 			>(url, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },

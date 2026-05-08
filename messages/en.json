@@ -168,6 +168,16 @@
 			"website": "Website:"
 		}
 	},
+	"FundingCallsPage": {
+		"meta": {
+			"title": "Funding Calls"
+		},
+		"title": "Funding Calls",
+		"emptyClosedCalls": "There are no closed funding calls at the moment.",
+		"seePastCalls": "See past funding calls",
+		"hidePastCalls": "Hide past funding calls",
+		"openCall": "Open"
+	},
 	"GlobalNotFoundPage": {
 		"meta": {
 			"title": "Page not found"
