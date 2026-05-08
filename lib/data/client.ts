@@ -261,6 +261,33 @@ export function navigation() {
 				label: "events",
 			},
 		],
+		fundingCalls: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/get-involved",
+				label: "Get involved",
+			},
+			{
+				label: "Funding Calls",
+			},
+		],
+		fundingCallsDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/get-involved",
+				label: "Get involved",
+			},
+			{
+				href: "/get-involved/dariah-funding-call",
+				label: "Funding Calls",
+			},
+		],
 		impactCaseStudy: [
 			{
 				href: "/",
