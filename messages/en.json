@@ -493,7 +493,8 @@
 					"twitter": "Twitter",
 					"vimeo": "Vimeo",
 					"website": "Website",
-					"youtube": "YouTube"
+					"youtube": "YouTube",
+					"other": "other"
 				},
 				"label": "Social media"
 			}
