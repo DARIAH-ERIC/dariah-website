@@ -17,8 +17,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 	}
 
 	try {
-		const response = await client.newsletters.subscribe({ email });
-		return NextResponse.json({ response });
+		await client.newsletters.subscribe({ email });
+		return NextResponse.json({ success: true }, { status: 201 });
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
 		return NextResponse.json({ message }, { status: 400 });
