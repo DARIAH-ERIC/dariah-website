@@ -38,29 +38,30 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 									<NavMenuTrigger>
 										<NavButton>{item.label}</NavButton>
 										<NavMenu>
-											{Object.entries(item.children).map(([id, item]) => {
-												switch (item.type) {
-													case "action": {
-														return (
-															<NavMenuItem key={id} onAction={item.onAction}>
-																{item.label}
-															</NavMenuItem>
-														);
-													}
+											{item.children &&
+												Object.entries(item.children).map(([id, item]) => {
+													switch (item.type) {
+														case "action": {
+															return (
+																<NavMenuItem key={id} onAction={item.onAction}>
+																	{item.label}
+																</NavMenuItem>
+															);
+														}
 
-													case "link": {
-														return (
-															<NavMenuItem key={id} href={item.href} target={item.target}>
-																{item.label}
-															</NavMenuItem>
-														);
-													}
+														case "link": {
+															return (
+																<NavMenuItem key={id} href={item.href} target={item.target}>
+																	{item.label}
+																</NavMenuItem>
+															);
+														}
 
-													case "separator": {
-														return <NavMenuSeparator key={id} />;
+														case "separator": {
+															return <NavMenuSeparator key={id} />;
+														}
 													}
-												}
-											})}
+												})}
 										</NavMenu>
 									</NavMenuTrigger>
 								</li>

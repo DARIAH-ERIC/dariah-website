@@ -52,40 +52,41 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 										<DisclosureHeader>{item.label}</DisclosureHeader>
 										<DisclosurePanel>
 											<NavMenu aria-labelledby={item.label}>
-												{Object.entries(item.children).map(([id, item]) => {
-													switch (item.type) {
-														case "action": {
-															return (
-																<NavMenuItem
-																	key={id}
-																	className="h-11 flex items-center"
-																	onAction={item.onAction}
-																	onClick={handleMobileMenuToggle}
-																>
-																	{item.label}
-																</NavMenuItem>
-															);
-														}
+												{item.children &&
+													Object.entries(item.children).map(([id, item]) => {
+														switch (item.type) {
+															case "action": {
+																return (
+																	<NavMenuItem
+																		key={id}
+																		className="h-11 flex items-center"
+																		onAction={item.onAction}
+																		onClick={handleMobileMenuToggle}
+																	>
+																		{item.label}
+																	</NavMenuItem>
+																);
+															}
 
-														case "link": {
-															return (
-																<NavMenuItem
-																	key={id}
-																	className="h-11 flex items-center"
-																	href={item.href}
-																	onClick={handleMobileMenuToggle}
-																	target={item.target}
-																>
-																	{item.label}
-																</NavMenuItem>
-															);
-														}
+															case "link": {
+																return (
+																	<NavMenuItem
+																		key={id}
+																		className="h-11 flex items-center"
+																		href={item.href}
+																		onClick={handleMobileMenuToggle}
+																		target={item.target}
+																	>
+																		{item.label}
+																	</NavMenuItem>
+																);
+															}
 
-														case "separator": {
-															return <NavMenuSeparator key={id} />;
+															case "separator": {
+																return <NavMenuSeparator key={id} />;
+															}
 														}
-													}
-												})}
+													})}
 											</NavMenu>
 										</DisclosurePanel>
 									</Disclosure>
