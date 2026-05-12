@@ -128,7 +128,7 @@ export default async function WorkingGroupPage(
 								})}
 							</div>
 						) : (
-							<Typography variant="regular">{t("groupChars.empty")}</Typography>
+							<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
 						)}
 					</div>
 				</div>
