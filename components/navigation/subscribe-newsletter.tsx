@@ -14,6 +14,7 @@ const DEFAULT_500_ERROR_MESSAGE = "Internal Server Error";
 export function SubscribeNewsletter(): ReactNode {
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState<undefined | string>(undefined);
+	const [subscribeStatus, setSubscribeStatus] = useState<"idle" | "loading" | "success">("idle");
 	const t = useTranslations("(default).Footer");
 
 	const emailSchema = v.pipe(
@@ -45,12 +46,22 @@ export function SubscribeNewsletter(): ReactNode {
 			} else {
 				setEmailError(message);
 			}
+			setSubscribeStatus("idle");
 		} else {
+			setSubscribeStatus("success");
 			setEmail("");
+
+			setTimeout(() => {
+				setSubscribeStatus("idle");
+			}, 3000);
 		}
 	};
 
 	const handleNewsletterSubmit = () => {
+		if (subscribeStatus !== "idle") return;
+
+		setSubscribeStatus("loading");
+		setEmailError(undefined);
 		const result = v.safeParse(emailSchema, email);
 		if (!result.success) {
 			setEmailError(result.issues[0].message);
@@ -82,7 +93,12 @@ export function SubscribeNewsletter(): ReactNode {
 							placeholder={t("navigation.newsletter.form.placeholder")}
 							value={email}
 						/>
-						<Button onClick={handleNewsletterSubmit} variant="secondary-blue">
+						<Button
+							isDisabled={subscribeStatus !== "idle"}
+							isPending={subscribeStatus === "loading"}
+							onClick={handleNewsletterSubmit}
+							variant="secondary-blue"
+						>
 							{t("navigation.newsletter.form.button")}
 						</Button>
 					</div>
@@ -90,6 +106,9 @@ export function SubscribeNewsletter(): ReactNode {
 						<Typography className="text-red-500" variant="small">
 							{emailError}
 						</Typography>
+					)}
+					{subscribeStatus === "success" && (
+						<Typography variant="small">{t("navigation.newsletter.success")}</Typography>
 					)}
 				</div>
 			</div>
