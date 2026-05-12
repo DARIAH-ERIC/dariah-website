@@ -1261,7 +1261,7 @@ export const client = {
 			>(url, {
 				method: "post",
 				responseType: "json",
-				headers: apiHeaders,
+				headers: { ...apiHeaders, "Content-Type": "application/json" },
 				body: JSON.stringify({ email }),
 			});
 
