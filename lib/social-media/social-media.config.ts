@@ -30,6 +30,7 @@ export const config = {
 	website: { icon: WebsiteIcon },
 	youtube: { icon: YouTubeIcon },
 	vimeo: { icon: VimeoIcon },
+	other: { icon: WebsiteIcon },
 };
 
 export type SocialMediaKind = keyof typeof config;
