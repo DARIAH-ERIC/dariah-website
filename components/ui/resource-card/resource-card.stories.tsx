@@ -19,7 +19,7 @@ export const ToolOrService: Story = {
 		description:
 			"DARIAH Zotero library brings together collection of bibliographic items created within the DARIAH environment or citing DARIAH.",
 		serviceType: "core",
-		resourceCategory: "tool-or-service",
+		resourceCategory: "service",
 	},
 };
 
