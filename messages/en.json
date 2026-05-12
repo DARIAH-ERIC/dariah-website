@@ -471,6 +471,7 @@
 						"placeholder": "Email address",
 						"button": "Subscribe"
 					},
+					"success": "Successfully subscribed to the newsletter!",
 					"error": {
 						"emptyEmail": "Email address is required",
 						"invalidEmail": "Please enter a valid email address",
