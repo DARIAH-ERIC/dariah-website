@@ -21,7 +21,7 @@ export function NewsSection(props: Readonly<NewsSectionProps>): ReactNode {
 
 	return (
 		<section className="flex pb-10.5 flex-col gap-19 items-end bg-white">
-			<div className="flex flex-wrap px-4 gap-21.5 justify-center w-full items-end lg:px-32">
+			<div className="flex flex-wrap px-4 gap-21.5 justify-center w-full items-end lg:px-32 2xl:justify-start">
 				{news.map((newsItem, index) => {
 					const { entity, id, image, publishedAt, summary, title } = newsItem;
 

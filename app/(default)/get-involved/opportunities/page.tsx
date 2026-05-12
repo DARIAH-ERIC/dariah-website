@@ -69,7 +69,7 @@ export default async function OpportunitiesPage({
 					})}
 				</Breadcrumbs>
 			)}
-			<div className="flex flex-col px-4 gap-14 lg:px-16 xl:px-32 2xl:px-80">
+			<div className="flex flex-col px-4 gap-14 lg:px-16 xl:px-32 2xl:px-86">
 				<div className="flex flex-col gap-6 items-center">
 					<Typography className="w-full" variant="h2">
 						{t("title")}

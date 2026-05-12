@@ -132,7 +132,7 @@ export default async function FundingCalls({
 						)}
 						<Link
 							endIcon={<ChevronUpIcon className="size-5" />}
-							href="/get-involved/dariah-funding-call"
+							href="/get-involved/funding-calls"
 							variant="primary"
 						>
 							{t("hidePastCalls")}
@@ -142,7 +142,7 @@ export default async function FundingCalls({
 				{!shouldDisplayClosedFundingCalls && (
 					<Link
 						endIcon={<ChevronDownIcon className="size-5" />}
-						href="/get-involved/dariah-funding-call?status=closed"
+						href="/get-involved/funding-calls?status=closed"
 						variant="primary"
 					>
 						{t("seePastCalls")}

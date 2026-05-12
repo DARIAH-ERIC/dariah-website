@@ -5,7 +5,7 @@ import { cache } from "react";
 
 import { env } from "@/config/env.config";
 import type { paths } from "@/lib/api/types";
-import { HttpError, request } from "@/lib/utils/request";
+import { HttpError, request, type ResponseInfo } from "@/lib/utils/request";
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -1240,6 +1240,37 @@ export const client = {
 				{ revalidate: 3600, tags: [cacheTags.newsletters] },
 			),
 		),
+		subscribe: async function subscribe({
+			email,
+		}: paths["/api/v1/newsletters/subscribe"]["post"]["requestBody"]["content"]["application/json"]): Promise<
+			ResponseInfo<{
+				email: string;
+			}>
+		> {
+			const url = createUrl({
+				baseUrl,
+				pathname: "/api/v1/newsletters/subscribe",
+			});
+
+			if (email === "" || typeof email !== "string") {
+				throw new Error("Invalid email");
+			}
+
+			const result = await request<
+				paths["/api/v1/newsletters/subscribe"]["post"]["responses"][201]["content"]["application/json"]
+			>(url, {
+				method: "post",
+				responseType: "json",
+				headers: apiHeaders,
+				body: JSON.stringify({ email }),
+			});
+
+			if (result.isErr() && HttpError.is(result.error)) {
+				throw new Error(result.error.response.statusText);
+			}
+
+			return result.unwrap();
+		},
 	},
 	opportunities: {
 		bySlug: cache(async function bySlug(

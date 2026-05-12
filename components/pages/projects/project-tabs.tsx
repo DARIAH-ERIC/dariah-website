@@ -32,7 +32,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 			<TabPanels>
 				<TabPanel id="active">
 					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20"
+						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
 						role="list"
 					>
 						{items.map((item) => {
@@ -59,7 +59,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 				</TabPanel>
 				<TabPanel id="inactive">
 					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20"
+						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
 						role="list"
 					>
 						{items.toReversed().map((item) => {

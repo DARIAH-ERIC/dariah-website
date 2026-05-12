@@ -17,7 +17,7 @@ export function ResourcesSection(): ReactNode {
 			<div className="absolute top-0 left-0 backdrop-blur-[50px] bg-(image:--section-news-bg) size-full opacity-80 z-1">
 				<div className="absolute top-0 left-0 w-full h-176.75 bg-section-resources-top-bg opacity-40 backdrop-blur-[13.4px] z-3" />
 			</div>
-			<div className="relative z-2 px-6 py-14 flex flex-col gap-38.5 lg:py-32.75 lg:px-30.25">
+			<div className="relative z-2 px-6 py-14 flex flex-col gap-38.5 lg:py-32.75 lg:px-28.25">
 				<div className="flex flex-wrap gap-14 2xl:gap-56.25">
 					<Typography
 						className="text-white font-heading text-[56px] font-light w-95 tracking-(--letter-spacing-medium) lg:text-[85px]"

@@ -20,7 +20,7 @@ export const getSectionsFromContent = (content: JSONContent, headingLevel = 4): 
 		const text = heading.content?.find((c) => {
 			return c.type === "text";
 		})?.text;
-		return text ?? "";
+		return text?.toLowerCase() ?? "";
 	});
 };
 
@@ -46,9 +46,11 @@ export const addIdsToContent = (
 					attrs: {
 						...subElement.attrs,
 						id:
-							subElement.content?.find((c) => {
-								return c.type === "text";
-							})?.text ?? "",
+							subElement.content
+								?.find((c) => {
+									return c.type === "text";
+								})
+								?.text?.toLowerCase() ?? "",
 					},
 				};
 			});

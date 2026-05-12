@@ -17,21 +17,25 @@ export function PilarsSection(): ReactNode {
 			<div className="flex flex-wrap justify-center gap-10 3xl:justify-between">
 				<Pillar
 					description={t("PillarsSection.technology.description")}
+					href="/about/strategy#technology"
 					image={"/assets/images/pillar-technology.svg"}
 					title={t("PillarsSection.technology.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.knowledge.description")}
+					href="/about/strategy#knowledge"
 					image={"/assets/images/pillar-knowledge.svg"}
 					title={t("PillarsSection.knowledge.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.communities.description")}
+					href="/about/strategy#communities"
 					image={"/assets/images/pillar-communities.svg"}
 					title={t("PillarsSection.communities.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.policy.description")}
+					href="/about/strategy#policy"
 					image={"/assets/images/pillar-policy.svg"}
 					title={t("PillarsSection.policy.title")}
 				/>

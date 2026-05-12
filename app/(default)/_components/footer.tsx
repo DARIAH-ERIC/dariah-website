@@ -4,11 +4,10 @@ import type { ComponentProps, ReactNode } from "react";
 
 import { NavLink } from "@/app/(default)/_components/nav-link";
 import { Image } from "@/components/image";
-import { Button } from "@/components/ui/button/button";
+import { SubscribeNewsletter } from "@/components/navigation/subscribe-newsletter";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
-import { TextField } from "@/components/ui/text-field/text-field";
 import { Typography } from "@/components/ui/typography/typography";
 import { navigation } from "@/lib/data/client";
 import { getMetadata } from "@/lib/i18n/metadata";
@@ -65,25 +64,6 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 									<EmailIcon className="stroke-primary fill-transparent" />
 									{"info@dariah.pl"}
 								</p>
-								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(secondary.contact.children).map(([id, link]) => {
-										if (id === "home") {
-											return null;
-										}
-
-										return (
-											<li key={id}>
-												<Link
-													href={link.href}
-													startIcon={<ChevronForwardIcon />}
-													variant="secondary"
-												>
-													{link.label}
-												</Link>
-											</li>
-										);
-									})}
-								</ul>
 							</div>
 
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
@@ -138,25 +118,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						</nav>
 					</div>
 					<div className="flex flex-col gap-y-8 lg:max-w-154">
-						<div className="flex flex-col gap-10">
-							<Typography className="font-light" variant="h2">
-								{t("navigation.newsletter.header")}
-							</Typography>
-							<div className="flex flex-col gap-8.5">
-								<Typography variant="regular">
-									{t("navigation.newsletter.description.part1")}
-									<span className="font-bold">{t("navigation.newsletter.description.part2")}</span>
-									{t("navigation.newsletter.description.part3")}
-								</Typography>
-								<div className="flex gap-0.5">
-									<TextField
-										className="flex-1"
-										placeholder={t("navigation.newsletter.form.placeholder")}
-									/>
-									<Button variant="secondary-blue">{t("navigation.newsletter.form.button")}</Button>
-								</div>
-							</div>
-						</div>
+						<SubscribeNewsletter />
 						<nav aria-label={t("navigation-social-media.label")} className="flex flex-col gap-4">
 							<Typography className="font-light" variant="h2">
 								{"Follow us"}

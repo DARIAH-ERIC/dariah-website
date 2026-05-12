@@ -29,7 +29,7 @@ export function FundingCallCard(props: Readonly<FundingCallCardProps>): ReactNod
 	const t = useTranslations("FundingCallsPage");
 
 	const status = getFundingCallStatus(startDate, endDate ?? startDate);
-	const href = `/get-involved/dariah-funding-call/${slug}`;
+	const href = `/get-involved/funding-calls/${slug}`;
 
 	return (
 		<NavLink

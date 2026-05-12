@@ -67,7 +67,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 			<div className="flex flex-col gap-10 px-4 lg:px-35.5">
 				<Typography variant="h3">{t("subtitle")}</Typography>
 				<ul
-					className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30"
+					className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30 2xl:justify-start"
 					role="list"
 				>
 					{items.map((item) => {
