@@ -13,7 +13,7 @@ import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
-interface FundingCallPageProps extends PageProps<"/get-involved/dariah-funding-call/[slug]"> {}
+interface FundingCallPageProps extends PageProps<"/get-involved/funding-calls/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<FundingCallPageProps["params"]>, "slug">>
@@ -45,7 +45,7 @@ export async function generateMetadata(props: Readonly<FundingCallPageProps>): P
 	return metadata;
 }
 
-export default async function FundingCallPage(
+export default async function FundingCallsPage(
 	props: Readonly<FundingCallPageProps>,
 ): Promise<ReactNode> {
 	const { params } = props;

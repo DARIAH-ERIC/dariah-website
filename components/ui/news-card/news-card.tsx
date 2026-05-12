@@ -103,7 +103,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					!isListVariant && "pt-13 size-full",
 					variant === "list-item" && "gap-0! lg:max-h-55",
 					variant === "list-headline" &&
-						"absolute h-119.75 top-[208] left-[24] z-10 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
+						"absolute w-full h-119.75 top-[208] left-[24] z-10 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
 				)}
 			>
 				<div className="flex flex-col gap-2.5">

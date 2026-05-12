@@ -171,13 +171,6 @@ export function navigation() {
 		contact: {
 			type: "menu",
 			label: "Contact Dariah",
-			children: {
-				helpdesk: {
-					type: "link",
-					label: "Helpdesk",
-					href: "/contact",
-				},
-			},
 		},
 		privacy: {
 			type: "menu",
@@ -186,17 +179,17 @@ export function navigation() {
 				"legal-notice": {
 					type: "link",
 					label: "Legal notice",
-					href: "/",
+					href: "/privacy-and-legal/legal-notice",
 				},
 				practice: {
 					type: "link",
 					label: "Practice",
-					href: "/",
+					href: "/privacy-and-legal/practice",
 				},
 				"accesibility-declaration": {
 					type: "link",
 					label: "Accessibility declaration",
-					href: "/",
+					href: "/privacy-and-legal/accessibility-declaration",
 				},
 			},
 		},
@@ -223,11 +216,6 @@ export function navigation() {
 					type: "link",
 					label: "Events Calendar",
 					href: "/events",
-				},
-				"website-user-survey": {
-					type: "link",
-					label: "Website User Survey",
-					href: "/",
 				},
 			},
 		},
@@ -284,7 +272,7 @@ export function navigation() {
 				label: "Get involved",
 			},
 			{
-				href: "/get-involved/dariah-funding-call",
+				href: "/get-involved/funding-calls",
 				label: "Funding Calls",
 			},
 		],
@@ -373,6 +361,10 @@ export function navigation() {
 			{
 				href: "/",
 				label: "home",
+			},
+			{
+				href: "/",
+				label: "get involved",
 			},
 			{
 				label: "opportunities",

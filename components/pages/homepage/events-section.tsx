@@ -31,7 +31,7 @@ export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 			>
 				{t("EventsSection.upcomingEvents")}
 			</Typography>
-			<div className="flex flex-wrap justify-center gap-32.25 w-full">
+			<div className="flex flex-wrap justify-center gap-32.25 w-full 2xl:justify-start">
 				{events.map((event) => {
 					const { duration, entity, id, location, title } = event;
 

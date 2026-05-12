@@ -25,7 +25,7 @@ export interface NavigationMenu {
 	type: "menu";
 	label: string;
 	icon?: ReactNode;
-	children: Record<string, NavigationMenuItem>;
+	children?: Record<string, NavigationMenuItem>;
 }
 
 export type NavigationItem =

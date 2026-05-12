@@ -470,6 +470,11 @@
 					"form": {
 						"placeholder": "Email address",
 						"button": "Subscribe"
+					},
+					"error": {
+						"emptyEmail": "Email address is required",
+						"invalidEmail": "Please enter a valid email address",
+						"subscriptionFailed": "Subscription failed. Please try again later."
 					}
 				}
 			},

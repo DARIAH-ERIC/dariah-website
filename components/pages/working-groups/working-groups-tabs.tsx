@@ -35,7 +35,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 			<TabPanels>
 				<TabPanel id="active">
 					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 lg:pb-40 lg:gap-y-20 xl:px-38"
+						className="flex flex-wrap justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 lg:pb-40 lg:gap-y-20 xl:px-38 2xl:justify-start"
 						role="list"
 					>
 						{items.map((item) => {
@@ -49,7 +49,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 				</TabPanel>
 				<TabPanel id="inactive">
 					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20"
+						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
 						role="list"
 					>
 						{items.toReversed().map((item) => {

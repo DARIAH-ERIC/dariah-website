@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default function ContactPage(): ReactNode {
+export default function AccessibilityDeclarationPage(): ReactNode {
 	const t = useTranslations("GlobalNotFoundPage");
 
 	return (

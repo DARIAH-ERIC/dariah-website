@@ -9,10 +9,11 @@ interface PillarProps {
 	title: string;
 	description: string;
 	image: string | StaticImport;
+	href?: string;
 }
 
 export function Pillar(props: Readonly<PillarProps>): ReactNode {
-	const { title, description, image } = props;
+	const { title, description, image, href } = props;
 
 	return (
 		<div className="flex flex-col gap-10 cursor-default">
@@ -27,7 +28,7 @@ export function Pillar(props: Readonly<PillarProps>): ReactNode {
 						{description}
 					</Typography>
 				</div>
-				<Link href={"/"} variant="primary" withDefaultRightIcon={true}>
+				<Link href={href ?? "/"} variant="primary" withDefaultRightIcon={true}>
 					{"Read more"}
 				</Link>
 			</div>
