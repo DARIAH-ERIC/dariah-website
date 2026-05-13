@@ -96,40 +96,44 @@ export default async function EventsPage({
 				<div className="flex h-full gap-2.5 max-w-full">
 					<LineIcon className="stroke-gray-300 w-3" />
 					<div className="flex flex-col gap-10 max-w-full">
-						{Object.entries(itemsByStartDate).map(([startDate, events]) => {
-							return (
-								<div key={startDate} className="flex flex-col gap-8">
-									<Typography className="text-gray-800" variant="h3">
-										{startDate}
-									</Typography>
-									{events.map((event) => {
-										return (
-											<div
-												key={event.id}
-												className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row lg:flex-nowrap"
-											>
-												<Typography
-													className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap"
-													variant="regular"
+						{total > 0 ? (
+							Object.entries(itemsByStartDate).map(([startDate, events]) => {
+								return (
+									<div key={startDate} className="flex flex-col gap-8">
+										<Typography className="text-gray-800" variant="h3">
+											{startDate}
+										</Typography>
+										{events.map((event) => {
+											return (
+												<div
+													key={event.id}
+													className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row lg:flex-nowrap"
 												>
-													<ElipseIcon className="fill-gray-300" />
-													{parseDateToRangeString(event)}
-												</Typography>
-												<EventCard
-													endDate={event.duration.end}
-													imageUrl={event.image.url}
-													localization={event.location}
-													slug={event.entity.slug}
-													startDate={event.duration.start}
-													title={event.title}
-													variant="list"
-												/>
-											</div>
-										);
-									})}
-								</div>
-							);
-						})}
+													<Typography
+														className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap"
+														variant="regular"
+													>
+														<ElipseIcon className="fill-gray-300" />
+														{parseDateToRangeString(event)}
+													</Typography>
+													<EventCard
+														endDate={event.duration.end}
+														imageUrl={event.image.url}
+														localization={event.location}
+														slug={event.entity.slug}
+														startDate={event.duration.start}
+														title={event.title}
+														variant="list"
+													/>
+												</div>
+											);
+										})}
+									</div>
+								);
+							})
+						) : (
+							<Typography variant="regular">{t("emptyState")}</Typography>
+						)}
 					</div>
 				</div>
 				<EventPagination

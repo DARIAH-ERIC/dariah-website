@@ -83,25 +83,31 @@ export default async function FundingCalls({
 				</Typography>
 			</div>
 			<div className="flex flex-col gap-12 px-36 pt-4 pb-14">
-				{sortedActiveFundingCalls.map((fundingCall, index) => {
-					const {
-						id,
-						title,
-						entity: { slug },
-						duration: { start: startDate, end: endDate },
-					} = fundingCall;
+				{sortedActiveFundingCalls.length > 0 ? (
+					sortedActiveFundingCalls.map((fundingCall, index) => {
+						const {
+							id,
+							title,
+							entity: { slug },
+							duration: { start: startDate, end: endDate },
+						} = fundingCall;
 
-					return (
-						<FundingCallCard
-							key={id}
-							endDate={endDate}
-							index={index}
-							slug={slug}
-							startDate={startDate}
-							title={title}
-						/>
-					);
-				})}
+						return (
+							<FundingCallCard
+								key={id}
+								endDate={endDate}
+								index={index}
+								slug={slug}
+								startDate={startDate}
+								title={title}
+							/>
+						);
+					})
+				) : (
+					<Typography className="w-full text-center" variant="regular">
+						{t("emptyOpenCalls")}
+					</Typography>
+				)}
 				<hr className="w-full h-0.5 border-t-2 border-gray-400" />
 				{shouldDisplayClosedFundingCalls && (
 					<>

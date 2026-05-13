@@ -66,27 +66,33 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 			</div>
 			<div className="flex flex-col gap-10 px-4 lg:px-35.5">
 				<Typography variant="h3">{t("subtitle")}</Typography>
-				<ul
-					className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30 2xl:justify-start"
-					role="list"
-				>
-					{items.map((item) => {
-						const { entity, image, publishedAt, summary, title } = item;
-						const { slug } = entity;
-						const href = `/spotlights/${slug}`;
+				{items.length > 0 ? (
+					<ul
+						className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30 2xl:justify-start"
+						role="list"
+					>
+						{items.map((item) => {
+							const { entity, image, publishedAt, summary, title } = item;
+							const { slug } = entity;
+							const href = `/spotlights/${slug}`;
 
-						return (
-							<SpotlightCard
-								key={slug}
-								href={href}
-								imageUrl={image.url}
-								publishedAt={publishedAt}
-								summary={summary}
-								title={title}
-							/>
-						);
-					})}
-				</ul>
+							return (
+								<SpotlightCard
+									key={slug}
+									href={href}
+									imageUrl={image.url}
+									publishedAt={publishedAt}
+									summary={summary}
+									title={title}
+								/>
+							);
+						})}
+					</ul>
+				) : (
+					<div className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30 2xl:justify-start">
+						<Typography variant="regular">{t("emptyState")}</Typography>
+					</div>
+				)}
 			</div>
 		</Main>
 	);

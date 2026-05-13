@@ -6,6 +6,7 @@ import { type ReactNode, useState } from "react";
 
 import { CountrySelect } from "@/components/pages/members-and-partners/country-select";
 import { Select, SelectItem } from "@/components/ui/select/select";
+import { Typography } from "@/components/ui/typography/typography";
 import type { MemberOrPartnerList } from "@/lib/data/api-client";
 
 const SELECT_OPTIONS: Array<{
@@ -49,17 +50,23 @@ export function CountriesPanel(props: Readonly<CountriesPanelProps>): ReactNode 
 				</Select>
 			</div>
 			<div className="pt-4 pb-20 px-6 flex flex-col gap-3 overflow-auto">
-				{selectedCountriesArray.map((country) => {
-					const href = `/network/members-and-partners/${country.entity.slug}`;
-					return (
-						<CountrySelect
-							key={country.id}
-							href={href}
-							label={country.status}
-							title={country.name}
-						/>
-					);
-				})}
+				{selectedCountriesArray.length > 0 ? (
+					selectedCountriesArray.map((country) => {
+						const href = `/network/members-and-partners/${country.entity.slug}`;
+						return (
+							<CountrySelect
+								key={country.id}
+								href={href}
+								label={country.status}
+								title={country.name}
+							/>
+						);
+					})
+				) : (
+					<Typography variant="regular">
+						{selectedType === "members" ? t("membersEmptyState") : t("cooperatingEmptyState")}
+					</Typography>
+				)}
 			</div>
 		</div>
 	);
