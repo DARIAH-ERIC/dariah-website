@@ -58,7 +58,12 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 				<div className="flex flex-col gap-14">
 					{sections.map((section) => {
 						const itemsForSection = sortedDocuments[section];
-						if (!itemsForSection) return null;
+						if (!itemsForSection || itemsForSection.length === 0)
+							return (
+								<Typography key={section} variant="regular">
+									{t("emptyState")}
+								</Typography>
+							);
 
 						return (
 							<div key={section} className="flex gap-6 flex-col">

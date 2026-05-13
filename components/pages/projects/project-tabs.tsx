@@ -8,6 +8,7 @@ import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 import { Project } from "@/components/ui/project/project";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
+import { Typography } from "@/components/ui/typography/typography";
 import type { ProjectList } from "@/lib/data/api-client";
 
 interface ProjectTabsProps {
@@ -31,58 +32,70 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 			</TabList>
 			<TabPanels>
 				<TabPanel id="active">
-					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
-						role="list"
-					>
-						{items.map((item) => {
-							const { duration, entity, image, name, role } = item;
-							const { slug } = entity;
-							const href = `/projects/${slug}`;
-							assert(duration.end);
-							assert(image);
-							assert(includes(["coordinator", "participant"] as const, role));
+					{items.length > 0 ? (
+						<ul
+							className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
+							role="list"
+						>
+							{items.map((item) => {
+								const { duration, entity, image, name, role } = item;
+								const { slug } = entity;
+								const href = `/projects/${slug}`;
+								assert(duration.end);
+								assert(image);
+								assert(includes(["coordinator", "participant"] as const, role));
 
-							return (
-								<Project
-									key={slug}
-									endDate={duration.end}
-									href={href}
-									imageUrl={image.url}
-									startDate={duration.start}
-									title={name}
-									type={role}
-								/>
-							);
-						})}
-					</ul>
+								return (
+									<Project
+										key={slug}
+										endDate={duration.end}
+										href={href}
+										imageUrl={image.url}
+										startDate={duration.start}
+										title={name}
+										type={role}
+									/>
+								);
+							})}
+						</ul>
+					) : (
+						<div className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start">
+							<Typography variant="regular">{t("emptyState.active")}</Typography>
+						</div>
+					)}
 				</TabPanel>
 				<TabPanel id="inactive">
-					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
-						role="list"
-					>
-						{items.toReversed().map((item) => {
-							const { duration, entity, image, name, role } = item;
-							const { slug } = entity;
-							const href = `/projects/${slug}`;
-							assert(duration.end);
-							assert(image);
-							assert(includes(["coordinator", "participant"] as const, role));
+					{items.length > 0 ? (
+						<ul
+							className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
+							role="list"
+						>
+							{items.toReversed().map((item) => {
+								const { duration, entity, image, name, role } = item;
+								const { slug } = entity;
+								const href = `/projects/${slug}`;
+								assert(duration.end);
+								assert(image);
+								assert(includes(["coordinator", "participant"] as const, role));
 
-							return (
-								<Project
-									key={slug}
-									endDate={duration.end}
-									href={href}
-									imageUrl={image.url}
-									startDate={duration.start}
-									title={name}
-									type={role}
-								/>
-							);
-						})}
-					</ul>
+								return (
+									<Project
+										key={slug}
+										endDate={duration.end}
+										href={href}
+										imageUrl={image.url}
+										startDate={duration.start}
+										title={name}
+										type={role}
+									/>
+								);
+							})}
+						</ul>
+					) : (
+						<div className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start">
+							<Typography variant="regular">{t("emptyState.active")}</Typography>
+						</div>
+					)}
 				</TabPanel>
 			</TabPanels>
 		</Tabs>

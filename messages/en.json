@@ -123,7 +123,8 @@
 		"meta": {
 			"title": "Documents and policies"
 		},
-		"title": "Documents and policies"
+		"title": "Documents and policies",
+		"emptyState": "No documents or policies found for section."
 	},
 	"ErrorPage": {
 		"meta": {
@@ -146,7 +147,8 @@
 			"date": "Events starting from",
 			"search": "Search with keywords",
 			"select": "View as"
-		}
+		},
+		"emptyState": "No events found."
 	},
 	"EventsCalendar": {
 		"meta": {
@@ -173,6 +175,7 @@
 			"title": "Funding Calls"
 		},
 		"title": "Funding Calls",
+		"emptyOpenCalls": "There are no open funding calls at the moment.",
 		"emptyClosedCalls": "There are no closed funding calls at the moment.",
 		"seePastCalls": "See past funding calls",
 		"hidePastCalls": "Hide past funding calls",
@@ -192,7 +195,8 @@
 		"description": {
 			"part1": "In 2020, DARIAH began documenting the concrete impact of its work through detailed case studies. These stories highlight how DARIAH's infrastructure and collaborations shape research communities, strengthen national consortia, and enrich the practices of individual researchers in the digital arts and humanities.",
 			"part2": "We add three new case studies each year, building a growing collection that demonstrates the diverse audiences, research topics, and tangible outcomes connected to DARIAH.\n\nExplore these impact case studies for a glimpse of the diverse audience, research topics and excellent research outputs linked to the DARIAH infrastructure."
-		}
+		},
+		"emptyState": "No impact case studies found."
 	},
 	"ImpactCaseStudiesDetailPage": {
 		"contributors": {
@@ -244,6 +248,10 @@
 		"tabs": {
 			"active": "Active Projects",
 			"past": "Past Projects"
+		},
+		"emptyState": {
+			"active": "No active projects found.",
+			"past": "No past projects found."
 		}
 	},
 	"ProjectsDetailPage": {
@@ -271,7 +279,8 @@
 			"part1": "Making scholarship more visible",
 			"part2": "DARIAH Spotlight is monthly series launching in March 2025. Spotlight articles offer quick, engaging looks at the latest research connected to the DARIAH infrastructure - from innovative DARIAH Working Groups to inspiring DH projects across our network. ",
 			"part3": "Discover how scholars are pushing the boundaries of digital humanities, and get a window into the diverse work happening across Europe and beyond."
-		}
+		},
+		"emptyState": "No spotlight articles found."
 	},
 	"SpotlightArticlesDetailPage": {
 		"browseAll": "Browse all Spotlight Articles",
@@ -302,6 +311,10 @@
 		"tabs": {
 			"active": "Active Working Groups",
 			"past": "Past Working Groups"
+		},
+		"emptyState": {
+			"active": "No active working groups found.",
+			"past": "No past working groups found."
 		}
 	},
 	"WorkingGroupsDetailPage": {
@@ -348,7 +361,9 @@
 		"tabs": {
 			"list": "List",
 			"map": "Map"
-		}
+		},
+		"cooperatingEmptyState": "No cooperating partners found.",
+		"membersEmptyState": "No members found."
 	},
 	"MembersAndPartnersDetailPage": {
 		"browseAll": "Brawse all members and partners",

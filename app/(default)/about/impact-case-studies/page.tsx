@@ -76,29 +76,33 @@ export default async function ImpactCaseStudiesPage(
 				</div>
 			</div>
 			<div className="flex flex-col gap-18.75 pb-11">
-				{grouppedItems.map(([year, items]) => {
-					return (
-						<div key={year} className="flex flex-col gap-10 px-4 lg:px-31">
-							<div className="flex gap-2.5 items-end">
-								<Typography className="text-[64px] leading-[100%] font-light" variant="h3">
-									{year}
-								</Typography>
-								<Typography className="font-light uppercase" variant="h3">
-									{"case studies"}
-								</Typography>
-							</div>
-							<ul className="flex gap-5 flex-wrap justify-center 3xl:justify-start">
-								{items.map((item) => {
-									const { entity, image, title } = item;
-									const { slug } = entity;
-									const href = `/about/impact-case-studies/${slug}`;
+				{grouppedItems.length > 0 ? (
+					grouppedItems.map(([year, items]) => {
+						return (
+							<div key={year} className="flex flex-col gap-10 px-4 lg:px-31">
+								<div className="flex gap-2.5 items-end">
+									<Typography className="text-[64px] leading-[100%] font-light" variant="h3">
+										{year}
+									</Typography>
+									<Typography className="font-light uppercase" variant="h3">
+										{"case studies"}
+									</Typography>
+								</div>
+								<ul className="flex gap-5 flex-wrap justify-center 3xl:justify-start">
+									{items.map((item) => {
+										const { entity, image, title } = item;
+										const { slug } = entity;
+										const href = `/about/impact-case-studies/${slug}`;
 
-									return <CaseStudy key={slug} href={href} imageUrl={image.url} title={title} />;
-								})}
-							</ul>
-						</div>
-					);
-				})}
+										return <CaseStudy key={slug} href={href} imageUrl={image.url} title={title} />;
+									})}
+								</ul>
+							</div>
+						);
+					})
+				) : (
+					<Typography variant="regular">{t("emptyState")}</Typography>
+				)}
 			</div>
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Suspense>

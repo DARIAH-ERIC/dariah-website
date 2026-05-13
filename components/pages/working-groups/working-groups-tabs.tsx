@@ -7,6 +7,7 @@ import { TabPanel, TabPanels, Tabs } from "react-aria-components";
 
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
+import { Typography } from "@/components/ui/typography/typography";
 import { WorkingGroupCard } from "@/components/ui/working-group-card/working-group-card";
 import type { WorkingGroupList } from "@/lib/data/api-client";
 
@@ -34,32 +35,44 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 			</TabList>
 			<TabPanels>
 				<TabPanel id="active">
-					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 lg:pb-40 lg:gap-y-20 xl:px-38 2xl:justify-start"
-						role="list"
-					>
-						{items.map((item) => {
-							const { id, image, name, entity } = item;
-							assert(image);
-							const href = `/network/working-groups/${entity.slug}`;
+					{items.length > 0 ? (
+						<ul
+							className="flex flex-wrap justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 lg:pb-40 lg:gap-y-20 xl:px-38 2xl:justify-start"
+							role="list"
+						>
+							{items.map((item) => {
+								const { id, image, name, entity } = item;
+								assert(image);
+								const href = `/network/working-groups/${entity.slug}`;
 
-							return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
-						})}
-					</ul>
+								return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
+							})}
+						</ul>
+					) : (
+						<div className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start">
+							<Typography variant="regular">{t("emptyState.active")}</Typography>
+						</div>
+					)}
 				</TabPanel>
 				<TabPanel id="inactive">
-					<ul
-						className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
-						role="list"
-					>
-						{items.toReversed().map((item) => {
-							const { id, image, name, entity } = item;
-							assert(image);
-							const href = `/network/working-groups/${entity.slug}`;
+					{items.length > 0 ? (
+						<ul
+							className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start"
+							role="list"
+						>
+							{items.map((item) => {
+								const { id, image, name, entity } = item;
+								assert(image);
+								const href = `/network/working-groups/${entity.slug}`;
 
-							return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
-						})}
-					</ul>
+								return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
+							})}
+						</ul>
+					) : (
+						<div className="flex flex-wrap justify-center gap-5 pt-10 pb-40 px-4 bg-gray-100 xl:px-38 lg:gap-y-20 2xl:justify-start">
+							<Typography variant="regular">{t("emptyState.past")}</Typography>
+						</div>
+					)}
 				</TabPanel>
 			</TabPanels>
 		</Tabs>
