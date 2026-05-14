@@ -1,3 +1,4 @@
+import { log } from "@acdh-oeaw/lib";
 import { revalidateTag } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -46,9 +47,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 		return NextResponse.json({ message: "Bad Request" }, { status: 400 });
 	}
 
+	const tags = [];
+
 	for (const tag of entityTypeToCacheTags[entityType]) {
 		revalidateTag(tag, "max");
+		tags.push(tag);
 	}
+
+	log.info(`[revalidation webhook] received request for cache tags: ${tags.join(", ")}.`);
 
 	return NextResponse.json({ revalidated: true });
 }
