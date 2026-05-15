@@ -6,27 +6,41 @@ import { env } from "@/config/env.config";
 import { cacheTags } from "@/lib/data/api-client";
 
 type EntityType =
+	| "dariah-projects"
 	| "documents-policies"
 	| "events"
+	| "funding-calls"
+	| "governance-bodies"
 	| "impact-case-studies"
+	| "members-partners"
 	| "site-metadata"
 	| "navigation"
 	| "news"
+	| "opportunities"
 	| "pages"
-	| "spotlight-articles";
+	| "persons"
+	| "spotlight-articles"
+	| "working-groups";
 
 const entityTypeToCacheTags: Record<
 	EntityType,
 	Array<(typeof cacheTags)[keyof typeof cacheTags]>
 > = {
+	"dariah-projects": [cacheTags.dariahProjects],
 	"documents-policies": [cacheTags.documentsPolicies],
 	events: [cacheTags.events],
+	"funding-calls": [cacheTags.fundingCalls],
+	"governance-bodies": [cacheTags.governanceBodies],
 	"impact-case-studies": [cacheTags.impactCaseStudies],
+	"members-partners": [cacheTags.membersAndPartners],
 	"site-metadata": [cacheTags.siteMetadata],
 	navigation: [cacheTags.navigation],
 	news: [cacheTags.news],
+	opportunities: [cacheTags.opportunities],
 	pages: [cacheTags.pages],
+	persons: [cacheTags.persons],
 	"spotlight-articles": [cacheTags.spotlightArticles],
+	"working-groups": [cacheTags.workingGroups],
 };
 
 export async function POST(request: NextRequest): Promise<NextResponse> {

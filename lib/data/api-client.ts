@@ -156,8 +156,11 @@ export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
 };
 
 export const cacheTags = {
+	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
+	fundingCalls: "funding-calls",
+	governanceBodies: "governance-bodies",
 	home: "home",
 	impactCaseStudies: "impact-case-studies",
 	membersAndPartners: "members-partners",
@@ -167,7 +170,6 @@ export const cacheTags = {
 	opportunities: "opportunities",
 	pages: "pages",
 	persons: "persons",
-	projects: "projects",
 	siteMetadata: "site-metadata",
 	spotlightArticles: "spotlight-articles",
 	workingGroups: "working-groups",
@@ -299,8 +301,8 @@ const _fundingCallsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.opportunities],
-	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+	[cacheTags.fundingCalls],
+	{ revalidate: 3600, tags: [cacheTags.fundingCalls] },
 );
 
 const _fundingCallsList = nextCache(
@@ -323,8 +325,8 @@ const _fundingCallsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.opportunities],
-	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+	[cacheTags.fundingCalls],
+	{ revalidate: 3600, tags: [cacheTags.fundingCalls] },
 );
 
 const _homePageGet = nextCache(
@@ -692,8 +694,8 @@ const _projectsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.projects],
-	{ revalidate: 3600, tags: [cacheTags.projects] },
+	[cacheTags.dariahProjects],
+	{ revalidate: 3600, tags: [cacheTags.dariahProjects] },
 );
 
 const _projectsList = nextCache(
@@ -716,8 +718,8 @@ const _projectsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.projects],
-	{ revalidate: 3600, tags: [cacheTags.projects] },
+	[cacheTags.dariahProjects],
+	{ revalidate: 3600, tags: [cacheTags.dariahProjects] },
 );
 
 const _spotlightArticlesBySlug = nextCache(
