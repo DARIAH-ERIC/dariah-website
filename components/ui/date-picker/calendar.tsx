@@ -53,7 +53,7 @@ export function CalendarCell(props: Readonly<CalendarCellProps>): ReactNode {
 	return (
 		<AriaCalendarCell
 			className={cn(
-				"w-[calc(100cqw/7)] aspect-square text-small cursor-pointer rounded-full flex items-center justify-center text-black",
+				"w-[14.285714285714286cqw] aspect-square text-small cursor-pointer rounded-full flex items-center justify-center text-black",
 				"hover:bg-button-bg hover:[&_svg]:fill-primary",
 				"focus:bg-button-bg focus:outline-3 focus:outline-primary focus:[&_svg]:fill-primary",
 				"pressed:bg-transparent pressed:outline-none pressed:[&_svg]:fill-primary",

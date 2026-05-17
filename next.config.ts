@@ -5,7 +5,7 @@ import { env } from "./config/env.config.ts";
 
 const config: Config = {
 	allowedDevOrigins: ["127.0.0.1"],
-	// cacheComponents: true,
+	cacheComponents: true,
 	experimental: {
 		globalNotFound: true,
 	},
