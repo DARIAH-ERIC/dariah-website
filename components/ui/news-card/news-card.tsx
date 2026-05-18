@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -21,6 +22,7 @@ interface NewsCardProps {
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	const { variant, title, description, imageUrl, linkUrl, date } = props;
+	const t = useTranslations("NewsPage");
 
 	const getImageSizeForVariant = () => {
 		switch (variant) {
@@ -92,7 +94,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				>
 					<div className="flex gap-3.5 text-primary-500">
 						<NewsIcon width="14px" />
-						<span>{"NEWS"}</span>
+						<span className="uppercase">{t("newsCard.tag")}</span>
 					</div>
 					<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 				</div>
@@ -103,7 +105,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					!isListVariant && "pt-13 size-full",
 					variant === "list-item" && "gap-0! lg:max-h-55",
 					variant === "list-headline" &&
-						"absolute w-full h-119.75 top-[208] left-[24] z-10 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
+						"absolute w-full h-119.75 top-[208] left-[24] z-5 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
 				)}
 			>
 				<div className="flex flex-col gap-2.5">
@@ -116,7 +118,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						>
 							<NewsIcon className="size-4" />
 							<Typography className="text-[16px] font-bold" variant="small">
-								{"NEWS"}
+								{t("newsCard.tag")}
 							</Typography>
 						</div>
 						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
@@ -152,7 +154,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					)}
 					variant="regular"
 				>
-					{"Continiue reading"}
+					{t("newsCard.continueReading")}
 					<ChevronForwardIcon className="size-5" />
 				</Typography>
 			</div>

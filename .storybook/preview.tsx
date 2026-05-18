@@ -5,6 +5,7 @@ import "@/styles/index.css";
 
 import type { Preview } from "@storybook/nextjs-vite";
 import cn from "clsx/lite";
+import { NextIntlClientProvider } from "next-intl";
 
 import * as fonts from "@/app/_lib/fonts";
 
@@ -19,7 +20,9 @@ const preview: Preview = {
 					"font-body antialiased",
 				)}
 			>
-				<Story />
+				<NextIntlClientProvider locale="en-GB">
+					<Story />
+				</NextIntlClientProvider>
 			</div>
 		);
 	},

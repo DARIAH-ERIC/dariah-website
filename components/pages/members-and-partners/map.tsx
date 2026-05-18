@@ -32,7 +32,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 
 	const [activeCountry, setActiveCountry] = useState<ActiveCountry>(undefined);
 	const [selectedTab, setSelectedTab] = useState<Key>("map");
-	const currentTab = isLg ? "map" : selectedTab;
+	const currentTab = isLg === true ? "map" : selectedTab;
 
 	const { members, partners } = useMemo(() => {
 		const members = Object.values(countries).filter((country) => {
