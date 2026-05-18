@@ -20,7 +20,7 @@ export function CarouselButtonGroup(props: Readonly<ButtonGroupProps>): ReactNod
 		<>
 			<Button
 				className={cn(
-					"absolute left-0 -translate-x-[125%] -translate-y-1/2 z-1000 top-1/2 lg:-translate-x-1/2",
+					"absolute left-0 translate-x-[-125%] -translate-y-1/2 z-1000 top-1/2 lg:-translate-x-1/2",
 					isFirstElement && "hidden",
 				)}
 				onClick={previous}
