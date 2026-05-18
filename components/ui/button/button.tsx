@@ -90,6 +90,7 @@ const buttonStyles = styles({
 			),
 			quiet:
 				"border-transparent bg-transparent text-neutral-800 hover:bg-neutral-200 pressed:bg-neutral-300",
+			unstyled: "",
 		},
 	},
 	defaults: {
@@ -114,7 +115,7 @@ export function Button(props: Readonly<ButtonProps>): ReactNode {
 	const { isHovered } = useHover(rest);
 	const { isFocused, isFocusVisible } = useFocusRing();
 
-	const WrapperComponent: ElementType = href != null ? "a" : "span";
+	const WrapperComponent: ElementType = href !== undefined ? "a" : "span";
 
 	const renderProps = useRenderProps({
 		...props,

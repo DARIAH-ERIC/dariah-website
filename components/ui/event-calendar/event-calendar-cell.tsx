@@ -71,10 +71,10 @@ export function EventCalendarCell(props: Readonly<EventCalendarCellProps>): Reac
 					"h-full lg:h-fit",
 				)}
 				onClick={() => {
-					if (!isLg) handleDaySelection();
+					if (isLg === false) handleDaySelection();
 				}}
 				onKeyDown={(e) => {
-					if (!isLg && e.code === "Enter") handleDaySelection();
+					if (isLg === false && e.code === "Enter") handleDaySelection();
 				}}
 				tabIndex={0}
 				variant="small"

@@ -43,7 +43,7 @@ export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
 							"*:justify-start! *:text-left",
 							isActive && "lg:-ml-0.5 lg:pl-3.75 lg:border-l-4",
 						)}
-						data-active={isLg ? isActive || undefined : undefined}
+						data-active={isLg === true ? isActive || undefined : undefined}
 						onClick={() => {
 							handleScrollToSection(section);
 						}}

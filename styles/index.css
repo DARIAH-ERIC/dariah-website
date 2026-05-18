@@ -98,6 +98,37 @@
 		rgb(255 255 255 / 16%) 100%
 	);
 
+	--governance-body-card-hover-bg: rgb(255 255 255 / 92%);
+	--governance-body-card-focus-bg: rgb(255 255 255 / 92%);
+	--governance-body-card-active-bg: rgb(255 255 255 / 80%);
+
+	--governance-body-card-executive-body: rgb(17 89 58);
+	--governance-body-card-advisory-body: rgb(184 99 5);
+	--governance-body-card-operational-body: rgb(119 45 2);
+	--governance-body-card-working-group: rgb(8 123 172);
+
+	--governance-body-tag-appoints-bod-text: rgb(17 89 58);
+	--governance-body-tag-appoints-bod-bg: rgb(236 242 239);
+
+	--governance-body-tag-appoints-sab-text: rgb(161 91 3);
+	--governance-body-tag-appoints-sab-bg: rgb(253 250 245);
+
+	--governance-body-tag-appoints-dco-and-jrc-text: rgb(119 45 2);
+	--governance-body-tag-appoints-dco-and-jrc-bg: rgb(244 238 235);
+
+	--governance-body-tag-advises-bod-text: rgb(17 89 58);
+	--governance-body-tag-advises-bod-bg: rgb(17 89 58 / 8%);
+
+	--governance-body-tag-represented-in-smt-text: rgb(174 99 5);
+	--governance-body-tag-represented-in-smt-bg: rgb(174 99 5 / 8%);
+
+	--governance-body-tag-oversees-wg-bg: rgb(8 112 172 / 8%);
+
+	--governance-body-tag-supports-wg-smt-bg: rgb(8 112 172 / 8%);
+
+	--governance-body-tag-supports-ncc-and-jrc-text: rgb(174 99 5);
+	--governance-body-tag-supports-ncc-and-jrc-bg: rgb(249 243 235);
+
 	--resource-container-bg: rgb(255 255 255 / 90%);
 	--resource-training-material: rgb(35 127 123);
 	--resource-workflow: rgb(132 75 110);
@@ -235,6 +266,49 @@
 	--color-case-study-gradient-start: var(--case-study-gradient-start);
 	--color-case-study-gradient-end: var(--case-study-gradient-end);
 	--color-case-study-gradient: var(--case-study-gradient);
+
+	--color-governance-body-card-hover-bg: var(--governance-body-card-hover-bg);
+	--color-governance-body-card-focus-bg: var(--governance-body-card-focus-bg);
+	--color-governance-body-card-active-bg: var(--governance-body-card-active-bg);
+
+	--color-governance-body-card-executive-body: var(--governance-body-card-executive-body);
+	--color-governance-body-card-advisory-body: var(--governance-body-card-advisory-body);
+	--color-governance-body-card-operational-body: var(--governance-body-card-operational-body);
+	--color-governance-body-card-working-group: var(--governance-body-card-working-group);
+
+	--color-governance-body-tag-appoints-bod-text: var(--governance-body-tag-appoints-bod-text);
+	--color-governance-body-tag-appoints-bod-bg: var(--governance-body-tag-appoints-bod-bg);
+
+	--color-governance-body-tag-appoints-sab-text: var(--governance-body-tag-appoints-sab-text);
+	--color-governance-body-tag-appoints-sab-bg: var(--governance-body-tag-appoints-sab-bg);
+
+	--color-governance-body-tag-appoints-dco-and-jrc-text: var(
+		--governance-body-tag-appoints-dco-and-jrc-text
+	);
+	--color-governance-body-tag-appoints-dco-and-jrc-bg: var(
+		--governance-body-tag-appoints-dco-and-jrc-bg
+	);
+
+	--color-governance-body-tag-advises-bod-text: var(--governance-body-tag-advises-bod-text);
+	--color-governance-body-tag-advises-bod-bg: var(--governance-body-tag-advises-bod-bg);
+
+	--color-governance-body-tag-represented-in-smt-text: var(
+		--governance-body-tag-represented-in-smt-text
+	);
+	--color-governance-body-tag-represented-in-smt-bg: var(
+		--governance-body-tag-represented-in-smt-bg
+	);
+
+	--color-governance-body-tag-oversees-wg-bg: var(--governance-body-tag-oversees-wg-bg);
+
+	--color-governance-body-tag-supports-wg-smt-bg: var(--governance-body-tag-supports-wg-smt-bg);
+
+	--color-governance-body-tag-supports-ncc-and-jrc-text: var(
+		--governance-body-tag-supports-ncc-and-jrc-text
+	);
+	--color-governance-body-tag-supports-ncc-and-jrc-bg: var(
+		--governance-body-tag-supports-ncc-and-jrc-bg
+	);
 
 	--color-resource-container-bg: var(--resource-container-bg);
 	--color-resource-training-material: var(--resource-training-material);

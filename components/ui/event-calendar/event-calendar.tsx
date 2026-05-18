@@ -59,7 +59,7 @@ export function EventCalendar(props: Readonly<CalendarProps>): ReactNode {
 									scope="col"
 								>
 									<Typography className="font-bold" variant="caption">
-										{isMd ? day : day.slice(0, 3)}
+										{isMd === false ? day.slice(0, 3) : day}
 									</Typography>
 								</th>
 							);

@@ -218,7 +218,11 @@
 			"title": "News"
 		},
 		"title": "News",
-		"noNews": "No news found."
+		"noNews": "No news found.",
+		"newsCard": {
+			"tag": "news",
+			"continueReading": "Continue reading"
+		}
 	},
 	"NewslettersPage": {
 		"meta": {
@@ -403,6 +407,31 @@
 		},
 		"title": "Dariah in a nutshell"
 	},
+	"OrganisationAndGovernance": {
+		"meta": {
+			"title": "Organisation & Governance"
+		},
+		"title": "Organisation & Governance",
+		"description": {
+			"header": "Organisational Overview",
+			"part1": "DARIAH-EU is a European Research Infrastructure Consortium (ERIC) for the Arts and Humanities, which supports researching and teaching in E-Science. The consortium understands itself as a cooperative undertaking that is carried out by organizations in its Member Countries, DARIAH’s Cooperating Partners and several affiliated projects.\n\nThe following is an overview of the most important bodies and concepts related to DARIAH-EU’s work. DARIAH-EU is constituted by its Executive Bodies (General Assembly and Board of Directors), Advisory Bodies (Scientific Board), Coordinating Bodies (National Coordinators Committee, Senior Management Team), Implementation Bodies (Joint Research Committee, Virtual Competence Centres and Working Groups) and Administrative Bodies (DARIAH Coordination Office). For a more detailed account consult the DARIAH-ERIC statutes."
+		},
+		"infoText": "Click on any body to see its description and members",
+		"tag": {
+			"appoints-bod": "Appoints BOD",
+			"appoints-sab": "Appoints SAB",
+			"appoints-dco-and-jrc": "Appoints DCO and JRC",
+			"advises-bod": "Advises BOD",
+			"represented-in-smt": "Represented in SMT",
+			"oversees-wg": "Oversees WG",
+			"supports-wg": "Supports WG",
+			"supports-ncc-and-jrc": "Supports NCC and JRC"
+		},
+		"bodyDetails": {
+			"membersCount": "Members ({count})",
+			"backToList": "Back to members list"
+		}
+	},
 	"Opportunities": {
 		"meta": {
 			"title": "Opportunities"
@@ -527,6 +556,10 @@
 				},
 				"label": "Main"
 			}
+		},
+		"PersonCard": {
+			"readMore": "Read more",
+			"sendMail": "Send e-mail"
 		}
 	}
 }

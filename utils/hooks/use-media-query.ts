@@ -10,8 +10,8 @@ const BREAKPOINTS = {
 	"3xl": 1920,
 };
 
-export const useMediaQuery = (breakpoint: keyof typeof BREAKPOINTS): boolean => {
-	const [isMatching, setIsMatching] = useState(false);
+export const useMediaQuery = (breakpoint: keyof typeof BREAKPOINTS): boolean | undefined => {
+	const [isMatching, setIsMatching] = useState<boolean | undefined>(undefined);
 
 	useEffect(() => {
 		const updateBreakpoint = () => {

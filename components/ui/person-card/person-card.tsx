@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -15,17 +16,25 @@ interface PersonCardProps {
 
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	const { href, imageUrl, name, position } = props;
+	const t = useTranslations("(default).PersonCard");
+
 	return (
 		<NavLink
 			className={cn(
-				"group flex flex-col gap-6 max-w-full",
+				"group flex flex-col gap-6 w-full max-w-full",
 				"lg:flex-row lg:w-126",
 				"focus:outline-2 focus:outline-accent-800",
 			)}
 			href={href}
 		>
-			<Image alt={name} className="object-cover size-34" height={136} src={imageUrl} width={136} />
-			<div className="flex flex-col py-1 gap-5.5">
+			<Image
+				alt={name}
+				className="object-cover min-w-34 size-34"
+				height={136}
+				src={imageUrl}
+				width={136}
+			/>
+			<div className="flex flex-col py-1 gap-5.5 w-full">
 				<Typography variant="h5">{name}</Typography>
 				<Typography className="text-gray-800 font-medium" variant="regular">
 					{position}
@@ -39,7 +48,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 						)}
 						variant="regular"
 					>
-						{"Read more"}
+						{t("readMore")}
 					</Typography>
 					<ChevronForwardIcon className="size-5 fill-primary" />
 				</div>

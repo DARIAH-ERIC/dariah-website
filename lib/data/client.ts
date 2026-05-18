@@ -276,6 +276,20 @@ export function navigation() {
 				label: "Funding Calls",
 			},
 		],
+		organisationAndGovernance: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/about",
+				label: "About",
+			},
+			{
+				href: "/about/organisation-and-governance",
+				label: "Organisation & Governance",
+			},
+		],
 		impactCaseStudy: [
 			{
 				href: "/",
