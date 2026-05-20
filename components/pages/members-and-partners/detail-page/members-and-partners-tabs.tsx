@@ -1,5 +1,7 @@
 "use client";
 
+import type { JSONContent } from "@tiptap/core";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
 import { TabPanel, TabPanels, Tabs } from "react-aria-components";
@@ -11,21 +13,29 @@ import { ChevronUpIcon } from "@/components/ui/icons/chevron-up";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
+import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { Typography } from "@/components/ui/typography/typography";
-import type { MemberOrPartner } from "@/lib/data/api-client";
+import type { MemberOrPartner, Person } from "@/lib/data/api-client";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
+import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
 interface MembersAndPartnersTabsProps {
 	memberOrPartner: MemberOrPartner;
+	selectedPerson?: Person;
 }
 
 export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsProps>): ReactNode {
 	const [displayAllInstitutions, setDisplayAllInstitutions] = useState(false);
 	const t = useTranslations("MembersAndPartnersDetailPage");
+	const personTranslations = useTranslations("(default).PersonCard");
+
+	const pathname = usePathname();
+
 	const {
 		memberOrPartner: { name, description, socialMedia, contributors, institutions },
+		selectedPerson,
 	} = props;
 
 	const displayShowMoreButton = institutions.length > 10;
@@ -44,6 +54,9 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 			otherSocialMedia: [] as MemberOrPartner["socialMedia"],
 		},
 	);
+
+	const grouppedContributors = getGrouppedPersonMembers(contributors);
+	const grouppedContributorsKeys = Object.keys(grouppedContributors);
 
 	const handleShowMoreButtonClick = () => {
 		setDisplayAllInstitutions((prev) => {
@@ -95,36 +108,90 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 						<div>
 							<ContentBlocks fields={description} />
 						</div>
-						<div className="flex flex-col gap-10 pt-6 pb-9">
+						<div className="flex flex-col gap-10 pt-6 pb-9 relative">
+							<div className="absolute -top-20" id="contributors" />
 							<Typography variant="h4">{t("contributors.title")}</Typography>
-							{contributors.length > 0 ? (
-								<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
-									{contributors.map((contributor) => {
-										const {
-											id,
-											name,
-											position,
-											image: { url: imageUrl },
-										} = contributor;
+							{!selectedPerson ? (
+								grouppedContributorsKeys.length > 0 ? (
+									<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
+										{grouppedContributorsKeys.map((contributorGroupKey) => {
+											return (
+												<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
+													<div className="flex flex-col justify-between h-10">
+														<Typography className="font-bold" variant="small">
+															{t(
+																`contributors.groups.${
+																	contributorGroupKey as
+																		| "national_coordinator"
+																		| "national_coordinator_deputy"
+																		| "national_representative"
+																		| "national_representative_deputy"
+																}`,
+															)}
+														</Typography>
+														<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
+													</div>
+													<div className="flex flex-wrap justify-between gap-6">
+														{grouppedContributors[contributorGroupKey]?.map((contributor) => {
+															const {
+																id,
+																name,
+																position,
+																image: { url: imageUrl },
+																slug,
+															} = contributor;
 
-										const positionNames = position
-											? position.map((positionObj) => {
-													return positionObj.name;
-												})
-											: [];
+															const positionNames = position
+																? position.map((positionObj) => {
+																		return personTranslations(`roles.${positionObj.role}`);
+																	})
+																: [];
 
-										return (
-											<PersonCard
-												key={id}
-												imageUrl={imageUrl}
-												name={name}
-												position={positionNames.join(", ")}
-											/>
-										);
-									})}
-								</div>
+															return (
+																<PersonCard
+																	key={id}
+																	href={`${pathname}?person=${slug}#contributors`}
+																	imageUrl={imageUrl}
+																	name={name}
+																	position={positionNames.join(", ")}
+																/>
+															);
+														})}
+													</div>
+												</div>
+											);
+										})}
+									</div>
+								) : (
+									<Typography variant="regular">{t("contributors.empty")}</Typography>
+								)
 							) : (
-								<Typography variant="regular">{t("contributors.empty")}</Typography>
+								<div className="flex flex-col flex-wrap gap-10 w-full">
+									<Link
+										href={`${pathname}#contributors`}
+										variant="primary"
+										withDefaultLeftIcon={true}
+									>
+										{"bodyDetails.backToList"}
+									</Link>
+									<PersonCardDetails
+										description={
+											selectedPerson.biography.find((content) => {
+												return content.type === "rich_text";
+											}) as JSONContent
+										}
+										email={selectedPerson.email ?? undefined}
+										imageUrl={selectedPerson.image.url}
+										name={selectedPerson.name}
+										position={
+											selectedPerson.position
+												?.map((pos) => {
+													return pos.name;
+												})
+												.join(", ") ?? undefined
+										}
+									/>
+								</div>
 							)}
 						</div>
 					</div>

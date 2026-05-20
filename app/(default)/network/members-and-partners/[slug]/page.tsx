@@ -49,7 +49,7 @@ export async function generateMetadata(
 export default async function MembersAndPartnersPage(
 	props: Readonly<MembersAndPartnersPageProps>,
 ): Promise<ReactNode> {
-	const { params } = props;
+	const { params, searchParams } = props;
 	const t = await getTranslations("MembersAndPartnersDetailPage");
 
 	const breadcrumbs = navigation().breadcrumbs.membersAndPartnersDetailPage;
@@ -57,7 +57,13 @@ export default async function MembersAndPartnersPage(
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
 
+	const { person } = await searchParams;
+
 	const response = await client.membersAndPartners.bySlug({ slug });
+	const { data: selectedPerson } =
+		person !== undefined && typeof person === "string"
+			? await client.persons.bySlug({ slug: person })
+			: {};
 
 	const { name, image, status, relatedEntities, relatedResources } = response.data;
 
@@ -90,7 +96,10 @@ export default async function MembersAndPartnersPage(
 						{image?.url !== undefined && (
 							<Image alt={name} height={72} src={image.url} width={207} />
 						)}
-						<MembersAndPartnersTabs memberOrPartner={response.data} />
+						<MembersAndPartnersTabs
+							memberOrPartner={response.data}
+							selectedPerson={selectedPerson}
+						/>
 					</div>
 				</div>
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
