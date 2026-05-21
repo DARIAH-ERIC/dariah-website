@@ -502,6 +502,19 @@ export function navigation() {
 				label: "documents and policies",
 			},
 		],
+		newsletters: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "News and Events",
+			},
+			{
+				label: "newsletters",
+			},
+		],
 	};
 
 	return {
