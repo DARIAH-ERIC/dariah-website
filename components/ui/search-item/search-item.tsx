@@ -79,7 +79,7 @@ export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"group p-2 w-full flex flex-col gap-2 lg:h-40.25",
+				"group p-2 w-full flex flex-col items-start gap-2 lg:max-h-40.25",
 				"hover:bg-event-card-list-bg-hover",
 				"focus:outline-accent-800 focus:outline-4 focus:bg-event-card-list-bg-hover",
 			)}

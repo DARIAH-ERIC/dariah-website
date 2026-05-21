@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -58,6 +59,10 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	const grouppedContributors = getGrouppedPersonMembers(contributors);
 	const grouppedContributorsKeys = Object.keys(grouppedContributors);
 
+	otherSocialMedia.sort((socialMediaA, socialMediaB) => {
+		return socialMediaA.type.localeCompare(socialMediaB.type);
+	});
+
 	const handleShowMoreButtonClick = () => {
 		setDisplayAllInstitutions((prev) => {
 			return !prev;
@@ -96,8 +101,20 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 										{otherSocialMedia.map((item) => {
 											const Icon = socialMediaConfig[item.type].icon;
 											return (
-												<Link key={item.url} href={item.url} target="_blank">
-													<Icon className="size-10" />
+												<Link
+													key={item.url}
+													className="group focus:border-b-2 focus:py-1.5"
+													href={item.url}
+													target="_blank"
+												>
+													<Icon
+														className={cn(
+															"size-10",
+															item.type !== "website" && item.type !== "other"
+																? "fill-gray-700 group-hover:fill-primary"
+																: "stroke-gray-700 group-hover:stroke-primary",
+														)}
+													/>
 												</Link>
 											);
 										})}

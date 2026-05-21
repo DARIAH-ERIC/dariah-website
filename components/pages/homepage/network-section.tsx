@@ -30,12 +30,12 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 			<div className="flex flex-col justify-center gap-6 mt-7.75 lg:flex-row lg:flex-wrap lg:mt-0">
 				<div className="flex flex-col gap-6 items-center">
 					<div className="flex flex-col items-center mt-7.75 lg:flex-wrap lg:flex-row lg:justify-center lg:mt-0 3xl:justify-between">
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-155.75">
+						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
 								height={514}
-								src="/assets/images/network-countries.svg"
+								src="/assets/images/DARIAH-EU_Member Countries.gif"
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -48,12 +48,12 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 							</div>
 						</div>
 
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-155.75">
+						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
 								height={514}
-								src="/assets/images/network-institution.svg"
+								src="/assets/images/DARIAH-EU_National Partners.gif"
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -66,12 +66,12 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 							</div>
 						</div>
 
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-155.75">
+						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
 								height={514}
-								src="/assets/images/network-partner.svg"
+								src="/assets/images/DARIAH-EU_Cooperating Partners.gif"
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -97,12 +97,12 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 				</div>
 
 				<div className="flex flex-col gap-6">
-					<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-155.75">
+					<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
 						<Image
 							alt="DARIAH Campus Logo"
 							className="size-78"
 							height={514}
-							src="/assets/images/network-partner.svg"
+							src="/assets/images/DARIAH-EU_Working Groups.gif"
 							width={514}
 						/>
 						<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
