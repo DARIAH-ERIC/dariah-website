@@ -124,7 +124,9 @@
 			"title": "Documents and policies"
 		},
 		"title": "Documents and policies",
-		"emptyState": "No documents or policies found for section."
+		"emptyState": "No documents or policies found for section.",
+		"viewPDF": "View PDF",
+		"placeholderName": "No title provided"
 	},
 	"ErrorPage": {
 		"meta": {
@@ -234,7 +236,8 @@
 		"meta": {
 			"title": "Newsletters"
 		},
-		"title": "Newsletters"
+		"title": "Newsletters",
+		"previewText": "View Newsletter"
 	},
 	"NewssDetailPage": {
 		"relatedContent": {
