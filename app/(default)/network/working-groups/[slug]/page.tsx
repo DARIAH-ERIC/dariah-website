@@ -1,3 +1,4 @@
+import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -9,6 +10,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Button } from "@/components/ui/button/button";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
+import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
 import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -49,15 +51,22 @@ export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): 
 export default async function WorkingGroupPage(
 	props: Readonly<WorkingGroupPageProps>,
 ): Promise<ReactNode> {
-	const { params } = props;
+	const { params, searchParams } = props;
+
 	const t = await getTranslations("WorkingGroupsDetailPage");
+	const personTranslations = await getTranslations("(default).PersonCard");
 
 	const breadcrumbs = navigation().breadcrumbs.workingGroupsDetailPage;
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
+	const { person } = await searchParams;
 
 	const response = await client.workingGroups.bySlug({ slug });
+	const { data: selectedPerson } =
+		person !== undefined && typeof person === "string"
+			? await client.persons.bySlug({ slug: person })
+			: {};
 
 	const { name, image, description, relatedEntities, chairs, socialMedia } = response.data;
 
@@ -99,36 +108,67 @@ export default async function WorkingGroupPage(
 							width={789}
 						/>
 					) : null}
-					<div className="flex flex-col gap-10 pt-6 pb-14">
-						<Typography variant="h4">{t("groupChars.title")}</Typography>
-						{chairs.length > 0 ? (
-							<div className="flex flex-wrap gap-x-23 gap-y-10">
-								{chairs.map((chair) => {
-									const {
-										id,
-										name,
-										position,
-										image: { url: imageUrl },
-									} = chair;
+					<div className="flex flex-col gap-10 pt-6 pb-14 relative">
+						<div className="absolute -top-20" id="chairs" />
+						{!selectedPerson ? (
+							chairs.length > 0 ? (
+								<div className="flex flex-wrap gap-10">
+									{chairs.map((chair) => {
+										const {
+											id,
+											name,
+											position,
+											image: { url: imageUrl },
+											slug: personSlug,
+										} = chair;
 
-									const positionNames = position
-										? position.map((positionObj) => {
-												return positionObj.name;
-											})
-										: [];
+										const positionNames = position
+											? position.map((positionObj) => {
+													return personTranslations(`roles.${positionObj.role}`);
+												})
+											: [];
 
-									return (
-										<PersonCard
-											key={id}
-											imageUrl={imageUrl}
-											name={name}
-											position={positionNames.join(", ")}
-										/>
-									);
-								})}
-							</div>
+										return (
+											<PersonCard
+												key={id}
+												href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
+												imageUrl={imageUrl}
+												name={name}
+												position={positionNames.join(", ")}
+											/>
+										);
+									})}
+								</div>
+							) : (
+								<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
+							)
 						) : (
-							<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
+							<div className="flex flex-col flex-wrap gap-10 w-full">
+								<Link
+									href={`/network/working-groups/${slug}#chairs`}
+									variant="primary"
+									withDefaultLeftIcon={true}
+								>
+									{t("groupChars.backToList")}
+								</Link>
+								<PersonCardDetails
+									description={
+										selectedPerson.biography.find((content) => {
+											return content.type === "rich_text";
+										}) as JSONContent
+									}
+									email={selectedPerson.email ?? undefined}
+									imageUrl={selectedPerson.image.url}
+									name={selectedPerson.name}
+									position={
+										selectedPerson.position
+											?.map((pos) => {
+												return pos.name;
+											})
+											.join(", ") ?? undefined
+									}
+								/>
+							</div>
 						)}
 					</div>
 				</div>

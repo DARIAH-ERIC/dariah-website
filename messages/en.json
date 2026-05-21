@@ -201,7 +201,13 @@
 	"ImpactCaseStudiesDetailPage": {
 		"contributors": {
 			"title": "Contributors",
-			"empty": "No contributors."
+			"empty": "No contributors.",
+			"backToList": "Back to contributors list",
+			"groups": {
+				"author": "Lead Author(s)",
+				"editor": "Editor(s)",
+				"contributor": "Contributing Author(s)"
+			}
 		}
 	},
 	"ImprintPage": {
@@ -294,7 +300,13 @@
 		},
 		"contributors": {
 			"title": "Contributors",
-			"empty": "No contributors."
+			"empty": "No contributors.",
+			"backToList": "Back to contributors list",
+			"groups": {
+				"author": "Lead Author(s)",
+				"editor": "Editor(s)",
+				"contributor": "Contributing Author(s)"
+			}
 		}
 	},
 	"WorkingGroupsPage": {
@@ -325,7 +337,8 @@
 		"browseAll": "Browse all working groups",
 		"groupChars": {
 			"title": "Contact Working Group chairs",
-			"emptyState": "No Working Group chairs"
+			"emptyState": "No Working Group chairs",
+			"backToList": "Back to chairs list"
 		},
 		"joinGroup": {
 			"title": "Join our group",
@@ -370,7 +383,7 @@
 		"membersEmptyState": "No members found."
 	},
 	"MembersAndPartnersDetailPage": {
-		"browseAll": "Brawse all members and partners",
+		"browseAll": "Browse all members and partners",
 		"relatedContent": {
 			"title": "Related content",
 			"emptyState": "No related content."
@@ -393,7 +406,13 @@
 		},
 		"contributors": {
 			"title": "Contributors",
-			"empty": "No contributors."
+			"empty": "No contributors.",
+			"groups": {
+				"national_coordinator": "National Coordinator",
+				"national_coordinator_deputy": "National Coordinator Deputy",
+				"national_representative": "National Representative",
+				"national_representative_deputy": "National Representative Deputy"
+			}
 		},
 		"institutions": {
 			"empty": "No partners' institution."
@@ -559,7 +578,20 @@
 		},
 		"PersonCard": {
 			"readMore": "Read more",
-			"sendMail": "Send e-mail"
+			"sendMail": "Send e-mail",
+			"roles": {
+				"is_affiliated_with": "Research Fellow",
+				"is_chair_of": "Chair",
+				"is_vice_chair_of": "Vice Chair",
+				"is_member_of": "Member",
+				"is_director_of": "Director",
+				"is_president_of": "President",
+				"is_contact_for": "Contact Person",
+				"national_coordinator": "National Coordinators",
+				"national_coordinator_deputy": "National Coordinators Committee",
+				"national_representative": "National Representatives",
+				"national_representative_deputy": "National Representatives Comittee"
+			}
 		}
 	}
 }
