@@ -35,12 +35,20 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 	const currentTab = isLg === true ? "map" : selectedTab;
 
 	const { members, partners } = useMemo(() => {
-		const members = Object.values(countries).filter((country) => {
-			return country.status === "is_member_of";
-		});
-		const partners = Object.values(countries).filter((country) => {
-			return country.status === "is_cooperating_partner_of";
-		});
+		const members = Object.values(countries)
+			.filter((country) => {
+				return country.status === "is_member_of";
+			})
+			.toSorted((countryA, countryB) => {
+				return countryA.name.localeCompare(countryB.name);
+			});
+		const partners = Object.values(countries)
+			.filter((country) => {
+				return country.status === "is_cooperating_partner_of";
+			})
+			.toSorted((countryA, countryB) => {
+				return countryA.name.localeCompare(countryB.name);
+			});
 
 		return { members, partners };
 	}, [countries]);

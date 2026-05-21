@@ -502,6 +502,45 @@ export function navigation() {
 				label: "documents and policies",
 			},
 		],
+		strategy: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "About",
+			},
+			{
+				label: "strategy",
+			},
+		],
+		regionalHubs: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "network",
+			},
+			{
+				label: "regional hubs",
+			},
+		],
+		partnershipsAndCollaborations: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				href: "/",
+				label: "network",
+			},
+			{
+				label: "partnerships and collaborations",
+			},
+		],
 		newsletters: [
 			{
 				href: "/",

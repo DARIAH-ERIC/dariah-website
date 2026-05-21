@@ -5,6 +5,24 @@
 		},
 		"title": "Contact"
 	},
+	"RegionalHubs": {
+		"meta": {
+			"title": "Regional Hubs"
+		},
+		"title": "Regional Hubs"
+	},
+	"PartnershipsAndCollaborations": {
+		"meta": {
+			"title": "Partnerships and collaborations"
+		},
+		"title": "Partnerships and collaborations"
+	},
+	"Strategy": {
+		"meta": {
+			"title": "Strategy"
+		},
+		"title": "Strategy"
+	},
 	"HomePage": {
 		"HeroSection": {
 			"header": "The pan-European infrastructure for Arts & Humanities scholars",

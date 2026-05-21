@@ -1,3 +1,4 @@
+import { cn } from "@acdh-oeaw/style-variants";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { type ReactNode, Suspense } from "react";
@@ -32,9 +33,15 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 	const { page = 1, per_page = 14 } = await searchParams;
 	const t = await getTranslations("NewsPage");
 
+	const offset =
+		Number(page) > 2
+			? (Number(page) - 2) * Number(per_page) + (Number(per_page) + 1)
+			: (Number(page) - 1) * (Number(per_page) + 1);
+	console.log(offset);
+
 	const response = await client.news.list({
-		limit: Number(per_page),
-		offset: (Number(page) - 1) * Number(per_page),
+		limit: page === 1 ? Number(per_page) + 1 : Number(per_page),
+		offset,
 	});
 	const breadcrumbs = navigation().breadcrumbs.news;
 
@@ -59,18 +66,36 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			</Main>
 		);
 
-	const headlineItem = items[0]!;
+	const headlineItem = page === 1 ? items[0] : undefined;
+	const listItems = page === 1 ? items.slice(1) : items;
 
-	const {
-		image: headlineImage,
-		entity: { slug: headlineSlug },
-		summary: headlineSummary,
-		title: headlineTitle,
-		publishedAt: headlinePublishedAt,
-	} = headlineItem;
+	const renderFeaturedNews = () => {
+		if (headlineItem === undefined) return null;
+
+		const {
+			image: headlineImage,
+			entity: { slug: headlineSlug },
+			summary: headlineSummary,
+			title: headlineTitle,
+			publishedAt: headlinePublishedAt,
+		} = headlineItem;
+
+		return (
+			<NewsCard
+				date={headlinePublishedAt}
+				description={headlineSummary}
+				imageUrl={headlineImage.url}
+				linkUrl={`/news/${headlineSlug}`}
+				title={headlineTitle}
+				variant="list-headline"
+			/>
+		);
+	};
 
 	return (
-		<Main className="container flex flex-col gap-20">
+		<Main
+			className={cn("container flex flex-col", headlineItem === undefined ? "gap-9.25" : "gap-20")}
+		>
 			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
@@ -83,14 +108,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 						})}
 					</Breadcrumbs>
 				)}
-				<NewsCard
-					date={headlinePublishedAt}
-					description={headlineSummary}
-					imageUrl={headlineImage.url}
-					linkUrl={`/news/${headlineSlug}`}
-					title={headlineTitle}
-					variant="list-headline"
-				/>
+				{renderFeaturedNews()}
 			</div>
 
 			<div className="flex flex-col px-4 gap-14 lg:px-34">
@@ -99,7 +117,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 					className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-1 2xl:gap-x-35.5 2xl:grid-cols-2"
 					role="list"
 				>
-					{items.map((item) => {
+					{listItems.map((item) => {
 						const { entity, image, publishedAt, summary, title } = item;
 						const { slug } = entity;
 

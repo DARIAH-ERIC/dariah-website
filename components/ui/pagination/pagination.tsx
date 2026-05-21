@@ -53,7 +53,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 
 		refinePage?.(value);
 
-		router.replace(`?${params.toString()}`, { scroll: shouldScroll });
+		router.push(`?${params.toString()}`, { scroll: shouldScroll });
 	};
 
 	const getVisiblePages = () => {

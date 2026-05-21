@@ -16,7 +16,7 @@ import { navigation } from "@/lib/data/client";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const t = await getTranslations("ContactPage");
+	const t = await getTranslations("RegionalHubs");
 
 	const title = t("meta.title");
 
@@ -30,9 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function ContactPage(): Promise<ReactNode> {
+export default async function RegionalHubsPage(): Promise<ReactNode> {
 	const response = await client.pages.bySlug({ slug: "regional-hubs" });
-	const breadcrumbs = navigation().breadcrumbs.documentsAndPolicies;
+	const breadcrumbs = navigation().breadcrumbs.regionalHubs;
 	const {
 		data: { title, content },
 	} = response;
