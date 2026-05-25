@@ -53,6 +53,8 @@ export default async function ContactPage({
 	const params = await searchParams;
 	const { selectedBody, selectedUser } = params;
 	const t = await getTranslations("OrganisationAndGovernance");
+	const personTranslations = await getTranslations("(default).PersonCard");
+
 	const response = await client.governanceBodies.list();
 	const breadcrumbs = navigation().breadcrumbs.organisationAndGovernance;
 
@@ -164,7 +166,11 @@ export default async function ContactPage({
 
 										const positionNames = position
 											? position.map((positionObj) => {
-													return positionObj.name;
+													const { role, name } = positionObj;
+
+													return personTranslations(`roles.${role}`, {
+														name,
+													});
 												})
 											: [];
 										return (

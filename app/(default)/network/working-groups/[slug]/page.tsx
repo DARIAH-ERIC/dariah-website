@@ -124,7 +124,11 @@ export default async function WorkingGroupPage(
 
 										const positionNames = position
 											? position.map((positionObj) => {
-													return personTranslations(`roles.${positionObj.role}`);
+													const { role, name } = positionObj;
+
+													return personTranslations(`roles.${role}`, {
+														name,
+													});
 												})
 											: [];
 

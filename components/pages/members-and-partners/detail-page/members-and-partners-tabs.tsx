@@ -160,7 +160,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 
 															const positionNames = position
 																? position.map((positionObj) => {
-																		return personTranslations(`roles.${positionObj.role}`);
+																		const { role, name } = positionObj;
+
+																		return personTranslations(`roles.${role}`, {
+																			name,
+																		});
 																	})
 																: [];
 

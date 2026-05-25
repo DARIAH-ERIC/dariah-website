@@ -138,7 +138,11 @@ export default async function SpotlightArticlePage(
 
 														const positionNames = position
 															? position.map((positionObj) => {
-																	return personTranslations(`roles.${positionObj.role}`);
+																	const { role, name } = positionObj;
+
+																	return personTranslations(`roles.${role}`, {
+																		name,
+																	});
 																})
 															: [];
 
