@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { Link } from "@/components/ui/link/link";
@@ -18,14 +19,15 @@ interface QuickLinksProps {
 
 export function QuickLinks(props: Readonly<QuickLinksProps>): ReactNode {
 	const { links, className } = props;
+	const t = useTranslations("(default).StaticPage");
 
 	return (
 		<div className={cn("flex-col gap-4 w-full h-fit lg:top-0 lg:sticky lg:w-51.5", className)}>
 			<Typography className="text-[45px] font-light" variant="h4">
-				{"Quick links"}
+				{t("quickLinks.title")}
 			</Typography>
 			{links === undefined || links.length === 0 ? (
-				<Typography variant="regular">{"No quick links available."}</Typography>
+				<Typography variant="regular">{t("quickLinks.emptyState")}</Typography>
 			) : (
 				links.map((linkItem) => {
 					const { link, label } = linkItem;

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { NavMenu, NavMenuSeparator } from "@/components/navigation";
@@ -19,6 +20,7 @@ interface NavigationMobileProps {
 
 export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactNode {
 	const { navigation, handleMobileMenuToggle } = props;
+	const t = useTranslations("(default).Header");
 
 	return (
 		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 z-10 justify-between flex flex-col w-screen xl:hidden">
@@ -107,7 +109,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 				startIcon={<SearchIcon className="size-6!" />}
 				variant="color-bg"
 			>
-				{"Search"}
+				{t("navigation.search")}
 			</Link>
 		</div>
 	);

@@ -92,7 +92,7 @@ export function SubrefinementList(props: Readonly<SubrefinementListProps>): Reac
 							onClick={toggleShowMore}
 							variant="link-primary"
 						>
-							{!isShowingMore ? "See more" : "See less"}
+							{!isShowingMore ? t("filter.seeMore") : t("filter.seeLess")}
 						</Button>
 					)}
 				</div>

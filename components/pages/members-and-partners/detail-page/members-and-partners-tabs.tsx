@@ -193,7 +193,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 										variant="primary"
 										withDefaultLeftIcon={true}
 									>
-										{"bodyDetails.backToList"}
+										{t("contributors.backToList")}
 									</Link>
 									<PersonCardDetails
 										description={

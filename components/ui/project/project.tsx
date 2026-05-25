@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -18,6 +19,7 @@ interface ProjectProps {
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
 	const { title, imageUrl, type, startDate, endDate, href } = props;
+	const t = useTranslations("ProjectsDetailPage.projectCard");
 
 	return (
 		<NavLink
@@ -44,10 +46,10 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 							gradientStartColorVar="--case-study-gradient-start"
 						/>
 						<Typography
-							className="text-[14px] font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
+							className="text-[14px] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 							variant="regular"
 						>
-							{"PROJECT"}
+							{t("tag")}
 						</Typography>
 					</div>
 					<Typography
@@ -71,10 +73,12 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 					>
 						{title}
 					</Typography>
-					<Typography
-						className="text-gray-800"
-						variant="small"
-					>{`Duration: ${parseDateForProject(startDate)} - ${parseDateForProject(endDate)}`}</Typography>
+					<Typography className="text-gray-800" variant="small">
+						{t("duration", {
+							startDate: parseDateForProject(startDate),
+							endDate: parseDateForProject(endDate),
+						})}
+					</Typography>
 				</div>
 			</div>
 		</NavLink>

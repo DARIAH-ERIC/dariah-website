@@ -1,4 +1,5 @@
 import type { StaticImport } from "next/dist/shared/lib/get-img-props";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -14,6 +15,7 @@ interface PillarProps {
 
 export function Pillar(props: Readonly<PillarProps>): ReactNode {
 	const { title, description, image, href } = props;
+	const t = useTranslations("HomePage.PillarsSection");
 
 	return (
 		<div className="flex flex-col gap-10 cursor-default">
@@ -29,7 +31,7 @@ export function Pillar(props: Readonly<PillarProps>): ReactNode {
 					</Typography>
 				</div>
 				<Link href={href ?? "/"} variant="primary" withDefaultRightIcon={true}>
-					{"Read more"}
+					{t("readMore")}
 				</Link>
 			</div>
 		</div>

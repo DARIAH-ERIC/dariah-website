@@ -41,14 +41,14 @@ export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactN
 			</div>
 			{website !== undefined && (
 				<div>
-					<Typography variant="regular">{t("infoSection.website")}</Typography>
+					<Typography variant="regular">{t("infoSection.website.title")}</Typography>
 					<Link
 						className="text-[18px]"
 						endIcon={<OpenInNewIcon className="size-5" />}
 						href={website}
 						variant="tertiary"
 					>
-						{"website"}
+						{t("infoSection.website.description")}
 					</Link>
 				</div>
 			)}

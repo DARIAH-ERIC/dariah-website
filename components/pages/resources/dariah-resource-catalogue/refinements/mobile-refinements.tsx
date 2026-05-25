@@ -45,7 +45,7 @@ export function MobileRefinements(
 			</div>
 			<div className="p-4 shadow-filters-mobile">
 				<Button className="w-full" onClick={handleMobileRefinementsClose} variant="secondary-blue">
-					{"See results"}
+					{t("filter.seeResults")}
 				</Button>
 			</div>
 		</div>

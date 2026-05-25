@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button/button";
@@ -31,6 +32,7 @@ const typeConfiguration = {
 
 export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 	const { resourceCategory, title, description, resourceUrl } = props;
+	const t = useTranslations("DariahResourcesPage");
 
 	const { bgColor: resourceTypeBgColor, text: resourceTypeText } =
 		typeConfiguration[resourceCategory];
@@ -64,7 +66,7 @@ export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactN
 				href={resourceUrl}
 				variant="tertiary"
 			>
-				{"Go to resource"}
+				{t("goTo")}
 			</Button>
 		</div>
 	);

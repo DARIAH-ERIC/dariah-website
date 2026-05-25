@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { SubrefinementList } from "@/components/pages/resources/dariah-resource-catalogue/refinements/subrefinement-list";
@@ -27,6 +28,7 @@ export function RefinementListItems(
 ): ReactNode {
 	const { itemsToShow, subfilters, toggleShowMore, refine, canToggleShowMore, isShowingMore } =
 		props;
+	const t = useTranslations("DariahResourceCataloguePage");
 
 	return (
 		<div>
@@ -71,7 +73,7 @@ export function RefinementListItems(
 					onClick={toggleShowMore}
 					variant="link-primary"
 				>
-					{!isShowingMore ? "See more" : "See less"}
+					{!isShowingMore ? t("filter.seeMore") : t("filter.seeLess")}
 				</Button>
 			)}
 		</div>
