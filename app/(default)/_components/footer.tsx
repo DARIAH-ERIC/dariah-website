@@ -48,9 +48,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 				>
 					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
 						<p className="text-[25px] font-light font-heading tracking-[-1%] leading-[1.3]">
-							{
-								"DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society."
-							}
+							{t("navigation.description")}
 						</p>
 						<nav
 							aria-label={t("navigation.label")}
@@ -62,7 +60,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 								</Typography>
 								<p className="flex gap-2 text-primary">
 									<EmailIcon className="stroke-primary fill-transparent" />
-									{"info@dariah.pl"}
+									{t("navigation.email")}
 								</p>
 							</div>
 
@@ -121,7 +119,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						<SubscribeNewsletter />
 						<nav aria-label={t("navigation-social-media.label")} className="flex flex-col gap-4">
 							<Typography className="font-light" variant="h2">
-								{"Follow us"}
+								{t("navigation-social-media.followUs")}
 							</Typography>
 							<ul className="flex flex-wrap items-center gap-x-8 gap-y-2" role="list">
 								{Object.entries(meta.social).map(([_kind, href]) => {
@@ -150,7 +148,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 				<div className={cn("py-6 px-0 flex gap-2.5 items-center", "lg:pt-3 lg:pb-13 lg:px-34.5")}>
 					<Image alt="" className="w-13.75 h-9.25" src={logoEu} />
-					{"Creative Commons Attribution (CC BY) licence"}
+					{t("navigation.cc")}
 				</div>
 			</div>
 		</footer>

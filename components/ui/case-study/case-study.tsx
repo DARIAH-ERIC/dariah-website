@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -14,6 +15,8 @@ interface CaseStudyProps {
 
 export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 	const { title, imageUrl, href } = props;
+	const t = useTranslations("ImpactCaseStudiesDetailPage");
+
 	return (
 		<NavLink
 			className={cn(
@@ -38,10 +41,10 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 						gradientStartColorVar="--case-study-gradient-start"
 					/>
 					<Typography
-						className="text-[14px] font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
+						className="text-[14px] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 						variant="regular"
 					>
-						{"CASE STUDY"}
+						{t("caseStudyCard.tag")}
 					</Typography>
 				</div>
 				<Typography

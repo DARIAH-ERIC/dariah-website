@@ -57,12 +57,13 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 				? (layer.feature.properties as FeaturePropertiesProps)
 				: null;
 		const name = featureProperties?.name ?? "";
+		const nameLong = featureProperties?.name_long ?? "";
 		let markerLetter = null;
 
 		layer.setStyle({ fillOpacity: 1 });
 
 		const layerCountry = countries.find((country) => {
-			return country.name === name;
+			return country.name === name || country.name === nameLong;
 		});
 		const target = event.target as { _path: HTMLElement };
 

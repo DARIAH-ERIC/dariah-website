@@ -1,5 +1,6 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import { PentagonIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Button } from "@/components/ui/button/button";
@@ -58,6 +59,7 @@ const serviceConfiguration = {
 
 export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode {
 	const { serviceType, resourceCategory, title, description, resourceUrl } = props;
+	const t = useTranslations("DariahResourcesPage");
 
 	const { icon: serviceIcon, text: serviceText } = serviceConfiguration[serviceType ?? "empty"];
 
@@ -98,7 +100,7 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 				<Typography variant="regular">{description}</Typography>
 			</div>
 			<Button endIcon={<OpenInNewIcon className="size-5" />} href={resourceUrl} variant="tertiary">
-				{"Go to resource"}
+				{t("goTo")}
 			</Button>
 		</div>
 	);

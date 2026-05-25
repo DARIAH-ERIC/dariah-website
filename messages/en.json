@@ -54,7 +54,8 @@
 			"policy": {
 				"title": "Policy",
 				"description": "We advocate for and shape inclusive and sustainable research infrastructure."
-			}
+			},
+			"readMore": "Read more"
 		},
 		"ResourcesSection": {
 			"title": "Our Resources",
@@ -100,7 +101,10 @@
 			"source": "National Node/Country",
 			"kind": "Type of service",
 			"showButton": "Show filters",
-			"keywords": "Keywords"
+			"keywords": "Keywords",
+			"seeResults": "See results",
+			"seeMore": "See more",
+			"seeLess": "See less"
 		},
 		"hits": {
 			"empty": "No resources found matching your criteria"
@@ -132,7 +136,8 @@
 		"explore": "Explore more resources"
 	},
 	"DariahResourcesPage": {
-		"discover": "Discover the latest resources"
+		"discover": "Discover the latest resources",
+		"goTo": "Go to resource"
 	},
 	"DefaultLayout": {
 		"skip-link": "Skip to main content"
@@ -187,7 +192,10 @@
 			"start": "Start",
 			"end": "End",
 			"venue": "Venue:",
-			"website": "Website:"
+			"website": {
+				"title": "Website:",
+				"description": "website"
+			}
 		}
 	},
 	"FundingCallsPage": {
@@ -216,9 +224,13 @@
 			"part1": "In 2020, DARIAH began documenting the concrete impact of its work through detailed case studies. These stories highlight how DARIAH's infrastructure and collaborations shape research communities, strengthen national consortia, and enrich the practices of individual researchers in the digital arts and humanities.",
 			"part2": "We add three new case studies each year, building a growing collection that demonstrates the diverse audiences, research topics, and tangible outcomes connected to DARIAH.\n\nExplore these impact case studies for a glimpse of the diverse audience, research topics and excellent research outputs linked to the DARIAH infrastructure."
 		},
+		"sectionText": "case studies",
 		"emptyState": "No impact case studies found."
 	},
 	"ImpactCaseStudiesDetailPage": {
+		"caseStudyCard": {
+			"tag": "case study"
+		},
 		"contributors": {
 			"title": "Contributors",
 			"empty": "No contributors.",
@@ -298,6 +310,10 @@
 		"participants": {
 			"title": "Participants ({number})",
 			"emptyState": "No participants."
+		},
+		"projectCard": {
+			"tag": "project",
+			"duration": "Duration: {startDate} - {endDate}"
 		}
 	},
 	"SpotlightArticlesPage": {
@@ -369,6 +385,9 @@
 		"relatedContent": {
 			"title": "Related content",
 			"emptyState": "No related content for {name} working group."
+		},
+		"card": {
+			"tag": "working group"
 		}
 	},
 	"MembersAndPartnersPage": {
@@ -428,6 +447,7 @@
 		"contributors": {
 			"title": "Contributors",
 			"empty": "No contributors.",
+			"backToList": "Back to contributors list",
 			"groups": {
 				"national_coordinator": "National Coordinator",
 				"national_coordinator_deputy": "National Coordinator Deputy",
@@ -543,7 +563,9 @@
 					"home": "Home",
 					"imprint": "Imprint"
 				},
+				"description": "DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society.",
 				"label": "Secondary",
+				"email": "info@dariah.pl",
 				"newsletter": {
 					"header": "Subscribe to our newsletter",
 					"description": {
@@ -561,9 +583,11 @@
 						"invalidEmail": "Please enter a valid email address",
 						"subscriptionFailed": "Subscription failed. Please try again later."
 					}
-				}
+				},
+				"cc": "Creative Commons Attribution (CC BY) licence"
 			},
 			"navigation-social-media": {
+				"followUs": "Follow us",
 				"items": {
 					"bluesky": "Bluesky",
 					"email": "Email",
@@ -594,7 +618,8 @@
 				"items": {
 					"home": "Home"
 				},
-				"label": "Main"
+				"label": "Main",
+				"search": "Search"
 			}
 		},
 		"PersonCard": {
@@ -612,6 +637,12 @@
 				"national_coordinator_deputy": "National Coordinators Committee",
 				"national_representative": "National Representatives",
 				"national_representative_deputy": "National Representatives Comittee"
+			}
+		},
+		"StaticPage": {
+			"quickLinks": {
+				"title": "Quick links",
+				"emptyState": "No quick links available."
 			}
 		}
 	}

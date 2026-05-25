@@ -85,7 +85,7 @@ export default async function ImpactCaseStudiesPage(
 										{year}
 									</Typography>
 									<Typography className="font-light uppercase" variant="h3">
-										{"case studies"}
+										{t("sectionText")}
 									</Typography>
 								</div>
 								<ul className="flex gap-5 flex-wrap justify-center 3xl:justify-start">

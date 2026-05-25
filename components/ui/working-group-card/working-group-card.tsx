@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { Image } from "@/components/image";
@@ -14,6 +15,7 @@ interface WorkingGroupCard {
 
 export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 	const { title, imageUrl, href } = props;
+	const t = useTranslations("WorkingGroupsDetailPage.card");
 
 	return (
 		<NavLink
@@ -48,7 +50,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 						className="text-[14px] font-bold bg-linear-to-r uppercase from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 						variant="regular"
 					>
-						{"Working group"}
+						{t("tag")}
 					</Typography>
 				</div>
 				<Typography
