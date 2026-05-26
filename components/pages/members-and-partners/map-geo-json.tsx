@@ -94,9 +94,10 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		const featureProperties =
 			layer.feature?.type === "Feature" ? (layer.feature.properties as CountryProperties) : null;
 		const name = featureProperties?.name ?? "";
+		const nameLong = featureProperties?.name_long ?? "";
 
 		const layerCountry = countries.find((country) => {
-			return country.name === name;
+			return country.name === name || country.name === nameLong;
 		});
 
 		const target = event.target as { _path: HTMLElement };

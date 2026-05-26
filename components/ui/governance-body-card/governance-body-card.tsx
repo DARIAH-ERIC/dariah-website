@@ -42,12 +42,12 @@ export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): Re
 			variant="unstyled"
 		>
 			<div className="w-full py-1">
-				{variant !== "working-group" && (
+				{variant !== "working-groups" && (
 					<Typography
 						className="font-heading font-bold text-white py-1 px-4 text-left"
 						variant="caption"
 					>
-						{name.toUpperCase()}
+						{variant.replaceAll("-", " ").toUpperCase()}
 					</Typography>
 				)}
 			</div>

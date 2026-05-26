@@ -35,7 +35,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	const pathname = usePathname();
 
 	const {
-		memberOrPartner: { name, description, socialMedia, contributors, institutions },
+		memberOrPartner: { name, description, socialMedia, contributors, institutions, status },
 		selectedPerson,
 	} = props;
 
@@ -75,7 +75,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 		<Tabs>
 			<TabList aria-label="Tabs" className="lg:px-0!">
 				<Tab id="details">{t("tabs.details")}</Tab>
-				<Tab id="institutions">{t("tabs.institutions")}</Tab>
+				<Tab id="institutions">
+					{status === "is_cooperating_partner_of"
+						? t("tabs.cooperatingPartners")
+						: t("tabs.partnerInstitutions")}
+				</Tab>
 			</TabList>
 			<TabPanels>
 				<TabPanel id="details">
@@ -251,7 +255,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 								)}
 							</>
 						) : (
-							<Typography variant="regular">{t("institutions.empty")}</Typography>
+							<Typography variant="regular">
+								{status === "is_cooperating_partner_of"
+									? t("empty.cooperatingPartners")
+									: t("empty.partnerInstitutions")}
+							</Typography>
 						)}
 					</div>
 				</TabPanel>

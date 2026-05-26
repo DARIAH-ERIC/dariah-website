@@ -10,11 +10,14 @@ import {
 } from "@/components/ui/disclosure/disclosure";
 import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
-export function MobileRefinementList(
-	props: Readonly<UseRefinementListProps & { subfilters?: ResourceCatalogueSubfilter }>,
-): ReactNode {
+type MobileRefinementListProps = UseRefinementListProps & {
+	subfilters?: ResourceCatalogueSubfilter;
+	labelType?: "translation" | "api";
+};
+
+export function MobileRefinementList(props: Readonly<MobileRefinementListProps>): ReactNode {
 	const t = useTranslations("DariahResourceCataloguePage");
-	const { attribute, subfilters } = props;
+	const { attribute, subfilters, labelType } = props;
 	const { items, isShowingMore, toggleShowMore, refine, canToggleShowMore } =
 		useRefinementList(props);
 
@@ -27,9 +30,11 @@ export function MobileRefinementList(
 			<DisclosureHeader variant="white-bg">{t(`filter.${attribute}` as never)}</DisclosureHeader>
 			<DisclosurePanel>
 				<RefinementListItems
+					attribute={attribute}
 					canToggleShowMore={canToggleShowMore}
 					isShowingMore={isShowingMore}
 					itemsToShow={itemsToShow}
+					labelType={labelType}
 					refine={refine}
 					subfilters={subfilters}
 					toggleShowMore={toggleShowMore}

@@ -139,7 +139,10 @@ export default async function ContactPage({
 					{selectedPerson === undefined ? (
 						<>
 							<div className="flex flex-col gap-4 py-6 px-4 lg:px-34 2xl:px-78">
-								<Typography className={cn("border-l-4", selectedBodyBorderColor)} variant="regular">
+								<Typography
+									className={cn("border-l-4 pl-4", selectedBodyBorderColor)}
+									variant="regular"
+								>
 									{selectedBodyItem?.summary}
 								</Typography>
 								<div className="flex flex-wrap gap-6">

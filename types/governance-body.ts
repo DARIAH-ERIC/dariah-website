@@ -13,7 +13,7 @@ export type GovernanceVariants =
 	| "executive-body"
 	| "advisory-body"
 	| "operational-body"
-	| "working-group";
+	| "working-groups";
 
 export type GovernanceBody =
 	| "general-assembly"
@@ -23,4 +23,4 @@ export type GovernanceBody =
 	| "dariah-coordination-office"
 	| "joint-research-committee"
 	| "national-coordinators-committee"
-	| "working-group";
+	| "working-groups";

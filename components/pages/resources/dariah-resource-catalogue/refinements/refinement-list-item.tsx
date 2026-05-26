@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button/button";
 import { Checkbox } from "@/components/ui/checkbox/checkbox";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { ChevronUpIcon } from "@/components/ui/icons/chevron-up";
+import { useDariahResourceCatalogueContext } from "@/context/dariah-resource-catalogue-context";
 import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
 export interface RefinementListItem {
@@ -16,19 +17,43 @@ export interface RefinementListItem {
 	isRefined: boolean;
 }
 
-export function RefinementListItems(
-	props: Readonly<{
-		canToggleShowMore: boolean;
-		itemsToShow: Array<RefinementListItem>;
-		isShowingMore: boolean;
-		refine: (value: string) => void;
-		subfilters?: ResourceCatalogueSubfilter;
-		toggleShowMore: () => void;
-	}>,
-): ReactNode {
-	const { itemsToShow, subfilters, toggleShowMore, refine, canToggleShowMore, isShowingMore } =
-		props;
+interface RefinementListItemsProps {
+	canToggleShowMore: boolean;
+	itemsToShow: Array<RefinementListItem>;
+	isShowingMore: boolean;
+	refine: (value: string) => void;
+	subfilters?: ResourceCatalogueSubfilter;
+	toggleShowMore: () => void;
+	labelType?: "translation" | "api";
+	attribute?: string;
+}
+
+export function RefinementListItems(props: Readonly<RefinementListItemsProps>): ReactNode {
+	const {
+		itemsToShow,
+		subfilters,
+		toggleShowMore,
+		refine,
+		canToggleShowMore,
+		isShowingMore,
+		labelType,
+		attribute,
+	} = props;
 	const t = useTranslations("DariahResourceCataloguePage");
+	const { workingGroups } = useDariahResourceCatalogueContext();
+
+	const getLabel = (label: string) => {
+		if (labelType === "translation") return t(`filter.labelTranslation.${label}` as never);
+
+		if (labelType === "api" && attribute === "working_groups") {
+			const currentWG = workingGroups.find((workingGroup) => {
+				return workingGroup.entity.slug === label;
+			});
+			return currentWG?.name ?? label.toLocaleUpperCase();
+		}
+
+		return label.toUpperCase();
+	};
 
 	return (
 		<div>
@@ -52,7 +77,7 @@ export function RefinementListItems(
 						<li key={item.label}>
 							<Checkbox
 								isSelected={item.isRefined}
-								label={item.label}
+								label={getLabel(item.label)}
 								onChange={() => {
 									refine(item.value);
 								}}

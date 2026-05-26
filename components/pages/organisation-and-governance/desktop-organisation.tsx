@@ -100,7 +100,7 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						</div>
 					)}
 				</div>
-				<div>
+				<div className="flex items-center gap-32 pr-20">
 					<div className="flex flex-col items-center w-full max-w-96.5">
 						<GovernanceBodyRelationArrow direction="down" text="Supports" />
 						{nationalComitee && (
@@ -117,7 +117,7 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						)}
 					</div>
 					{workingGroup && (
-						<div className="flex items-center w-full max-w-96.5">
+						<div className="flex flex-col items-center w-full max-w-96.5">
 							<GovernanceBodyRelationArrow direction="down" text="Oversees" />
 							<GovernanceBodyCard
 								description={workingGroup.summary ?? undefined}

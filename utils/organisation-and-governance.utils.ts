@@ -9,7 +9,7 @@ const GOVERNANCE_VARIANTS_BY_SLUG: Record<GovernanceBody, GovernanceVariants> = 
 	"dariah-coordination-office": "operational-body",
 	"joint-research-committee": "operational-body",
 	"national-coordinators-committee": "operational-body",
-	"working-group": "working-group",
+	"working-groups": "working-groups",
 };
 
 const GOVERNANCE_RELATIONSHIPS_BY_SLUG: Record<GovernanceBody, Array<RelationshipType>> = {
@@ -20,7 +20,7 @@ const GOVERNANCE_RELATIONSHIPS_BY_SLUG: Record<GovernanceBody, Array<Relationshi
 	"dariah-coordination-office": ["supports-ncc-and-jrc", "supports-wg"],
 	"joint-research-committee": ["represented-in-smt", "oversees-wg"],
 	"national-coordinators-committee": ["represented-in-smt"],
-	"working-group": [],
+	"working-groups": [],
 };
 
 const COLORS_FOR_VARIANTS = {
@@ -48,11 +48,11 @@ const COLORS_FOR_VARIANTS = {
 		borderFocus: "group-focus:border-governance-body-card-operational-body",
 		text: "text-governance-body-card-operational-body",
 	},
-	"working-group": {
-		bg: "bg-governance-body-card-working-group",
-		border: "border-governance-body-card-working-group",
-		borderFocus: "group-focus:border-governance-body-card-working-group",
-		text: "text-governance-body-card-working-group",
+	"working-groups": {
+		bg: "bg-governance-body-card-working-groups",
+		border: "border-governance-body-card-working-groups",
+		borderFocus: "group-focus:border-governance-body-card-working-groups",
+		text: "text-governance-body-card-working-groups",
 	},
 };
 
@@ -105,7 +105,7 @@ export const sortGovernanceBodiesForMobile = (
 			return body.entity.slug === "national-coordinators-committee";
 		}),
 		bodies.find((body) => {
-			return body.entity.slug === "working-group";
+			return body.entity.slug === "working-groups";
 		}),
 	];
 
@@ -134,7 +134,7 @@ export const getGovernanceBodiesForDesktop = (
 			return body.entity.slug === "national-coordinators-committee";
 		}),
 		workingGroup: bodies.find((body) => {
-			return body.entity.slug === "working-group";
+			return body.entity.slug === "working-groups";
 		}),
 		scientificAdvisoryBoard: bodies.find((body) => {
 			return body.entity.slug === "scientific-advisory-board";

@@ -97,7 +97,9 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 				<Typography className="text-[18px]" variant="h4">
 					{title}
 				</Typography>
-				<Typography variant="regular">{description}</Typography>
+				<Typography className="line-clamp-3 wrap-anywhere" variant="regular">
+					{description}
+				</Typography>
 			</div>
 			<Button endIcon={<OpenInNewIcon className="size-5" />} href={resourceUrl} variant="tertiary">
 				{t("goTo")}
