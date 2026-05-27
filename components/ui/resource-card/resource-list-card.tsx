@@ -14,13 +14,13 @@ const typeConfiguration = {
 		border: "border-1 border-primary-300",
 		borderLeftColor: "border-l-in-text-link",
 		bgColor: "bg-in-text-link",
-		text: "tool or service",
+		text: "service",
 	},
 	software: {
 		border: "border-1 border-primary-300",
 		borderLeftColor: "border-l-in-text-link",
 		bgColor: "bg-in-text-link",
-		text: "tool or service",
+		text: "software",
 	},
 	"training-material": {
 		border: "border-1 border-accent-300",
