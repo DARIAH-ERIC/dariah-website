@@ -6,11 +6,14 @@ import { RefinementListItems } from "@/components/pages/resources/dariah-resourc
 import { Typography } from "@/components/ui/typography/typography";
 import type { ResourceCatalogueSubfilter } from "@/types/filters";
 
-export function DesktopRefinementList(
-	props: Readonly<UseRefinementListProps & { subfilters?: ResourceCatalogueSubfilter }>,
-): ReactNode {
+type DesktopRefinementListProps = UseRefinementListProps & {
+	subfilters?: ResourceCatalogueSubfilter;
+	labelType?: "translation" | "api";
+};
+
+export function DesktopRefinementList(props: Readonly<DesktopRefinementListProps>): ReactNode {
 	const t = useTranslations("DariahResourceCataloguePage");
-	const { attribute, subfilters } = props;
+	const { attribute, subfilters, labelType } = props;
 	const { items, isShowingMore, toggleShowMore, refine, canToggleShowMore } =
 		useRefinementList(props);
 
@@ -22,9 +25,11 @@ export function DesktopRefinementList(
 		<div className="flex flex-col gap-2">
 			<Typography variant="h4">{t(`filter.${attribute}` as never)}</Typography>
 			<RefinementListItems
+				attribute={attribute}
 				canToggleShowMore={canToggleShowMore}
 				isShowingMore={isShowingMore}
 				itemsToShow={itemsToShow}
+				labelType={labelType}
 				refine={refine}
 				subfilters={subfilters}
 				toggleShowMore={toggleShowMore}

@@ -35,11 +35,12 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	const pathname = usePathname();
 
 	const {
-		memberOrPartner: { name, description, socialMedia, contributors, institutions },
+		memberOrPartner: { name, description, socialMedia, contributors, institutions, status },
 		selectedPerson,
 	} = props;
 
 	const displayShowMoreButton = institutions.length > 10;
+	const isCooperatingPartner = status === "is_cooperating_partner_of";
 
 	const { website, otherSocialMedia } = socialMedia.reduce(
 		(acc, item) => {
@@ -74,149 +75,153 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	return (
 		<Tabs>
 			<TabList aria-label="Tabs" className="lg:px-0!">
-				<Tab id="details">{t("tabs.details")}</Tab>
-				<Tab id="institutions">{t("tabs.institutions")}</Tab>
+				{!isCooperatingPartner && <Tab id="details">{t("tabs.details")}</Tab>}
+				<Tab id="institutions">
+					{isCooperatingPartner ? t("tabs.cooperatingPartners") : t("tabs.partnerInstitutions")}
+				</Tab>
 			</TabList>
 			<TabPanels>
-				<TabPanel id="details">
-					<div className="flex flex-col px-2 py-4">
-						<div className="flex flex-col w-full justify-between lg:flex-row lg:flex-wrap">
-							<Typography className="uppercase" variant="h4">
-								{name}
-							</Typography>
-							<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
-								{website && (
-									<Link
-										endIcon={<OpenInNewIcon className="size-5" />}
-										href={website.url}
-										target="_blank"
-										variant="primary"
-									>
-										{t("socialMedia.website")}
-									</Link>
-								)}
-								{otherSocialMedia.length > 0 && (
-									<div className="flex gap-6 items-center">
-										<Typography variant="regular">{t("socialMedia.other")}</Typography>
-										{otherSocialMedia.map((item) => {
-											const Icon = socialMediaConfig[item.type].icon;
-											return (
-												<Link
-													key={item.url}
-													className="group focus:border-b-2 focus:py-1.5"
-													href={item.url}
-													target="_blank"
-												>
-													<Icon
-														className={cn(
-															"size-10",
-															item.type !== "website" && item.type !== "other"
-																? "fill-gray-700 group-hover:fill-primary"
-																: "stroke-gray-700 group-hover:stroke-primary",
-														)}
-													/>
-												</Link>
-											);
-										})}
+				{!isCooperatingPartner && (
+					<TabPanel id="details">
+						<div className="flex flex-col px-2 py-4">
+							<div className="flex flex-col w-full justify-between lg:flex-row lg:flex-wrap">
+								<Typography className="uppercase" variant="h4">
+									{name}
+								</Typography>
+								<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
+									{website && (
+										<Link
+											endIcon={<OpenInNewIcon className="size-5" />}
+											href={website.url}
+											target="_blank"
+											variant="primary"
+										>
+											{t("socialMedia.website")}
+										</Link>
+									)}
+									{otherSocialMedia.length > 0 && (
+										<div className="flex gap-6 items-center">
+											<Typography variant="regular">{t("socialMedia.other")}</Typography>
+											{otherSocialMedia.map((item) => {
+												const Icon = socialMediaConfig[item.type].icon;
+												return (
+													<Link
+														key={item.url}
+														className="group focus:border-b-2 focus:py-1.5"
+														href={item.url}
+														target="_blank"
+													>
+														<Icon
+															className={cn(
+																"size-10",
+																item.type !== "website" && item.type !== "other"
+																	? "fill-gray-700 group-hover:fill-primary"
+																	: "stroke-gray-700 group-hover:stroke-primary",
+															)}
+														/>
+													</Link>
+												);
+											})}
+										</div>
+									)}
+								</div>
+							</div>
+							<div>
+								<ContentBlocks fields={description} />
+							</div>
+							<div className="flex flex-col gap-10 pt-6 pb-9 relative">
+								<div className="absolute -top-20" id="contributors" />
+								<Typography variant="h4">{t("contributors.title")}</Typography>
+								{!selectedPerson ? (
+									grouppedContributorsKeys.length > 0 ? (
+										<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
+											{grouppedContributorsKeys.map((contributorGroupKey) => {
+												return (
+													<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
+														<div className="flex flex-col justify-between h-10">
+															<Typography className="font-bold" variant="small">
+																{t(
+																	`contributors.groups.${
+																		contributorGroupKey as
+																			| "national_coordinator"
+																			| "national_coordinator_deputy"
+																			| "national_representative"
+																			| "national_representative_deputy"
+																	}`,
+																)}
+															</Typography>
+															<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
+														</div>
+														<div className="flex flex-wrap justify-between gap-6">
+															{grouppedContributors[contributorGroupKey]?.map((contributor) => {
+																const {
+																	id,
+																	name,
+																	position,
+																	image: { url: imageUrl },
+																	slug,
+																} = contributor;
+
+																const positionNames = position
+																	? position.map((positionObj) => {
+																			const { role, name } = positionObj;
+
+																			return personTranslations(`roles.${role}`, {
+																				name,
+																			});
+																		})
+																	: [];
+
+																return (
+																	<PersonCard
+																		key={id}
+																		href={`${pathname}?person=${slug}#contributors`}
+																		imageUrl={imageUrl}
+																		name={name}
+																		position={positionNames.join(", ")}
+																	/>
+																);
+															})}
+														</div>
+													</div>
+												);
+											})}
+										</div>
+									) : (
+										<Typography variant="regular">{t("contributors.empty")}</Typography>
+									)
+								) : (
+									<div className="flex flex-col flex-wrap gap-10 w-full">
+										<Link
+											href={`${pathname}#contributors`}
+											variant="primary"
+											withDefaultLeftIcon={true}
+										>
+											{t("contributors.backToList")}
+										</Link>
+										<PersonCardDetails
+											description={
+												selectedPerson.biography.find((content) => {
+													return content.type === "rich_text";
+												}) as JSONContent
+											}
+											email={selectedPerson.email ?? undefined}
+											imageUrl={selectedPerson.image.url}
+											name={selectedPerson.name}
+											position={
+												selectedPerson.position
+													?.map((pos) => {
+														return pos.name;
+													})
+													.join(", ") ?? undefined
+											}
+										/>
 									</div>
 								)}
 							</div>
 						</div>
-						<div>
-							<ContentBlocks fields={description} />
-						</div>
-						<div className="flex flex-col gap-10 pt-6 pb-9 relative">
-							<div className="absolute -top-20" id="contributors" />
-							<Typography variant="h4">{t("contributors.title")}</Typography>
-							{!selectedPerson ? (
-								grouppedContributorsKeys.length > 0 ? (
-									<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
-										{grouppedContributorsKeys.map((contributorGroupKey) => {
-											return (
-												<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
-													<div className="flex flex-col justify-between h-10">
-														<Typography className="font-bold" variant="small">
-															{t(
-																`contributors.groups.${
-																	contributorGroupKey as
-																		| "national_coordinator"
-																		| "national_coordinator_deputy"
-																		| "national_representative"
-																		| "national_representative_deputy"
-																}`,
-															)}
-														</Typography>
-														<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
-													</div>
-													<div className="flex flex-wrap justify-between gap-6">
-														{grouppedContributors[contributorGroupKey]?.map((contributor) => {
-															const {
-																id,
-																name,
-																position,
-																image: { url: imageUrl },
-																slug,
-															} = contributor;
-
-															const positionNames = position
-																? position.map((positionObj) => {
-																		const { role, name } = positionObj;
-
-																		return personTranslations(`roles.${role}`, {
-																			name,
-																		});
-																	})
-																: [];
-
-															return (
-																<PersonCard
-																	key={id}
-																	href={`${pathname}?person=${slug}#contributors`}
-																	imageUrl={imageUrl}
-																	name={name}
-																	position={positionNames.join(", ")}
-																/>
-															);
-														})}
-													</div>
-												</div>
-											);
-										})}
-									</div>
-								) : (
-									<Typography variant="regular">{t("contributors.empty")}</Typography>
-								)
-							) : (
-								<div className="flex flex-col flex-wrap gap-10 w-full">
-									<Link
-										href={`${pathname}#contributors`}
-										variant="primary"
-										withDefaultLeftIcon={true}
-									>
-										{t("contributors.backToList")}
-									</Link>
-									<PersonCardDetails
-										description={
-											selectedPerson.biography.find((content) => {
-												return content.type === "rich_text";
-											}) as JSONContent
-										}
-										email={selectedPerson.email ?? undefined}
-										imageUrl={selectedPerson.image.url}
-										name={selectedPerson.name}
-										position={
-											selectedPerson.position
-												?.map((pos) => {
-													return pos.name;
-												})
-												.join(", ") ?? undefined
-										}
-									/>
-								</div>
-							)}
-						</div>
-					</div>
-				</TabPanel>
+					</TabPanel>
+				)}
 				<TabPanel id="institutions">
 					<div className="flex flex-col gap-6 pt-10">
 						{institutionsToDisplay.length > 0 ? (
@@ -251,7 +256,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 								)}
 							</>
 						) : (
-							<Typography variant="regular">{t("institutions.empty")}</Typography>
+							<Typography variant="regular">
+								{isCooperatingPartner
+									? t("empty.cooperatingPartners")
+									: t("empty.partnerInstitutions")}
+							</Typography>
 						)}
 					</div>
 				</TabPanel>

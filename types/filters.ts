@@ -19,4 +19,5 @@ export interface ResourceCatalogueFilter {
 	showMore?: boolean;
 	sortBy?: Array<SortByDirection<"name" | "count" | "isRefined">>;
 	subfilters?: ResourceCatalogueSubfilter;
+	labelType?: "translation" | "api";
 }

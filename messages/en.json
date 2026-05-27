@@ -98,13 +98,21 @@
 		"filter": {
 			"title": "Filters",
 			"type": "Resource Type",
-			"source": "National Node/Country",
+			"national_consortia": "National Node/Country",
+			"working_groups": "Working Groups",
 			"kind": "Type of service",
 			"showButton": "Show filters",
 			"keywords": "Keywords",
 			"seeResults": "See results",
 			"seeMore": "See more",
-			"seeLess": "See less"
+			"seeLess": "See less",
+			"labelTranslation": {
+				"publication": "Publication",
+				"service": "Tool or Service",
+				"software": "Software",
+				"training-material": "Training Material",
+				"workflow": "Workflow"
+			}
 		},
 		"hits": {
 			"empty": "No resources found matching your criteria"
@@ -438,7 +446,8 @@
 		},
 		"tabs": {
 			"details": "Details",
-			"institutions": "Partners' institution"
+			"cooperatingPartners": "Cooperating partners",
+			"partnerInstitutions": "Partner institutions"
 		},
 		"socialMedia": {
 			"website": "Visit the website",
@@ -455,8 +464,9 @@
 				"national_representative_deputy": "National Representative Deputy"
 			}
 		},
-		"institutions": {
-			"empty": "No partners' institution."
+		"empty": {
+			"cooperatingPartners": "No cooperating partners.",
+			"partnerInstitutions": "No partner institutions."
 		},
 		"showMore": "See more",
 		"showLess": "See less"

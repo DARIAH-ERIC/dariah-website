@@ -63,7 +63,7 @@
 	--section-box-bg: rgb(231 231 231);
 	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
 
-	--working-group-detail-divider: linear-gradient(90deg, rgb(109 139 127) 0%, rgb(0 87 143) 100%);
+	--working-groups-detail-divider: linear-gradient(90deg, rgb(109 139 127) 0%, rgb(0 87 143) 100%);
 
 	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
 	--spotlight-list-divider: linear-gradient(180deg, var(--purple) -100%, transparent 80%);
@@ -106,7 +106,7 @@
 	--governance-body-card-executive-body: rgb(17 89 58);
 	--governance-body-card-advisory-body: rgb(184 99 5);
 	--governance-body-card-operational-body: rgb(119 45 2);
-	--governance-body-card-working-group: rgb(8 123 172);
+	--governance-body-card-working-groups: rgb(8 123 172);
 
 	--governance-body-tag-appoints-bod-text: rgb(17 89 58);
 	--governance-body-tag-appoints-bod-bg: rgb(236 242 239);
@@ -275,7 +275,7 @@
 	--color-governance-body-card-executive-body: var(--governance-body-card-executive-body);
 	--color-governance-body-card-advisory-body: var(--governance-body-card-advisory-body);
 	--color-governance-body-card-operational-body: var(--governance-body-card-operational-body);
-	--color-governance-body-card-working-group: var(--governance-body-card-working-group);
+	--color-governance-body-card-working-groups: var(--governance-body-card-working-groups);
 
 	--color-governance-body-tag-appoints-bod-text: var(--governance-body-tag-appoints-bod-text);
 	--color-governance-body-tag-appoints-bod-bg: var(--governance-body-tag-appoints-bod-bg);
