@@ -104,7 +104,7 @@
 	--governance-body-card-active-bg: rgb(255 255 255 / 80%);
 
 	--governance-body-card-executive-body: rgb(17 89 58);
-	--governance-body-card-advisory-body: rgb(184 99 5);
+	--governance-body-card-advisory-body: rgb(174 99 5);
 	--governance-body-card-operational-body: rgb(119 45 2);
 	--governance-body-card-working-groups: rgb(8 123 172);
 
@@ -127,14 +127,14 @@
 
 	--governance-body-tag-supports-wg-smt-bg: rgb(8 112 172 / 8%);
 
-	--governance-body-tag-supports-ncc-and-jrc-text: rgb(174 99 5);
-	--governance-body-tag-supports-ncc-and-jrc-bg: rgb(249 243 235);
+	--governance-body-tag-supports-ncc-and-jrc-text: rgb(119 45 2);
+	--governance-body-tag-supports-ncc-and-jrc-bg: rgb(119 45 2 / 8%);
 
 	--resource-container-bg: rgb(255 255 255 / 90%);
 	--resource-training-material: rgb(35 127 123);
 	--resource-workflow: rgb(132 75 110);
 	--resource-workflow-border: rgb(188 178 184);
-	--resource-publication: rgb(124 129 104);
+	--resource-publication: rgb(114 112 90);
 	--resource-publication-border: rgb(183 183 183);
 	--resource-service-text: rgb(36 78 103);
 

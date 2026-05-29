@@ -51,7 +51,7 @@ export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactN
 				<div
 					className={cn(
 						resourceTypeBgColor,
-						"px-2 py-0.5 uppercase w-fit text-regular text-[12px] text-white",
+						"px-2 py-0.5 uppercase w-fit text-regular text-[12px] text-white font-bold",
 					)}
 				>
 					{resourceTypeText}

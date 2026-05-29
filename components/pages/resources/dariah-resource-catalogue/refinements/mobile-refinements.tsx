@@ -31,7 +31,7 @@ export function MobileRefinements(
 					<Typography className="text-[24px]" variant="h4">
 						{t("filter.title")}
 					</Typography>
-					<Button onClick={handleMobileRefinementsClose} variant="icon-button">
+					<Button aria-label="close" onClick={handleMobileRefinementsClose} variant="icon-button">
 						<CloseIcon className="fill-primary! size-6" />
 					</Button>
 				</div>

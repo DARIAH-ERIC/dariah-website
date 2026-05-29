@@ -35,10 +35,8 @@ export interface DisclosureHeaderProps {
 	variant?: "color-bg" | "white-bg";
 }
 
-export function DisclosureHeader({
-	children,
-	variant = "color-bg",
-}: Readonly<DisclosureHeaderProps>): ReactNode {
+export function DisclosureHeader(props: Readonly<DisclosureHeaderProps>): ReactNode {
+	const { children, variant = "color-bg", ...rest } = props;
 	const { isExpanded } = use(DisclosureStateContext)!;
 	return (
 		<Button
@@ -49,6 +47,7 @@ export function DisclosureHeader({
 			}
 			slot="trigger"
 			variant={variant === "color-bg" ? "disclosure-color-bg" : "disclosure-white-bg"}
+			{...rest}
 		>
 			<span className="max-w-[90%] line-clamp-1 text-left">{children}</span>
 		</Button>

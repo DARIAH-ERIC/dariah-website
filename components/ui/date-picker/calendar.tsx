@@ -29,11 +29,11 @@ export function Calendar<T extends DateValue>(props: Readonly<CalendarProps<T>>)
 			{...props}
 		>
 			<header className="flex items-center justify-center gap-2 pb-4 px-1 box-border">
-				<Button slot="previous" variant="icon-button">
+				<Button aria-label="previous" slot="previous" variant="icon-button">
 					<ChevronLeftIcon />
 				</Button>
 				<Heading className="text-small text-text-link-bg font-semibold" />
-				<Button slot="next" variant="icon-button">
+				<Button aria-label="next" slot="next" variant="icon-button">
 					<ChevronForwardIcon />
 				</Button>
 			</header>

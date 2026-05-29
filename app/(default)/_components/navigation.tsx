@@ -11,6 +11,7 @@ import { MenuIcon } from "@/components/ui/icons/menu";
 import { Link } from "@/components/ui/link/link";
 import type { NavigationConfig, NavigationLink } from "@/lib/navigation/navigation";
 import logo from "@/public/assets/images/logo-dariah-eu.svg";
+import { useMediaQuery } from "@/utils/hooks/use-media-query";
 
 interface NavigationProps {
 	label: string;
@@ -20,6 +21,8 @@ interface NavigationProps {
 export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 	const { label, navigation } = props;
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+	const isXl = useMediaQuery("xl");
 
 	const handleMobileMenuToggle = (): void => {
 		document.body.style.overflow = isMobileMenuOpen ? "" : "hidden";
@@ -53,13 +56,15 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 				</Link>
 
 				<NavigationDesktop navigation={menuNavigation} />
-				<Button className="xl:hidden" onClick={handleMobileMenuToggle} variant="icon-button">
-					{isMobileMenuOpen ? (
-						<CloseIcon className="fill-primary! size-8 xl:hidden" />
-					) : (
-						<MenuIcon className="fill-primary! size-8 xl:hidden" />
-					)}
-				</Button>
+				{isXl === false && (
+					<Button className="xl:hidden" onClick={handleMobileMenuToggle} variant="icon-button">
+						{isMobileMenuOpen ? (
+							<CloseIcon aria-label="close-menu" className="fill-primary! size-8 xl:hidden" />
+						) : (
+							<MenuIcon aria-label="open-menu" className="fill-primary! size-8 xl:hidden" />
+						)}
+					</Button>
+				)}
 			</nav>
 
 			{isMobileMenuOpen && (

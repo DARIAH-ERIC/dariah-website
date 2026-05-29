@@ -21,7 +21,9 @@ export function TextField(props: Readonly<TextFieldProps>): ReactNode {
 
 	return (
 		<AriaTextField className="group flex flex-col gap-1" {...rest}>
-			<Label className="text-regular font-semibold text-black">{label}</Label>
+			{label !== undefined && (
+				<Label className="text-regular font-semibold text-black">{label}</Label>
+			)}
 			<div
 				className={cn(
 					"flex h-14.75 items-center gap-2.5 px-3.25 pt-4.5 pb-4 text-regular text-black placeholder-gray-700 text-[16px]",
@@ -31,7 +33,11 @@ export function TextField(props: Readonly<TextFieldProps>): ReactNode {
 				)}
 			>
 				{startIcon}
-				<Input className="bg-transparent w-full focus:outline-none" placeholder={placeholder} />
+				<Input
+					aria-label={label ?? placeholder}
+					className="bg-transparent w-full focus:outline-none"
+					placeholder={placeholder}
+				/>
 				{endIcon}
 			</div>
 		</AriaTextField>

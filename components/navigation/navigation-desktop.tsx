@@ -75,7 +75,7 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 				})}
 			</ul>
 			<Button href="/search" variant="icon-button">
-				<SearchIcon className="size-6" />
+				<SearchIcon aria-label="search" className="size-6" />
 			</Button>
 		</div>
 	);

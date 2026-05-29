@@ -83,7 +83,7 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 					<div
 						className={cn(
 							resourceTypeBgColor,
-							"px-2 py-0.5 uppercase text-regular text-[12px] text-white",
+							"px-2 py-0.5 uppercase text-regular text-[12px] text-white font-bold",
 						)}
 					>
 						{resourceTypeText}

@@ -73,7 +73,7 @@ export function SearchBox(props: Readonly<UseSearchBoxProps & { className?: stri
 				isDisabled={inputValue.length === 0 || isSearchStalled}
 				variant="secondary-blue"
 			>
-				<SearchIcon className="size-5" />
+				<SearchIcon aria-label="search" className="size-5" />
 			</Button>
 		</form>
 	);
