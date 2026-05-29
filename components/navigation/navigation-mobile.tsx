@@ -51,9 +51,9 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 							return (
 								<li key={id}>
 									<Disclosure>
-										<DisclosureHeader>{item.label}</DisclosureHeader>
+										<DisclosureHeader aria-label={item.label}>{item.label}</DisclosureHeader>
 										<DisclosurePanel>
-											<NavMenu aria-labelledby={item.label}>
+											<NavMenu>
 												{item.children &&
 													Object.entries(item.children).map(([id, item]) => {
 														switch (item.type) {

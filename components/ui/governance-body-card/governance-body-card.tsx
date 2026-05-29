@@ -43,10 +43,7 @@ export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): Re
 		>
 			<div className="w-full py-1">
 				{variant !== "working-groups" && (
-					<Typography
-						className="font-heading font-bold text-white py-1 px-4 text-left"
-						variant="caption"
-					>
+					<Typography className="font-bold text-white py-1 px-4 text-left" variant="caption">
 						{variant.replaceAll("-", " ").toUpperCase()}
 					</Typography>
 				)}

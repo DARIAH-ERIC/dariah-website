@@ -19,6 +19,7 @@ export function CarouselButtonGroup(props: Readonly<ButtonGroupProps>): ReactNod
 	return (
 		<>
 			<Button
+				aria-label="previous"
 				className={cn(
 					"absolute left-0 translate-x-[-125%] -translate-y-1/2 z-1000 top-1/2 lg:-translate-x-1/2",
 					isFirstElement && "hidden",
@@ -29,6 +30,7 @@ export function CarouselButtonGroup(props: Readonly<ButtonGroupProps>): ReactNod
 				<ChevronLeftIcon />
 			</Button>
 			<Button
+				aria-label="next"
 				className={cn(
 					"absolute right-0 translate-x-[125%] z-1000 top-1/2 -translate-y-1/2 lg:translate-x-1/2",
 					isLastElement && "hidden",

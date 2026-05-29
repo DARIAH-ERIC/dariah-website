@@ -24,6 +24,7 @@ export function BackToTop(): ReactNode {
 
 	return (
 		<Button
+			aria-label="back-to-top"
 			className={cn(
 				"fixed! right-8 bottom-8 border-2 border-primary z-100 md:hidden [&_svg]:fill-primary",
 				!isButtonVisible && "hidden",

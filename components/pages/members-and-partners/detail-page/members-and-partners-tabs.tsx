@@ -103,18 +103,20 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 										<div className="flex gap-6 items-center">
 											<Typography variant="regular">{t("socialMedia.other")}</Typography>
 											{otherSocialMedia.map((item) => {
-												const Icon = socialMediaConfig[item.type].icon;
+												const { type, url, name } = item;
+												const Icon = socialMediaConfig[type].icon;
 												return (
 													<Link
-														key={item.url}
+														key={url}
+														aria-label={name}
 														className="group focus:border-b-2 focus:py-1.5"
-														href={item.url}
+														href={url}
 														target="_blank"
 													>
 														<Icon
 															className={cn(
 																"size-10",
-																item.type !== "website" && item.type !== "other"
+																type !== "website" && type !== "other"
 																	? "fill-gray-700 group-hover:fill-primary"
 																	: "stroke-gray-700 group-hover:stroke-primary",
 															)}

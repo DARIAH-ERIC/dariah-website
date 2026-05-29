@@ -91,7 +91,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 				}}
 				variant="icon-button-color-bg"
 			>
-				<ChevronLeftIcon />
+				<ChevronLeftIcon aria-label="previous-page" />
 			</Button>
 
 			{pagesArr.map((page) => {
@@ -115,7 +115,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 				}}
 				variant="icon-button-color-bg"
 			>
-				<ChevronForwardIcon />
+				<ChevronForwardIcon aria-label="next-page" />
 			</Button>
 		</div>
 	);

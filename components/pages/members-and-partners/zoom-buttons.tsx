@@ -10,6 +10,7 @@ export function ZoomButtons(): ReactNode {
 	return (
 		<div className="z-800 absolute top-30 right-6 flex flex-col gap-4 lg:top-6 lg:right-20">
 			<Button
+				aria-label="zoom-in"
 				className="size-12 shadow-light [&_svg]:fill-primary"
 				onClick={() => {
 					return map.zoomIn();
@@ -19,6 +20,7 @@ export function ZoomButtons(): ReactNode {
 				<AddIcon className="size-8" />
 			</Button>
 			<Button
+				aria-label="zoom-out"
 				className="size-12 shadow-light [&_svg]:fill-primary"
 				onClick={() => {
 					return map.zoomOut();

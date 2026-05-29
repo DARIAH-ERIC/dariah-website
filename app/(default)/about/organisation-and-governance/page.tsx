@@ -133,7 +133,7 @@ export default async function ContactPage({
 							</div>
 						</div>
 						<NavLink href="/about/organisation-and-governance">
-							<CloseIcon className="fill-white! size-10!" />
+							<CloseIcon aria-label="close" className="fill-white! size-10!" />
 						</NavLink>
 					</div>
 					{selectedPerson === undefined ? (

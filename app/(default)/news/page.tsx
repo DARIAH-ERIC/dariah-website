@@ -37,7 +37,6 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 		Number(page) > 2
 			? (Number(page) - 2) * Number(per_page) + (Number(per_page) + 1)
 			: (Number(page) - 1) * (Number(per_page) + 1);
-	console.log(offset);
 
 	const response = await client.news.list({
 		limit: page === 1 ? Number(per_page) + 1 : Number(per_page),

@@ -32,12 +32,16 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 		>
 			<div className={cn("px-6 py-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
 				<NavLink
+					aria-label={secondary.home.label}
 					className="lg:absolute lg:top-14.5 lg:left-17"
 					href={secondary.home.href}
 					size="icon"
 				>
-					<span className="sr-only">{secondary.home.label}</span>
-					<Image alt="" className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")} src={logoDariah} />
+					<Image
+						alt={secondary.home.label}
+						className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")}
+						src={logoDariah}
+					/>
 				</NavLink>
 
 				<div
@@ -134,9 +138,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 									return (
 										<li key={kind} className="inline-flex shrink-0">
-											<NavLink className="touch-target" href={href} size="icon">
-												<span className="sr-only">{label}</span>
-												<Icon aria-hidden={true} className="size-6" />
+											<NavLink aria-label={label} className="touch-target" href={href} size="icon">
+												<Icon className="size-6" />
 											</NavLink>
 										</li>
 									);
