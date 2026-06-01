@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button/button";
+import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function HeroSection(): ReactNode {
@@ -19,12 +19,12 @@ export function HeroSection(): ReactNode {
 					{t("HeroSection.header")}
 				</Typography>
 				<div className="flex flex-col w-74 gap-6 lg:w-full lg:gap-16.25 lg:flex-row">
-					<Button href="/get-involved/join-dariah" variant="secondary-blue">
+					<Link href="/get-involved/join-dariah" variant="button-secondary-blue">
 						{t("HeroSection.getInvolved")}
-					</Button>
-					<Button href="/about/dariah-in-a-nutshell" variant="secondary-black">
+					</Link>
+					<Link href="/about/dariah-in-a-nutshell" variant="button-secondary-black">
 						{t("HeroSection.learnMore")}
-					</Button>
+					</Link>
 				</div>
 			</div>
 			<div className="h-27.75 justify-center bg-white w-full flex items-center absolute bottom-0 left-0 lg:justify-start lg:h-42.5 lg:pl-32.5 lg:w-221">

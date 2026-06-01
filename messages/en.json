@@ -409,16 +409,18 @@
 		},
 		"filters": {
 			"cooperating partners": "COOPERATING PARTNERS",
-			"members": "MEMBERS"
+			"members": "MEMBERS",
+			"observers": "OBSERVERS"
 		},
 		"legend": {
 			"cooperating partners": "Cooperating Partner",
-			"members": "Member Country"
+			"members": "Member Country",
+			"observers": "Observer Country"
 		},
 		"status": {
 			"is_member_of": "Member",
 			"is_cooperating_partner_of": "Cooperating Partner",
-			"is_observer_of": "Observer"
+			"is_observer_of": "Observer Country"
 		},
 		"popup": {
 			"details": "See details"
@@ -428,7 +430,9 @@
 			"map": "Map"
 		},
 		"cooperatingEmptyState": "No cooperating partners found.",
-		"membersEmptyState": "No members found."
+		"membersEmptyState": "No members found.",
+		"observersEmptyState": "No observers found.",
+		"mapEmptyState": "No countries found on the map."
 	},
 	"MembersAndPartnersDetailPage": {
 		"browseAll": "Browse all members and partners",
@@ -442,7 +446,8 @@
 		},
 		"status": {
 			"is_member_of": "member",
-			"is_cooperating_partner_of": "cooperating partner"
+			"is_cooperating_partner_of": "cooperating partner",
+			"is_observer_of": "observer country"
 		},
 		"tabs": {
 			"details": "Details",

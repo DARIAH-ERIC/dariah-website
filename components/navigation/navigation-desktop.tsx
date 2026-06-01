@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 
 import { NavMenu, NavMenuSeparator, NavMenuTrigger } from "@/components/navigation";
-import { Button } from "@/components/ui/button/button";
 import { SearchIcon } from "@/components/ui/icons/search";
+import { Link } from "@/components/ui/link/link";
 import { NavButton } from "@/components/ui/navigation/nav-button";
 import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
 import type { NavigationConfig } from "@/lib/navigation/navigation";
@@ -74,9 +74,9 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 					}
 				})}
 			</ul>
-			<Button href="/search" variant="icon-button">
+			<Link href="/search" variant="icon-button">
 				<SearchIcon aria-label="search" className="size-6" />
-			</Button>
+			</Link>
 		</div>
 	);
 }
