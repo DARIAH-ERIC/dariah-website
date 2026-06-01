@@ -1,4 +1,4 @@
-import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
+import { createUrl, createUrlSearchParams, unique } from "@acdh-oeaw/lib";
 import { unstable_cache as nextCache } from "next/cache";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -8,6 +8,9 @@ import type { paths } from "@/lib/api/types";
 import { HttpError, request, type ResponseInfo } from "@/lib/utils/request";
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
+
+const maxFeaturedEvents = 3;
+const maxFeaturedNewsItems = 3;
 
 const apiHeaders: HeadersInit | undefined =
 	env.API_ACCESS_TOKEN != null ? { "x-api-access-token": env.API_ACCESS_TOKEN } : undefined;
@@ -29,6 +32,9 @@ type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
+
+type FeaturedItemsResponse =
+	paths["/api/v1/featured-entities"]["get"]["responses"][200]["content"]["application/json"];
 
 type FundingCallsResponse =
 	paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -104,6 +110,12 @@ export type EventList = Omit<EventListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
 };
 
+export type FeaturedItems = Omit<FeaturedItemsResponse, "data"> & {
+	data: Omit<FeaturedItemsResponse["data"], "news"> & {
+		news: Array<WithPublishedAt<FeaturedItemsResponse["data"]["news"][number]>>;
+	};
+};
+
 export type FundingCall = WithPublishedAt<FundingCallsResponse>;
 export type FundingCallList = Omit<FundingCallsListResponse, "data"> & {
 	data: Array<WithPublishedAt<FundingCallsListResponse["data"][number]>>;
@@ -169,6 +181,7 @@ export const cacheTags = {
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
+	featuredEntities: "featured-entities",
 	fundingCalls: "funding-calls",
 	governanceBodies: "governance-bodies",
 	home: "home",
@@ -400,14 +413,19 @@ const _homePageGet = nextCache(
 					String(now.getUTCMonth() + 1).padStart(2, "0"),
 					String(now.getUTCDate()).padStart(2, "0"),
 				].join("-"),
-				limit: 3,
+				limit: maxFeaturedEvents,
 			}),
 		});
 
 		const newsUrl = createUrl({
 			baseUrl,
 			pathname: "/api/v1/news",
-			searchParams: createUrlSearchParams({ limit: 3 }),
+			searchParams: createUrlSearchParams({ limit: maxFeaturedNewsItems }),
+		});
+
+		const featuredItemsUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/featured-entities",
 		});
 
 		const statsUrl = createUrl({
@@ -415,13 +433,18 @@ const _homePageGet = nextCache(
 			pathname: "/api/v1/statistics",
 		});
 
-		const [eventsResult, newsResult, statsResult] = await Promise.all([
+		const [eventsResult, newsResult, featuredItemsResult, statsResult] = await Promise.all([
 			request<EventListResponse>(eventsUrl, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 				headers: apiHeaders,
 			}),
 			request<NewsItemListResponse>(newsUrl, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			}),
+			request<FeaturedItemsResponse>(featuredItemsUrl, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 				headers: apiHeaders,
@@ -435,12 +458,16 @@ const _homePageGet = nextCache(
 
 		return {
 			events: eventsResult.unwrap(),
+			featuredItems: featuredItemsResult.unwrap(),
 			news: newsResult.unwrap(),
 			stats: statsResult.unwrap(),
 		};
 	},
 	[cacheTags.home],
-	{ revalidate: 3600, tags: [cacheTags.home, cacheTags.events, cacheTags.news] },
+	{
+		revalidate: 3600,
+		tags: [cacheTags.home, cacheTags.events, cacheTags.featuredEntities, cacheTags.news],
+	},
 );
 
 const _impactCaseStudiesBySlug = nextCache(
@@ -1130,7 +1157,12 @@ export const client = {
 	},
 	homePage: {
 		get: cache(async function get() {
-			const { events: eventsResponse, news: newsResponse, stats } = await _homePageGet();
+			const {
+				events: eventsResponse,
+				featuredItems: featuredItemsResponse,
+				news: newsResponse,
+				stats,
+			} = await _homePageGet();
 
 			return {
 				events: {
@@ -1153,9 +1185,11 @@ export const client = {
 					...newsResponse,
 					data: {
 						...newsResponse.data,
-						data: newsResponse.data.data.map((item) => {
-							return { ...item, publishedAt: new Date(item.publishedAt) };
-						}),
+						data: unique([...featuredItemsResponse.data.data.news, ...newsResponse.data.data])
+							.slice(0, maxFeaturedNewsItems)
+							.map((item) => {
+								return { ...item, publishedAt: new Date(item.publishedAt) };
+							}),
 					},
 				},
 				stats,
