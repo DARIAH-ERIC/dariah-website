@@ -35,6 +35,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 
 	const response = await client.projects.list({
 		status: parsedStatus,
+		limit: 50,
 	});
 	const breadcrumbs = navigation().breadcrumbs.projects;
 

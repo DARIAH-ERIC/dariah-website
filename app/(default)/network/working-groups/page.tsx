@@ -38,6 +38,7 @@ export default async function WorkingGroupsPage(
 
 	const response = await client.workingGroups.list({
 		status: parsedStatus,
+		limit: 50,
 	});
 	const breadcrumbs = navigation().breadcrumbs.workingGroups;
 
