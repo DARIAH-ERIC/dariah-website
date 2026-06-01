@@ -19,6 +19,12 @@ export function MapLegend(): ReactNode {
 				</div>
 				<Typography variant="regular">{t("legend.cooperating partners")}</Typography>
 			</div>
+			<div className="flex gap-2">
+				<div className="size-6.75 bg-resource-training-material text-white flex items-center justify-center font-bold">
+					{t("legend.observers").slice(0, 1)}
+				</div>
+				<Typography variant="regular">{t("legend.observers")}</Typography>
+			</div>
 		</div>
 	);
 }

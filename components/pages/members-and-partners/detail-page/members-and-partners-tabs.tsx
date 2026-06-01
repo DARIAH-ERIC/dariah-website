@@ -41,6 +41,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 
 	const displayShowMoreButton = institutions.length > 10;
 	const isCooperatingPartner = status === "is_cooperating_partner_of";
+	const isMemberCountry = status === "is_member_of";
 
 	const { website, otherSocialMedia } = socialMedia.reduce(
 		(acc, item) => {
@@ -75,13 +76,13 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	return (
 		<Tabs>
 			<TabList aria-label="Tabs" className="lg:px-0!">
-				{!isCooperatingPartner && <Tab id="details">{t("tabs.details")}</Tab>}
+				{isMemberCountry && <Tab id="details">{t("tabs.details")}</Tab>}
 				<Tab id="institutions">
 					{isCooperatingPartner ? t("tabs.cooperatingPartners") : t("tabs.partnerInstitutions")}
 				</Tab>
 			</TabList>
 			<TabPanels>
-				{!isCooperatingPartner && (
+				{isMemberCountry && (
 					<TabPanel id="details">
 						<div className="flex flex-col px-2 py-4">
 							<div className="flex flex-col w-full justify-between lg:flex-row lg:flex-wrap">

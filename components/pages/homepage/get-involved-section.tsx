@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button/button";
+import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function GetInvolvedSection(): ReactNode {
@@ -18,9 +18,9 @@ export function GetInvolvedSection(): ReactNode {
 					<span className="font-normal">{t("GetInvolvedSection.title.part2")}</span>
 					{t("GetInvolvedSection.title.part3")}
 				</Typography>
-				<Button href="/get-involved/join-dariah" variant="primary">
+				<Link href="/get-involved/join-dariah" variant="button-primary">
 					{t("GetInvolvedSection.button")}
-				</Button>
+				</Link>
 			</div>
 		</section>
 	);

@@ -3,9 +3,9 @@ import { PentagonIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button/button";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { WorkingGroupIcon } from "@/components/ui/icons/working-group";
+import { Link } from "@/components/ui/link/link";
 import type { ResourceCardProps } from "@/components/ui/resource-card/resource-card.types";
 import { Typography } from "@/components/ui/typography/typography";
 
@@ -101,9 +101,13 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 					{description}
 				</Typography>
 			</div>
-			<Button endIcon={<OpenInNewIcon className="size-5" />} href={resourceUrl} variant="tertiary">
+			<Link
+				endIcon={<OpenInNewIcon className="size-5" />}
+				href={resourceUrl}
+				variant="button-tertiary"
+			>
 				{t("goTo")}
-			</Button>
+			</Link>
 		</div>
 	);
 }

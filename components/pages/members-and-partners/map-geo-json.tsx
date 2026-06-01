@@ -33,7 +33,7 @@ const STATUS_PROPS = {
 		letter: "C",
 		style: "fill-primary-400",
 	},
-	is_observer_of: { letter: "O", style: "fill-primary-200" },
+	is_observer_of: { letter: "O", style: "fill-resource-training-material" },
 };
 
 export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
@@ -106,6 +106,8 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 			target._path.classList.add("fill-primary-500");
 		} else if (target._path.classList.contains("fill-primary-600")) {
 			target._path.classList.add("fill-primary-700");
+		} else if (target._path.classList.contains("fill-resource-training-material")) {
+			target._path.classList.add("fill-governance-body-card-executive-body!");
 		}
 
 		handleActiveCountryChange(layerCountry);
@@ -116,6 +118,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		if (target._path) {
 			target._path.classList.remove("fill-primary-500");
 			target._path.classList.remove("fill-primary-700");
+			target._path.classList.remove("fill-governance-body-card-executive-body!");
 		}
 	};
 

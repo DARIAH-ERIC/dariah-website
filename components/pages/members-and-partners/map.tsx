@@ -34,7 +34,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 	const [selectedTab, setSelectedTab] = useState<Key>("map");
 	const currentTab = isLg === true ? "map" : selectedTab;
 
-	const { members, partners } = useMemo(() => {
+	const { members, partners, observers } = useMemo(() => {
 		const members = Object.values(countries)
 			.filter((country) => {
 				return country.status === "is_member_of";
@@ -49,8 +49,15 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 			.toSorted((countryA, countryB) => {
 				return countryA.name.localeCompare(countryB.name);
 			});
+		const observers = Object.values(countries)
+			.filter((country) => {
+				return country.status === "is_observer_of";
+			})
+			.toSorted((countryA, countryB) => {
+				return countryA.name.localeCompare(countryB.name);
+			});
 
-		return { members, partners };
+		return { members, partners, observers };
 	}, [countries]);
 
 	const handleActiveCountryChange = (country: ActiveCountry) => {
@@ -68,6 +75,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 					<CountriesPanel
 						className="w-full h-[90dvh] lg:hidden"
 						members={members}
+						observers={observers}
 						partners={partners}
 					/>
 				</TabPanel>
@@ -83,6 +91,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 						<CountriesPanel
 							className="hidden absolute top-6 left-20 lg:flex"
 							members={members}
+							observers={observers}
 							partners={partners}
 						/>
 						<ZoomButtons />
