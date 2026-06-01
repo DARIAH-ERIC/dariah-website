@@ -11,7 +11,7 @@ import { parseDateForProject } from "@/utils/project-page.utils";
 interface ProjectProps {
 	endDate: Date;
 	href: string;
-	imageUrl: string;
+	imageUrl?: string;
 	startDate: Date;
 	title: string;
 	type: "coordinator" | "participant";
@@ -24,19 +24,21 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"bg-gray-100 shadow-standard rounded-sm group flex-col w-96.25 h-98.25 max-w-full",
+				"bg-gray-100 shadow-standard rounded-sm group flex-col justify-end w-96.25 h-98.25 max-w-full",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
 			)}
 			href={href}
 		>
-			<Image
-				alt={title}
-				className="w-82 h-62.25 object-cover sm:w-96.25"
-				height={249}
-				src={imageUrl}
-				width={385}
-			/>
+			{imageUrl != null ? (
+				<Image
+					alt={title}
+					className="w-82 h-62.25 object-cover sm:w-96.25"
+					height={249}
+					src={imageUrl}
+					width={385}
+				/>
+			) : null}
 			<div className="flex gap-2 p-4 flex-col w-full">
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">

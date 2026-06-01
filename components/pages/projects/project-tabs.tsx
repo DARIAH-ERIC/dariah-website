@@ -42,7 +42,6 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
-								assert(image);
 								assert(includes(["coordinator", "participant"] as const, role));
 
 								return (
@@ -50,7 +49,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										key={slug}
 										endDate={duration.end}
 										href={href}
-										imageUrl={image.url}
+										imageUrl={image?.url}
 										startDate={duration.start}
 										title={name}
 										type={role}
@@ -75,7 +74,6 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
-								assert(image);
 								assert(includes(["coordinator", "participant"] as const, role));
 
 								return (
@@ -83,7 +81,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										key={slug}
 										endDate={duration.end}
 										href={href}
-										imageUrl={image.url}
+										imageUrl={image?.url}
 										startDate={duration.start}
 										title={name}
 										type={role}
