@@ -8,7 +8,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
 interface QuickLink {
-	link: string;
+	link: string | undefined;
 	label: string;
 }
 
@@ -31,13 +31,10 @@ export function QuickLinks(props: Readonly<QuickLinksProps>): ReactNode {
 			) : (
 				links.map((linkItem) => {
 					const { link, label } = linkItem;
+					const key = `${label}-${link ?? "no-link"}`;
+
 					return (
-						<Link
-							key={`${label}-${link}`}
-							href={link}
-							variant="primary"
-							withDefaultRightIcon={true}
-						>
+						<Link key={key} href={link} variant="primary" withDefaultRightIcon={true}>
 							{label}
 						</Link>
 					);

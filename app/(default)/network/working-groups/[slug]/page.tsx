@@ -7,7 +7,6 @@ import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
-import { Button } from "@/components/ui/button/button";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
 import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
@@ -15,6 +14,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface WorkingGroupPageProps extends PageProps<"/network/working-groups/[slug]"> {}
 
@@ -68,7 +68,10 @@ export default async function WorkingGroupPage(
 			? await client.persons.bySlug({ slug: person })
 			: {};
 
-	const { name, image, description, relatedEntities, chairs, socialMedia } = response.data;
+	const { name, image, description, relatedEntities, relatedResources, chairs, socialMedia } =
+		response.data;
+
+	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
 	const website = socialMedia.find((media) => {
 		return media.type === "website";
@@ -177,38 +180,25 @@ export default async function WorkingGroupPage(
 					</div>
 				</div>
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
-					<div className="flex flex-col gap-6">
-						<div className="flex flex-col gap-4">
-							<Typography variant="h2">{t("joinGroup.title")}</Typography>
-							<hr className="w-22.5 h-0.5 bg-(image:--working-group-detail-divider)" />
+					{website?.url !== undefined && (
+						<div className="flex flex-col gap-6">
+							<div className="flex flex-col gap-4">
+								<Typography variant="h2">{t("joinGroup.title")}</Typography>
+								<hr className="w-22.5 h-0.5 bg-(image:--working-group-detail-divider)" />
+							</div>
+							<Typography variant="regular">{t("joinGroup.description")}</Typography>
+							<Link className="w-fit" href={website.url} variant="button-tertiary">
+								{t("joinGroup.button")}
+							</Link>
 						</div>
-						<Typography variant="regular">{t("joinGroup.description")}</Typography>
-						<Button className="w-fit" href={website?.url} variant="tertiary">
-							{t("joinGroup.button")}
-						</Button>
-					</div>
+					)}
 					<div className="flex flex-col gap-6">
 						<Typography variant="h2">{t("relatedContent.title")}</Typography>
-						{relatedEntities.length > 0 ? (
-							relatedEntities.map((entity) => {
-								const { id, entityType, label } = entity;
-								return (
-									<RelatedContent
-										key={id}
-										category={
-											entityType as
-												| "news"
-												| "working-group"
-												| "opportunity"
-												| "event"
-												| "project"
-												| "spotlight-article"
-												| "case-study"
-												| "resources"
-										}
-										title={label ?? ""}
-									/>
-								);
+						{relatedContent.length > 0 ? (
+							relatedContent.map((entity) => {
+								const { id, type, label, link } = entity;
+
+								return <RelatedContent key={id} category={type} href={link} title={label ?? ""} />;
 							})
 						) : (
 							<Typography variant="regular">{t("relatedContent.emptyState", { name })}</Typography>

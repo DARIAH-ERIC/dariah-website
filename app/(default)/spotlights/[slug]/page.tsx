@@ -14,7 +14,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
-import { getGrouppedPersonMembers } from "@/utils/global.utils";
+import { getGrouppedPersonMembers, mergeEntitiesAndResources } from "@/utils/global.utils";
 import { getFormattedDateForDetails } from "@/utils/spotlight-page.utils";
 
 interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
@@ -69,7 +69,10 @@ export default async function SpotlightArticlePage(
 			? await client.persons.bySlug({ slug: person })
 			: {};
 
-	const { title, content, image, publishedAt, contributors, relatedEntities } = response.data;
+	const { title, content, image, publishedAt, contributors, relatedEntities, relatedResources } =
+		response.data;
+
+	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
 	const grouppedContributors = getGrouppedPersonMembers(contributors);
 	const grouppedContributorsKeys = Object.keys(grouppedContributors);
@@ -197,26 +200,11 @@ export default async function SpotlightArticlePage(
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
 					<div className="flex flex-col gap-6">
 						<Typography variant="h2">{t("relatedContent.title")}</Typography>
-						{relatedEntities.length > 0 ? (
-							relatedEntities.map((entity) => {
-								const { id, entityType, label } = entity;
-								return (
-									<RelatedContent
-										key={id}
-										category={
-											entityType as
-												| "news"
-												| "working-group"
-												| "opportunity"
-												| "event"
-												| "project"
-												| "spotlight-article"
-												| "case-study"
-												| "resources"
-										}
-										title={label ?? ""}
-									/>
-								);
+						{relatedContent.length > 0 ? (
+							relatedContent.map((entity) => {
+								const { id, type, label, link } = entity;
+
+								return <RelatedContent key={id} category={type} href={link} title={label ?? ""} />;
 							})
 						) : (
 							<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
