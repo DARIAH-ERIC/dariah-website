@@ -19,14 +19,18 @@ interface ProjectTabsProps {
 export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 	const t = useTranslations("ProjectsPage");
 	const { items, status } = props;
+	const selectedKey = status === "inactive" ? "inactive" : "active";
 
 	return (
-		<Tabs defaultSelectedKey={status === "inactive" ? "inactive" : "active"}>
+		<Tabs selectedKey={selectedKey}>
 			<TabList aria-label="Tabs">
-				<Tab href={status === "inactive" ? "/projects" : null} id="active">
+				<Tab href={selectedKey === "inactive" ? "/projects" : undefined} id="active">
 					{t("tabs.active")}
 				</Tab>
-				<Tab href={status !== "inactive" ? "/projects?status=inactive" : null} id="inactive">
+				<Tab
+					href={selectedKey !== "inactive" ? "/projects?status=inactive" : undefined}
+					id="inactive"
+				>
 					{t("tabs.past")}
 				</Tab>
 			</TabList>

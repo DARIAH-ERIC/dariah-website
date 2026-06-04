@@ -1,4 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
+import NextLink from "next/link";
 import React, { type ReactNode } from "react";
 import { composeRenderProps, Tab as RACTab, type TabProps } from "react-aria-components";
 
@@ -18,6 +19,13 @@ export function Tab(props: Readonly<TabProps>): ReactNode {
 					},
 				);
 			})}
+			render={(domProps, renderProps) => {
+				if ("href" in domProps && domProps.href && !renderProps.isDisabled) {
+					return <NextLink {...domProps} />;
+				}
+
+				return <div {...domProps} />;
+			}}
 		/>
 	);
 }
