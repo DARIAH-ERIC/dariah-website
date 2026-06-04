@@ -19,15 +19,16 @@ interface WorkingGroupsTabsProps {
 export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): ReactNode {
 	const { items, status } = props;
 	const t = useTranslations("WorkingGroupsPage");
+	const selectedKey = status === "inactive" ? "inactive" : "active";
 
 	return (
-		<Tabs defaultSelectedKey={status === "inactive" ? "inactive" : "active"}>
+		<Tabs selectedKey={selectedKey}>
 			<TabList aria-label="Tabs">
-				<Tab href={status === "inactive" ? "/network/working-groups" : null} id="active">
+				<Tab href={selectedKey === "inactive" ? "/network/working-groups" : undefined} id="active">
 					{t("tabs.active")}
 				</Tab>
 				<Tab
-					href={status !== "inactive" ? "/network/working-groups?status=inactive" : null}
+					href={selectedKey !== "inactive" ? "/network/working-groups?status=inactive" : undefined}
 					id="inactive"
 				>
 					{t("tabs.past")}
