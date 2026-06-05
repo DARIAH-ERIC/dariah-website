@@ -231,11 +231,20 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							<>
 								{institutionsToDisplay.map((institution) => {
 									const { slug, name, website } = institution;
+
+									if (website === null) {
+										return (
+											<Typography key={slug} className="w-fit cursor-default" variant="regular">
+												{name}
+											</Typography>
+										);
+									}
+
 									return (
 										<Link
 											key={slug}
 											endIcon={<OpenInNewIcon className="size-5" />}
-											href={website ?? ""}
+											href={website}
 											variant="paragraph"
 										>
 											{name}

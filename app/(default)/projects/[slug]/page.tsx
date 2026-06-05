@@ -111,6 +111,14 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 
 									const { url: websiteUrl } = website ?? {};
 
+									if (websiteUrl === undefined) {
+										return (
+											<Typography key={id} className="w-fit cursor-default" variant="regular">
+												{participant.name}
+											</Typography>
+										);
+									}
+
 									return (
 										<Link
 											key={id}
