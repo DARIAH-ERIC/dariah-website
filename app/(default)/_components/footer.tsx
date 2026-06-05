@@ -79,7 +79,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 										}
 
 										return (
-											<li key={id}>
+											<li key={id} className="w-58.25">
 												<Link
 													href={link.href}
 													startIcon={<ChevronForwardIcon />}
@@ -104,7 +104,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 										}
 
 										return (
-											<li key={id}>
+											<li key={id} className="w-58.25">
 												<Link
 													href={link.href}
 													startIcon={<ChevronForwardIcon />}
