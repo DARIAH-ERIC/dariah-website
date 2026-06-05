@@ -11,15 +11,7 @@ import { WorkingGroupIcon } from "@/components/ui/icons/working-group";
 import { Typography } from "@/components/ui/typography/typography";
 
 interface CategoryProps {
-	name:
-		| "working-group"
-		| "opportunity"
-		| "news"
-		| "event"
-		| "project"
-		| "spotlight-article"
-		| "case-study"
-		| "resources";
+	name: string | null;
 }
 
 export function Category({ name }: Readonly<CategoryProps>): ReactNode {
@@ -33,9 +25,12 @@ export function Category({ name }: Readonly<CategoryProps>): ReactNode {
 		"case-study": <MenuBookIcon className="size-5 fill-primary-500" />,
 		resources: <DatabaseIcon className="size-5 fill-primary-500" />,
 	};
+
+	if (name === null) return null;
+
 	return (
 		<div className="flex gap-2">
-			{TYPE_ICONS[name]}
+			{Object.keys(TYPE_ICONS).includes(name) ? TYPE_ICONS[name as keyof typeof TYPE_ICONS] : null}
 			<Typography className="text-primary-500 text-[14px] font-bold uppercase" variant="small">
 				{name.replaceAll("-", " ")}
 			</Typography>

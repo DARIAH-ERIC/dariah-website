@@ -11,6 +11,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { mergeEntitiesAndResources } from "@/utils/global.utils";
 import { getFormattedDateForNews } from "@/utils/news-page.utils";
 
 interface NewsItemPageProps extends PageProps<"/news/[slug]"> {}
@@ -59,8 +60,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 		client.news.list({ limit: 4 }),
 	]);
 
-	const { title, image, content, summary, publishedAt, relatedEntities } = response.data;
+	const { title, image, content, summary, publishedAt, relatedEntities, relatedResources } =
+		response.data;
 	const { data: latestNews } = latestNewsResponse.data;
+
+	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
 	return (
 		<Main className="container flex flex-1 flex-col mb-16 lg:mb-20 lg:gap-20">
@@ -94,25 +98,12 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 					<div className="flex flex-col gap-23.25 lg:pt-12 lg:w-109">
 						<div className="flex flex-col gap-6">
 							<Typography variant="h2">{t("relatedContent.title")}</Typography>
-							{relatedEntities.length > 0 ? (
-								relatedEntities.map((entity) => {
-									const { id, entityType, label } = entity;
+							{relatedContent.length > 0 ? (
+								relatedContent.map((entity) => {
+									const { id, type, label, link } = entity;
+
 									return (
-										<RelatedContent
-											key={id}
-											category={
-												entityType as
-													| "news"
-													| "working-group"
-													| "opportunity"
-													| "event"
-													| "project"
-													| "spotlight-article"
-													| "case-study"
-													| "resources"
-											}
-											title={label ?? ""}
-										/>
+										<RelatedContent key={id} category={type} href={link} title={label ?? ""} />
 									);
 								})
 							) : (

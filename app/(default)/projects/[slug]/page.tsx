@@ -12,6 +12,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface ProjectPageProps extends PageProps<"/projects/[slug]"> {}
 
@@ -57,6 +58,8 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 
 	const { name, image, description, participants, relatedEntities, relatedResources } =
 		response.data;
+
+	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
@@ -127,38 +130,14 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
 					<div className="flex flex-col gap-6">
 						<Typography variant="h2">{t("relatedContent.title")}</Typography>
-						{relatedEntities.length > 0 ? (
-							relatedEntities.map((entity) => {
-								const { id, entityType, label } = entity;
-								return (
-									<RelatedContent
-										key={id}
-										category={
-											entityType as
-												| "news"
-												| "working-group"
-												| "opportunity"
-												| "event"
-												| "project"
-												| "spotlight-article"
-												| "case-study"
-												| "resources"
-										}
-										title={label ?? ""}
-									/>
-								);
+						{relatedContent.length > 0 ? (
+							relatedContent.map((entity) => {
+								const { id, type, label, link } = entity;
+
+								return <RelatedContent key={id} category={type} href={link} title={label ?? ""} />;
 							})
 						) : (
 							<Typography variant="regular">{t("relatedContent.emptyState")}</Typography>
-						)}
-						<Typography variant="h2">{t("featuredOutcome.title")}</Typography>
-						{relatedResources.length > 0 ? (
-							relatedResources.map((entity) => {
-								const { id, label } = entity;
-								return <RelatedContent key={id} category="resources" title={label} />;
-							})
-						) : (
-							<Typography variant="regular">{t("featuredOutcome.emptyState")}</Typography>
 						)}
 					</div>
 				</div>

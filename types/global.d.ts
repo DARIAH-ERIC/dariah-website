@@ -36,3 +36,42 @@ export interface Person {
 		| "national_representative"
 		| "national_representative_deputy";
 }
+
+export interface RelatedEntity {
+	id: string;
+	slug: string;
+	entityType:
+		| "governance_body"
+		| "national_consortium"
+		| "country"
+		| "institution"
+		| "regional_hub"
+		| "eric"
+		| "working_group"
+		| "events"
+		| "news"
+		| "opportunities"
+		| "pages"
+		| "persons"
+		| "projects"
+		| "documents_policies"
+		| "funding_calls"
+		| "impact_case_studies"
+		| "spotlight_articles";
+	label: string | null;
+}
+
+export interface RelatedResource {
+	id: string;
+	label: string;
+	type: string | null;
+	links: Array<string>;
+}
+
+export interface RelatedContent {
+	id: string;
+	label: string | null;
+	slug?: string;
+	type: string | null;
+	link?: string;
+}

@@ -6,21 +6,14 @@ import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 
 interface RelatedContentProps {
-	category:
-		| "working-group"
-		| "opportunity"
-		| "news"
-		| "event"
-		| "project"
-		| "spotlight-article"
-		| "case-study"
-		| "resources";
+	category: string | null;
 	title: string;
 	href?: string;
 }
 
 export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode {
 	const { category, title, href } = props;
+
 	return (
 		<NavLink
 			className={cn(
@@ -28,6 +21,7 @@ export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode 
 				"focus:outline-4 focus:outline-accent",
 			)}
 			href={href}
+			target="_blank"
 		>
 			<div className="bg-white px-6 py-4.5">
 				<Category name={category} />

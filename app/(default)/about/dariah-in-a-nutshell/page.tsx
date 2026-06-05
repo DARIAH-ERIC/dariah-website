@@ -14,6 +14,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -36,7 +37,7 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const response = await client.pages.bySlug({ slug: "dariah-in-nutshell" });
 	const breadcrumbs = navigation().breadcrumbs.documentsAndPolicies;
 	const {
-		data: { title, content, image },
+		data: { title, content, image, relatedEntities, relatedResources },
 	} = response;
 
 	if (content.length === 0) return redirect("/");
@@ -46,6 +47,8 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 			: [];
 
 	const parsedContent = addIdsToContent(content);
+
+	const links = mergeQuickLinks(relatedEntities, relatedResources);
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
@@ -69,11 +72,11 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 					<div className="max-w-full xl:w-252.5">
 						<ContentBlocks fields={parsedContent} />
 					</div>
-					<QuickLinks className="hidden lg:flex" />
+					<QuickLinks className="hidden lg:flex" links={links} />
 				</div>
 			</div>
 			{image && <CarouselSection images={[{ ...image, id: "1" }]} />}
-			<QuickLinks className="flex px-4 mt-16 lg:hidden" />
+			<QuickLinks className="flex px-4 mt-16 lg:hidden" links={links} />
 			<BackToTop />
 		</Main>
 	);

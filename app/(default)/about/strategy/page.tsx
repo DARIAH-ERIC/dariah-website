@@ -12,6 +12,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -33,7 +34,7 @@ export default async function StrategyPage(): Promise<ReactNode> {
 	const response = await client.pages.bySlug({ slug: "strategy" });
 	const breadcrumbs = navigation().breadcrumbs.strategy;
 	const {
-		data: { title, content },
+		data: { title, content, relatedEntities, relatedResources },
 	} = response;
 
 	const richTextContent = content.find((c) => {
@@ -42,6 +43,8 @@ export default async function StrategyPage(): Promise<ReactNode> {
 	const sections = richTextContent
 		? getSectionsFromContent(richTextContent.content as JSONContent, 2)
 		: [];
+
+	const links = mergeQuickLinks(relatedEntities, relatedResources);
 
 	const parsedContent = addIdsToContent(content, 2);
 
@@ -67,10 +70,10 @@ export default async function StrategyPage(): Promise<ReactNode> {
 					<div className="max-w-full xl:w-252.5">
 						<ContentBlocks fields={parsedContent} />
 					</div>
-					<QuickLinks className="hidden lg:flex" />
+					<QuickLinks className="hidden lg:flex" links={links} />
 				</div>
 			</div>
-			<QuickLinks className="flex px-4 mt-16 lg:hidden" />
+			<QuickLinks className="flex px-4 mt-16 lg:hidden" links={links} />
 			<BackToTop />
 		</Main>
 	);
