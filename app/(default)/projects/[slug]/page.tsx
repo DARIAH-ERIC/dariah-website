@@ -87,7 +87,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 						{image?.url !== undefined && (
 							<Image
 								alt={name}
-								className="w-62.5 h-48 object-cover md:float-right md:ml-5"
+								className="w-62.5 h-48 object-contain md:float-right md:ml-5"
 								height={192}
 								src={image.url}
 								width={250}
