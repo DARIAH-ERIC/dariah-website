@@ -105,7 +105,7 @@ export default async function WorkingGroupPage(
 					{image != null ? (
 						<Image
 							alt={name}
-							className="max-h-full max-w-full object-cover lg:h-110.5 lg:w-197.25"
+							className="max-h-full max-w-full object-contain lg:h-110.5 lg:w-197.25"
 							height={442}
 							src={image.url}
 							width={789}

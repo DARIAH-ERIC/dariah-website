@@ -28,7 +28,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 		>
 			<Image
 				alt={title}
-				className="size-80 rounded-t-sm object-cover md:size-96.25"
+				className="size-80 rounded-t-sm object-contain md:size-96.25"
 				height={385}
 				src={imageUrl}
 				width={385}

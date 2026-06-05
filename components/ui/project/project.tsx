@@ -33,7 +33,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			{imageUrl != null ? (
 				<Image
 					alt={title}
-					className="w-82 h-62.25 object-cover sm:w-96.25"
+					className="w-82 h-62.25 object-contain sm:w-96.25"
 					height={249}
 					src={imageUrl}
 					width={385}
