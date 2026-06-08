@@ -9,7 +9,7 @@ import { Typography } from "@/components/ui/typography/typography";
 
 interface PersonCardProps {
 	href?: string;
-	imageUrl: string;
+	imageUrl?: string | null;
 	name: string;
 	position: string;
 }
@@ -17,6 +17,8 @@ interface PersonCardProps {
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	const { href, imageUrl, name, position } = props;
 	const t = useTranslations("(default).PersonCard");
+
+	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
 
 	return (
 		<NavLink
@@ -31,7 +33,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 				alt={name}
 				className="object-cover min-w-34 size-34"
 				height={136}
-				src={imageUrl}
+				src={displayedImage}
 				width={136}
 			/>
 			<div className="flex flex-col py-1 gap-5.5 w-full">
@@ -39,7 +41,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 				<Typography className="text-gray-800 font-medium" variant="regular">
 					{position}
 				</Typography>
-				<div className="flex gap-2">
+				<div className="flex gap-2 items-center">
 					<Typography
 						className={cn(
 							"font-semibold",

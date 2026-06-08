@@ -161,9 +161,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 																	id,
 																	name,
 																	position,
-																	image: { url: imageUrl },
+																	image: contributorImage,
 																	slug,
 																} = contributor;
+
+																const { url: imageUrl } = contributorImage ?? { url: null };
 
 																const positionNames = position
 																	? position.map((positionObj) => {
@@ -209,7 +211,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 												}) as JSONContent
 											}
 											email={selectedPerson.email ?? undefined}
-											imageUrl={selectedPerson.image.url}
+											imageUrl={selectedPerson.image?.url}
 											name={selectedPerson.name}
 											position={
 												selectedPerson.position

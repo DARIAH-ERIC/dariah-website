@@ -9,7 +9,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
 interface PersonCardDetailsProps {
-	imageUrl: string;
+	imageUrl?: string | null;
 	name: string;
 	email?: string;
 	position?: string;
@@ -20,9 +20,11 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 	const { imageUrl, name, email, position, description } = props;
 	const t = useTranslations("(default).PersonCard");
 
+	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
+
 	return (
 		<div className="flex gap-4">
-			<Image alt={name} className="size-43" height={172} src={imageUrl} width={172} />
+			<Image alt={name} className="size-43" height={172} src={displayedImage} width={172} />
 			<div className="flex flex-col gap-2 px-4">
 				<Typography variant="h5">{name}</Typography>
 				<Typography variant="regular">{position}</Typography>
