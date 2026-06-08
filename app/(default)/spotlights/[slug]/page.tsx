@@ -135,9 +135,11 @@ export default async function SpotlightArticlePage(
 															id,
 															name,
 															position,
-															image: { url: imageUrl },
+															image: contributorImage,
 															slug: personSlug,
 														} = contributor;
+
+														const { url: imageUrl } = contributorImage ?? { url: null };
 
 														const positionNames = position
 															? position.map((positionObj) => {
@@ -183,7 +185,7 @@ export default async function SpotlightArticlePage(
 										}) as JSONContent
 									}
 									email={selectedPerson.email ?? undefined}
-									imageUrl={selectedPerson.image.url}
+									imageUrl={selectedPerson.image?.url}
 									name={selectedPerson.name}
 									position={
 										selectedPerson.position

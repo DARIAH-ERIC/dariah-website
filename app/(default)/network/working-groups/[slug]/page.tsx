@@ -117,13 +117,9 @@ export default async function WorkingGroupPage(
 							chairs.length > 0 ? (
 								<div className="flex flex-wrap gap-10">
 									{chairs.map((chair) => {
-										const {
-											id,
-											name,
-											position,
-											image: { url: imageUrl },
-											slug: personSlug,
-										} = chair;
+										const { id, name, position, image: chairImage, slug: personSlug } = chair;
+
+										const { url: imageUrl } = chairImage ?? { url: null };
 
 										const positionNames = position
 											? position.map((positionObj) => {
@@ -165,7 +161,7 @@ export default async function WorkingGroupPage(
 										}) as JSONContent
 									}
 									email={selectedPerson.email ?? undefined}
-									imageUrl={selectedPerson.image.url}
+									imageUrl={selectedPerson.image?.url}
 									name={selectedPerson.name}
 									position={
 										selectedPerson.position

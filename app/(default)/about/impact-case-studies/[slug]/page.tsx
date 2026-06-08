@@ -97,7 +97,8 @@ export default async function ImpactCaseStudyPage(
 					<ContentBlocks fields={content} />
 				</div>
 			</div>
-			<div className="flex flex-col gap-10 pb-14 px-4 lg:px-62 xl:px-102.5">
+			<div className="flex flex-col gap-10 pb-14 relative px-4 lg:px-62 xl:px-102.5">
+				<div className="absolute -top-20" id="contributors" />
 				<Typography variant="h4">{t("contributors.title")}</Typography>
 				{!selectedPerson ? (
 					grouppedContributorsKeys.length > 0 ? (
@@ -119,9 +120,11 @@ export default async function ImpactCaseStudyPage(
 													id,
 													name,
 													position,
-													image: { url: imageUrl },
+													image: contributorImage,
 													slug: personSlug,
 												} = contributor;
+
+												const { url: imageUrl } = contributorImage ?? { url: null };
 
 												const positionNames = position
 													? position.map((positionObj) => {
@@ -136,7 +139,7 @@ export default async function ImpactCaseStudyPage(
 												return (
 													<PersonCard
 														key={id}
-														href={`/spotlights/${slug}?person=${personSlug}#contributors`}
+														href={`/about/impact-case-studies/${slug}?person=${personSlug}#contributors`}
 														imageUrl={imageUrl}
 														name={name}
 														position={positionNames.join(", ")}
@@ -154,7 +157,7 @@ export default async function ImpactCaseStudyPage(
 				) : (
 					<div className="flex flex-col flex-wrap gap-10 w-full">
 						<Link
-							href={`/spotlights/${slug}#contributors`}
+							href={`/about/impact-case-studies/${slug}#contributors`}
 							variant="primary"
 							withDefaultLeftIcon={true}
 						>
@@ -167,7 +170,7 @@ export default async function ImpactCaseStudyPage(
 								}) as JSONContent
 							}
 							email={selectedPerson.email ?? undefined}
-							imageUrl={selectedPerson.image.url}
+							imageUrl={selectedPerson.image?.url}
 							name={selectedPerson.name}
 							position={
 								selectedPerson.position
