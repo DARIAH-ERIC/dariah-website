@@ -1,9 +1,11 @@
+import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
 import { Button } from "@/components/ui/button/button";
-import { Link } from "@/components/ui/link/link";
+import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
+import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
@@ -38,7 +40,7 @@ export function ResourcesSection(): ReactNode {
 					</div>
 				</div>
 				<div className="flex flex-wrap justify-center gap-30.5 px-1.5">
-					<div className="w-117.25">
+					<NavLink className="w-117.25 p-0! block! group" href={"/resources/dariah-campus"}>
 						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image
 								alt="DARIAH Campus Logo"
@@ -50,12 +52,23 @@ export function ResourcesSection(): ReactNode {
 							<Typography className="h-27 line-clamp-4" variant="regular">
 								{t("ResourcesSection.dariahCampus")}
 							</Typography>
-							<Link href={"/resources/dariah-campus"} variant="primary" withDefaultRightIcon={true}>
-								{t("ResourcesSection.explore")}
-							</Link>
+							<div className="flex gap-2 py-2 items-center">
+								<Typography
+									className={cn(
+										"font-semibold text-regular text-section-text",
+										"group-hover:underline group-hover:decoration-[10%] group-hover:text-primary group-hover:underline-offset-[24%]",
+										"group-focus-visible:text-section-text group-focus-visible:decoration-[3px] group-focus-visible:underline-offset-[24%] group-focus-visible:underline group-focus-visible:[&>span]:bg-accent-100 group-focus-visible:[&>svg]:fill-black",
+										"group-focus-visible:outline-none",
+									)}
+									variant="regular"
+								>
+									{t("ResourcesSection.explore")}
+								</Typography>
+								<ChevronForwardIcon className="size-5" />
+							</div>
 						</div>
-					</div>
-					<div className="w-117.25">
+					</NavLink>
+					<NavLink className="w-117.25 p-0! block! group" href={"/resources/transformations"}>
 						<div className="flex items-center pl-5.5 h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image
 								alt="DARIAH Transformations Logo"
@@ -67,16 +80,23 @@ export function ResourcesSection(): ReactNode {
 							<Typography className="h-27 line-clamp-4" variant="regular">
 								{t("ResourcesSection.transformations")}
 							</Typography>
-							<Link
-								href={"/resources/transformations"}
-								variant="primary"
-								withDefaultRightIcon={true}
-							>
-								{t("ResourcesSection.explore")}
-							</Link>
+							<div className="flex gap-2 py-2 items-center">
+								<Typography
+									className={cn(
+										"font-semibold text-regular text-section-text",
+										"group-hover:underline group-hover:decoration-[10%] group-hover:text-primary group-hover:underline-offset-[24%]",
+										"group-focus-visible:text-section-text group-focus-visible:decoration-[3px] group-focus-visible:underline-offset-[24%] group-focus-visible:underline group-focus-visible:[&>span]:bg-accent-100 group-focus-visible:[&>svg]:fill-black",
+										"group-focus-visible:outline-none",
+									)}
+									variant="regular"
+								>
+									{t("ResourcesSection.explore")}
+								</Typography>
+								<ChevronForwardIcon className="size-5" />
+							</div>
 						</div>
-					</div>
-					<div className="w-117.25">
+					</NavLink>
+					<NavLink className="w-117.25 p-0! block! group" href={"/resources/ssh-open-marketplace"}>
 						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image alt="DARIAH Campus Logo" className="w-59.5 lg:w-96.75" src={logoSshoc} />
 						</div>
@@ -84,15 +104,22 @@ export function ResourcesSection(): ReactNode {
 							<Typography className="h-27 line-clamp-4" variant="regular">
 								{t("ResourcesSection.sshOpenMarketplace")}
 							</Typography>
-							<Link
-								href={"/resources/ssh-open-marketplace"}
-								variant="primary"
-								withDefaultRightIcon={true}
-							>
-								{t("ResourcesSection.explore")}
-							</Link>
+							<div className="flex gap-2 py-2 items-center">
+								<Typography
+									className={cn(
+										"font-semibold text-regular text-section-text",
+										"group-hover:underline group-hover:decoration-[10%] group-hover:text-primary group-hover:underline-offset-[24%]",
+										"group-focus-visible:text-section-text group-focus-visible:decoration-[3px] group-focus-visible:underline-offset-[24%] group-focus-visible:underline group-focus-visible:[&>span]:bg-accent-100 group-focus-visible:[&>svg]:fill-black",
+										"group-focus-visible:outline-none",
+									)}
+									variant="regular"
+								>
+									{t("ResourcesSection.explore")}
+								</Typography>
+								<ChevronForwardIcon className="size-5" />
+							</div>
 						</div>
-					</div>
+					</NavLink>
 				</div>
 			</div>
 		</section>
