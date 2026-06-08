@@ -51,7 +51,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 
 	const containerVariants = {
 		featured: "max-w-full w-188.75 h-147.25",
-		standard: "max-w-full w-90.25 h-126",
+		standard: "max-w-full w-90.25 h-123",
 		"list-item": "max-w-full h-113 w-188.25 lg:h-55 gap-7",
 		"list-headline": "max-w-full max-w-400 h-171.75 lg:h-107.75 relative",
 	};
@@ -73,12 +73,18 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 			)}
 			href={linkUrl}
 		>
-			<div className={cn("relative overflow-hidden", imageWrapperVariants[variant])}>
+			<div
+				className={cn(
+					"relative border border-gray-200 overflow-hidden",
+					imageWrapperVariants[variant],
+				)}
+			>
 				<Image
 					alt={title}
 					className={cn(
-						"overflow-hidden transition-transform duration-300 ease-in-out object-cover size-full",
+						"overflow-hidden transition-transform duration-300 ease-in-out object-contain",
 						"group-hover:scale-110",
+						imageWrapperVariants[variant],
 						"group-focus:scale-110",
 					)}
 					height={imageHeight}
@@ -128,6 +134,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 							className={cn(
 								variant === "list-item" && "line-clamp-2 text-[18px]",
 								variant === "list-headline" && "text-[24px]",
+								!isListVariant && "line-clamp-3",
 							)}
 							variant="h3"
 						>
@@ -138,7 +145,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				{variantWithDescription && (
 					<Typography
 						className={cn(
-							"line-clamp-8 lg:line-clamp-5",
+							"line-clamp-8 lg:line-clamp-2",
 							variant === "list-item" && "mb-2 line-clamp-3!",
 						)}
 						variant={variant === "list-item" ? "small" : "regular"}
