@@ -1,28 +1,28 @@
-import type { DocumentOrPolicyList } from "@/lib/data/api-client";
+import type { DocumentOrPolicyTree } from "@/lib/data/api-client";
+import type { DocumentOrPolicy, DocumentOrPolicyGroup } from "@/types/documents";
 
-export const sortDocumentsByGroup = (
-	items: DocumentOrPolicyList["data"],
-): Record<string, DocumentOrPolicyList["data"]> => {
-	return items.reduce<Record<string, DocumentOrPolicyList["data"]>>((acc, item) => {
-		const groupLabel = item.group?.label ?? "others";
-
-		acc[groupLabel] ??= [];
-
-		acc[groupLabel].push(item);
-		return acc;
-	}, {});
-};
-
-export const getSectionsFromGroups = (items: DocumentOrPolicyList["data"]): Array<string> => {
+export const getSectionsFromGroups = (items: Array<DocumentOrPolicyGroup>): Array<string> => {
 	return [
 		...new Set(
-			items
-				.map((item) => {
-					return item.group?.label;
-				})
-				.filter((label) => {
-					return label !== undefined;
-				}),
+			items.map((item) => {
+				return item.label;
+			}),
 		),
 	];
+};
+
+export const splitDocumentsByGroup = (
+	items: DocumentOrPolicyTree["data"],
+): {
+	documentsWithoutGroup: Array<DocumentOrPolicy>;
+	documentsByGroup: Array<DocumentOrPolicyGroup>;
+} => {
+	const documentsWithoutGroup: Array<DocumentOrPolicy> = items.filter((item) => {
+		return "publishedAt" in item;
+	});
+	const documentsByGroup: Array<DocumentOrPolicyGroup> = items.filter((item) => {
+		return "items" in item;
+	});
+
+	return { documentsWithoutGroup, documentsByGroup };
 };
