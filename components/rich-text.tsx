@@ -49,8 +49,20 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				link: {
 					HTMLAttributes: {
-						// eslint-disable-next-line better-tailwindcss/no-unknown-classes
 						class: cn(linkStyles({ variant: "paragraph" }), "inline"),
+					},
+				},
+				blockquote: {
+					HTMLAttributes: {
+						class: cn(
+							"relative bg-(image:--block-quote-section-bg) flex flex-col p-5 my-5 gap-6 xl:py-4 xl:px-6 xl:my-13 [&>p]:z-2 [&>p]:mt-0!",
+							"after:absolute after:content-[''] after:size-full after:max-w-56 after:max-h-38 after:z-1 after:bg-[url(/assets/images/quote-mark.svg)] after:top-1/2 after:left-1/2 after:-translate-1/2",
+						),
+					},
+				},
+				bulletList: {
+					HTMLAttributes: {
+						class: "[&>li]:ml-2 [&>li>p]:inline [&>li>p]:mt-0! list-disc list-inside",
 					},
 				},
 			}),

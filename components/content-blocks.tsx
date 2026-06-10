@@ -4,6 +4,7 @@ import { unreachable } from "@acdh-oeaw/lib";
 import type { JSONContent } from "@tiptap/core";
 import type { ReactNode } from "react";
 
+import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 
 interface ContentBlocksProps {
@@ -65,7 +66,14 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "image": {
-				return null;
+				return (
+					<figure key={index} className="flex flex-col gap-7">
+						<Image alt={field.caption ?? ""} height={900} src={field.image.url} width={1600} />
+						{field.caption !== null && (
+							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
+						)}
+					</figure>
+				);
 			}
 
 			case "rich_text": {
