@@ -1,10 +1,8 @@
 name: Bug report
 description: Report a technical issue
 assignees:
-  - babslgam
   - bwiechec-pcss
   - pawelmarpawelmar
-  - stefanprobst
 labels:
   - needs-review
   - bug
