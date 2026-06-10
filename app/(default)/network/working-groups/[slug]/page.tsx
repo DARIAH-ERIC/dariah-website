@@ -100,7 +100,9 @@ export default async function WorkingGroupPage(
 						<Typography className="font-medium" variant="h2">
 							{name}
 						</Typography>
-						<ContentBlocks fields={description} />
+						<div>
+							<ContentBlocks fields={description} />
+						</div>
 					</div>
 					{image != null ? (
 						<Image

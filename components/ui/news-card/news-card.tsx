@@ -123,7 +123,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 							)}
 						>
 							<NewsIcon className="size-4" />
-							<Typography className="text-[16px] font-bold" variant="small">
+							<Typography className="text-[16px] font-bold uppercase" variant="small">
 								{t("newsCard.tag")}
 							</Typography>
 						</div>

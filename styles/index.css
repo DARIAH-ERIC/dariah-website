@@ -78,6 +78,12 @@
 		rgb(175 201 24) 99.71%
 	);
 
+	--block-quote-section-bg: linear-gradient(
+		278.84deg,
+		rgb(8 112 172 / 20%) 0%,
+		rgb(131 183 213 / 20%) 90%
+	);
+
 	--event-card-bg: rgb(1 94 191 / 30%);
 	--event-card-details-bg: rgb(255 255 255 / 85%);
 	--event-card-details-bg-hover: rgb(255 255 255 / 74%);
