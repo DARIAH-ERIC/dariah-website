@@ -1,10 +1,8 @@
 name: Feature request
 description: Suggest an idea for this project
 assignees:
-  - babslgam
   - bwiechec-pcss
   - pawelmarpawelmar
-  - stefanprobst
 labels:
   - needs-review
   - enhancement
