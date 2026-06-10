@@ -10,7 +10,7 @@ import { Document } from "@/components/ui/document/document";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
-import { getSectionsFromGroups, sortDocumentsByGroup } from "@/utils/document-page.utils";
+import { getSectionsFromGroups, splitDocumentsByGroup } from "@/utils/document-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DocumentsPoliciesPage");
@@ -30,12 +30,12 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 	const t = await getTranslations("DocumentsPoliciesPage");
 
-	const response = await client.documentsPolicies.list({ limit: 100 });
+	const response = await client.documentsPolicies.tree();
 	const breadcrumbs = navigation().breadcrumbs.documentsAndPolicies;
 
 	const { data: items } = response.data;
-	const sortedDocuments = sortDocumentsByGroup(items);
-	const sections = getSectionsFromGroups(items);
+	const { documentsWithoutGroup, documentsByGroup } = splitDocumentsByGroup(items);
+	const sections = getSectionsFromGroups(documentsByGroup);
 
 	return (
 		<Main className="flex flex-1 flex-col gap-14 px-4 pt-8 pb-30 container lg:items-center 2xl:px-31.5">
@@ -56,35 +56,57 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 			<div className="flex-col flex gap-8 max-w-full items-center lg:items-start lg:justify-between lg:flex-row lg:gap-21">
 				<SectionPanel className="w-82" sections={sections} />
 				<div className="flex flex-col gap-14">
-					{sections.map((section) => {
-						const itemsForSection = sortedDocuments[section];
-						if (!itemsForSection || itemsForSection.length === 0)
-							return (
-								<Typography key={section} variant="regular">
-									{t("emptyState")}
-								</Typography>
-							);
-
-						return (
-							<div key={section} className="flex gap-6 flex-col">
-								<Typography id={section} variant="h3">
-									{section}
-								</Typography>
-								<ul className="flex flex-col">
-									{itemsForSection.map((item, index) => {
+					{items.length === 0 ? (
+						<Typography variant="regular">{t("emptyState")}</Typography>
+					) : (
+						<>
+							{documentsWithoutGroup.length > 0 && (
+								<div className="flex gap-6 flex-col">
+									{documentsWithoutGroup.map((document, index) => {
 										const {
 											id,
 											document: { url },
 											title,
-										} = item;
+										} = document;
 										return (
 											<Document key={id} documentUrl={url} isEven={index % 2 === 0} title={title} />
 										);
 									})}
-								</ul>
-							</div>
-						);
-					})}
+								</div>
+							)}
+
+							{documentsByGroup.length > 0 &&
+								documentsByGroup.map((section) => {
+									return (
+										<div key={section.id} className="flex gap-6 flex-col">
+											<Typography id={section.label} variant="h3">
+												{section.label}
+											</Typography>
+											<ul className="flex flex-col">
+												{section.items.length === 0 && (
+													<Typography variant="regular">{t("emptyStateSection")}</Typography>
+												)}
+												{section.items.map((item, index) => {
+													const {
+														id,
+														document: { url },
+														title,
+													} = item;
+													return (
+														<Document
+															key={id}
+															documentUrl={url}
+															isEven={index % 2 === 0}
+															title={title}
+														/>
+													);
+												})}
+											</ul>
+										</div>
+									);
+								})}
+						</>
+					)}
 				</div>
 			</div>
 			<BackToTop />

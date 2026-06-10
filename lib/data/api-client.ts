@@ -6,6 +6,10 @@ import { cache } from "react";
 import { env } from "@/config/env.config";
 import type { paths } from "@/lib/api/types";
 import { HttpError, request, type ResponseInfo } from "@/lib/utils/request";
+import type {
+	DocumentOrPolicy as DocumentOrPolicyType,
+	DocumentOrPolicyGroup as DocumentOrPolicyGroupType,
+} from "@/types/documents";
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -27,6 +31,8 @@ type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyListResponse =
 	paths["/api/v1/documents-policies"]["get"]["responses"][200]["content"]["application/json"];
+type DocumentOrPolicyTreeResponse =
+	paths["/api/v1/documents-policies/tree"]["get"]["responses"][200]["content"]["application/json"];
 
 type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -103,6 +109,9 @@ type WorkingGroupListResponse =
 export type DocumentOrPolicy = WithPublishedAt<DocumentOrPolicyResponse>;
 export type DocumentOrPolicyList = Omit<DocumentOrPolicyListResponse, "data"> & {
 	data: Array<WithPublishedAt<DocumentOrPolicyListResponse["data"][number]>>;
+};
+export type DocumentOrPolicyTree = Omit<DocumentOrPolicyTreeResponse, "data"> & {
+	data: Array<DocumentOrPolicyType | DocumentOrPolicyGroupType>;
 };
 
 export type Event = WithPublishedAt<WithDuration<EventResponse>>;
@@ -242,6 +251,25 @@ const _documentsPoliciesList = nextCache(
 		});
 
 		const result = await request<DocumentOrPolicyListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.documentsPolicies],
+	{ revalidate: 3600, tags: [cacheTags.documentsPolicies] },
+);
+
+const _documentsPoliciesTree = nextCache(
+	async function tree() {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/documents-policies/tree",
+		});
+
+		const result = await request<DocumentOrPolicyTreeResponse>(url, {
 			responseType: "json",
 			retry: { backoff: "exponential", delayMs: 200, times: 2 },
 			headers: apiHeaders,
@@ -927,6 +955,31 @@ export const client = {
 					...response.data,
 					data: response.data.data.map((item) => {
 						return { ...item, publishedAt: new Date(item.publishedAt) };
+					}),
+				},
+			};
+		}),
+		tree: cache(async function tree() {
+			const response = await _documentsPoliciesTree();
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((section) => {
+						if ("items" in section) {
+							return {
+								...section,
+								items: section.items.map((item) => {
+									return { ...item, publishedAt: new Date(item.publishedAt) };
+								}),
+							};
+						}
+
+						return {
+							...section,
+							publishedAt: new Date(section.publishedAt),
+						};
 					}),
 				},
 			};
