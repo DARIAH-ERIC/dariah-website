@@ -14,10 +14,11 @@ interface CountryPopupProps {
 export function CountryPopup(props: Readonly<CountryPopupProps>): ReactNode {
 	const { title, label, href } = props;
 	const t = useTranslations("MembersAndPartnersPage");
+
 	return (
-		<div className="p-4 z-850 flex gap-4 items-center w-100">
-			<MapPinIcon className="fill-accent-500" />
-			<div className="flex flex-col gap-1.25 w-42">
+		<div className="p-4 z-850 flex gap-4 items-center w-105">
+			<MapPinIcon className="fill-map-pin" />
+			<div className="flex flex-col gap-1.25 w-47">
 				<Typography variant="h4">{title}</Typography>
 				<Typography className="m-0! text-[16px] text-gray-800" variant="regular">
 					{label}
