@@ -457,7 +457,11 @@
 		},
 		"socialMedia": {
 			"website": "Visit the website",
-			"other": "Visit the Social Media:"
+			"other": "Visit social media:"
+		},
+		"institutions": {
+			"nationalCoordinatingInstitution": "National Coordinating institution: {institution}",
+			"nationalRepresentativeInstitution": "National Representative institution: {institution}"
 		},
 		"contributors": {
 			"title": "Contributors",
