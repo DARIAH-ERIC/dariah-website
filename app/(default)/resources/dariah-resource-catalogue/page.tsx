@@ -32,15 +32,20 @@ export default async function DariahResourceCataloguePage(
 	const filters = navigation().breadcrumbs.dariahResourceCatalogue.filters;
 
 	const workingGroupsResponse = await client.workingGroups.list({ limit: 100 });
+	const nationalConsortiaResponse = await client.nationalConsortia.list({ limit: 100 });
 
 	const { data: workingGroups } = workingGroupsResponse.data;
+	const { data: nationalConsortia } = nationalConsortiaResponse.data;
 
 	return (
 		<Main className="container relative flex flex-col gap-16 items-end">
 			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
 
 			<Suspense>
-				<DariahResourceCatalogueContextrovider initialWorkingGroups={workingGroups}>
+				<DariahResourceCatalogueContextrovider
+					initialNationalConsortia={nationalConsortia}
+					initialWorkingGroups={workingGroups}
+				>
 					<SearchContainer breadcrumbs={breadcrumbs} filters={filters} />
 				</DariahResourceCatalogueContextrovider>
 			</Suspense>

@@ -2,8 +2,8 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Button } from "@/components/ui/button/button";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
+import { Link } from "@/components/ui/link/link";
 import type { ResourceCardProps } from "@/components/ui/resource-card/resource-card.types";
 import { Typography } from "@/components/ui/typography/typography";
 
@@ -60,14 +60,14 @@ export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactN
 					{description}
 				</Typography>
 			</div>
-			<Button
+			<Link
 				className="w-full"
 				endIcon={<OpenInNewIcon className="size-5" />}
 				href={resourceUrl}
-				variant="tertiary"
+				variant="button-tertiary"
 			>
 				{t("goTo")}
-			</Button>
+			</Link>
 		</div>
 	);
 }

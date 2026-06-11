@@ -40,16 +40,23 @@ export function RefinementListItems(props: Readonly<RefinementListItemsProps>): 
 		attribute,
 	} = props;
 	const t = useTranslations("DariahResourceCataloguePage");
-	const { workingGroups } = useDariahResourceCatalogueContext();
+	const { workingGroups, nationalConsortia } = useDariahResourceCatalogueContext();
 
 	const getLabel = (label: string) => {
 		if (labelType === "translation") return t(`filter.labelTranslation.${label}` as never);
 
-		if (labelType === "api" && attribute === "working_groups") {
-			const currentWG = workingGroups.find((workingGroup) => {
-				return workingGroup.entity.slug === label;
-			});
-			return currentWG?.name ?? label.toLocaleUpperCase();
+		if (labelType === "api") {
+			if (attribute === "working_groups") {
+				const currentWG = workingGroups.find((workingGroup) => {
+					return workingGroup.entity.slug === label;
+				});
+				return currentWG?.name ?? label.toLocaleUpperCase();
+			} else if (attribute === "national_consortia") {
+				const currentConsortium = nationalConsortia.find((nationalConsortium) => {
+					return nationalConsortium.slug === label;
+				});
+				return currentConsortium?.name ?? label.toLocaleUpperCase();
+			}
 		}
 
 		return label.toUpperCase();

@@ -493,6 +493,7 @@ export function navigation() {
 					limit: 6,
 					showMore: true,
 					sortBy: ["name"],
+					labelType: "api",
 				},
 				{
 					name: "working_groups",

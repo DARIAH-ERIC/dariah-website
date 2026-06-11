@@ -98,7 +98,7 @@
 		"filter": {
 			"title": "Filters",
 			"type": "Resource Type",
-			"national_consortia": "National Node/Country",
+			"national_consortia": "National Consortium",
 			"working_groups": "Working Groups",
 			"kind": "Type of service",
 			"showButton": "Show filters",
