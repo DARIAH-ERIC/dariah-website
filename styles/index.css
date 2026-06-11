@@ -63,6 +63,8 @@
 	--section-box-bg: rgb(231 231 231);
 	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
 
+	--map-pin: rgb(44 159 154);
+
 	--working-groups-detail-divider: linear-gradient(90deg, rgb(109 139 127) 0%, rgb(0 87 143) 100%);
 
 	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
@@ -224,6 +226,8 @@
 	--color-case-study-gradient-start: var(--case-study-gradient-start);
 	--color-case-study-gradient-end: var(--case-study-gradient-end);
 	--color-case-study-gradient: var(--case-study-gradient);
+
+	--color-map-pin: var(--map-pin);
 
 	--color-governance-body-card-hover-bg: var(--governance-body-card-hover-bg);
 	--color-governance-body-card-focus-bg: var(--governance-body-card-focus-bg);

@@ -2,6 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 
+import type { LatLng } from "leaflet";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useMemo, useState } from "react";
 import { type Key, TabPanel, TabPanels, Tabs } from "react-aria-components";
@@ -17,7 +18,10 @@ import type { MemberOrPartnerList } from "@/lib/data/api-client";
 import type { CountryGeoJSON } from "@/types/map";
 import { useMediaQuery } from "@/utils/hooks/use-media-query";
 
-type ActiveCountry = MemberOrPartnerList["data"][number] | undefined | null;
+type ActiveCountry =
+	| (MemberOrPartnerList["data"][number] & { location: LatLng })
+	| undefined
+	| null;
 
 interface MapProps {
 	geoJson: CountryGeoJSON;

@@ -1,6 +1,7 @@
 import {
 	divIcon,
 	type GeoJSON as GeoJSONType,
+	type LatLng,
 	type Layer,
 	type LeafletEvent,
 	marker as LeafletMarker,
@@ -13,7 +14,10 @@ import { CountryPopup } from "@/components/pages/members-and-partners/country-po
 import type { MemberOrPartnerList } from "@/lib/data/api-client";
 import type { CountryGeoJSON, CountryProperties } from "@/types/map";
 
-type ActiveCountry = MemberOrPartnerList["data"][number] | undefined | null;
+type ActiveCountry =
+	| (MemberOrPartnerList["data"][number] & { location: LatLng })
+	| undefined
+	| null;
 
 interface MapGeoJsonProps {
 	activeCountry: ActiveCountry;
@@ -67,7 +71,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		});
 		const target = event.target as { _path: HTMLElement };
 
-		target._path.classList.add("stroke-2");
+		target._path.classList.add("stroke-1");
 		if (layerCountry) {
 			const countryProps = STATUS_PROPS[layerCountry.status];
 			markerLetter = countryProps.letter;
@@ -110,16 +114,23 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 			target._path.classList.add("fill-governance-body-card-executive-body!");
 		}
 
-		handleActiveCountryChange(layerCountry);
+		if (layerCountry) {
+			handleActiveCountryChange({
+				...layerCountry,
+				location: {
+					lat: Number(featureProperties?.label_y),
+					lng: Number(featureProperties?.label_x),
+				} as LatLng,
+			});
+		}
 	};
 
-	const onPopupClose = (event: LeafletEvent) => {
-		const target = event.target as { _path?: HTMLElement };
-		if (target._path) {
-			target._path.classList.remove("fill-primary-500");
-			target._path.classList.remove("fill-primary-700");
-			target._path.classList.remove("fill-governance-body-card-executive-body!");
-		}
+	const onPopupClose = () => {
+		document.querySelector(".fill-primary-500")?.classList.remove("fill-primary-500");
+		document.querySelector(".fill-primary-700")?.classList.remove("fill-primary-700");
+		document
+			.querySelector(String.raw`.fill-governance-body-card-executive-body\!`)
+			?.classList.remove("fill-governance-body-card-executive-body!");
 	};
 
 	const onEachFeature = (_feature: GeoJSON.Feature, layer: Layer) => {
@@ -134,19 +145,30 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 		layer.on("popupclose", onPopupClose);
 	};
 
-	const { name: activeName, status, entity } = activeCountry ?? {};
+	const { name: activeName, status, entity, location } = activeCountry ?? {};
 	const slug = entity?.slug;
 	const href = slug !== undefined ? `/network/members-and-partners/${slug}` : undefined;
 
 	return (
-		<GeoJSON data={geoJson} onEachFeature={onEachFeature}>
-			<Popup>
-				<CountryPopup
-					href={href}
-					label={status ? t(`status.${status}`) : ""}
-					title={activeName ?? ""}
-				/>
-			</Popup>
-		</GeoJSON>
+		<>
+			<GeoJSON data={geoJson} onEachFeature={onEachFeature}></GeoJSON>
+			{location && (
+				<Popup
+					eventHandlers={{
+						popupclose: onPopupClose,
+						layerremove: onPopupClose,
+						remove: onPopupClose,
+					}}
+					offset={[205, 130]}
+					position={[location.lat, location.lng]}
+				>
+					<CountryPopup
+						href={href}
+						label={status ? t(`status.${status}`) : ""}
+						title={activeName ?? ""}
+					/>
+				</Popup>
+			)}
+		</>
 	);
 }

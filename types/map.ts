@@ -33,6 +33,9 @@ export interface CountryProperties {
 	subregion: string;
 	wikidataid: string;
 
+	label_x: string;
+	label_y: string;
+
 	name_ar?: string;
 	name_de?: string;
 	name_en?: string;
