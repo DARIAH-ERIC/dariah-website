@@ -18,12 +18,15 @@ import { PersonCardDetails } from "@/components/ui/person-card/person-card-detai
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { Typography } from "@/components/ui/typography/typography";
+import type { components } from "@/lib/api/types";
 import type { MemberOrPartner, Person } from "@/lib/data/api-client";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
 import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
 interface MembersAndPartnersTabsProps {
-	memberOrPartner: MemberOrPartner;
+	memberOrPartner:
+		| components["schemas"]["MemberOrObserver"]
+		| components["schemas"]["CooperatingPartner"];
 	selectedPerson?: Person;
 }
 
@@ -34,14 +37,25 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 
 	const pathname = usePathname();
 
-	const {
-		memberOrPartner: { name, description, socialMedia, contributors, institutions, status },
-		selectedPerson,
-	} = props;
+	const { memberOrPartner, selectedPerson } = props;
+
+	const { description, socialMedia, institutions, status } = memberOrPartner;
 
 	const displayShowMoreButton = institutions.length > 10;
 	const isCooperatingPartner = status === "is_cooperating_partner_of";
 	const isMemberCountry = status === "is_member_of";
+
+	let contributors, nationalCoordinatingInstitution, nationalRepresentativeInstitution;
+
+	if (
+		"contributors" in memberOrPartner &&
+		"nationalCoordinatingInstitution" in memberOrPartner &&
+		"nationalRepresentativeInstitution" in memberOrPartner
+	) {
+		contributors = memberOrPartner.contributors;
+		nationalCoordinatingInstitution = memberOrPartner.nationalCoordinatingInstitution;
+		nationalRepresentativeInstitution = memberOrPartner.nationalRepresentativeInstitution;
+	}
 
 	const { website, otherSocialMedia } = socialMedia.reduce(
 		(acc, item) => {
@@ -58,8 +72,14 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 		},
 	);
 
-	const grouppedContributors = getGrouppedPersonMembers(contributors);
-	const grouppedContributorsKeys = Object.keys(grouppedContributors);
+	const grouppedContributors =
+		contributors !== undefined ? getGrouppedPersonMembers(contributors) : undefined;
+	const grouppedContributorsKeys = [
+		"national_coordinator",
+		"national_coordinator_deputy",
+		"national_representative",
+		"national_representative_deputy",
+	];
 
 	otherSocialMedia.sort((socialMediaA, socialMediaB) => {
 		return socialMediaA.type.localeCompare(socialMediaB.type);
@@ -72,6 +92,19 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	};
 
 	const institutionsToDisplay = displayAllInstitutions ? institutions : institutions.slice(0, 10);
+
+	const nationalInstitutions = [
+		nationalCoordinatingInstitution !== null && nationalCoordinatingInstitution !== undefined
+			? t("institutions.nationalCoordinatingInstitution", {
+					institution: nationalCoordinatingInstitution.name,
+				})
+			: null,
+		nationalRepresentativeInstitution !== null && nationalRepresentativeInstitution !== undefined
+			? t("institutions.nationalRepresentativeInstitution", {
+					institution: nationalRepresentativeInstitution.name,
+				})
+			: null,
+	];
 
 	return (
 		<Tabs>
@@ -86,9 +119,6 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 					<TabPanel id="details">
 						<div className="flex flex-col px-2 py-4">
 							<div className="flex flex-col w-full justify-between lg:flex-row lg:flex-wrap">
-								<Typography className="uppercase" variant="h4">
-									{name}
-								</Typography>
 								<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
 									{website && (
 										<Link
@@ -101,30 +131,32 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 										</Link>
 									)}
 									{otherSocialMedia.length > 0 && (
-										<div className="flex gap-6 items-center">
+										<div className="flex gap-4 items-center">
 											<Typography variant="regular">{t("socialMedia.other")}</Typography>
-											{otherSocialMedia.map((item) => {
-												const { type, url, name } = item;
-												const Icon = socialMediaConfig[type].icon;
-												return (
-													<Link
-														key={url}
-														aria-label={name}
-														className="group focus:border-b-2 focus:py-1.5"
-														href={url}
-														target="_blank"
-													>
-														<Icon
-															className={cn(
-																"size-10",
-																type !== "website" && type !== "other"
-																	? "fill-gray-700 group-hover:fill-primary"
-																	: "stroke-gray-700 group-hover:stroke-primary",
-															)}
-														/>
-													</Link>
-												);
-											})}
+											<div className="flex gap-4 items-center flex-wrap">
+												{otherSocialMedia.map((item) => {
+													const { type, url, name } = item;
+													const Icon = socialMediaConfig[type].icon;
+													return (
+														<Link
+															key={url}
+															aria-label={name}
+															className="group focus:border-b-2 focus:py-1.5"
+															href={url}
+															target="_blank"
+														>
+															<Icon
+																className={cn(
+																	"size-5",
+																	type !== "website" && type !== "other"
+																		? "fill-gray-700 group-hover:fill-primary"
+																		: "stroke-gray-700 group-hover:stroke-primary",
+																)}
+															/>
+														</Link>
+													);
+												})}
+											</div>
 										</div>
 									)}
 								</div>
@@ -132,13 +164,25 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							<div>
 								<ContentBlocks fields={description} />
 							</div>
+							{!isCooperatingPartner && (
+								<Typography className="pt-6 font-bold" variant="regular">
+									{nationalInstitutions.join(" and ")}
+								</Typography>
+							)}
 							<div className="flex flex-col gap-10 pt-6 pb-9 relative">
 								<div className="absolute -top-20" id="contributors" />
 								<Typography variant="h4">{t("contributors.title")}</Typography>
 								{!selectedPerson ? (
 									grouppedContributorsKeys.length > 0 ? (
-										<div className="flex flex-wrap justify-center gap-x-15 gap-y-10">
+										<div className="flex flex-wrap gap-x-15 gap-y-10">
 											{grouppedContributorsKeys.map((contributorGroupKey) => {
+												if (
+													grouppedContributors === undefined ||
+													grouppedContributors[contributorGroupKey]?.length === 0 ||
+													grouppedContributors[contributorGroupKey] === undefined
+												)
+													return null;
+
 												return (
 													<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
 														<div className="flex flex-col justify-between h-10">
@@ -156,7 +200,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 															<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
 														</div>
 														<div className="flex flex-wrap justify-between gap-6">
-															{grouppedContributors[contributorGroupKey]?.map((contributor) => {
+															{grouppedContributors[contributorGroupKey].map((contributor) => {
 																const {
 																	id,
 																	name,
@@ -229,6 +273,12 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 				)}
 				<TabPanel id="institutions">
 					<div className="flex flex-col gap-6 pt-10">
+						{nationalCoordinatingInstitution !== null &&
+							nationalCoordinatingInstitution !== undefined && (
+								<Typography className="w-fit cursor-default" variant="regular">
+									{nationalCoordinatingInstitution.name}
+								</Typography>
+							)}
 						{institutionsToDisplay.length > 0 ? (
 							<>
 								{institutionsToDisplay.map((institution) => {

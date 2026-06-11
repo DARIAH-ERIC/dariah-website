@@ -1,10 +1,11 @@
 import { env } from "@/config/env.config";
-import type { MemberOrPartner, SpotlightArticle, WorkingGroup } from "@/lib/data/api-client";
+import type { components } from "@/lib/api/types";
+import type { SpotlightArticle, WorkingGroup } from "@/lib/data/api-client";
 import type { Person, RelatedContent, RelatedEntity, RelatedResource } from "@/types/global";
 
 type AnyPerson =
 	| Person
-	| MemberOrPartner["contributors"][number]
+	| components["schemas"]["MemberOrObserver"]["contributors"][number]
 	| WorkingGroup["chairs"][number]
 	| SpotlightArticle["contributors"][number];
 
