@@ -65,6 +65,9 @@ type MemberOrPartnerListResponse =
 type NavigationResponse =
 	paths["/api/v1/navigation"]["get"]["responses"][200]["content"]["application/json"];
 
+type NationalConsortiaListResponse =
+	paths["/api/v1/national-consortia"]["get"]["responses"][200]["content"]["application/json"];
+
 type NewsItemResponse =
 	paths["/api/v1/news/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type NewsItemListResponse =
@@ -150,6 +153,8 @@ export type NewsItemList = Omit<NewsItemListResponse, "data"> & {
 	data: Array<WithPublishedAt<NewsItemListResponse["data"][number]>>;
 };
 
+export type NationalConsortiaList = NationalConsortiaListResponse;
+
 export type Opportunity = WithPublishedAt<OpportunityResponse>;
 export type OpportunityList = Omit<OpportunityListResponse, "data"> & {
 	data: Array<WithPublishedAt<OpportunityListResponse["data"][number]>>;
@@ -196,6 +201,7 @@ export const cacheTags = {
 	home: "home",
 	impactCaseStudies: "impact-case-studies",
 	membersAndPartners: "members-partners",
+	nationalConsortia: "national-consortia",
 	navigation: "navigation",
 	news: "news",
 	newsletters: "newsletters",
@@ -401,8 +407,8 @@ const _governanceBodiesBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.opportunities],
-	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+	[cacheTags.governanceBodies],
+	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
 );
 
 const _governanceBodiesList = nextCache(
@@ -424,8 +430,8 @@ const _governanceBodiesList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.opportunities],
-	{ revalidate: 3600, tags: [cacheTags.opportunities] },
+	[cacheTags.governanceBodies],
+	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
 );
 
 const _homePageGet = nextCache(
@@ -1414,6 +1420,32 @@ export const client = {
 
 			return result.unwrap();
 		}),
+	},
+	nationalConsortia: {
+		list: cache(
+			nextCache(
+				async function list({
+					limit = 10,
+					offset = 0,
+				}: paths["/api/v1/national-consortia"]["get"]["parameters"]["query"] = {}) {
+					const url = createUrl({
+						baseUrl,
+						pathname: "/api/v1/national-consortia",
+						searchParams: createUrlSearchParams({ limit, offset }),
+					});
+
+					const result = await request<NationalConsortiaListResponse>(url, {
+						responseType: "json",
+						retry: { backoff: "exponential", delayMs: 200, times: 2 },
+						headers: apiHeaders,
+					});
+
+					return result.unwrap();
+				},
+				[cacheTags.newsletters],
+				{ revalidate: 3600, tags: [cacheTags.newsletters] },
+			),
+		),
 	},
 	newsletters: {
 		list: cache(

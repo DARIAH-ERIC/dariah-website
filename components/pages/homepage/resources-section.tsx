@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
-import { Button } from "@/components/ui/button/button";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
+import { Link } from "@/components/ui/link/link";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
@@ -34,9 +34,13 @@ export function ResourcesSection(): ReactNode {
 						<Typography className="font-normal text-[24px]" variant="h3">
 							{t("ResourcesSection.description.content")}
 						</Typography>
-						<Button className="w-full mt-2 lg:w-62.75 [&>span]:py-0.5!" variant="primary">
+						<Link
+							className="w-full mt-2 lg:w-62.75 [&>span]:py-0.5!"
+							href="/resources/dariah-resource-catalogue"
+							variant="button-primary"
+						>
 							{t("ResourcesSection.description.button")}
-						</Button>
+						</Link>
 					</div>
 				</div>
 				<div className="flex flex-wrap justify-center gap-30.5 px-1.5">
