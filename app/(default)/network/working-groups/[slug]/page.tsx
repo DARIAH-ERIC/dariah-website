@@ -14,7 +14,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
-import { mergeEntitiesAndResources } from "@/utils/global.utils";
+import { getGrouppedPersonMembers, mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface WorkingGroupPageProps extends PageProps<"/network/working-groups/[slug]"> {}
 
@@ -77,10 +77,25 @@ export default async function WorkingGroupPage(
 		return media.type === "website";
 	});
 
+	const grouppedChairs = getGrouppedPersonMembers(chairs);
+	const grouppedChairsKeys = [
+		"is_affiliated_with",
+		"is_chair_of",
+		"is_vice_chair_of",
+		"is_member_of",
+		"is_director_of",
+		"is_president_of",
+		"is_contact_for",
+		"national_coordinator",
+		"national_coordinator_deputy",
+		"national_representative",
+		"national_representative_deputy",
+	];
+
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 2xl:px-30">
-			<div className="flex flex-col gap-10 xl:flex-wrap xl:flex-row 2xl:gap-33.5">
-				<div className="flex flex-col gap-12 max-w-full lg:gap-14 2xl:w-265">
+			<div className="flex flex-col gap-10 2xl:gap-33.5 lg:flex-row">
+				<div className="flex flex-col gap-12 max-w-full lg:w-200 xl:w-210 2xl:gap-14 3xl:w-265">
 					{breadcrumbs.length > 0 && (
 						<Breadcrumbs>
 							{breadcrumbs.map(({ label, href }) => {
@@ -107,7 +122,7 @@ export default async function WorkingGroupPage(
 					{image != null ? (
 						<Image
 							alt={name}
-							className="max-h-full max-w-full object-contain lg:h-110.5 lg:w-197.25"
+							className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
 							height={442}
 							src={image.url}
 							width={789}
@@ -116,31 +131,59 @@ export default async function WorkingGroupPage(
 					<div className="flex flex-col gap-10 pt-6 pb-14 relative">
 						<div className="absolute -top-20" id="chairs" />
 						{!selectedPerson ? (
-							chairs.length > 0 ? (
-								<div className="flex flex-wrap gap-10">
-									{chairs.map((chair) => {
-										const { id, name, position, image: chairImage, slug: personSlug } = chair;
-
-										const { url: imageUrl } = chairImage ?? { url: null };
-
-										const positionNames = position
-											? position.map((positionObj) => {
-													const { role, name } = positionObj;
-
-													return personTranslations(`roles.${role}`, {
-														name,
-													});
-												})
-											: [];
+							grouppedChairsKeys.length > 0 ? (
+								<div className="flex flex-wrap gap-x-23 gap-y-10">
+									{grouppedChairsKeys.map((chairsGroupKey) => {
+										if (
+											grouppedChairs[chairsGroupKey]?.length === 0 ||
+											grouppedChairs[chairsGroupKey] === undefined
+										)
+											return null;
 
 										return (
-											<PersonCard
-												key={id}
-												href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
-												imageUrl={imageUrl}
-												name={name}
-												position={positionNames.join(", ")}
-											/>
+											<div key={chairsGroupKey} className="flex flex-col flex-wrap gap-6">
+												<div className="flex flex-col justify-between h-10">
+													<Typography className="font-bold" variant="small">
+														{t(
+															`chairs.groups.${chairsGroupKey as "author" | "editor" | "contributor"}`,
+														)}
+													</Typography>
+													<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
+												</div>
+												<div className="flex flex-wrap justify-between gap-6">
+													{grouppedChairs[chairsGroupKey].map((chair) => {
+														const {
+															id,
+															name,
+															position,
+															image: chairImage,
+															slug: personSlug,
+														} = chair;
+
+														const { url: imageUrl } = chairImage ?? { url: null };
+
+														const positionNames = position
+															? position.map((positionObj) => {
+																	const { role, name } = positionObj;
+
+																	return personTranslations(`roles.${role}`, {
+																		name,
+																	});
+																})
+															: [];
+
+														return (
+															<PersonCard
+																key={id}
+																href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
+																imageUrl={imageUrl}
+																name={name}
+																position={positionNames.join(", ")}
+															/>
+														);
+													})}
+												</div>
+											</div>
 										);
 									})}
 								</div>
