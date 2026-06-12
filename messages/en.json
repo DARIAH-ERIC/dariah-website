@@ -397,6 +397,21 @@
 		},
 		"card": {
 			"tag": "working group"
+		},
+		"chairs": {
+			"groups": {
+				"is_affiliated_with": "Affiliated",
+				"is_chair_of": "Chair",
+				"is_vice_chair_of": "Vice Chair",
+				"is_member_of": "Member",
+				"is_director_of": "Director",
+				"is_president_of": "President",
+				"is_contact_for": "Contact Person",
+				"national_coordinator": "National Coordinator",
+				"national_coordinator_deputy": "National Coordinator Deputy",
+				"national_representative": "National Representative",
+				"national_representative_deputy": "National Representative Deputy"
+			}
 		}
 	},
 	"MembersAndPartnersPage": {
