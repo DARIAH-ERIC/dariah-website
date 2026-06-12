@@ -475,8 +475,8 @@
 			"other": "Visit social media:"
 		},
 		"institutions": {
-			"nationalCoordinatingInstitution": "National Coordinating institution: {institution}",
-			"nationalRepresentativeInstitution": "National Representative institution: {institution}"
+			"nationalCoordinatingInstitution": "National Coordinating institution: ",
+			"nationalRepresentativeInstitution": "National Representative institution: "
 		},
 		"contributors": {
 			"title": "Contributors",

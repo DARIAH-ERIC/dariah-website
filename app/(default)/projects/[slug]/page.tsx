@@ -74,14 +74,14 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 									</Breadcrumb>
 								);
 							})}
-							<Breadcrumb>{slug}</Breadcrumb>
+							<Breadcrumb>{name}</Breadcrumb>
 						</Breadcrumbs>
 					)}
-					<Link href="/network/working-groups" variant="secondary" withDefaultLeftIcon={true}>
+					<Link href="/projects" variant="secondary" withDefaultLeftIcon={true}>
 						{t("browseAll")}
 					</Link>
 					<Typography className="uppercase" variant="h3">
-						{slug}
+						{name}
 					</Typography>
 					<div>
 						{image?.url !== undefined && (
