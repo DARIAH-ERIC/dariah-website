@@ -93,19 +93,6 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 
 	const institutionsToDisplay = displayAllInstitutions ? institutions : institutions.slice(0, 10);
 
-	const nationalInstitutions = [
-		nationalCoordinatingInstitution !== null && nationalCoordinatingInstitution !== undefined
-			? t("institutions.nationalCoordinatingInstitution", {
-					institution: nationalCoordinatingInstitution.name,
-				})
-			: null,
-		nationalRepresentativeInstitution !== null && nationalRepresentativeInstitution !== undefined
-			? t("institutions.nationalRepresentativeInstitution", {
-					institution: nationalRepresentativeInstitution.name,
-				})
-			: null,
-	];
-
 	return (
 		<Tabs>
 			<TabList aria-label="Tabs" className="lg:px-0!">
@@ -164,11 +151,28 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							<div>
 								<ContentBlocks fields={description} />
 							</div>
-							{!isCooperatingPartner && (
-								<Typography className="pt-6 font-bold" variant="regular">
-									{nationalInstitutions.join(" and ")}
-								</Typography>
-							)}
+							<div className="pt-6 flex flex-col gap-2">
+								{nationalCoordinatingInstitution && (
+									<div className="flex gap-1">
+										<Typography className="font-bold" variant="regular">
+											{t("institutions.nationalCoordinatingInstitution")}
+										</Typography>
+										<Typography variant="regular">
+											{nationalCoordinatingInstitution.name}
+										</Typography>
+									</div>
+								)}
+								{nationalRepresentativeInstitution && (
+									<div className="flex gap-1">
+										<Typography className="font-bold" variant="regular">
+											{t("institutions.nationalRepresentativeInstitution")}
+										</Typography>
+										<Typography variant="regular">
+											{nationalRepresentativeInstitution.name}
+										</Typography>
+									</div>
+								)}
+							</div>
 							<div className="flex flex-col gap-10 pt-6 pb-9 relative">
 								<div className="absolute -top-20" id="contributors" />
 								<Typography variant="h4">{t("contributors.title")}</Typography>
@@ -272,13 +276,12 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 					</TabPanel>
 				)}
 				<TabPanel id="institutions">
-					<div className="flex flex-col gap-6 pt-10">
-						{nationalCoordinatingInstitution !== null &&
-							nationalCoordinatingInstitution !== undefined && (
-								<Typography className="w-fit cursor-default" variant="regular">
-									{nationalCoordinatingInstitution.name}
-								</Typography>
-							)}
+					<div className="flex flex-col gap-6 pt-10 pb-80">
+						{nationalCoordinatingInstitution && (
+							<Typography className="w-fit cursor-default" variant="regular">
+								{nationalCoordinatingInstitution.name}
+							</Typography>
+						)}
 						{institutionsToDisplay.length > 0 ? (
 							<>
 								{institutionsToDisplay.map((institution) => {
