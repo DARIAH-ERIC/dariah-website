@@ -308,6 +308,19 @@
 	},
 	"ProjectsDetailPage": {
 		"browseAll": "Browse all projects",
+		"details": {
+			"name": "Full project name:",
+			"duration": {
+				"description": "Duration:",
+				"value": "from {startDate} to {endDate}"
+			},
+			"funding": {
+				"description": "EU Contribution:",
+				"value": "EUR {value}"
+			},
+			"topic": "Topic:",
+			"coordinator": "Coordinator:"
+		},
 		"relatedContent": {
 			"title": "Related content",
 			"emptyState": "No related content."
