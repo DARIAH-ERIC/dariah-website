@@ -681,11 +681,11 @@
 				"is_director_of": "Director of {name}",
 				"is_president_of": "President of {name}",
 				"is_contact_for": "Contact Person for {name}",
-				"national_coordinator": "National Coordinators",
-				"national_coordinator_deputy": "National Coordinators Committee",
-				"national_coordination_staff": "National Coordination Staff",
-				"national_representative": "National Representatives",
-				"national_representative_deputy": "National Representatives Comittee"
+				"national_coordinator": "National Coordinators of {name}",
+				"national_coordinator_deputy": "National Coordinators Committee of {name}",
+				"national_coordination_staff": "National Coordination Staff of {name}",
+				"national_representative": "National Representatives of {name}",
+				"national_representative_deputy": "National Representatives Comittee of {name}"
 			}
 		},
 		"StaticPage": {
