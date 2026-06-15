@@ -1,10 +1,11 @@
+import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ProjectDetails } from "@/components/pages/projects/project-details/project-details";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
@@ -56,46 +57,75 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 	const breadcrumbs = navigation().breadcrumbs.projectsDetailPage;
 	const response = await client.projects.bySlug({ slug });
 
-	const { name, image, description, participants, relatedEntities, relatedResources } =
-		response.data;
+	const {
+		acronym,
+		name,
+		image,
+		funding,
+		description,
+		participants,
+		relatedEntities,
+		relatedResources,
+		topic,
+		coordinators,
+		summary,
+		duration: { start, end },
+	} = response.data;
 
 	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
+
+	const descriptionJsonContent = description.find((item) => {
+		return item.type === "rich_text";
+	})?.content as JSONContent;
+
+	const hasRichText =
+		descriptionJsonContent.content !== undefined
+			? descriptionJsonContent.content.length > 0
+			: false;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
 			<div className="flex flex-col gap-10 lg:flex-row lg:gap-33.5">
-				<div className="flex flex-col gap-10 max-w-full lg:w-265">
-					{breadcrumbs.length > 0 && (
-						<Breadcrumbs>
-							{breadcrumbs.map(({ label, href }) => {
-								return (
-									<Breadcrumb key={label} className="w-fit" href={href}>
-										{label}
-									</Breadcrumb>
-								);
-							})}
-							<Breadcrumb>{name}</Breadcrumb>
-						</Breadcrumbs>
-					)}
-					<Link href="/projects" variant="secondary" withDefaultLeftIcon={true}>
-						{t("browseAll")}
-					</Link>
-					<Typography className="uppercase" variant="h3">
-						{name}
-					</Typography>
-					<div>
-						{image?.url !== undefined && (
-							<Image
-								alt={name}
-								className="w-62.5 h-48 object-contain md:float-right md:ml-5"
-								height={192}
-								src={image.url}
-								width={250}
-							/>
+				<div className="flex flex-col max-w-full lg:w-265">
+					<div className="flex flex-col gap-10">
+						{breadcrumbs.length > 0 && (
+							<Breadcrumbs>
+								{breadcrumbs.map(({ label, href }) => {
+									return (
+										<Breadcrumb key={label} className="w-fit" href={href}>
+											{label}
+										</Breadcrumb>
+									);
+								})}
+								<Breadcrumb>{acronym}</Breadcrumb>
+							</Breadcrumbs>
 						)}
-						<ContentBlocks fields={description} />
+						<Link href="/projects" variant="secondary" withDefaultLeftIcon={true}>
+							{t("browseAll")}
+						</Link>
+						<Typography className="uppercase" variant="h3">
+							{acronym}
+						</Typography>
 					</div>
-					<div className="flex flex-col py-6 gap-10">
+					<ProjectDetails
+						coordinators={coordinators}
+						end={end}
+						funding={funding}
+						image={image}
+						name={name}
+						start={start}
+						topic={topic}
+					/>
+					<div className="flex flex-col gap-4 px-2 py-10">
+						<Typography variant="h3">{"Summary"}</Typography>
+						<Typography variant="regular">{summary}</Typography>
+					</div>
+					{hasRichText && (
+						<div className="py-6 px-2">
+							<ContentBlocks fields={description} />
+						</div>
+					)}
+					<div className="flex flex-col py-6 px-2 gap-10">
 						<div className="flex flex-col gap-4">
 							<Typography variant="h4">
 								{t("participants.title", { number: participants.length.toString() || "0" })}
