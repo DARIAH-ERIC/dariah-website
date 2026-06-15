@@ -82,7 +82,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				<Image
 					alt={title}
 					className={cn(
-						"overflow-hidden transition-transform duration-300 ease-in-out object-contain",
+						"overflow-hidden transition-transform duration-300 ease-in-out object-cover",
 						"group-hover:scale-110",
 						imageWrapperVariants[variant],
 						"group-focus:scale-110",
