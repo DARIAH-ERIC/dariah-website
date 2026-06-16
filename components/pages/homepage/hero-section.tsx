@@ -1,17 +1,25 @@
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
+import { Image } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
+import heroBg from "@/public/assets/images/background-hero-section.svg";
 
 export function HeroSection(): ReactNode {
 	const t = useTranslations("HomePage");
 
 	return (
-		<section
-			className={`w-full h-165 bg-[url(/assets/images/background-hero-section.svg)] relative lg:h-241.25`}
-		>
-			<div className="flex flex-col items-center mt-35 gap-11.5 lg:items-start lg:mt-57.75 lg:ml-26">
+		<section className={`w-full h-165 relative lg:h-241.25`}>
+			<Image
+				alt="Hero background image"
+				className="object-cover object-center z-0"
+				fill={true}
+				loading="eager"
+				preload={true}
+				src={heroBg}
+			/>
+			<div className="flex relative z-1 flex-col items-center mt-35 gap-11.5 lg:items-start lg:mt-57.75 lg:ml-26">
 				<Typography
 					className="text-[32px] p-6 text-white bg-text-link-bg/60 max-w-330 lg:pl-9 lg:pt-7.5 lg:pb-13.75 lg:text-[84px]"
 					variant="h1"
