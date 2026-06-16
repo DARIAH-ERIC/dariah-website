@@ -569,6 +569,15 @@ export function navigation() {
 				label: "newsletters",
 			},
 		],
+		notFound: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "page not found",
+			},
+		],
 	};
 
 	return {
