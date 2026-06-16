@@ -15,7 +15,6 @@ export function HeroSection(): ReactNode {
 				alt="Hero background image"
 				className="object-cover object-center z-0"
 				fill={true}
-				loading="eager"
 				preload={true}
 				src={heroBg}
 			/>
