@@ -1,13 +1,14 @@
-import { pick } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
-import { useMessages, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { DocumentBody } from "@/app/_components/document-body";
 import { HtmlDocument } from "@/app/_components/html-document";
 import { Providers } from "@/app/_components/providers";
+import { Footer } from "@/app/(default)/_components/footer";
+import { Header } from "@/app/(default)/_components/header";
 import { Main } from "@/components/main";
+import { NotFound } from "@/components/pages/not-found/not-found";
 import { defaultLocale } from "@/lib/i18n/locales";
 import { getMetadata } from "@/lib/i18n/metadata";
 
@@ -34,16 +35,18 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function GlobalNotFoundPage(): ReactNode {
 	const locale = defaultLocale;
-	const messages = useMessages();
-	const t = useTranslations("GlobalNotFoundPage");
 
 	return (
 		<HtmlDocument locale={locale}>
 			<DocumentBody>
-				<Providers locale={locale} messages={pick(messages, ["GlobalNotFoundPage"])}>
-					<Main>
-						<h1 className="text-2xl font-extrabold tracking-tight">{t("title")}</h1>
-					</Main>
+				<Providers locale={locale}>
+					<div className="relative isolate flex min-h-full flex-col bg-white">
+						<Header />
+						<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
+							<NotFound />
+						</Main>
+						<Footer />
+					</div>
 				</Providers>
 			</DocumentBody>
 		</HtmlDocument>
