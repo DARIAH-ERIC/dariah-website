@@ -23,7 +23,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"group flex flex-col gap-6 w-full max-w-full",
+				"group flex flex-col gap-6 w-full max-w-full items-start",
 				"lg:flex-row lg:w-126",
 				"focus:outline-2 focus:outline-accent-800",
 			)}
@@ -31,7 +31,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 		>
 			<Image
 				alt={name}
-				className="object-cover min-w-34 size-34"
+				className="object-cover min-w-34 size-34 mt-2"
 				height={136}
 				src={displayedImage}
 				width={136}
