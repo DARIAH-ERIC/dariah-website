@@ -76,10 +76,10 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 
 	const descriptionJsonContent = description.find((item) => {
 		return item.type === "rich_text";
-	})?.content as JSONContent;
+	})?.content as JSONContent | null;
 
 	const hasRichText =
-		descriptionJsonContent.content !== undefined
+		descriptionJsonContent?.content !== undefined
 			? descriptionJsonContent.content.length > 0
 			: false;
 

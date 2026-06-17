@@ -102,13 +102,20 @@ export default async function SpotlightArticlePage(
 						</Typography>
 						<Typography variant="regular">{getFormattedDateForDetails(publishedAt)}</Typography>
 					</div>
-					<Image
-						alt={title}
-						className="w-full h-87.5 object-contain"
-						height={350}
-						src={image.url}
-						width={1100}
-					/>
+					<figure className="flex flex-col gap-7">
+						<Image
+							alt={image.alt ?? title}
+							className="w-full h-87.5 object-contain"
+							height={350}
+							src={image.url}
+							width={1100}
+						/>
+						{image.caption !== null && (
+							<figcaption className="text-small text-gray-900">
+								{image.caption}. {image.license?.name}
+							</figcaption>
+						)}
+					</figure>
 					<div>
 						<ContentBlocks fields={content} />
 					</div>

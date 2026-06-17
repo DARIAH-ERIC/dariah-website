@@ -90,7 +90,20 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							<Typography variant="regular">{getFormattedDateForNews(publishedAt)}</Typography>
 						</div>
 						<Typography variant="h4">{summary}</Typography>
-						<Image alt={title} className="w-full" height={628.25} src={image.url} width={1150} />
+						<figure className="flex flex-col gap-7">
+							<Image
+								alt={image.alt ?? title}
+								className="w-full"
+								height={628.25}
+								src={image.url}
+								width={1150}
+							/>
+							{image.caption !== null && (
+								<figcaption className="text-small text-gray-900">
+									{image.caption}. {image.license?.name}
+								</figcaption>
+							)}
+						</figure>
 						<div>
 							<ContentBlocks fields={content} />
 						</div>
