@@ -435,11 +435,6 @@
 		"meta": {
 			"title": "Members and partners"
 		},
-		"title": "Members and partners",
-		"description": {
-			"part1": "DARIAH Members or Observers can be countries (EU Member States and Associated Countries) or intergovernmental organisations.\n\nAlternatively, institutions from countries that are not yet DARIAH Members can participate as Cooperating Partners.",
-			"part2": "Currently, DARIAH has 23 Members and 17 Cooperating Partners in 10 non-Member countries: Egypt, Finland, Hungary, Latvia, Norway, Romania, Slovakia, Turkey, the United Kingdom, and the United States of America."
-		},
 		"filters": {
 			"cooperating partners": "COOPERATING PARTNERS",
 			"members": "MEMBERS",
