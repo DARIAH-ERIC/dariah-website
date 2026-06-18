@@ -277,11 +277,20 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 				)}
 				<TabPanel id="institutions">
 					<div className="flex flex-col gap-6 pt-10 pb-80">
-						{nationalCoordinatingInstitution && (
-							<Typography className="w-fit cursor-default" variant="regular">
-								{nationalCoordinatingInstitution.name}
-							</Typography>
-						)}
+						{nationalCoordinatingInstitution &&
+							(nationalCoordinatingInstitution.website !== null ? (
+								<Link
+									endIcon={<OpenInNewIcon className="size-5" />}
+									href={nationalCoordinatingInstitution.website}
+									variant="paragraph"
+								>
+									{nationalCoordinatingInstitution.name}
+								</Link>
+							) : (
+								<Typography className="w-fit cursor-default" variant="regular">
+									{nationalCoordinatingInstitution.name}
+								</Typography>
+							))}
 						{institutionsToDisplay.length > 0 ? (
 							<>
 								{institutionsToDisplay.map((institution) => {
