@@ -13,7 +13,7 @@ interface PersonCardDetailsProps {
 	name: string;
 	email?: string;
 	position?: string;
-	description: JSONContent;
+	description: JSONContent | undefined;
 }
 
 export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): ReactNode {
@@ -37,9 +37,11 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 						{t("sendMail")}
 					</Link>
 				)}
-				<div className="[&_p:first-child]:mt-0!">
-					<RichText content={description.content as JSONContent} />
-				</div>
+				{description !== undefined && (
+					<div className="[&_p:first-child]:mt-0!">
+						<RichText content={description.content as JSONContent} />
+					</div>
+				)}
 			</div>
 		</div>
 	);
