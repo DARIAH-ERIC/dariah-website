@@ -111,4 +111,5 @@ export interface SearchCollectionItem {
 		| "training-material"
 		| "workflow";
 	imported_at: number;
+	source_updated_at: number;
 }
