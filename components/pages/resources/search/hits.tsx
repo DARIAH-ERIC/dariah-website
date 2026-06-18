@@ -7,11 +7,11 @@ import { Typography } from "@/components/ui/typography/typography";
 import type { SearchCollectionItem } from "@/lib/search/schema";
 
 export function Hit({ hit }: Readonly<{ hit: SearchCollectionItem }>): ReactNode {
-	const { label, description, type, link, imported_at } = hit;
+	const { label, description, type, link, source_updated_at } = hit;
 
 	return (
 		<SearchItem
-			date={new Date(imported_at)}
+			date={new Date(source_updated_at)}
 			description={description}
 			href={link}
 			title={label}
