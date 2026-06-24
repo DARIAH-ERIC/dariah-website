@@ -24,7 +24,13 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 
 	return (
 		<div className="flex gap-4">
-			<Image alt={name} className="size-43" height={172} src={displayedImage} width={172} />
+			<Image
+				alt={name}
+				className="size-43 object-cover"
+				height={172}
+				src={displayedImage}
+				width={172}
+			/>
 			<div className="flex flex-col gap-2 px-4">
 				<Typography variant="h5">{name}</Typography>
 				<Typography variant="regular">{position}</Typography>
