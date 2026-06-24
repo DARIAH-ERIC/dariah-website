@@ -46,6 +46,11 @@ export function createInstantClient(query_by: string): SearchClient {
 		additionalSearchParameters: {
 			query_by,
 		},
+		collectionSpecificSearchParameters: {
+			"dariah-resources": {
+				sort_by: "source_updated_at:desc",
+			},
+		},
 	});
 
 	return typesenseInstantsearchAdapter.searchClient;
