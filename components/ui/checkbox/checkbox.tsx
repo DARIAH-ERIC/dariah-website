@@ -44,7 +44,11 @@ export function Checkbox(props: Readonly<CheckboxProps>): ReactNode {
 					/>
 				</div>
 			</div>
-			{label !== undefined && <Typography variant="small">{label}</Typography>}
+			{label !== undefined && (
+				<Typography className="flex-1" variant="small">
+					{label}
+				</Typography>
+			)}
 		</AriaCheckbox>
 	);
 }
