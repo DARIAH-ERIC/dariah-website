@@ -1,14 +1,21 @@
-import { Fira_Code, Lato, Roboto } from "next/font/google";
+import { Fira_Code, Roboto } from "next/font/google";
+import localFont from "next/font/local";
 
 export const body = Roboto({
 	subsets: ["latin", "latin-ext"],
 	variable: "--_font-body",
 });
 
-export const heading = Lato({
-	subsets: ["latin", "latin-ext"],
+export const heading = localFont({
 	variable: "--_font-heading",
-	weight: ["300", "400", "700"],
+	src: [
+		{ path: "../../public/fonts/lato-latin-light.woff2", weight: "300", style: "normal" },
+		{ path: "../../public/fonts/lato-latin-light-italic.woff2", weight: "300", style: "italic" },
+		{ path: "../../public/fonts/lato-latin-regular.woff2", weight: "400", style: "normal" },
+		{ path: "../../public/fonts/lato-latin-italic.woff2", weight: "400", style: "italic" },
+		{ path: "../../public/fonts/lato-latin-bold.woff2", weight: "700", style: "normal" },
+		{ path: "../../public/fonts/lato-latin-bold-italic.woff2", weight: "700", style: "italic" },
+	],
 });
 
 export const code = Fira_Code({
