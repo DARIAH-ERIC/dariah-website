@@ -7,14 +7,14 @@ import { Typography } from "@/components/ui/typography/typography";
 export function PilarsSection(): ReactNode {
 	const t = useTranslations("HomePage");
 	return (
-		<section className="px-4 pt-7.75 pb-23 lg:px-30.5">
+		<section className="px-4 pt-7.75 pb-23 2xl:px-30.5">
 			<Typography
 				className="font-heading text-[56px] font-light w-full px-2.5 py-17.5 lg:text-[85px]"
 				variant="h1"
 			>
 				{t("PillarsSection.header")}
 			</Typography>
-			<div className="flex flex-wrap justify-center gap-10 3xl:justify-between">
+			<div className="flex flex-col items-center justify-center gap-10 xl:flex-row 3xl:justify-between">
 				<Pillar
 					description={t("PillarsSection.technology.description")}
 					href="/about/strategy#technology"
