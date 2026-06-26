@@ -20,7 +20,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 	const t = useTranslations("HomePage");
 
 	return (
-		<section className="w-full px-6 py-20 items-center flex flex-col lg:px-26.25 lg:py-22.5">
+		<section className="w-full px-6 py-20 items-center flex flex-col 3xl:px-26.25 3xl:py-22.5">
 			<Typography
 				className="font-heading text-[56px] font-light w-full lg:px-7.25 lg:text-[85px]"
 				variant="h1"
@@ -29,8 +29,8 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 			</Typography>
 			<div className="flex flex-col justify-center gap-6 mt-7.75 lg:flex-row lg:flex-wrap lg:mt-0">
 				<div className="flex flex-col gap-6 items-center">
-					<div className="flex flex-col items-center mt-7.75 lg:flex-wrap lg:flex-row lg:justify-center lg:mt-0 3xl:justify-between">
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
+					<div className="flex flex-col items-center mt-7.75 xl:flex-row lg:justify-center lg:gap-4 lg:mt-0 3xl:justify-between">
+						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
@@ -38,17 +38,20 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								src="/assets/images/DARIAH-EU_Member Countries.gif"
 								width={514}
 							/>
-							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
+							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
+								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
 									{stats.memberCountries}
 								</p>
-								<Typography className="pb-5.5 text-[24px]" variant="h3">
+								<Typography
+									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									variant="h3"
+								>
 									{t("NetworkSection.countries")}
 								</Typography>
 							</div>
 						</div>
 
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
+						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
@@ -56,17 +59,20 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								src="/assets/images/DARIAH-EU_National Partners.gif"
 								width={514}
 							/>
-							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
+							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
+								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
 									{stats.partnerInstitutions}
 								</p>
-								<Typography className="pb-5.5 text-[24px]" variant="h3">
+								<Typography
+									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									variant="h3"
+								>
 									{t("NetworkSection.partnerInstitutions")}
 								</Typography>
 							</div>
 						</div>
 
-						<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
+						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
 								alt="DARIAH Campus Logo"
 								className="size-78"
@@ -74,17 +80,42 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								src="/assets/images/DARIAH-EU_Cooperating Partners.gif"
 								width={514}
 							/>
-							<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
+							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
+								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
 									{stats.cooperatingPartners}
 								</p>
-								<Typography className="pb-5.5 text-[24px]" variant="h3">
+								<Typography
+									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									variant="h3"
+								>
 									{t("NetworkSection.cooperatingPartners")}
 								</Typography>
 							</div>
 						</div>
+						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
+							<Image
+								alt="DARIAH Campus Logo"
+								className="size-78"
+								height={514}
+								src="/assets/images/DARIAH-EU_Working Groups.gif"
+								width={514}
+							/>
+							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
+								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
+									{stats.workingGroups}
+								</p>
+								<Typography
+									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									variant="h3"
+								>
+									{t("NetworkSection.workingGroups")}
+								</Typography>
+							</div>
+						</div>
 					</div>
+				</div>
 
+				<div className="flex gap-6 w-full px-6">
 					<div className="bg-gray-200 w-78 max-w-full py-5 px-6.25 flex justify-center mt-8.75 lg:w-full">
 						<Link
 							href={"/network/members-and-partners"}
@@ -94,28 +125,8 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 							{t("NetworkSection.readMore.membersAndPartners")}
 						</Link>
 					</div>
-				</div>
 
-				<div className="flex flex-col gap-6">
-					<div className="relative w-78 h-111.5 flex justify-center lg:w-102.25 lg:h-125.75">
-						<Image
-							alt="DARIAH Campus Logo"
-							className="size-78"
-							height={514}
-							src="/assets/images/DARIAH-EU_Working Groups.gif"
-							width={514}
-						/>
-						<div className="text-text-link-bg flex items-end gap-7.25 absolute bottom-0 left-1/2 -translate-x-1/2">
-							<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em]">
-								{stats.workingGroups}
-							</p>
-							<Typography className="pb-5.5 text-[24px]" variant="h3">
-								{t("NetworkSection.workingGroups")}
-							</Typography>
-						</div>
-					</div>
-
-					<div className="bg-text-link-bg w-78 max-w-102.25 py-5 px-6.25 flex justify-center mt-8.75 lg:w-102.25">
+					<div className="bg-text-link-bg w-78 max-w-102.25 py-5 px-6.25 flex justify-center mt-8.75 lg:w-127.25">
 						<Link href={"/network/working-groups"} variant="color-bg" withDefaultRightIcon={true}>
 							{t("NetworkSection.readMore.workingGroups")}
 						</Link>

@@ -50,8 +50,8 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	const { imageWidth, imageHeight } = getImageSizeForVariant();
 
 	const containerVariants = {
-		featured: "max-w-full w-188.75 h-147.25",
-		standard: "max-w-full w-90.25 h-123",
+		featured: "max-w-full xl:max-w-[40%] 3xl:max-w-full w-188.75 h-147.25",
+		standard: "max-w-full xl:max-w-[25%] 3xl:max-w-full w-90.25 h-123",
 		"list-item": "max-w-full h-113 w-188.25 lg:h-55 gap-7",
 		"list-headline": "max-w-full max-w-400 h-171.75 lg:h-107.75 relative",
 	};
@@ -108,7 +108,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 			<div
 				className={cn(
 					"flex flex-1 flex-col gap-4 justify-between",
-					!isListVariant && "pt-13 size-full",
+					!isListVariant && "pt-8 size-full 2xl:pt-13",
 					variant === "list-item" && "gap-0! lg:max-h-55",
 					variant === "list-headline" &&
 						"absolute w-full h-119.75 top-[208] left-[24] z-5 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",

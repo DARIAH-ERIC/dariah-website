@@ -24,14 +24,14 @@ export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 	const t = useTranslations("HomePage");
 
 	return (
-		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-6 py-17.5 lg:px-31.5">
+		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-6 py-17.5 3xl:px-31.5">
 			<Typography
 				className="text-white font-heading text-[56px] px-6 font-light w-full lg:text-[85px]"
 				variant="h1"
 			>
 				{t("EventsSection.upcomingEvents")}
 			</Typography>
-			<div className="flex flex-wrap justify-center gap-32.25 w-full 2xl:justify-start">
+			<div className="flex flex-col items-center justify-center gap-6 w-full 3xl:gap-32.25 3xl:justify-start xl:flex-row">
 				{events.map((event) => {
 					const { duration, entity, id, location, title } = event;
 

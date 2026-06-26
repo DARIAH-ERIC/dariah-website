@@ -46,8 +46,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 				<div
 					className={cn(
-						"flex flex-col gap-16",
-						"xl:flex-row xl:gap-63.25 lg:pt-57.5 lg:px-35 lg:pb-35",
+						"flex flex-col gap-16 lg:mx-auto",
+						"2xl:flex-row 2xl:gap-32 3xl:gap-63.25 lg:pt-57.5 lg:px-35 lg:pb-35",
 					)}
 				>
 					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
