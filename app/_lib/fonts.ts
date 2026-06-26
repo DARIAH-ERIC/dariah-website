@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 
 export const body = Roboto({
 	subsets: ["latin", "latin-ext"],
+	style: ["normal", "italic"],
 	variable: "--_font-body",
 });
 
