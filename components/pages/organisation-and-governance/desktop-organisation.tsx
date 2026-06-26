@@ -29,7 +29,7 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 	} = getGovernanceBodiesForDesktop(governanceBodies);
 
 	return (
-		<div className="flex p-12 xl:px-30 2xl:px-78">
+		<div className="flex p-12 xl:px-30 2xl:px-45 3xl:px-78">
 			<div className="w-full max-w-245.25">
 				<div className="flex flex-col items-center w-full">
 					{generalAssembly && (

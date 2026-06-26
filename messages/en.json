@@ -677,14 +677,14 @@
 				"is_chair_of": "Chair of {name}",
 				"is_vice_chair_of": "Vice Chair of {name}",
 				"is_member_of": "Member of {name}",
-				"is_director_of": "Director of {name}",
-				"is_president_of": "President of {name}",
+				"is_director": "DARIAH-EU Director",
+				"is_president": "DARIAH-EU Director, President of the Board",
 				"is_contact_for": "Contact Person for {name}",
-				"national_coordinator": "National Coordinators of {name}",
-				"national_coordinator_deputy": "National Coordinators Committee of {name}",
+				"national_coordinator": "National Coordinator of {name}",
+				"national_coordinator_deputy": "National Coordinator Committee of {name}",
 				"national_coordination_staff": "National Coordination Staff of {name}",
-				"national_representative": "National Representatives of {name}",
-				"national_representative_deputy": "National Representatives Comittee of {name}"
+				"national_representative": "National Representative of {name}",
+				"national_representative_deputy": "National Representative Deputy of {name}"
 			}
 		},
 		"StaticPage": {

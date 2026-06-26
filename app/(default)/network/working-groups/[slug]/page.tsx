@@ -54,7 +54,6 @@ export default async function WorkingGroupPage(
 	const { params, searchParams } = props;
 
 	const t = await getTranslations("WorkingGroupsDetailPage");
-	const personTranslations = await getTranslations("(default).PersonCard");
 
 	const breadcrumbs = navigation().breadcrumbs.workingGroupsDetailPage;
 
@@ -162,23 +161,13 @@ export default async function WorkingGroupPage(
 
 														const { url: imageUrl } = chairImage ?? { url: null };
 
-														const positionNames = position
-															? position.map((positionObj) => {
-																	const { role, name } = positionObj;
-
-																	return personTranslations(`roles.${role}`, {
-																		name,
-																	});
-																})
-															: [];
-
 														return (
 															<PersonCard
 																key={id}
 																href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
 																imageUrl={imageUrl}
 																name={name}
-																position={positionNames.join(", ")}
+																position={position}
 															/>
 														);
 													})}
