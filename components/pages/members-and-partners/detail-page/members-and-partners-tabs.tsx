@@ -19,7 +19,7 @@ import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
-import type { MemberOrPartner, Person } from "@/lib/data/api-client";
+import type { Person } from "@/lib/data/api-client";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
 import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
@@ -56,20 +56,13 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 		nationalRepresentativeInstitution = memberOrPartner.nationalRepresentativeInstitution;
 	}
 
-	const { website, otherSocialMedia } = socialMedia.reduce(
-		(acc, item) => {
-			if (item.type === "website") {
-				acc.website = item;
-			} else {
-				acc.otherSocialMedia.push(item);
-			}
-			return acc;
-		},
-		{
-			website: undefined as MemberOrPartner["socialMedia"][number] | undefined,
-			otherSocialMedia: [] as MemberOrPartner["socialMedia"],
-		},
-	);
+	const website = socialMedia.find((media) => {
+		return media.type === "website";
+	});
+
+	const otherSocialMedia = socialMedia.filter((media) => {
+		return media.id !== website?.id;
+	});
 
 	const grouppedContributors =
 		contributors !== undefined ? getGrouppedPersonMembers(contributors) : undefined;
@@ -81,7 +74,10 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	];
 
 	otherSocialMedia.sort((socialMediaA, socialMediaB) => {
-		return socialMediaA.type.localeCompare(socialMediaB.type);
+		const socialMediaAType = socialMediaA.type === "other" ? "websiteother" : socialMediaA.type;
+		const socialMediaBType = socialMediaB.type === "other" ? "websiteother" : socialMediaB.type;
+
+		return socialMediaAType.localeCompare(socialMediaBType);
 	});
 
 	const handleShowMoreButtonClick = () => {
@@ -152,7 +148,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							</div>
 							<div className="pt-6 flex flex-col gap-2">
 								{nationalCoordinatingInstitution && (
-									<div className="flex gap-1">
+									<div className="flex gap-1 flex-wrap">
 										<Typography className="font-bold" variant="regular">
 											{t("institutions.nationalCoordinatingInstitution")}
 										</Typography>
@@ -162,7 +158,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 									</div>
 								)}
 								{nationalRepresentativeInstitution && (
-									<div className="flex gap-1">
+									<div className="flex gap-1 flex-wrap">
 										<Typography className="font-bold" variant="regular">
 											{t("institutions.nationalRepresentativeInstitution")}
 										</Typography>
@@ -280,7 +276,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 									{nationalCoordinatingInstitution.name}
 								</Typography>
 							))}
-						{institutionsToDisplay.length > 0 ? (
+						{institutionsToDisplay.length > 0 && (
 							<>
 								{institutionsToDisplay.map((institution) => {
 									const { slug, name, website } = institution;
@@ -320,7 +316,8 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 									</Button>
 								)}
 							</>
-						) : (
+						)}
+						{!nationalCoordinatingInstitution && institutionsToDisplay.length <= 0 && (
 							<Typography variant="regular">
 								{isCooperatingPartner
 									? t("empty.cooperatingPartners")
