@@ -43,7 +43,7 @@ export function ResourcesSection(): ReactNode {
 						</Link>
 					</div>
 				</div>
-				<div className="flex flex-col justify-center gap-6 px-1.5 2xl:gap-30.5 xl:flex-row">
+				<div className="flex flex-col items-center justify-center gap-6 px-1.5 2xl:gap-30.5 xl:flex-row">
 					<NavLink className="w-117.25 p-0! block! group" href={"/resources/dariah-campus"}>
 						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image
