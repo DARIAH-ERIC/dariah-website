@@ -56,7 +56,6 @@ export default async function SpotlightArticlePage(
 ): Promise<ReactNode> {
 	const { params, searchParams } = props;
 	const t = await getTranslations("SpotlightArticlesDetailPage");
-	const personTranslations = await getTranslations("(default).PersonCard");
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
@@ -148,23 +147,13 @@ export default async function SpotlightArticlePage(
 
 														const { url: imageUrl } = contributorImage ?? { url: null };
 
-														const positionNames = position
-															? position.map((positionObj) => {
-																	const { role, name } = positionObj;
-
-																	return personTranslations(`roles.${role}`, {
-																		name,
-																	});
-																})
-															: [];
-
 														return (
 															<PersonCard
 																key={id}
 																href={`/spotlights/${slug}?person=${personSlug}#contributors`}
 																imageUrl={imageUrl}
 																name={name}
-																position={positionNames.join(", ")}
+																position={position}
 															/>
 														);
 													})}

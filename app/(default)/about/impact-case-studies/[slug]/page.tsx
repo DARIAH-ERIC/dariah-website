@@ -54,7 +54,6 @@ export default async function ImpactCaseStudyPage(
 ): Promise<ReactNode> {
 	const { params, searchParams } = props;
 	const t = await getTranslations("ImpactCaseStudiesDetailPage");
-	const personTranslations = await getTranslations("(default).PersonCard");
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
@@ -133,23 +132,13 @@ export default async function ImpactCaseStudyPage(
 
 												const { url: imageUrl } = contributorImage ?? { url: null };
 
-												const positionNames = position
-													? position.map((positionObj) => {
-															const { role, name } = positionObj;
-
-															return personTranslations(`roles.${role}`, {
-																name,
-															});
-														})
-													: [];
-
 												return (
 													<PersonCard
 														key={id}
 														href={`/about/impact-case-studies/${slug}?person=${personSlug}#contributors`}
 														imageUrl={imageUrl}
 														name={name}
-														position={positionNames.join(", ")}
+														position={position}
 													/>
 												);
 											})}

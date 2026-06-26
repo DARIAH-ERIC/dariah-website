@@ -53,7 +53,6 @@ export default async function ContactPage({
 	const params = await searchParams;
 	const { selectedBody, selectedUser } = params;
 	const t = await getTranslations("OrganisationAndGovernance");
-	const personTranslations = await getTranslations("(default).PersonCard");
 
 	const response = await client.governanceBodies.list();
 	const breadcrumbs = navigation().breadcrumbs.organisationAndGovernance;
@@ -99,7 +98,7 @@ export default async function ContactPage({
 					{t("title")}
 				</Typography>
 			</div>
-			<div className="py-12 px-4 flex flex-col gap-14 lg:px-34 2xl:px-78">
+			<div className="py-12 px-4 flex flex-col gap-14 lg:px-34 2xl:px-45 3xl:px-78">
 				<Typography variant="h3">{t("description.header")}</Typography>
 				<Typography className="whitespace-pre-line">{t("description.part1")}</Typography>
 			</div>
@@ -119,7 +118,7 @@ export default async function ContactPage({
 					<div className="absolute -top-10" id="userList" />
 					<div
 						className={cn(
-							"w-full px-4 py-3 flex justify-between text-white! lg:px-34 2xl:px-78",
+							"w-full px-4 py-3 flex justify-between text-white! lg:px-34 2xl:px-45 3xl:px-78",
 							selectedBodyBgColor,
 						)}
 					>
@@ -138,7 +137,7 @@ export default async function ContactPage({
 					</div>
 					{selectedPerson === undefined ? (
 						<>
-							<div className="flex flex-col gap-4 py-6 px-4 lg:px-34 2xl:px-78">
+							<div className="flex flex-col gap-4 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
 								<Typography
 									className={cn("border-l-4 pl-4", selectedBodyBorderColor)}
 									variant="regular"
@@ -156,29 +155,20 @@ export default async function ContactPage({
 									})}
 								</Typography>
 							</div>
-							<div className="flex flex-wrap gap-10 py-6 px-4 lg:px-34 2xl:px-78">
+							<div className="flex flex-wrap gap-10 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
 								{usersForSelectedBody.length > 0 &&
 									usersForSelectedBody.map((user) => {
 										const { id, name, position, slug, image: userImage } = user;
 
 										const { url: imageUrl } = userImage ?? { url: null };
 
-										const positionNames = position
-											? position.map((positionObj) => {
-													const { role, name } = positionObj;
-
-													return personTranslations(`roles.${role}`, {
-														name,
-													});
-												})
-											: [];
 										return (
 											<PersonCard
 												key={id}
 												href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}#userList`}
 												imageUrl={imageUrl}
 												name={name}
-												position={positionNames.join(", ")}
+												position={position}
 											/>
 										);
 									})}

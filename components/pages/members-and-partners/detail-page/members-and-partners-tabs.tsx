@@ -33,7 +33,6 @@ interface MembersAndPartnersTabsProps {
 export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsProps>): ReactNode {
 	const [displayAllInstitutions, setDisplayAllInstitutions] = useState(false);
 	const t = useTranslations("MembersAndPartnersDetailPage");
-	const personTranslations = useTranslations("(default).PersonCard");
 
 	const pathname = usePathname();
 
@@ -215,23 +214,13 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 
 																const { url: imageUrl } = contributorImage ?? { url: null };
 
-																const positionNames = position
-																	? position.map((positionObj) => {
-																			const { role, name } = positionObj;
-
-																			return personTranslations(`roles.${role}`, {
-																				name,
-																			});
-																		})
-																	: [];
-
 																return (
 																	<PersonCard
 																		key={id}
 																		href={`${pathname}?person=${slug}#contributors`}
 																		imageUrl={imageUrl}
 																		name={name}
-																		position={positionNames.join(", ")}
+																		position={position}
 																	/>
 																);
 															})}
