@@ -9,9 +9,6 @@ export interface Person {
 			| "is_chair_of"
 			| "is_vice_chair_of"
 			| "is_member_of"
-			| "is_director_of"
-			| "is_president_of"
-			| "is_contact_for"
 			| "national_coordinator"
 			| "national_coordinator_deputy"
 			| "national_representative"
@@ -25,6 +22,7 @@ export interface Person {
 			| "regional_hub"
 			| "eric"
 			| "working_group";
+		description: string | null;
 	}> | null;
 	image: {
 		url: string;
