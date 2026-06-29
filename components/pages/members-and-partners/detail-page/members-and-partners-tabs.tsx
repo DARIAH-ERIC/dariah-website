@@ -71,6 +71,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 		"national_coordinator_deputy",
 		"national_representative",
 		"national_representative_deputy",
+		"national_coordination_staff",
 	];
 
 	otherSocialMedia.sort((socialMediaA, socialMediaB) => {
