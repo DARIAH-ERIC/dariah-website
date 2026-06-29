@@ -46,8 +46,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 				<div
 					className={cn(
-						"flex flex-col gap-16 lg:mx-auto",
-						"2xl:flex-row 2xl:gap-32 3xl:gap-63.25 lg:pt-57.5 lg:px-35 lg:pb-35",
+						"flex flex-col gap-16",
+						"lg:flex-row lg:pt-57.5 lg:px-16 lg:pb-16 2xl:px-35 2xl:pb-35 2xl:gap-32 3xl:gap-63.25",
 					)}
 				>
 					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
@@ -56,7 +56,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						</p>
 						<nav
 							aria-label={t("navigation.label")}
-							className={cn("flex flex-col gap-10 justify-between", "lg:gap-0 lg:flex-row")}
+							className={cn("flex flex-col gap-10 justify-between", "2xl:gap-0 2xl:flex-row")}
 						>
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
 								<Typography className="font-heading text-[18px]" variant="h4">
