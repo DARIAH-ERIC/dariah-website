@@ -195,7 +195,7 @@ export const cacheTags = {
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
-	featuredEntities: "site-metadata",
+	featuredEntities: "featured-entities",
 	fundingCalls: "funding-calls",
 	governanceBodies: "governance-bodies",
 	home: "home",
