@@ -72,7 +72,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 						"[h1]:text-h2",
 						"[h2]:text-h2 [h2]:text-[22px] [h2]:font-medium [h2]:leading-normal [h2]:tracking-normal",
 						"[h4]:text-h4 [h4]:mt-6",
-						"[h3]:text-h3",
+						"[h3]:text-h3 [h3]:mt-4",
 					),
 				},
 			}),
