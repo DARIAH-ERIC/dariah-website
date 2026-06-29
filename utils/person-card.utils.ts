@@ -35,8 +35,8 @@ export const sortUserPosition = (position: Person["position"]): Person["position
 	sortedPosition.push(...filterPosition(position, "is_chair_of", "General assembly"));
 	sortedPosition.push(...filterPosition(position, "is_vice_chair_of", "General assembly"));
 
-	sortedPosition.push(...filterPosition(position, "is_chair_of", "Board of directors"));
 	sortedPosition.push(...filterPosition(position, "is_member_of", "Board of directors"));
+	sortedPosition.push(...filterPosition(position, "is_chair_of", "Board of directors"));
 
 	sortedPosition.push(
 		...filterPosition(position, "is_chair_of", "National coordinators committee"),
@@ -56,10 +56,13 @@ export const sortUserPosition = (position: Person["position"]): Person["position
 	sortedPosition.push(...filterPosition(position, "is_chair_of", "Joint research committee"));
 	sortedPosition.push(...filterPosition(position, "is_vice_chair_of", "Joint research committee"));
 
-	sortedPosition.push(...filterPosition(position, "is_chair_of", undefined, "working_group"));
-	sortedPosition.push(...filterPosition(position, "is_vice_chair_of", undefined, "working_group"));
+	sortedPosition.push(...filterPosition(position, "is_chair_of", "Scientific advisory board"));
+	sortedPosition.push(...filterPosition(position, "is_vice_chair_of", "Scientific advisory board"));
 
 	sortedPosition.push(...filterPosition(position, "is_member_of", "DARIAH coordination office"));
+
+	sortedPosition.push(...filterPosition(position, "is_chair_of", undefined, "working_group"));
+	sortedPosition.push(...filterPosition(position, "is_vice_chair_of", undefined, "working_group"));
 
 	sortedPosition.push(...filterPosition(position, "is_affiliated_with"));
 
