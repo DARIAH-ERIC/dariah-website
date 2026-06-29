@@ -26,20 +26,21 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 
 	const positionNames = sortedPosition
 		? sortedPosition.map((positionObj) => {
-				/*
-				RENAME:
-					1. member of BoD: "DARIAH-EU Director"
-					2. chair of BoD: "DARIAH-EU Director, President of the Board"
-
-				ADD AS DESCRIPTION:
-					1. for members of DCO: {description} (or fall back to "Member of Coordination Office if {description} empty)
-			*/
-				const { role, name, description } = positionObj;
+				const { role, name, description, type } = positionObj;
 
 				if (role === "is_chair_of" && name.toLowerCase() === "board of directors")
 					return t("roles.is_president");
 				if (role === "is_member_of" && name.toLowerCase() === "board of directors")
 					return t("roles.is_director");
+
+				if (role === "is_chair_of" && type === "working_group")
+					return t("roles.is_chair_of_wg", {
+						name,
+					});
+				if (role === "is_vice_chair_of" && type === "working_group")
+					return t("roles.is_vice_chair_of_wg", {
+						name,
+					});
 
 				if (
 					role === "is_member_of" &&
