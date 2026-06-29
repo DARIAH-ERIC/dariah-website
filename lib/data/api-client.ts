@@ -407,7 +407,7 @@ const _governanceBodiesBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.governanceBodies],
+	[cacheTags.governanceBodies, cacheTags.persons],
 	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
 );
 
@@ -573,7 +573,7 @@ const _membersAndPartnersBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.membersAndPartners],
+	[cacheTags.membersAndPartners, cacheTags.persons],
 	{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
 );
 
@@ -910,7 +910,7 @@ const _workingGroupsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.workingGroups],
+	[cacheTags.workingGroups, cacheTags.persons],
 	{ revalidate: 3600, tags: [cacheTags.workingGroups] },
 );
 
@@ -1030,27 +1030,27 @@ export const client = {
 					links: {
 						prev: response.data.links.prev
 							? {
-									...response.data.links.prev,
-									duration: {
-										start: new Date(response.data.links.prev.duration.start),
-										end:
-											response.data.links.prev.duration.end != null
-												? new Date(response.data.links.prev.duration.end)
-												: undefined,
-									},
-								}
+								...response.data.links.prev,
+								duration: {
+									start: new Date(response.data.links.prev.duration.start),
+									end:
+										response.data.links.prev.duration.end != null
+											? new Date(response.data.links.prev.duration.end)
+											: undefined,
+								},
+							}
 							: null,
 						next: response.data.links.next
 							? {
-									...response.data.links.next,
-									duration: {
-										start: new Date(response.data.links.next.duration.start),
-										end:
-											response.data.links.next.duration.end != null
-												? new Date(response.data.links.next.duration.end)
-												: undefined,
-									},
-								}
+								...response.data.links.next,
+								duration: {
+									start: new Date(response.data.links.next.duration.start),
+									end:
+										response.data.links.next.duration.end != null
+											? new Date(response.data.links.next.duration.end)
+											: undefined,
+								},
+							}
 							: null,
 					},
 				},
