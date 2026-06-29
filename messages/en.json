@@ -498,7 +498,8 @@
 				"national_coordinator": "National Coordinator",
 				"national_coordinator_deputy": "National Coordinator Deputy",
 				"national_representative": "National Representative",
-				"national_representative_deputy": "National Representative Deputy"
+				"national_representative_deputy": "National Representative Deputy",
+				"national_coordination_staff": "National Coordination Staff"
 			}
 		},
 		"empty": {
