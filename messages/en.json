@@ -687,7 +687,10 @@
 				"national_coordinator_deputy": "National Coordinator Deputy of {name}",
 				"national_coordination_staff": "National Coordination Staff of {name}",
 				"national_representative": "National Representative of {name}",
-				"national_representative_deputy": "National Representative Deputy of {name}"
+				"national_representative_deputy": "National Representative Deputy of {name}",
+				"capitalized_is_member_of": "Member of <capitalizedSpan>{name}</capitalizedSpan>",
+				"capitalized_is_chair_of": "Chair of <capitalizedSpan>{name}</capitalizedSpan>",
+				"capitalized_is_vice_chair_of": "Vice Chair of <capitalizedSpan>{name}</capitalizedSpan>"
 			}
 		},
 		"StaticPage": {
