@@ -25,7 +25,7 @@ const GOVERNANCE_VARIANTS_BY_SLUG = new Set([
 	"senior-management-team",
 	"dariah-coordination-office",
 	"joint-research-committee",
-	"national-coordinators-committee",
+	"national-coordinator-committee",
 	"working-groups",
 ]);
 

@@ -22,5 +22,5 @@ export type GovernanceBody =
 	| "senior-management-team"
 	| "dariah-coordination-office"
 	| "joint-research-committee"
-	| "national-coordinators-committee"
+	| "national-coordinator-committee"
 	| "working-groups";
