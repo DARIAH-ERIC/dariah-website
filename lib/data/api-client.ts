@@ -408,7 +408,7 @@ const _governanceBodiesBySlug = nextCache(
 		return result.unwrap();
 	},
 	[cacheTags.governanceBodies, cacheTags.persons],
-	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
+	{ revalidate: 3600, tags: [cacheTags.governanceBodies, cacheTags.persons] },
 );
 
 const _governanceBodiesList = nextCache(
@@ -431,7 +431,7 @@ const _governanceBodiesList = nextCache(
 		return result.unwrap();
 	},
 	[cacheTags.governanceBodies, cacheTags.persons],
-	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
+	{ revalidate: 3600, tags: [cacheTags.governanceBodies, cacheTags.persons] },
 );
 
 const _homePageGet = nextCache(
@@ -574,7 +574,7 @@ const _membersAndPartnersBySlug = nextCache(
 		return result.unwrap();
 	},
 	[cacheTags.membersAndPartners, cacheTags.persons],
-	{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
+	{ revalidate: 3600, tags: [cacheTags.membersAndPartners, cacheTags.persons] },
 );
 
 const _membersAndPartnersList = nextCache(
@@ -911,7 +911,7 @@ const _workingGroupsBySlug = nextCache(
 		return result.unwrap();
 	},
 	[cacheTags.workingGroups, cacheTags.persons],
-	{ revalidate: 3600, tags: [cacheTags.workingGroups] },
+	{ revalidate: 3600, tags: [cacheTags.workingGroups, cacheTags.persons] },
 );
 
 const _workingGroupsList = nextCache(
