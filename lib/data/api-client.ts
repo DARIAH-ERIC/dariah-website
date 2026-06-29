@@ -430,7 +430,7 @@ const _governanceBodiesList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.governanceBodies],
+	[cacheTags.governanceBodies, cacheTags.persons],
 	{ revalidate: 3600, tags: [cacheTags.governanceBodies] },
 );
 
