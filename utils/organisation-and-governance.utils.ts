@@ -8,7 +8,7 @@ const GOVERNANCE_VARIANTS_BY_SLUG: Record<GovernanceBody, GovernanceVariants> = 
 	"senior-management-team": "advisory-body",
 	"dariah-coordination-office": "operational-body",
 	"joint-research-committee": "operational-body",
-	"national-coordinators-committee": "operational-body",
+	"national-coordinator-committee": "operational-body",
 	"working-groups": "working-groups",
 };
 
@@ -19,7 +19,7 @@ const GOVERNANCE_RELATIONSHIPS_BY_SLUG: Record<GovernanceBody, Array<Relationshi
 	"senior-management-team": ["advises-bod"],
 	"dariah-coordination-office": ["supports-ncc-and-jrc", "supports-wg"],
 	"joint-research-committee": ["represented-in-smt", "oversees-wg"],
-	"national-coordinators-committee": ["represented-in-smt"],
+	"national-coordinator-committee": ["represented-in-smt"],
 	"working-groups": [],
 };
 
@@ -102,7 +102,7 @@ export const sortGovernanceBodiesForMobile = (
 			return body.entity.slug === "joint-research-committee";
 		}),
 		bodies.find((body) => {
-			return body.entity.slug === "national-coordinators-committee";
+			return body.entity.slug === "national-coordinator-committee";
 		}),
 		bodies.find((body) => {
 			return body.entity.slug === "working-groups";
@@ -131,7 +131,7 @@ export const getGovernanceBodiesForDesktop = (
 			return body.entity.slug === "joint-research-committee";
 		}),
 		nationalComitee: bodies.find((body) => {
-			return body.entity.slug === "national-coordinators-committee";
+			return body.entity.slug === "national-coordinator-committee";
 		}),
 		workingGroup: bodies.find((body) => {
 			return body.entity.slug === "working-groups";
