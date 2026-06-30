@@ -44,7 +44,7 @@ const config: Config = {
 			{ source: "/activities/open-science/dariah-open", destination: "/about/strategy", permanent: true },
 			{ source: "/activities/open-science/data-re-use", destination: "/about/strategy", permanent: true },
 			{ source: "/activities/open-science/openmethods", destination: "/about/strategy", permanent: true },
-			{ source: "/activities/open-science/transformations", destination: "/about/strategy", permanent: true },
+			{ source: "/activities/open-science/transformations", destination: "/resources/transformations", permanent: true },
 			{ source: "/activities/projects-list", destination: "/projects", permanent: true },
 			{ source: "/activities/projects-and-affiliations/:path*", destination: "/projects/:path*", permanent: true },
 			{ source: "/activities/spotlight/:path*", destination: "/spotlights/:path*", permanent: true },
