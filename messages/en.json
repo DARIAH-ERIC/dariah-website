@@ -417,17 +417,10 @@
 		},
 		"chairs": {
 			"groups": {
-				"is_affiliated_with": "Affiliated",
 				"is_chair_of": "Working Group Chairs",
 				"is_vice_chair_of": "Working Group Vice Chairs",
 				"is_member_of": "Working Group Members",
-				"is_director_of": "Working Group Directors",
-				"is_president_of": "Working Group Presidents",
-				"is_contact_for": "Working Group Contact",
-				"national_coordinator": "NWorking Group ational Coordinators",
-				"national_coordinator_deputy": "Working Group National Coordinator Deputies",
-				"national_representative": "Working Group National Representatives",
-				"national_representative_deputy": "Working Group National Representative Deputies"
+				"is_contact_for": "Working Group Contacts"
 			}
 		}
 	},
