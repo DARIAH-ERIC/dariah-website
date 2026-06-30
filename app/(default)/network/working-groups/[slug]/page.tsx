@@ -110,103 +110,105 @@ export default async function WorkingGroupPage(
 					<Link href="/network/working-groups" variant="secondary" withDefaultLeftIcon={true}>
 						{t("browseAll")}
 					</Link>
-					<div className="flex flex-col gap-8">
-						<Typography className="font-medium" variant="h2">
-							{name}
-						</Typography>
-						<div>
-							<ContentBlocks fields={description} />
-						</div>
-					</div>
-					{image != null ? (
-						<Image
-							alt={name}
-							className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
-							height={442}
-							src={image.url}
-							width={789}
-						/>
-					) : null}
-					<div className="flex flex-col gap-10 pt-6 pb-14 relative">
-						<div className="absolute -top-20" id="chairs" />
-						{!selectedPerson ? (
-							grouppedChairsKeys.length > 0 ? (
-								<div className="flex flex-wrap gap-x-23 gap-y-10">
-									{grouppedChairsKeys.map((chairsGroupKey) => {
-										if (
-											grouppedChairs[chairsGroupKey]?.length === 0 ||
-											grouppedChairs[chairsGroupKey] === undefined
-										)
-											return null;
-
-										return (
-											<div key={chairsGroupKey} className="flex flex-col flex-wrap gap-6">
-												<div className="flex flex-col justify-between h-10">
-													<Typography className="font-bold" variant="small">
-														{t(
-															`chairs.groups.${chairsGroupKey as "author" | "editor" | "contributor"}`,
-														)}
-													</Typography>
-													<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
-												</div>
-												<div className="flex flex-wrap justify-between gap-6">
-													{grouppedChairs[chairsGroupKey].map((chair) => {
-														const {
-															id,
-															name,
-															position,
-															image: chairImage,
-															slug: personSlug,
-														} = chair;
-
-														const { url: imageUrl } = chairImage ?? { url: null };
-
-														return (
-															<PersonCard
-																key={id}
-																href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
-																imageUrl={imageUrl}
-																name={name}
-																position={position}
-															/>
-														);
-													})}
-												</div>
-											</div>
-										);
-									})}
-								</div>
-							) : (
-								<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
-							)
-						) : (
-							<div className="flex flex-col flex-wrap gap-10 w-full">
-								<Link
-									href={`/network/working-groups/${slug}#chairs`}
-									variant="primary"
-									withDefaultLeftIcon={true}
-								>
-									{t("groupChars.backToList")}
-								</Link>
-								<PersonCardDetails
-									description={
-										selectedPerson.biography.find((content) => {
-											return content.type === "rich_text";
-										}) as JSONContent
-									}
-									email={selectedPerson.email ?? undefined}
-									imageUrl={selectedPerson.image?.url}
-									name={selectedPerson.name}
-									position={
-										selectedPerson.position
-											?.map((pos) => {
-												return pos.name;
-											})
-											.join(", ") ?? undefined
-									}
-								/>
+					<div className="flex flex-col gap-4">
+						<div className="flex flex-col gap-8">
+							<Typography className="font-medium" variant="h2">
+								{name}
+							</Typography>
+							<div>
+								<ContentBlocks fields={description} />
 							</div>
-						)}
+						</div>
+						{image != null ? (
+							<Image
+								alt={name}
+								className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
+								height={442}
+								src={image.url}
+								width={789}
+							/>
+						) : null}
+						<div className="flex flex-col gap-10 pt-6 pb-14 relative">
+							<div className="absolute -top-20" id="chairs" />
+							{!selectedPerson ? (
+								grouppedChairsKeys.length > 0 ? (
+									<div className="flex flex-wrap gap-x-23 gap-y-10">
+										{grouppedChairsKeys.map((chairsGroupKey) => {
+											if (
+												grouppedChairs[chairsGroupKey]?.length === 0 ||
+												grouppedChairs[chairsGroupKey] === undefined
+											)
+												return null;
+
+											return (
+												<div key={chairsGroupKey} className="flex flex-col flex-wrap gap-6">
+													<div className="flex flex-col justify-between h-10">
+														<Typography className="font-bold" variant="small">
+															{t(
+																`chairs.groups.${chairsGroupKey as "author" | "editor" | "contributor"}`,
+															)}
+														</Typography>
+														<hr className="w-17.5 h-0.5 border-t-2 border-gray-200" />
+													</div>
+													<div className="flex flex-wrap justify-between gap-6">
+														{grouppedChairs[chairsGroupKey].map((chair) => {
+															const {
+																id,
+																name,
+																position,
+																image: chairImage,
+																slug: personSlug,
+															} = chair;
+
+															const { url: imageUrl } = chairImage ?? { url: null };
+
+															return (
+																<PersonCard
+																	key={id}
+																	href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
+																	imageUrl={imageUrl}
+																	name={name}
+																	position={position}
+																/>
+															);
+														})}
+													</div>
+												</div>
+											);
+										})}
+									</div>
+								) : (
+									<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
+								)
+							) : (
+								<div className="flex flex-col flex-wrap gap-10 w-full">
+									<Link
+										href={`/network/working-groups/${slug}#chairs`}
+										variant="primary"
+										withDefaultLeftIcon={true}
+									>
+										{t("groupChars.backToList")}
+									</Link>
+									<PersonCardDetails
+										description={
+											selectedPerson.biography.find((content) => {
+												return content.type === "rich_text";
+											}) as JSONContent
+										}
+										email={selectedPerson.email ?? undefined}
+										imageUrl={selectedPerson.image?.url}
+										name={selectedPerson.name}
+										position={
+											selectedPerson.position
+												?.map((pos) => {
+													return pos.name;
+												})
+												.join(", ") ?? undefined
+										}
+									/>
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
