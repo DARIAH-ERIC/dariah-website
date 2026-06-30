@@ -16,13 +16,13 @@ interface CategoryProps {
 
 export function Category({ name }: Readonly<CategoryProps>): ReactNode {
 	const TYPE_ICONS = {
-		"working-group": <WorkingGroupIcon className="size-5 fill-primary-500" />,
-		opportunity: <OpportunityIcon className="size-5 fill-primary-500" />,
+		working_group: <WorkingGroupIcon className="size-5 fill-primary-500" />,
+		opportunities: <OpportunityIcon className="size-5 fill-primary-500" />,
 		news: <NewsIcon className="size-5 fill-primary-500" />,
-		event: <EventIcon className="size-5 fill-primary-500" />,
-		project: <ProjectIcon className="size-5 fill-primary-500" />,
-		"spotlight-article": <SpotlightArticleIcon className="size-5 fill-primary-500" />,
-		"case-study": <MenuBookIcon className="size-5 fill-primary-500" />,
+		events: <EventIcon className="size-5 fill-primary-500" />,
+		projects: <ProjectIcon className="size-5 fill-primary-500" />,
+		spotlight_articles: <SpotlightArticleIcon className="size-5 fill-primary-500" />,
+		impact_case_studies: <MenuBookIcon className="size-5 fill-primary-500" />,
 		resources: <DatabaseIcon className="size-5 fill-primary-500" />,
 	};
 
@@ -32,7 +32,7 @@ export function Category({ name }: Readonly<CategoryProps>): ReactNode {
 		<div className="flex gap-2">
 			{Object.keys(TYPE_ICONS).includes(name) ? TYPE_ICONS[name as keyof typeof TYPE_ICONS] : null}
 			<Typography className="text-primary-500 text-[14px] font-bold uppercase" variant="small">
-				{name.replaceAll("-", " ")}
+				{name.replaceAll("-", " ").replaceAll("_", " ")}
 			</Typography>
 		</div>
 	);
