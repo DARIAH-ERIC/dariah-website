@@ -65,14 +65,20 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 						class: "[&>li]:ml-2 [&>li>p]:inline [&>li>p]:mt-0! list-disc list-inside",
 					},
 				},
+				horizontalRule: {
+					HTMLAttributes: {
+						class: "mt-4",
+					},
+				},
 			}),
 			ExtendedHeading.configure({
 				HTMLAttributes: {
 					class: cn(
 						"[h1]:text-h2",
-						"[h2]:text-h2 [h2]:text-[22px] [h2]:font-medium [h2]:leading-normal [h2]:tracking-normal",
-						"[h4]:text-h4 [h4]:mt-6",
+						"[h2]:text-h2 [h2]:text-[2rem] [h2]:font-medium [h2]:leading-normal [h2]:tracking-normal [h2]:mt-4",
 						"[h3]:text-h3 [h3]:mt-4",
+						"[h4]:text-h4 [h4]:mt-6",
+						"[hr]:mt-2",
 					),
 				},
 			}),

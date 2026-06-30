@@ -67,7 +67,7 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 
 			case "image": {
 				return (
-					<figure key={index} className="flex flex-col gap-7">
+					<figure key={index} className="flex flex-col gap-7 py-4">
 						<Image alt={field.caption ?? ""} height={900} src={field.image.url} width={1600} />
 						{field.caption !== null && (
 							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
