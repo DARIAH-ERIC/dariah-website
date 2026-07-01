@@ -58,7 +58,24 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "embed": {
-				return null;
+				return (
+					<figure key={index} className="flex flex-col gap-7 py-4">
+						<iframe
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowFullScreen={true}
+							className="max-w-full max-h-900 aspect-video"
+							referrerPolicy="strict-origin-when-cross-origin"
+							// eslint-disable-next-line @eslint-react/dom/no-unsafe-iframe-sandbox
+							sandbox="allow-scripts allow-same-origin"
+							src={field.url}
+							title={field.caption ?? "Embedded content"}
+							width="1600"
+						></iframe>
+						{field.caption !== null && (
+							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
+						)}
+					</figure>
+				);
 			}
 
 			case "hero": {
@@ -68,7 +85,7 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			case "image": {
 				return (
 					<figure key={index} className="flex flex-col gap-7 py-4">
-						<Image alt={field.caption ?? ""} height={900} src={field.image.url} width={1600} />
+						<Image alt={field.caption ?? "Image"} height={900} src={field.image.url} width={1600} />
 						{field.caption !== null && (
 							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
 						)}
