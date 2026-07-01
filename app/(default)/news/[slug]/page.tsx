@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
+import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { NewsCard } from "@/components/ui/news-card/news-card";
 import { RelatedContent } from "@/components/ui/related-content/related-content";
@@ -100,7 +101,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							/>
 							{image.caption !== null && (
 								<figcaption className="text-small text-gray-900">
-									{image.caption}. {image.license?.name}
+									<RichTextCaption content={image.caption} />. {image.license?.name}
 								</figcaption>
 							)}
 						</figure>

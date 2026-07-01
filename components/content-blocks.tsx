@@ -6,42 +6,11 @@ import type { ReactNode } from "react";
 
 import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
+import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
+import type { components } from "@/lib/api/types";
 
 interface ContentBlocksProps {
-	fields: Array<
-		| {
-				type: "rich_text";
-				content: unknown;
-		  }
-		| {
-				type: "embed";
-				url: string;
-				caption: string | null;
-		  }
-		| {
-				type: "image";
-				image: {
-					url: string;
-				};
-				caption: string | null;
-		  }
-		| {
-				type: "data";
-				dataType: "events" | "news";
-				limit: number | null;
-		  }
-		| {
-				type: "hero";
-				title: string;
-				eyebrow: string | null;
-				image: { url: string } | null;
-				ctas: Array<{ label: string; url: string }> | null;
-		  }
-		| {
-				type: "accordion";
-				items: Array<{ title: string; content?: unknown }>;
-		  }
-	>;
+	fields: components["schemas"]["Page"]["content"];
 }
 
 export function ContentBlocks(props: ContentBlocksProps): ReactNode {
@@ -58,6 +27,8 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "embed": {
+				const caption = getRichTextPlainText(field.caption);
+
 				return (
 					<figure key={index} className="flex flex-col gap-7 py-4">
 						<iframe
@@ -68,11 +39,13 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 							// eslint-disable-next-line @eslint-react/dom/no-unsafe-iframe-sandbox
 							sandbox="allow-scripts allow-same-origin"
 							src={field.url}
-							title={field.caption ?? "Embedded content"}
+							title={caption || "Embedded content"}
 							width="1600"
 						></iframe>
 						{field.caption !== null && (
-							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
+							<figcaption className="text-small text-gray-900">
+								<RichTextCaption content={field.caption} />
+							</figcaption>
 						)}
 					</figure>
 				);
@@ -83,11 +56,20 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "image": {
+				const caption = getRichTextPlainText(field.caption);
+
 				return (
 					<figure key={index} className="flex flex-col gap-7 py-4">
-						<Image alt={field.caption ?? "Image"} height={900} src={field.image.url} width={1600} />
+						<Image
+							alt={field.image.alt ?? (caption || "Image")}
+							height={900}
+							src={field.image.url}
+							width={1600}
+						/>
 						{field.caption !== null && (
-							<figcaption className="text-small text-gray-900">{field.caption}</figcaption>
+							<figcaption className="text-small text-gray-900">
+								<RichTextCaption content={field.caption} />
+							</figcaption>
 						)}
 					</figure>
 				);
