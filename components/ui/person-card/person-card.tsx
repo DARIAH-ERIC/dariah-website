@@ -63,7 +63,13 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 					);
 
 				if (role === "is_member_of" && name.toLowerCase() === "dariah coordination office") {
-					if (description !== null) return description;
+					if (description !== null)
+						return (
+							<Fragment key={`${role}_${name}_${type}`}>
+								{description}
+								{index < sortedPosition.length - 1 && ", "}
+							</Fragment>
+						);
 
 					return (
 						<Fragment key={`${role}_${name}_${type}`}>

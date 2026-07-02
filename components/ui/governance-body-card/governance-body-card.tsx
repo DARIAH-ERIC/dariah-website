@@ -61,7 +61,7 @@ export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): Re
 					<div className="flex flex-wrap gap-x-2 justify-between items-center">
 						<div className="flex gap-2">
 							<Typography className={text}>{getNameAcronym(name)}</Typography>
-							<Typography>{name}</Typography>
+							<Typography className="capitalize">{name}</Typography>
 						</div>
 						<div className="flex gap-2 py-2 items-center">
 							<UsersIcon className="size-5 fill-primary" />

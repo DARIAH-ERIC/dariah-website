@@ -13,6 +13,7 @@ import { LineIcon } from "@/components/ui/icons/line";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { convertDateToCalendarDate } from "@/utils/event-calendar.utils";
 import { parseDateToRangeString } from "@/utils/event-page.utils";
 
 interface EventsSearchParams {
@@ -47,9 +48,13 @@ export default async function EventsPage({
 
 	const t = await getTranslations("EventsPage");
 	const format = await getFormatter();
+	const dateParam =
+		date !== undefined && date !== ""
+			? convertDateToCalendarDate(new Date(date))
+			: convertDateToCalendarDate(new Date());
 
 	const response = await client.events.list({
-		from: date,
+		from: dateParam.toString(),
 		offset: DEFAULT_PER_PAGE * (Number.parseInt(page) - 1),
 	});
 	const breadcrumbs = navigation().breadcrumbs.events;

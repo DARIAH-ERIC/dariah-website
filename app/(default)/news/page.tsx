@@ -112,10 +112,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 
 			<div className="flex flex-col px-4 gap-14 lg:px-34">
 				<Typography variant="h2">{t("title")}</Typography>
-				<ul
-					className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-1 2xl:gap-x-35.5 2xl:grid-cols-2"
-					role="list"
-				>
+				<ul className="grid grid-cols-1 gap-16 md:grid-cols-2 2xl:gap-x-35.5" role="list">
 					{listItems.map((item) => {
 						const { entity, image, publishedAt, summary, title } = item;
 						const { slug } = entity;

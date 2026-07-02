@@ -13,7 +13,7 @@ export function TabList<T extends object>(props: Readonly<TabListProps<T>>): Rea
 		<RACTabList
 			{...props}
 			className={composeRenderProps(className, (className, renderProps) => {
-				return cn("flex px-4 border-b border-b-gray-200 lg:px-40", className, {
+				return cn("flex px-4 border-b border-b-gray-200 xl:px-10 3xl:px-40", className, {
 					...renderProps,
 				});
 			})}

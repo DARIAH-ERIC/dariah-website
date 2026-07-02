@@ -29,7 +29,7 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 				sortFacetValuesBy={"source_updated_at"}
 			/>
 			<SearchErrorBoundary fallback={<SearchError />}>
-				<div className="flex flex-col gap-14 p-4 lg:px-32.5">
+				<div className="flex flex-col gap-14 p-4 lg:px-16 3xl:px-32.5">
 					<Typography variant="h4">{t("discover")}</Typography>
 					<Hits hitComponent={Hit} />
 				</div>

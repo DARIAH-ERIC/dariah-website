@@ -24,7 +24,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"bg-gray-100 shadow-standard rounded-sm group flex-col justify-end w-96.25 h-98.25 max-w-full",
+				"bg-gray-100 shadow-standard rounded-sm group flex-col justify-end w-96.25 h-98.25 max-w-full xl:w-80 xl:h-82 2xl:w-96.25 2xl:h-98.25",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
 			)}
@@ -33,7 +33,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			{imageUrl != null ? (
 				<Image
 					alt={title}
-					className="w-82 h-62.25 object-contain sm:w-96.25"
+					className="w-82 h-62.25 object-contain xl:w-64 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25"
 					height={249}
 					src={imageUrl}
 					width={385}
