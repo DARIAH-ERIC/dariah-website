@@ -47,7 +47,7 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 		>
 			<Configure hitsPerPage={12} />
 			<SearchErrorBoundary fallback={<SearchError />}>
-				<div className="flex-col px-4 gap-16 w-full flex xl:px-40">
+				<div className="flex-col px-4 gap-16 w-full flex xl:px-20 3xl:px-40">
 					<div className="flex flex-col gap-14 pt-8">
 						{breadcrumbs.length > 0 && (
 							<Breadcrumbs>
@@ -60,7 +60,7 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 								})}
 							</Breadcrumbs>
 						)}
-						<div className="flex flex-col gap-12 lg:gap-7 xl:px-39">
+						<div className="flex flex-col gap-12 lg:gap-7 xl:px-19 3xl:px-39">
 							<div className="flex flex-col gap-7">
 								<Typography className="font-heading text-[45px] font-light" variant="h1">
 									{t("title")}

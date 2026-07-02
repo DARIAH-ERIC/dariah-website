@@ -21,7 +21,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 		<NavLink
 			className={cn(
 				"group pt-6 pl-6 rounded-[5px] bg-gray-100 shadow-standard flex-col w-82 h-106 justify-between items-start",
-				"lg:flex-row lg:gap-6 lg:w-179.5 lg:h-71.5",
+				"2xl:flex-row 2xl:w-179.5 2xl:h-71.5 3xl:gap-6 lg:size-110 xl:size-120",
 				"hover:bg-primary-100",
 				"focus:outline-accent-800 focus:outline-4 focus:bg-primary-100",
 			)}
@@ -37,7 +37,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 					</Typography>
 					<Typography
 						className={cn(
-							"line-clamp-2 text-[18px] lg:line-clamp-4",
+							"line-clamp-2 text-[18px] 2xl:line-clamp-4",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}
@@ -52,7 +52,10 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 			</div>
 			<Image
 				alt={title}
-				className={cn("w-76 h-44.75 shadow-spotlight-image rounded-t-sm", "lg:w-105.5 lg:h-65.5")}
+				className={cn(
+					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm",
+					"lg:w-90 lg:h-48 xl:w-100 xl:h-54 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",
+				)}
 				height={262}
 				src={imageUrl}
 				width={422}

@@ -3,10 +3,9 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { WorkingGroupsTabs } from "@/components/pages/working-groups/working-groups-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
-import { Link } from "@/components/ui/link/link";
-import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
@@ -32,7 +31,6 @@ export default async function WorkingGroupsPage(
 ): Promise<ReactNode> {
 	const { searchParams } = props;
 	const { status = "active" } = await searchParams;
-	const t = await getTranslations("WorkingGroupsPage");
 
 	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
 
@@ -40,13 +38,18 @@ export default async function WorkingGroupsPage(
 		status: parsedStatus,
 		limit: 50,
 	});
+	const staticContentResponse = await client.pages.bySlug({ slug: "working-groups-list" });
 	const breadcrumbs = navigation().breadcrumbs.workingGroups;
 
 	const { data: items } = response.data;
 
+	const {
+		data: { content },
+	} = staticContentResponse;
+
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 xl:gap-0">
-			<div className="flex flex-col gap-12 px-4 py-8 lg:px-31">
+			<div className="flex flex-col gap-12 px-4 py-8 xl:px-12 2xl:px-31">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -58,31 +61,8 @@ export default async function WorkingGroupsPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography variant="h2">{t("title")}</Typography>
-				<div className="flex flex-col items-center gap-y-12 gap-x-14 xl:items-start xl:flex-row">
-					<Typography
-						className="max-w-full w-196 text-[22px] whitespace-pre-line"
-						variant="regular"
-					>
-						{t("description")}
-					</Typography>
-					<div className="flex flex-col max-w-full w-196 gap-2.5 p-8 bg-primary-100 h-fit md:gap-4 md:p-10">
-						<Typography className="text-[20px]" variant="h4">
-							{t("contact-information.title")}
-						</Typography>
-						<div className="flex flex-wrap">
-							<Typography as={"span"} variant="regular">
-								{t("contact-information.description.part1")}
-								<Link className="inline" href="/" variant="paragraph">
-									{t("contact-information.description.link1")}
-								</Link>
-								{t("contact-information.description.part2")}
-								<Link className="inline" href="/" variant="paragraph">
-									{t("contact-information.description.link2")}
-								</Link>
-							</Typography>
-						</div>
-					</div>
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+					<ContentBlocks fields={content} />
 				</div>
 			</div>
 			<WorkingGroupsTabs items={items} status={parsedStatus} />

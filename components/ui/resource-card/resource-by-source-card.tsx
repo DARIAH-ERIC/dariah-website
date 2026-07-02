@@ -41,7 +41,7 @@ export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactN
 		<div
 			className={cn(
 				"bg-gray-100 rounded-[5px] flex flex-col justify-between p-6 shadow-light",
-				"h-103.5 w-82 xl:w-129",
+				"h-103.5 w-82 xl:w-95 2xl:w-115 3xl:w-129",
 			)}
 		>
 			<div className="flex flex-1 flex-col gap-5">

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { CaseStudy } from "@/components/ui/case-study/case-study";
 import { Pagination } from "@/components/ui/pagination/pagination";
@@ -39,10 +40,15 @@ export default async function ImpactCaseStudiesPage(
 		limit: Number(per_page),
 		offset: (Number(page) - 1) * Number(per_page),
 	});
+	const staticContentResponse = await client.pages.bySlug({ slug: "impact-case-studies" });
 	const breadcrumbs = navigation().breadcrumbs.impactCaseStudy;
 
 	const { data: items, total } = response.data;
 	const grouppedItems = groupCaseStudiesByYear(items);
+
+	const {
+		data: { content },
+	} = staticContentResponse;
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8">
@@ -58,21 +64,8 @@ export default async function ImpactCaseStudiesPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="flex flex-col gap-12.25 lg:px-12.25">
-					<Typography className="text-[45px] font-light" variant="h2">
-						{t("title")}
-					</Typography>
-					<div className="flex flex-col gap-23.25 justify-between lg:flex-row">
-						<Typography className="text-[22px] lg:max-w-[50%]" variant="regular">
-							{t("description.part1")}
-						</Typography>
-						<Typography
-							className="text-[22px] whitespace-pre-line lg:max-w-[50%]"
-							variant="regular"
-						>
-							{t("description.part2")}
-						</Typography>
-					</div>
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+					<ContentBlocks fields={content} />
 				</div>
 			</div>
 			<div className="flex flex-col gap-18.75 pb-11">
@@ -88,7 +81,7 @@ export default async function ImpactCaseStudiesPage(
 										{t("sectionText")}
 									</Typography>
 								</div>
-								<ul className="flex gap-5 flex-wrap justify-center 3xl:justify-start">
+								<ul className="grid gap-5 mx-auto md:grid-cols-2 xl:grid-cols-3">
 									{items.map((item) => {
 										const { entity, image, title } = item;
 										const { slug } = entity;

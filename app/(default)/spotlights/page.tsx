@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { SpotlightCard } from "@/components/ui/spotlight-card/spotlight-card";
 import { Typography } from "@/components/ui/typography/typography";
@@ -28,9 +29,14 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const t = await getTranslations("SpotlightArticlesPage");
 
 	const response = await client.spotlightArticles.list();
+	const staticContentResponse = await client.pages.bySlug({ slug: "spotlights" });
 	const breadcrumbs = navigation().breadcrumbs.spotlightArticles;
 
 	const { data: items } = response.data;
+
+	const {
+		data: { content },
+	} = staticContentResponse;
 
 	return (
 		<Main className="container relative flex flex-1 flex-col pb-16 gap-16 xl:pb-40 xl:gap-12 md:px-8">
@@ -47,28 +53,15 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="flex p-2.5 flex-col gap-12 xl:gap-11 xl:mx-6">
-					<Typography variant="h2">{t("title")}</Typography>
-					<div className="flex flex-col gap-12 xl:gap-6">
-						<Typography className="text-[22px] font-medium" variant="regular">
-							{t("description.part1")}
-						</Typography>
-						<div className="flex flex-col gap-12 xl:gap-20 xl:flex-row">
-							<Typography className="text-[19px] max-w-175" variant="regular">
-								{t("description.part2")}
-							</Typography>
-							<Typography className="text-[19px] max-w-175" variant="regular">
-								{t("description.part3")}
-							</Typography>
-						</div>
-					</div>
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+					<ContentBlocks fields={content} />
 				</div>
 			</div>
-			<div className="flex flex-col gap-10 px-4 lg:px-35.5">
+			<div className="flex flex-col gap-10 px-4 3xl:px-35.5">
 				<Typography variant="h3">{t("subtitle")}</Typography>
 				{items.length > 0 ? (
 					<ul
-						className="flex flex-wrap justify-center gap-14 pt-10 bg-gray-100 lg:gap-x-30 2xl:justify-start"
+						className="grid gap-14 pt-10 mx-auto bg-gray-100 md:grid-cols-2 2xl:gap-x-20 3xl:gap-x-30"
 						role="list"
 					>
 						{items.map((item) => {

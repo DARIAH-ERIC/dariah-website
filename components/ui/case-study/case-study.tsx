@@ -20,7 +20,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"bg-white shadow-standard items-start rounded-sm group flex-col w-82 h-100 lg:h-113.75 lg:w-133.75",
+				"bg-white shadow-standard items-start rounded-sm group flex-col w-82 h-100 3xl:h-113.75 3xl:w-133.75",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
 			)}
@@ -28,7 +28,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 		>
 			<Image
 				alt={title}
-				className="w-82 h-64.5 object-contain lg:w-133.75 lg:h-78.25"
+				className="w-82 h-64.5 object-contain 3xl:w-133.75 3xl:h-78.25"
 				height={313}
 				src={imageUrl}
 				width={535}

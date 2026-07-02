@@ -43,7 +43,7 @@ export function Hits(
 	}
 
 	return (
-		<ul className="list-none flex flex-row justify-center flex-wrap gap-x-12 gap-y-14 max-w-full">
+		<ul className="list-none grid gap-x-12 gap-y-14 max-w-full xl:gap-x-8 xl:gap-y-10 xl:grid-cols-3 2xl:gap-x-12 2xl:gap-y-14">
 			{items.map((hit) => {
 				return <Component key={hit.objectID} hit={hit} />;
 			})}

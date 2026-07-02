@@ -20,7 +20,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"w-80 h-108 group shadow-light bg-white rounded-sm flex-col md:w-96.25 md:h-124.5",
+				"w-80 h-108 group shadow-light bg-white rounded-sm flex-col xl:w-70 xl:h-96 2xl:w-80 2xl:h-108 3xl:w-96.25 3xl:h-124.5",
 				"hover:shadow-standard",
 				"focus:shadow-standard focus:outline-accent-800 focus:outline-4",
 			)}

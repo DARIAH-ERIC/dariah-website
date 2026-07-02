@@ -76,7 +76,7 @@ export default async function ImpactCaseStudyPage(
 		<Main className="container flex flex-1 flex-col gap-14">
 			<div className="flex flex-col gap-14 pt-8">
 				{breadcrumbs.length > 0 && (
-					<Breadcrumbs className="px-4 lg:px-34.5">
+					<Breadcrumbs className="px-4 xl:px-34.5">
 						{breadcrumbs.map(({ label, href }) => {
 							return (
 								<Breadcrumb key={label} className="w-fit" href={href}>
@@ -87,24 +87,30 @@ export default async function ImpactCaseStudyPage(
 						<Breadcrumb>{slug.replaceAll("-", " ")}</Breadcrumb>
 					</Breadcrumbs>
 				)}
-				<Typography className="px-4 lg:px-60 xl:px-98.5" variant="h2">
+				<Typography className="px-4 xl:px-60 3xl:px-98.5" variant="h2">
 					{title}
 				</Typography>
 			</div>
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-7">
-					<Image alt={image.alt ?? title} height={621} src={image.url} width={1920} />
+					<Image
+						alt={image.alt ?? title}
+						className="w-480 h-125 object-contain"
+						height={621}
+						src={image.url}
+						width={1920}
+					/>
 					{image.caption !== null && (
 						<figcaption className="text-small text-gray-900">
 							<RichTextCaption content={image.caption} />. {image.license?.name}
 						</figcaption>
 					)}
 				</figure>
-				<div className="px-4 lg:px-62 xl:px-102.5">
+				<div className="px-4 xl:px-62 3xl:px-102.5">
 					<ContentBlocks fields={content} />
 				</div>
 			</div>
-			<div className="flex flex-col gap-10 pb-14 relative px-4 lg:px-62 xl:px-102.5">
+			<div className="flex flex-col gap-10 pb-14 relative px-4 xl:px-62 3xl:px-102.5">
 				<div className="absolute -top-20" id="contributors" />
 				<Typography variant="h4">{t("contributors.title")}</Typography>
 				{!selectedPerson ? (

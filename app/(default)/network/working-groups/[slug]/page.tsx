@@ -1,3 +1,4 @@
+import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -14,6 +15,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
 import { getGrouppedPersonMembers, mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface WorkingGroupPageProps extends PageProps<"/network/working-groups/[slug]"> {}
@@ -67,13 +69,26 @@ export default async function WorkingGroupPage(
 			? await client.persons.bySlug({ slug: person })
 			: {};
 
-	const { name, image, description, relatedEntities, relatedResources, chairs, socialMedia } =
-		response.data;
+	const {
+		name,
+		image,
+		description,
+		relatedEntities,
+		relatedResources,
+		chairs,
+		socialMedia,
+		email,
+		mailingList,
+	} = response.data;
 
 	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
 	const website = socialMedia.find((media) => {
 		return media.type === "website";
+	});
+
+	const otherSocialMedia = socialMedia.filter((media) => {
+		return media.id !== website?.id;
 	});
 
 	const grouppedChairs = getGrouppedPersonMembers(chairs);
@@ -90,6 +105,27 @@ export default async function WorkingGroupPage(
 		"national_representative",
 		"national_representative_deputy",
 	];
+
+	const getContactInfo = (): { contactHref: string; contactLabel: string } => {
+		if (email !== null && email !== "") {
+			return { contactHref: `mailto:${email}`, contactLabel: email };
+		}
+
+		if (mailingList !== null && mailingList !== "")
+			try {
+				new URL(mailingList);
+				return { contactHref: mailingList, contactLabel: t("mailingList") };
+			} catch {
+				return { contactHref: `mailto:${mailingList}`, contactLabel: mailingList };
+			}
+
+		return { contactHref: "", contactLabel: "" };
+	};
+
+	const hasMailOrMailingList =
+		(email !== null && email !== "") || (mailingList !== null && mailingList !== "");
+
+	const { contactHref, contactLabel } = getContactInfo();
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 2xl:px-30">
@@ -115,8 +151,51 @@ export default async function WorkingGroupPage(
 							<Typography className="font-medium" variant="h2">
 								{name}
 							</Typography>
-							<div>
-								<ContentBlocks fields={description} />
+							<div className="flex flex-col gap-2">
+								{(hasMailOrMailingList || otherSocialMedia.length > 0) && (
+									<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
+										{hasMailOrMailingList && (
+											<div className="flex gap-2 items-center">
+												<Typography variant="regular">{t("contact")}</Typography>
+												<Link href={contactHref} variant="paragraph">
+													{contactLabel}
+												</Link>
+											</div>
+										)}
+										{otherSocialMedia.length > 0 && (
+											<div className="flex gap-4 items-center">
+												<Typography variant="regular">{t("visitSocialMedia")}</Typography>
+												<div className="flex gap-4 items-center flex-wrap">
+													{otherSocialMedia.map((item) => {
+														const { type, url, name } = item;
+														const Icon = socialMediaConfig[type].icon;
+														return (
+															<Link
+																key={url}
+																aria-label={name}
+																className="group focus:border-b-2 focus:py-1.5"
+																href={url}
+																target="_blank"
+															>
+																<Icon
+																	className={cn(
+																		"size-5",
+																		type !== "website" && type !== "other"
+																			? "fill-gray-700 group-hover:fill-primary"
+																			: "stroke-gray-700 group-hover:stroke-primary",
+																	)}
+																/>
+															</Link>
+														);
+													})}
+												</div>
+											</div>
+										)}
+									</div>
+								)}
+								<div>
+									<ContentBlocks fields={description} />
+								</div>
 							</div>
 						</div>
 						{image != null ? (
