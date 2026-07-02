@@ -430,8 +430,8 @@ const _governanceBodiesList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.governanceBodies, cacheTags.persons],
-	{ revalidate: 3600, tags: [cacheTags.governanceBodies, cacheTags.persons] },
+	[cacheTags.governanceBodies, cacheTags.persons, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.governanceBodies, cacheTags.persons, cacheTags.pages] },
 );
 
 const _homePageGet = nextCache(
@@ -548,8 +548,8 @@ const _impactCaseStudiesList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.impactCaseStudies],
-	{ revalidate: 3600, tags: [cacheTags.impactCaseStudies] },
+	[cacheTags.impactCaseStudies, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.impactCaseStudies, cacheTags.pages] },
 );
 
 const _membersAndPartnersBySlug = nextCache(
@@ -596,8 +596,8 @@ const _membersAndPartnersList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.membersAndPartners],
-	{ revalidate: 3600, tags: [cacheTags.membersAndPartners] },
+	[cacheTags.membersAndPartners, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.membersAndPartners, cacheTags.pages] },
 );
 
 const _newsBySlug = nextCache(
@@ -837,8 +837,8 @@ const _projectsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.dariahProjects],
-	{ revalidate: 3600, tags: [cacheTags.dariahProjects] },
+	[cacheTags.dariahProjects, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.dariahProjects, cacheTags.pages] },
 );
 
 const _spotlightArticlesBySlug = nextCache(
@@ -885,8 +885,8 @@ const _spotlightArticlesList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.spotlightArticles],
-	{ revalidate: 3600, tags: [cacheTags.spotlightArticles] },
+	[cacheTags.spotlightArticles, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.spotlightArticles, cacheTags.pages] },
 );
 
 const _workingGroupsBySlug = nextCache(
@@ -934,8 +934,8 @@ const _workingGroupsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.workingGroups],
-	{ revalidate: 3600, tags: [cacheTags.workingGroups] },
+	[cacheTags.workingGroups, cacheTags.pages],
+	{ revalidate: 3600, tags: [cacheTags.workingGroups, cacheTags.pages] },
 );
 
 export const client = {
