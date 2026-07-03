@@ -33,7 +33,9 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 			/>
 			<div className="flex flex-col gap-2 px-4">
 				<Typography variant="h5">{name}</Typography>
-				<Typography variant="regular">{position}</Typography>
+				<Typography className="capitalize" variant="regular">
+					{position}
+				</Typography>
 				{email !== undefined && (
 					<Link
 						href={`mailto:${email}`}

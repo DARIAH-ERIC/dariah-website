@@ -35,10 +35,10 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 				</Tab>
 			</TabList>
 			<TabPanels>
-				<TabPanel id="active">
+				<TabPanel className="bg-gray-100" id="active">
 					{items.length > 0 ? (
 						<ul
-							className="grid justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
+							className="grid justify-center gap-5 pt-10 pb-20 px-4 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
 							role="list"
 						>
 							{items.map((item) => {
@@ -55,10 +55,10 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 						</div>
 					)}
 				</TabPanel>
-				<TabPanel id="inactive">
+				<TabPanel className="bg-gray-100" id="inactive">
 					{items.length > 0 ? (
 						<ul
-							className="grid justify-center gap-5 pt-10 pb-20 px-4 bg-gray-100 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
+							className="grid justify-center gap-5 pt-10 pb-20 px-4 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
 							role="list"
 						>
 							{items.map((item) => {

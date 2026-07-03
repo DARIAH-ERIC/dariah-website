@@ -33,13 +33,13 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			{imageUrl != null ? (
 				<Image
 					alt={title}
-					className="w-82 h-62.25 object-contain xl:w-64 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25"
+					className="w-96.25 h-62.25 bg-white object-contain xl:w-80 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25 3xl:w-96.25"
 					height={249}
 					src={imageUrl}
 					width={385}
 				/>
 			) : null}
-			<div className="flex gap-2 p-4 flex-col w-full">
+			<div className="flex gap-2 p-4 flex-col w-full flex-1">
 				<div className="flex justify-between">
 					<div className="flex gap-2 items-center">
 						<MenuBookIcon

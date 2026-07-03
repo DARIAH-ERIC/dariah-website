@@ -49,7 +49,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				link: {
 					HTMLAttributes: {
-						class: cn(linkStyles({ variant: "paragraph" }), "inline"),
+						class: cn(linkStyles({ variant: "paragraph" }), "inline break-all"),
 					},
 				},
 				blockquote: {

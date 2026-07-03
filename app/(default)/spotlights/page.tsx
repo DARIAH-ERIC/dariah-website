@@ -61,7 +61,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 				<Typography variant="h3">{t("subtitle")}</Typography>
 				{items.length > 0 ? (
 					<ul
-						className="grid gap-14 pt-10 mx-auto bg-gray-100 md:grid-cols-2 2xl:gap-x-20 3xl:gap-x-30"
+						className="grid gap-14 pt-10 mx-auto md:grid-cols-2 2xl:gap-x-20 3xl:gap-x-30"
 						role="list"
 					>
 						{items.map((item) => {
