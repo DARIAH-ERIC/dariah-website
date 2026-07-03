@@ -22,6 +22,10 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				return null;
 			}
 
+			case "callout": {
+				return null;
+			}
+
 			case "data": {
 				return null;
 			}
