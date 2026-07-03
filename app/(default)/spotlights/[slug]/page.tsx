@@ -78,8 +78,8 @@ export default async function SpotlightArticlePage(
 	const grouppedContributorsKeys = Object.keys(grouppedContributors);
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
-			<div className="flex flex-col gap-10 lg:flex-row lg:gap-33.5">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 2xl:px-30">
+			<div className="flex flex-col gap-10 lg:flex-row 2xl:gap-33.5">
 				<div className="flex flex-col gap-10 max-w-full lg:w-265">
 					{breadcrumbs.length > 0 && (
 						<Breadcrumbs>
@@ -116,7 +116,7 @@ export default async function SpotlightArticlePage(
 							</figcaption>
 						)}
 					</figure>
-					<div>
+					<div className="flex-1">
 						<ContentBlocks fields={content} />
 					</div>
 					<div className="flex flex-col gap-10 pt-6 pb-9 relative">
