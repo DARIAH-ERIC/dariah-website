@@ -228,7 +228,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -241,7 +240,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -255,7 +253,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/get-involved",
 				label: "Get involved",
 			},
 			{
@@ -268,7 +265,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/get-involved",
 				label: "Get involved",
 			},
 			{
@@ -282,7 +278,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/about",
 				label: "About",
 			},
 			{
@@ -296,7 +291,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "about",
 			},
 			{
@@ -309,7 +303,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "about",
 			},
 			{
@@ -323,7 +316,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -336,7 +328,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -350,7 +341,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -363,7 +353,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -418,7 +407,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -431,7 +419,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "news and events",
 			},
 			{
@@ -445,7 +432,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -458,7 +444,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -473,7 +458,6 @@ export function navigation() {
 					label: "home",
 				},
 				{
-					href: "/",
 					label: "resources",
 				},
 				{
@@ -504,13 +488,24 @@ export function navigation() {
 				},
 			] satisfies Array<ResourceCatalogueFilter>,
 		},
+		dariahInANutshell: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "About",
+			},
+			{
+				label: "DARIAH in a Nutshell",
+			},
+		],
 		documentsAndPolicies: [
 			{
 				href: "/",
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "About",
 			},
 			{
@@ -536,7 +531,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -549,7 +543,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "network",
 			},
 			{
@@ -562,7 +555,6 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "News and Events",
 			},
 			{

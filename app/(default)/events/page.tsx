@@ -95,12 +95,15 @@ export default async function EventsPage({
 			<div className="flex flex-col pt-10 gap-12 items-center max-w-full w-332.5 pl-0.5 px-4">
 				<EventPagination
 					currentPage={page}
+					dateParam={date}
 					hasNextEvents={hasNextEvents}
 					hasPrevEvents={hasPrevEvents}
 				/>
-				<div className="flex h-full gap-2.5 max-w-full">
-					<LineIcon className="stroke-gray-300 w-3" />
-					<div className="flex flex-col gap-10 max-w-full">
+				<div className="flex h-full relative gap-2.5 max-w-full">
+					<div className="absolute top-0 left-0 h-full flex flex-col gap-2.5 items-stretch overflow-hidden">
+						<LineIcon className="stroke-gray-300 w-3 h-full" />
+					</div>
+					<div className="flex flex-col gap-10 max-w-full ml-5.5">
 						{total > 0 ? (
 							Object.entries(itemsByStartDate).map(([startDate, events]) => {
 								return (
@@ -143,6 +146,7 @@ export default async function EventsPage({
 				</div>
 				<EventPagination
 					currentPage={page}
+					dateParam={date}
 					hasNextEvents={hasNextEvents}
 					hasPrevEvents={hasPrevEvents}
 				/>

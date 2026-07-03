@@ -74,10 +74,13 @@ export default async function ImpactCaseStudiesPage(
 						return (
 							<div key={year} className="flex flex-col gap-10 px-4 lg:px-31">
 								<div className="flex gap-2.5 items-end">
-									<Typography className="text-[64px] leading-[100%] font-light" variant="h3">
+									<Typography
+										className="text-[64px] text-case-study-year leading-[100%] font-light"
+										variant="h3"
+									>
 										{year}
 									</Typography>
-									<Typography className="font-light uppercase" variant="h3">
+									<Typography className="font-light uppercase text-gray-700" variant="h3">
 										{t("sectionText")}
 									</Typography>
 								</div>

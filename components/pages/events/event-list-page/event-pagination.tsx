@@ -10,10 +10,11 @@ interface EventPaginationProps {
 	hasPrevEvents: boolean;
 	hasNextEvents: boolean;
 	currentPage: string;
+	dateParam?: string;
 }
 
 export function EventPagination(props: Readonly<EventPaginationProps>): ReactNode {
-	const { hasPrevEvents, hasNextEvents, currentPage } = props;
+	const { hasPrevEvents, hasNextEvents, currentPage, dateParam } = props;
 	const t = useTranslations("EventsPage");
 
 	const prevPageNumber = Number.parseInt(currentPage) - 1;
@@ -27,14 +28,17 @@ export function EventPagination(props: Readonly<EventPaginationProps>): ReactNod
 			)}
 		>
 			{hasPrevEvents && (
-				<Link href={`/events?page=${prevPageNumber.toString()}`} withDefaultLeftIcon={true}>
+				<Link
+					href={`/events?page=${prevPageNumber.toString()}${dateParam !== undefined ? `&date=${dateParam}` : ""}`}
+					withDefaultLeftIcon={true}
+				>
 					{t("previous-events")}
 				</Link>
 			)}
 			{hasNextEvents && (
 				<Link
 					className="[&>span]:text-end"
-					href={`/events?page=${nextPageNumber.toString()}`}
+					href={`/events?page=${nextPageNumber.toString()}${dateParam !== undefined ? `&date=${dateParam}` : ""}`}
 					withDefaultRightIcon={true}
 				>
 					{t("next-events")}
