@@ -23,7 +23,7 @@ export function Breadcrumbs<T extends object>(props: Readonly<BreadcrumbsProps<T
 export function Breadcrumb(
 	props: Readonly<BreadcrumbProps & Omit<LinkProps, "className">>,
 ): ReactNode {
-	const { id, className } = props;
+	const { id, className, href } = props;
 	return (
 		<AriaBreadcrumb
 			className={composeRenderProps(className, (className) => {
@@ -34,7 +34,11 @@ export function Breadcrumb(
 			{({ isCurrent }) => {
 				return (
 					<>
-						<Link variant={isCurrent ? "breadcrumb-current" : "tertiary"} {...props} />
+						<Link
+							isDisabled={href === undefined}
+							variant={isCurrent ? "breadcrumb-current" : "tertiary"}
+							{...props}
+						/>
 						{!isCurrent && <BreadcrumbsSeparator />}
 					</>
 				);

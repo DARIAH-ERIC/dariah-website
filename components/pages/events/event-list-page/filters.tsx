@@ -60,6 +60,8 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 		if (date.toString() !== currentDate) params.set("date", date.toString());
 		else params.delete("date");
 
+		params.delete("page");
+
 		router.push(`${pathname}?${params.toString()}`, { scroll: false });
 	};
 

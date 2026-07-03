@@ -93,6 +93,7 @@
 
 	--event-bg-calendar: rgb(193 205 224 / 24%);
 
+	--case-study-year: rgb(65 118 133);
 	--case-study-gradient-start: rgb(95 121 111);
 	--case-study-gradient-end: rgb(0 87 143);
 	--case-study-gradient: linear-gradient(
@@ -228,6 +229,8 @@
 	--color-case-study-gradient: var(--case-study-gradient);
 
 	--color-map-pin: var(--map-pin);
+
+	--color-case-study-year: var(--case-study-year);
 
 	--color-governance-body-card-hover-bg: var(--governance-body-card-hover-bg);
 	--color-governance-body-card-focus-bg: var(--governance-body-card-focus-bg);

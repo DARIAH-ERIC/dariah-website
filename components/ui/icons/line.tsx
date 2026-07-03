@@ -18,6 +18,7 @@ export function LineIcon(props: Readonly<SvgProps>): ReactNode {
 				fill={fill}
 				stroke={stroke}
 				strokeDasharray="8 8"
+				vectorEffect="non-scaling-stroke"
 				x1="0.5"
 				x2="0.499911"
 				y1="2.18557e-08"
