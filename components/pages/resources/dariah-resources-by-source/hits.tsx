@@ -7,14 +7,14 @@ import { Typography } from "@/components/ui/typography/typography";
 import type { ResourceCollectionDocument } from "@/lib/search/schema";
 
 export function Hit({ hit }: Readonly<{ hit: ResourceCollectionDocument }>): ReactNode {
-	const { label, description, type, links } = hit;
+	const { label, description, type, links, source_url: sourceUrl } = hit;
 	const kind = type === "tool-or-service" ? hit.kind : undefined;
 
 	return (
 		<ResourceCard
 			description={description}
 			resourceCategory={type}
-			resourceUrl={links[0]}
+			resourceUrl={links[0] ?? sourceUrl}
 			serviceType={kind}
 			title={label}
 			variant="by-source"
