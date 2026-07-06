@@ -10,11 +10,11 @@ import { Typography } from "@/components/ui/typography/typography";
 const typeConfiguration = {
 	service: {
 		bgColor: "bg-in-text-link",
-		text: "tool or service",
+		text: "service",
 	},
 	software: {
 		bgColor: "bg-in-text-link",
-		text: "tool or service",
+		text: "software",
 	},
 	"training-material": {
 		bgColor: "bg-resource-training-material",
