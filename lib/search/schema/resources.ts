@@ -92,25 +92,25 @@ export interface SearchCollectionItem {
 	source: string;
 	source_id: string;
 	type:
-	| "country"
-	| "document-or-policy"
-	| "event"
-	| "funding-call"
-	| "impact-case-study"
-	| "institution"
-	| "national-consortium"
-	| "news-item"
-	| "opportunity"
-	| "page"
-	| "person"
-	| "project"
-	| "spotlight-article"
-	| "working-group"
-	| "publication"
-	| "service"
-	| "software"
-	| "training-material"
-	| "workflow";
+		| "country"
+		| "document-or-policy"
+		| "event"
+		| "funding-call"
+		| "impact-case-study"
+		| "institution"
+		| "national-consortium"
+		| "news-item"
+		| "opportunity"
+		| "page"
+		| "person"
+		| "project"
+		| "spotlight-article"
+		| "working-group"
+		| "publication"
+		| "service"
+		| "software"
+		| "training-material"
+		| "workflow";
 	imported_at: number;
 	source_updated_at: number;
 }
