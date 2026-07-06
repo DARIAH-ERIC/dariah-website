@@ -61,7 +61,7 @@ export default async function WorkingGroupsPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+				<div className="grid grid-cols-2 gap-x-4 2xl:gap-x-14 [&>:not(aside)]:col-start-1 [&>aside]:col-start-2 [&>aside]:row-start-2 [&>aside]:row-span-4">
 					<ContentBlocks fields={content} />
 				</div>
 			</div>

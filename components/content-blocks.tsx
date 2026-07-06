@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
+import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 
 interface ContentBlocksProps {
@@ -23,7 +24,15 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "callout": {
-				return null;
+				return (
+					<aside
+						key={index}
+						className="flex flex-col gap-2.5 p-10 bg-primary-100 float-right size-fit max-w-199"
+					>
+						<Typography variant="h5">{field.title}</Typography>
+						<RichText content={field.content as JSONContent} />
+					</aside>
+				);
 			}
 
 			case "data": {
