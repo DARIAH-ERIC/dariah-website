@@ -74,7 +74,7 @@ export default async function DariahResourceCataloguePage(
 
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Link
-					href="/resources/dariah-resource-catalogue"
+					href="https://transformations.episciences.org/en"
 					variant="color-bg"
 					withDefaultRightIcon={true}
 				>
