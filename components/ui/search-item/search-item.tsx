@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { DatabaseIcon } from "@/components/ui/icons/database";
@@ -63,8 +64,18 @@ const RESOURCE_TYPES = new Set([
 	"workflow",
 ]);
 
+const RESOURCES_WITH_DISPLAYED_DATE = new Set([
+	"news-item",
+	"event",
+	"impact-case-study",
+	"spotlight-article",
+	"page",
+]);
+
 export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 	const { type, date, title, description, href } = props;
+
+	const t = useTranslations("SearchPage");
 
 	const getDisplayedType = () => {
 		if (RESOURCE_TYPES.has(type)) {
@@ -75,6 +86,8 @@ export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 	};
 
 	const displayedType = getDisplayedType() as keyof typeof TYPE_ICONS;
+
+	const shouldDisplayDate = RESOURCES_WITH_DISPLAYED_DATE.has(type);
 
 	return (
 		<NavLink
@@ -93,10 +106,10 @@ export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 							className="text-primary-500 text-[14px] font-bold uppercase"
 							variant="small"
 						>
-							{displayedType.replaceAll("-", " ")}
+							{t(`categories.${type}`)}
 						</Typography>
 					</div>
-					{date && (
+					{date && shouldDisplayDate && (
 						<Typography className="text-gray-800" variant="small">
 							{getFormattedDateForItem(date)}
 						</Typography>

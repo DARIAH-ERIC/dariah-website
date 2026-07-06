@@ -578,7 +578,7 @@
 			"impact-case-study": "Impact Case Study",
 			"institution": "Institution",
 			"national-consortium": "National Consortium",
-			"news-item": "News Item",
+			"news-item": "News",
 			"opportunity": "Opportunity",
 			"page": "Page",
 			"person": "Person",
@@ -589,7 +589,8 @@
 			"service": "Service",
 			"software": "Software",
 			"training-material": "Training Material",
-			"workflow": "Workflow"
+			"workflow": "Workflow",
+			"resources": "Resource"
 		},
 		"category": {
 			"label": "Category",

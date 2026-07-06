@@ -3,11 +3,12 @@ import { getTranslations } from "next-intl/server";
 import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
-import { Typography } from "@/components/ui/typography/typography";
+import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
 
@@ -32,7 +33,12 @@ export default async function DariahResourceCataloguePage(
 	_props: Readonly<DariahResourceCataloguePageProps>,
 ): Promise<ReactNode> {
 	const t = await getTranslations("SSHMarketplaceResourcesPage");
+	const staticContentResponse = await client.pages.bySlug({ slug: "ssh-open-marketplace" });
 	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+
+	const {
+		data: { content },
+	} = staticContentResponse;
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
@@ -50,12 +56,8 @@ export default async function DariahResourceCataloguePage(
 							})}
 						</Breadcrumbs>
 					)}
-					<div className="flex flex-col gap-12 items-center">
-						<Typography className="font-medium w-full" variant="h2">
-							{t("title")}
-						</Typography>
-						<Image alt="SSH open marketplace Logo" className="w-82 md:hidden" src={logoSshoc} />
-						<Typography variant="regular">{t("description")}</Typography>
+					<div>
+						<ContentBlocks fields={content} />
 					</div>
 				</div>
 				<Image
