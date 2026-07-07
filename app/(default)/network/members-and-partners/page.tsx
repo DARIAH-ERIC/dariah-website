@@ -38,7 +38,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 xl:gap-0">
-			<div className="flex flex-col gap-12 px-4 py-8 lg:px-31">
+			<div className="flex flex-col gap-12 px-4 py-8 xl:px-31 2xl:pb-15">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -50,7 +50,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="lg:grid lg:grid-cols-2 lg:grid-rows-3 lg:grid-flow-col lg:gap-x-23.5 lg:[&>*:first-child]:col-span-2 lg:[&>*:last-child]:col-start-2 lg:[&>*:last-child]:row-start-2 lg:[&>*:last-child]:row-span-2 2xl:mr-22.5 [&>*:first-child]:mb-8">
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
 					<ContentBlocks fields={content} />
 				</div>
 			</div>

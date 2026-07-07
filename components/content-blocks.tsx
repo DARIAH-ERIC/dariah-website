@@ -27,9 +27,11 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				return (
 					<aside
 						key={index}
-						className="flex flex-col gap-2.5 p-10 bg-primary-100 float-right size-fit max-w-199"
+						className="flex flex-col gap-2.5 p-10 bg-primary-100 mt-4 *:first:mt-0!"
 					>
-						<Typography variant="h5">{field.title}</Typography>
+						{field.title !== "" && field.title !== null && (
+							<Typography variant="h5">{field.title}</Typography>
+						)}
 						<RichText content={field.content as JSONContent} />
 					</aside>
 				);

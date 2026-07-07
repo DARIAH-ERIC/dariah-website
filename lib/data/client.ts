@@ -451,6 +451,42 @@ export function navigation() {
 				label: "working groups",
 			},
 		],
+		dariahCampus: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "DARIAH-CAMPUS",
+			},
+		],
+		transformations: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "Transformation: A DARIAH Journal",
+			},
+		],
+		sshOpenMarketplace: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "SSH Open Marketplace",
+			},
+		],
 		dariahResourceCatalogue: {
 			breadcrumbs: [
 				{

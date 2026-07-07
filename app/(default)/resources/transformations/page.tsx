@@ -36,7 +36,7 @@ export default async function DariahResourceCataloguePage(
 	const staticContentResponse = await client.pages.bySlug({
 		slug: "transformation-a-dariah-journal",
 	});
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.transformations;
 
 	const {
 		data: { content },

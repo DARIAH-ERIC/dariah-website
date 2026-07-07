@@ -60,14 +60,18 @@
 		"ResourcesSection": {
 			"title": "Our Resources",
 			"description": {
-				"header": "Resources Catalogue",
-				"content": "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resources Catalogue to discover the richness that DARIAH have to offer.",
+				"header": "Resource Catalogue",
+				"content": "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resource Catalogue to discover the richness that DARIAH has to offer.",
 				"button": "Browse Catalogue"
 			},
 			"dariahCampus": "DARIAH-CAMPUS is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education.",
 			"transformations": "Transformations: A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities.",
 			"sshOpenMarketplace": "SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research.",
-			"explore": "Explore last publication"
+			"explore": {
+				"campus": "Explore DARIAH-Campus",
+				"transformations": "Explore Transformations",
+				"sshOpenMarketplace": "Explore SSH Open Marketplace"
+			}
 		},
 		"NetworkSection": {
 			"title": "Our Network",
@@ -629,7 +633,10 @@
 						"subscriptionFailed": "Subscription failed. Please try again later."
 					}
 				},
-				"cc": "Creative Commons Attribution (CC BY) licence"
+				"cc": {
+					"part1": "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with ",
+					"part2": "DARIAH's Open Access Policy."
+				}
 			},
 			"navigation-social-media": {
 				"followUs": "Follow us",

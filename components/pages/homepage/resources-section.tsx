@@ -66,7 +66,7 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.campus")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>
@@ -94,7 +94,7 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.transformations")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>
@@ -118,7 +118,7 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.sshOpenMarketplace")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>
