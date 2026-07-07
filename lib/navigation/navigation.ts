@@ -34,4 +34,7 @@ export type NavigationItem =
 	| NavigationSeparator
 	| NavigationMenu;
 
+export type NavigationFooterItem = NavigationMenu;
+
 export type NavigationConfig = Record<string, NavigationItem>;
+export type NavigationFooterConfig = Record<string, NavigationFooterItem>;

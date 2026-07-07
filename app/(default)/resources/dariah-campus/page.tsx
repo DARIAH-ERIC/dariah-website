@@ -34,7 +34,7 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("DariahCampusResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({ slug: "dariah-campus" });
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.dariahCampus;
 
 	const {
 		data: { content },

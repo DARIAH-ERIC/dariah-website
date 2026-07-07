@@ -1,3 +1,4 @@
+import { assert } from "@acdh-oeaw/lib";
 import cn from "clsx/lite";
 import { getTranslations } from "next-intl/server";
 import type { ComponentProps, ReactNode } from "react";
@@ -9,11 +10,17 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
-import { navigation } from "@/lib/data/client";
+import { client } from "@/lib/data/api-client";
 import { getMetadata } from "@/lib/i18n/metadata";
+import { convertNavigationMenu } from "@/lib/navigation/convert";
+import type {
+	NavigationFooterConfig,
+	NavigationLink,
+	NavigationMenu,
+} from "@/lib/navigation/navigation";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
+import logoCC from "@/public/assets/images/cc.svg";
 import logoDariah from "@/public/assets/images/logo-dariah-eu.svg";
-import logoEu from "@/public/assets/images/logo-eu.svg";
 
 interface FooterProps extends ComponentProps<"footer"> {}
 
@@ -23,14 +30,39 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 	const t = await getTranslations("(default).Footer");
 	const meta = await getMetadata();
 
-	const { secondary } = navigation();
+	const response = await client.navigation.get();
+	const navigation = response.data.find((menu) => {
+		return menu.name === "secondary";
+	});
+	assert(navigation != null, "Missing primary navigation.");
+
+	const contact = navigation.items.find((item) => {
+		return item.label === "Contact DARIAH";
+	});
+	const otherItems: NavigationFooterConfig = convertNavigationMenu(
+		navigation.items.filter((item) => {
+			return item.label !== "Contact DARIAH";
+		}),
+	) as NavigationFooterConfig;
+
+	const secondary: { home: NavigationLink; contact: NavigationMenu } = {
+		home: {
+			type: "link",
+			label: t("navigation.items.home"),
+			href: "/",
+		},
+		contact: {
+			type: "menu",
+			label: contact ? contact.label : "Contact Dariah",
+		},
+	};
 
 	return (
 		<footer
 			{...rest}
 			className={cn("border-t border-stroke-weak shadow-footer z-10 bg-white", className)}
 		>
-			<div className={cn("px-6 py-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
+			<div className={cn("pt-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
 				<NavLink
 					aria-label={secondary.home.label}
 					className="lg:absolute lg:top-14.5 lg:left-17"
@@ -46,8 +78,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 				<div
 					className={cn(
-						"flex flex-col gap-16",
-						"lg:flex-row lg:pt-57.5 lg:px-16 lg:pb-16 2xl:px-35 2xl:pb-35 2xl:gap-32 3xl:gap-63.25",
+						"flex flex-col gap-16 px-6",
+						"lg:flex-row lg:pt-57.5 lg:px-16 2xl:px-35 2xl:gap-32 3xl:gap-63.25",
 					)}
 				>
 					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
@@ -62,61 +94,49 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 								<Typography className="font-heading text-[18px]" variant="h4">
 									{secondary.contact.label}
 								</Typography>
-								<p className="flex gap-2 text-primary">
-									<EmailIcon className="stroke-primary fill-transparent" />
+								<Link
+									className="text-primary! font-regular! p-0! [&>span]:flex! [&>span]:items-center [&>span]:gap-2! [&>span]:text-small"
+									href={`mailto:${t("navigation.email")}`}
+									startIcon={<EmailIcon className="stroke-primary! fill-transparent! size-4!" />}
+								>
 									{t("navigation.email")}
-								</p>
+								</Link>
 							</div>
 
-							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading text-[18px]" variant="h4">
-									{secondary.privacy.label}
-								</Typography>
-								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(secondary.privacy.children).map(([id, link]) => {
-										if (id === "home") {
-											return null;
-										}
+							{Object.entries(otherItems).map(([id, item]) => {
+								return (
+									<div key={id} className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
+										<Typography className="font-heading text-[18px]" variant="h4">
+											{item.label}
+										</Typography>
+										<ul
+											className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75"
+											role="list"
+										>
+											{item.children &&
+												Object.entries(item.children).map(([id, link]) => {
+													if (id === "home") {
+														return null;
+													}
 
-										return (
-											<li key={id} className="w-58.25">
-												<Link
-													href={link.href}
-													startIcon={<ChevronForwardIcon />}
-													variant="secondary"
-												>
-													{link.label}
-												</Link>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
+													if (link.type !== "link") return;
 
-							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading text-[18px]" variant="h4">
-									{secondary["quick-menu"].label}
-								</Typography>
-								<ul className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75" role="list">
-									{Object.entries(secondary["quick-menu"].children).map(([id, link]) => {
-										if (id === "home") {
-											return null;
-										}
-
-										return (
-											<li key={id} className="w-58.25">
-												<Link
-													href={link.href}
-													startIcon={<ChevronForwardIcon />}
-													variant="secondary"
-												>
-													{link.label}
-												</Link>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
+													return (
+														<li key={id} className="w-58.25">
+															<Link
+																href={link.href}
+																startIcon={<ChevronForwardIcon />}
+																variant="secondary"
+															>
+																{link.label}
+															</Link>
+														</li>
+													);
+												})}
+										</ul>
+									</div>
+								);
+							})}
 						</nav>
 					</div>
 					<div className="flex flex-col gap-y-8 lg:max-w-154">
@@ -149,9 +169,23 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					</div>
 				</div>
 
-				<div className={cn("py-6 px-0 flex gap-2.5 items-center", "lg:pt-3 lg:pb-13 lg:px-34.5")}>
-					<Image alt="" className="w-13.75 h-9.25" src={logoEu} />
-					{t("navigation.cc")}
+				<div
+					className={cn(
+						"pt-6 px-6 h-14 flex gap-2 items-center bg-primary text-white",
+						"xl:pt-0 xl:px-10",
+					)}
+				>
+					<Image alt="" className="size-5" src={logoCC} />
+					<Typography variant="small">
+						{t("navigation.cc.part1")}
+						<Link
+							className="inline underline hover:text-accent-100!"
+							href="https://shs.hal.science/halshs-02106332/document"
+							variant="color-bg"
+						>
+							{t("navigation.cc.part2")}
+						</Link>
+					</Typography>
 				</div>
 			</div>
 		</footer>

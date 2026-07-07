@@ -34,7 +34,7 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("SSHMarketplaceResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({ slug: "ssh-open-marketplace" });
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.sshOpenMarketplace;
 
 	const {
 		data: { content },

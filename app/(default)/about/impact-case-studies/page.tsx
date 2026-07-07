@@ -64,7 +64,7 @@ export default async function ImpactCaseStudiesPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
 					<ContentBlocks fields={content} />
 				</div>
 			</div>
