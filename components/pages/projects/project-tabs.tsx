@@ -27,10 +27,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 				<Tab href={selectedKey === "inactive" ? "/projects" : undefined} id="active">
 					{t("tabs.active")}
 				</Tab>
-				<Tab
-					href={selectedKey !== "inactive" ? "/projects?status=inactive" : undefined}
-					id="inactive"
-				>
+				<Tab href={selectedKey !== "inactive" ? "/projects?status=past" : undefined} id="inactive">
 					{t("tabs.past")}
 				</Tab>
 			</TabList>

@@ -32,7 +32,10 @@ export default async function WorkingGroupsPage(
 	const { searchParams } = props;
 	const { status = "active" } = await searchParams;
 
-	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
+	const parsedStatus =
+		status.toString() === "past"
+			? "inactive"
+			: (status.toString() as "active" | "inactive" | undefined);
 
 	const response = await client.workingGroups.list({
 		status: parsedStatus,
