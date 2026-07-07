@@ -28,7 +28,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 					{t("tabs.active")}
 				</Tab>
 				<Tab
-					href={selectedKey !== "inactive" ? "/network/working-groups?status=inactive" : undefined}
+					href={selectedKey !== "inactive" ? "/network/working-groups?status=past" : undefined}
 					id="inactive"
 				>
 					{t("tabs.past")}
