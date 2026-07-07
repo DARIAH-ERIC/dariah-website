@@ -73,7 +73,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							className="grid justify-center gap-5 pt-10 pb-20 px-4 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
 							role="list"
 						>
-							{items.toReversed().map((item) => {
+							{items.map((item) => {
 								const { duration, entity, image, name, role } = item;
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
