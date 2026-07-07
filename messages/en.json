@@ -280,7 +280,8 @@
 			"title": "Newsletters"
 		},
 		"title": "Newsletters",
-		"previewText": "View Newsletter"
+		"previewText": "View Newsletter",
+		"emptyState": "No newsletters found."
 	},
 	"NewssDetailPage": {
 		"relatedContent": {
