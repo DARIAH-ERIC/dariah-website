@@ -50,6 +50,9 @@ export function createInstantClient(query_by: string): SearchClient {
 			"dariah-resources": {
 				sort_by: "source_updated_at:desc",
 			},
+			"dariah-website": {
+				sort_by: "source_updated_at:desc",
+			},
 		},
 	});
 

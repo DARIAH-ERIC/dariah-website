@@ -50,7 +50,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
+				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 *:first:mt-0! [&>h1:first-child]:pb-12 [&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
 					<ContentBlocks fields={content} />
 				</div>
 			</div>
