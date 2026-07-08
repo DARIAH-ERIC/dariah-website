@@ -3,9 +3,9 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { ProjectTabs } from "@/components/pages/projects/project-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
@@ -62,9 +62,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 *:first:mt-0! [&>h1:first-child]:pb-12 [&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} />
 			</div>
 			<ProjectTabs items={items} status={parsedStatus} />
 		</Main>
