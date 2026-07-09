@@ -45,7 +45,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -62,7 +62,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} />
+				<ListDescription content={content} title={title} />
 			</div>
 			<ProjectTabs items={items} status={parsedStatus} />
 		</Main>

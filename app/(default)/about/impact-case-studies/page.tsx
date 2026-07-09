@@ -47,7 +47,7 @@ export default async function ImpactCaseStudiesPage(
 	const grouppedItems = groupCaseStudiesByYear(items);
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -64,7 +64,7 @@ export default async function ImpactCaseStudiesPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} />
+				<ListDescription content={content} title={title} />
 			</div>
 			<div className="flex flex-col gap-18.75 pb-11">
 				{grouppedItems.length > 0 ? (

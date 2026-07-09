@@ -47,7 +47,7 @@ export default async function WorkingGroupsPage(
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -64,7 +64,7 @@ export default async function WorkingGroupsPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} />
+				<ListDescription content={content} title={title} />
 			</div>
 			<WorkingGroupsTabs items={items} status={parsedStatus} />
 		</Main>
