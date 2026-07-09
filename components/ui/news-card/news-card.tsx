@@ -18,10 +18,11 @@ interface NewsCardProps {
 	linkUrl: string;
 	date: Date;
 	variant: "featured" | "standard" | "list-item" | "list-headline";
+	className?: string;
 }
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
-	const { variant, title, description, imageUrl, linkUrl, date } = props;
+	const { variant, title, description, imageUrl, linkUrl, date, className } = props;
 	const t = useTranslations("NewsPage");
 
 	const getImageSizeForVariant = () => {
@@ -71,6 +72,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				!isListVariant && "gap-0",
 				variant === "list-headline" && "lg:flex-row",
 				variant === "list-item" && "2xl:flex-row",
+				className,
 			)}
 			href={linkUrl}
 		>
