@@ -63,7 +63,7 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 						<Typography variant="h2">{t("title")}</Typography>
 						<div className="flex w-full justify-between items-end gap-8">
 							<SearchBox />
-							<MenuSelect attribute="type" />
+							<MenuSelect attribute="type" limit={20} />
 						</div>
 						<Hits hitComponent={Hit} />
 					</div>
