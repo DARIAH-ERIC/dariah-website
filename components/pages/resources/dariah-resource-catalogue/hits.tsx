@@ -14,7 +14,7 @@ export function Hit({ hit }: Readonly<{ hit: ResourceCollectionDocument }>): Rea
 		<ResourceCard
 			description={description}
 			resourceCategory={type}
-			resourceUrl={links[0] ?? sourceUrl}
+			resourceUrl={type === "workflow" ? sourceUrl : (links[0] ?? sourceUrl)}
 			serviceType={kind}
 			title={label}
 		/>
