@@ -39,7 +39,7 @@ export default async function DariahResourceCataloguePage(
 	const breadcrumbs = navigation().breadcrumbs.transformations;
 
 	const {
-		data: { content },
+		data: { content, image },
 	} = staticContentResponse;
 
 	return (
@@ -63,9 +63,9 @@ export default async function DariahResourceCataloguePage(
 					</div>
 				</div>
 				<Image
-					alt="SSH open marketplace Logo"
+					alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
 					className="hidden w-108.5 md:block"
-					src={logoDariahTransformations}
+					src={image?.url ?? logoDariahTransformations}
 				/>
 			</div>
 			<Suspense>

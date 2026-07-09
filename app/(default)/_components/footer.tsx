@@ -60,7 +60,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 	return (
 		<footer
 			{...rest}
-			className={cn("border-t border-stroke-weak shadow-footer z-10 bg-white", className)}
+			className={cn("border-t border-stroke-weak shadow-footer z-9 bg-white", className)}
 		>
 			<div className={cn("pt-14 flex flex-col gap-16", "lg:max-w-480 lg:mx-auto lg:relative")}>
 				<NavLink
@@ -171,8 +171,8 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 
 				<div
 					className={cn(
-						"pt-6 px-6 h-14 flex gap-2 items-center bg-primary text-white",
-						"xl:pt-0 xl:px-10",
+						"py-2 px-6 h-fit flex gap-2 items-center bg-primary text-white md:h-16 xl:h-14",
+						"xl:py-0 xl:px-10",
 					)}
 				>
 					<Image alt="" className="size-5" src={logoCC} />

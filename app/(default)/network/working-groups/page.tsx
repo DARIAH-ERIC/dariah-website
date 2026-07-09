@@ -3,9 +3,9 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { WorkingGroupsTabs } from "@/components/pages/working-groups/working-groups-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
@@ -64,9 +64,7 @@ export default async function WorkingGroupsPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="grid grid-cols-2 gap-x-4 xl:gap-x-12 2xl:gap-x-14 [&>h1:first-child]:pb-8 [&>aside]:size-fit [&>aside]:col-start-2 [&>aside]:row-start-2 [&>aside]:row-span-4 [&>:not(aside)]:col-start-1">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} />
 			</div>
 			<WorkingGroupsTabs items={items} status={parsedStatus} />
 		</Main>

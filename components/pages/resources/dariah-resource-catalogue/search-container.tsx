@@ -47,7 +47,7 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 		>
 			<Configure hitsPerPage={12} />
 			<SearchErrorBoundary fallback={<SearchError />}>
-				<div className="flex-col px-4 gap-16 w-full flex xl:px-20 3xl:px-40">
+				<div className="flex-col px-4 gap-16 w-full z-1 flex xl:px-20 3xl:px-40">
 					<div className="flex flex-col gap-14 pt-8">
 						{breadcrumbs.length > 0 && (
 							<Breadcrumbs>
