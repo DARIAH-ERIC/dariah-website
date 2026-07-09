@@ -21,13 +21,13 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 		<NavLink
 			className={cn(
 				"group pt-6 pl-6 rounded-[5px] bg-gray-100 shadow-standard flex-col w-82 h-106 justify-between items-start",
-				"2xl:flex-row 2xl:w-179.5 2xl:h-71.5 3xl:gap-6 lg:size-110 xl:size-120",
+				"xl:size-120 2xl:flex-row 2xl:w-179.5 2xl:h-71.5 3xl:gap-6 lg:size-110",
 				"hover:bg-primary-100",
 				"focus:outline-accent-800 focus:outline-4 focus:bg-primary-100",
 			)}
 			href={href}
 		>
-			<div className="flex flex-col gap-6 pb-6 w-62">
+			<div className="flex flex-col gap-6 pb-6 w-62 lg:w-95 xl:w-107.5 xl:pb-0 2xl:w-62 2xl:pb-6">
 				<div className="flex flex-col gap-2">
 					<Typography
 						className="text-[20px] font-medium text-accent-700 uppercase"
@@ -54,7 +54,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 				alt={title}
 				className={cn(
 					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm",
-					"lg:w-90 lg:h-48 xl:w-100 xl:h-54 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",
+					"lg:w-90 lg:h-48 lg:ml-auto xl:w-105 xl:h-60 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",
 				)}
 				height={262}
 				src={imageUrl}
