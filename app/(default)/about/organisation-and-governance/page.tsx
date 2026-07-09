@@ -192,13 +192,7 @@ export default async function ContactPage({
 								email={selectedPerson.email ?? undefined}
 								imageUrl={selectedPerson.image?.url}
 								name={selectedPerson.name}
-								position={
-									selectedPerson.position
-										?.map((pos) => {
-											return pos.name;
-										})
-										.join(", ") ?? undefined
-								}
+								position={selectedPerson.position}
 							/>
 						</div>
 					)}

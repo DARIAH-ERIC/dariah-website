@@ -39,7 +39,7 @@ export default async function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container relative flex flex-col gap-16 items-end">
-			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
+			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px] z-0" />
 
 			<Suspense>
 				<DariahResourceCatalogueContextrovider

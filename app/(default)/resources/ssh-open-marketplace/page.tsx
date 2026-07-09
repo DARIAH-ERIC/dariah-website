@@ -37,7 +37,7 @@ export default async function DariahResourceCataloguePage(
 	const breadcrumbs = navigation().breadcrumbs.sshOpenMarketplace;
 
 	const {
-		data: { content },
+		data: { content, image },
 	} = staticContentResponse;
 
 	return (
@@ -61,9 +61,9 @@ export default async function DariahResourceCataloguePage(
 					</div>
 				</div>
 				<Image
-					alt="SSH open marketplace Logo"
+					alt={image?.alt ?? "SSH open marketplace Logo"}
 					className="hidden w-108.5 md:block"
-					src={logoSshoc}
+					src={image?.url ?? logoSshoc}
 				/>
 			</div>
 			<Suspense>
