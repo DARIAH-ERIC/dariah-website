@@ -33,7 +33,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -50,7 +50,7 @@ export default async function WorkingGroupsPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} />
+				<ListDescription content={content} title={title} />
 			</div>
 			<MapWrapper countries={items} geoJson={geoJson as CountryGeoJSON} />
 		</Main>

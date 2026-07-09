@@ -35,7 +35,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -53,7 +53,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} />
+				<ListDescription content={content} title={title} />
 			</div>
 			<div className="flex flex-col gap-10 px-4 3xl:px-35.5">
 				<Typography variant="h3">{t("subtitle")}</Typography>
