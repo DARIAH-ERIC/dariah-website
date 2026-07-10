@@ -4,7 +4,7 @@ import React, { type ReactNode } from "react";
 import { Image } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
-import heroBg from "@/public/assets/images/background-hero-section.svg";
+import heroBg from "@/public/assets/images/background-hero-section.jpg";
 
 export function HeroSection(): ReactNode {
 	const t = useTranslations("HomePage");

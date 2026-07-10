@@ -7,6 +7,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { Link } from "@/components/ui/link/link";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import resourcesBg from "@/public/assets/images/background-resources.jpg";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
@@ -15,7 +16,14 @@ export function ResourcesSection(): ReactNode {
 	const t = useTranslations("HomePage");
 
 	return (
-		<section className="relative w-full bg-[url(/assets/images/background-resources.svg)]">
+		<section className="relative w-full">
+			<Image
+				alt="Our Resources background image"
+				className="object-cover size-full z-0"
+				fill={true}
+				preload={true}
+				src={resourcesBg}
+			/>
 			<div className="absolute top-0 left-0 backdrop-blur-[50px] bg-(image:--section-news-bg) size-full opacity-80 z-1">
 				<div className="absolute top-0 left-0 w-full h-176.75 bg-section-resources-top-bg opacity-40 backdrop-blur-[13.4px] z-3" />
 			</div>
