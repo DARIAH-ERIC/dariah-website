@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 
+import { ContentBlocks } from "@/components/content-blocks";
 import { Hit, Hits } from "@/components/pages/resources/dariah-resource-catalogue/hits";
 import { Refinements } from "@/components/pages/resources/dariah-resource-catalogue/refinements/refinements";
 import { SearchBox } from "@/components/pages/resources/dariah-resource-catalogue/search-box";
@@ -14,17 +15,20 @@ import { SearchErrorBoundary } from "@/components/ui/typesense-multiuse/search-e
 import { TypesensePagination } from "@/components/ui/typesense-multiuse/typesense-pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { env } from "@/config/env.config";
+import type { components } from "@/lib/api/types";
 import { searchResourceClient } from "@/lib/search/client";
 import type { ResourceCatalogueFilter } from "@/types/filters";
 
 interface SearchContainerProps {
 	breadcrumbs: Array<{ href: string; label: string } | { label: string; href?: undefined }>;
 	filters: Array<ResourceCatalogueFilter>;
+	content: components["schemas"]["Page"]["content"];
+	title?: string;
 }
 
 export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNode {
 	const t = useTranslations("DariahResourceCataloguePage");
-	const { breadcrumbs, filters } = props;
+	const { breadcrumbs, filters, content, title } = props;
 	const searchParams = useSearchParams();
 
 	const envCollectionName = env.NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME;
@@ -63,9 +67,11 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 						<div className="flex flex-col gap-12 lg:gap-7 xl:px-19 3xl:px-39">
 							<div className="flex flex-col gap-7">
 								<Typography className="font-heading text-[45px] font-light" variant="h1">
-									{t("title")}
+									{title ?? t("title")}
 								</Typography>
-								<Typography variant="regular">{t("description")}</Typography>
+								<div>
+									<ContentBlocks fields={content} />
+								</div>
 							</div>
 							<SearchBox />
 						</div>

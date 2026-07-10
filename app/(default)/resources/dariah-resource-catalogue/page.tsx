@@ -33,9 +33,14 @@ export default async function DariahResourceCataloguePage(
 
 	const workingGroupsResponse = await client.workingGroups.list({ limit: 100 });
 	const nationalConsortiaResponse = await client.nationalConsortia.list({ limit: 100 });
+	const staticContentResponse = await client.pages.bySlug({ slug: "resource-catalogue" });
 
 	const { data: workingGroups } = workingGroupsResponse.data;
 	const { data: nationalConsortia } = nationalConsortiaResponse.data;
+
+	const {
+		data: { content, title },
+	} = staticContentResponse;
 
 	return (
 		<Main className="container relative flex flex-col gap-16 items-end">
@@ -46,7 +51,12 @@ export default async function DariahResourceCataloguePage(
 					initialNationalConsortia={nationalConsortia}
 					initialWorkingGroups={workingGroups}
 				>
-					<SearchContainer breadcrumbs={breadcrumbs} filters={filters} />
+					<SearchContainer
+						breadcrumbs={breadcrumbs}
+						content={content}
+						filters={filters}
+						title={title}
+					/>
 				</DariahResourceCatalogueContextrovider>
 			</Suspense>
 		</Main>
