@@ -115,8 +115,8 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 					</div>
 				</div>
 
-				<div className="flex gap-6 w-full px-6">
-					<div className="bg-gray-200 w-78 max-w-full py-5 px-6.25 flex justify-center mt-8.75 lg:w-full">
+				<div className="flex flex-col gap-6 w-full px-6 xl:flex-row">
+					<div className="bg-gray-200 w-78 max-w-full py-5 px-6.25 flex justify-center xl:mt-8.75 lg:w-full">
 						<Link
 							href={"/network/members-and-partners"}
 							variant="primary"
@@ -126,7 +126,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</Link>
 					</div>
 
-					<div className="bg-text-link-bg w-78 max-w-102.25 py-5 px-6.25 flex justify-center mt-8.75 lg:w-127.25">
+					<div className="bg-text-link-bg w-78 max-w-102.25 py-5 px-6.25 flex justify-center xl:mt-8.75 lg:w-127.25">
 						<Link href={"/network/working-groups"} variant="color-bg" withDefaultRightIcon={true}>
 							{t("NetworkSection.readMore.workingGroups")}
 						</Link>

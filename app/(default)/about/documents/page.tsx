@@ -53,7 +53,7 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 				)}
 				<Typography variant="h2">{t("title")}</Typography>
 			</div>
-			<div className="flex-col flex gap-8 max-w-full items-center lg:items-start lg:justify-between lg:flex-row lg:gap-21">
+			<div className="flex-col flex gap-8 max-w-full items-center lg:items-start lg:justify-between lg:flex-row 2xl:gap-21">
 				<SectionPanel className="w-82" sections={sections} />
 				<div className="flex flex-col gap-14">
 					{items.length === 0 ? (

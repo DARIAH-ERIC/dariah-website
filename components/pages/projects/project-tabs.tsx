@@ -39,7 +39,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							role="list"
 						>
 							{items.map((item) => {
-								const { duration, entity, image, name, role } = item;
+								const { duration, entity, image, name, role, acronym } = item;
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
@@ -52,7 +52,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										href={href}
 										imageUrl={image?.url}
 										startDate={duration.start}
-										title={name}
+										title={acronym ?? name}
 										type={role}
 									/>
 								);
@@ -71,7 +71,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							role="list"
 						>
 							{items.map((item) => {
-								const { duration, entity, image, name, role } = item;
+								const { duration, entity, image, name, role, acronym } = item;
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
@@ -84,7 +84,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										href={href}
 										imageUrl={image?.url}
 										startDate={duration.start}
-										title={name}
+										title={acronym ?? name}
 										type={role}
 									/>
 								);

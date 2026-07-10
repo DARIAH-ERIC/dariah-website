@@ -84,7 +84,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 			: false;
 
 	return (
-		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-30">
+		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-12 2xl:px-30">
 			<div className="flex flex-col gap-10 lg:flex-row lg:gap-33.5">
 				<div className="flex flex-col max-w-full lg:w-265">
 					<div className="flex flex-col gap-10">
@@ -116,12 +116,12 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 						start={start}
 						topic={topic}
 					/>
-					<div className="flex flex-col gap-4 px-2 py-10">
+					<div className="flex flex-col gap-4 px-2 pt-10">
 						<Typography variant="h3">{"Summary"}</Typography>
 						<Typography variant="regular">{summary}</Typography>
 					</div>
 					{hasRichText && (
-						<div className="py-6 px-2">
+						<div className="pt-4 pb-6 px-2">
 							<ContentBlocks fields={description} />
 						</div>
 					)}

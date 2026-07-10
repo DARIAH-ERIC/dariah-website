@@ -48,7 +48,7 @@ export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactN
 						href={website}
 						variant="tertiary"
 					>
-						{t("infoSection.website.description")}
+						{website}
 					</Link>
 				</div>
 			)}

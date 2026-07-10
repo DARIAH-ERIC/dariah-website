@@ -23,7 +23,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 	const t = useTranslations("(default).Header");
 
 	return (
-		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 z-10 justify-between flex flex-col w-screen xl:hidden">
+		<div className="bg-primary-700 fixed top-21 bottom-0 inset-x-0 overflow-auto z-10 justify-between flex flex-col w-screen xl:hidden">
 			<DisclosureGroup className="flex flex-col w-full">
 				{Object.entries(navigation).map(([id, item]) => {
 					switch (item.type) {
@@ -33,7 +33,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 
 						case "link": {
 							return (
-								<li key={id}>
+								<li key={id} className="list-none">
 									<Link
 										className="w-full py-4! px-6! font-heading uppercase text-regular h-fit"
 										href={item.href}
@@ -49,7 +49,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 
 						case "menu": {
 							return (
-								<li key={id}>
+								<li key={id} className="list-none">
 									<Disclosure>
 										<DisclosureHeader aria-label={item.label}>{item.label}</DisclosureHeader>
 										<DisclosurePanel>
@@ -97,7 +97,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 						}
 
 						case "separator": {
-							return <li key={id}></li>;
+							return <li key={id} className="list-none"></li>;
 						}
 					}
 				})}
