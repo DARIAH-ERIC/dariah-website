@@ -61,15 +61,15 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 	});
 
 	return (
-		<div className="flex gap-5 px-2 py-10 justify-between items-center">
+		<div className="flex flex-col gap-5 px-2 py-10 justify-between items-center xl:flex-row">
 			<div className="flex flex-col gap-2">
-				<div className="flex gap-2">
+				<div className="flex flex-wrap gap-2">
 					<Typography className="font-bold" variant="regular">
 						{t("details.name")}
 					</Typography>
 					<Typography variant="regular">{name}</Typography>
 				</div>
-				<div className="flex gap-2">
+				<div className="flex flex-wrap gap-2">
 					<Typography className="font-bold" variant="regular">
 						{t("details.duration.description")}
 					</Typography>
@@ -83,17 +83,17 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 					</Typography>
 				</div>
 				{funding !== null && (
-					<div className="flex gap-2">
+					<div className="flex flex-wrap gap-2">
 						<Typography className="font-bold" variant="regular">
 							{t("details.funding.description")}
 						</Typography>
 						<Typography variant="regular">
-							{t("details.funding.value", { value: funding.toString() })}
+							{t("details.funding.value", { value: funding.toLocaleString("fr-CH") })}
 						</Typography>
 					</div>
 				)}
 				{topicName !== undefined && topic !== null && (
-					<div className="flex gap-2 items-center">
+					<div className="flex flex-wrap gap-2 items-center">
 						<Typography className="font-bold" variant="regular">
 							{t("details.topic")}
 						</Typography>
@@ -107,7 +107,7 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 						</Link>
 					</div>
 				)}
-				<div className="flex gap-2 items-center">
+				<div className="flex flex-wrap gap-2 items-center">
 					<Typography className="font-bold" variant="regular">
 						{"Coordinator: "}
 					</Typography>

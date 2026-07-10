@@ -24,7 +24,7 @@ export function EventsSection(props: Readonly<EventsSectionProps>): ReactNode {
 	const t = useTranslations("HomePage");
 
 	return (
-		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-12 py-17.5 3xl:px-31.5">
+		<section className="bg-(image:--section-events-bg) flex flex-col gap-17.5 items-end relative px-4 py-17.5 md:px-12 3xl:px-31.5">
 			<Typography
 				className="text-white font-heading text-[56px] px-6 font-light w-full lg:text-[85px]"
 				variant="h1"

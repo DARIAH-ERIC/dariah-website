@@ -50,7 +50,7 @@ export default async function StrategyPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
-			<div className="flex flex-1 flex-col gap-8 px-4 pt-8 lg:px-8 lg:pb-12 xl:px-40">
+			<div className="flex flex-1 flex-col gap-8 px-4 pt-8 xl:px-8 xl:pb-12 2xl:px-40">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -65,9 +65,9 @@ export default async function StrategyPage(): Promise<ReactNode> {
 				<Typography className="text-[45px] font-light" variant="h2">
 					{title}
 				</Typography>
-				<div className="flex-col flex gap-8 justify-between lg:py-12 lg:flex-row lg:gap-21">
+				<div className="flex-col flex gap-8 justify-between lg:py-12 lg:flex-row 2xl:gap-21">
 					<SectionPanel sections={sections} />
-					<div className="max-w-full xl:w-252.5">
+					<div className="max-w-full xl:w-252.5 xl:flex-1">
 						<ContentBlocks fields={parsedContent} />
 					</div>
 					<QuickLinks className="hidden lg:flex" links={links} />

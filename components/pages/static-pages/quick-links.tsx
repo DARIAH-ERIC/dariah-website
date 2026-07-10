@@ -22,7 +22,7 @@ export function QuickLinks(props: Readonly<QuickLinksProps>): ReactNode {
 	const t = useTranslations("(default).StaticPage");
 
 	return (
-		<div className={cn("flex-col gap-4 w-full h-fit lg:top-0 lg:sticky lg:w-51.5", className)}>
+		<div className={cn("flex-col gap-4 w-full h-fit xl:top-0 xl:sticky xl:w-51.5", className)}>
 			<Typography className="text-[45px] font-light" variant="h4">
 				{t("quickLinks.title")}
 			</Typography>

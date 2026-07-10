@@ -1,5 +1,6 @@
 export const getFormattedDateForItem = (date: Date): string => {
 	const formattedDate = date.toLocaleDateString("en-GB", {
+		timeZone: "UTC",
 		day: "numeric",
 		month: "long",
 	});

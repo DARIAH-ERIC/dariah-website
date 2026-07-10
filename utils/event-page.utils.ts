@@ -5,6 +5,15 @@ export const formatDateToRangeString = (date: Date): string => {
 	}).format(date);
 };
 
+export const isSameDate = (startDate: Date, endDate?: Date): boolean => {
+	if (endDate === undefined) return true;
+	return (
+		startDate.getUTCDate() === endDate.getUTCDate() &&
+		startDate.getUTCMonth() === endDate.getUTCMonth() &&
+		startDate.getUTCFullYear() === endDate.getUTCFullYear()
+	);
+};
+
 export const parseDateToRangeString = (event: {
 	duration: { start: Date; end?: Date };
 }): string => {
@@ -13,7 +22,7 @@ export const parseDateToRangeString = (event: {
 
 	const startDateString = formatDateToRangeString(startDate);
 
-	if (startDate === endDate || endDate === undefined) return startDateString;
+	if (isSameDate(startDate, endDate) || endDate === undefined) return startDateString;
 
 	const endDateString = formatDateToRangeString(endDate);
 
