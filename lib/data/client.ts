@@ -366,10 +366,22 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "get involved",
 			},
 			{
+				label: "opportunities",
+			},
+		],
+		opportunitiesDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "get involved",
+			},
+			{
+				href: "/get-involved/opportunities",
 				label: "opportunities",
 			},
 		],

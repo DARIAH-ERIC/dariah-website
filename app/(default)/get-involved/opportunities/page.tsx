@@ -106,8 +106,12 @@ export default async function OpportunitiesPage({
 									title,
 									website,
 									summary,
+									entity: { slug },
 									duration: { start: startDate, end: endDate },
 								} = opportunity;
+
+								const url = website ?? `/get-involved/opportunities/${slug}`;
+
 								return (
 									<OpportunityCard
 										key={id}
@@ -115,8 +119,8 @@ export default async function OpportunitiesPage({
 										startDate={startDate}
 										summary={summary}
 										title={title}
+										url={url}
 										variant={variant}
-										website={website}
 									/>
 								);
 							})}
