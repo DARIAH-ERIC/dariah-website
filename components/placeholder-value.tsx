@@ -63,6 +63,7 @@ export function renderPlaceholderValue(
 			return (
 				<Link
 					key={item.slug}
+					className="inline"
 					href={`/network/members-and-partners/${item.slug}`}
 					variant="paragraph"
 				>
