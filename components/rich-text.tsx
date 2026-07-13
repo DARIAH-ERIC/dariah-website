@@ -3,8 +3,10 @@ import type { JSONContent } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
 import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
+import { useFormatter } from "next-intl";
 import type { ReactNode } from "react";
 
+import { PlaceholderValue, renderPlaceholderValue } from "@/components/placeholder-value";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextProps {
@@ -36,6 +38,8 @@ const ExtendedHeading = Heading.extend({
 
 export function RichText(props: Readonly<RichTextProps>): ReactNode {
 	const { content } = props;
+
+	const format = useFormatter();
 
 	return renderToReactElement({
 		content,
@@ -82,6 +86,14 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 					),
 				},
 			}),
+			PlaceholderValue,
 		],
+		options: {
+			nodeMapping: {
+				placeholderValue(nodeProps) {
+					return renderPlaceholderValue(nodeProps, format);
+				},
+			},
+		},
 	});
 }
