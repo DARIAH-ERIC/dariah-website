@@ -1,6 +1,6 @@
 /* eslint-disable @eslint-react/no-array-index-key */
 
-import { unreachable } from "@acdh-oeaw/lib";
+import { log, unreachable } from "@acdh-oeaw/lib";
 import type { JSONContent } from "@tiptap/core";
 import type { ReactNode } from "react";
 
@@ -95,6 +95,7 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			default: {
+				log.error("Unknown content block type.");
 				unreachable();
 			}
 		}
