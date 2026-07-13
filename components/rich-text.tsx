@@ -90,7 +90,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 		],
 		options: {
 			nodeMapping: {
-				calculatedValue(nodeProps) {
+				placeholderValue(nodeProps) {
 					return renderPlaceholderValue(nodeProps, format);
 				},
 			},

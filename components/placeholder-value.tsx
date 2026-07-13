@@ -22,7 +22,7 @@ interface PlaceholderValueNodeProps {
 }
 
 export const PlaceholderValue = Node.create({
-	name: "calculatedValue",
+	name: "placeholderValue",
 	group: "inline",
 	inline: true,
 	atom: true,
