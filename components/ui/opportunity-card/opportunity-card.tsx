@@ -28,21 +28,21 @@ export const opportunityCardStyles = styles({
 interface OpportunityCardProps {
 	variant: "dariah" | "external";
 	title: string;
-	website: string | null;
+	url: string | null;
 	startDate: Date;
 	endDate?: Date;
 	summary: string | null;
 }
 
 export function OpportunityCard(props: Readonly<OpportunityCardProps>): ReactNode {
-	const { variant, title, website, startDate, endDate, summary } = props;
+	const { variant, title, url, startDate, endDate, summary } = props;
 	const t = useTranslations("Opportunities");
 
 	const status = getOpportunityStatus(startDate, endDate ?? startDate);
 
 	return (
 		<div className={cn(opportunityCardStyles({ variant }))}>
-			<Link href={website ?? undefined} variant="primary">
+			<Link href={url ?? undefined} variant="primary">
 				{title}
 			</Link>
 			<div className="flex gap-4 items-center">
