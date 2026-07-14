@@ -8,6 +8,7 @@ import { Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
@@ -37,7 +38,7 @@ export default async function DariahResourceCataloguePage(
 	const breadcrumbs = navigation().breadcrumbs.dariahCampus;
 
 	const {
-		data: { content, image },
+		data: { content, image, title },
 	} = staticContentResponse;
 
 	return (
@@ -56,8 +57,18 @@ export default async function DariahResourceCataloguePage(
 							})}
 						</Breadcrumbs>
 					)}
-					<div>
-						<ContentBlocks fields={content} />
+					<div className="flex flex-col gap-8">
+						<Typography className="text-h2 font-medium" variant="h1">
+							{title}
+						</Typography>
+						<Image
+							alt={image?.alt ?? "Dariah campus Logo"}
+							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+							src={image?.url ?? logoDariahCampus}
+						/>
+						<div>
+							<ContentBlocks fields={content} />
+						</div>
 					</div>
 				</div>
 				<Image
