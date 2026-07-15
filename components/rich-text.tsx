@@ -53,7 +53,11 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				link: {
 					HTMLAttributes: {
-						class: cn(linkStyles({ variant: "paragraph" }), "inline break-all"),
+						class: cn(
+							// eslint-disable-next-line better-tailwindcss/no-unknown-classes
+							linkStyles({ variant: "paragraph" }),
+							"inline break-all [[href^='mailto:']]:whitespace-nowrap",
+						),
 					},
 				},
 				blockquote: {
