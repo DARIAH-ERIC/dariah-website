@@ -1,8 +1,30 @@
-export const formatDateToRangeString = (date: Date): string => {
-	return new Intl.DateTimeFormat("en-US", {
-		day: "2-digit",
-		month: "short",
-	}).format(date);
+import type { DateTimeFormatOptions } from "next-intl";
+
+export const formatDateToRangeString = (date: Date, withMonth = false): string => {
+	const options: DateTimeFormatOptions = {
+		day: "numeric",
+		month: withMonth ? undefined : "short",
+	};
+
+	return new Intl.DateTimeFormat("en-GB", options).format(date);
+};
+
+export const formatTimePart = (startDate: Date, endDate?: Date): string => {
+	const startDateTime = `${startDate.getUTCHours().toString()}:${startDate.getUTCMinutes().toString().padStart(2, "0")}`;
+
+	const endDateTime =
+		endDate === undefined
+			? endDate
+			: `${endDate.getUTCHours().toString()}:${endDate.getUTCMinutes().toString().padStart(2, "0")}`;
+
+	if (startDateTime === endDateTime || endDateTime === undefined) return startDateTime;
+
+	return `${startDateTime} - ${endDateTime}`;
+};
+
+const isSameMonth = (startDate: Date, endDate?: Date): boolean => {
+	if (endDate === undefined) return false;
+	return startDate.getUTCMonth() === endDate.getUTCMonth();
 };
 
 export const isSameDate = (startDate: Date, endDate?: Date): boolean => {
@@ -16,13 +38,27 @@ export const isSameDate = (startDate: Date, endDate?: Date): boolean => {
 
 export const parseDateToRangeString = (event: {
 	duration: { start: Date; end?: Date };
+	isFullDay: boolean;
 }): string => {
-	const startDate = event.duration.start;
-	const endDate = event.duration.end;
+	const {
+		duration: { start, end },
+		isFullDay,
+	} = event;
+	const startDate = start;
+	const endDate = end;
 
-	const startDateString = formatDateToRangeString(startDate);
+	const sameDate = isSameDate(startDate, endDate);
 
-	if (isSameDate(startDate, endDate) || endDate === undefined) return startDateString;
+	const startDateString = formatDateToRangeString(
+		startDate,
+		isSameMonth(startDate, endDate) && !sameDate,
+	);
+
+	if (sameDate || endDate === undefined) {
+		if (!isFullDay) return `${startDateString} @ ${formatTimePart(startDate, endDate)}`;
+
+		return startDateString;
+	}
 
 	const endDateString = formatDateToRangeString(endDate);
 
@@ -59,12 +95,16 @@ export const formatDateToIso = (date: Date): string => {
 	return `${year}-${month}-${day}`;
 };
 
-export const getFormattedDateForEventDetails = (date: Date): string => {
-	return new Intl.DateTimeFormat("en-GB", {
+export const getFormattedDateForEventDetails = (date: Date, isFullDay: boolean): string => {
+	const datePart = new Intl.DateTimeFormat("en-GB", {
 		year: "numeric",
 		month: "long",
 		day: "numeric",
 	}).format(date);
+
+	if (isFullDay) return datePart;
+
+	return `${datePart} @ ${formatTimePart(date)}`;
 };
 
 export const getFormattedDateForGoogleCalendar = (date: Date): string | undefined => {
