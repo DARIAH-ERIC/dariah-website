@@ -56,10 +56,18 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 				{person.name}
 			</Typography>
 			{person.image != null ? (
-				<img alt={person.image.alt ?? ""} className="size-48 rounded-md object-cover" src={person.image.url} />
+				<img
+					alt={person.image.alt ?? ""}
+					className="size-48 rounded-md object-cover -order-1 mb-4"
+					src={person.image.url}
+				/>
 			) : null}
-			<PersonPositions position={person.position} />
-			<ContentBlocks fields={person.biography} />
+			<div className="max-w-4xl">
+				<Typography variant="small">
+					<PersonPositions position={person.position} />
+				</Typography>
+				<ContentBlocks fields={person.biography} />
+			</div>
 		</Main>
 	);
 }
