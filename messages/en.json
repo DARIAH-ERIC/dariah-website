@@ -296,6 +296,9 @@
 			"emptyState": "No latest news."
 		}
 	},
+	"PersonPage": {
+		"articles": "Articles"
+	},
 	"ProjectsPage": {
 		"meta": {
 			"title": "Projects"

@@ -1,9 +1,11 @@
+import { isNonEmptyArray } from "@acdh-oeaw/lib";
 import type { Metadata } from "next";
-// import { getTranslations } from "next-intl/server";
+import { getFormatter, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
+import { Link } from "@/components/ui/link/link";
 import { PersonPositions } from "@/components/ui/person-card/person-positions";
 // import { Image } from "@/components/image";
 import { Typography } from "@/components/ui/typography/typography";
@@ -42,7 +44,8 @@ export async function generateMetadata(props: Readonly<PersonPageProps>): Promis
 
 export default async function PersonPage(props: Readonly<PersonPageProps>): Promise<ReactNode> {
 	const { params } = props;
-	// const t = await getTranslations("PersonPage");
+	const t = await getTranslations("PersonPage");
+	const format = await getFormatter();
 
 	const { slug: _slug } = await params;
 	const slug = decodeURIComponent(_slug);
@@ -56,6 +59,7 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 				{person.name}
 			</Typography>
 			{person.image != null ? (
+				// eslint-disable-next-line @next/next/no-img-element
 				<img
 					alt={person.image.alt ?? ""}
 					className="size-48 rounded-md object-cover -order-1 mb-4"
@@ -68,6 +72,41 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 				</Typography>
 				<ContentBlocks fields={person.biography} />
 			</div>
+			{isNonEmptyArray(person.contributions) ? (
+				<section className="flex flex-col gap-y-2 mt-4 max-w-4xl">
+					<Typography className="text-h3 font-light" variant="h2">
+						{t("articles")}
+					</Typography>
+					<ul className="flex flex-col gap-y-6" role="list">
+						{person.contributions.map((contribution, index) => {
+							const href =
+								contribution.type === "impact_case_study"
+									? `/about/impact-case-studies/${contribution.entity.slug}`
+									: // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+										contribution.type === "spotlight_article"
+										? `/spotlights/${contribution.entity.slug}`
+										: undefined;
+
+							return (
+								// eslint-disable-next-line @eslint-react/no-array-index-key
+								<li key={index}>
+									<article className="flex flex-col">
+										<Typography className="text-h4" variant="h3">
+											<Link href={href}>{contribution.title}</Link>
+										</Typography>
+										<time dateTime={contribution.publishedAt}>
+											<Typography variant="small">
+												{format.dateTime(new Date(contribution.publishedAt), { timeZone: "UTC" })}
+											</Typography>
+										</time>
+										<div className="mt-2">{contribution.summary}</div>
+									</article>
+								</li>
+							);
+						})}
+					</ul>
+				</section>
+			) : null}
 		</Main>
 	);
 }
