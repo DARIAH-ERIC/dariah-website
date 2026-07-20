@@ -18,7 +18,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 	return (
 		<NavLink
 			className={cn(
-				"flex-col shadow-light w-80.5 max-w-full cursor-pointer p-4 gap-y-6 bg-gray-100 group flex justify-between rounded-sm lg:w-292.25 lg:h-44.5",
+				"flex-col shadow-light w-80.5 max-w-full cursor-pointer p-4 gap-y-6 gap-x-2 bg-gray-100 group flex justify-between rounded-sm lg:w-292.25 lg:h-44.5",
 				"lg:flex-row",
 				"hover:bg-event-card-list-bg-hover",
 				"focus-visible:outline-4 focus-visible:outline-accent focus-visible:bg-event-card-list-bg-hover",

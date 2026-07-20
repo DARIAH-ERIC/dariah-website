@@ -65,6 +65,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 		content,
 		duration: { start: startDate, end: endDate },
 		website,
+		isFullDay,
 	} = response.data;
 
 	const { prev: prevEvent, next: nextEvent } = links;
@@ -122,6 +123,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						</Typography>
 						<EventInfoSection
 							endDate={endDate}
+							isFullDay={isFullDay}
 							location={location}
 							startDate={startDate}
 							website={website ?? undefined}

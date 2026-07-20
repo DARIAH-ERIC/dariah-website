@@ -118,7 +118,7 @@ export default async function EventsPage({
 													className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row lg:flex-nowrap"
 												>
 													<Typography
-														className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap"
+														className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap whitespace-pre lg:min-w-55 lg:max-w-55"
 														variant="regular"
 													>
 														<ElipseIcon className="fill-gray-300" />
