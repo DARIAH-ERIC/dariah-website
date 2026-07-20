@@ -5,7 +5,7 @@ import type { Person } from "@/lib/data/api-client";
 import { sortUserPosition } from "@/utils/person-card.utils";
 
 interface PersonPositionProps {
-	position: Person["position"];
+	position: Person["positions"];
 }
 
 export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode {
@@ -22,7 +22,8 @@ export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode
 	return (
 		<Fragment>
 			{sortedPosition.map((positionObj, index) => {
-				const { role, name, description, type } = positionObj;
+				const { role, entity, description } = positionObj;
+				const { label: name, type } = entity;
 
 				if (role === "is_chair_of" && name.toLowerCase() === "board of directors")
 					return (

@@ -68,23 +68,23 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 			) : null}
 			<div className="max-w-4xl">
 				<Typography variant="small">
-					<PersonPositions position={person.position} />
+					<PersonPositions position={person.positions} />
 				</Typography>
 				<ContentBlocks fields={person.biography} />
 			</div>
-			{isNonEmptyArray(person.contributions) ? (
+			{isNonEmptyArray(person.articles) ? (
 				<section className="flex flex-col gap-y-2 mt-4 max-w-4xl">
 					<Typography className="text-h3 font-light" variant="h2">
 						{t("articles")}
 					</Typography>
 					<ul className="flex flex-col gap-y-6" role="list">
-						{person.contributions.map((contribution, index) => {
+						{person.articles.map((article, index) => {
 							const href =
-								contribution.type === "impact_case_study"
-									? `/about/impact-case-studies/${contribution.entity.slug}`
+								article.type === "impact_case_study"
+									? `/about/impact-case-studies/${article.entity.slug}`
 									: // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-										contribution.type === "spotlight_article"
-										? `/spotlights/${contribution.entity.slug}`
+										article.type === "spotlight_article"
+										? `/spotlights/${article.entity.slug}`
 										: undefined;
 
 							return (
@@ -92,14 +92,14 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 								<li key={index}>
 									<article className="flex flex-col">
 										<Typography className="text-h4" variant="h3">
-											<Link href={href}>{contribution.title}</Link>
+											<Link href={href}>{article.title}</Link>
 										</Typography>
-										<time dateTime={contribution.publishedAt}>
+										<time dateTime={article.publishedAt}>
 											<Typography variant="small">
-												{format.dateTime(new Date(contribution.publishedAt), { timeZone: "UTC" })}
+												{format.dateTime(new Date(article.publishedAt), { timeZone: "UTC" })}
 											</Typography>
 										</time>
-										<div className="mt-2">{contribution.summary}</div>
+										<div className="mt-2">{article.summary}</div>
 									</article>
 								</li>
 							);

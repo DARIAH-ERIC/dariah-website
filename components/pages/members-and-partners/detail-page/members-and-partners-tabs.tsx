@@ -204,7 +204,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 																const {
 																	id,
 																	name,
-																	position,
+																	positions,
 																	image: contributorImage,
 																	slug,
 																} = contributor;
@@ -217,7 +217,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 																		href={`${pathname}?person=${slug}#contributors`}
 																		imageUrl={imageUrl}
 																		name={name}
-																		position={position}
+																		position={positions}
 																	/>
 																);
 															})}
@@ -247,7 +247,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 											email={selectedPerson.email ?? undefined}
 											imageUrl={selectedPerson.image?.url}
 											name={selectedPerson.name}
-											position={selectedPerson.position}
+											position={selectedPerson.positions}
 										/>
 									</div>
 								)}

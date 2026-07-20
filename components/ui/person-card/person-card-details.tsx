@@ -14,7 +14,7 @@ interface PersonCardDetailsProps {
 	imageUrl?: string | null;
 	name: string;
 	email?: string;
-	position: Person["position"];
+	position: Person["positions"];
 	description: JSONContent | undefined;
 }
 

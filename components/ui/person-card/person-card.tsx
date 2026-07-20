@@ -13,7 +13,7 @@ interface PersonCardProps {
 	href?: string;
 	imageUrl?: string | null;
 	name: string;
-	position: Person["position"];
+	position: Person["positions"];
 }
 
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
@@ -26,7 +26,8 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 
 	const positionNames: Array<ReactNode> = sortedPosition
 		? sortedPosition.map((positionObj, index) => {
-				const { role, name, description, type } = positionObj;
+				const { role, entity, description } = positionObj;
+				const { label: name, type } = entity;
 
 				if (role === "is_chair_of" && name.toLowerCase() === "board of directors")
 					return (

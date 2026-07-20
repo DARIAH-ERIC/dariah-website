@@ -62,7 +62,7 @@ export const getUrlForGovernanceBody = (slug: string): string | undefined => {
 };
 
 export const getEntityUrl = (entity: RelatedEntity): string | undefined => {
-	const { entityType, slug, id } = entity;
+	const { type: entityType, slug, id } = entity;
 	const apiUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
 	switch (entityType) {
@@ -82,13 +82,13 @@ export const getEntityUrl = (entity: RelatedEntity): string | undefined => {
 			return `/news/${slug}`;
 		}
 		case "opportunities": {
-			return undefined;
+			return `/get-involved/opportunities/${slug}`;
 		}
 		case "pages": {
 			return getUrlForStaticPage(slug);
 		}
 		case "persons": {
-			return undefined;
+			return `/persons/${slug}`;
 		}
 		case "projects": {
 			return `/projects/${slug}`;
@@ -133,7 +133,7 @@ export const mergeEntitiesAndResources = (
 				id: entity.id,
 				label: entity.label,
 				slug: entity.slug,
-				type: entity.entityType,
+				type: entity.type,
 				link: getEntityUrl(entity),
 			};
 		}),
