@@ -3,7 +3,7 @@ declare module "*.css";
 export interface Person {
 	id: string;
 	name: string;
-	position: Array<{
+	positions: Array<{
 		role:
 			| "is_affiliated_with"
 			| "is_chair_of"
@@ -13,15 +13,19 @@ export interface Person {
 			| "national_coordinator_deputy"
 			| "national_representative"
 			| "national_representative_deputy";
-		name: string;
-		type:
-			| "governance_body"
-			| "national_consortium"
-			| "country"
-			| "institution"
-			| "regional_hub"
-			| "eric"
-			| "working_group";
+		entity: {
+			href: string;
+			slug: string;
+			label: string;
+			type:
+				| "governance_body"
+				| "national_consortium"
+				| "country"
+				| "institution"
+				| "regional_hub"
+				| "eric"
+				| "working_group";
+		};
 		description: string | null;
 	}> | null;
 	image: {
@@ -38,7 +42,7 @@ export interface Person {
 export interface RelatedEntity {
 	id: string;
 	slug: string;
-	entityType:
+	type:
 		| "governance_body"
 		| "national_consortium"
 		| "country"

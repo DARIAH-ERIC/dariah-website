@@ -163,7 +163,7 @@ export default async function ContactPage({
 							<div className="flex flex-wrap gap-10 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
 								{usersForSelectedBody.length > 0 &&
 									usersForSelectedBody.map((user) => {
-										const { id, name, position, slug, image: userImage } = user;
+										const { id, name, positions, slug, image: userImage } = user;
 
 										const { url: imageUrl } = userImage ?? { url: null };
 
@@ -173,7 +173,7 @@ export default async function ContactPage({
 												href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}#userList`}
 												imageUrl={imageUrl}
 												name={name}
-												position={position}
+												position={positions}
 											/>
 										);
 									})}
@@ -197,7 +197,7 @@ export default async function ContactPage({
 								email={selectedPerson.email ?? undefined}
 								imageUrl={selectedPerson.image?.url}
 								name={selectedPerson.name}
-								position={selectedPerson.position}
+								position={selectedPerson.positions}
 							/>
 						</div>
 					)}

@@ -234,7 +234,7 @@ export default async function WorkingGroupPage(
 															const {
 																id,
 																name,
-																position,
+																positions,
 																image: chairImage,
 																slug: personSlug,
 															} = chair;
@@ -247,7 +247,7 @@ export default async function WorkingGroupPage(
 																	href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
 																	imageUrl={imageUrl}
 																	name={name}
-																	position={position}
+																	position={positions}
 																/>
 															);
 														})}
@@ -277,7 +277,7 @@ export default async function WorkingGroupPage(
 										email={selectedPerson.email ?? undefined}
 										imageUrl={selectedPerson.image?.url}
 										name={selectedPerson.name}
-										position={selectedPerson.position}
+										position={selectedPerson.positions}
 									/>
 								</div>
 							)}
