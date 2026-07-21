@@ -96,11 +96,28 @@ export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode
 						</Fragment>
 					);
 
-				const label = t(`roles.${role}`, { name });
+				if (
+					[
+						"national_coordination_staff",
+						"national_coordinator",
+						"national_coordinator_deputy",
+						"national_representative",
+						"national_representative_deputy",
+					].includes(role)
+				) {
+					const label = t(`roles.${role}`, { name });
+
+					return (
+						<Fragment key={`${role}_${name}_${type}`}>
+							{href != null ? <PostitionLink href={href}>{label}</PostitionLink> : label}
+							{index < sortedPosition.length - 1 && ", "}
+						</Fragment>
+					);
+				}
 
 				return (
 					<Fragment key={`${role}_${name}_${type}`}>
-						{href != null ? <PostitionLink href={href}>{label}</PostitionLink> : label}
+						{t(`roles.${role}`, { name })}
 						{index < sortedPosition.length - 1 && ", "}
 					</Fragment>
 				);
@@ -110,10 +127,5 @@ export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode
 }
 
 function PostitionLink(props: Readonly<LinkProps>): ReactNode {
-	return (
-		<Link
-			{...props}
-			className={cn(props.className, "inline underline underline-offset-[24%] decoration-[10%]")}
-		/>
-	);
+	return <Link {...props} className={cn(props.className, "inline")} />;
 }
