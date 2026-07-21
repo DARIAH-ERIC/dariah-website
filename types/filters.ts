@@ -9,6 +9,7 @@ export type ResourceCatalogueSubfilter = Record<
 		name: string;
 		limit?: number;
 		showMore?: boolean;
+		showMoreLimit?: number;
 		sortBy?: Array<SortByDirection<"name" | "count" | "isRefined">>;
 	}
 >;
@@ -17,6 +18,7 @@ export interface ResourceCatalogueFilter {
 	name: string;
 	limit?: number;
 	showMore?: boolean;
+	showMoreLimit?: number;
 	sortBy?: Array<SortByDirection<"name" | "count" | "isRefined">>;
 	subfilters?: ResourceCatalogueSubfilter;
 	labelType?: "translation" | "api";
