@@ -1,8 +1,7 @@
-import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import { Fragment, type ReactNode } from "react";
 
-import { Link, type LinkProps } from "@/components/ui/link/link";
+import { PostitionLink } from "@/components/ui/person-card/position-link";
 import type { Person } from "@/lib/data/api-client";
 import { sortUserPosition } from "@/utils/person-card.utils";
 
@@ -106,14 +105,5 @@ export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode
 				);
 			})}
 		</Fragment>
-	);
-}
-
-function PostitionLink(props: Readonly<LinkProps>): ReactNode {
-	return (
-		<Link
-			{...props}
-			className={cn(props.className, "inline underline underline-offset-[24%] decoration-[10%]")}
-		/>
 	);
 }
