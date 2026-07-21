@@ -127,5 +127,5 @@ export function PersonPositions(props: Readonly<PersonPositionProps>): ReactNode
 }
 
 function PostitionLink(props: Readonly<LinkProps>): ReactNode {
-	return <Link {...props} className={cn(props.className, "inline")} />;
+	return <Link {...props} className={cn(props.className, "inline")} variant="paragraph" />;
 }
