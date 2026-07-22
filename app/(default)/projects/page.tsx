@@ -3,9 +3,9 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { ProjectTabs } from "@/components/pages/projects/project-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
@@ -30,7 +30,10 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 	const { searchParams } = props;
 	const { status = "active" } = await searchParams;
 
-	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
+	const parsedStatus =
+		status.toString() === "past"
+			? "inactive"
+			: (status.toString() as "active" | "inactive" | undefined);
 
 	const response = await client.projects.list({
 		status: parsedStatus,
@@ -42,7 +45,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -59,9 +62,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} title={title} />
 			</div>
 			<ProjectTabs items={items} status={parsedStatus} />
 		</Main>

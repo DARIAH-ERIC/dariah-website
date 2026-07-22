@@ -7,6 +7,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { Link } from "@/components/ui/link/link";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import resourcesBg from "@/public/assets/images/background-resources.jpg";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
@@ -15,11 +16,18 @@ export function ResourcesSection(): ReactNode {
 	const t = useTranslations("HomePage");
 
 	return (
-		<section className="relative w-full bg-[url(/assets/images/background-resources.svg)]">
+		<section className="relative w-full">
+			<Image
+				alt="Our Resources background image"
+				className="object-cover size-full z-0"
+				fill={true}
+				preload={true}
+				src={resourcesBg}
+			/>
 			<div className="absolute top-0 left-0 backdrop-blur-[50px] bg-(image:--section-news-bg) size-full opacity-80 z-1">
 				<div className="absolute top-0 left-0 w-full h-176.75 bg-section-resources-top-bg opacity-40 backdrop-blur-[13.4px] z-3" />
 			</div>
-			<div className="relative z-2 px-6 py-14 flex flex-col gap-38.5 xl:py-22 xl:px-12 2xl:py-32.75 2xl:px-28.25">
+			<div className="relative z-2 px-4 py-14 flex flex-col gap-38.5 md:px-6 xl:py-22 xl:px-12 2xl:py-32.75 2xl:px-28.25">
 				<div className="flex flex-wrap gap-14 2xl:gap-56.25">
 					<Typography
 						className="text-white font-heading text-[56px] font-light w-95 tracking-(--letter-spacing-medium) lg:text-[85px]"
@@ -44,7 +52,10 @@ export function ResourcesSection(): ReactNode {
 					</div>
 				</div>
 				<div className="flex flex-col items-center justify-center gap-6 px-1.5 2xl:gap-30.5 xl:flex-row">
-					<NavLink className="w-117.25 p-0! block! group" href={"/resources/dariah-campus"}>
+					<NavLink
+						className="w-117.25 max-w-full p-0! block! group"
+						href={"/resources/dariah-campus"}
+					>
 						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image
 								alt="DARIAH Campus Logo"
@@ -66,13 +77,16 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.campus")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>
 						</div>
 					</NavLink>
-					<NavLink className="w-117.25 p-0! block! group" href={"/resources/transformations"}>
+					<NavLink
+						className="w-117.25 max-w-full p-0! block! group"
+						href={"/resources/transformations"}
+					>
 						<div className="flex items-center pl-5.5 h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image
 								alt="DARIAH Transformations Logo"
@@ -94,13 +108,16 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.transformations")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>
 						</div>
 					</NavLink>
-					<NavLink className="w-117.25 p-0! block! group" href={"/resources/ssh-open-marketplace"}>
+					<NavLink
+						className="w-117.25 max-w-full p-0! block! group"
+						href={"/resources/ssh-open-marketplace"}
+					>
 						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
 							<Image alt="DARIAH Campus Logo" className="w-59.5 2xl:w-96.75" src={logoSshoc} />
 						</div>
@@ -118,7 +135,7 @@ export function ResourcesSection(): ReactNode {
 									)}
 									variant="regular"
 								>
-									{t("ResourcesSection.explore")}
+									{t("ResourcesSection.explore.sshOpenMarketplace")}
 								</Typography>
 								<ChevronForwardIcon className="size-5" />
 							</div>

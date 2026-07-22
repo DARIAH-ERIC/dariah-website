@@ -82,7 +82,7 @@ export default async function FundingCalls({
 					{t("title")}
 				</Typography>
 			</div>
-			<div className="flex flex-col gap-12 px-36 pt-4 pb-14">
+			<div className="flex flex-col gap-12 px-4 pt-4 pb-14 xl:px-36">
 				{sortedActiveFundingCalls.length > 0 ? (
 					sortedActiveFundingCalls.map((fundingCall, index) => {
 						const {

@@ -8,6 +8,7 @@ import { Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
@@ -36,10 +37,10 @@ export default async function DariahResourceCataloguePage(
 	const staticContentResponse = await client.pages.bySlug({
 		slug: "transformation-a-dariah-journal",
 	});
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.transformations;
 
 	const {
-		data: { content },
+		data: { content, image, title },
 	} = staticContentResponse;
 
 	return (
@@ -58,14 +59,24 @@ export default async function DariahResourceCataloguePage(
 							})}
 						</Breadcrumbs>
 					)}
-					<div>
-						<ContentBlocks fields={content} />
+					<div className="flex flex-col gap-8">
+						<Typography className="text-h2 font-medium" variant="h1">
+							{title}
+						</Typography>
+						<Image
+							alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
+							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+							src={image?.url ?? logoDariahTransformations}
+						/>
+						<div>
+							<ContentBlocks fields={content} />
+						</div>
 					</div>
 				</div>
 				<Image
-					alt="SSH open marketplace Logo"
+					alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
 					className="hidden w-108.5 md:block"
-					src={logoDariahTransformations}
+					src={image?.url ?? logoDariahTransformations}
 				/>
 			</div>
 			<Suspense>

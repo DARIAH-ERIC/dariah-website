@@ -3,9 +3,9 @@ import { getTranslations } from "next-intl/server";
 import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { CaseStudy } from "@/components/ui/case-study/case-study";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -47,7 +47,7 @@ export default async function ImpactCaseStudiesPage(
 	const grouppedItems = groupCaseStudiesByYear(items);
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -64,9 +64,7 @@ export default async function ImpactCaseStudiesPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} title={title} />
 			</div>
 			<div className="flex flex-col gap-18.75 pb-11">
 				{grouppedItems.length > 0 ? (

@@ -43,18 +43,20 @@ export function FundingCallCard(props: Readonly<FundingCallCardProps>): ReactNod
 			)}
 			href={href}
 		>
-			<div className="pt-11.5 pb-14.5 px-11 flex flex-col gap-6 bg-(image:--funding-call-bg) w-full z-1 h-57.25 md:h-54 2xl:max-w-407.5">
+			<div className="p-4 flex justify-center flex-col gap-4 bg-(image:--funding-call-bg) w-full z-1 h-57.25 xl:justify-start xl:px-11 xl:gap-6 xl:pt-11.5 xl:pb-14.5 md:h-54 2xl:max-w-407.5">
 				<Image alt={title} className="w-39.75 h-12.25" height={49} src={logo} width={159} />
-				<div className="flex gap-4">
+				<div className="flex flex-col gap-4 xl:flex-row">
 					<Typography
 						className={
-							"group-hover:text-primary group-hover:underline group-focus:text-black group-focus:underline"
+							"line-clamp-3 group-hover:text-primary group-hover:underline group-focus:text-black group-focus:underline"
 						}
 						variant="h3"
 					>
 						{title}
 					</Typography>
-					{status === "open" && <Tag text={t("openCall")} variant="upcoming" />}
+					{status === "open" && (
+						<Tag className="size-fit" text={t("openCall")} variant="upcoming" />
+					)}
 				</div>
 			</div>
 		</NavLink>

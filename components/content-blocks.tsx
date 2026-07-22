@@ -1,6 +1,6 @@
 /* eslint-disable @eslint-react/no-array-index-key */
 
-import { unreachable } from "@acdh-oeaw/lib";
+import { log, unreachable } from "@acdh-oeaw/lib";
 import type { JSONContent } from "@tiptap/core";
 import type { ReactNode } from "react";
 
@@ -27,9 +27,11 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				return (
 					<aside
 						key={index}
-						className="flex flex-col gap-2.5 p-10 bg-primary-100 float-right size-fit max-w-199"
+						className="flex flex-col gap-2.5 p-10 bg-primary-100 mt-4 *:first:mt-0!"
 					>
-						<Typography variant="h5">{field.title}</Typography>
+						{field.title !== "" && field.title !== null && (
+							<Typography variant="h5">{field.title}</Typography>
+						)}
 						<RichText content={field.content as JSONContent} />
 					</aside>
 				);
@@ -93,6 +95,7 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			default: {
+				log.error("Unknown content block type.");
 				unreachable();
 			}
 		}

@@ -132,7 +132,7 @@ export default async function ImpactCaseStudyPage(
 												const {
 													id,
 													name,
-													position,
+													positions,
 													image: contributorImage,
 													slug: personSlug,
 												} = contributor;
@@ -145,7 +145,7 @@ export default async function ImpactCaseStudyPage(
 														href={`/about/impact-case-studies/${slug}?person=${personSlug}#contributors`}
 														imageUrl={imageUrl}
 														name={name}
-														position={position}
+														position={positions}
 													/>
 												);
 											})}
@@ -175,13 +175,7 @@ export default async function ImpactCaseStudyPage(
 							email={selectedPerson.email ?? undefined}
 							imageUrl={selectedPerson.image?.url}
 							name={selectedPerson.name}
-							position={
-								selectedPerson.position
-									?.map((pos) => {
-										return pos.name;
-									})
-									.join(", ") ?? undefined
-							}
+							position={selectedPerson.positions}
 						/>
 					</div>
 				)}

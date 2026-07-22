@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { ContentBlocks } from "@/components/content-blocks";
 import { OrganisationContainer } from "@/components/pages/organisation-and-governance/organisation-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { GovernanceBodyTag } from "@/components/ui/governance-body-card/governance-body-tag";
@@ -56,6 +57,7 @@ export default async function ContactPage({
 
 	const response = await client.governanceBodies.list();
 	const breadcrumbs = navigation().breadcrumbs.organisationAndGovernance;
+	const staticContentResponse = await client.pages.bySlug({ slug: "organisation-and-governance" });
 
 	const { data: selectedPerson } =
 		selectedUser !== undefined ? await client.persons.bySlug({ slug: selectedUser }) : {};
@@ -80,6 +82,10 @@ export default async function ContactPage({
 
 	const usersForSelectedBody = selectedBodyItem?.persons ?? [];
 
+	const {
+		data: { content, title },
+	} = staticContentResponse;
+
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
 			<div className="flex flex-1 flex-col gap-8 px-4 pt-8 lg:px-8 lg:pb-12 xl:px-20 2xl:px-40">
@@ -95,12 +101,11 @@ export default async function ContactPage({
 					</Breadcrumbs>
 				)}
 				<Typography className="text-[45px] font-light" variant="h2">
-					{t("title")}
+					{title}
 				</Typography>
 			</div>
-			<div className="py-12 px-4 flex flex-col gap-14 lg:px-34 2xl:px-45 3xl:px-78">
-				<Typography variant="h3">{t("description.header")}</Typography>
-				<Typography className="whitespace-pre-line">{t("description.part1")}</Typography>
+			<div className="py-12 px-4 lg:px-34 2xl:px-45 3xl:px-78">
+				<ContentBlocks fields={content} />
 			</div>
 			<div className="flex flex-col gap-2">
 				<div className="py-2 flex gap-2 bg-gray-100 shadow-light justify-center items-center w-full">
@@ -158,7 +163,7 @@ export default async function ContactPage({
 							<div className="flex flex-wrap gap-10 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
 								{usersForSelectedBody.length > 0 &&
 									usersForSelectedBody.map((user) => {
-										const { id, name, position, slug, image: userImage } = user;
+										const { id, name, positions, slug, image: userImage } = user;
 
 										const { url: imageUrl } = userImage ?? { url: null };
 
@@ -168,7 +173,7 @@ export default async function ContactPage({
 												href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}#userList`}
 												imageUrl={imageUrl}
 												name={name}
-												position={position}
+												position={positions}
 											/>
 										);
 									})}
@@ -192,13 +197,7 @@ export default async function ContactPage({
 								email={selectedPerson.email ?? undefined}
 								imageUrl={selectedPerson.image?.url}
 								name={selectedPerson.name}
-								position={
-									selectedPerson.position
-										?.map((pos) => {
-											return pos.name;
-										})
-										.join(", ") ?? undefined
-								}
+								position={selectedPerson.positions}
 							/>
 						</div>
 					)}

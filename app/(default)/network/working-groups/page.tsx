@@ -3,9 +3,9 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { WorkingGroupsTabs } from "@/components/pages/working-groups/working-groups-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 
@@ -32,7 +32,10 @@ export default async function WorkingGroupsPage(
 	const { searchParams } = props;
 	const { status = "active" } = await searchParams;
 
-	const parsedStatus = status.toString() as "active" | "inactive" | undefined;
+	const parsedStatus =
+		status.toString() === "past"
+			? "inactive"
+			: (status.toString() as "active" | "inactive" | undefined);
 
 	const response = await client.workingGroups.list({
 		status: parsedStatus,
@@ -44,7 +47,7 @@ export default async function WorkingGroupsPage(
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
@@ -61,9 +64,7 @@ export default async function WorkingGroupsPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="grid grid-cols-2 gap-x-4 2xl:gap-x-14 [&>:not(aside)]:col-start-1 [&>aside]:col-start-2 [&>aside]:row-start-2 [&>aside]:row-span-4">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} title={title} />
 			</div>
 			<WorkingGroupsTabs items={items} status={parsedStatus} />
 		</Main>

@@ -1,25 +1,39 @@
 import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { QuickLinks } from "@/components/pages/static-pages/quick-links";
 import { SectionPanel } from "@/components/pages/static-pages/section-panel";
 import { BackToTop } from "@/components/ui/back-to-top/back-to-top";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
-import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
-export async function generateMetadata(): Promise<Metadata> {
-	const t = await getTranslations("RegionalHubs");
+interface FundingCallPageProps extends PageProps<"/get-involved/funding-calls/[slug]"> {}
 
-	const title = t("meta.title");
+export async function generateStaticParams(): Promise<
+	Array<Pick<Awaited<FundingCallPageProps["params"]>, "slug">>
+> {
+	const response = await client.opportunities.slugs();
+
+	return response.data.data.map((item) => {
+		return { slug: item.entity.slug };
+	});
+}
+
+export async function generateMetadata(props: Readonly<FundingCallPageProps>): Promise<Metadata> {
+	const { params } = props;
+
+	const { slug: _slug } = await params;
+	const slug = decodeURIComponent(_slug);
+
+	const response = await client.opportunities.bySlug({ slug });
+
+	const { title } = response.data;
 
 	const metadata: Metadata = {
 		title,
@@ -31,11 +45,18 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function RegionalHubsPage(): Promise<ReactNode> {
-	const response = await client.pages.bySlug({ slug: "regional-hubs" });
-	const breadcrumbs = navigation().breadcrumbs.regionalHubs;
+export default async function FundingCallsPage(
+	props: Readonly<FundingCallPageProps>,
+): Promise<ReactNode> {
+	const { params } = props;
+
+	const { slug: _slug } = await params;
+	const slug = decodeURIComponent(_slug);
+	const response = await client.opportunities.bySlug({ slug });
+	const breadcrumbs = navigation().breadcrumbs.opportunitiesDetailPage;
+
 	const {
-		data: { title, content, relatedEntities, relatedResources },
+		data: { title, content },
 	} = response;
 
 	if (content.length === 0) return redirect("/");
@@ -43,12 +64,10 @@ export default async function RegionalHubsPage(): Promise<ReactNode> {
 		return c.type === "rich_text";
 	});
 	const sections = richTextContent
-		? getSectionsFromContent(richTextContent.content as JSONContent, 2)
+		? getSectionsFromContent(richTextContent.content as JSONContent)
 		: [];
 
-	const links = mergeQuickLinks(relatedEntities, relatedResources);
-
-	const parsedContent = addIdsToContent(content, 2);
+	const parsedContent = addIdsToContent(content);
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
@@ -62,6 +81,7 @@ export default async function RegionalHubsPage(): Promise<ReactNode> {
 								</Breadcrumb>
 							);
 						})}
+						<Breadcrumb>{slug.replaceAll("-", " ")}</Breadcrumb>
 					</Breadcrumbs>
 				)}
 				<Typography className="text-[45px] font-light" variant="h2">
@@ -72,10 +92,8 @@ export default async function RegionalHubsPage(): Promise<ReactNode> {
 					<div className="max-w-full xl:w-252.5 xl:flex-1">
 						<ContentBlocks fields={parsedContent} />
 					</div>
-					<QuickLinks className="hidden lg:flex" links={links} />
 				</div>
 			</div>
-			<QuickLinks className="flex px-4 mt-16 lg:hidden" links={links} />
 			<BackToTop />
 		</Main>
 	);

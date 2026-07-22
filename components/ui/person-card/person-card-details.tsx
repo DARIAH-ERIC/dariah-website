@@ -6,13 +6,15 @@ import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
+import { PersonPositions } from "@/components/ui/person-card/person-positions";
 import { Typography } from "@/components/ui/typography/typography";
+import type { Person } from "@/lib/data/api-client";
 
 interface PersonCardDetailsProps {
 	imageUrl?: string | null;
 	name: string;
 	email?: string;
-	position?: string;
+	position: Person["positions"];
 	description: JSONContent | undefined;
 }
 
@@ -33,8 +35,8 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 			/>
 			<div className="flex flex-col gap-2 px-4">
 				<Typography variant="h5">{name}</Typography>
-				<Typography className="capitalize" variant="regular">
-					{position}
+				<Typography variant="regular">
+					<PersonPositions position={position} />
 				</Typography>
 				{email !== undefined && (
 					<Link

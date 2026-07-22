@@ -366,10 +366,22 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "get involved",
 			},
 			{
+				label: "opportunities",
+			},
+		],
+		opportunitiesDetailPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "get involved",
+			},
+			{
+				href: "/get-involved/opportunities",
 				label: "opportunities",
 			},
 		],
@@ -451,6 +463,42 @@ export function navigation() {
 				label: "working groups",
 			},
 		],
+		dariahCampus: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "DARIAH-CAMPUS",
+			},
+		],
+		transformations: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "Transformation: A DARIAH Journal",
+			},
+		],
+		sshOpenMarketplace: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "resources",
+			},
+			{
+				label: "SSH Open Marketplace",
+			},
+		],
 		dariahResourceCatalogue: {
 			breadcrumbs: [
 				{
@@ -476,6 +524,7 @@ export function navigation() {
 					name: "national_consortia",
 					limit: 6,
 					showMore: true,
+					showMoreLimit: 100,
 					sortBy: ["name"],
 					labelType: "api",
 				},
@@ -483,6 +532,7 @@ export function navigation() {
 					name: "working_groups",
 					limit: 6,
 					showMore: true,
+					showMoreLimit: 100,
 					sortBy: ["name"],
 					labelType: "api",
 				},

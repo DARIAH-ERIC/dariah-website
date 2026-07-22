@@ -7,7 +7,6 @@ import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { EventInfoSection } from "@/components/pages/events/event-detail-page/event-info-section";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
-import { Button } from "@/components/ui/button/button";
 import { EventCard } from "@/components/ui/event-card/event-card";
 import { AddIcon } from "@/components/ui/icons/add";
 import { Link } from "@/components/ui/link/link";
@@ -66,6 +65,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 		content,
 		duration: { start: startDate, end: endDate },
 		website,
+		isFullDay,
 	} = response.data;
 
 	const { prev: prevEvent, next: nextEvent } = links;
@@ -123,18 +123,19 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 						</Typography>
 						<EventInfoSection
 							endDate={endDate}
+							isFullDay={isFullDay}
 							location={location}
 							startDate={startDate}
 							website={website ?? undefined}
 						/>
-						<Button
+						<Link
 							href={addToCalendarUrl}
 							startIcon={<AddIcon className="size-5" />}
 							target="_blank"
-							variant="tertiary"
+							variant="button-tertiary"
 						>
 							{t("addToCalendar")}
-						</Button>
+						</Link>
 					</div>
 				</div>
 				<hr className="w-full h-0.5 border-t-2 border-gray-300" />

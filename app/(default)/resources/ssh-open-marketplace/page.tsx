@@ -8,6 +8,7 @@ import { Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
@@ -34,10 +35,10 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("SSHMarketplaceResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({ slug: "ssh-open-marketplace" });
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.sshOpenMarketplace;
 
 	const {
-		data: { content },
+		data: { content, image, title },
 	} = staticContentResponse;
 
 	return (
@@ -56,14 +57,24 @@ export default async function DariahResourceCataloguePage(
 							})}
 						</Breadcrumbs>
 					)}
-					<div>
-						<ContentBlocks fields={content} />
+					<div className="flex flex-col gap-8">
+						<Typography className="text-h2 font-medium" variant="h1">
+							{title}
+						</Typography>
+						<Image
+							alt={image?.alt ?? "SSH open marketplace Logo"}
+							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+							src={image?.url ?? logoSshoc}
+						/>
+						<div>
+							<ContentBlocks fields={content} />
+						</div>
 					</div>
 				</div>
 				<Image
-					alt="SSH open marketplace Logo"
+					alt={image?.alt ?? "SSH open marketplace Logo"}
 					className="hidden w-108.5 md:block"
-					src={logoSshoc}
+					src={image?.url ?? logoSshoc}
 				/>
 			</div>
 			<Suspense>

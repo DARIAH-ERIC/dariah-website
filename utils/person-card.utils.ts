@@ -1,26 +1,26 @@
 import type { Person } from "@/lib/data/api-client";
 
-type PersonPosition = NonNullable<Person["position"]>;
+type PersonPosition = NonNullable<Person["positions"]>;
 type PersonPositionItem = PersonPosition[number];
 
 export const filterPosition = (
-	position: Person["position"],
+	position: Person["positions"],
 	role?: PersonPositionItem["role"],
-	name?: PersonPositionItem["name"],
-	type?: PersonPositionItem["type"],
+	label?: PersonPositionItem["entity"]["label"],
+	type?: PersonPositionItem["entity"]["type"],
 ): PersonPosition => {
 	if (!position) return [];
 
 	return position.filter((pos) => {
 		return (
-			(role !== undefined ? pos.role === role : true) &&
-			(name !== undefined ? pos.name.toLowerCase() === name.toLowerCase() : true) &&
-			(type !== undefined ? pos.type === type : true)
+			(role != null ? pos.role === role : true) &&
+			(label != null ? pos.entity.label?.toLowerCase() === label.toLowerCase() : true) &&
+			(type != null ? pos.entity.type === type : true)
 		);
 	});
 };
 
-export const sortUserPosition = (position: Person["position"]): Person["position"] => {
+export const sortUserPosition = (position: Person["positions"]): Person["positions"] => {
 	if (!position) return null;
 
 	const sortedPosition: PersonPosition = [];

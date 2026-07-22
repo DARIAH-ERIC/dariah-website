@@ -8,6 +8,7 @@ import { Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
+import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
@@ -34,16 +35,16 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("DariahCampusResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({ slug: "dariah-campus" });
-	const breadcrumbs = navigation().breadcrumbs.dariahResourceCatalogue.breadcrumbs;
+	const breadcrumbs = navigation().breadcrumbs.dariahCampus;
 
 	const {
-		data: { content },
+		data: { content, image, title },
 	} = staticContentResponse;
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
-			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
-			<div className="flex gap-15 px-4 py-8 lg:px-33">
+			<div className="absolute inset-0 z-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
+			<div className="flex gap-15 px-4 py-8 z-1 lg:px-33">
 				<div className="flex flex-col gap-14 max-w-251">
 					{breadcrumbs.length > 0 && (
 						<Breadcrumbs>
@@ -56,14 +57,24 @@ export default async function DariahResourceCataloguePage(
 							})}
 						</Breadcrumbs>
 					)}
-					<div>
-						<ContentBlocks fields={content} />
+					<div className="flex flex-col gap-8">
+						<Typography className="text-h2 font-medium" variant="h1">
+							{title}
+						</Typography>
+						<Image
+							alt={image?.alt ?? "Dariah campus Logo"}
+							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+							src={image?.url ?? logoDariahCampus}
+						/>
+						<div>
+							<ContentBlocks fields={content} />
+						</div>
 					</div>
 				</div>
 				<Image
-					alt="SSH open marketplace Logo"
+					alt={image?.alt ?? "Dariah campus Logo"}
 					className="hidden w-108.5 xl:block"
-					src={logoDariahCampus}
+					src={image?.url ?? logoDariahCampus}
 				/>
 			</div>
 			<Suspense>

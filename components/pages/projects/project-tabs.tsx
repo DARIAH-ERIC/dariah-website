@@ -27,10 +27,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 				<Tab href={selectedKey === "inactive" ? "/projects" : undefined} id="active">
 					{t("tabs.active")}
 				</Tab>
-				<Tab
-					href={selectedKey !== "inactive" ? "/projects?status=inactive" : undefined}
-					id="inactive"
-				>
+				<Tab href={selectedKey !== "inactive" ? "/projects?status=past" : undefined} id="inactive">
 					{t("tabs.past")}
 				</Tab>
 			</TabList>
@@ -42,7 +39,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							role="list"
 						>
 							{items.map((item) => {
-								const { duration, entity, image, name, role } = item;
+								const { duration, entity, image, name, role, acronym } = item;
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
@@ -55,7 +52,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										href={href}
 										imageUrl={image?.url}
 										startDate={duration.start}
-										title={name}
+										title={acronym ?? name}
 										type={role}
 									/>
 								);
@@ -73,8 +70,8 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 							className="grid justify-center gap-5 pt-10 pb-20 px-4 md:grid-cols-2 lg:gap-8 lg:grid-cols-3 lg:pb-40 xl:grid-cols-4 xl:w-fit xl:mx-auto xl:justify-start 2xl:gap-y-20 3xl:px-38"
 							role="list"
 						>
-							{items.toReversed().map((item) => {
-								const { duration, entity, image, name, role } = item;
+							{items.map((item) => {
+								const { duration, entity, image, name, role, acronym } = item;
 								const { slug } = entity;
 								const href = `/projects/${slug}`;
 								assert(duration.end);
@@ -87,7 +84,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										href={href}
 										imageUrl={image?.url}
 										startDate={duration.start}
-										title={name}
+										title={acronym ?? name}
 										type={role}
 									/>
 								);

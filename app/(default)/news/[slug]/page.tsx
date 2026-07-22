@@ -58,14 +58,34 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	const [response, latestNewsResponse] = await Promise.all([
 		client.news.bySlug({ slug }),
-		client.news.list({ limit: 4 }),
+		client.news.list({ limit: 5 }),
 	]);
 
-	const { title, image, content, summary, publishedAt, relatedEntities, relatedResources } =
+	const { id, title, image, content, summary, publishedAt, relatedEntities, relatedResources } =
 		response.data;
 	const { data: latestNews } = latestNewsResponse.data;
 
 	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
+
+	const filterLatestNews = () => {
+		const hasCurrentNews = latestNews.find((news) => {
+			return news.id === id;
+		});
+
+		if (hasCurrentNews) {
+			return latestNews.filter((news) => {
+				return news.id !== id;
+			});
+		}
+
+		const sortedNews = latestNews.toSorted((newsA, newsB) => {
+			return newsB.publishedAt.getTime() - newsA.publishedAt.getTime();
+		});
+
+		return sortedNews.slice(0, 4);
+	};
+
+	const filteredLatestNews = filterLatestNews();
 
 	return (
 		<Main className="container flex flex-1 flex-col mb-16 lg:mb-20 lg:gap-20">
@@ -127,14 +147,15 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 					</div>
 				</div>
 			</div>
-			<div className="bg-gray-200 w-full py-20 px-4 flex flex-col gap-12 lg:px-34">
+			<div className="bg-gray-200 w-full py-20 px-4 flex flex-col gap-6 xl:px-12 3xl:gap-12 3xl:px-34">
 				<Typography variant="h2">{t("latest.title")}</Typography>
-				{latestNews.length > 0 ? (
-					<div className="flex flex-col gap-10 items-center lg:justify-between lg:flex-wrap lg:gap-17 lg:flex-row">
-						{latestNews.map((newsItem) => {
+				{filteredLatestNews.length > 0 ? (
+					<div className="flex flex-col gap-10 items-center lg:justify-between xl:gap-6 xl:flex-row 3xl:gap-17">
+						{filteredLatestNews.map((newsItem) => {
 							return (
 								<NewsCard
 									key={newsItem.id}
+									className="xl:max-w-[23%]! 3xl:max-w-full!"
 									date={newsItem.publishedAt}
 									description={newsItem.summary}
 									imageUrl={newsItem.image.url}

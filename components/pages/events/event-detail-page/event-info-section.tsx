@@ -11,25 +11,26 @@ interface EventInfoSectionProps {
 	startDate: Date;
 	endDate?: Date;
 	website?: string;
+	isFullDay: boolean;
 }
 
 export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactNode {
 	const t = useTranslations("EventsDetailPage");
-	const { location, startDate, endDate, website } = props;
+	const { location, startDate, endDate, website, isFullDay } = props;
 
 	return (
 		<div className="flex flex-col gap-2">
 			<div>
 				<Typography variant="regular">{t("infoSection.start")}</Typography>
 				<Typography className="font-semibold" variant="regular">
-					{getFormattedDateForEventDetails(startDate)}
+					{getFormattedDateForEventDetails(startDate, isFullDay)}
 				</Typography>
 			</div>
 			{endDate !== undefined && (
 				<div>
 					<Typography variant="regular">{t("infoSection.end")}</Typography>
 					<Typography className="font-semibold" variant="regular">
-						{getFormattedDateForEventDetails(endDate)}
+						{getFormattedDateForEventDetails(endDate, isFullDay)}
 					</Typography>
 				</div>
 			)}
@@ -48,7 +49,7 @@ export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactN
 						href={website}
 						variant="tertiary"
 					>
-						{t("infoSection.website.description")}
+						{website}
 					</Link>
 				</div>
 			)}

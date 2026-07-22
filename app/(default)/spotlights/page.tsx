@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentBlocks } from "@/components/content-blocks";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListDescription } from "@/components/ui/list-description/list-description";
 import { SpotlightCard } from "@/components/ui/spotlight-card/spotlight-card";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -35,13 +35,13 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const { data: items } = response.data;
 
 	const {
-		data: { content },
+		data: { content, title },
 	} = staticContentResponse;
 
 	return (
 		<Main className="container relative flex flex-1 flex-col pb-16 gap-16 xl:pb-40 xl:gap-12 md:px-8">
-			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[80px]" />
-			<div className="flex flex-col gap-13 px-4 pt-8 lg:px-28">
+			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[80px] z-0" />
+			<div className="flex flex-col gap-13 z-1 px-4 pt-8 lg:px-28">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -53,11 +53,9 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<div className="gap-4 xl:columns-2 3xl:gap-x-23.5 [&>*:first-child]:pb-4 [&>*:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!">
-					<ContentBlocks fields={content} />
-				</div>
+				<ListDescription content={content} title={title} />
 			</div>
-			<div className="flex flex-col gap-10 px-4 3xl:px-35.5">
+			<div className="flex flex-col gap-10 px-4 mx-auto 3xl:px-35.5">
 				<Typography variant="h3">{t("subtitle")}</Typography>
 				{items.length > 0 ? (
 					<ul

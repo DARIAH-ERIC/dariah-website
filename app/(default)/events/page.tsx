@@ -38,6 +38,28 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const DEFAULT_PER_PAGE = 10;
 
+const checkPrevAndNextEvents = (
+	page: number,
+	offset: number,
+	perPage: number,
+	total: number,
+	hasDateParam: boolean,
+	totalResponsePrev: number,
+) => {
+	if (page === 1 && !hasDateParam && totalResponsePrev > 0) {
+		return {
+			hasPrevEvents: totalResponsePrev >= DEFAULT_PER_PAGE,
+			hasNextEvents: offset + perPage < total,
+		};
+	}
+
+	if (page < 0) {
+		return { hasPrevEvents: offset + perPage < total, hasNextEvents: true };
+	}
+
+	return { hasPrevEvents: offset >= DEFAULT_PER_PAGE, hasNextEvents: offset + perPage < total };
+};
+
 export default async function EventsPage({
 	searchParams,
 }: Readonly<{
@@ -52,17 +74,41 @@ export default async function EventsPage({
 		date !== undefined && date !== ""
 			? convertDateToCalendarDate(new Date(date))
 			: convertDateToCalendarDate(new Date());
+	const hasDateParam = date !== undefined && date !== "";
 
-	const response = await client.events.list({
-		from: dateParam.toString(),
-		offset: DEFAULT_PER_PAGE * (Number.parseInt(page) - 1),
-	});
+	const eventListParams =
+		Number(page) > 0
+			? {
+					from: dateParam.toString(),
+					offset: DEFAULT_PER_PAGE * (Number.parseInt(page) - 1),
+				}
+			: {
+					until: dateParam.toString(),
+					offset: DEFAULT_PER_PAGE * (-1 * Number.parseInt(page) - 1),
+				};
+
+	const response = await client.events.list(eventListParams);
+
+	const responseUntil =
+		Number.parseInt(page) > 0
+			? await client.events.list({
+					until: dateParam.toString(),
+					offset: DEFAULT_PER_PAGE * (Number.parseInt(page) - 1),
+				})
+			: { data: { total: 0 } };
 	const breadcrumbs = navigation().breadcrumbs.events;
 
 	const { data: items, offset, total } = response.data;
+	const { total: totalResponsePrev } = responseUntil.data;
 
-	const hasPrevEvents = offset >= DEFAULT_PER_PAGE;
-	const hasNextEvents = offset + DEFAULT_PER_PAGE < total;
+	const { hasPrevEvents, hasNextEvents } = checkPrevAndNextEvents(
+		Number.parseInt(page),
+		offset,
+		DEFAULT_PER_PAGE,
+		total,
+		hasDateParam,
+		totalResponsePrev,
+	);
 
 	const sortedItems = items.toSorted((a, z) => {
 		return a.duration.start.getTime() - z.duration.start.getTime();
@@ -118,7 +164,7 @@ export default async function EventsPage({
 													className="flex flex-col flex-wrap gap-4 relative justify-between lg:flex-row lg:flex-nowrap"
 												>
 													<Typography
-														className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap"
+														className="uppercase h-13.75 flex items-center gap-2.5 -ml-5.5 w-fit text-nowrap whitespace-pre lg:min-w-55 lg:max-w-55"
 														variant="regular"
 													>
 														<ElipseIcon className="fill-gray-300" />

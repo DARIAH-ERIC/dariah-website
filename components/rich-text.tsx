@@ -3,8 +3,10 @@ import type { JSONContent } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
 import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
+import { useFormatter } from "next-intl";
 import type { ReactNode } from "react";
 
+import { PlaceholderValue, renderPlaceholderValue } from "@/components/placeholder-value";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextProps {
@@ -37,6 +39,8 @@ const ExtendedHeading = Heading.extend({
 export function RichText(props: Readonly<RichTextProps>): ReactNode {
 	const { content } = props;
 
+	const format = useFormatter();
+
 	return renderToReactElement({
 		content,
 		extensions: [
@@ -49,7 +53,11 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				link: {
 					HTMLAttributes: {
-						class: cn(linkStyles({ variant: "paragraph" }), "inline break-all"),
+						class: cn(
+							// eslint-disable-next-line better-tailwindcss/no-unknown-classes
+							linkStyles({ variant: "paragraph" }),
+							"inline break-all [[href^='mailto:']]:whitespace-nowrap",
+						),
 					},
 				},
 				blockquote: {
@@ -82,6 +90,14 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 					),
 				},
 			}),
+			PlaceholderValue,
 		],
+		options: {
+			nodeMapping: {
+				placeholderValue(nodeProps) {
+					return renderPlaceholderValue(nodeProps, format);
+				},
+			},
+		},
 	});
 }
