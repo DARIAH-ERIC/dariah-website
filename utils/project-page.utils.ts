@@ -17,5 +17,9 @@ export const parseDateForProjectDuration = (date: Date): string => {
 };
 
 export const getTopicFromUrl = (url: string): string | undefined => {
+	const topic = url.split("/").at(-1);
+
+	if (topic === "") return url;
+
 	return url.split("/").at(-1);
 };
