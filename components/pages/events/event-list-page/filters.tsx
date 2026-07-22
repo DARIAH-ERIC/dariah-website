@@ -40,6 +40,7 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 	const searchParams = useSearchParams();
 
 	const currentDate = formatDateToIso(new Date());
+	const hasDateParam = searchParams.has("date");
 
 	const [date, setDate] = useState<DateValue>((): DateValue => {
 		return parseDate(searchParams.get("date") ?? currentDate);
@@ -68,7 +69,11 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 	return (
 		<div className="flex flex-col flex-wrap items-start gap-y-10 gap-x-20 w-full md:items-end md:flex-row">
 			<div className="flex flex-wrap flex-1 items-end gap-y-6 gap-x-4">
-				<DatePicker label={t("filters.date")} onChange={handleDateChange} value={date} />
+				<DatePicker
+					label={t("filters.date")}
+					onChange={handleDateChange}
+					value={hasDateParam ? date : undefined}
+				/>
 				<Button onClick={handleEventCriteriaChange} variant="secondary-blue">
 					{t("filters.confirm")}
 				</Button>

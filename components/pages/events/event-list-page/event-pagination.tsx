@@ -17,8 +17,8 @@ export function EventPagination(props: Readonly<EventPaginationProps>): ReactNod
 	const { hasPrevEvents, hasNextEvents, currentPage, dateParam } = props;
 	const t = useTranslations("EventsPage");
 
-	const prevPageNumber = Number.parseInt(currentPage) - 1;
-	const nextPageNumber = Number.parseInt(currentPage) + 1;
+	const prevPageNumber = Number.parseInt(currentPage) === 1 ? -1 : Number.parseInt(currentPage) - 1;
+	const nextPageNumber = Number.parseInt(currentPage) === -1 ? 1 : Number.parseInt(currentPage) + 1;
 
 	return (
 		<div

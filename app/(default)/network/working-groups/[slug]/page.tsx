@@ -8,6 +8,7 @@ import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
 import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
@@ -106,26 +107,26 @@ export default async function WorkingGroupPage(
 		"national_representative_deputy",
 	];
 
-	const getContactInfo = (): { contactHref: string; contactLabel: string } => {
+	const getContactInfo = (): string | undefined => {
 		if (email !== null && email !== "") {
-			return { contactHref: `mailto:${email}`, contactLabel: email };
+			return `mailto:${email}`;
 		}
 
 		if (mailingList !== null && mailingList !== "")
 			try {
 				new URL(mailingList);
-				return { contactHref: mailingList, contactLabel: t("mailingList") };
+				return mailingList;
 			} catch {
-				return { contactHref: `mailto:${mailingList}`, contactLabel: mailingList };
+				return `mailto:${mailingList}`;
 			}
 
-		return { contactHref: "", contactLabel: "" };
+		return undefined;
 	};
 
 	const hasMailOrMailingList =
 		(email !== null && email !== "") || (mailingList !== null && mailingList !== "");
 
-	const { contactHref, contactLabel } = getContactInfo();
+	const contactHref = getContactInfo();
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 2xl:px-30">
@@ -152,15 +153,17 @@ export default async function WorkingGroupPage(
 								{name}
 							</Typography>
 							<div className="flex flex-col gap-2">
-								{(hasMailOrMailingList || otherSocialMedia.length > 0) && (
+								{(website !== undefined || otherSocialMedia.length > 0) && (
 									<div className="flex flex-col gap-x-6 lg:items-center lg:flex-row lg:flex-wrap">
-										{hasMailOrMailingList && (
-											<div className="flex gap-2 items-center">
-												<Typography variant="regular">{t("contact")}</Typography>
-												<Link href={contactHref} variant="paragraph">
-													{contactLabel}
-												</Link>
-											</div>
+										{website && (
+											<Link
+												endIcon={<OpenInNewIcon className="size-5" />}
+												href={website.url}
+												target="_blank"
+												variant="primary"
+											>
+												{t("visitWebsite")}
+											</Link>
 										)}
 										{otherSocialMedia.length > 0 && (
 											<div className="flex gap-4 items-center">
@@ -285,14 +288,14 @@ export default async function WorkingGroupPage(
 					</div>
 				</div>
 				<div className="flex flex-col gap-23.25 lg:pt-40.5 lg:w-109">
-					{website?.url !== undefined && (
+					{hasMailOrMailingList && (
 						<div className="flex flex-col gap-6">
 							<div className="flex flex-col gap-4">
 								<Typography variant="h2">{t("joinGroup.title")}</Typography>
 								<hr className="w-22.5 h-0.5 bg-(image:--working-group-detail-divider)" />
 							</div>
 							<Typography variant="regular">{t("joinGroup.description")}</Typography>
-							<Link className="w-fit" href={website.url} variant="button-tertiary">
+							<Link className="w-fit" href={contactHref} variant="button-tertiary">
 								{t("joinGroup.button")}
 							</Link>
 						</div>

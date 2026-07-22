@@ -88,7 +88,9 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 							{t("details.funding.description")}
 						</Typography>
 						<Typography variant="regular">
-							{t("details.funding.value", { value: funding.toLocaleString("fr-CH") })}
+							{t("details.funding.value", {
+								value: funding.toLocaleString("en-US").replaceAll(",", " "),
+							})}
 						</Typography>
 					</div>
 				)}
@@ -97,12 +99,7 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 						<Typography className="font-bold" variant="regular">
 							{t("details.topic")}
 						</Typography>
-						<Link
-							className="uppercase"
-							endIcon={<OpenInNewIcon className="size-5" />}
-							href={topic}
-							variant="paragraph"
-						>
+						<Link endIcon={<OpenInNewIcon className="size-5" />} href={topic} variant="paragraph">
 							{topicName}
 						</Link>
 					</div>
