@@ -3,13 +3,16 @@ import { getTranslations } from "next-intl/server";
 import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { SubscribeNewsletter } from "@/components/navigation/subscribe-newsletter";
+import { ContentBlocks } from "@/components/content-blocks";
+import { SubscribeNewsletterOnPage } from "@/components/pages/newsletters/subscribe-newsletter-on-page";
+import { SectionPanel } from "@/components/pages/static-pages/section-panel";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Document } from "@/components/ui/document/document";
 import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { getSectionsFromGroups, groupNewslettersByYear } from "@/utils/newsletter-page.utils";
 
 interface NewslettersPageProps extends PageProps<"/newsletters"> {}
 
@@ -32,7 +35,9 @@ export default async function NewslettersPage(
 	props: Readonly<NewslettersPageProps>,
 ): Promise<ReactNode> {
 	const { searchParams } = props;
-	const { page = 1, per_page = 10 } = await searchParams;
+	const { page = 1, per_page = 20 } = await searchParams;
+	const subscribeToNewsletterResponse = await client.pages.bySlug({ slug: "newsletters" });
+	const privacyPolicyResponse = await client.pages.bySlug({ slug: "newsletters-privacy-notice" });
 	const t = await getTranslations("NewslettersPage");
 
 	const response = await client.newsletters.list({
@@ -42,6 +47,17 @@ export default async function NewslettersPage(
 	const breadcrumbs = navigation().breadcrumbs.newsletters;
 
 	const { data: items, total } = response.data;
+
+	const grouppedNewsletters = groupNewslettersByYear(items);
+	const sections = getSectionsFromGroups(grouppedNewsletters);
+
+	const {
+		data: { content: subscribeToNewsletterContent },
+	} = subscribeToNewsletterResponse;
+
+	const {
+		data: { content: privacyPolicyContent },
+	} = privacyPolicyResponse;
 
 	return (
 		<Main className="flex flex-1 flex-col gap-14 px-4 pt-8 pb-30 container lg:px-12 2xl:px-31.5">
@@ -59,31 +75,52 @@ export default async function NewslettersPage(
 				)}
 				<Typography variant="h2">{t("title")}</Typography>
 			</div>
-			<div className="flex flex-col gap-16 xl:flex-row">
-				<div className="flex flex-col gap-16">
-					<ul className="flex flex-col lg:min-w-[60%]" role="list">
-						{items.map((item, index) => {
-							const { id, archive_url, subject_line } = item;
-							return (
-								<li key={id}>
-									<Document
-										documentUrl={archive_url}
-										isEven={index % 2 === 0}
-										previewText={t("previewText")}
-										title={subject_line}
-									/>
-								</li>
-							);
-						})}
-					</ul>
+			<div className="flex flex-col gap-16">
+				<SubscribeNewsletterOnPage staticContent={subscribeToNewsletterContent} />
 
-					<div className="bg-pagination-bg max-w-full w-92 h-21 flex items-center ml-auto sm:w-125 sm:pl-8 sm:max-w-125">
-						<Suspense>
-							<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
-						</Suspense>
+				<div className="flex-col flex gap-8 max-w-full lg:flex-row lg:gap-21">
+					<SectionPanel className="w-82" sections={sections} />
+					<div className="flex flex-col gap-16">
+						{grouppedNewsletters.length > 0 ? (
+							grouppedNewsletters.map(([year, items]) => {
+								return (
+									<div key={year} className="flex gap-6 flex-col">
+										<Typography id={year} variant="h3">
+											{year}
+										</Typography>
+										<ul className="flex flex-col lg:min-w-[60%]" role="list">
+											{items.map((item, index) => {
+												const { id, archive_url, subject_line } = item;
+												return (
+													<li key={id}>
+														<Document
+															documentUrl={archive_url}
+															isEven={index % 2 === 0}
+															previewText={t("previewText")}
+															title={subject_line}
+														/>
+													</li>
+												);
+											})}
+										</ul>
+									</div>
+								);
+							})
+						) : (
+							<Typography variant="regular">{t("emptyState")}</Typography>
+						)}
+
+						<div className="bg-pagination-bg max-w-full w-92 h-21 flex items-center ml-auto sm:w-125 sm:pl-8 sm:max-w-125">
+							<Suspense>
+								<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
+							</Suspense>
+						</div>
 					</div>
 				</div>
-				<SubscribeNewsletter />
+
+				<div className="px-4 xl:px-12">
+					<ContentBlocks fields={privacyPolicyContent} />
+				</div>
 			</div>
 		</Main>
 	);
