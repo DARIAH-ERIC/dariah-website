@@ -36,8 +36,8 @@ export default async function NewslettersPage(
 ): Promise<ReactNode> {
 	const { searchParams } = props;
 	const { page = 1, per_page = 20 } = await searchParams;
-	const subscribeToNewsletterResponse = await client.pages.bySlug({ slug: "impact-case-studies" });
-	const privacyPolicyResponse = await client.pages.bySlug({ slug: "impact-case-studies" });
+	const subscribeToNewsletterResponse = await client.pages.bySlug({ slug: "newsletters" });
+	const privacyPolicyResponse = await client.pages.bySlug({ slug: "newsletters-privacy-notice" });
 	const t = await getTranslations("NewslettersPage");
 
 	const response = await client.newsletters.list({

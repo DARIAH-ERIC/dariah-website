@@ -84,7 +84,7 @@ export function SubscribeNewsletterOnPage(
 
 	return (
 		<div className="flex flex-col gap-10 px-4 xl:px-12 xl:items-center">
-			<div>
+			<div className="xl:w-[50%]">
 				<ContentBlocks fields={staticContent} />
 			</div>
 			<div className="flex flex-col gap-8.5 xl:w-[50%]">
