@@ -34,7 +34,13 @@ export function QuickLinks(props: Readonly<QuickLinksProps>): ReactNode {
 					const key = `${label}-${link ?? "no-link"}`;
 
 					return (
-						<Link key={key} href={link} variant="primary" withDefaultRightIcon={true}>
+						<Link
+							key={key}
+							className="w-full"
+							href={link}
+							variant="primary"
+							withDefaultRightIcon={true}
+						>
 							{label}
 						</Link>
 					);

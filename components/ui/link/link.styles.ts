@@ -1,7 +1,9 @@
 import { cn, styles } from "@acdh-oeaw/style-variants";
 
 export const linkStyles = styles({
-	base: ["cursor-pointer flex items-center [&>svg]:size-5 [&>svg]:fill-primary [&>span]:text-wrap"],
+	base: [
+		"cursor-pointer flex items-center [&>svg]:size-5 [&>svg]:fill-primary [&>span]:text-wrap [&_span]:flex-1",
+	],
 	variants: {
 		variant: {
 			primary: cn(
