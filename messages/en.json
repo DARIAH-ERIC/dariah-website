@@ -23,6 +23,18 @@
 		},
 		"title": "Strategy"
 	},
+	"AccessibilityDeclaration": {
+		"meta": {
+			"title": "Accessibility declaration"
+		},
+		"title": "Accessibility declaration"
+	},
+	"LegalNotice": {
+		"meta": {
+			"title": "Legal notice"
+		},
+		"title": "Legal notice"
+	},
 	"HomePage": {
 		"HeroSection": {
 			"header": "The pan-European infrastructure for Arts & Humanities scholars",
@@ -356,7 +368,6 @@
 			"title": "Spotlight articles"
 		},
 		"title": "Spotlight",
-		"subtitle": "Spotlight articles",
 		"description": {
 			"part1": "Making scholarship more visible",
 			"part2": "DARIAH Spotlight is monthly series launching in March 2025. Spotlight articles offer quick, engaging looks at the latest research connected to the DARIAH infrastructure - from innovative DARIAH Working Groups to inspiring DH projects across our network. ",

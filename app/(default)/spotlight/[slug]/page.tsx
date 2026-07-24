@@ -18,7 +18,7 @@ import { navigation } from "@/lib/data/client";
 import { getGrouppedPersonMembers, mergeEntitiesAndResources } from "@/utils/global.utils";
 import { getFormattedDateForDetails } from "@/utils/spotlight-page.utils";
 
-interface SpotlightArticlePageProps extends PageProps<"/spotlights/[slug]"> {}
+interface SpotlightArticlePageProps extends PageProps<"/spotlight/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
 	Array<Pick<Awaited<SpotlightArticlePageProps["params"]>, "slug">>
@@ -93,7 +93,7 @@ export default async function SpotlightArticlePage(
 							<Breadcrumb>{title}</Breadcrumb>
 						</Breadcrumbs>
 					)}
-					<Link href="/spotlights" variant="secondary" withDefaultLeftIcon={true}>
+					<Link href="/spotlight" variant="secondary" withDefaultLeftIcon={true}>
 						{t("browseAll")}
 					</Link>
 					<div className="flex flex-col gap-4">
@@ -151,7 +151,7 @@ export default async function SpotlightArticlePage(
 														return (
 															<PersonCard
 																key={id}
-																href={`/spotlights/${slug}?person=${personSlug}#contributors`}
+																href={`/spotlight/${slug}?person=${personSlug}#contributors`}
 																imageUrl={imageUrl}
 																name={name}
 																position={positions}
@@ -169,7 +169,7 @@ export default async function SpotlightArticlePage(
 						) : (
 							<div className="flex flex-col flex-wrap gap-10 w-full">
 								<Link
-									href={`/spotlights/${slug}#contributors`}
+									href={`/spotlight/${slug}#contributors`}
 									variant="primary"
 									withDefaultLeftIcon={true}
 								>

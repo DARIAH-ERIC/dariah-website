@@ -119,8 +119,8 @@ export function navigation() {
 				},
 				spotlights: {
 					type: "link",
-					label: "Spotlights",
-					href: "/spotlights",
+					label: "Spotlight",
+					href: "/spotlight",
 				},
 				"annual-events": {
 					type: "link",
@@ -509,7 +509,7 @@ export function navigation() {
 					label: "resources",
 				},
 				{
-					label: "resources catalogue",
+					label: "resource catalogue",
 				},
 			],
 			filters: [
@@ -568,11 +568,34 @@ export function navigation() {
 				label: "home",
 			},
 			{
-				href: "/",
 				label: "About",
 			},
 			{
 				label: "strategy",
+			},
+		],
+		accessibilityDeclaration: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "privacy and legal",
+			},
+			{
+				label: "Accessibility declaration",
+			},
+		],
+		legalNotice: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "privacy and legal",
+			},
+			{
+				label: "Legal notice",
 			},
 		],
 		regionalHubs: [
