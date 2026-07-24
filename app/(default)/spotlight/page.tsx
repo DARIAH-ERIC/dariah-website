@@ -29,7 +29,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	const t = await getTranslations("SpotlightArticlesPage");
 
 	const response = await client.spotlightArticles.list();
-	const staticContentResponse = await client.pages.bySlug({ slug: "spotlights" });
+	const staticContentResponse = await client.pages.bySlug({ slug: "spotlight" });
 	const breadcrumbs = navigation().breadcrumbs.spotlightArticles;
 
 	const { data: items } = response.data;
@@ -39,9 +39,9 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 	} = staticContentResponse;
 
 	return (
-		<Main className="container relative flex flex-1 flex-col pb-16 gap-16 xl:pb-40 xl:gap-12 md:px-8">
+		<Main className="container relative flex flex-1 flex-col pb-16 gap-12 xl:pb-40 xl:gap-7 md:px-8">
 			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[80px] z-0" />
-			<div className="flex flex-col gap-13 z-1 px-4 pt-8 lg:px-28">
+			<div className="flex flex-col gap-13 z-1 px-4 py-8 lg:px-28">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {
@@ -56,16 +56,12 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 				<ListDescription content={content} title={title} />
 			</div>
 			<div className="flex flex-col gap-10 px-4 mx-auto 3xl:px-35.5">
-				<Typography variant="h3">{t("subtitle")}</Typography>
 				{items.length > 0 ? (
-					<ul
-						className="grid gap-14 pt-10 mx-auto md:grid-cols-2 2xl:gap-x-20 3xl:gap-x-30"
-						role="list"
-					>
+					<ul className="grid gap-14 mx-auto md:grid-cols-2 2xl:gap-x-20 3xl:gap-x-30" role="list">
 						{items.map((item) => {
 							const { entity, image, publishedAt, summary, title } = item;
 							const { slug } = entity;
-							const href = `/spotlights/${slug}`;
+							const href = `/spotlight/${slug}`;
 
 							return (
 								<SpotlightCard

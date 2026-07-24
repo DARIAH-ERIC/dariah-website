@@ -94,7 +94,7 @@ export const getEntityUrl = (entity: RelatedEntity): string | undefined => {
 			return `/projects/${slug}`;
 		}
 		case "spotlight_articles": {
-			return `/spotlights/${slug}`;
+			return `/spotlight/${slug}`;
 		}
 		case "governance_body": {
 			return getUrlForGovernanceBody(slug);

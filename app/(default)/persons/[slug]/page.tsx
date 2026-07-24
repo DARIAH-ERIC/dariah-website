@@ -84,7 +84,7 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 									? `/about/impact-case-studies/${article.entity.slug}`
 									: // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 										article.type === "spotlight_article"
-										? `/spotlights/${article.entity.slug}`
+										? `/spotlight/${article.entity.slug}`
 										: undefined;
 
 							return (

@@ -97,7 +97,7 @@ const config: Config = {
 			},
 			{
 				source: "/activities/spotlight/:path*",
-				destination: "/spotlights/:path*",
+				destination: "/spotlight/:path*",
 				permanent: true,
 			},
 			{
