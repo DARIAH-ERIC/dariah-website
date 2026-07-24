@@ -69,6 +69,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 		topic,
 		coordinators,
 		summary,
+		socialMedia,
 		duration: { start, end },
 	} = response.data;
 
@@ -82,6 +83,10 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 		descriptionJsonContent?.content !== undefined
 			? descriptionJsonContent.content.length > 0
 			: false;
+
+	const website = socialMedia.find((media) => {
+		return media.type === "website";
+	});
 
 	return (
 		<Main className="container flex flex-1 flex-col gap-8 px-8 py-12 xl:px-12 2xl:px-30">
@@ -115,6 +120,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 						name={name}
 						start={start}
 						topic={topic}
+						websiteUrl={website?.url}
 					/>
 					<div className="flex flex-col gap-4 px-2 pt-10">
 						<Typography variant="h3">{"Summary"}</Typography>

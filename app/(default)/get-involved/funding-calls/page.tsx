@@ -61,8 +61,6 @@ export default async function FundingCalls({
 	const { data: closedFundingCalls } = closedResponse?.data ?? {};
 
 	const sortedActiveFundingCalls = sortFundingCalls(activeFundingCalls);
-	const sortedClosedFundingCalls =
-		closedFundingCalls !== undefined ? sortFundingCalls(closedFundingCalls) : undefined;
 
 	return (
 		<Main className="flex flex-1 flex-col gap-8 container py-8">
@@ -111,8 +109,8 @@ export default async function FundingCalls({
 				<hr className="w-full h-0.5 border-t-2 border-gray-400" />
 				{shouldDisplayClosedFundingCalls && (
 					<>
-						{sortedClosedFundingCalls && sortedClosedFundingCalls.length > 0 ? (
-							sortedClosedFundingCalls.map((fundingCall, index) => {
+						{closedFundingCalls && closedFundingCalls.length > 0 ? (
+							closedFundingCalls.map((fundingCall, index) => {
 								const {
 									id,
 									title,

@@ -35,8 +35,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 					{generalAssembly && (
 						<div className="flex items-center w-full">
 							<GovernanceBodyCard
+								acronym={generalAssembly.acronym}
 								description={generalAssembly.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${generalAssembly.entity.slug}#userList`}
+								href={`/about/organisation-and-governance?selectedBody=${generalAssembly.entity.slug}`}
 								name={generalAssembly.name}
 								relationships={getGovernanceRelationships(
 									generalAssembly.entity.slug as GovernanceBody,
@@ -51,8 +52,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 					{boardOfDirectors && (
 						<div className="flex w-full">
 							<GovernanceBodyCard
+								acronym={boardOfDirectors.acronym}
 								description={boardOfDirectors.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${boardOfDirectors.entity.slug}#userList`}
+								href={`/about/organisation-and-governance?selectedBody=${boardOfDirectors.entity.slug}`}
 								name={boardOfDirectors.name}
 								relationships={getGovernanceRelationships(
 									boardOfDirectors.entity.slug as GovernanceBody,
@@ -72,8 +74,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						<div className="flex flex-col items-center w-full max-w-99">
 							<GovernanceBodyRelationArrow direction="down" text="Appoints" />
 							<GovernanceBodyCard
+								acronym={coordinationOffice.acronym}
 								description={coordinationOffice.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${coordinationOffice.entity.slug}#userList`}
+								href={`/about/organisation-and-governance?selectedBody=${coordinationOffice.entity.slug}`}
 								name={coordinationOffice.name}
 								relationships={getGovernanceRelationships(
 									coordinationOffice.entity.slug as GovernanceBody,
@@ -88,8 +91,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						<div className="flex flex-col items-center w-full max-w-99">
 							<GovernanceBodyRelationArrow direction="down" text="Appoints" />
 							<GovernanceBodyCard
+								acronym={researchComitee.acronym}
 								description={researchComitee.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${researchComitee.entity.slug}#userList`}
+								href={`/about/organisation-and-governance?selectedBody=${researchComitee.entity.slug}`}
 								name={researchComitee.name}
 								relationships={getGovernanceRelationships(
 									researchComitee.entity.slug as GovernanceBody,
@@ -105,8 +109,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						<GovernanceBodyRelationArrow direction="down" text="Supports" />
 						{nationalComitee && (
 							<GovernanceBodyCard
+								acronym={nationalComitee.acronym}
 								description={nationalComitee.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${nationalComitee.entity.slug}#userList`}
+								href={`/about/organisation-and-governance?selectedBody=${nationalComitee.entity.slug}`}
 								name={nationalComitee.name}
 								relationships={getGovernanceRelationships(
 									nationalComitee.entity.slug as GovernanceBody,
@@ -120,13 +125,13 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 						<div className="flex flex-col items-center w-full max-w-96.5">
 							<GovernanceBodyRelationArrow direction="down" text="Oversees" />
 							<GovernanceBodyCard
+								acronym={workingGroup.acronym}
 								description={workingGroup.summary ?? undefined}
-								href={`/about/organisation-and-governance?selectedBody=${workingGroup.entity.slug}#userList`}
+								href={`/network/working-groups`}
 								name={workingGroup.name}
 								relationships={getGovernanceRelationships(
 									workingGroup.entity.slug as GovernanceBody,
 								)}
-								usersCount={workingGroup.persons.length}
 								variant={getGovernanceVariant(workingGroup.entity.slug as GovernanceBody)!}
 							/>
 						</div>
@@ -136,8 +141,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 			<div className="flex flex-col gap-13.75 py-15.25 max-w-78.75">
 				{scientificAdvisoryBoard && (
 					<GovernanceBodyCard
+						acronym={scientificAdvisoryBoard.acronym}
 						description={scientificAdvisoryBoard.summary ?? undefined}
-						href={`/about/organisation-and-governance?selectedBody=${scientificAdvisoryBoard.entity.slug}#userList`}
+						href={`/about/organisation-and-governance?selectedBody=${scientificAdvisoryBoard.entity.slug}`}
 						name={scientificAdvisoryBoard.name}
 						relationships={getGovernanceRelationships(
 							scientificAdvisoryBoard.entity.slug as GovernanceBody,
@@ -148,8 +154,9 @@ export function DesktopOrganisation(props: Readonly<DesktopOrganisationProps>): 
 				)}
 				{seniorManagementTeam && (
 					<GovernanceBodyCard
+						acronym={seniorManagementTeam.acronym}
 						description={seniorManagementTeam.summary ?? undefined}
-						href={`/about/organisation-and-governance?selectedBody=${seniorManagementTeam.entity.slug}#userList`}
+						href={`/about/organisation-and-governance?selectedBody=${seniorManagementTeam.entity.slug}`}
 						name={seniorManagementTeam.name}
 						relationships={getGovernanceRelationships(
 							seniorManagementTeam.entity.slug as GovernanceBody,

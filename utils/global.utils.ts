@@ -55,7 +55,7 @@ export const getUrlForStaticPage = (slug: string): string | undefined => {
 export const getUrlForGovernanceBody = (slug: string): string | undefined => {
 	const organisationBaseUrl = "/about/organisation-and-governance";
 	if (GOVERNANCE_VARIANTS_BY_SLUG.has(slug)) {
-		return `${organisationBaseUrl}?selectedBody=${slug}#userList`;
+		return `${organisationBaseUrl}?selectedBody=${slug}`;
 	}
 
 	return organisationBaseUrl;

@@ -76,7 +76,7 @@ export const getGovernanceRelationships = (slug: GovernanceBody): Array<Relation
 };
 
 export const getNameAcronym = (name: string): string => {
-	return name.match(/\b\w/g)?.join("").toUpperCase() ?? "";
+	return name.match(/\b\w/g)?.join("") ?? "";
 };
 
 export const sortGovernanceBodiesForMobile = (

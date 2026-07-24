@@ -13,17 +13,18 @@ import {
 } from "@/utils/organisation-and-governance.utils";
 
 interface GovernanceBodyCardProps {
+	acronym?: string | null;
 	variant: GovernanceVariants;
 	name: string;
 	description?: string;
-	usersCount: number;
+	usersCount?: number;
 	href?: string;
 	onClick?: () => void;
 	relationships: Array<RelationshipType>;
 }
 
 export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): ReactNode {
-	const { variant, name, description, usersCount, href, onClick, relationships } = props;
+	const { variant, name, acronym, description, usersCount, href, onClick, relationships } = props;
 	const { bg, border, borderFocus, text } = getColorsForGovernanceVariant(variant);
 
 	const Component: ElementType = href !== undefined ? NavLink : Button;
@@ -60,13 +61,15 @@ export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): Re
 				<div className={cn("border-l-4 px-4 flex flex-col gap-1", border)}>
 					<div className="flex flex-wrap gap-x-2 justify-between items-center">
 						<div className="flex gap-2">
-							<Typography className={text}>{getNameAcronym(name)}</Typography>
+							<Typography className={text}>{acronym ?? getNameAcronym(name)}</Typography>
 							<Typography className="capitalize">{name}</Typography>
 						</div>
-						<div className="flex gap-2 py-2 items-center">
-							<UsersIcon className="size-5 fill-primary" />
-							<Typography>{usersCount}</Typography>
-						</div>
+						{usersCount != null && (
+							<div className="flex gap-2 py-2 items-center">
+								<UsersIcon className="size-5 fill-primary" />
+								<Typography>{usersCount}</Typography>
+							</div>
+						)}
 					</div>
 					<Typography className="text-gray-800" variant="small">
 						{description}
