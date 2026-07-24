@@ -45,11 +45,12 @@ interface ProjectDetailsProps {
 	coordinators: Array<Coordinator>;
 	start: Date;
 	end: Date | undefined;
+	websiteUrl?: string | null;
 }
 
 export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Promise<ReactNode> {
 	const t = await getTranslations("ProjectsDetailPage");
-	const { name, image, funding, topic, coordinators, start, end } = props;
+	const { name, image, funding, topic, coordinators, start, end, websiteUrl } = props;
 
 	const durationStart = parseDateForProjectDuration(start);
 	const durationEnd = end !== undefined ? parseDateForProjectDuration(end) : end;
@@ -63,6 +64,17 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 	return (
 		<div className="flex flex-col gap-5 px-2 py-10 justify-between items-center xl:flex-row">
 			<div className="flex flex-col gap-2">
+				{websiteUrl !== undefined && websiteUrl !== null && (
+					<Link
+						className="p-0!"
+						endIcon={<OpenInNewIcon className="size-5" />}
+						href={websiteUrl}
+						target="_blank"
+						variant="primary"
+					>
+						{t("details.visitWebsite")}
+					</Link>
+				)}
 				<div className="flex flex-wrap gap-2">
 					<Typography className="font-bold" variant="regular">
 						{t("details.name")}

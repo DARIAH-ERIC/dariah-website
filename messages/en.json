@@ -321,6 +321,7 @@
 	"ProjectsDetailPage": {
 		"browseAll": "Browse all projects",
 		"details": {
+			"visitWebsite": "Visit the website",
 			"name": "Full project name:",
 			"duration": {
 				"description": "Duration:",

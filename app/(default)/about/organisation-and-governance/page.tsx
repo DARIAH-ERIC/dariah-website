@@ -1,5 +1,3 @@
-import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -7,14 +5,9 @@ import type { ReactNode } from "react";
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
 import { OrganisationContainer } from "@/components/pages/organisation-and-governance/organisation-container";
+import { SelectedBodyContainer } from "@/components/pages/organisation-and-governance/selected-body-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
-import { GovernanceBodyTag } from "@/components/ui/governance-body-card/governance-body-tag";
-import { CloseIcon } from "@/components/ui/icons/close";
 import { InfoIcon } from "@/components/ui/icons/info";
-import { Link } from "@/components/ui/link/link";
-import { NavLink } from "@/components/ui/link/nav-link";
-import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -23,7 +16,6 @@ import {
 	getColorsForGovernanceVariant,
 	getGovernanceRelationships,
 	getGovernanceVariant,
-	getNameAcronym,
 } from "@/utils/organisation-and-governance.utils";
 
 interface ContactPageSearchParams {
@@ -58,6 +50,9 @@ export default async function ContactPage({
 	const response = await client.governanceBodies.list();
 	const breadcrumbs = navigation().breadcrumbs.organisationAndGovernance;
 	const staticContentResponse = await client.pages.bySlug({ slug: "organisation-and-governance" });
+	const selectedBodyResponse = selectedBody
+		? await client.governanceBodies.bySlug({ slug: selectedBody })
+		: undefined;
 
 	const { data: selectedPerson } =
 		selectedUser !== undefined ? await client.persons.bySlug({ slug: selectedUser }) : {};
@@ -72,9 +67,7 @@ export default async function ContactPage({
 		data: { data: items },
 	} = response;
 
-	const selectedBodyItem = items.find((item) => {
-		return item.entity.slug === selectedBody;
-	});
+	const { data: selectedBodyItem } = selectedBodyResponse ?? { data: undefined };
 
 	const selectedBodyRelationships = selectedBodyItem
 		? getGovernanceRelationships(selectedBodyItem.entity.slug as GovernanceBody)
@@ -119,89 +112,16 @@ export default async function ContactPage({
 				</div>
 			</div>
 			{selectedBody && (
-				<div className="relative">
-					<div className="absolute -top-10" id="userList" />
-					<div
-						className={cn(
-							"w-full px-4 py-3 flex justify-between text-white! lg:px-34 2xl:px-45 3xl:px-78",
-							selectedBodyBgColor,
-						)}
-					>
-						<div className="flex flex-col gap-2">
-							<Typography className="uppercase" variant="caption">
-								{selectedBodyVariant}
-							</Typography>
-							<div className="flex gap-2">
-								<Typography>{getNameAcronym(selectedBody)}</Typography>
-								<Typography>{selectedBody}</Typography>
-							</div>
-						</div>
-						<NavLink href="/about/organisation-and-governance">
-							<CloseIcon aria-label="close" className="fill-white! size-10!" />
-						</NavLink>
-					</div>
-					{selectedPerson === undefined ? (
-						<>
-							<div className="flex flex-col gap-4 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
-								<Typography
-									className={cn("border-l-4 pl-4", selectedBodyBorderColor)}
-									variant="regular"
-								>
-									{selectedBodyItem?.summary}
-								</Typography>
-								<div className="flex flex-wrap gap-6">
-									{selectedBodyRelationships.map((relationship) => {
-										return <GovernanceBodyTag key={relationship} relationship={relationship} />;
-									})}
-								</div>
-								<Typography className="font-bold" variant="regular">
-									{t("bodyDetails.membersCount", {
-										count: selectedBodyItem?.persons.length.toString() ?? "0",
-									})}
-								</Typography>
-							</div>
-							<div className="flex flex-wrap gap-10 py-6 px-4 lg:px-34 2xl:px-45 3xl:px-78">
-								{usersForSelectedBody.length > 0 &&
-									usersForSelectedBody.map((user) => {
-										const { id, name, positions, slug, image: userImage } = user;
-
-										const { url: imageUrl } = userImage ?? { url: null };
-
-										return (
-											<PersonCard
-												key={id}
-												href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}#userList`}
-												imageUrl={imageUrl}
-												name={name}
-												position={positions}
-											/>
-										);
-									})}
-							</div>
-						</>
-					) : (
-						<div className="flex flex-col flex-wrap gap-10 pt-6 pb-14 px-4 lg:px-34 2xl:px-78">
-							<Link
-								href={`/about/organisation-and-governance?selectedBody=${selectedBody}#userList`}
-								variant="primary"
-								withDefaultLeftIcon={true}
-							>
-								{t("bodyDetails.backToList")}
-							</Link>
-							<PersonCardDetails
-								description={
-									selectedPerson.biography.find((content) => {
-										return content.type === "rich_text";
-									}) as JSONContent
-								}
-								email={selectedPerson.email ?? undefined}
-								imageUrl={selectedPerson.image?.url}
-								name={selectedPerson.name}
-								position={selectedPerson.positions}
-							/>
-						</div>
-					)}
-				</div>
+				<SelectedBodyContainer
+					selectedBody={selectedBody}
+					selectedBodyBgColor={selectedBodyBgColor}
+					selectedBodyBorderColor={selectedBodyBorderColor}
+					selectedBodyItem={selectedBodyItem}
+					selectedBodyRelationships={selectedBodyRelationships}
+					selectedBodyVariant={selectedBodyVariant}
+					selectedPerson={selectedPerson}
+					usersForSelectedBody={usersForSelectedBody}
+				/>
 			)}
 		</Main>
 	);

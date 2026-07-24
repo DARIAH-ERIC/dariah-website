@@ -22,6 +22,7 @@ export function MobileOrganisation(props: Readonly<MobileOrganisationProps>): Re
 		<div className="flex flex-col py-12 px-4 gap-10">
 			{sortedBodies.map((item) => {
 				const {
+					acronym,
 					id,
 					persons,
 					name,
@@ -38,11 +39,16 @@ export function MobileOrganisation(props: Readonly<MobileOrganisationProps>): Re
 				return (
 					<GovernanceBodyCard
 						key={id}
+						acronym={acronym}
 						description={summary ?? undefined}
-						href={`/about/organisation-and-governance?selectedBody=${slug}#userList`}
+						href={
+							name !== "Working groups"
+								? `/about/organisation-and-governance?selectedBody=${slug}`
+								: "/network/working-groups"
+						}
 						name={name}
 						relationships={relationships}
-						usersCount={persons.length}
+						usersCount={name !== "Working groups" ? persons.length : undefined}
 						variant={variant}
 					/>
 				);
