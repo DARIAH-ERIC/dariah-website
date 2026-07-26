@@ -1,6 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
+import { TableKit } from "@tiptap/extension-table/kit";
 import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
 import { useFormatter } from "next-intl";
@@ -17,6 +18,33 @@ interface RichTextProps {
 interface HeadingAttributes {
 	level: number;
 	id?: string;
+}
+
+interface TableCellNodeProps {
+	node: { attrs: Record<string, unknown> };
+	children?: ReactNode;
+}
+
+/**
+ * The cell extensions spell their span attributes the HTML way, which React rejects, so render
+ * cells here instead of letting the static renderer serialise them.
+ */
+function renderTableCell(element: "td" | "th", props: TableCellNodeProps): ReactNode {
+	const Element = element;
+	const { colspan, rowspan } = props.node.attrs;
+
+	return (
+		<Element
+			className={cn(
+				"border border-gray-300 p-3 align-top [&>p:first-child]:mt-0!",
+				element === "th" && "bg-gray-100 text-left font-medium",
+			)}
+			colSpan={typeof colspan === "number" ? colspan : undefined}
+			rowSpan={typeof rowspan === "number" ? rowspan : undefined}
+		>
+			{props.children}
+		</Element>
+	);
 }
 
 const ExtendedHeading = Heading.extend({
@@ -94,6 +122,11 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			}),
 			PlaceholderValue,
 			ButtonLink,
+			/**
+			 * Tables carry data rather than layout, so column widths are left to the stylesheet:
+			 * `resizable: false` matches the backend, which therefore never writes `colwidth`.
+			 */
+			TableKit.configure({ table: { resizable: false } }),
 		],
 		options: {
 			nodeMapping: {
@@ -106,6 +139,28 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				 */
 				buttonLink(nodeProps) {
 					return renderButtonLink(nodeProps);
+				},
+				/**
+				 * A table wider than the content column has to scroll on its own rather than widen the
+				 * page, and the static renderer emits no wrapper to scroll. Overriding the node drops
+				 * the `tbody` that the extension's own `renderHTML` provides, so reinstate it here.
+				 */
+				table(nodeProps) {
+					return (
+						<div className="overflow-x-auto my-4">
+							<table className="w-full border-collapse">
+								<tbody>{nodeProps.children}</tbody>
+							</table>
+						</div>
+					);
+				},
+
+				tableHeader(nodeProps) {
+					return renderTableCell("th", nodeProps);
+				},
+
+				tableCell(nodeProps) {
+					return renderTableCell("td", nodeProps);
 				},
 			},
 		},
