@@ -93,7 +93,7 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				const isFloated = field.layout === "float-start" || field.layout === "float-end";
 
 				return (
-					<figure key={index} className={cn("flex flex-col gap-7 py-4", layoutClassName)}>
+					<figure key={index} className={cn("flex flex-col gap-7 py-6", layoutClassName)}>
 						<Image
 							alt={field.image.alt ?? (caption || "Image")}
 							height={isFloated ? 450 : 900}
@@ -119,8 +119,10 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				const caption = getRichTextPlainText(field.caption);
 
 				return (
-					// `flow-root` contains the float, so it never reaches the following content block.
-					<div key={index} className="flow-root py-4">
+					// `flow-root` contains the float, so it never reaches the following content block. The
+					// block right after the figure drops its top margin, so the text starts level with the
+					// top of the image rather than below it.
+					<div key={index} className="flow-root py-4 [&>figure+*]:mt-0!">
 						<figure
 							className={cn(
 								// The thumbnail keeps its square size and the figure grows for the caption, so a

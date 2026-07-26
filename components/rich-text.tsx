@@ -20,6 +20,49 @@ interface HeadingAttributes {
 	id?: string;
 }
 
+/** An empty spacer paragraph - `{ "type": "paragraph" }`, or one holding only whitespace. */
+function isBlankNode(node: JSONContent): boolean {
+	if (node.type !== "paragraph") {
+		return false;
+	}
+
+	return (node.content ?? []).every((child) => {
+		return child.type === "text" && (child.text ?? "").trim() === "";
+	});
+}
+
+/**
+ * Drops blank paragraphs from the start and end of a document, as the backend does before rendering.
+ * The WordPress import left spacer paragraphs throughout the content, and one sitting at the edge of
+ * a block contributes an empty line box plus its top margin to the gap against the neighbouring
+ * block. Interior blanks stay: they separate paragraphs that are visible either way, so dropping
+ * them would edit the copy rather than the spacing between blocks.
+ */
+function withTrimmedBlankEdges(document: JSONContent): JSONContent {
+	const nodes = document.content;
+
+	if (nodes == null) {
+		return document;
+	}
+
+	let start = 0;
+	let end = nodes.length;
+
+	while (start < end) {
+		const node = nodes[start];
+		if (node == null || !isBlankNode(node)) break;
+		start += 1;
+	}
+
+	while (end > start) {
+		const node = nodes[end - 1];
+		if (node == null || !isBlankNode(node)) break;
+		end -= 1;
+	}
+
+	return { ...document, content: nodes.slice(start, end) };
+}
+
 /**
  * Lists take the same top margin as paragraphs, so one following a heading is not flush against it,
  * while a list nested in an item stays tight to the line introducing it. Markers hang outside the
@@ -82,7 +125,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 	const format = useFormatter();
 
 	return renderToReactElement({
-		content,
+		content: withTrimmedBlankEdges(content),
 		extensions: [
 			StarterKit.configure({
 				// `ExtendedHeading` replaces the bundled heading extension, which shares its name.
@@ -128,11 +171,13 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			ExtendedHeading.configure({
 				HTMLAttributes: {
 					class: cn(
+						// Every level takes the same top margin, one step above the `mt-4` between
+						// paragraphs, so a heading reads as belonging to the text below it.
+						"mt-6",
 						"[h1]:text-h2",
-						"[h2]:text-h2 [h2]:text-[2rem] [h2]:font-medium [h2]:leading-normal [h2]:tracking-normal [h2]:mt-4",
-						"[h3]:text-h3 [h3]:mt-4",
-						"[h4]:text-h4 [h4]:mt-6",
-						"[hr]:mt-2",
+						"[h2]:text-h2 [h2]:text-[2rem] [h2]:font-medium [h2]:leading-normal [h2]:tracking-normal",
+						"[h3]:text-h3",
+						"[h4]:text-h4",
 					),
 				},
 			}),
