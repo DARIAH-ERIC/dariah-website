@@ -8,11 +8,11 @@ allowBuilds:
   typesense-instantsearch-adapter: false
   unrs-resolver: false
 
+engineStrict: true
+
 minimumReleaseAge: 1440
 
 patchedDependencies:
   next: patches/next.patch
 
 shellEmulator: true
-
-strictDepBuilds: true
