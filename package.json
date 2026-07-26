@@ -1,19 +1,29 @@
 {
+	"$schema": "https://www.schemastore.org/package",
 	"name": "@dariah-eric/dariah-website",
 	"private": true,
 	"license": "MIT",
 	"type": "module",
 	"engines": {
-		"node": "24.x"
-	},
-	"devEngines": {
 		"runtime": {
 			"name": "node",
-			"version": "24.x",
+			"version": "^24",
 			"onFail": "download"
 		}
 	},
-	"packageManager": "pnpm@10.33.0",
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "^11",
+			"onFail": "download"
+		},
+		"runtime": {
+			"name": "node",
+			"version": "^24",
+			"onFail": "download"
+		}
+	},
+	"packageManager": "pnpm@11.17.0",
 	"scripts": {
 		"analyze": "next experimental-analyze --experimental-next-config-strip-types",
 		"build": "next build --experimental-next-config-strip-types",
