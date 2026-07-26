@@ -6,6 +6,7 @@ import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
 import { useFormatter } from "next-intl";
 import type { ReactNode } from "react";
 
+import { ButtonLink, renderButtonLink } from "@/components/button-link";
 import { PlaceholderValue, renderPlaceholderValue } from "@/components/placeholder-value";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
@@ -91,11 +92,19 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 			}),
 			PlaceholderValue,
+			ButtonLink,
 		],
 		options: {
 			nodeMapping: {
 				placeholderValue(nodeProps) {
 					return renderPlaceholderValue(nodeProps, format);
+				},
+				/**
+				 * Without a mapping the static renderer serialises the node via its `renderHTML` into a
+				 * bare `<a data-button-link>`, indistinguishable from an ordinary link.
+				 */
+				buttonLink(nodeProps) {
+					return renderButtonLink(nodeProps);
 				},
 			},
 		},
