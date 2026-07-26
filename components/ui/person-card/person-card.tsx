@@ -12,12 +12,13 @@ import { sortUserPosition } from "@/utils/person-card.utils";
 interface PersonCardProps {
 	href?: string;
 	imageUrl?: string | null;
+	imageAlt?: string | null;
 	name: string;
 	position: Person["positions"];
 }
 
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
-	const { href, imageUrl, name, position } = props;
+	const { href, imageUrl, imageAlt, name, position } = props;
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
@@ -119,7 +120,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 			href={href}
 		>
 			<Image
-				alt={name}
+				alt={imageAlt ?? ""}
 				className="object-cover min-w-34 size-34 mt-2"
 				height={136}
 				src={displayedImage}

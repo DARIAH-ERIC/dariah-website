@@ -15,6 +15,7 @@ interface NewsCardProps {
 	title: string;
 	description?: string;
 	imageUrl: string;
+	imageAlt?: string | null;
 	linkUrl: string;
 	date: Date;
 	variant: "featured" | "standard" | "list-item" | "list-headline";
@@ -22,7 +23,7 @@ interface NewsCardProps {
 }
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
-	const { variant, title, description, imageUrl, linkUrl, date, className } = props;
+	const { variant, title, description, imageUrl, imageAlt, linkUrl, date, className } = props;
 	const t = useTranslations("NewsPage");
 
 	const getImageSizeForVariant = () => {
@@ -83,7 +84,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				)}
 			>
 				<Image
-					alt={title}
+					alt={imageAlt ?? ""}
 					className={cn(
 						"overflow-hidden transition-transform duration-300 ease-in-out object-cover",
 						"group-hover:scale-110",

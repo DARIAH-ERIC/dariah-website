@@ -32,7 +32,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 					<div className="flex flex-col items-center mt-7.75 xl:flex-row lg:justify-center lg:gap-4 lg:mt-0 3xl:justify-between">
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
-								alt="DARIAH Campus Logo"
+								alt=""
 								className="size-78"
 								height={514}
 								src="/assets/images/DARIAH-EU_Member Countries.gif"
@@ -53,7 +53,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
-								alt="DARIAH Campus Logo"
+								alt=""
 								className="size-78"
 								height={514}
 								src="/assets/images/DARIAH-EU_National Partners.gif"
@@ -74,7 +74,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
-								alt="DARIAH Campus Logo"
+								alt=""
 								className="size-78"
 								height={514}
 								src="/assets/images/DARIAH-EU_Cooperating Partners.gif"
@@ -94,7 +94,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</div>
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
 							<Image
-								alt="DARIAH Campus Logo"
+								alt=""
 								className="size-78"
 								height={514}
 								src="/assets/images/DARIAH-EU_Working Groups.gif"

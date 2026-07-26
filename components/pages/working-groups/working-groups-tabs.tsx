@@ -46,7 +46,15 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 								assert(image);
 								const href = `/network/working-groups/${entity.slug}`;
 
-								return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
+								return (
+									<WorkingGroupCard
+										key={id}
+										href={href}
+										imageAlt={image.alt}
+										imageUrl={image.url}
+										title={name}
+									/>
+								);
 							})}
 						</ul>
 					) : (
@@ -66,7 +74,15 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 								assert(image);
 								const href = `/network/working-groups/${entity.slug}`;
 
-								return <WorkingGroupCard key={id} href={href} imageUrl={image.url} title={name} />;
+								return (
+									<WorkingGroupCard
+										key={id}
+										href={href}
+										imageAlt={image.alt}
+										imageUrl={image.url}
+										title={name}
+									/>
+								);
 							})}
 						</ul>
 					) : (

@@ -72,8 +72,6 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			}
 
 			case "image": {
-				const caption = getRichTextPlainText(field.caption);
-
 				/**
 				 * `float-*` pulls the image aside so the text of the following blocks wraps around it,
 				 * but only once the viewport can spare the width - below `lg` it spans the column, so
@@ -95,7 +93,8 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 				return (
 					<figure key={index} className={cn("flex flex-col gap-7 py-6", layoutClassName)}>
 						<Image
-							alt={field.image.alt ?? (caption || "Image")}
+							// No alt on the asset means the image is presentational.
+							alt={field.image.alt ?? ""}
 							height={isFloated ? 450 : 900}
 							src={field.image.url}
 							width={isFloated ? 800 : 1600}
@@ -116,8 +115,6 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 					return null;
 				}
 
-				const caption = getRichTextPlainText(field.caption);
-
 				return (
 					// `flow-root` contains the float, so it never reaches the following content block. The
 					// block right after the figure drops its top margin, so the text starts level with the
@@ -128,12 +125,17 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 								// The thumbnail keeps its square size and the figure grows for the caption, so a
 								// credit sits under the image within the same column. It only floats once the
 								// text beside it has room to wrap cleanly; below `sm` the pairing stacks.
-								"mb-4 w-50 max-w-full",
+								//
+								// While floating, the image is nudged down to the cap height of the first line:
+								// the half-leading above that line otherwise makes flush-aligned text read as
+								// sitting lower than the image. Stacked, there is nothing to align to.
+								"mb-4 w-50 max-w-full sm:mt-1.5",
 								field.side === "end" ? "sm:float-end sm:ml-7" : "sm:float-start sm:mr-7",
 							)}
 						>
 							<Image
-								alt={field.image.alt ?? (caption || "Image")}
+								// No alt on the asset means the image is presentational.
+								alt={field.image.alt ?? ""}
 								// The API serves this image at 400px wide, so never scale it up past that.
 								className="size-50 max-w-full object-cover"
 								height={400}

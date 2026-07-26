@@ -12,6 +12,7 @@ import type { Person } from "@/lib/data/api-client";
 
 interface PersonCardDetailsProps {
 	imageUrl?: string | null;
+	imageAlt?: string | null;
 	name: string;
 	email?: string;
 	position: Person["positions"];
@@ -19,7 +20,7 @@ interface PersonCardDetailsProps {
 }
 
 export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): ReactNode {
-	const { imageUrl, name, email, position, description } = props;
+	const { imageUrl, imageAlt, name, email, position, description } = props;
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
@@ -27,7 +28,7 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 	return (
 		<div className="flex gap-4">
 			<Image
-				alt={name}
+				alt={imageAlt ?? ""}
 				className="size-43 object-cover"
 				height={172}
 				src={displayedImage}

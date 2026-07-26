@@ -12,13 +12,14 @@ interface ProjectProps {
 	endDate: Date;
 	href: string;
 	imageUrl?: string;
+	imageAlt?: string | null;
 	startDate: Date;
 	title: string;
 	type: "coordinator" | "participant";
 }
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
-	const { title, imageUrl, type, startDate, endDate, href } = props;
+	const { title, imageUrl, imageAlt, type, startDate, endDate, href } = props;
 	const t = useTranslations("ProjectsDetailPage.projectCard");
 
 	return (
@@ -32,7 +33,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 		>
 			{imageUrl != null ? (
 				<Image
-					alt={title}
+					alt={imageAlt ?? ""}
 					className="w-82 h-62.25 bg-white object-contain md:w-96.25 xl:w-80 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25 3xl:w-96.25"
 					height={249}
 					src={imageUrl}

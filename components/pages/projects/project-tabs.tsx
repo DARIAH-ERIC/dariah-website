@@ -50,6 +50,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										key={slug}
 										endDate={duration.end}
 										href={href}
+										imageAlt={image?.alt}
 										imageUrl={image?.url}
 										startDate={duration.start}
 										title={acronym ?? name}
@@ -82,6 +83,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										key={slug}
 										endDate={duration.end}
 										href={href}
+										imageAlt={image?.alt}
 										imageUrl={image?.url}
 										startDate={duration.start}
 										title={acronym ?? name}

@@ -245,6 +245,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 												}) as JSONContent
 											}
 											email={selectedPerson.email ?? undefined}
+											imageAlt={selectedPerson.image?.alt}
 											imageUrl={selectedPerson.image?.url}
 											name={selectedPerson.name}
 											position={selectedPerson.positions}

@@ -203,7 +203,7 @@ export default async function WorkingGroupPage(
 						</div>
 						{image != null ? (
 							<Image
-								alt={name}
+								alt={image.alt ?? ""}
 								className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
 								height={442}
 								src={image.url}
@@ -278,6 +278,7 @@ export default async function WorkingGroupPage(
 											}) as JSONContent
 										}
 										email={selectedPerson.email ?? undefined}
+										imageAlt={selectedPerson.image?.alt}
 										imageUrl={selectedPerson.image?.url}
 										name={selectedPerson.name}
 										position={selectedPerson.positions}

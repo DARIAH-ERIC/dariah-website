@@ -83,6 +83,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			<NewsCard
 				date={headlinePublishedAt}
 				description={headlineSummary}
+				imageAlt={headlineImage.alt}
 				imageUrl={headlineImage.url}
 				linkUrl={`/news/${headlineSlug}`}
 				title={headlineTitle}
@@ -124,6 +125,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 								<NewsCard
 									date={publishedAt}
 									description={summary}
+									imageAlt={image.alt}
 									imageUrl={image.url}
 									linkUrl={href}
 									title={title}
