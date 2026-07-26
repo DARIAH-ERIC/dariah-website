@@ -20,6 +20,17 @@ interface HeadingAttributes {
 	id?: string;
 }
 
+/**
+ * Lists take the same top margin as paragraphs, so one following a heading is not flush against it,
+ * while a list nested in an item stays tight to the line introducing it. Markers hang outside the
+ * content box, so wrapped lines line up with the text rather than with the marker.
+ */
+const listStyles = cn(
+	"mt-4 pl-6 list-outside",
+	"[&>li>p:first-child]:mt-0!",
+	"[&>li>ol]:mt-0! [&>li>ul]:mt-0!",
+);
+
 interface TableCellNodeProps {
 	node: { attrs: Record<string, unknown> };
 	children?: ReactNode;
@@ -100,7 +111,12 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				},
 				bulletList: {
 					HTMLAttributes: {
-						class: "[&>li]:ml-2 [&>li>p]:inline [&>li>p]:mt-0! list-disc list-inside",
+						class: cn(listStyles, "list-disc"),
+					},
+				},
+				orderedList: {
+					HTMLAttributes: {
+						class: cn(listStyles, "list-decimal"),
 					},
 				},
 				horizontalRule: {
