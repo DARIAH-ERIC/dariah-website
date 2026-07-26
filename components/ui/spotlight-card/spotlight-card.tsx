@@ -10,12 +10,13 @@ interface SpotlightCardProps {
 	title: string;
 	summary: string;
 	imageUrl: string;
+	imageAlt?: string | null;
 	href: string;
 	publishedAt: Date;
 }
 
 export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
-	const { title, summary, publishedAt, imageUrl, href } = props;
+	const { title, summary, publishedAt, imageUrl, imageAlt, href } = props;
 
 	return (
 		<NavLink
@@ -51,7 +52,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 				</Typography>
 			</div>
 			<Image
-				alt={title}
+				alt={imageAlt ?? ""}
 				className={cn(
 					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm",
 					"lg:w-90 lg:h-48 lg:ml-auto xl:w-105 xl:h-60 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",

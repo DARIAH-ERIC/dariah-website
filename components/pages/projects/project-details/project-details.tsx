@@ -39,6 +39,7 @@ interface ProjectDetailsProps {
 	name: string;
 	image: {
 		url: string;
+		alt: string | null;
 	} | null;
 	funding: number | null;
 	topic: string | null;
@@ -135,7 +136,7 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 			</div>
 			{image?.url !== undefined && (
 				<Image
-					alt={name}
+					alt={image.alt ?? ""}
 					className="w-62.5 h-48 object-contain"
 					height={192}
 					src={image.url}

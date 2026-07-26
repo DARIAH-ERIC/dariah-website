@@ -104,7 +104,7 @@ export default async function SpotlightArticlePage(
 					</div>
 					<figure className="flex flex-col gap-7">
 						<Image
-							alt={image.alt ?? title}
+							alt={image.alt ?? ""}
 							className="w-full h-87.5 object-contain"
 							height={350}
 							src={image.url}
@@ -182,6 +182,7 @@ export default async function SpotlightArticlePage(
 										}) as JSONContent
 									}
 									email={selectedPerson.email ?? undefined}
+									imageAlt={selectedPerson.image?.alt}
 									imageUrl={selectedPerson.image?.url}
 									name={selectedPerson.name}
 									position={selectedPerson.positions}

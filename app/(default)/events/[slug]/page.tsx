@@ -111,7 +111,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</Link>
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:flex-wrap lg:px-0">
 					<Image
-						alt={title}
+						alt={image.alt ?? ""}
 						className="w-82 h-40 object-contain lg:w-197.5 lg:h-101.25"
 						height={405}
 						src={image.url}

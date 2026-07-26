@@ -7,4 +7,5 @@ export interface EventCardProps {
 	variant: "list" | "homepage";
 	type?: "training" | "conference" | "workshop";
 	imageUrl?: string;
+	imageAlt?: string | null;
 }

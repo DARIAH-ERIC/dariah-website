@@ -10,11 +10,12 @@ import { Typography } from "@/components/ui/typography/typography";
 interface CaseStudyProps {
 	title: string;
 	imageUrl: string;
+	imageAlt?: string | null;
 	href?: string;
 }
 
 export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
-	const { title, imageUrl, href } = props;
+	const { title, imageUrl, imageAlt, href } = props;
 	const t = useTranslations("ImpactCaseStudiesDetailPage");
 
 	return (
@@ -27,7 +28,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 			href={href}
 		>
 			<Image
-				alt={title}
+				alt={imageAlt ?? ""}
 				className="w-82 h-64.5 object-cover 3xl:w-133.75 3xl:h-78.25"
 				height={313}
 				src={imageUrl}

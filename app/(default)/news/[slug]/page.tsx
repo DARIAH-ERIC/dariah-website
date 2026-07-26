@@ -113,7 +113,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 						<Typography variant="h4">{summary}</Typography>
 						<figure className="flex flex-col gap-7">
 							<Image
-								alt={image.alt ?? title}
+								alt={image.alt ?? ""}
 								className="w-full"
 								height={628.25}
 								src={image.url}
@@ -158,6 +158,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 									className="xl:max-w-[23%]! 3xl:max-w-full!"
 									date={newsItem.publishedAt}
 									description={newsItem.summary}
+									imageAlt={newsItem.image.alt}
 									imageUrl={newsItem.image.url}
 									linkUrl={`/news/${newsItem.entity.slug}`}
 									title={newsItem.title}

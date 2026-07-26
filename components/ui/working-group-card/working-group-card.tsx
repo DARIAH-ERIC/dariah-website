@@ -10,11 +10,12 @@ import { Typography } from "@/components/ui/typography/typography";
 interface WorkingGroupCard {
 	title: string;
 	imageUrl: string;
+	imageAlt?: string | null;
 	href: string;
 }
 
 export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
-	const { title, imageUrl, href } = props;
+	const { title, imageUrl, imageAlt, href } = props;
 	const t = useTranslations("WorkingGroupsDetailPage.card");
 
 	return (
@@ -27,7 +28,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 			href={href}
 		>
 			<Image
-				alt={title}
+				alt={imageAlt ?? ""}
 				className="size-80 rounded-t-sm object-contain md:size-96.25"
 				height={385}
 				src={imageUrl}

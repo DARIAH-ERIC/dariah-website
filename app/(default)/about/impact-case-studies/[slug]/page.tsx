@@ -94,7 +94,7 @@ export default async function ImpactCaseStudyPage(
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-7">
 					<Image
-						alt={image.alt ?? title}
+						alt={image.alt ?? ""}
 						className="w-480 h-125 object-contain"
 						height={621}
 						src={image.url}
@@ -173,6 +173,7 @@ export default async function ImpactCaseStudyPage(
 								}) as JSONContent
 							}
 							email={selectedPerson.email ?? undefined}
+							imageAlt={selectedPerson.image?.alt}
 							imageUrl={selectedPerson.image?.url}
 							name={selectedPerson.name}
 							position={selectedPerson.positions}

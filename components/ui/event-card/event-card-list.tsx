@@ -9,7 +9,7 @@ import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, imageUrl, startDate, slug } = props;
+	const { title, localization, imageUrl, imageAlt, startDate, slug } = props;
 
 	const status = startDate < new Date() ? "past" : "upcoming";
 
@@ -51,7 +51,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 			</div>
 			{imageUrl != null && (
 				<Image
-					alt={title}
+					alt={imageAlt ?? ""}
 					className="w-67 h-36.5 object-contain"
 					height={146}
 					src={imageUrl}

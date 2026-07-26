@@ -103,12 +103,13 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 							usersForSelectedBody.map((user) => {
 								const { id, name, positions, slug, image: userImage } = user;
 
-								const { url: imageUrl } = userImage ?? { url: null };
+								const { url: imageUrl, alt: imageAlt } = userImage ?? { url: null, alt: null };
 
 								return (
 									<PersonCard
 										key={id}
 										href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}`}
+										imageAlt={imageAlt}
 										imageUrl={imageUrl}
 										name={name}
 										position={positions}
@@ -133,6 +134,7 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 							}) as JSONContent
 						}
 						email={selectedPerson.email ?? undefined}
+						imageAlt={selectedPerson.image?.alt}
 						imageUrl={selectedPerson.image?.url}
 						name={selectedPerson.name}
 						position={selectedPerson.positions}

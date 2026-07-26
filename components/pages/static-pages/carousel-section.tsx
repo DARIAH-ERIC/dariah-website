@@ -9,6 +9,7 @@ import { Carousel } from "@/components/ui/carousel/carousel";
 interface ImageItemProps {
 	id: string;
 	url: string;
+	alt: string | null;
 }
 
 interface CarouselSectionProps {
@@ -24,7 +25,7 @@ export function CarouselSection(props: Readonly<CarouselSectionProps>): ReactNod
 			<div className="flex flex-col gap-12 justify-center items-center">
 				{selectedImage && (
 					<Image
-						alt={"Selected image"}
+						alt={selectedImage.alt ?? ""}
 						className="h-55.5 w-full md:h-61.5 xl:w-290.5 xl:h-154.5"
 						height={618}
 						src={selectedImage.url}
@@ -33,13 +34,13 @@ export function CarouselSection(props: Readonly<CarouselSectionProps>): ReactNod
 				)}
 				<Carousel className="w-55 h-15.75 justify-center md:w-120 md:h-31.5 xl:w-290.5 xl:h-61.25">
 					{images.map((image) => {
-						const { id, url } = image;
+						const { id, url, alt } = image;
 						const isSelected = id === selectedImage?.id;
 
 						return (
 							<Image
 								key={id}
-								alt={`image_${id}`}
+								alt={alt ?? ""}
 								className={cn(
 									"w-25.5 h-15.75 mx-2",
 									"md:w-55 md:h-31.5 md:mx-3",
