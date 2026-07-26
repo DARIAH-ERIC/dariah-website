@@ -74,13 +74,31 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 			case "image": {
 				const caption = getRichTextPlainText(field.caption);
 
+				/**
+				 * `float-*` pulls the image aside so the text of the following blocks wraps around it,
+				 * but only once the viewport can spare the width - below `lg` it spans the column, so
+				 * text never has to wrap in a cramped measure. `wide` and `full` break out into the page
+				 * gutter by fixed amounts: the pages hosting content blocks share no content measure, and
+				 * a viewport-relative full bleed would sit off-axis in the ones with a sidebar.
+				 */
+				const layoutClassName = {
+					default: "",
+					wide: "-mx-4 lg:-mx-12",
+					full: "-mx-4 lg:-mx-24",
+					"float-start": "lg:float-start lg:mr-7 lg:w-[min(18rem,45%)]",
+					"float-end": "lg:float-end lg:ml-7 lg:w-[min(18rem,45%)]",
+				}[field.layout];
+
+				// Floated images are served at half the width of the ones that span the column.
+				const isFloated = field.layout === "float-start" || field.layout === "float-end";
+
 				return (
-					<figure key={index} className="flex flex-col gap-7 py-4">
+					<figure key={index} className={cn("flex flex-col gap-7 py-4", layoutClassName)}>
 						<Image
 							alt={field.image.alt ?? (caption || "Image")}
-							height={900}
+							height={isFloated ? 450 : 900}
 							src={field.image.url}
-							width={1600}
+							width={isFloated ? 800 : 1600}
 						/>
 						{field.caption !== null && (
 							<figcaption className="text-small text-gray-900">
