@@ -46,7 +46,8 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 		content,
 		extensions: [
 			StarterKit.configure({
-				heading: {},
+				// `ExtendedHeading` replaces the bundled heading extension, which shares its name.
+				heading: false,
 				paragraph: {
 					HTMLAttributes: {
 						class: "text-regular mt-4",
