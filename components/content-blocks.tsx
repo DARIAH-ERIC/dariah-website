@@ -1,6 +1,7 @@
 /* eslint-disable @eslint-react/no-array-index-key */
 
 import { log, unreachable } from "@acdh-oeaw/lib";
+import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import type { ReactNode } from "react";
 
@@ -87,6 +88,46 @@ export function ContentBlocks(props: ContentBlocksProps): ReactNode {
 							</figcaption>
 						)}
 					</figure>
+				);
+			}
+
+			case "media_text": {
+				// The API drops the block from the editor preview when either half is missing, and there
+				// is nothing to wrap text around (or no text to wrap) either way.
+				if (field.content == null) {
+					return null;
+				}
+
+				const caption = getRichTextPlainText(field.caption);
+
+				return (
+					// `flow-root` contains the float, so it never reaches the following content block.
+					<div key={index} className="flow-root py-4">
+						<figure
+							className={cn(
+								// The thumbnail keeps its square size and the figure grows for the caption, so a
+								// credit sits under the image within the same column. It only floats once the
+								// text beside it has room to wrap cleanly; below `sm` the pairing stacks.
+								"mb-4 w-50 max-w-full",
+								field.side === "end" ? "sm:float-end sm:ml-7" : "sm:float-start sm:mr-7",
+							)}
+						>
+							<Image
+								alt={field.image.alt ?? (caption || "Image")}
+								// The API serves this image at 400px wide, so never scale it up past that.
+								className="size-50 max-w-full object-cover"
+								height={400}
+								src={field.image.url}
+								width={400}
+							/>
+							{field.caption !== null && (
+								<figcaption className="text-small text-gray-900 mt-2">
+									<RichTextCaption content={field.caption} />
+								</figcaption>
+							)}
+						</figure>
+						<RichText content={field.content as JSONContent} />
+					</div>
 				);
 			}
 
