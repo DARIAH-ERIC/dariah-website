@@ -35,13 +35,26 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 
 	const response = await client.news.bySlug({ slug });
 
-	const { title } = response.data;
+	const {
+		title,
+		image: { url },
+		summary,
+	} = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: {
+			title,
+			description: summary,
+			images: [
+				{
+					url,
+					width: 1150,
+					height: 628.25,
+					alt: title,
+				},
+			],
+		},
 	};
 
 	return metadata;

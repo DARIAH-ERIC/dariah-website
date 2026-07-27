@@ -41,12 +41,12 @@ export default async function PartnershipsAndCollaborationsPage(): Promise<React
 		return c.type === "rich_text";
 	});
 	const sections = richTextContent
-		? getSectionsFromContent(richTextContent.content as JSONContent, 2)
+		? getSectionsFromContent(richTextContent.content as JSONContent)
 		: [];
 
 	const links = mergeQuickLinks(relatedEntities, relatedResources);
 
-	const parsedContent = addIdsToContent(content, 2);
+	const parsedContent = addIdsToContent(content);
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
