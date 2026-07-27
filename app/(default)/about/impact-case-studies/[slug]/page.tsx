@@ -92,7 +92,7 @@ export default async function ImpactCaseStudyPage(
 				</Typography>
 			</div>
 			<div className="flex flex-col gap-11.5">
-				<figure className="flex flex-col gap-7">
+				<figure className="flex flex-col gap-y-4">
 					<Image
 						alt={image.alt ?? ""}
 						className="w-480 h-125 object-contain"

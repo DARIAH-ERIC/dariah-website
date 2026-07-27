@@ -53,7 +53,7 @@ function renderContentBlock(
 			const caption = getRichTextPlainText(field.caption);
 
 			return (
-				<figure key={index} className="flex flex-col gap-7 py-4">
+				<figure key={index} className="flex flex-col gap-y-2 py-4">
 					<iframe
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						allowFullScreen={true}
@@ -100,7 +100,7 @@ function renderContentBlock(
 			const isFloated = field.layout === "float-start" || field.layout === "float-end";
 
 			return (
-				<figure key={index} className={cn("flex flex-col gap-7 py-6", layoutClassName)}>
+				<figure key={index} className={cn("flex flex-col gap-y-2 py-6", layoutClassName)}>
 					<Image
 						// No alt on the asset means the image is presentational.
 						alt={field.image.alt ?? ""}

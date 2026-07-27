@@ -111,7 +111,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							<Typography variant="regular">{getFormattedDateForNews(publishedAt)}</Typography>
 						</div>
 						<Typography variant="h4">{summary}</Typography>
-						<figure className="flex flex-col gap-7">
+						<figure className="flex flex-col gap-y-4">
 							<Image
 								alt={image.alt ?? ""}
 								className="w-full"
