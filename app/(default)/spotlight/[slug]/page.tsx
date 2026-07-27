@@ -102,7 +102,7 @@ export default async function SpotlightArticlePage(
 						</Typography>
 						<Typography variant="regular">{getFormattedDateForDetails(publishedAt)}</Typography>
 					</div>
-					<figure className="flex flex-col gap-7">
+					<figure className="flex flex-col gap-y-4">
 						<Image
 							alt={image.alt ?? ""}
 							className="w-full h-87.5 object-contain"
