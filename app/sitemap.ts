@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const routes: Array<string> = [];
 
 	for await (const path of glob("./**/page.tsx", {
-		cwd: join(process.cwd(), "app", "(app)"),
+		cwd: join(process.cwd(), "app", "(default)"),
 	})) {
 		const route = path.slice(0, -"/page.tsx".length);
 

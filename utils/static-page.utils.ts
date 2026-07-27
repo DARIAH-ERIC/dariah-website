@@ -2,7 +2,7 @@ import type { JSONContent } from "@tiptap/core";
 
 import type { components } from "@/lib/api/types";
 
-export const getSectionsFromContent = (content: JSONContent, headingLevel = 4): Array<string> => {
+export const getSectionsFromContent = (content: JSONContent, headingLevel = 2): Array<string> => {
 	const headings = content.content?.filter((element) => {
 		return (
 			element.type === "heading" &&
@@ -26,7 +26,7 @@ export const getSectionsFromContent = (content: JSONContent, headingLevel = 4): 
 
 export const addIdsToContent = (
 	content: components["schemas"]["Page"]["content"],
-	headingLevel = 4,
+	headingLevel = 2,
 ): components["schemas"]["Page"]["content"] => {
 	return content.map((element) => {
 		if (element.type === "rich_text") {

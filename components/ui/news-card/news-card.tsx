@@ -113,7 +113,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				className={cn(
 					"flex flex-1 flex-col gap-4 justify-between",
 					!isListVariant && "pt-8 size-full 2xl:pt-13",
-					variant === "list-item" && "gap-0! 2xl:max-h-55",
+					variant === "list-item" && "gap-0! xl:max-h-50 2xl:max-h-55",
 					variant === "list-headline" &&
 						"absolute w-full h-119.75 top-[208] left-[24] z-5 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
 				)}
@@ -133,7 +133,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						</div>
 						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 					</div>
-					<div className={variant === "list-item" ? "mb-3.5 h-13.5" : undefined}>
+					<div className={variant === "list-item" ? "h-13.5 2xl:mb-3.5" : undefined}>
 						<Typography
 							className={cn(
 								variant === "list-item" && "line-clamp-2 text-[18px]",
