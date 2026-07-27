@@ -61,7 +61,7 @@ export default async function LegalNoticePage(): Promise<ReactNode> {
 				<Typography className="text-[45px] font-light" variant="h2">
 					{title}
 				</Typography>
-				<div className="flex-col flex gap-8 justify-between lg:pb-12 lg:flex-row 2xl:gap-21">
+				<div className="flex-col flex gap-8 justify-between xl:pb-12 xl:flex-row 2xl:gap-21">
 					<SectionPanel sections={sections} />
 					<div className="max-w-full xl:w-252.5 xl:flex-1">
 						<ContentBlocks fields={parsedContent} />

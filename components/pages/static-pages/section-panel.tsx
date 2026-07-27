@@ -14,7 +14,7 @@ interface SectionPanelProps {
 
 export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
 	const { sections, className } = props;
-	const isLg = useMediaQuery("lg");
+	const isXl = useMediaQuery("xl");
 
 	const activeId = useActiveHeading(sections);
 
@@ -43,7 +43,7 @@ export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
 							"*:justify-start! *:text-left",
 							isActive && "lg:-ml-0.5 lg:pl-3.75 lg:border-l-4",
 						)}
-						data-active={isLg === true ? isActive || undefined : undefined}
+						data-active={isXl === true ? isActive || undefined : undefined}
 						onClick={() => {
 							handleScrollToSection(section);
 						}}
