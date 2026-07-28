@@ -98,6 +98,8 @@ type ProjectListResponse =
 
 type SiteMetadataResponse =
 	paths["/api/v1/site-metadata"]["get"]["responses"][200]["content"]["application/json"];
+type SitemapResponse =
+	paths["/api/v1/sitemap"]["get"]["responses"][200]["content"]["application/json"];
 
 type SpotlightArticleResponse =
 	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -178,6 +180,10 @@ export type ProjectList = Omit<ProjectListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<ProjectListResponse["data"][number]>>>;
 };
 
+export type Sitemap = Omit<SitemapResponse, "data"> & {
+	data: Array<Omit<SitemapResponse["data"][number], "lastModified"> & { lastModified: Date }>;
+};
+
 export type SpotlightArticle = WithPublishedAt<SpotlightArticleResponse>;
 export type SpotlightArticleList = Omit<SpotlightArticleListResponse, "data"> & {
 	data: Array<WithPublishedAt<SpotlightArticleListResponse["data"][number]>>;
@@ -212,6 +218,20 @@ export const cacheTags = {
 	spotlightArticles: "spotlight-articles",
 	workingGroups: "working-groups",
 } as const;
+
+const sitemapCacheTags = [
+	cacheTags.dariahProjects,
+	cacheTags.events,
+	cacheTags.fundingCalls,
+	cacheTags.impactCaseStudies,
+	cacheTags.membersAndPartners,
+	cacheTags.news,
+	cacheTags.opportunities,
+	cacheTags.pages,
+	cacheTags.persons,
+	cacheTags.spotlightArticles,
+	cacheTags.workingGroups,
+];
 
 /**
  * `unstable_cache` serializes return values as JSON, which means `Date` objects are coerced to
@@ -839,6 +859,25 @@ const _projectsList = nextCache(
 	},
 	[cacheTags.dariahProjects, cacheTags.pages],
 	{ revalidate: 3600, tags: [cacheTags.dariahProjects, cacheTags.pages] },
+);
+
+const _sitemapGet = nextCache(
+	async function get() {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/sitemap",
+		});
+
+		const result = await request<SitemapResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	["sitemap"],
+	{ revalidate: 3600, tags: sitemapCacheTags },
 );
 
 const _spotlightArticlesBySlug = nextCache(
@@ -1743,6 +1782,21 @@ export const client = {
 				{ revalidate: 3600, tags: [cacheTags.siteMetadata] },
 			),
 		),
+	},
+	sitemap: {
+		get: cache(async function get() {
+			const response = await _sitemapGet();
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, lastModified: new Date(item.lastModified) };
+					}),
+				},
+			};
+		}),
 	},
 	spotlightArticles: {
 		bySlug: cache(async function bySlug(
