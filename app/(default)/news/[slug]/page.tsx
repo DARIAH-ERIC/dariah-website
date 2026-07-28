@@ -13,7 +13,7 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
-import { getFormattedDateForNews } from "@/utils/news-page.utils";
+import { getFormattedDateForNews, getHrefForAnnouncement } from "@/utils/news-page.utils";
 
 interface NewsItemPageProps extends PageProps<"/news/[slug]"> {}
 
@@ -71,7 +71,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	const [response, latestNewsResponse] = await Promise.all([
 		client.news.bySlug({ slug }),
-		client.news.list({ limit: 5 }),
+		client.announcements.list({ limit: 5 }),
 	]);
 
 	const { id, title, image, content, summary, publishedAt, relatedEntities, relatedResources } =
@@ -165,6 +165,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 				{filteredLatestNews.length > 0 ? (
 					<div className="flex flex-col gap-10 items-center lg:justify-between xl:gap-6 xl:flex-row 3xl:gap-17">
 						{filteredLatestNews.map((newsItem) => {
+							const href = getHrefForAnnouncement({
+								slug: newsItem.entity.slug,
+								type: newsItem.type,
+							});
+
 							return (
 								<NewsCard
 									key={newsItem.id}
@@ -173,8 +178,9 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 									description={newsItem.summary}
 									imageAlt={newsItem.image.alt}
 									imageUrl={newsItem.image.url}
-									linkUrl={`/news/${newsItem.entity.slug}`}
+									linkUrl={href}
 									title={newsItem.title}
+									type={newsItem.type}
 									variant="standard"
 								/>
 							);
