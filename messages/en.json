@@ -287,7 +287,11 @@
 		"title": "News",
 		"noNews": "No news found.",
 		"newsCard": {
-			"tag": "news",
+			"tags": {
+				"funding-call": "Funding call",
+				"news": "News",
+				"opportunity": "Opportunity"
+			},
 			"continueReading": "Continue reading"
 		}
 	},
