@@ -27,12 +27,28 @@ type WithDuration<T extends { duration: { start: string; end?: string } }> = Omi
 	duration: { start: Date; end?: Date };
 };
 
+type WithAnnouncementDates<T> = T extends {
+	publishedAt: string;
+	duration: { start: string; end?: string };
+}
+	? Omit<T, "publishedAt" | "duration"> & {
+			publishedAt: Date;
+			duration: { start: Date; end?: Date };
+		}
+	: T extends { publishedAt: string }
+		? Omit<T, "publishedAt"> & { publishedAt: Date }
+		: never;
+
 type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyListResponse =
 	paths["/api/v1/documents-policies"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyTreeResponse =
 	paths["/api/v1/documents-policies/tree"]["get"]["responses"][200]["content"]["application/json"];
+
+type AnnouncementListResponse =
+	paths["/api/v1/announcements"]["get"]["responses"][200]["content"]["application/json"];
+type AnnouncementResponse = AnnouncementListResponse["data"][number];
 
 type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -119,6 +135,11 @@ export type DocumentOrPolicyTree = Omit<DocumentOrPolicyTreeResponse, "data"> & 
 	data: Array<DocumentOrPolicyType | DocumentOrPolicyGroupType>;
 };
 
+export type Announcement = WithAnnouncementDates<AnnouncementResponse>;
+export type AnnouncementList = Omit<AnnouncementListResponse, "data"> & {
+	data: Array<Announcement>;
+};
+
 export type Event = WithPublishedAt<WithDuration<EventResponse>>;
 export type EventList = Omit<EventListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
@@ -198,6 +219,7 @@ export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
 };
 
 export const cacheTags = {
+	announcements: "announcements",
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
@@ -220,6 +242,7 @@ export const cacheTags = {
 } as const;
 
 const sitemapCacheTags = [
+	cacheTags.announcements,
 	cacheTags.dariahProjects,
 	cacheTags.events,
 	cacheTags.fundingCalls,
@@ -239,6 +262,38 @@ const sitemapCacheTags = [
  * all `nextCache`-wrapped functions return raw string dates. The `cache()`-wrapped outer functions
  * below handle the `new Date()` conversions after retrieval, where no serialization occurs.
  */
+
+const _announcementsList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+		type,
+	}: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/announcements",
+			searchParams: createUrlSearchParams({ limit, offset, type }),
+		});
+
+		const result = await request<AnnouncementListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.announcements],
+	{
+		revalidate: 3600,
+		tags: [
+			cacheTags.announcements,
+			cacheTags.fundingCalls,
+			cacheTags.news,
+			cacheTags.opportunities,
+		],
+	},
+);
 
 const _documentsPoliciesBySlug = nextCache(
 	async function bySlug({
@@ -977,7 +1032,39 @@ const _workingGroupsList = nextCache(
 	{ revalidate: 3600, tags: [cacheTags.workingGroups, cacheTags.pages] },
 );
 
+function parseAnnouncementDates(item: AnnouncementResponse): Announcement {
+	if ("duration" in item) {
+		return {
+			...item,
+			duration: {
+				start: new Date(item.duration.start),
+				end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+			},
+			publishedAt: new Date(item.publishedAt),
+		};
+	}
+
+	return { ...item, publishedAt: new Date(item.publishedAt) };
+}
+
 export const client = {
+	announcements: {
+		list: cache(async function list(
+			params: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _announcementsList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return parseAnnouncementDates(item);
+					}),
+				},
+			};
+		}),
+	},
 	documentsPolicies: {
 		bySlug: cache(async function bySlug(
 			params: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"],

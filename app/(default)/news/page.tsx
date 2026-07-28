@@ -10,6 +10,7 @@ import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { getHrefForAnnouncement } from "@/utils/news-page.utils";
 
 interface NewsPageProps extends PageProps<"/news"> {}
 
@@ -38,7 +39,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			? (Number(page) - 2) * Number(per_page) + (Number(per_page) + 1)
 			: (Number(page) - 1) * (Number(per_page) + 1);
 
-	const response = await client.news.list({
+	const response = await client.announcements.list({
 		limit: page === 1 ? Number(per_page) + 1 : Number(per_page),
 		offset,
 	});
@@ -73,11 +74,13 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 
 		const {
 			image: headlineImage,
-			entity: { slug: headlineSlug },
+			entity: { slug },
 			summary: headlineSummary,
 			title: headlineTitle,
 			publishedAt: headlinePublishedAt,
+			type,
 		} = headlineItem;
+		const href = getHrefForAnnouncement({ slug, type });
 
 		return (
 			<NewsCard
@@ -85,8 +88,9 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 				description={headlineSummary}
 				imageAlt={headlineImage.alt}
 				imageUrl={headlineImage.url}
-				linkUrl={`/news/${headlineSlug}`}
+				linkUrl={href}
 				title={headlineTitle}
+				type={type}
 				variant="list-headline"
 			/>
 		);
@@ -115,13 +119,13 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 				<Typography variant="h2">{t("title")}</Typography>
 				<ul className="grid grid-cols-1 gap-16 md:grid-cols-2 2xl:gap-x-35.5" role="list">
 					{listItems.map((item) => {
-						const { entity, image, publishedAt, summary, title } = item;
+						const { entity, id, image, publishedAt, summary, title, type } = item;
 						const { slug } = entity;
 
-						const href = `/news/${slug}`;
+						const href = getHrefForAnnouncement({ slug, type });
 
 						return (
-							<li key={slug} className="flex justify-center">
+							<li key={id} className="flex justify-center">
 								<NewsCard
 									date={publishedAt}
 									description={summary}
@@ -129,6 +133,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 									imageUrl={image.url}
 									linkUrl={href}
 									title={title}
+									type={type}
 									variant="list-item"
 								/>
 							</li>
