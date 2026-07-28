@@ -39,16 +39,16 @@ type WithAnnouncementDates<T> = T extends {
 		? Omit<T, "publishedAt"> & { publishedAt: Date }
 		: never;
 
+type AnnouncementListResponse =
+	paths["/api/v1/announcements"]["get"]["responses"][200]["content"]["application/json"];
+type AnnouncementResponse = AnnouncementListResponse["data"][number];
+
 type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyListResponse =
 	paths["/api/v1/documents-policies"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyTreeResponse =
 	paths["/api/v1/documents-policies/tree"]["get"]["responses"][200]["content"]["application/json"];
-
-type AnnouncementListResponse =
-	paths["/api/v1/announcements"]["get"]["responses"][200]["content"]["application/json"];
-type AnnouncementResponse = AnnouncementListResponse["data"][number];
 
 type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -114,6 +114,7 @@ type ProjectListResponse =
 
 type SiteMetadataResponse =
 	paths["/api/v1/site-metadata"]["get"]["responses"][200]["content"]["application/json"];
+
 type SitemapResponse =
 	paths["/api/v1/sitemap"]["get"]["responses"][200]["content"]["application/json"];
 
@@ -219,7 +220,6 @@ export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
 };
 
 export const cacheTags = {
-	announcements: "announcements",
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
@@ -242,7 +242,6 @@ export const cacheTags = {
 } as const;
 
 const sitemapCacheTags = [
-	cacheTags.announcements,
 	cacheTags.dariahProjects,
 	cacheTags.events,
 	cacheTags.fundingCalls,
@@ -283,15 +282,10 @@ const _announcementsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.announcements],
+	[cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
 	{
 		revalidate: 3600,
-		tags: [
-			cacheTags.announcements,
-			cacheTags.fundingCalls,
-			cacheTags.news,
-			cacheTags.opportunities,
-		],
+		tags: [cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
 	},
 );
 
@@ -572,10 +566,24 @@ const _homePageGet = nextCache(
 			stats: statsResult.unwrap(),
 		};
 	},
-	[cacheTags.home],
+	[
+		cacheTags.home,
+		cacheTags.events,
+		cacheTags.featuredEntities,
+		cacheTags.news,
+		cacheTags.fundingCalls,
+		cacheTags.opportunities,
+	],
 	{
 		revalidate: 3600,
-		tags: [cacheTags.home, cacheTags.events, cacheTags.featuredEntities, cacheTags.news],
+		tags: [
+			cacheTags.home,
+			cacheTags.events,
+			cacheTags.featuredEntities,
+			cacheTags.news,
+			cacheTags.fundingCalls,
+			cacheTags.opportunities,
+		],
 	},
 );
 
@@ -694,8 +702,8 @@ const _newsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.news],
-	{ revalidate: 3600, tags: [cacheTags.news] },
+	[cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities] },
 );
 
 const _newsList = nextCache(
