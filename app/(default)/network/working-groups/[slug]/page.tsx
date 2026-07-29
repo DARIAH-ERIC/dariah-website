@@ -40,15 +40,13 @@ export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): 
 
 	const response = await client.workingGroups.bySlug({ slug });
 
-	const { name, image, summary } = response.data;
+	const { name, summary } = response.data;
 
 	const metadata: Metadata = {
 		title: name,
 		description: summary ?? undefined,
 		openGraph: await createOpenGraphMetadata({
 			description: summary ?? undefined,
-			image,
-			imagePathname: `/network/working-groups/${_slug}/opengraph-image`,
 			title: name,
 		}),
 	};

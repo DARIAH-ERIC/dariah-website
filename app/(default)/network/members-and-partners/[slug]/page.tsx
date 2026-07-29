@@ -36,15 +36,13 @@ export async function generateMetadata(
 
 	const response = await client.membersAndPartners.bySlug({ slug });
 
-	const { name, image, summary } = response.data;
+	const { name, summary } = response.data;
 
 	const metadata: Metadata = {
 		title: name,
 		description: summary ?? undefined,
 		openGraph: await createOpenGraphMetadata({
 			description: summary ?? undefined,
-			image,
-			imagePathname: `/network/members-and-partners/${_slug}/opengraph-image`,
 			title: name,
 		}),
 	};

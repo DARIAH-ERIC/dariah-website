@@ -34,15 +34,13 @@ export async function generateMetadata(props: Readonly<OpportunityPageProps>): P
 
 	const response = await client.opportunities.bySlug({ slug });
 
-	const { title, image, summary } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
 		description: summary,
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			image,
-			imagePathname: `/get-involved/opportunities/${_slug}/opengraph-image`,
 			title,
 		}),
 	};

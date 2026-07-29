@@ -39,15 +39,13 @@ export async function generateMetadata(
 
 	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	const { title, image, summary } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
 		description: summary,
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			image,
-			imagePathname: `/about/impact-case-studies/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

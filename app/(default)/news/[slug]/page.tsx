@@ -36,15 +36,13 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 
 	const response = await client.news.bySlug({ slug });
 
-	const { title, image, summary } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
 		description: summary,
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			image,
-			imagePathname: `/news/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

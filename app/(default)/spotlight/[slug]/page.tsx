@@ -41,15 +41,13 @@ export async function generateMetadata(
 
 	const response = await client.spotlightArticles.bySlug({ slug });
 
-	const { title, image, summary } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
 		description: summary,
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			image,
-			imagePathname: `/spotlight/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

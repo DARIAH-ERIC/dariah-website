@@ -36,8 +36,6 @@ export async function generateMetadata(props: Readonly<PersonPageProps>): Promis
 	const metadata: Metadata = {
 		title: person.name,
 		openGraph: await createOpenGraphMetadata({
-			image: person.image,
-			imagePathname: `/persons/${_slug}/opengraph-image`,
 			title: person.name,
 			type: "profile",
 		}),
