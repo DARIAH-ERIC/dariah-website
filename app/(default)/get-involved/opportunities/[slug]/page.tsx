@@ -42,6 +42,7 @@ export async function generateMetadata(props: Readonly<OpportunityPageProps>): P
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
 			image,
+			imagePathname: `/get-involved/opportunities/${_slug}/opengraph-image`,
 			title,
 		}),
 	};

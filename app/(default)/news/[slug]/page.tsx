@@ -44,6 +44,7 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
 			image,
+			imagePathname: `/news/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

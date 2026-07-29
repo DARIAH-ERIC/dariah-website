@@ -41,7 +41,12 @@ export async function generateMetadata(props: Readonly<ProjectPageProps>): Promi
 	const metadata: Metadata = {
 		title,
 		description: summary,
-		openGraph: await createOpenGraphMetadata({ description: summary, image, title }),
+		openGraph: await createOpenGraphMetadata({
+			description: summary ?? undefined,
+			image,
+			imagePathname: `/projects/${_slug}/opengraph-image`,
+			title,
+		}),
 	};
 
 	return metadata;

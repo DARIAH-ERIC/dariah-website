@@ -9,7 +9,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
-import { getFormattedDateForNews, type AnnouncementType } from "@/utils/news-page.utils";
+import { type AnnouncementType,getFormattedDateForNews } from "@/utils/news-page.utils";
 
 interface NewsCardProps {
 	title: string;

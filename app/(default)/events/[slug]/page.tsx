@@ -41,7 +41,12 @@ export async function generateMetadata(props: Readonly<EventPageProps>): Promise
 	const metadata: Metadata = {
 		title,
 		description: summary,
-		openGraph: await createOpenGraphMetadata({ description: summary, image, title }),
+		openGraph: await createOpenGraphMetadata({
+			description: summary,
+			image,
+			imagePathname: `/events/${_slug}/opengraph-image`,
+			title,
+		}),
 	};
 
 	return metadata;

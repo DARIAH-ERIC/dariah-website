@@ -48,6 +48,7 @@ export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): 
 		openGraph: await createOpenGraphMetadata({
 			description: summary ?? undefined,
 			image,
+			imagePathname: `/network/working-groups/${_slug}/opengraph-image`,
 			title: name,
 		}),
 	};

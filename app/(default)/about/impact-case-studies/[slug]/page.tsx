@@ -47,6 +47,7 @@ export async function generateMetadata(
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
 			image,
+			imagePathname: `/about/impact-case-studies/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

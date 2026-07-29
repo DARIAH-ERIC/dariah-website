@@ -49,6 +49,7 @@ export async function generateMetadata(
 		openGraph: await createOpenGraphMetadata({
 			description: summary,
 			image,
+			imagePathname: `/spotlight/${_slug}/opengraph-image`,
 			title,
 			type: "article",
 		}),

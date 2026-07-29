@@ -6,6 +6,8 @@ import { getMetadata } from "@/lib/i18n/metadata";
 interface CreateOpenGraphMetadataParams {
 	description?: string;
 	image?: { alt?: string | null; url: string } | null;
+	/** Path to the generated 1200 × 630 image route for the current page. */
+	imagePathname?: string;
 	title: string;
 	/** Note that open graph has no type for events, so those stay `"website"`. */
 	type?: "article" | "profile" | "website";
@@ -33,10 +35,21 @@ const defaultImage = {
 export async function createOpenGraphMetadata(
 	params: Readonly<CreateOpenGraphMetadataParams>,
 ): Promise<Metadata["openGraph"]> {
-	const { description, image, title, type = "website" } = params;
+	const { description, image, imagePathname, title, type = "website" } = params;
 
 	const locale = await getLocale();
 	const meta = await getMetadata();
+
+	const featuredImage =
+		image != null && imagePathname != null
+			? {
+					alt: image.alt ?? undefined,
+					height: 630,
+					type: "image/png",
+					url: imagePathname,
+					width: 1200,
+				}
+			: defaultImage;
 
 	return {
 		title,
@@ -45,6 +58,6 @@ export async function createOpenGraphMetadata(
 		siteName: meta.title,
 		locale,
 		type,
-		images: [image != null ? { alt: image.alt ?? undefined, url: image.url } : defaultImage],
+		images: [featuredImage],
 	};
 }
