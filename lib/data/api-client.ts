@@ -13,7 +13,7 @@ import type {
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
-const maxFeaturedEvents = 3;
+const maxUpcomingEvents = 3;
 const maxAnnouncements = 3;
 
 const apiHeaders: HeadersInit | undefined =
@@ -54,6 +54,9 @@ type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
+
+type FeaturedEntitiesResponse =
+	paths["/api/v1/featured-entities"]["get"]["responses"][200]["content"]["application/json"];
 
 type FundingCallsResponse =
 	paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -215,6 +218,7 @@ export const cacheTags = {
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
+	featuredEntities: "featured-entities",
 	fundingCalls: "funding-calls",
 	governanceBodies: "governance-bodies",
 	home: "home",
@@ -507,8 +511,13 @@ const _homePageGet = nextCache(
 					String(now.getUTCMonth() + 1).padStart(2, "0"),
 					String(now.getUTCDate()).padStart(2, "0"),
 				].join("-"),
-				limit: maxFeaturedEvents,
+				limit: maxUpcomingEvents,
 			}),
+		});
+
+		const featuredEntitiesUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/featured-entities",
 		});
 
 		const announcementsUrl = createUrl({
@@ -522,34 +531,41 @@ const _homePageGet = nextCache(
 			pathname: "/api/v1/statistics",
 		});
 
-		const [announcementsResult, eventsResult, statsResult] = await Promise.all([
-			request<AnnouncementListResponse>(announcementsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<EventListResponse>(eventsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<Statistics>(statsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-		]);
+		const [announcementsResult, eventsResult, featuredEntitiesResult, statsResult] =
+			await Promise.all([
+				request<AnnouncementListResponse>(announcementsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<EventListResponse>(eventsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<FeaturedEntitiesResponse>(featuredEntitiesUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<Statistics>(statsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+			]);
 
 		return {
 			announcements: announcementsResult.unwrap(),
 			events: eventsResult.unwrap(),
+			featuredEntities: featuredEntitiesResult.unwrap(),
 			stats: statsResult.unwrap(),
 		};
 	},
-	[cacheTags.home, cacheTags.events, cacheTags.announcements],
+	[cacheTags.home, cacheTags.events, cacheTags.announcements, cacheTags.featuredEntities],
 	{
 		revalidate: 3600,
-		tags: [cacheTags.home, cacheTags.events, cacheTags.announcements],
+		tags: [cacheTags.home, cacheTags.events, cacheTags.announcements, cacheTags.featuredEntities],
 	},
 );
 
@@ -1319,15 +1335,26 @@ export const client = {
 			const {
 				announcements: announcementsResponse,
 				events: eventsResponse,
+				featuredEntities,
 				stats,
 			} = await _homePageGet();
+
+			const mergedEvents: EventListResponse["data"] = [];
+			const eventIds = new Set<string>();
+
+			for (const event of [...featuredEntities.data.data.events, ...eventsResponse.data.data]) {
+				if (!eventIds.has(event.id)) {
+					eventIds.add(event.id);
+					mergedEvents.push(event);
+				}
+			}
 
 			return {
 				events: {
 					...eventsResponse,
 					data: {
 						...eventsResponse.data,
-						data: eventsResponse.data.data.map((item) => {
+						data: mergedEvents.map((item) => {
 							return {
 								...item,
 								publishedAt: new Date(item.publishedAt),
