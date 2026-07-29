@@ -1,10 +1,14 @@
 import type { ReactNode } from "react";
 
-import { NavMenu, NavMenuSeparator, NavMenuTrigger } from "@/components/navigation";
 import { SearchIcon } from "@/components/ui/icons/search";
 import { Link } from "@/components/ui/link/link";
 import { NavButton } from "@/components/ui/navigation/nav-button";
-import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
+import {
+	NavMenu,
+	NavMenuItem,
+	NavMenuItems,
+	NavMenuSeparator,
+} from "@/components/ui/navigation/nav-menu";
 import type { NavigationConfig } from "@/lib/navigation/navigation";
 
 interface NavigationDesktopProps {
@@ -35,9 +39,9 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 						case "menu": {
 							return (
 								<li key={id}>
-									<NavMenuTrigger>
+									<NavMenu>
 										<NavButton>{item.label}</NavButton>
-										<NavMenu>
+										<NavMenuItems>
 											{item.children &&
 												Object.entries(item.children).map(([id, item]) => {
 													switch (item.type) {
@@ -62,8 +66,8 @@ export function NavigationDesktop(props: Readonly<NavigationDesktopProps>): Reac
 														}
 													}
 												})}
-										</NavMenu>
-									</NavMenuTrigger>
+										</NavMenuItems>
+									</NavMenu>
 								</li>
 							);
 						}

@@ -5,8 +5,8 @@ import {
 	NavMenu,
 	NavMenuButton,
 	NavMenuItem,
+	NavMenuItems,
 	NavMenuSeparator,
-	NavMenuTrigger,
 } from "@/components/navigation";
 
 const meta = {
@@ -28,16 +28,16 @@ export const Navigation: Story = {
 						<NavLink href="#">Home</NavLink>
 					</li>
 					<li>
-						<NavMenuTrigger>
+						<NavMenu>
 							<NavMenuButton>About</NavMenuButton>
-							<NavMenu>
+							<NavMenuItems>
 								<NavMenuItem href="#">About me</NavMenuItem>
 								<NavMenuItem href="#">About you</NavMenuItem>
 								<NavMenuItem href="#">About us</NavMenuItem>
 								<NavMenuSeparator />
 								<NavMenuItem href="#">About everything</NavMenuItem>
-							</NavMenu>
-						</NavMenuTrigger>
+							</NavMenuItems>
+						</NavMenu>
 					</li>
 					<li>
 						<NavLink href="#">News</NavLink>

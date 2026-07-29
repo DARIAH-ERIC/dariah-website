@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-import { NavMenu, NavMenuSeparator } from "@/components/navigation";
 import {
 	Disclosure,
 	DisclosureGroup,
@@ -10,7 +9,7 @@ import {
 } from "@/components/ui/disclosure/disclosure";
 import { SearchIcon } from "@/components/ui/icons/search";
 import { Link } from "@/components/ui/link/link";
-import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
+import { NavMenuItem, NavMenuSeparator } from "@/components/ui/navigation/nav-menu";
 import type { NavigationConfig } from "@/lib/navigation/navigation";
 
 interface NavigationMobileProps {
@@ -53,7 +52,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 									<Disclosure>
 										<DisclosureHeader aria-label={item.label}>{item.label}</DisclosureHeader>
 										<DisclosurePanel>
-											<NavMenu>
+											<ul className="flex flex-col gap-2" role="list">
 												{item.children &&
 													Object.entries(item.children).map(([id, item]) => {
 														switch (item.type) {
@@ -89,7 +88,7 @@ export function NavigationMobile(props: Readonly<NavigationMobileProps>): ReactN
 															}
 														}
 													})}
-											</NavMenu>
+											</ul>
 										</DisclosurePanel>
 									</Disclosure>
 								</li>

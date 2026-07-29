@@ -27,6 +27,22 @@ type WithDuration<T extends { duration: { start: string; end?: string } }> = Omi
 	duration: { start: Date; end?: Date };
 };
 
+type WithAnnouncementDates<T> = T extends {
+	publishedAt: string;
+	duration: { start: string; end?: string };
+}
+	? Omit<T, "publishedAt" | "duration"> & {
+			publishedAt: Date;
+			duration: { start: Date; end?: Date };
+		}
+	: T extends { publishedAt: string }
+		? Omit<T, "publishedAt"> & { publishedAt: Date }
+		: never;
+
+type AnnouncementListResponse =
+	paths["/api/v1/announcements"]["get"]["responses"][200]["content"]["application/json"];
+type AnnouncementResponse = AnnouncementListResponse["data"][number];
+
 type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type DocumentOrPolicyListResponse =
@@ -99,6 +115,9 @@ type ProjectListResponse =
 type SiteMetadataResponse =
 	paths["/api/v1/site-metadata"]["get"]["responses"][200]["content"]["application/json"];
 
+type SitemapResponse =
+	paths["/api/v1/sitemap"]["get"]["responses"][200]["content"]["application/json"];
+
 type SpotlightArticleResponse =
 	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type SpotlightArticleListResponse =
@@ -115,6 +134,11 @@ export type DocumentOrPolicyList = Omit<DocumentOrPolicyListResponse, "data"> & 
 };
 export type DocumentOrPolicyTree = Omit<DocumentOrPolicyTreeResponse, "data"> & {
 	data: Array<DocumentOrPolicyType | DocumentOrPolicyGroupType>;
+};
+
+export type Announcement = WithAnnouncementDates<AnnouncementResponse>;
+export type AnnouncementList = Omit<AnnouncementListResponse, "data"> & {
+	data: Array<Announcement>;
 };
 
 export type Event = WithPublishedAt<WithDuration<EventResponse>>;
@@ -178,6 +202,10 @@ export type ProjectList = Omit<ProjectListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<ProjectListResponse["data"][number]>>>;
 };
 
+export type Sitemap = Omit<SitemapResponse, "data"> & {
+	data: Array<Omit<SitemapResponse["data"][number], "lastModified"> & { lastModified: Date }>;
+};
+
 export type SpotlightArticle = WithPublishedAt<SpotlightArticleResponse>;
 export type SpotlightArticleList = Omit<SpotlightArticleListResponse, "data"> & {
 	data: Array<WithPublishedAt<SpotlightArticleListResponse["data"][number]>>;
@@ -213,12 +241,53 @@ export const cacheTags = {
 	workingGroups: "working-groups",
 } as const;
 
+const sitemapCacheTags = [
+	cacheTags.dariahProjects,
+	cacheTags.events,
+	cacheTags.fundingCalls,
+	cacheTags.impactCaseStudies,
+	cacheTags.membersAndPartners,
+	cacheTags.news,
+	cacheTags.opportunities,
+	cacheTags.pages,
+	cacheTags.persons,
+	cacheTags.spotlightArticles,
+	cacheTags.workingGroups,
+];
+
 /**
  * `unstable_cache` serializes return values as JSON, which means `Date` objects are coerced to
  * strings on write and come back as strings on a cache hit. To avoid type/runtime mismatches,
  * all `nextCache`-wrapped functions return raw string dates. The `cache()`-wrapped outer functions
  * below handle the `new Date()` conversions after retrieval, where no serialization occurs.
  */
+
+const _announcementsList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+		type,
+	}: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/announcements",
+			searchParams: createUrlSearchParams({ limit, offset, type }),
+		});
+
+		const result = await request<AnnouncementListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
+	{
+		revalidate: 3600,
+		tags: [cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
+	},
+);
 
 const _documentsPoliciesBySlug = nextCache(
 	async function bySlug({
@@ -497,10 +566,24 @@ const _homePageGet = nextCache(
 			stats: statsResult.unwrap(),
 		};
 	},
-	[cacheTags.home],
+	[
+		cacheTags.home,
+		cacheTags.events,
+		cacheTags.featuredEntities,
+		cacheTags.news,
+		cacheTags.fundingCalls,
+		cacheTags.opportunities,
+	],
 	{
 		revalidate: 3600,
-		tags: [cacheTags.home, cacheTags.events, cacheTags.featuredEntities, cacheTags.news],
+		tags: [
+			cacheTags.home,
+			cacheTags.events,
+			cacheTags.featuredEntities,
+			cacheTags.news,
+			cacheTags.fundingCalls,
+			cacheTags.opportunities,
+		],
 	},
 );
 
@@ -619,8 +702,8 @@ const _newsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.news],
-	{ revalidate: 3600, tags: [cacheTags.news] },
+	[cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities] },
 );
 
 const _newsList = nextCache(
@@ -841,6 +924,25 @@ const _projectsList = nextCache(
 	{ revalidate: 3600, tags: [cacheTags.dariahProjects, cacheTags.pages] },
 );
 
+const _sitemapGet = nextCache(
+	async function get() {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/sitemap",
+		});
+
+		const result = await request<SitemapResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	["sitemap"],
+	{ revalidate: 3600, tags: sitemapCacheTags },
+);
+
 const _spotlightArticlesBySlug = nextCache(
 	async function bySlug({
 		slug,
@@ -938,7 +1040,39 @@ const _workingGroupsList = nextCache(
 	{ revalidate: 3600, tags: [cacheTags.workingGroups, cacheTags.pages] },
 );
 
+function parseAnnouncementDates(item: AnnouncementResponse): Announcement {
+	if ("duration" in item) {
+		return {
+			...item,
+			duration: {
+				start: new Date(item.duration.start),
+				end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+			},
+			publishedAt: new Date(item.publishedAt),
+		};
+	}
+
+	return { ...item, publishedAt: new Date(item.publishedAt) };
+}
+
 export const client = {
+	announcements: {
+		list: cache(async function list(
+			params: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _announcementsList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return parseAnnouncementDates(item);
+					}),
+				},
+			};
+		}),
+	},
 	documentsPolicies: {
 		bySlug: cache(async function bySlug(
 			params: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"],
@@ -1743,6 +1877,21 @@ export const client = {
 				{ revalidate: 3600, tags: [cacheTags.siteMetadata] },
 			),
 		),
+	},
+	sitemap: {
+		get: cache(async function get() {
+			const response = await _sitemapGet();
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, lastModified: new Date(item.lastModified) };
+					}),
+				},
+			};
+		}),
 	},
 	spotlightArticles: {
 		bySlug: cache(async function bySlug(

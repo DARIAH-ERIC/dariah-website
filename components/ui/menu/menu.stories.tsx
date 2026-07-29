@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
+import { Button } from "@/components/ui/button/button";
 import {
 	Menu,
+	MenuItem,
 	MenuSection,
 	MenuSeparator,
 	MenuTrigger,
 	SubmenuTrigger,
 } from "@/components/ui/menu/menu";
-import { NavButton } from "@/components/ui/navigation/nav-button";
-import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
 
 const meta = {
 	title: "Components/UI/Menu",
@@ -26,13 +26,13 @@ export const Simple: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<NavButton>Open Menu</NavButton>
+				<Button>Open Menu</Button>
 				<Menu>
-					<NavMenuItem>Home</NavMenuItem>
-					<NavMenuItem>About</NavMenuItem>
-					<NavMenuItem>Contact</NavMenuItem>
+					<MenuItem>Home</MenuItem>
+					<MenuItem>About</MenuItem>
+					<MenuItem>Contact</MenuItem>
 					<MenuSeparator />
-					<NavMenuItem>Settings</NavMenuItem>
+					<MenuItem>Settings</MenuItem>
 				</Menu>
 			</MenuTrigger>
 		);
@@ -44,21 +44,21 @@ export const WithSubmenu: Story = {
 	render() {
 		return (
 			<MenuTrigger>
-				<NavButton>Open Menu</NavButton>
+				<Button>Open Menu</Button>
 				<Menu>
-					<NavMenuItem>Home</NavMenuItem>
-					<NavMenuItem>About</NavMenuItem>
+					<MenuItem>Home</MenuItem>
+					<MenuItem>About</MenuItem>
 					<MenuSection title="Projects">
-						<NavMenuItem>Project 1</NavMenuItem>
-						<NavMenuItem>Project 2</NavMenuItem>
+						<MenuItem>Project 1</MenuItem>
+						<MenuItem>Project 2</MenuItem>
 					</MenuSection>
 					<MenuSeparator />
 					<SubmenuTrigger>
-						<NavMenuItem>More Options</NavMenuItem>
+						<MenuItem>More Options</MenuItem>
 						<Menu>
-							<NavMenuItem>Option A</NavMenuItem>
-							<NavMenuItem>Option B</NavMenuItem>
-							<NavMenuItem>Option C</NavMenuItem>
+							<MenuItem>Option A</MenuItem>
+							<MenuItem>Option B</MenuItem>
+							<MenuItem>Option C</MenuItem>
 						</Menu>
 					</SubmenuTrigger>
 				</Menu>

@@ -38,10 +38,10 @@ export default async function AccessibilityDeclarationPage(): Promise<ReactNode>
 		return c.type === "rich_text";
 	});
 	const sections = richTextContent
-		? getSectionsFromContent(richTextContent.content as JSONContent, 2)
+		? getSectionsFromContent(richTextContent.content as JSONContent)
 		: [];
 
-	const parsedContent = addIdsToContent(content, 2);
+	const parsedContent = addIdsToContent(content);
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
@@ -60,7 +60,7 @@ export default async function AccessibilityDeclarationPage(): Promise<ReactNode>
 				<Typography className="text-[45px] font-light" variant="h2">
 					{title}
 				</Typography>
-				<div className="flex-col flex gap-8 justify-between lg:pb-12 lg:flex-row 2xl:gap-21">
+				<div className="flex-col flex gap-8 justify-between xl:pb-12 xl:flex-row 2xl:gap-21">
 					<SectionPanel sections={sections} />
 					<div className="max-w-full xl:w-252.5 xl:flex-1">
 						<ContentBlocks fields={parsedContent} />

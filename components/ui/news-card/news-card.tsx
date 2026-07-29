@@ -9,7 +9,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
-import { getFormattedDateForNews } from "@/utils/news-page.utils";
+import { getFormattedDateForNews, type AnnouncementType } from "@/utils/news-page.utils";
 
 interface NewsCardProps {
 	title: string;
@@ -18,13 +18,30 @@ interface NewsCardProps {
 	imageAlt?: string | null;
 	linkUrl: string;
 	date: Date;
+	type?: AnnouncementType;
 	variant: "featured" | "standard" | "list-item" | "list-headline";
 	className?: string;
 }
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
-	const { variant, title, description, imageUrl, imageAlt, linkUrl, date, className } = props;
+	const {
+		variant,
+		title,
+		description,
+		imageUrl,
+		imageAlt,
+		linkUrl,
+		date,
+		type = "news",
+		className,
+	} = props;
 	const t = useTranslations("NewsPage");
+	const tags = {
+		funding_calls: t("newsCard.tags.funding-call"),
+		news: t("newsCard.tags.news"),
+		opportunities: t("newsCard.tags.opportunity"),
+	} satisfies Record<AnnouncementType, string>;
+	const tag = tags[type];
 
 	const getImageSizeForVariant = () => {
 		switch (variant) {
@@ -104,7 +121,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				>
 					<div className="flex gap-3.5 text-primary-500">
 						<NewsIcon width="14px" />
-						<span className="uppercase">{t("newsCard.tag")}</span>
+						<span className="uppercase">{tag}</span>
 					</div>
 					<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 				</div>
@@ -113,7 +130,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				className={cn(
 					"flex flex-1 flex-col gap-4 justify-between",
 					!isListVariant && "pt-8 size-full 2xl:pt-13",
-					variant === "list-item" && "gap-0! 2xl:max-h-55",
+					variant === "list-item" && "gap-0! xl:max-h-50 2xl:max-h-55",
 					variant === "list-headline" &&
 						"absolute w-full h-119.75 top-[208] left-[24] z-5 max-w-197.25 bg-white justify-center p-6! lg:h-81.5 lg:right-0 lg:left-auto lg:top-auto",
 				)}
@@ -128,12 +145,12 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						>
 							<NewsIcon className="size-4" />
 							<Typography className="text-[16px] font-bold uppercase" variant="small">
-								{t("newsCard.tag")}
+								{tag}
 							</Typography>
 						</div>
 						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 					</div>
-					<div className={variant === "list-item" ? "mb-3.5 h-13.5" : undefined}>
+					<div className={variant === "list-item" ? "h-13.5 2xl:mb-3.5" : undefined}>
 						<Typography
 							className={cn(
 								variant === "list-item" && "line-clamp-2 text-[18px]",

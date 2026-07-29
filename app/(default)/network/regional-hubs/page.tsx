@@ -42,12 +42,12 @@ export default async function RegionalHubsPage(): Promise<ReactNode> {
 		return c.type === "rich_text";
 	});
 	const sections = richTextContent
-		? getSectionsFromContent(richTextContent.content as JSONContent, 2)
+		? getSectionsFromContent(richTextContent.content as JSONContent)
 		: [];
 
 	const links = mergeQuickLinks(relatedEntities, relatedResources);
 
-	const parsedContent = addIdsToContent(content, 2);
+	const parsedContent = addIdsToContent(content);
 
 	return (
 		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
@@ -66,15 +66,15 @@ export default async function RegionalHubsPage(): Promise<ReactNode> {
 				<Typography className="text-[45px] font-light" variant="h2">
 					{title}
 				</Typography>
-				<div className="flex-col flex gap-8 justify-between lg:py-12 lg:flex-row 2xl:gap-21">
+				<div className="flex-col flex gap-8 justify-between xl:py-12 xl:flex-row 2xl:gap-21">
 					<SectionPanel sections={sections} />
 					<div className="max-w-full xl:w-252.5 xl:flex-1">
 						<ContentBlocks fields={parsedContent} />
 					</div>
-					<QuickLinks className="hidden lg:flex" links={links} />
+					<QuickLinks className="hidden xl:flex" links={links} />
 				</div>
 			</div>
-			<QuickLinks className="flex px-4 mt-16 lg:hidden" links={links} />
+			<QuickLinks className="flex px-4 mt-16 xl:hidden" links={links} />
 			<BackToTop />
 		</Main>
 	);
