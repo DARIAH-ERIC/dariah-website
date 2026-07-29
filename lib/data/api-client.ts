@@ -1354,7 +1354,7 @@ export const client = {
 					...eventsResponse,
 					data: {
 						...eventsResponse.data,
-						data: mergedEvents.map((item) => {
+						data: mergedEvents.slice(0, maxUpcomingEvents).map((item) => {
 							return {
 								...item,
 								publishedAt: new Date(item.publishedAt),
