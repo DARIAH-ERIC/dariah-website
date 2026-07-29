@@ -1,4 +1,4 @@
-import { createUrl, createUrlSearchParams, unique } from "@acdh-oeaw/lib";
+import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
 import { unstable_cache as nextCache } from "next/cache";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -14,7 +14,7 @@ import type {
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
 const maxFeaturedEvents = 3;
-const maxFeaturedNewsItems = 3;
+const maxAnnouncements = 3;
 
 const apiHeaders: HeadersInit | undefined =
 	env.API_ACCESS_TOKEN != null ? { "x-api-access-token": env.API_ACCESS_TOKEN } : undefined;
@@ -54,9 +54,6 @@ type EventResponse =
 	paths["/api/v1/events/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
-
-type FeaturedItemsResponse =
-	paths["/api/v1/featured-entities"]["get"]["responses"][200]["content"]["application/json"];
 
 type FundingCallsResponse =
 	paths["/api/v1/funding-calls/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -146,12 +143,6 @@ export type EventList = Omit<EventListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
 };
 
-export type FeaturedItems = Omit<FeaturedItemsResponse, "data"> & {
-	data: Omit<FeaturedItemsResponse["data"], "news"> & {
-		news: Array<WithPublishedAt<FeaturedItemsResponse["data"]["news"][number]>>;
-	};
-};
-
 export type FundingCall = WithPublishedAt<FundingCallsResponse>;
 export type FundingCallList = Omit<FundingCallsListResponse, "data"> & {
 	data: Array<WithPublishedAt<FundingCallsListResponse["data"][number]>>;
@@ -220,10 +211,10 @@ export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
 };
 
 export const cacheTags = {
+	announcements: "announcements",
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
-	featuredEntities: "featured-entities",
 	fundingCalls: "funding-calls",
 	governanceBodies: "governance-bodies",
 	home: "home",
@@ -282,10 +273,10 @@ const _announcementsList = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
+	[cacheTags.announcements],
 	{
 		revalidate: 3600,
-		tags: [cacheTags.fundingCalls, cacheTags.news, cacheTags.opportunities],
+		tags: [cacheTags.announcements],
 	},
 );
 
@@ -520,15 +511,10 @@ const _homePageGet = nextCache(
 			}),
 		});
 
-		const newsUrl = createUrl({
+		const announcementsUrl = createUrl({
 			baseUrl,
-			pathname: "/api/v1/news",
-			searchParams: createUrlSearchParams({ limit: maxFeaturedNewsItems }),
-		});
-
-		const featuredItemsUrl = createUrl({
-			baseUrl,
-			pathname: "/api/v1/featured-entities",
+			pathname: "/api/v1/announcements",
+			searchParams: createUrlSearchParams({ limit: maxAnnouncements }),
 		});
 
 		const statsUrl = createUrl({
@@ -536,18 +522,13 @@ const _homePageGet = nextCache(
 			pathname: "/api/v1/statistics",
 		});
 
-		const [eventsResult, newsResult, featuredItemsResult, statsResult] = await Promise.all([
+		const [announcementsResult, eventsResult, statsResult] = await Promise.all([
+			request<AnnouncementListResponse>(announcementsUrl, {
+				responseType: "json",
+				retry: { backoff: "exponential", delayMs: 200, times: 2 },
+				headers: apiHeaders,
+			}),
 			request<EventListResponse>(eventsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<NewsItemListResponse>(newsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<FeaturedItemsResponse>(featuredItemsUrl, {
 				responseType: "json",
 				retry: { backoff: "exponential", delayMs: 200, times: 2 },
 				headers: apiHeaders,
@@ -560,30 +541,15 @@ const _homePageGet = nextCache(
 		]);
 
 		return {
+			announcements: announcementsResult.unwrap(),
 			events: eventsResult.unwrap(),
-			featuredItems: featuredItemsResult.unwrap(),
-			news: newsResult.unwrap(),
 			stats: statsResult.unwrap(),
 		};
 	},
-	[
-		cacheTags.home,
-		cacheTags.events,
-		cacheTags.featuredEntities,
-		cacheTags.news,
-		cacheTags.fundingCalls,
-		cacheTags.opportunities,
-	],
+	[cacheTags.home, cacheTags.events, cacheTags.announcements],
 	{
 		revalidate: 3600,
-		tags: [
-			cacheTags.home,
-			cacheTags.events,
-			cacheTags.featuredEntities,
-			cacheTags.news,
-			cacheTags.fundingCalls,
-			cacheTags.opportunities,
-		],
+		tags: [cacheTags.home, cacheTags.events, cacheTags.announcements],
 	},
 );
 
@@ -1351,9 +1317,8 @@ export const client = {
 	homePage: {
 		get: cache(async function get() {
 			const {
+				announcements: announcementsResponse,
 				events: eventsResponse,
-				featuredItems: featuredItemsResponse,
-				news: newsResponse,
 				stats,
 			} = await _homePageGet();
 
@@ -1374,15 +1339,13 @@ export const client = {
 						}),
 					},
 				},
-				news: {
-					...newsResponse,
+				announcements: {
+					...announcementsResponse,
 					data: {
-						...newsResponse.data,
-						data: unique([...featuredItemsResponse.data.data.news, ...newsResponse.data.data])
-							.slice(0, maxFeaturedNewsItems)
-							.map((item) => {
-								return { ...item, publishedAt: new Date(item.publishedAt) };
-							}),
+						...announcementsResponse.data,
+						data: announcementsResponse.data.data.map((item) => {
+							return parseAnnouncementDates(item);
+						}),
 					},
 				},
 				stats,

@@ -73,25 +73,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
-	const filterLatestNews = () => {
-		const hasCurrentNews = latestNews.find((news) => {
-			return news.id === id;
-		});
-
-		if (hasCurrentNews) {
-			return latestNews.filter((news) => {
-				return news.id !== id;
-			});
-		}
-
-		const sortedNews = latestNews.toSorted((newsA, newsB) => {
-			return newsB.publishedAt.getTime() - newsA.publishedAt.getTime();
-		});
-
-		return sortedNews.slice(0, 4);
-	};
-
-	const filteredLatestNews = filterLatestNews();
+	const filteredLatestNews = latestNews
+		.filter((news) => {
+			return news.id !== id;
+		})
+		.slice(0, 4);
 
 	return (
 		<Main className="container flex flex-1 flex-col mb-16 lg:mb-20 lg:gap-20">

@@ -3,38 +3,35 @@ import React, { type ReactNode } from "react";
 
 import { Link } from "@/components/ui/link/link";
 import { NewsCard } from "@/components/ui/news-card/news-card";
+import type { Announcement } from "@/lib/data/api-client";
+import { getHrefForAnnouncement } from "@/utils/news-page.utils";
 
 interface NewsSectionProps {
-	news: Array<{
-		id: string;
-		title: string;
-		summary: string;
-		image: { url: string };
-		entity: { slug: string };
-		publishedAt: Date;
-	}>;
+	announcements: Array<Announcement>;
 }
 
 export function NewsSection(props: Readonly<NewsSectionProps>): ReactNode {
-	const { news } = props;
+	const { announcements } = props;
 	const t = useTranslations("HomePage");
 
 	return (
 		<section className="flex pb-10.5 flex-col gap-19 items-end bg-white">
 			<div className="flex flex-col items-center px-4 gap-6 justify-center w-full xl:items-end xl:justify-center xl:flex-row 3xl:justify-start 3xl:gap-21.5 3xl:px-32">
-				{news.map((newsItem, index) => {
-					const { entity, id, image, publishedAt, summary, title } = newsItem;
+				{announcements.map((announcement, index) => {
+					const { entity, id, image, publishedAt, summary, title, type } = announcement;
 
-					const href = `/news/${entity.slug}`;
+					const href = getHrefForAnnouncement({ slug: entity.slug, type });
 
 					return (
 						<NewsCard
 							key={id}
 							date={publishedAt}
 							description={summary}
+							imageAlt={image.alt}
 							imageUrl={image.url}
 							linkUrl={href}
 							title={title}
+							type={type}
 							variant={index === 0 ? "featured" : "standard"}
 						/>
 					);
