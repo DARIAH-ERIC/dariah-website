@@ -33,13 +33,13 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 	const { page = 1, per_page = 14 } = await searchParams;
 	const t = await getTranslations("NewsPage");
 
-	const offset =
-		Number(page) > 2
-			? (Number(page) - 2) * Number(per_page) + (Number(per_page) + 1)
-			: (Number(page) - 1) * (Number(per_page) + 1);
+	const currentPage = Number(page);
+	const perPage = Number(per_page);
+	const isFirstPage = currentPage === 1;
+	const offset = isFirstPage ? 0 : (currentPage - 1) * perPage + 1;
 
 	const response = await client.announcements.list({
-		limit: page === 1 ? Number(per_page) + 1 : Number(per_page),
+		limit: perPage + (isFirstPage ? 1 : 0),
 		offset,
 	});
 	const breadcrumbs = navigation().breadcrumbs.news;
@@ -65,8 +65,9 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			</Main>
 		);
 
-	const headlineItem = page === 1 ? items[0] : undefined;
-	const listItems = page === 1 ? items.slice(1) : items;
+	const headlineItem = isFirstPage ? items[0] : undefined;
+	const listItems = isFirstPage ? items.slice(1) : items;
+	const pageCount = Math.max(1, Math.ceil((total - 1) / perPage));
 
 	const renderFeaturedNews = () => {
 		if (headlineItem === undefined) return null;
@@ -143,7 +144,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Suspense>
-					<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
+					<Pagination pageCount={pageCount} shouldScroll={true} />
 				</Suspense>
 			</div>
 		</Main>

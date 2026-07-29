@@ -35,7 +35,7 @@ const entityTypeToCacheTags: Record<
 	"governance-bodies": [cacheTags.governanceBodies],
 	"impact-case-studies": [cacheTags.impactCaseStudies],
 	"members-partners": [cacheTags.membersAndPartners],
-	"site-metadata": [cacheTags.siteMetadata],
+	"site-metadata": [cacheTags.siteMetadata, cacheTags.announcements],
 	navigation: [cacheTags.navigation],
 	news: [cacheTags.news, cacheTags.announcements],
 	opportunities: [cacheTags.opportunities, cacheTags.announcements],
