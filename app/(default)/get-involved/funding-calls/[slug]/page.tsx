@@ -34,13 +34,14 @@ export async function generateMetadata(props: Readonly<FundingCallPageProps>): P
 
 	const response = await client.fundingCalls.bySlug({ slug });
 
-	const { title, summary } = response.data;
+	const { title, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		description: summary ?? undefined,
+		description: summary,
 		openGraph: await createOpenGraphMetadata({
-			description: summary ?? undefined,
+			description: summary,
+			image,
 			title,
 		}),
 	};

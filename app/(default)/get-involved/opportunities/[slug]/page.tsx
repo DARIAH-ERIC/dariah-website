@@ -14,10 +14,10 @@ import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
-interface FundingCallPageProps extends PageProps<"/get-involved/funding-calls/[slug]"> {}
+interface OpportunityPageProps extends PageProps<"/get-involved/opportunities/[slug]"> {}
 
 export async function generateStaticParams(): Promise<
-	Array<Pick<Awaited<FundingCallPageProps["params"]>, "slug">>
+	Array<Pick<Awaited<OpportunityPageProps["params"]>, "slug">>
 > {
 	const response = await client.opportunities.slugs();
 
@@ -26,7 +26,7 @@ export async function generateStaticParams(): Promise<
 	});
 }
 
-export async function generateMetadata(props: Readonly<FundingCallPageProps>): Promise<Metadata> {
+export async function generateMetadata(props: Readonly<OpportunityPageProps>): Promise<Metadata> {
 	const { params } = props;
 
 	const { slug: _slug } = await params;
@@ -34,13 +34,14 @@ export async function generateMetadata(props: Readonly<FundingCallPageProps>): P
 
 	const response = await client.opportunities.bySlug({ slug });
 
-	const { title, summary } = response.data;
+	const { title, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		description: summary ?? undefined,
+		description: summary,
 		openGraph: await createOpenGraphMetadata({
-			description: summary ?? undefined,
+			description: summary,
+			image,
 			title,
 		}),
 	};
@@ -48,8 +49,8 @@ export async function generateMetadata(props: Readonly<FundingCallPageProps>): P
 	return metadata;
 }
 
-export default async function FundingCallsPage(
-	props: Readonly<FundingCallPageProps>,
+export default async function OpportunityPage(
+	props: Readonly<OpportunityPageProps>,
 ): Promise<ReactNode> {
 	const { params } = props;
 
