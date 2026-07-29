@@ -10,13 +10,14 @@ import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 
 interface ContentBlocksProps {
+	className?: string;
 	fields: components["schemas"]["Page"]["content"];
 }
 
 export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
-	const { fields } = props;
+	const { className, fields } = props;
 
-	return <div className="@container">{fields.map(renderContentBlock)}</div>;
+	return <div className={cn("@container", className)}>{fields.map(renderContentBlock)}</div>;
 }
 
 function renderContentBlock(
