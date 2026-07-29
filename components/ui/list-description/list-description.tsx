@@ -16,9 +16,8 @@ export function ListDescription(props: Readonly<ListDescriptionProps>): ReactNod
 	return (
 		<div
 			className={cn(
-				"gap-4 xl:columns-2 xl:gap-x-16 3xl:gap-x-23.5 *:break-inside-avoid *:first:mt-0!",
-				"[&>h1:first-child]:pb-12 [&>:is(h2,h3,h4)]:break-after-avoid",
-				"[&>h1:first-child]:[column-span:all] [&>*:nth-child(2)]:mt-0!",
+				"gap-4 xl:columns-2 xl:gap-x-16 3xl:gap-x-23.5",
+				"[&>h1:first-child]:pb-12 [&>h1:first-child]:[column-span:all]",
 			)}
 		>
 			{title !== undefined && title !== "" && (
@@ -26,7 +25,14 @@ export function ListDescription(props: Readonly<ListDescriptionProps>): ReactNod
 					{title}
 				</Typography>
 			)}
-			<ContentBlocks fields={content} />
+			<ContentBlocks
+				className={cn(
+					"break-inside-auto! *:break-inside-avoid *:mt-0!",
+					"[&>*:not(:last-child)]:mb-4! [&>*:has(+h2,+h3,+h4)]:mb-6!",
+					"[&>:is(h2,h3,h4)]:break-after-avoid",
+				)}
+				fields={content}
+			/>
 		</div>
 	);
 }
