@@ -13,6 +13,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { getFormattedDateForGoogleCalendar } from "@/utils/event-page.utils";
 
 interface EventPageProps extends PageProps<"/events/[slug]"> {}
@@ -35,13 +36,12 @@ export async function generateMetadata(props: Readonly<EventPageProps>): Promise
 
 	const response = await client.events.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({ description: summary, image, title }),
 	};
 
 	return metadata;

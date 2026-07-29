@@ -11,6 +11,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { sortFundingCalls } from "@/utils/funding-call-page.utils";
 
 interface FundingCallsSearchParams {
@@ -24,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;

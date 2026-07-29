@@ -8,6 +8,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import geoJson from "@/public/assets/map/custom.geo.json";
 import type { CountryGeoJSON } from "@/types/map";
 
@@ -18,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;

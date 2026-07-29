@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("ContactPage");
@@ -12,9 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;

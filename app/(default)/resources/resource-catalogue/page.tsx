@@ -7,6 +7,7 @@ import { SearchContainer } from "@/components/pages/resources/dariah-resource-ca
 import { DariahResourceCatalogueContextrovider } from "@/context/dariah-resource-catalogue-context";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
 
@@ -17,9 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;

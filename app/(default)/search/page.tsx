@@ -5,6 +5,7 @@ import { type ReactNode, Suspense } from "react";
 import { Main } from "@/app/(default)/_components/main";
 import { SearchContainer } from "@/components/pages/resources/search/search-container";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("SearchPage");
@@ -13,9 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
