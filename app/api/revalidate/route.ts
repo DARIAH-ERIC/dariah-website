@@ -10,6 +10,7 @@ type EntityType =
 	| "dariah-projects"
 	| "documents-policies"
 	| "events"
+	| "featured-entities"
 	| "funding-calls"
 	| "governance-bodies"
 	| "impact-case-studies"
@@ -31,11 +32,12 @@ const entityTypeToCacheTags: Record<
 	"dariah-projects": [cacheTags.dariahProjects],
 	"documents-policies": [cacheTags.documentsPolicies],
 	events: [cacheTags.events],
+	"featured-entities": [cacheTags.featuredEntities, cacheTags.announcements],
 	"funding-calls": [cacheTags.fundingCalls, cacheTags.announcements],
 	"governance-bodies": [cacheTags.governanceBodies],
 	"impact-case-studies": [cacheTags.impactCaseStudies],
 	"members-partners": [cacheTags.membersAndPartners],
-	"site-metadata": [cacheTags.siteMetadata, cacheTags.announcements],
+	"site-metadata": [cacheTags.siteMetadata],
 	navigation: [cacheTags.navigation],
 	news: [cacheTags.news, cacheTags.announcements],
 	opportunities: [cacheTags.opportunities, cacheTags.announcements],
