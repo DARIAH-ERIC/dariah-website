@@ -14,6 +14,7 @@ import { PersonCardDetails } from "@/components/ui/person-card/person-card-detai
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/about/impact-case-studies/[slug]"> {}
@@ -38,13 +39,17 @@ export async function generateMetadata(
 
 	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
+			description: summary,
+			image,
+			title,
+			type: "article",
+		}),
 	};
 
 	return metadata;

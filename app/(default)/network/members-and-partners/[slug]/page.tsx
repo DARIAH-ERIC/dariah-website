@@ -11,6 +11,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface MembersAndPartnersPageProps extends PageProps<"/network/members-and-partners/[slug]"> {}
@@ -35,13 +36,16 @@ export async function generateMetadata(
 
 	const response = await client.membersAndPartners.bySlug({ slug });
 
-	const { name } = response.data;
+	const { name, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title: name,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary ?? undefined,
+		openGraph: await createOpenGraphMetadata({
+			description: summary ?? undefined,
+			image,
+			title: name,
+		}),
 	};
 
 	return metadata;

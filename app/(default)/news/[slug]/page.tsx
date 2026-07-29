@@ -12,6 +12,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
 import { getFormattedDateForNews, getHrefForAnnouncement } from "@/utils/news-page.utils";
 
@@ -35,26 +36,17 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 
 	const response = await client.news.bySlug({ slug });
 
-	const {
-		title,
-		image: { url },
-		summary,
-	} = response.data;
+	const { title, image, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		openGraph: {
-			title,
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			images: [
-				{
-					url,
-					width: 1150,
-					height: 628.25,
-					alt: title,
-				},
-			],
-		},
+			image,
+			title,
+			type: "article",
+		}),
 	};
 
 	return metadata;
