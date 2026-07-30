@@ -1,13 +1,20 @@
 import "react-multi-carousel/lib/styles.css";
 
+import { cn } from "@acdh-oeaw/style-variants";
 import type { ReactNode } from "react";
 import ReactMultiCarousel, { type ResponsiveType } from "react-multi-carousel";
 
-import { CarouselButtonGroup } from "@/components/ui/carousel/carousel-button-group";
+import {
+	CarouselButtonGroup,
+	type CarouselButtonPlacement,
+} from "@/components/ui/carousel/carousel-button-group";
 
 interface CarouselProps {
+	buttonPlacement?: CarouselButtonPlacement;
 	children: ReactNode;
 	className?: string;
+	/** Applied to the element wrapping the carousel and its navigation buttons. */
+	containerClassName?: string;
 	breakpoints?: ResponsiveType;
 }
 
@@ -25,14 +32,14 @@ const DEFAULT_BREAKPOINTS = {
 };
 
 export function Carousel(props: Readonly<CarouselProps>): ReactNode {
-	const { children, breakpoints, className, ...rest } = props;
+	const { buttonPlacement, children, breakpoints, className, containerClassName, ...rest } = props;
 
 	return (
-		<div className="relative size-fit">
+		<div className={cn("relative size-fit", containerClassName)}>
 			<ReactMultiCarousel
 				arrows={false}
 				className={className}
-				customButtonGroup={<CarouselButtonGroup />}
+				customButtonGroup={<CarouselButtonGroup placement={buttonPlacement} />}
 				draggable={true}
 				keyBoardControl={true}
 				partialVisible={false}
