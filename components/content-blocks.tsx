@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
+import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
+import { GalleryGrid } from "@/components/ui/gallery/gallery-grid";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 
@@ -66,6 +68,30 @@ function renderContentBlock(
 						</figcaption>
 					)}
 				</figure>
+			);
+		}
+
+		case "gallery": {
+			if (field.items.length === 0) {
+				return null;
+			}
+
+			const items = field.items.map((item) => {
+				return {
+					alt: item.image.alt,
+					caption: item.caption != null ? <RichTextCaption content={item.caption} /> : undefined,
+					url: item.image.url,
+				};
+			});
+
+			return (
+				<div key={index} className="py-4">
+					{field.layout === "carousel" ? (
+						<GalleryCarousel items={items} />
+					) : (
+						<GalleryGrid items={items} />
+					)}
+				</div>
 			);
 		}
 

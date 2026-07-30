@@ -30,21 +30,30 @@ import { NavLink } from "@/components/ui/link/nav-link";
  * @see https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/
  */
 
-interface NavMenuContextValue {
-	close: () => void;
-	panelRef: RefObject<HTMLDivElement | null>;
-	triggerRef: RefObject<HTMLButtonElement | null>;
-}
-
-const NavMenuContext = createContext<NavMenuContextValue | null>(null);
-
 const triggerAttribute = "data-nav-menu-trigger";
+const panelAttribute = "data-nav-menu-panel";
+
+/**
+ * How long another menu needs to be hovered before it opens. Avoids switching menus when the
+ * pointer merely passes over a toggle button on its way somewhere else.
+ */
+const hoverIntentDuration = 100;
 
 export interface NavMenuTriggerProps {
 	[triggerAttribute]: true;
+	onHoverEnd: () => void;
+	onHoverStart: () => void;
 	ref: RefObject<HTMLButtonElement | null>;
 	slot: "trigger";
 }
+
+interface NavMenuContextValue {
+	close: () => void;
+	panelRef: RefObject<HTMLDivElement | null>;
+	triggerProps: NavMenuTriggerProps;
+}
+
+const NavMenuContext = createContext<NavMenuContextValue | null>(null);
 
 /**
  * Props which need to be added to the toggle button of a `NavMenu`. Returns `undefined` when the
@@ -55,7 +64,38 @@ export function useNavMenuTrigger(): NavMenuTriggerProps | undefined {
 
 	if (navMenu == null) return undefined;
 
-	return { [triggerAttribute]: true, ref: navMenu.triggerRef, slot: "trigger" };
+	return navMenu.triggerProps;
+}
+
+interface NavMenuGroupContextValue {
+	openId: string | null;
+	setOpenId: (id: string | null) => void;
+}
+
+const NavMenuGroupContext = createContext<NavMenuGroupContextValue | null>(null);
+
+export interface NavMenuGroupProps extends ComponentProps<"ul"> {}
+
+/**
+ * A list of navigation items. Menus rendered in a group only ever have a single menu open, and,
+ * once one of them is open, switch to another menu when its toggle button is hovered.
+ */
+export function NavMenuGroup(props: Readonly<NavMenuGroupProps>): ReactNode {
+	const { children, ...rest } = props;
+
+	const [openId, setOpenId] = useState<string | null>(null);
+
+	const context = useMemo(() => {
+		return { openId, setOpenId };
+	}, [openId]);
+
+	return (
+		<NavMenuGroupContext value={context}>
+			<ul {...rest} role="list">
+				{children}
+			</ul>
+		</NavMenuGroupContext>
+	);
 }
 
 export interface NavMenuProps extends Omit<
