@@ -14,7 +14,7 @@ import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/transformations"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DariahTransformationsResourcesPage");
@@ -34,7 +34,7 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("DariahTransformationsResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({
-		slug: "transformation-a-dariah-journal",
+		slug: "transformations-a-dariah-journal",
 	});
 	const breadcrumbs = navigation().breadcrumbs.transformations;
 
@@ -63,7 +63,7 @@ export default async function DariahResourceCataloguePage(
 							{title}
 						</Typography>
 						<Image
-							alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
+							alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
 							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
 							src={image?.url ?? logoDariahTransformations}
 						/>
@@ -73,7 +73,7 @@ export default async function DariahResourceCataloguePage(
 					</div>
 				</div>
 				<Image
-					alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
+					alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
 					className="hidden w-108.5 md:block"
 					src={image?.url ?? logoDariahTransformations}
 				/>

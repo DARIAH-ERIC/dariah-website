@@ -9,7 +9,7 @@ import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/resource-catalogue"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DariahResourceCataloguePage");

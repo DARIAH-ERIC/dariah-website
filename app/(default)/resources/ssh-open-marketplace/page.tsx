@@ -14,7 +14,7 @@ import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/ssh-open-marketplace"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("SSHMarketplaceResourcesPage");

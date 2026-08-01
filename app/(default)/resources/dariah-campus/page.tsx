@@ -14,7 +14,7 @@ import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import logoDariahCampus from "@/public/assets/images/logo-dariah-campus.svg";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-campus"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DariahCampusResourcesPage");

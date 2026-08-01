@@ -40,7 +40,7 @@ export default async function WorkingGroupsPage(
 		status: parsedStatus,
 		limit: 50,
 	});
-	const staticContentResponse = await client.pages.bySlug({ slug: "working-groups-list" });
+	const staticContentResponse = await client.pages.bySlug({ slug: "working-groups" });
 	const breadcrumbs = navigation().breadcrumbs.workingGroups;
 
 	const { data: items } = response.data;
