@@ -38,7 +38,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 		status: parsedStatus,
 		limit: 50,
 	});
-	const staticContentResponse = await client.pages.bySlug({ slug: "projects-list" });
+	const staticContentResponse = await client.pages.bySlug({ slug: "projects" });
 	const breadcrumbs = navigation().breadcrumbs.projects;
 
 	const { data: items } = response.data;

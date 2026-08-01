@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const _t = await getTranslations("DariahInANutshell");
-	const response = await client.pages.bySlug({ slug: "dariah-in-nutshell" });
+	const response = await client.pages.bySlug({ slug: "dariah-in-a-nutshell" });
 	const breadcrumbs = navigation().breadcrumbs.dariahInANutshell;
 	const {
 		data: { title, content, image, relatedEntities, relatedResources },
