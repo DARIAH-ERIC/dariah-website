@@ -7,8 +7,9 @@ import { SearchContainer } from "@/components/pages/resources/dariah-resource-ca
 import { DariahResourceCatalogueContextrovider } from "@/context/dariah-resource-catalogue-context";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/resource-catalogue"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DariahResourceCataloguePage");
@@ -17,9 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -44,7 +43,7 @@ export default async function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container relative flex flex-col gap-16 items-end">
-			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px] z-0" />
+			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[5rem] z-0" />
 
 			<Suspense>
 				<DariahResourceCatalogueContextrovider

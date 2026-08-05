@@ -20,7 +20,7 @@ export function CountryPopup(props: Readonly<CountryPopupProps>): ReactNode {
 			<MapPinIcon className="fill-map-pin" />
 			<div className="flex flex-col gap-1.25 w-47">
 				<Typography variant="h4">{title}</Typography>
-				<Typography className="m-0! text-[16px] text-gray-800" variant="regular">
+				<Typography className="m-0! text-[1rem] text-gray-800" variant="regular">
 					{label}
 				</Typography>
 			</div>

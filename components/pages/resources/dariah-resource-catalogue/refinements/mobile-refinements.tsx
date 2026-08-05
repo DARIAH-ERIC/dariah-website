@@ -28,7 +28,7 @@ export function MobileRefinements(
 		>
 			<div className="flex flex-col gap-4 overflow-x-auto">
 				<div className="p-2 flex justify-between items-center border-b-[0.5px] border-neutral-400 pt-4 mx-4">
-					<Typography className="text-[24px]" variant="h4">
+					<Typography className="text-h4 text-[1.5rem]" variant="h2">
 						{t("filter.title")}
 					</Typography>
 					<Button aria-label="close" onClick={handleMobileRefinementsClose} variant="icon-button">

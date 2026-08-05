@@ -24,12 +24,12 @@ export function generateMetadata(): Metadata {
 }
 
 export default async function IndexPage(): Promise<ReactNode> {
-	const { events, news, stats } = await client.homePage.get();
+	const { announcements, events, stats } = await client.homePage.get();
 
 	return (
 		<Main className="mx-auto flex flex-1 flex-col w-full max-w-480">
 			<HeroSection />
-			<NewsSection news={news.data.data} />
+			<NewsSection announcements={announcements.data.data} />
 			<EventsSection events={events.data.data} />
 			<PilarsSection />
 			<ResourcesSection />

@@ -28,8 +28,8 @@ export function CountrySelect(props: Readonly<CountrySelectProps>): ReactNode {
 			{...rest}
 		>
 			<Typography
-				className={cn("text-[18px] text-primary font-semibold", "group-pressed:text-white")}
-				variant="h5"
+				className={cn("text-h5 text-primary font-semibold", "group-pressed:text-white")}
+				variant="h3"
 			>
 				{title}
 			</Typography>

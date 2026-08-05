@@ -6,7 +6,14 @@ import type { ComponentProps, ReactNode } from "react";
 import { Button as AriaButton, type ButtonProps as AriaButtonProps } from "react-aria-components";
 
 import { NavLink as BaseNavLink } from "@/components/ui/link/nav-link";
-import { Menu, MenuItem, MenuSeparator, MenuTrigger } from "@/components/ui/menu/menu";
+import { useNavMenuTrigger } from "@/components/ui/navigation/nav-menu";
+
+export {
+	NavMenu,
+	NavMenuItem,
+	NavMenuItems,
+	NavMenuSeparator,
+} from "@/components/ui/navigation/nav-menu";
 
 interface NavLinkProps extends ComponentProps<typeof BaseNavLink> {}
 
@@ -29,8 +36,6 @@ export function NavLink(props: Readonly<NavLinkProps>): ReactNode {
 	);
 }
 
-export const NavMenuTrigger = MenuTrigger;
-
 interface NavMenuButtonProps extends Omit<AriaButtonProps, "children"> {
 	children: ReactNode;
 }
@@ -38,8 +43,11 @@ interface NavMenuButtonProps extends Omit<AriaButtonProps, "children"> {
 export function NavMenuButton(props: Readonly<NavMenuButtonProps>): ReactNode {
 	const { children, className, ...rest } = props;
 
+	const triggerProps = useNavMenuTrigger();
+
 	return (
 		<AriaButton
+			{...triggerProps}
 			{...rest}
 			className={cn(
 				"group font-medium gap-x-1.5 px-2.5 py-1 text-sm text-neutral-700 transition inline-flex items-center rounded-xs",
@@ -57,9 +65,3 @@ export function NavMenuButton(props: Readonly<NavMenuButtonProps>): ReactNode {
 		</AriaButton>
 	);
 }
-
-export const NavMenu = Menu;
-
-export const NavMenuItem = MenuItem;
-
-export const NavMenuSeparator = MenuSeparator;

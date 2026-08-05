@@ -6,7 +6,7 @@ import type { LatLng } from "leaflet";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useMemo, useState } from "react";
 import { type Key, TabPanel, TabPanels, Tabs } from "react-aria-components";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer } from "react-leaflet";
 
 import { CountriesPanel } from "@/components/pages/members-and-partners/countries-panel";
 import { MapGeoJson } from "@/components/pages/members-and-partners/map-geo-json";
@@ -35,7 +35,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 	const isLg = useMediaQuery("lg");
 
 	const [activeCountry, setActiveCountry] = useState<ActiveCountry>(undefined);
-	const [selectedTab, setSelectedTab] = useState<Key>("map");
+	const [selectedTab, setSelectedTab] = useState<Key>("list");
 	const currentTab = isLg === true ? "map" : selectedTab;
 
 	const { members, partners, observers } = useMemo(() => {
@@ -69,7 +69,7 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 	};
 
 	return (
-		<Tabs onSelectionChange={setSelectedTab} selectedKey={currentTab}>
+		<Tabs keyboardActivation="manual" onSelectionChange={setSelectedTab} selectedKey={currentTab}>
 			<TabList aria-label="Tabs" className="lg:hidden">
 				<Tab id="list">{t("tabs.list")}</Tab>
 				<Tab id="map">{t("tabs.map")}</Tab>
@@ -99,7 +99,6 @@ export function Map(props: Readonly<MapProps>): ReactNode {
 							partners={partners}
 						/>
 						<ZoomButtons />
-						<TileLayer url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png" />
 						<MapLegend />
 						<MapGeoJson
 							activeCountry={activeCountry}

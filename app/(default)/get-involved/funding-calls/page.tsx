@@ -11,6 +11,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { sortFundingCalls } from "@/utils/funding-call-page.utils";
 
 interface FundingCallsSearchParams {
@@ -24,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -76,7 +75,7 @@ export default async function FundingCalls({
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="w-full xl:px-13" variant="h2">
+				<Typography className="text-h2 w-full xl:px-13" variant="h1">
 					{t("title")}
 				</Typography>
 			</div>
@@ -98,6 +97,7 @@ export default async function FundingCalls({
 								slug={slug}
 								startDate={startDate}
 								title={title}
+								titleAs="h2"
 							/>
 						);
 					})
@@ -107,8 +107,28 @@ export default async function FundingCalls({
 					</Typography>
 				)}
 				<hr className="w-full h-0.5 border-t-2 border-gray-400" />
+				{!shouldDisplayClosedFundingCalls && (
+					<Link
+						endIcon={<ChevronDownIcon className="size-5" />}
+						href="/get-involved/funding-calls?status=closed"
+						variant="primary"
+					>
+						<Typography className="text-regular font-body font-semibold" variant="h2">
+							{t("seePastCalls")}
+						</Typography>
+					</Link>
+				)}
 				{shouldDisplayClosedFundingCalls && (
 					<>
+						<Link
+							endIcon={<ChevronUpIcon className="size-5" />}
+							href="/get-involved/funding-calls"
+							variant="primary"
+						>
+							<Typography className="text-regular font-body font-semibold" variant="h2">
+								{t("hidePastCalls")}
+							</Typography>
+						</Link>
 						{closedFundingCalls && closedFundingCalls.length > 0 ? (
 							closedFundingCalls.map((fundingCall, index) => {
 								const {
@@ -139,18 +159,11 @@ export default async function FundingCalls({
 							href="/get-involved/funding-calls"
 							variant="primary"
 						>
-							{t("hidePastCalls")}
+							<Typography className="text-regular font-body font-semibold" variant="h2">
+								{t("hidePastCalls")}
+							</Typography>
 						</Link>
 					</>
-				)}
-				{!shouldDisplayClosedFundingCalls && (
-					<Link
-						endIcon={<ChevronDownIcon className="size-5" />}
-						href="/get-involved/funding-calls?status=closed"
-						variant="primary"
-					>
-						{t("seePastCalls")}
-					</Link>
 				)}
 			</div>
 		</Main>

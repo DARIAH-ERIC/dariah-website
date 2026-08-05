@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
-import { NavMenu } from "@/components/navigation";
 import {
 	Disclosure,
 	DisclosureGroup,
 	DisclosureHeader,
 	DisclosurePanel,
 } from "@/components/ui/disclosure/disclosure";
-import { NavMenuItem } from "@/components/ui/navigation/nav-menu-item";
+import { NavMenuItem } from "@/components/ui/navigation/nav-menu";
 
 const meta = {
 	title: "Components/UI/Disclosure",
@@ -28,11 +27,11 @@ export const Basic: Story = {
 				<Disclosure>
 					<DisclosureHeader>About</DisclosureHeader>
 					<DisclosurePanel>
-						<NavMenu>
+						<ul className="flex flex-col gap-2" role="list">
 							<NavMenuItem href="/about">About DARIAH</NavMenuItem>
 							<NavMenuItem href="/about/people">People</NavMenuItem>
 							<NavMenuItem href="/about/partners">Partners</NavMenuItem>
-						</NavMenu>
+						</ul>
 					</DisclosurePanel>
 				</Disclosure>
 			</div>
@@ -49,21 +48,21 @@ export const Group: Story = {
 					<Disclosure>
 						<DisclosureHeader>About</DisclosureHeader>
 						<DisclosurePanel>
-							<NavMenu>
+							<ul className="flex flex-col gap-2" role="list">
 								<NavMenuItem href="/about">About DARIAH</NavMenuItem>
 								<NavMenuItem href="/about/people">People</NavMenuItem>
 								<NavMenuItem href="/about/partners">Partners</NavMenuItem>
-							</NavMenu>
+							</ul>
 						</DisclosurePanel>
 					</Disclosure>
 					<Disclosure>
 						<DisclosureHeader>About</DisclosureHeader>
 						<DisclosurePanel>
-							<NavMenu>
+							<ul className="flex flex-col gap-2" role="list">
 								<NavMenuItem href="/about">About DARIAH</NavMenuItem>
 								<NavMenuItem href="/about/people">People</NavMenuItem>
 								<NavMenuItem href="/about/partners">Partners</NavMenuItem>
-							</NavMenu>
+							</ul>
 						</DisclosurePanel>
 					</Disclosure>
 				</DisclosureGroup>

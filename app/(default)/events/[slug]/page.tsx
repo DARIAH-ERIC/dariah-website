@@ -13,6 +13,7 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { getFormattedDateForGoogleCalendar } from "@/utils/event-page.utils";
 
 interface EventPageProps extends PageProps<"/events/[slug]"> {}
@@ -35,13 +36,15 @@ export async function generateMetadata(props: Readonly<EventPageProps>): Promise
 
 	const response = await client.events.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
+			description: summary,
+			title,
+		}),
 	};
 
 	return metadata;
@@ -111,14 +114,14 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</Link>
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:flex-wrap lg:px-0">
 					<Image
-						alt={image.alt ?? ""}
+						alt={image.alt ?? "Image description will be added soon"}
 						className="w-82 h-40 object-contain lg:w-197.5 lg:h-101.25"
 						height={405}
 						src={image.url}
 						width={790}
 					/>
 					<div className="flex flex-col gap-6.5 flex-1">
-						<Typography className="mb-8.5" variant="h3">
+						<Typography className="text-h3 mb-8.5" variant="h1">
 							{title}
 						</Typography>
 						<EventInfoSection
@@ -140,7 +143,9 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				</div>
 				<hr className="w-full h-0.5 border-t-2 border-gray-300" />
 				<div className="flex flex-col gap-5 px-4">
-					<Typography variant="h4">{t("details")}</Typography>
+					<Typography className="text-h4" variant="h2">
+						{t("details")}
+					</Typography>
 					<div className="xl:max-w-201.5">
 						<ContentBlocks fields={content} />
 					</div>
@@ -149,7 +154,9 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				<div className="flex w-full gap-10 flex-col items-center xl:justify-between xl:flex-row">
 					{prevEvent && (
 						<div className="px-2 gap-10 flex flex-col max-w-full">
-							<Typography variant="h4">{t("prevEvent")}</Typography>
+							<Typography className="text-h4" variant="h2">
+								{t("prevEvent")}
+							</Typography>
 							<EventCard
 								endDate={prevEvent.duration.end}
 								localization={prevEvent.location}
@@ -162,7 +169,9 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 					)}
 					{nextEvent && (
 						<div className="px-2 gap-10 flex flex-col max-w-full">
-							<Typography variant="h4">{t("nextEvent")}</Typography>
+							<Typography className="text-h4" variant="h2">
+								{t("nextEvent")}
+							</Typography>
 							<EventCard
 								endDate={nextEvent.duration.end}
 								localization={nextEvent.location}

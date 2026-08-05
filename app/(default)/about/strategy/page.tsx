@@ -12,6 +12,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
@@ -22,9 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -62,7 +61,7 @@ export default async function StrategyPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="text-h2 font-light" variant="h1">
 					{title}
 				</Typography>
 				<div className="flex-col flex gap-8 justify-between xl:py-12 xl:flex-row 2xl:gap-21">

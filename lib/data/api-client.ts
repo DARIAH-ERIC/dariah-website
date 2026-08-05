@@ -1,4 +1,4 @@
-import { createUrl, createUrlSearchParams, unique } from "@acdh-oeaw/lib";
+import { createUrl, createUrlSearchParams } from "@acdh-oeaw/lib";
 import { unstable_cache as nextCache } from "next/cache";
 import { notFound } from "next/navigation";
 import { cache } from "react";
@@ -13,8 +13,8 @@ import type {
 
 const baseUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
-const maxFeaturedEvents = 3;
-const maxFeaturedNewsItems = 3;
+const maxUpcomingEvents = 3;
+const maxAnnouncements = 3;
 
 const apiHeaders: HeadersInit | undefined =
 	env.API_ACCESS_TOKEN != null ? { "x-api-access-token": env.API_ACCESS_TOKEN } : undefined;
@@ -26,6 +26,22 @@ type WithPublishedAt<T extends { publishedAt: string }> = Omit<T, "publishedAt">
 type WithDuration<T extends { duration: { start: string; end?: string } }> = Omit<T, "duration"> & {
 	duration: { start: Date; end?: Date };
 };
+
+type WithAnnouncementDates<T> = T extends {
+	publishedAt: string;
+	duration: { start: string; end?: string };
+}
+	? Omit<T, "publishedAt" | "duration"> & {
+			publishedAt: Date;
+			duration: { start: Date; end?: Date };
+		}
+	: T extends { publishedAt: string }
+		? Omit<T, "publishedAt"> & { publishedAt: Date }
+		: never;
+
+type AnnouncementListResponse =
+	paths["/api/v1/announcements"]["get"]["responses"][200]["content"]["application/json"];
+type AnnouncementResponse = AnnouncementListResponse["data"][number];
 
 type DocumentOrPolicyResponse =
 	paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
@@ -39,7 +55,7 @@ type EventResponse =
 type EventListResponse =
 	paths["/api/v1/events"]["get"]["responses"][200]["content"]["application/json"];
 
-type FeaturedItemsResponse =
+type FeaturedEntitiesResponse =
 	paths["/api/v1/featured-entities"]["get"]["responses"][200]["content"]["application/json"];
 
 type FundingCallsResponse =
@@ -99,6 +115,9 @@ type ProjectListResponse =
 type SiteMetadataResponse =
 	paths["/api/v1/site-metadata"]["get"]["responses"][200]["content"]["application/json"];
 
+type SitemapResponse =
+	paths["/api/v1/sitemap"]["get"]["responses"][200]["content"]["application/json"];
+
 type SpotlightArticleResponse =
 	paths["/api/v1/spotlight-articles/slugs/{slug}"]["get"]["responses"][200]["content"]["application/json"];
 type SpotlightArticleListResponse =
@@ -117,15 +136,14 @@ export type DocumentOrPolicyTree = Omit<DocumentOrPolicyTreeResponse, "data"> & 
 	data: Array<DocumentOrPolicyType | DocumentOrPolicyGroupType>;
 };
 
+export type Announcement = WithAnnouncementDates<AnnouncementResponse>;
+export type AnnouncementList = Omit<AnnouncementListResponse, "data"> & {
+	data: Array<Announcement>;
+};
+
 export type Event = WithPublishedAt<WithDuration<EventResponse>>;
 export type EventList = Omit<EventListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<EventListResponse["data"][number]>>>;
-};
-
-export type FeaturedItems = Omit<FeaturedItemsResponse, "data"> & {
-	data: Omit<FeaturedItemsResponse["data"], "news"> & {
-		news: Array<WithPublishedAt<FeaturedItemsResponse["data"]["news"][number]>>;
-	};
 };
 
 export type FundingCall = WithPublishedAt<FundingCallsResponse>;
@@ -178,6 +196,10 @@ export type ProjectList = Omit<ProjectListResponse, "data"> & {
 	data: Array<WithPublishedAt<WithDuration<ProjectListResponse["data"][number]>>>;
 };
 
+export type Sitemap = Omit<SitemapResponse, "data"> & {
+	data: Array<Omit<SitemapResponse["data"][number], "lastModified"> & { lastModified: Date }>;
+};
+
 export type SpotlightArticle = WithPublishedAt<SpotlightArticleResponse>;
 export type SpotlightArticleList = Omit<SpotlightArticleListResponse, "data"> & {
 	data: Array<WithPublishedAt<SpotlightArticleListResponse["data"][number]>>;
@@ -192,6 +214,7 @@ export type WorkingGroupList = Omit<WorkingGroupListResponse, "data"> & {
 };
 
 export const cacheTags = {
+	announcements: "announcements",
 	dariahProjects: "dariah-projects",
 	documentsPolicies: "documents-policies",
 	events: "events",
@@ -213,12 +236,53 @@ export const cacheTags = {
 	workingGroups: "working-groups",
 } as const;
 
+const sitemapCacheTags = [
+	cacheTags.dariahProjects,
+	cacheTags.events,
+	cacheTags.fundingCalls,
+	cacheTags.impactCaseStudies,
+	cacheTags.membersAndPartners,
+	cacheTags.news,
+	cacheTags.opportunities,
+	cacheTags.pages,
+	cacheTags.persons,
+	cacheTags.spotlightArticles,
+	cacheTags.workingGroups,
+];
+
 /**
  * `unstable_cache` serializes return values as JSON, which means `Date` objects are coerced to
  * strings on write and come back as strings on a cache hit. To avoid type/runtime mismatches,
  * all `nextCache`-wrapped functions return raw string dates. The `cache()`-wrapped outer functions
  * below handle the `new Date()` conversions after retrieval, where no serialization occurs.
  */
+
+const _announcementsList = nextCache(
+	async function list({
+		limit = 10,
+		offset = 0,
+		type,
+	}: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {}) {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/announcements",
+			searchParams: createUrlSearchParams({ limit, offset, type }),
+		});
+
+		const result = await request<AnnouncementListResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	[cacheTags.announcements],
+	{
+		revalidate: 3600,
+		tags: [cacheTags.announcements],
+	},
+);
 
 const _documentsPoliciesBySlug = nextCache(
 	async function bySlug({
@@ -447,19 +511,19 @@ const _homePageGet = nextCache(
 					String(now.getUTCMonth() + 1).padStart(2, "0"),
 					String(now.getUTCDate()).padStart(2, "0"),
 				].join("-"),
-				limit: maxFeaturedEvents,
+				limit: maxUpcomingEvents,
 			}),
 		});
 
-		const newsUrl = createUrl({
-			baseUrl,
-			pathname: "/api/v1/news",
-			searchParams: createUrlSearchParams({ limit: maxFeaturedNewsItems }),
-		});
-
-		const featuredItemsUrl = createUrl({
+		const featuredEntitiesUrl = createUrl({
 			baseUrl,
 			pathname: "/api/v1/featured-entities",
+		});
+
+		const announcementsUrl = createUrl({
+			baseUrl,
+			pathname: "/api/v1/announcements",
+			searchParams: createUrlSearchParams({ limit: maxAnnouncements }),
 		});
 
 		const statsUrl = createUrl({
@@ -467,40 +531,41 @@ const _homePageGet = nextCache(
 			pathname: "/api/v1/statistics",
 		});
 
-		const [eventsResult, newsResult, featuredItemsResult, statsResult] = await Promise.all([
-			request<EventListResponse>(eventsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<NewsItemListResponse>(newsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<FeaturedItemsResponse>(featuredItemsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-			request<Statistics>(statsUrl, {
-				responseType: "json",
-				retry: { backoff: "exponential", delayMs: 200, times: 2 },
-				headers: apiHeaders,
-			}),
-		]);
+		const [announcementsResult, eventsResult, featuredEntitiesResult, statsResult] =
+			await Promise.all([
+				request<AnnouncementListResponse>(announcementsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<EventListResponse>(eventsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<FeaturedEntitiesResponse>(featuredEntitiesUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+				request<Statistics>(statsUrl, {
+					responseType: "json",
+					retry: { backoff: "exponential", delayMs: 200, times: 2 },
+					headers: apiHeaders,
+				}),
+			]);
 
 		return {
+			announcements: announcementsResult.unwrap(),
 			events: eventsResult.unwrap(),
-			featuredItems: featuredItemsResult.unwrap(),
-			news: newsResult.unwrap(),
+			featuredEntities: featuredEntitiesResult.unwrap(),
 			stats: statsResult.unwrap(),
 		};
 	},
-	[cacheTags.home],
+	[cacheTags.home, cacheTags.events, cacheTags.announcements, cacheTags.featuredEntities],
 	{
 		revalidate: 3600,
-		tags: [cacheTags.home, cacheTags.events, cacheTags.featuredEntities, cacheTags.news],
+		tags: [cacheTags.home, cacheTags.events, cacheTags.announcements, cacheTags.featuredEntities],
 	},
 );
 
@@ -619,8 +684,8 @@ const _newsBySlug = nextCache(
 
 		return result.unwrap();
 	},
-	[cacheTags.news],
-	{ revalidate: 3600, tags: [cacheTags.news] },
+	[cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities],
+	{ revalidate: 3600, tags: [cacheTags.news, cacheTags.fundingCalls, cacheTags.opportunities] },
 );
 
 const _newsList = nextCache(
@@ -841,6 +906,25 @@ const _projectsList = nextCache(
 	{ revalidate: 3600, tags: [cacheTags.dariahProjects, cacheTags.pages] },
 );
 
+const _sitemapGet = nextCache(
+	async function get() {
+		const url = createUrl({
+			baseUrl,
+			pathname: "/api/v1/sitemap",
+		});
+
+		const result = await request<SitemapResponse>(url, {
+			responseType: "json",
+			retry: { backoff: "exponential", delayMs: 200, times: 2 },
+			headers: apiHeaders,
+		});
+
+		return result.unwrap();
+	},
+	["sitemap"],
+	{ revalidate: 3600, tags: sitemapCacheTags },
+);
+
 const _spotlightArticlesBySlug = nextCache(
 	async function bySlug({
 		slug,
@@ -938,7 +1022,39 @@ const _workingGroupsList = nextCache(
 	{ revalidate: 3600, tags: [cacheTags.workingGroups, cacheTags.pages] },
 );
 
+function parseAnnouncementDates(item: AnnouncementResponse): Announcement {
+	if ("duration" in item) {
+		return {
+			...item,
+			duration: {
+				start: new Date(item.duration.start),
+				end: item.duration.end != null ? new Date(item.duration.end) : undefined,
+			},
+			publishedAt: new Date(item.publishedAt),
+		};
+	}
+
+	return { ...item, publishedAt: new Date(item.publishedAt) };
+}
+
 export const client = {
+	announcements: {
+		list: cache(async function list(
+			params: paths["/api/v1/announcements"]["get"]["parameters"]["query"] = {},
+		) {
+			const response = await _announcementsList(params);
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return parseAnnouncementDates(item);
+					}),
+				},
+			};
+		}),
+	},
 	documentsPolicies: {
 		bySlug: cache(async function bySlug(
 			params: paths["/api/v1/documents-policies/slugs/{slug}"]["get"]["parameters"]["path"],
@@ -1217,18 +1333,28 @@ export const client = {
 	homePage: {
 		get: cache(async function get() {
 			const {
+				announcements: announcementsResponse,
 				events: eventsResponse,
-				featuredItems: featuredItemsResponse,
-				news: newsResponse,
+				featuredEntities,
 				stats,
 			} = await _homePageGet();
+
+			const mergedEvents: EventListResponse["data"] = [];
+			const eventIds = new Set<string>();
+
+			for (const event of [...featuredEntities.data.data.events, ...eventsResponse.data.data]) {
+				if (!eventIds.has(event.id)) {
+					eventIds.add(event.id);
+					mergedEvents.push(event);
+				}
+			}
 
 			return {
 				events: {
 					...eventsResponse,
 					data: {
 						...eventsResponse.data,
-						data: eventsResponse.data.data.map((item) => {
+						data: mergedEvents.slice(0, maxUpcomingEvents).map((item) => {
 							return {
 								...item,
 								publishedAt: new Date(item.publishedAt),
@@ -1240,15 +1366,13 @@ export const client = {
 						}),
 					},
 				},
-				news: {
-					...newsResponse,
+				announcements: {
+					...announcementsResponse,
 					data: {
-						...newsResponse.data,
-						data: unique([...featuredItemsResponse.data.data.news, ...newsResponse.data.data])
-							.slice(0, maxFeaturedNewsItems)
-							.map((item) => {
-								return { ...item, publishedAt: new Date(item.publishedAt) };
-							}),
+						...announcementsResponse.data,
+						data: announcementsResponse.data.data.map((item) => {
+							return parseAnnouncementDates(item);
+						}),
 					},
 				},
 				stats,
@@ -1744,6 +1868,21 @@ export const client = {
 				{ revalidate: 3600, tags: [cacheTags.siteMetadata] },
 			),
 		),
+	},
+	sitemap: {
+		get: cache(async function get() {
+			const response = await _sitemapGet();
+
+			return {
+				...response,
+				data: {
+					...response.data,
+					data: response.data.data.map((item) => {
+						return { ...item, lastModified: new Date(item.lastModified) };
+					}),
+				},
+			};
+		}),
 	},
 	spotlightArticles: {
 		bySlug: cache(async function bySlug(

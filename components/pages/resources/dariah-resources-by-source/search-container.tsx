@@ -30,7 +30,9 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 			/>
 			<SearchErrorBoundary fallback={<SearchError />}>
 				<div className="flex flex-col gap-14 p-4 lg:px-16 3xl:px-32.5">
-					<Typography variant="h4">{t("discover")}</Typography>
+					<Typography className="text-h4" variant="h2">
+						{t("discover")}
+					</Typography>
 					<Hits hitComponent={Hit} />
 				</div>
 			</SearchErrorBoundary>

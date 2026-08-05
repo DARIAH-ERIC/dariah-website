@@ -74,7 +74,9 @@ export function CountriesPanel(props: Readonly<CountriesPanelProps>): ReactNode 
 					{SELECT_OPTIONS.map((option) => {
 						return (
 							<SelectItem key={option.value} id={option.value} textValue={option.name}>
-								{t(`filters.${option.name}`)}
+								<Typography className="text-regular font-body" variant="h2">
+									{t(`filters.${option.name}`)}
+								</Typography>
 							</SelectItem>
 						);
 					})}

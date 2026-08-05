@@ -30,16 +30,19 @@ export function ResourcesSection(): ReactNode {
 			<div className="relative z-2 px-4 py-14 flex flex-col gap-38.5 md:px-6 xl:py-22 xl:px-12 2xl:py-32.75 2xl:px-28.25">
 				<div className="flex flex-wrap gap-14 2xl:gap-56.25">
 					<Typography
-						className="text-white font-heading text-[56px] font-light w-95 tracking-(--letter-spacing-medium) lg:text-[85px]"
+						className="text-white font-heading text-[3.5rem] font-light w-95 tracking-(--letter-spacing-medium) lg:text-[5.3125rem]"
 						variant="h2"
 					>
 						{t("ResourcesSection.title")}
 					</Typography>
 					<div className="flex flex-col w-full gap-6 text-white pt-7 lg:w-178.25">
-						<Typography className="text-[24px]" variant="h3">
+						<Typography className="text-[1.5rem]" variant="h3">
 							{t("ResourcesSection.description.header")}
 						</Typography>
-						<Typography className="font-normal text-[24px]" variant="h3">
+						<Typography
+							className="leading-(--line-height-small) font-normal text-[1.5rem]"
+							variant="regular"
+						>
 							{t("ResourcesSection.description.content")}
 						</Typography>
 						<Link
@@ -64,9 +67,14 @@ export function ResourcesSection(): ReactNode {
 							/>
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
-							<Typography className="h-27 line-clamp-4" variant="regular">
-								{t("ResourcesSection.dariahCampus")}
-							</Typography>
+							<div className="h-27 line-clamp-4">
+								<Typography className="text-regular font-normal inline" variant="h3">
+									{t("ResourcesSection.dariahCampus.title")}
+								</Typography>
+								<Typography className="inline" variant="regular">
+									{t("ResourcesSection.dariahCampus.content")}
+								</Typography>
+							</div>
 							<div className="flex gap-2 py-2 items-center">
 								<Typography
 									className={cn(
@@ -95,9 +103,14 @@ export function ResourcesSection(): ReactNode {
 							/>
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
-							<Typography className="h-27 line-clamp-4" variant="regular">
-								{t("ResourcesSection.transformations")}
-							</Typography>
+							<div className="h-27 line-clamp-4">
+								<Typography className="text-regular font-normal inline" variant="h3">
+									{t("ResourcesSection.transformations.title")}
+								</Typography>
+								<Typography className="inline" variant="regular">
+									{t("ResourcesSection.transformations.content")}
+								</Typography>
+							</div>
 							<div className="flex gap-2 py-2 items-center">
 								<Typography
 									className={cn(
@@ -122,9 +135,14 @@ export function ResourcesSection(): ReactNode {
 							<Image alt="DARIAH Campus Logo" className="w-59.5 2xl:w-96.75" src={logoSshoc} />
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
-							<Typography className="h-27 line-clamp-4" variant="regular">
-								{t("ResourcesSection.sshOpenMarketplace")}
-							</Typography>
+							<div className="h-27 line-clamp-4">
+								<Typography className="text-regular font-normal inline" variant="h3">
+									{t("ResourcesSection.sshOpenMarketplace.title")}
+								</Typography>
+								<Typography className="inline" variant="regular">
+									{t("ResourcesSection.sshOpenMarketplace.content")}
+								</Typography>
+							</div>
 							<div className="flex gap-2 py-2 items-center">
 								<Typography
 									className={cn(

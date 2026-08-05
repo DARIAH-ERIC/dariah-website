@@ -14,6 +14,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
@@ -24,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -34,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 	const _t = await getTranslations("DariahInANutshell");
-	const response = await client.pages.bySlug({ slug: "dariah-in-nutshell" });
+	const response = await client.pages.bySlug({ slug: "dariah-in-a-nutshell" });
 	const breadcrumbs = navigation().breadcrumbs.dariahInANutshell;
 	const {
 		data: { title, content, image, relatedEntities, relatedResources },
@@ -64,7 +63,7 @@ export default async function ImpactCaseStudiesPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="text-h2 font-light" variant="h1">
 					{title}
 				</Typography>
 				<div className="flex-col flex gap-8 justify-between xl:py-12 xl:flex-row 2xl:gap-21">

@@ -9,7 +9,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
-import { getFormattedDateForNews } from "@/utils/news-page.utils";
+import { type AnnouncementType, getFormattedDateForNews } from "@/utils/news-page.utils";
 
 interface NewsCardProps {
 	title: string;
@@ -18,13 +18,30 @@ interface NewsCardProps {
 	imageAlt?: string | null;
 	linkUrl: string;
 	date: Date;
+	type?: AnnouncementType;
 	variant: "featured" | "standard" | "list-item" | "list-headline";
 	className?: string;
 }
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
-	const { variant, title, description, imageUrl, imageAlt, linkUrl, date, className } = props;
+	const {
+		variant,
+		title,
+		description,
+		imageUrl,
+		imageAlt,
+		linkUrl,
+		date,
+		type = "news",
+		className,
+	} = props;
 	const t = useTranslations("NewsPage");
+	const tags = {
+		funding_calls: t("newsCard.tags.funding-call"),
+		news: t("newsCard.tags.news"),
+		opportunities: t("newsCard.tags.opportunity"),
+	} satisfies Record<AnnouncementType, string>;
+	const tag = tags[type];
 
 	const getImageSizeForVariant = () => {
 		switch (variant) {
@@ -105,7 +122,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				>
 					<div className="flex gap-3.5 text-primary-500">
 						<NewsIcon width="14px" />
-						<span className="uppercase">{t("newsCard.tag")}</span>
+						<span className="uppercase">{tag}</span>
 					</div>
 					<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
 				</div>
@@ -128,8 +145,8 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 							)}
 						>
 							<NewsIcon className="size-4" />
-							<Typography className="text-[16px] font-bold uppercase" variant="small">
-								{t("newsCard.tag")}
+							<Typography className="text-[1rem] font-bold uppercase" variant="small">
+								{tag}
 							</Typography>
 						</div>
 						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
@@ -137,11 +154,11 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					<div className={variant === "list-item" ? "h-13.5 2xl:mb-3.5" : undefined}>
 						<Typography
 							className={cn(
-								variant === "list-item" && "line-clamp-2 text-[18px]",
-								variant === "list-headline" && "text-[24px]",
+								variant === "list-item" && "line-clamp-2 text-[1.25rem]",
+								variant === "list-headline" && "text-[1.5rem]",
 								!isListVariant && "line-clamp-3",
 							)}
-							variant="h3"
+							variant={isListVariant ? "h2" : "h3"}
 						>
 							{title}
 						</Typography>

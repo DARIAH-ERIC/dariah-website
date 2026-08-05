@@ -9,6 +9,7 @@ import { SpotlightCard } from "@/components/ui/spotlight-card/spotlight-card";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("SpotlightArticlesPage");
@@ -17,9 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -40,7 +39,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="container relative flex flex-1 flex-col pb-16 gap-12 xl:pb-40 xl:gap-7 md:px-8">
-			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[80px] z-0" />
+			<div className="absolute inset-0 mask-(--spotlight-list-divider) bg-(image:--spotlight-list-divider) h-20 backdrop-blur-[5rem] z-0" />
 			<div className="flex flex-col gap-13 z-1 px-4 py-8 lg:px-28">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>

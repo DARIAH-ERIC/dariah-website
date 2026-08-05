@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useEffect, useRef } from "react";
@@ -10,9 +9,8 @@ import { ContentBlocks } from "@/components/content-blocks";
 import { NavLink } from "@/components/navigation";
 import { GovernanceBodyTag } from "@/components/ui/governance-body-card/governance-body-tag";
 import { CloseIcon } from "@/components/ui/icons/close";
-import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
+import { PersonCardDetailsContainer } from "@/components/ui/person-card/person-card-details-container";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 import type { GovernanceBody, Person } from "@/lib/data/api-client";
@@ -48,10 +46,12 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 	const t = useTranslations("OrganisationAndGovernance");
 	const searchParams = useSearchParams();
 	const userListRef = useRef<HTMLDivElement | null>(null);
+	const bodyNameRef = useRef<HTMLHeadingElement | HTMLParagraphElement | null>(null);
 
 	useEffect(() => {
-		if (!userListRef.current) return;
+		if (!userListRef.current || !bodyNameRef.current) return;
 
+		bodyNameRef.current.focus();
 		userListRef.current.scrollIntoView();
 	}, [searchParams]);
 
@@ -68,11 +68,17 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 			>
 				<div className="flex flex-col gap-2">
 					<Typography className="uppercase" variant="caption">
-						{selectedBodyVariant}
+						{selectedBodyVariant.replaceAll("-", " ")}
 					</Typography>
 					<div className="flex gap-2">
-						<Typography>{selectedBodyItem.acronym}</Typography>
-						<Typography>{selectedBody}</Typography>
+						<Typography
+							ref={bodyNameRef}
+							className="capitalize text-regular font-body"
+							tabIndex={-1}
+							variant="h2"
+						>
+							{selectedBodyItem.acronym} {selectedBody.replaceAll("-", " ")}
+						</Typography>
 					</div>
 				</div>
 				<NavLink href="/about/organisation-and-governance">
@@ -92,7 +98,7 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 								return <GovernanceBodyTag key={relationship} relationship={relationship} />;
 							})}
 						</div>
-						<Typography className="font-bold" variant="regular">
+						<Typography className="font-bold text-regular font-body" variant="h3">
 							{t("bodyDetails.membersCount", {
 								count: selectedBodyItem.persons.length.toString(),
 							})}
@@ -119,27 +125,12 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 					</div>
 				</>
 			) : (
-				<div className="flex flex-col flex-wrap gap-10 pt-6 pb-14 px-4 lg:px-34 2xl:px-78">
-					<Link
-						href={`/about/organisation-and-governance?selectedBody=${selectedBody}`}
-						variant="primary"
-						withDefaultLeftIcon={true}
-					>
-						{t("bodyDetails.backToList")}
-					</Link>
-					<PersonCardDetails
-						description={
-							selectedPerson.biography.find((content) => {
-								return content.type === "rich_text";
-							}) as JSONContent
-						}
-						email={selectedPerson.email ?? undefined}
-						imageAlt={selectedPerson.image?.alt}
-						imageUrl={selectedPerson.image?.url}
-						name={selectedPerson.name}
-						position={selectedPerson.positions}
-					/>
-				</div>
+				<PersonCardDetailsContainer
+					backToListText={t("bodyDetails.backToList")}
+					className="pt-6 pb-14 px-4 lg:px-34 2xl:px-78"
+					href={`/about/organisation-and-governance?selectedBody=${selectedBody}`}
+					selectedPerson={selectedPerson}
+				/>
 			)}
 		</div>
 	);

@@ -31,18 +31,18 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 			<div className="flex flex-col gap-6 pb-6 w-62 lg:w-95 xl:w-107.5 xl:pb-0 2xl:w-62 2xl:pb-6">
 				<div className="flex flex-col gap-2">
 					<Typography
-						className="text-[20px] font-medium text-accent-700 uppercase"
+						className="text-[1.25rem] font-medium text-accent-700 uppercase"
 						variant="regular"
 					>
 						{getFormattedDateForCard(publishedAt)}
 					</Typography>
 					<Typography
 						className={cn(
-							"line-clamp-2 text-[18px] 2xl:line-clamp-4",
+							"text-h5 line-clamp-2 2xl:line-clamp-4",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}
-						variant="h4"
+						variant="h2"
 					>
 						{title}
 					</Typography>

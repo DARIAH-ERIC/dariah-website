@@ -59,9 +59,11 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 							</Breadcrumbs>
 						)}
 					</div>
-					<div className="flex flex-col px-4 gap-10 xl:px-32 2xl:px-84 3xl:px-110">
-						<Typography variant="h2">{t("title")}</Typography>
-						<div className="flex w-full justify-between items-end gap-8">
+					<div className="flex flex-col px-4 gap-10 xl:px-32 2xl:px-64 3xl:px-110">
+						<Typography className="text-h2" variant="h1">
+							{t("title")}
+						</Typography>
+						<div className="flex flex-col w-full justify-between gap-8 lg:flex-row lg:items-end">
 							<SearchBox />
 							<MenuSelect attribute="type" limit={20} />
 						</div>

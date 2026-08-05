@@ -8,10 +8,12 @@ import { NewslettersFilter } from "@/components/pages/newsletters/newsletters-fi
 import { SubscribeNewsletterOnPage } from "@/components/pages/newsletters/subscribe-newsletter-on-page";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Document } from "@/components/ui/document/document";
+import { ListHeading } from "@/components/ui/list-heading/list-heading";
 import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { groupNewslettersByYear } from "@/utils/newsletter-page.utils";
 
 interface NewslettersPageProps extends PageProps<"/newsletters"> {}
@@ -23,9 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -73,7 +73,7 @@ export default async function NewslettersPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography variant="h2">{t("title")}</Typography>
+				<ListHeading page={Number(page)} title={t("title")} />
 			</div>
 			<div className="flex flex-col gap-16">
 				<SubscribeNewsletterOnPage staticContent={subscribeToNewsletterContent} />
@@ -85,7 +85,7 @@ export default async function NewslettersPage(
 							grouppedNewsletters.map(([year, items]) => {
 								return (
 									<div key={year} className="flex gap-6 flex-col">
-										<Typography id={year} variant="h3">
+										<Typography className="text-h3" id={year} variant="h2">
 											{year}
 										</Typography>
 										<ul className="flex flex-col lg:min-w-[60%]" role="list">

@@ -41,14 +41,13 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 			href={href}
 		>
 			<div className="bg-white px-12.25 py-8 flex flex-col gap-4 w-full xl:p-8 2xl:px-12.25 2xl:py-8">
-				<div className="flex flex-wrap gap-4 items-end text-section-text">
-					<Typography className="text-[50px] font-black" variant="h2">
-						{daysString}
-					</Typography>
-					<Typography className="text-[20px]" variant="regular">
-						{headerString}
-					</Typography>
-				</div>
+				<Typography
+					className="flex flex-wrap gap-4 items-end text-section-text text-[3.125rem] font-black"
+					variant="h3"
+				>
+					{daysString}
+					<span className="text-regular text-[1.25rem] focus:outline-none">{headerString}</span>
+				</Typography>
 				<div className="flex gap-6">
 					{/* <Typography className="flex gap-2 text-[14px] text-accent uppercase" variant="h4">
 						{type}
@@ -64,8 +63,8 @@ export function EventCardHomepage(props: Readonly<EventCardProps>): ReactNode {
 				)}
 			>
 				<Typography
-					className="line-clamp-3 group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
-					variant="regular"
+					className="text-regular font-body line-clamp-3 group-hover:text-primary group-hover:underline group-focus:text-primary group-focus:underline"
+					variant="h3"
 				>
 					{title}
 				</Typography>

@@ -44,7 +44,7 @@ export function EventInfoSection(props: Readonly<EventInfoSectionProps>): ReactN
 				<div>
 					<Typography variant="regular">{t("infoSection.website.title")}</Typography>
 					<Link
-						className="text-[18px]"
+						className="text-[1.25rem] break-all"
 						endIcon={<OpenInNewIcon className="size-5" />}
 						href={website}
 						variant="tertiary"

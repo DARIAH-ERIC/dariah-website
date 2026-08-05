@@ -11,9 +11,10 @@ import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import logoDariahTransformations from "@/public/assets/images/logo-dariah-transformations.svg";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/transformations"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("DariahTransformationsResourcesPage");
@@ -22,9 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -35,7 +34,7 @@ export default async function DariahResourceCataloguePage(
 ): Promise<ReactNode> {
 	const t = await getTranslations("DariahTransformationsResourcesPage");
 	const staticContentResponse = await client.pages.bySlug({
-		slug: "transformation-a-dariah-journal",
+		slug: "transformations-a-dariah-journal",
 	});
 	const breadcrumbs = navigation().breadcrumbs.transformations;
 
@@ -45,7 +44,7 @@ export default async function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
-			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
+			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[5rem]" />
 			<div className="flex gap-15 px-4 py-8 lg:px-33">
 				<div className="flex flex-col gap-14 max-w-251">
 					{breadcrumbs.length > 0 && (
@@ -64,7 +63,7 @@ export default async function DariahResourceCataloguePage(
 							{title}
 						</Typography>
 						<Image
-							alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
+							alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
 							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
 							src={image?.url ?? logoDariahTransformations}
 						/>
@@ -74,7 +73,7 @@ export default async function DariahResourceCataloguePage(
 					</div>
 				</div>
 				<Image
-					alt={image?.alt ?? "Transformation: A DARIAH Journal Logo"}
+					alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
 					className="hidden w-108.5 md:block"
 					src={image?.url ?? logoDariahTransformations}
 				/>

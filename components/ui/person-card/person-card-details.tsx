@@ -1,6 +1,6 @@
 import type { JSONContent } from "@tiptap/core";
 import { useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 
 import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
@@ -17,16 +17,18 @@ interface PersonCardDetailsProps {
 	email?: string;
 	position: Person["positions"];
 	description: JSONContent | undefined;
+	tabIndex?: number;
+	ref?: Ref<HTMLHeadingElement>;
 }
 
 export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): ReactNode {
-	const { imageUrl, imageAlt, name, email, position, description } = props;
+	const { imageUrl, imageAlt, name, email, position, description, tabIndex, ref } = props;
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
 
 	return (
-		<div className="flex gap-4">
+		<div className="flex flex-col gap-4 xl:flex-row">
 			<Image
 				alt={imageAlt ?? ""}
 				className="size-43 object-cover"
@@ -35,7 +37,9 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 				width={172}
 			/>
 			<div className="flex flex-col gap-2 px-4">
-				<Typography variant="h5">{name}</Typography>
+				<Typography ref={ref} tabIndex={tabIndex} variant="h5">
+					{name}
+				</Typography>
 				<Typography variant="regular">
 					<PersonPositions position={position} />
 				</Typography>

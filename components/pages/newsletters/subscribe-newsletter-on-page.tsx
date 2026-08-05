@@ -89,12 +89,12 @@ export function SubscribeNewsletterOnPage(
 			</div>
 			<div className="flex flex-col gap-8.5 xl:w-[50%]">
 				<div className="flex flex-col gap-2">
-					<div className="flex gap-0.5">
+					<div className="flex gap-0.5 items-end">
 						<TextField
 							aria-errormessage={emailError}
 							className="flex-1"
+							label={t("navigation.newsletter.form.label")}
 							onChange={handleEmailChange}
-							placeholder={t("navigation.newsletter.form.placeholder")}
 							value={email}
 						/>
 						<Button

@@ -11,6 +11,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface MembersAndPartnersPageProps extends PageProps<"/network/members-and-partners/[slug]"> {}
@@ -35,13 +36,15 @@ export async function generateMetadata(
 
 	const response = await client.membersAndPartners.bySlug({ slug });
 
-	const { name } = response.data;
+	const { name, summary } = response.data;
 
 	const metadata: Metadata = {
 		title: name,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary ?? undefined,
+		openGraph: await createOpenGraphMetadata({
+			description: summary ?? undefined,
+			title: name,
+		}),
 	};
 
 	return metadata;
@@ -90,14 +93,19 @@ export default async function MembersAndPartnersPage(
 						{t("browseAll")}
 					</Link>
 					<div className="flex flex-col gap-8">
-						<Typography className="font-medium" variant="h2">
+						<Typography className="text-h2 font-medium" variant="h1">
 							{name.toUpperCase()}{" "}
 							{status === "is_member_of"
 								? `(${t("status.is_member_of")})`
 								: `(${t("status.is_cooperating_partner_of")})`}
 						</Typography>
 						{image?.url !== undefined && (
-							<Image alt={image.alt ?? ""} height={72} src={image.url} width={207} />
+							<Image
+								alt={image.alt ?? "Image description will be added soon"}
+								height={72}
+								src={image.url}
+								width={207}
+							/>
 						)}
 						<MembersAndPartnersTabs
 							memberOrPartner={response.data}

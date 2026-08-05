@@ -12,8 +12,9 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
-import { getFormattedDateForNews } from "@/utils/news-page.utils";
+import { getFormattedDateForNews, getHrefForAnnouncement } from "@/utils/news-page.utils";
 
 interface NewsItemPageProps extends PageProps<"/news/[slug]"> {}
 
@@ -35,26 +36,16 @@ export async function generateMetadata(props: Readonly<NewsItemPageProps>): Prom
 
 	const response = await client.news.bySlug({ slug });
 
-	const {
-		title,
-		image: { url },
-		summary,
-	} = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		openGraph: {
-			title,
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
 			description: summary,
-			images: [
-				{
-					url,
-					width: 1150,
-					height: 628.25,
-					alt: title,
-				},
-			],
-		},
+			title,
+			type: "article",
+		}),
 	};
 
 	return metadata;
@@ -71,7 +62,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	const [response, latestNewsResponse] = await Promise.all([
 		client.news.bySlug({ slug }),
-		client.news.list({ limit: 5 }),
+		client.announcements.list({ limit: 5 }),
 	]);
 
 	const { id, title, image, content, summary, publishedAt, relatedEntities, relatedResources } =
@@ -80,25 +71,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 
 	const relatedContent = mergeEntitiesAndResources(relatedEntities, relatedResources);
 
-	const filterLatestNews = () => {
-		const hasCurrentNews = latestNews.find((news) => {
-			return news.id === id;
-		});
-
-		if (hasCurrentNews) {
-			return latestNews.filter((news) => {
-				return news.id !== id;
-			});
-		}
-
-		const sortedNews = latestNews.toSorted((newsA, newsB) => {
-			return newsB.publishedAt.getTime() - newsA.publishedAt.getTime();
-		});
-
-		return sortedNews.slice(0, 4);
-	};
-
-	const filteredLatestNews = filterLatestNews();
+	const filteredLatestNews = latestNews
+		.filter((news) => {
+			return news.id !== id;
+		})
+		.slice(0, 4);
 
 	return (
 		<Main className="container flex flex-1 flex-col mb-16 lg:mb-20 lg:gap-20">
@@ -118,15 +95,17 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 				<div className="flex flex-col gap-12 lg:flex-row">
 					<div className="flex flex-col gap-12 max-w-full lg:w-265">
 						<div className="flex flex-col gap-6">
-							<Typography className="font-bold" variant="h2">
+							<Typography className="text-h2 font-bold" variant="h1">
 								{title}
 							</Typography>
 							<Typography variant="regular">{getFormattedDateForNews(publishedAt)}</Typography>
 						</div>
-						<Typography variant="h4">{summary}</Typography>
+						<Typography className="text-h4" variant="h2">
+							{summary}
+						</Typography>
 						<figure className="flex flex-col gap-y-4">
 							<Image
-								alt={image.alt ?? ""}
+								alt={image.alt ?? "Image description will be added soon"}
 								className="w-full"
 								height={628.25}
 								src={image.url}
@@ -165,6 +144,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 				{filteredLatestNews.length > 0 ? (
 					<div className="flex flex-col gap-10 items-center lg:justify-between xl:gap-6 xl:flex-row 3xl:gap-17">
 						{filteredLatestNews.map((newsItem) => {
+							const href = getHrefForAnnouncement({
+								slug: newsItem.entity.slug,
+								type: newsItem.type,
+							});
+
 							return (
 								<NewsCard
 									key={newsItem.id}
@@ -173,8 +157,9 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 									description={newsItem.summary}
 									imageAlt={newsItem.image.alt}
 									imageUrl={newsItem.image.url}
-									linkUrl={`/news/${newsItem.entity.slug}`}
+									linkUrl={href}
 									title={newsItem.title}
+									type={newsItem.type}
 									variant="standard"
 								/>
 							);

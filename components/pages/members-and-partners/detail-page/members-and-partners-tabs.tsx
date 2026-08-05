@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { type ReactNode, useState } from "react";
@@ -14,7 +13,7 @@ import { ChevronUpIcon } from "@/components/ui/icons/chevron-up";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
+import { PersonCardDetailsContainer } from "@/components/ui/person-card/person-card-details-container";
 import { Tab } from "@/components/ui/tabs/tab";
 import { TabList } from "@/components/ui/tabs/tab-list";
 import { Typography } from "@/components/ui/typography/typography";
@@ -90,11 +89,19 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 	const institutionsToDisplay = displayAllInstitutions ? institutions : institutions.slice(0, 10);
 
 	return (
-		<Tabs>
+		<Tabs keyboardActivation="manual">
 			<TabList aria-label="Tabs" className="lg:px-0!">
-				{isMemberCountry && <Tab id="details">{t("tabs.details")}</Tab>}
+				{isMemberCountry && (
+					<Tab id="details">
+						<Typography className="text-small font-body" variant="h2">
+							{t("tabs.details")}
+						</Typography>
+					</Tab>
+				)}
 				<Tab id="institutions">
-					{isCooperatingPartner ? t("tabs.cooperatingPartners") : t("tabs.partnerInstitutions")}
+					<Typography className="text-small font-body" variant="h2">
+						{isCooperatingPartner ? t("tabs.cooperatingPartners") : t("tabs.partnerInstitutions")}
+					</Typography>
 				</Tab>
 			</TabList>
 			<TabPanels>
@@ -150,7 +157,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							<div className="pt-6 flex flex-col gap-2">
 								{nationalCoordinatingInstitution && (
 									<div className="flex gap-1 flex-wrap">
-										<Typography className="font-bold" variant="regular">
+										<Typography className="text-regular font-bold font-body" variant="h3">
 											{t("institutions.nationalCoordinatingInstitution")}
 										</Typography>
 										<Typography variant="regular">
@@ -160,7 +167,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 								)}
 								{nationalRepresentativeInstitution && (
 									<div className="flex gap-1 flex-wrap">
-										<Typography className="font-bold" variant="regular">
+										<Typography className="text-regular font-bold font-body" variant="h3">
 											{t("institutions.nationalRepresentativeInstitution")}
 										</Typography>
 										<Typography variant="regular">
@@ -171,7 +178,9 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 							</div>
 							<div className="flex flex-col gap-10 pt-6 pb-9 relative">
 								<div className="absolute -top-20" id="contributors" />
-								<Typography variant="h4">{t("contributors.title")}</Typography>
+								<Typography className="text-h4" variant="h2">
+									{t("contributors.title")}
+								</Typography>
 								{!selectedPerson ? (
 									grouppedContributorsKeys.length > 0 ? (
 										<div className="flex flex-wrap gap-x-15 gap-y-10">
@@ -186,7 +195,7 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 												return (
 													<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
 														<div className="flex flex-col justify-between h-10">
-															<Typography className="font-bold" variant="small">
+															<Typography className="text-small font-bold font-body" variant="h3">
 																{t(
 																	`contributors.groups.${
 																		contributorGroupKey as
@@ -230,27 +239,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 										<Typography variant="regular">{t("contributors.empty")}</Typography>
 									)
 								) : (
-									<div className="flex flex-col flex-wrap gap-10 w-full">
-										<Link
-											href={`${pathname}#contributors`}
-											variant="primary"
-											withDefaultLeftIcon={true}
-										>
-											{t("contributors.backToList")}
-										</Link>
-										<PersonCardDetails
-											description={
-												selectedPerson.biography.find((content) => {
-													return content.type === "rich_text";
-												}) as JSONContent
-											}
-											email={selectedPerson.email ?? undefined}
-											imageAlt={selectedPerson.image?.alt}
-											imageUrl={selectedPerson.image?.url}
-											name={selectedPerson.name}
-											position={selectedPerson.positions}
-										/>
-									</div>
+									<PersonCardDetailsContainer
+										backToListText={t("contributors.backToList")}
+										href={`${pathname}#contributors`}
+										selectedPerson={selectedPerson}
+									/>
 								)}
 							</div>
 						</div>

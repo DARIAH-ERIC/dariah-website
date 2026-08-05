@@ -9,7 +9,7 @@ import {
 } from "@internationalized/date";
 import { redirect, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import React, { type ReactNode, useState } from "react";
+import React, { type ReactNode, useEffect, useRef, useState } from "react";
 import type { Key } from "react-aria";
 
 import { Button } from "@/components/ui/button/button";
@@ -42,13 +42,17 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 	const currentDate = formatDateToIso(new Date());
 	const hasDateParam = searchParams.has("date");
 
+	const shouldFocusSelect = Boolean(searchParams.get("focusSelect"));
+
+	const selectRef = useRef<HTMLButtonElement | null>(null);
+
 	const [date, setDate] = useState<DateValue>((): DateValue => {
 		return parseDate(searchParams.get("date") ?? currentDate);
 	});
 
 	const handleSelectedViewChange = (value: Key | null) => {
-		if (value !== null && value !== "list") redirect(`/events/calendar`);
-		else redirect(`/events/`);
+		if (value !== null && value !== "list") redirect(`/events/calendar?focusSelect=true`);
+		else redirect(`/events?focusSelect=true`);
 	};
 
 	const handleDateChange = (value: CalendarDate | CalendarDateTime | ZonedDateTime | null) => {
@@ -66,6 +70,18 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 		router.push(`${pathname}?${params.toString()}`, { scroll: false });
 	};
 
+	useEffect(() => {
+		if (shouldFocusSelect && selectRef.current) {
+			selectRef.current.focus();
+			const params = new URLSearchParams(searchParams.toString());
+			params.delete("focusSelect");
+
+			const newUrl = params.toString() ? `${pathname}?${params.toString()}` : pathname;
+
+			window.history.replaceState(null, "", newUrl);
+		}
+	}, [currentView]);
+
 	return (
 		<div className="flex flex-col flex-wrap items-start gap-y-10 gap-x-20 w-full md:items-end md:flex-row">
 			<div className="flex flex-wrap flex-1 items-end gap-y-6 gap-x-4">
@@ -79,9 +95,12 @@ export function Filters(props: Readonly<FiltersProps>): ReactNode {
 				</Button>
 			</div>
 			<Select
+				ref={selectRef}
+				aria-live="polite"
 				className="w-48 max-w-full"
 				label={t("filters.select")}
 				onChange={handleSelectedViewChange}
+				tabIndex={-1}
 				value={currentView}
 			>
 				{VIEW_OPTIONS.map((option) => {

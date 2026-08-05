@@ -110,7 +110,7 @@ const config: Config = {
 			{ source: "/news-events/dariah-newsletters", destination: "/newsletters", permanent: true },
 			{
 				source: "/tools-services/tools-and-services",
-				destination: "/resources/dariah-resource-catalogue",
+				destination: "/resources/resource-catalogue",
 				permanent: true,
 			},
 			{

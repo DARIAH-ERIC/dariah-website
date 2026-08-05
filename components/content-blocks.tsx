@@ -6,23 +6,20 @@ import type { ReactNode } from "react";
 import { Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
+import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
+import { GalleryGrid } from "@/components/ui/gallery/gallery-grid";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 
 interface ContentBlocksProps {
+	className?: string;
 	fields: components["schemas"]["Page"]["content"];
 }
 
 export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
-	const { fields } = props;
+	const { className, fields } = props;
 
-	/**
-	 * Whether an image can be floated depends on the width left for the text beside it, which is a
-	 * property of the column the blocks sit in - the same viewport hosts a wide single column here
-	 * and a narrow one between two sidebars there. So the float decisions below are container
-	 * queries against this element rather than viewport breakpoints.
-	 */
-	return <div className="@container">{fields.map(renderContentBlock)}</div>;
+	return <div className={cn("@container", className)}>{fields.map(renderContentBlock)}</div>;
 }
 
 function renderContentBlock(
@@ -61,7 +58,7 @@ function renderContentBlock(
 						referrerPolicy="strict-origin-when-cross-origin"
 						// eslint-disable-next-line @eslint-react/dom/no-unsafe-iframe-sandbox
 						sandbox="allow-scripts allow-same-origin"
-						src={field.url}
+						src={`${field.url}?hl=en`}
 						title={caption || "Embedded content"}
 						width="1600"
 					></iframe>
@@ -74,20 +71,35 @@ function renderContentBlock(
 			);
 		}
 
+		case "gallery": {
+			if (field.items.length === 0) {
+				return null;
+			}
+
+			const items = field.items.map((item) => {
+				return {
+					alt: item.image.alt,
+					caption: item.caption != null ? <RichTextCaption content={item.caption} /> : undefined,
+					url: item.image.url,
+				};
+			});
+
+			return (
+				<div key={index} className="py-4">
+					{field.layout === "carousel" ? (
+						<GalleryCarousel items={items} />
+					) : (
+						<GalleryGrid items={items} />
+					)}
+				</div>
+			);
+		}
+
 		case "hero": {
 			return null;
 		}
 
 		case "image": {
-			/**
-			 * A floated image is a thumbnail pulled aside for the following text to wrap around, so
-			 * it is capped at 18rem whether or not it ends up floating - left to fill the column it
-			 * would render as an oversized square. It only floats once the column can also seat a
-			 * legible measure beside it: at the `@2xl` threshold that leaves ~22rem of text, and
-			 * below it the pairing stacks instead. `wide` and `full` break out into the page gutter
-			 * by fixed amounts, since the pages hosting content blocks share no content measure and
-			 * a viewport-relative full bleed would sit off-axis in the ones with a sidebar.
-			 */
 			const layoutClassName = {
 				default: "",
 				wide: "-mx-4 lg:-mx-12",
@@ -96,13 +108,11 @@ function renderContentBlock(
 				"float-end": "max-w-72 @2xl:float-end @2xl:ml-7",
 			}[field.layout];
 
-			// Floated images are served at half the width of the ones that span the column.
 			const isFloated = field.layout === "float-start" || field.layout === "float-end";
 
 			return (
-				<figure key={index} className={cn("flex flex-col gap-y-2 py-6", layoutClassName)}>
+				<figure key={index} className={cn("flex flex-col gap-y-2 py-4 mt-1.5", layoutClassName)}>
 					<Image
-						// No alt on the asset means the image is presentational.
 						alt={field.image.alt ?? ""}
 						height={isFloated ? 450 : 900}
 						src={field.image.url}
@@ -118,35 +128,20 @@ function renderContentBlock(
 		}
 
 		case "media_text": {
-			// The API drops the block from the editor preview when either half is missing, and there
-			// is nothing to wrap text around (or no text to wrap) either way.
 			if (field.content == null) {
 				return null;
 			}
 
 			return (
-				// `flow-root` contains the float, so it never reaches the following content block. The
-				// block right after the figure drops its top margin, so the text starts level with the
-				// top of the image rather than below it.
 				<div key={index} className="flow-root py-4 [&>figure+*]:mt-0!">
 					<figure
 						className={cn(
-							// The thumbnail keeps its square size and the figure grows for the caption, so a
-							// credit sits under the image within the same column. It only floats once the
-							// column can seat a legible measure beside its 12.5rem; below `@xl` the
-							// pairing stacks.
-							//
-							// While floating, the image is nudged down to the cap height of the first line:
-							// the half-leading above that line otherwise makes flush-aligned text read as
-							// sitting lower than the image. Stacked, there is nothing to align to.
 							"mb-4 w-50 max-w-full @xl:mt-1.5",
 							field.side === "end" ? "@xl:float-end @xl:ml-7" : "@xl:float-start @xl:mr-7",
 						)}
 					>
 						<Image
-							// No alt on the asset means the image is presentational.
 							alt={field.image.alt ?? ""}
-							// The API serves this image at 400px wide, so never scale it up past that.
 							className="size-50 max-w-full object-cover"
 							height={400}
 							src={field.image.url}

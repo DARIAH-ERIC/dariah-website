@@ -111,4 +111,16 @@ test.describe("metadata", () => {
 		expect(status).toBe(200);
 		expect(contentType).toBe("image/png");
 	});
+
+	test("should serve an open-graph image for a dynamic route", async ({ page, request }) => {
+		await page.goto("/network/members-and-partners/austria");
+
+		const url = await page.locator('meta[property="og:image"]').getAttribute("content");
+		expect(url).toContain("/network/members-and-partners/austria/opengraph-image");
+
+		const response = await request.get(String(url));
+
+		expect(response.status()).toBe(200);
+		expect(response.headers()["content-type"]).toBe("image/png");
+	});
 });

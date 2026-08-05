@@ -1,4 +1,3 @@
-import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -8,12 +7,12 @@ import { ContentBlocks } from "@/components/content-blocks";
 import { Image } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
-import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
+import { PersonCardDetailsContainer } from "@/components/ui/person-card/person-card-details-container";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
 interface ImpactCaseStudyPageProps extends PageProps<"/about/impact-case-studies/[slug]"> {}
@@ -38,13 +37,16 @@ export async function generateMetadata(
 
 	const response = await client.impactCaseStudies.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
+			description: summary,
+			title,
+			type: "article",
+		}),
 	};
 
 	return metadata;
@@ -87,14 +89,14 @@ export default async function ImpactCaseStudyPage(
 						<Breadcrumb>{slug.replaceAll("-", " ")}</Breadcrumb>
 					</Breadcrumbs>
 				)}
-				<Typography className="px-4 xl:px-60 3xl:px-98.5" variant="h2">
+				<Typography className="text-h2 px-4 xl:px-60 3xl:px-98.5" variant="h1">
 					{title}
 				</Typography>
 			</div>
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-y-4">
 					<Image
-						alt={image.alt ?? ""}
+						alt={image.alt ?? "Image description will be added soon"}
 						className="w-480 h-125 object-contain"
 						height={621}
 						src={image.url}
@@ -112,7 +114,9 @@ export default async function ImpactCaseStudyPage(
 			</div>
 			<div className="flex flex-col gap-10 pb-14 relative px-4 xl:px-62 3xl:px-102.5">
 				<div className="absolute -top-20" id="contributors" />
-				<Typography variant="h4">{t("contributors.title")}</Typography>
+				<Typography className="text-h4" variant="h2">
+					{t("contributors.title")}
+				</Typography>
 				{!selectedPerson ? (
 					grouppedContributorsKeys.length > 0 ? (
 						<div className="flex flex-wrap gap-x-23 gap-y-10">
@@ -120,7 +124,7 @@ export default async function ImpactCaseStudyPage(
 								return (
 									<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
 										<div className="flex flex-col justify-between h-10">
-											<Typography className="font-bold" variant="small">
+											<Typography className="font-bold text-small" variant="h3">
 												{t(
 													`contributors.groups.${contributorGroupKey as "author" | "editor" | "contributor"}`,
 												)}
@@ -158,27 +162,11 @@ export default async function ImpactCaseStudyPage(
 						<Typography variant="regular">{t("contributors.empty")}</Typography>
 					)
 				) : (
-					<div className="flex flex-col flex-wrap gap-10 w-full">
-						<Link
-							href={`/about/impact-case-studies/${slug}#contributors`}
-							variant="primary"
-							withDefaultLeftIcon={true}
-						>
-							{t("contributors.backToList")}
-						</Link>
-						<PersonCardDetails
-							description={
-								selectedPerson.biography.find((content) => {
-									return content.type === "rich_text";
-								}) as JSONContent
-							}
-							email={selectedPerson.email ?? undefined}
-							imageAlt={selectedPerson.image?.alt}
-							imageUrl={selectedPerson.image?.url}
-							name={selectedPerson.name}
-							position={selectedPerson.positions}
-						/>
-					</div>
+					<PersonCardDetailsContainer
+						backToListText={t("contributors.backToList")}
+						href={`/about/impact-case-studies/${slug}#contributors`}
+						selectedPerson={selectedPerson}
+					/>
 				)}
 			</div>
 		</Main>
