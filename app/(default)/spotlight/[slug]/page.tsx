@@ -1,4 +1,3 @@
-import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -10,7 +9,7 @@ import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
+import { PersonCardDetailsContainer } from "@/components/ui/person-card/person-card-details-container";
 import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -101,14 +100,14 @@ export default async function SpotlightArticlePage(
 						{t("browseAll")}
 					</Link>
 					<div className="flex flex-col gap-4">
-						<Typography className="uppercase" variant="h3">
+						<Typography className="text-h3 uppercase" variant="h1">
 							{title}
 						</Typography>
 						<Typography variant="regular">{getFormattedDateForDetails(publishedAt)}</Typography>
 					</div>
 					<figure className="flex flex-col gap-y-4">
 						<Image
-							alt={image.alt ?? ""}
+							alt={image.alt ?? "Image description will be added soon"}
 							className="w-full h-87.5 object-contain"
 							height={350}
 							src={image.url}
@@ -125,7 +124,9 @@ export default async function SpotlightArticlePage(
 					</div>
 					<div className="flex flex-col gap-10 pt-6 pb-9 relative">
 						<div className="absolute -top-20" id="contributors" />
-						<Typography variant="h4">{t("contributors.title")}</Typography>
+						<Typography className="text-h4" variant="h2">
+							{t("contributors.title")}
+						</Typography>
 						{!selectedPerson ? (
 							grouppedContributorsKeys.length > 0 ? (
 								<div className="flex flex-wrap gap-x-23 gap-y-10">
@@ -133,7 +134,7 @@ export default async function SpotlightArticlePage(
 										return (
 											<div key={contributorGroupKey} className="flex flex-col flex-wrap gap-6">
 												<div className="flex flex-col justify-between h-10">
-													<Typography className="font-bold" variant="small">
+													<Typography className="text-small font-bold font-body" variant="h3">
 														{t(
 															`contributors.groups.${contributorGroupKey as "author" | "editor" | "contributor"}`,
 														)}
@@ -171,27 +172,11 @@ export default async function SpotlightArticlePage(
 								<Typography variant="regular">{t("contributors.empty")}</Typography>
 							)
 						) : (
-							<div className="flex flex-col flex-wrap gap-10 w-full">
-								<Link
-									href={`/spotlight/${slug}#contributors`}
-									variant="primary"
-									withDefaultLeftIcon={true}
-								>
-									{t("contributors.backToList")}
-								</Link>
-								<PersonCardDetails
-									description={
-										selectedPerson.biography.find((content) => {
-											return content.type === "rich_text";
-										}) as JSONContent
-									}
-									email={selectedPerson.email ?? undefined}
-									imageAlt={selectedPerson.image?.alt}
-									imageUrl={selectedPerson.image?.url}
-									name={selectedPerson.name}
-									position={selectedPerson.positions}
-								/>
-							</div>
+							<PersonCardDetailsContainer
+								backToListText={t("contributors.backToList")}
+								href={`/spotlight/${slug}#contributors`}
+								selectedPerson={selectedPerson}
+							/>
 						)}
 					</div>
 				</div>

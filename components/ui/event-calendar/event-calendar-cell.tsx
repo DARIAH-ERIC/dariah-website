@@ -19,7 +19,7 @@ interface EventCalendarCellProps {
 
 const eventCalendarCellVariants = styles({
 	base: [
-		"border w-[14.28%] max-w-[14.28%] border-gray-400 align-top h-16 [&_p]:text-[14px] [&_p]:leading-100% [&_p]:p-1",
+		"border w-[14.28%] max-w-[14.28%] border-gray-400 align-top h-16 [&_p]:text-[0.875rem] [&_p]:leading-100% [&_p]:p-1",
 		"lg:h-36.5",
 	],
 	variants: {

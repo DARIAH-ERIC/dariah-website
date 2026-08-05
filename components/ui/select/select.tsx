@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 import {
 	Button,
 	Label,
@@ -25,17 +25,20 @@ export interface SelectProps<T extends object> extends Omit<AriaSelectProps<T>, 
 	items?: Iterable<T>;
 	noOptionsText?: string;
 	children?: React.ReactNode | ((item: T) => React.ReactNode);
+	ref?: Ref<HTMLButtonElement>;
+	tabIndex?: number;
 }
 
 export function Select<T extends object>(props: Readonly<SelectProps<T>>): ReactNode {
-	const { label, noOptionsText = "No options found", isOpen, children, ...rest } = props;
+	const { label, noOptionsText = "No options found", isOpen, children, ref, ...rest } = props;
 
 	return (
 		<AriaSelect className="flex flex-col gap-1" {...rest}>
 			<Label className="text-regular font-semibold text-black">{label}</Label>
 			<Button
+				ref={ref}
 				className={cn(
-					"flex w-full h-14.75 items-center gap-2.5 px-3.25 pt-4.5 pb-4 text-regular text-black placeholder-gray-700 text-[16px]",
+					"flex w-full h-14.75 items-center gap-2.5 px-3.25 pt-4.5 pb-4 text-small text-black placeholder-gray-700",
 					"border-b-2 border-gray-200 border-b-gray-400 bg-gray-100",
 					"hover:border-b-primary hover:bg-gray-200",
 					"focus:px-2.75 focus:pt-4 focus:outline-none focus:border-2 focus:border-primary hover:focus:border-primary",

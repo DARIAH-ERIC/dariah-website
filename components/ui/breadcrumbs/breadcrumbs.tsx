@@ -27,30 +27,30 @@ export function Breadcrumb(
 	return (
 		<AriaBreadcrumb
 			className={composeRenderProps(className, (className) => {
-				return cn("flex gap-2 items-center uppercase", className);
+				return cn(
+					"flex gap-2 items-center uppercase not-last:after:content-['/'] not-last:after:text-[0.875rem]",
+					className,
+				);
 			})}
 			id={id}
 		>
 			{({ isCurrent }) => {
+				const { children } = props;
 				return (
 					<>
-						<Link
-							isDisabled={href === undefined}
-							variant={isCurrent ? "breadcrumb-current" : "tertiary"}
-							{...props}
-						/>
-						{!isCurrent && <BreadcrumbsSeparator />}
+						{!isCurrent ? (
+							<Link isDisabled={href === undefined} variant={"tertiary"} {...props} />
+						) : (
+							<Typography
+								aria-current="page"
+								className="text-regular text-black text-[0.875rem] cursor-default!"
+							>
+								{children}
+							</Typography>
+						)}
 					</>
 				);
 			}}
 		</AriaBreadcrumb>
-	);
-}
-
-export function BreadcrumbsSeparator(): ReactNode {
-	return (
-		<Typography className="text-[14px]" variant="regular">
-			{"/"}
-		</Typography>
 	);
 }

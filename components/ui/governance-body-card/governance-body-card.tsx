@@ -62,7 +62,9 @@ export function GovernanceBodyCard(props: Readonly<GovernanceBodyCardProps>): Re
 					<div className="flex flex-wrap gap-x-2 justify-between items-center">
 						<div className="flex gap-2">
 							<Typography className={text}>{acronym ?? getNameAcronym(name)}</Typography>
-							<Typography className="capitalize">{name}</Typography>
+							<Typography className="capitalize text-regular font-body" variant="h2">
+								{name}
+							</Typography>
 						</div>
 						{usersCount != null && (
 							<div className="flex gap-2 py-2 items-center">

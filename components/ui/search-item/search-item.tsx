@@ -103,7 +103,7 @@ export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 					<div className="flex gap-2">
 						{TYPE_ICONS[displayedType]}
 						<Typography
-							className="text-primary-500 text-[14px] font-bold uppercase"
+							className="text-primary-500 text-[0.875rem] font-bold uppercase"
 							variant="small"
 						>
 							{t(`categories.${type}`)}
@@ -119,11 +119,11 @@ export function SearchItem(props: Readonly<SearchItemProps>): ReactNode {
 				<div className="py-2">
 					<Typography
 						className={cn(
-							"font-semibold text-section-text line-clamp-1",
+							"text-regular font-body font-semibold text-section-text line-clamp-1",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}
-						variant="regular"
+						variant="h2"
 					>
 						{title}
 					</Typography>

@@ -61,7 +61,7 @@ export function SubrefinementList(props: Readonly<SubrefinementListProps>): Reac
 				onChange={handleParentRefine}
 			/>
 			<div className="flex flex-col gap-2">
-				<Typography className="px-4 text-[16px] text-subfilter-text" variant="h4">
+				<Typography className="px-4 text-[1rem] text-subfilter-text" variant="h4">
 					{t(`filter.${attribute}` as never)}
 				</Typography>
 				<div className="px-8">

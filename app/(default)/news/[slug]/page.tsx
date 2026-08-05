@@ -95,15 +95,17 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 				<div className="flex flex-col gap-12 lg:flex-row">
 					<div className="flex flex-col gap-12 max-w-full lg:w-265">
 						<div className="flex flex-col gap-6">
-							<Typography className="font-bold" variant="h2">
+							<Typography className="text-h2 font-bold" variant="h1">
 								{title}
 							</Typography>
 							<Typography variant="regular">{getFormattedDateForNews(publishedAt)}</Typography>
 						</div>
-						<Typography variant="h4">{summary}</Typography>
+						<Typography className="text-h4" variant="h2">
+							{summary}
+						</Typography>
 						<figure className="flex flex-col gap-y-4">
 							<Image
-								alt={image.alt ?? ""}
+								alt={image.alt ?? "Image description will be added soon"}
 								className="w-full"
 								height={628.25}
 								src={image.url}

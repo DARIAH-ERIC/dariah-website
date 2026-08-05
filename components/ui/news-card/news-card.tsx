@@ -144,7 +144,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 							)}
 						>
 							<NewsIcon className="size-4" />
-							<Typography className="text-[16px] font-bold uppercase" variant="small">
+							<Typography className="text-[1rem] font-bold uppercase" variant="small">
 								{tag}
 							</Typography>
 						</div>
@@ -153,11 +153,11 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					<div className={variant === "list-item" ? "h-13.5 2xl:mb-3.5" : undefined}>
 						<Typography
 							className={cn(
-								variant === "list-item" && "line-clamp-2 text-[18px]",
-								variant === "list-headline" && "text-[24px]",
+								variant === "list-item" && "line-clamp-2 text-[1.25rem]",
+								variant === "list-headline" && "text-[1.5rem]",
 								!isListVariant && "line-clamp-3",
 							)}
-							variant="h3"
+							variant={isListVariant ? "h2" : "h3"}
 						>
 							{title}
 						</Typography>

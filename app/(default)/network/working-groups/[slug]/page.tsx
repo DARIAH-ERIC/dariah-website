@@ -1,5 +1,4 @@
 import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
@@ -11,7 +10,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { PersonCard } from "@/components/ui/person-card/person-card";
-import { PersonCardDetails } from "@/components/ui/person-card/person-card-details";
+import { PersonCardDetailsContainer } from "@/components/ui/person-card/person-card-details-container";
 import { RelatedContent } from "@/components/ui/related-content/related-content";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
@@ -152,7 +151,7 @@ export default async function WorkingGroupPage(
 					</Link>
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-8">
-							<Typography className="font-medium" variant="h2">
+							<Typography className="text-h2 font-medium" variant="h1">
 								{name}
 							</Typography>
 							<div className="flex flex-col gap-2">
@@ -206,7 +205,7 @@ export default async function WorkingGroupPage(
 						</div>
 						{image != null ? (
 							<Image
-								alt={image.alt ?? ""}
+								alt={image.alt ?? "Image description will be added soon"}
 								className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
 								height={442}
 								src={image.url}
@@ -228,7 +227,7 @@ export default async function WorkingGroupPage(
 											return (
 												<div key={chairsGroupKey} className="flex flex-col flex-wrap gap-6">
 													<div className="flex flex-col justify-between h-10">
-														<Typography className="font-bold" variant="small">
+														<Typography className="text-small font-bold font-body" variant="h2">
 															{t(
 																`chairs.groups.${chairsGroupKey as "author" | "editor" | "contributor"}`,
 															)}
@@ -253,6 +252,7 @@ export default async function WorkingGroupPage(
 																	href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
 																	imageUrl={imageUrl}
 																	name={name}
+																	nameTag="h3"
 																	position={positions}
 																/>
 															);
@@ -266,27 +266,11 @@ export default async function WorkingGroupPage(
 									<Typography variant="regular">{t("groupChars.emptyState")}</Typography>
 								)
 							) : (
-								<div className="flex flex-col flex-wrap gap-10 w-full">
-									<Link
-										href={`/network/working-groups/${slug}#chairs`}
-										variant="primary"
-										withDefaultLeftIcon={true}
-									>
-										{t("groupChars.backToList")}
-									</Link>
-									<PersonCardDetails
-										description={
-											selectedPerson.biography.find((content) => {
-												return content.type === "rich_text";
-											}) as JSONContent
-										}
-										email={selectedPerson.email ?? undefined}
-										imageAlt={selectedPerson.image?.alt}
-										imageUrl={selectedPerson.image?.url}
-										name={selectedPerson.name}
-										position={selectedPerson.positions}
-									/>
-								</div>
+								<PersonCardDetailsContainer
+									backToListText={t("groupChars.backToList")}
+									href={`/network/working-groups/${slug}#chairs`}
+									selectedPerson={selectedPerson}
+								/>
 							)}
 						</div>
 					</div>

@@ -93,14 +93,19 @@ export default async function MembersAndPartnersPage(
 						{t("browseAll")}
 					</Link>
 					<div className="flex flex-col gap-8">
-						<Typography className="font-medium" variant="h2">
+						<Typography className="text-h2 font-medium" variant="h1">
 							{name.toUpperCase()}{" "}
 							{status === "is_member_of"
 								? `(${t("status.is_member_of")})`
 								: `(${t("status.is_cooperating_partner_of")})`}
 						</Typography>
 						{image?.url !== undefined && (
-							<Image alt={image.alt ?? ""} height={72} src={image.url} width={207} />
+							<Image
+								alt={image.alt ?? "Image description will be added soon"}
+								height={72}
+								src={image.url}
+								width={207}
+							/>
 						)}
 						<MembersAndPartnersTabs
 							memberOrPartner={response.data}

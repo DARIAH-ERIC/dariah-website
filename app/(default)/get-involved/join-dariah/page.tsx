@@ -18,7 +18,7 @@ import { mergeQuickLinks } from "@/utils/global.utils";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const t = await getTranslations("ContactPage");
+	const t = await getTranslations("JoinDariahPage");
 
 	const title = t("meta.title");
 
@@ -30,9 +30,9 @@ export async function generateMetadata(): Promise<Metadata> {
 	return metadata;
 }
 
-export default async function ContactPage(): Promise<ReactNode> {
+export default async function JoinDariahPage(): Promise<ReactNode> {
 	const response = await client.pages.bySlug({ slug: "join-dariah" });
-	const breadcrumbs = navigation().breadcrumbs.documentsAndPolicies;
+	const breadcrumbs = navigation().breadcrumbs.joinDariahPage;
 	const {
 		data: { title, content, relatedEntities, relatedResources },
 	} = response;
@@ -63,7 +63,7 @@ export default async function ContactPage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="text-h2 font-light" variant="h1">
 					{title}
 				</Typography>
 				<div className="flex-col flex gap-8 justify-between xl:py-12 xl:flex-row 2xl:gap-21">

@@ -38,19 +38,25 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 
 	return (
 		<Main className="flex flex-1 flex-col gap-14 px-4 pt-8 pb-30 container lg:items-center 2xl:px-31.5">
-			<div className="flex flex-col gap-14 w-full">
+			<div className="flex flex-col gap-14 w-full xl:px-8 2xl:px-0">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
-						{breadcrumbs.map(({ label, href }) => {
+						{breadcrumbs.map(({ label, href }, index) => {
 							return (
-								<Breadcrumb key={label} href={href}>
+								<Breadcrumb
+									key={label}
+									aria-current={index === breadcrumbs.length - 1 ? "page" : undefined}
+									href={href}
+								>
 									{label}
 								</Breadcrumb>
 							);
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography variant="h2">{t("title")}</Typography>
+				<Typography className="text-h2" variant="h1">
+					{t("title")}
+				</Typography>
 			</div>
 			<div className="flex-col flex gap-8 max-w-full items-center lg:items-start lg:justify-between lg:flex-row 2xl:gap-21">
 				<SectionPanel className="w-82" sections={sections} />
@@ -78,7 +84,7 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 								documentsByGroup.map((section) => {
 									return (
 										<div key={section.id} className="flex gap-6 flex-col">
-											<Typography id={section.label} variant="h3">
+											<Typography className="text-h3" id={section.label} variant="h2">
 												{section.label}
 											</Typography>
 											<ul className="flex flex-col">

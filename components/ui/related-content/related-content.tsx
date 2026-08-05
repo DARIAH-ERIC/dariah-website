@@ -29,11 +29,11 @@ export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode 
 			<div className="px-6">
 				<Typography
 					className={cn(
-						"font-semibold text-text-link-bg line-clamp-3",
+						"text-regular font-semibold font-body text-text-link-bg line-clamp-3",
 						"group-hover:text-primary group-hover:underline",
 						"group-focus:text-primary group-focus:underline",
 					)}
-					variant="regular"
+					variant="h3"
 				>
 					{title}
 				</Typography>

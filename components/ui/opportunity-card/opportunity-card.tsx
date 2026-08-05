@@ -43,7 +43,9 @@ export function OpportunityCard(props: Readonly<OpportunityCardProps>): ReactNod
 	return (
 		<div className={cn(opportunityCardStyles({ variant }))}>
 			<Link href={url ?? undefined} variant="primary">
-				{title}
+				<Typography className="text-regular font-body font-semibold" variant="h2">
+					{title}
+				</Typography>
 			</Link>
 			<div className="flex gap-4 items-center">
 				{["open", "upcoming"].includes(status) && (

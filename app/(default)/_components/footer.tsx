@@ -83,15 +83,12 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					)}
 				>
 					<div className="flex flex-col gap-y-10 lg:max-w-188.25">
-						<p className="text-[25px] font-light font-heading tracking-[-1%] leading-[1.3]">
+						<p className="text-[1.5625rem] font-light font-heading tracking-[-1%] leading-[1.3]">
 							{t("navigation.description")}
 						</p>
-						<nav
-							aria-label={t("navigation.label")}
-							className={cn("flex flex-col gap-10 justify-between", "2xl:gap-0 2xl:flex-row")}
-						>
+						<div className={cn("flex flex-col gap-10 justify-between", "2xl:gap-0 2xl:flex-row")}>
 							<div className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-								<Typography className="font-heading text-[18px]" variant="h4">
+								<Typography className="font-heading text-h5" variant="h2">
 									{secondary.contact.label}
 								</Typography>
 								<Link
@@ -106,7 +103,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 							{Object.entries(otherItems).map(([id, item]) => {
 								return (
 									<div key={id} className="flex flex-col items-start gap-x-4 gap-y-2 min-w-45.75">
-										<Typography className="font-heading text-[18px]" variant="h4">
+										<Typography className="font-heading text-h5" variant="h2">
 											{item.label}
 										</Typography>
 										<ul
@@ -137,11 +134,11 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 									</div>
 								);
 							})}
-						</nav>
+						</div>
 					</div>
 					<div className="flex flex-col gap-y-8 lg:max-w-154">
 						<SubscribeNewsletter />
-						<nav aria-label={t("navigation-social-media.label")} className="flex flex-col gap-4">
+						<div className="flex flex-col gap-4">
 							<Typography className="font-light" variant="h2">
 								{t("navigation-social-media.followUs")}
 							</Typography>
@@ -165,7 +162,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 									);
 								})}
 							</ul>
-						</nav>
+						</div>
 					</div>
 				</div>
 
@@ -175,7 +172,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						"xl:py-0 xl:px-10",
 					)}
 				>
-					<Image alt="" className="size-5" src={logoCC} />
+					<Image alt={t("navigation.cc.alt")} className="size-5" src={logoCC} />
 					<Typography variant="small">
 						{t("navigation.cc.part1")}
 						<Link

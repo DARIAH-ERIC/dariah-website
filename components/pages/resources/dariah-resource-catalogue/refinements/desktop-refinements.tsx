@@ -13,7 +13,9 @@ export function DesktopRefinements(
 
 	return (
 		<div className="hidden flex-col gap-10 min-w-80 w-83 max-w-83 lg:flex">
-			<Typography variant="h4">{t("filter.title")}</Typography>
+			<Typography className="text-h4" variant="h2">
+				{t("filter.title")}
+			</Typography>
 			{refinements.map(({ name, subfilters, ...rest }) => {
 				return (
 					<DesktopRefinementList key={name} attribute={name} subfilters={subfilters} {...rest} />

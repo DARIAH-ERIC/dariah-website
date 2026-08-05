@@ -76,9 +76,18 @@
 				"content": "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resource Catalogue to discover the richness that DARIAH has to offer.",
 				"button": "Browse Catalogue"
 			},
-			"dariahCampus": "DARIAH-CAMPUS is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education.",
-			"transformations": "Transformations: A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities.",
-			"sshOpenMarketplace": "SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research.",
+			"dariahCampus": {
+				"title": "DARIAH-CAMPUS",
+				"content": " is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education."
+			},
+			"transformations": {
+				"title": "Transformations: A DARIAH Journal",
+				"content": " is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities."
+			},
+			"sshOpenMarketplace": {
+				"title": "SSH Open Marketplace",
+				"content": " is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research."
+			},
 			"explore": {
 				"campus": "Explore DARIAH-Campus",
 				"transformations": "Explore Transformations",
@@ -111,6 +120,9 @@
 		},
 		"title": "Resource catalogue",
 		"description": "Explore the DARIAH Resource Catalogue to discover the richness that DARIAH have to offer.",
+		"searchBox": {
+			"placeholder": "Enter resource name or keyword, e.g. \"data management\""
+		},
 		"filter": {
 			"title": "Filters",
 			"type": "Resource Type",
@@ -198,7 +210,11 @@
 			"calendar": "Calendar",
 			"date": "Events starting from",
 			"search": "Search with keywords",
-			"select": "View as"
+			"select": "View as",
+			"changedView": {
+				"calendar": "Changed view to events calendar",
+				"list": "Changed view to events list"
+			}
 		},
 		"emptyState": "No events found."
 	},
@@ -288,7 +304,7 @@
 		"noNews": "No news found.",
 		"newsCard": {
 			"tags": {
-				"funding-call": "Funding call",
+				"funding-call": "Funding calla",
 				"news": "News",
 				"opportunity": "Opportunity"
 			},
@@ -536,6 +552,12 @@
 		},
 		"title": "Dariah in a nutshell"
 	},
+	"JoinDariahPage": {
+		"meta": {
+			"title": "Join DARIAH"
+		},
+		"title": "Join DARIAH"
+	},
 	"OrganisationAndGovernance": {
 		"meta": {
 			"title": "Organisation & Governance"
@@ -615,7 +637,8 @@
 			"software": "Software",
 			"training-material": "Training Material",
 			"workflow": "Workflow",
-			"resources": "Resource"
+			"resources": "Resource",
+			"governance-body": "Governance body"
 		},
 		"category": {
 			"label": "Category",
@@ -644,7 +667,7 @@
 						"part3": "and our community. Subscribing to it is the ideal way of staying informed!"
 					},
 					"form": {
-						"placeholder": "Email address",
+						"label": "E-mail address:",
 						"button": "Subscribe"
 					},
 					"success": "Successfully subscribed to the newsletter!",
@@ -655,6 +678,7 @@
 					}
 				},
 				"cc": {
+					"alt": "creative commons logo",
 					"part1": "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with ",
 					"part2": "DARIAH's Open Access Policy."
 				}
@@ -737,7 +761,16 @@
 				"capitalized_is_member_of": "Member of <capitalizedSpan>{name}</capitalizedSpan>",
 				"capitalized_is_chair_of": "Chair of <capitalizedSpan>{name}</capitalizedSpan>",
 				"capitalized_is_vice_chair_of": "Vice Chair of <capitalizedSpan>{name}</capitalizedSpan>"
-			}
+			},
+			"defaultBackToList": "Back to person list"
+		},
+		"Pagination": {
+			"pageNo": "Page {number}",
+			"prevPage": "Go to previous page",
+			"nextPage": "Go to next page"
+		},
+		"Link": {
+			"external": "External link - opens in a new window"
 		},
 		"StaticPage": {
 			"quickLinks": {

@@ -15,6 +15,7 @@ interface FundingCallCardProps {
 	title: string;
 	startDate: Date;
 	endDate?: Date;
+	titleAs?: "h2" | "h3";
 }
 
 const BG_POSITON_OPTIONS = [
@@ -25,7 +26,7 @@ const BG_POSITON_OPTIONS = [
 ];
 
 export function FundingCallCard(props: Readonly<FundingCallCardProps>): ReactNode {
-	const { slug, index, title, startDate, endDate } = props;
+	const { slug, index, title, startDate, endDate, titleAs = "h3" } = props;
 	const t = useTranslations("FundingCallsPage");
 
 	const status = getFundingCallStatus(startDate, endDate ?? startDate);
@@ -50,7 +51,7 @@ export function FundingCallCard(props: Readonly<FundingCallCardProps>): ReactNod
 						className={
 							"line-clamp-3 group-hover:text-primary group-hover:underline group-focus:text-black group-focus:underline"
 						}
-						variant="h3"
+						variant={titleAs}
 					>
 						{title}
 					</Typography>

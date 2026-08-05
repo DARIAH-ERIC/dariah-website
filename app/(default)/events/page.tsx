@@ -10,6 +10,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { EventCard } from "@/components/ui/event-card/event-card";
 import { ElipseIcon } from "@/components/ui/icons/elipse";
 import { LineIcon } from "@/components/ui/icons/line";
+import { ListHeading } from "@/components/ui/list-heading/list-heading";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
@@ -132,7 +133,7 @@ export default async function EventsPage({
 					</Breadcrumbs>
 				)}
 				<div className="flex flex-col gap-11 py-2.5 xl:px-13.5">
-					<Typography variant="h2">{t("title")}</Typography>
+					<ListHeading page={Number(page)} title={t("title")} />
 					<Filters currentView="list" />
 				</div>
 			</div>
@@ -153,7 +154,7 @@ export default async function EventsPage({
 							Object.entries(itemsByStartDate).map(([startDate, events]) => {
 								return (
 									<div key={startDate} className="flex flex-col gap-8">
-										<Typography className="text-gray-800" variant="h3">
+										<Typography className="text-h3 text-gray-800" variant="h2">
 											{startDate}
 										</Typography>
 										{events.map((event) => {

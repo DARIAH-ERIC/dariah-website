@@ -5,6 +5,7 @@ import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
+import { ListHeading } from "@/components/ui/list-heading/list-heading";
 import { NewsCard } from "@/components/ui/news-card/news-card";
 import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
@@ -116,7 +117,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			</div>
 
 			<div className="flex flex-col px-4 gap-14 lg:px-34">
-				<Typography variant="h2">{t("title")}</Typography>
+				<ListHeading page={Number(page)} title={t("title")} />
 				<ul className="grid grid-cols-1 gap-16 md:grid-cols-2 2xl:gap-x-35.5" role="list">
 					{listItems.map((item) => {
 						const { entity, id, image, publishedAt, summary, title, type } = item;
