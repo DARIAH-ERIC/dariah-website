@@ -15,6 +15,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { config as socialMediaConfig } from "@/lib/social-media/social-media.config";
 import { getGrouppedPersonMembers, mergeEntitiesAndResources } from "@/utils/global.utils";
 
@@ -38,13 +39,15 @@ export async function generateMetadata(props: Readonly<WorkingGroupPageProps>): 
 
 	const response = await client.workingGroups.bySlug({ slug });
 
-	const { name } = response.data;
+	const { name, summary } = response.data;
 
 	const metadata: Metadata = {
 		title: name,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary ?? undefined,
+		openGraph: await createOpenGraphMetadata({
+			description: summary ?? undefined,
+			title: name,
+		}),
 	};
 
 	return metadata;

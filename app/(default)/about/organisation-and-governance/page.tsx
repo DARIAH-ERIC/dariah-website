@@ -11,6 +11,7 @@ import { InfoIcon } from "@/components/ui/icons/info";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import type { GovernanceBody } from "@/types/governance-body";
 import {
 	getColorsForGovernanceVariant,
@@ -30,9 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;

@@ -10,6 +10,7 @@ import { PersonPositions } from "@/components/ui/person-card/person-positions";
 // import { Image } from "@/components/image";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 interface PersonPageProps extends PageProps<"/persons/[slug]"> {}
 
@@ -34,9 +35,10 @@ export async function generateMetadata(props: Readonly<PersonPageProps>): Promis
 
 	const metadata: Metadata = {
 		title: person.name,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({
+			title: person.name,
+			type: "profile",
+		}),
 	};
 
 	return metadata;

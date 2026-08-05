@@ -8,6 +8,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { ListDescription } from "@/components/ui/list-description/list-description";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 
 interface ProjectsPageProps extends PageProps<"/projects"> {}
 
@@ -18,9 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -39,7 +38,7 @@ export default async function ProjectsPage(props: Readonly<ProjectsPageProps>): 
 		status: parsedStatus,
 		limit: 50,
 	});
-	const staticContentResponse = await client.pages.bySlug({ slug: "projects-list" });
+	const staticContentResponse = await client.pages.bySlug({ slug: "projects" });
 	const breadcrumbs = navigation().breadcrumbs.projects;
 
 	const { data: items } = response.data;

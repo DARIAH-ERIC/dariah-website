@@ -33,7 +33,6 @@ export function getRichTextPlainText(content: unknown): string {
 export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNode {
 	const { content } = props;
 
-	// Keep rendering legacy captions while cached API responses are still in circulation.
 	if (typeof content === "string") return content;
 	if (!isJSONContent(content)) return null;
 

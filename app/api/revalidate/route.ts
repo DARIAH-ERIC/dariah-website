@@ -6,9 +6,11 @@ import { env } from "@/config/env.config";
 import { cacheTags } from "@/lib/data/api-client";
 
 type EntityType =
+	| "announcements"
 	| "dariah-projects"
 	| "documents-policies"
 	| "events"
+	| "featured-entities"
 	| "funding-calls"
 	| "governance-bodies"
 	| "impact-case-studies"
@@ -26,17 +28,19 @@ const entityTypeToCacheTags: Record<
 	EntityType,
 	Array<(typeof cacheTags)[keyof typeof cacheTags]>
 > = {
+	announcements: [cacheTags.announcements],
 	"dariah-projects": [cacheTags.dariahProjects],
 	"documents-policies": [cacheTags.documentsPolicies],
 	events: [cacheTags.events],
-	"funding-calls": [cacheTags.fundingCalls],
+	"featured-entities": [cacheTags.featuredEntities, cacheTags.announcements],
+	"funding-calls": [cacheTags.fundingCalls, cacheTags.announcements],
 	"governance-bodies": [cacheTags.governanceBodies],
 	"impact-case-studies": [cacheTags.impactCaseStudies],
 	"members-partners": [cacheTags.membersAndPartners],
 	"site-metadata": [cacheTags.siteMetadata],
 	navigation: [cacheTags.navigation],
-	news: [cacheTags.news],
-	opportunities: [cacheTags.opportunities],
+	news: [cacheTags.news, cacheTags.announcements],
+	opportunities: [cacheTags.opportunities, cacheTags.announcements],
 	pages: [cacheTags.pages],
 	persons: [cacheTags.persons],
 	"spotlight-articles": [cacheTags.spotlightArticles],

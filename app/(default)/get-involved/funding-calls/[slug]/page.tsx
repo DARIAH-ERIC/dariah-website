@@ -11,6 +11,7 @@ import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { addIdsToContent, getSectionsFromContent } from "@/utils/static-page.utils";
 
 interface FundingCallPageProps extends PageProps<"/get-involved/funding-calls/[slug]"> {}
@@ -33,13 +34,15 @@ export async function generateMetadata(props: Readonly<FundingCallPageProps>): P
 
 	const response = await client.fundingCalls.bySlug({ slug });
 
-	const { title } = response.data;
+	const { title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
+			description: summary,
+			title,
+		}),
 	};
 
 	return metadata;

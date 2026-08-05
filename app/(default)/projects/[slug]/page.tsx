@@ -13,6 +13,7 @@ import { RelatedContent } from "@/components/ui/related-content/related-content"
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
 import { mergeEntitiesAndResources } from "@/utils/global.utils";
 
 interface ProjectPageProps extends PageProps<"/projects/[slug]"> {}
@@ -35,13 +36,15 @@ export async function generateMetadata(props: Readonly<ProjectPageProps>): Promi
 
 	const response = await client.projects.bySlug({ slug });
 
-	const { name: title } = response.data;
+	const { name: title, summary } = response.data;
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		description: summary,
+		openGraph: await createOpenGraphMetadata({
+			description: summary ?? undefined,
+			title,
+		}),
 	};
 
 	return metadata;

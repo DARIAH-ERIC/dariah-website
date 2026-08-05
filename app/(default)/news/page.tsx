@@ -11,6 +11,8 @@ import { Pagination } from "@/components/ui/pagination/pagination";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
+import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
+import { getHrefForAnnouncement } from "@/utils/news-page.utils";
 
 interface NewsPageProps extends PageProps<"/news"> {}
 
@@ -21,9 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 	const metadata: Metadata = {
 		title,
-		// openGraph: {
-		// 	title,
-		// },
+		openGraph: await createOpenGraphMetadata({ title }),
 	};
 
 	return metadata;
@@ -34,13 +34,13 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 	const { page = 1, per_page = 14 } = await searchParams;
 	const t = await getTranslations("NewsPage");
 
-	const offset =
-		Number(page) > 2
-			? (Number(page) - 2) * Number(per_page) + (Number(per_page) + 1)
-			: (Number(page) - 1) * (Number(per_page) + 1);
+	const currentPage = Number(page);
+	const perPage = Number(per_page);
+	const isFirstPage = currentPage === 1;
+	const offset = isFirstPage ? 0 : (currentPage - 1) * perPage + 1;
 
-	const response = await client.news.list({
-		limit: page === 1 ? Number(per_page) + 1 : Number(per_page),
+	const response = await client.announcements.list({
+		limit: perPage + (isFirstPage ? 1 : 0),
 		offset,
 	});
 	const breadcrumbs = navigation().breadcrumbs.news;
@@ -66,19 +66,22 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 			</Main>
 		);
 
-	const headlineItem = page === 1 ? items[0] : undefined;
-	const listItems = page === 1 ? items.slice(1) : items;
+	const headlineItem = isFirstPage ? items[0] : undefined;
+	const listItems = isFirstPage ? items.slice(1) : items;
+	const pageCount = Math.max(1, Math.ceil((total - 1) / perPage));
 
 	const renderFeaturedNews = () => {
 		if (headlineItem === undefined) return null;
 
 		const {
 			image: headlineImage,
-			entity: { slug: headlineSlug },
+			entity: { slug },
 			summary: headlineSummary,
 			title: headlineTitle,
 			publishedAt: headlinePublishedAt,
+			type,
 		} = headlineItem;
+		const href = getHrefForAnnouncement({ slug, type });
 
 		return (
 			<NewsCard
@@ -86,8 +89,9 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 				description={headlineSummary}
 				imageAlt={headlineImage.alt}
 				imageUrl={headlineImage.url}
-				linkUrl={`/news/${headlineSlug}`}
+				linkUrl={href}
 				title={headlineTitle}
+				type={type}
 				variant="list-headline"
 			/>
 		);
@@ -116,13 +120,13 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 				<ListHeading page={Number(page)} title={t("title")} />
 				<ul className="grid grid-cols-1 gap-16 md:grid-cols-2 2xl:gap-x-35.5" role="list">
 					{listItems.map((item) => {
-						const { entity, image, publishedAt, summary, title } = item;
+						const { entity, id, image, publishedAt, summary, title, type } = item;
 						const { slug } = entity;
 
-						const href = `/news/${slug}`;
+						const href = getHrefForAnnouncement({ slug, type });
 
 						return (
-							<li key={slug} className="flex justify-center">
+							<li key={id} className="flex justify-center">
 								<NewsCard
 									date={publishedAt}
 									description={summary}
@@ -130,6 +134,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 									imageUrl={image.url}
 									linkUrl={href}
 									title={title}
+									type={type}
 									variant="list-item"
 								/>
 							</li>
@@ -140,7 +145,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 
 			<div className="mb-16 pl-6 bg-pagination-bg w-80.5 max-w-125 h-21 flex items-center ml-auto lg:mb-20 lg:w-125">
 				<Suspense>
-					<Pagination pageCount={Math.ceil(total / Number(per_page))} shouldScroll={true} />
+					<Pagination pageCount={pageCount} shouldScroll={true} />
 				</Suspense>
 			</div>
 		</Main>
