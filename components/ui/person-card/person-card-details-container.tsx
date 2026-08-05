@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import { useTranslations } from "next-intl";

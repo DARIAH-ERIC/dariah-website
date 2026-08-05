@@ -145,7 +145,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						>
 							<NewsIcon className="size-4" />
 							<Typography className="text-[1rem] font-bold uppercase" variant="small">
-								{t("newsCard.tag")}
+								{tag}
 							</Typography>
 						</div>
 						<span className="text-gray-800">{getFormattedDateForNews(date)}</span>
