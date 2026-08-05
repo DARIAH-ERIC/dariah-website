@@ -30,7 +30,7 @@ export function SectionPanel(props: Readonly<SectionPanelProps>): ReactNode {
 	return (
 		<div
 			className={cn(
-				"flex flex-col gap-4 border-l border-l-gray-500 h-fit lg:sticky lg:top-4 xl:max-w-55",
+				"flex flex-col gap-4 border-l border-l-gray-500 h-fit xl:sticky xl:top-4 xl:max-w-55",
 				className,
 			)}
 		>
