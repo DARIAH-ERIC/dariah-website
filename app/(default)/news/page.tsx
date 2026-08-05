@@ -101,7 +101,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 		<Main
 			className={cn("container flex flex-col", headlineItem === undefined ? "gap-9.25" : "gap-20")}
 		>
-			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34">
+			<div className="flex flex-col gap-9.25 px-4 py-8 lg:px-34 2xl:px-12 3xl:px-34">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
 						{breadcrumbs.map(({ label, href }) => {

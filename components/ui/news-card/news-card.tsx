@@ -78,7 +78,8 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	const imageWrapperVariants = {
 		featured: "max-w-full w-188.75 h-84.75",
 		standard: "max-w-full w-90.25 h-61",
-		"list-item": "w-full max-w-full 2xl:w-90.5 h-53.5 2xl:h-55",
+		"list-item":
+			"w-full max-w-full 2xl:w-85 2xl:min-w-85 3xl:w-90.5 3xl:min-w-90.5 h-53.5 2xl:h-55",
 		"list-headline": "w-full max-w-full h-80.5 lg:w-231.25 lg:h-107.75",
 	};
 
@@ -166,7 +167,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 				{variantWithDescription && (
 					<Typography
 						className={cn(
-							"line-clamp-8 lg:line-clamp-2",
+							"line-clamp-8 wrap-anywhere lg:line-clamp-2",
 							variant === "list-item" && "mb-2 line-clamp-3!",
 						)}
 						variant={variant === "list-item" ? "small" : "regular"}

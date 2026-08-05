@@ -61,7 +61,7 @@ export function ResourceBySourceCard(props: Readonly<ResourceCardProps>): ReactN
 				</Typography>
 			</div>
 			<Link
-				className="w-full"
+				className="w-full [&>span]:max-w-fit"
 				endIcon={<OpenInNewIcon className="size-5" />}
 				href={resourceUrl}
 				variant="button-tertiary"

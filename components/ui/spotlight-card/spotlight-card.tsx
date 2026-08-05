@@ -54,7 +54,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 			<Image
 				alt={imageAlt ?? ""}
 				className={cn(
-					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm",
+					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm object-cover",
 					"lg:w-90 lg:h-48 lg:ml-auto xl:w-105 xl:h-60 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",
 				)}
 				height={262}

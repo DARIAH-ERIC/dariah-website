@@ -26,3 +26,13 @@ export const getSectionsFromGroups = (
 		),
 	];
 };
+
+export const getSelectOptionsForNewsletters = (): Array<string | undefined> => {
+	const currentYear = new Date().getFullYear();
+	return [
+		undefined,
+		...Array.from({ length: currentYear - 2018 + 1 }, (_, index) => {
+			return String(2018 + index);
+		}).toReversed(),
+	];
+};

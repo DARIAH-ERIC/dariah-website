@@ -317,7 +317,12 @@
 		},
 		"title": "Newsletters",
 		"previewText": "View Newsletter",
-		"emptyState": "No newsletters found."
+		"emptyState": "No newsletters found.",
+		"select": {
+			"label": "Newsletters from",
+			"placeholder": "Select year",
+			"showAll": "Show all"
+		}
 	},
 	"NewssDetailPage": {
 		"relatedContent": {

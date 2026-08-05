@@ -1575,13 +1575,14 @@ export const client = {
 		list: cache(
 			nextCache(
 				async function list({
+					year,
 					limit = 10,
 					offset = 0,
 				}: paths["/api/v1/newsletters"]["get"]["parameters"]["query"] = {}) {
 					const url = createUrl({
 						baseUrl,
 						pathname: "/api/v1/newsletters",
-						searchParams: createUrlSearchParams({ limit, offset }),
+						searchParams: createUrlSearchParams({ year, limit, offset }),
 					});
 
 					const result = await request<NewsletterListResponse>(url, {
