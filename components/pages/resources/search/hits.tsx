@@ -47,7 +47,9 @@ export function Hits(
 
 	return (
 		<>
-			<Typography variant="h4">{t("resultsInfo", { count, query: queryToInfoText })}</Typography>
+			<Typography aria-atomic="true" aria-live="polite" variant="h4">
+				{t("resultsInfo", { count, query: queryToInfoText })}
+			</Typography>
 			<ul className="list-none flex flex-col gap-8 max-w-301">
 				{items.map((hit) => {
 					return <Component key={hit.objectID} hit={hit} />;

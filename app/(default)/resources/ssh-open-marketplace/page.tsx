@@ -13,7 +13,7 @@ import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import logoSshoc from "@/public/assets/images/logo-sshoc.svg";
 
-interface DariahResourceCataloguePageProps extends PageProps<"/resources/dariah-resource-catalogue"> {}
+interface DariahResourceCataloguePageProps extends PageProps<"/resources/ssh-open-marketplace"> {}
 
 export async function generateMetadata(): Promise<Metadata> {
 	const t = await getTranslations("SSHMarketplaceResourcesPage");
@@ -43,7 +43,7 @@ export default async function DariahResourceCataloguePage(
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
-			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[80px]" />
+			<div className="absolute inset-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[5rem]" />
 			<div className="flex gap-15 px-4 py-8 lg:px-33">
 				<div className="flex flex-col gap-14 max-w-251">
 					{breadcrumbs.length > 0 && (

@@ -47,7 +47,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 
 	const createCountryLetterIcon = (letter: string) => {
 		return divIcon({
-			html: `<div class="text-white text-[12px]">
+			html: `<div class="text-white text-[0.75rem]" aria-hidden="true">
             ${letter}
            </div>`,
 			className: "clear-marker",
@@ -83,6 +83,7 @@ export function MapGeoJson(props: Readonly<MapGeoJsonProps>): ReactNode {
 					{
 						icon: createCountryLetterIcon(markerLetter),
 						interactive: false,
+						keyboard: false,
 					},
 				);
 

@@ -9,8 +9,8 @@ export function PilarsSection(): ReactNode {
 	return (
 		<section className="px-4 pt-7.75 pb-23 xl:px-12 2xl:px-30.5">
 			<Typography
-				className="font-heading text-[56px] font-light w-full px-2.5 py-17.5 lg:text-[85px]"
-				variant="h1"
+				className="font-heading text-[3.5rem] font-light w-full px-2.5 py-17.5 lg:text-[5.3125rem]"
+				variant="h2"
 			>
 				{t("PillarsSection.header")}
 			</Typography>

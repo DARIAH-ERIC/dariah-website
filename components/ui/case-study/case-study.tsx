@@ -42,7 +42,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 						gradientStartColorVar="--case-study-gradient-start"
 					/>
 					<Typography
-						className="text-[14px] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
+						className="text-[0.875rem] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 						variant="regular"
 					>
 						{t("caseStudyCard.tag")}
@@ -50,7 +50,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 				</div>
 				<Typography
 					className={cn(
-						"text-[22px] text-gray-800 line-clamp-3",
+						"text-[1.375rem] text-gray-800 line-clamp-3",
 						"group-hover:text-primary group-hover:underline",
 						"group-focus:text-primary group-focus:underline",
 					)}

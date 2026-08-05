@@ -4,11 +4,11 @@ import React, { type ReactNode } from "react";
 
 import { Image } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
-import { NavLink } from "@/components/ui/link/nav-link";
+import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import { parseDateForProject } from "@/utils/project-page.utils";
 
-interface ProjectProps {
+interface ProjectProps extends NavLinkProps {
 	endDate: Date;
 	href: string;
 	imageUrl?: string;
@@ -19,7 +19,7 @@ interface ProjectProps {
 }
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
-	const { title, imageUrl, imageAlt, type, startDate, endDate, href } = props;
+	const { title, imageUrl, imageAlt, type, startDate, endDate, href, ...rest } = props;
 	const t = useTranslations("ProjectsDetailPage.projectCard");
 
 	return (
@@ -27,9 +27,10 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			className={cn(
 				"bg-gray-100 shadow-standard rounded-sm group flex-col justify-end w-82 h-98.25 max-w-full md:w-96.25 xl:w-80 xl:h-82 2xl:w-96.25 2xl:h-98.25",
 				"hover:bg-event-card-list-bg-hover",
-				"focus-visible:bg-event-card-list-bg-hover focus-visible:outline-4 focus-visible:outline-accent",
+				"focus:bg-event-card-list-bg-hover focus:outline-4 focus:outline-accent",
 			)}
 			href={href}
+			{...rest}
 		>
 			{imageUrl != null ? (
 				<Image
@@ -49,7 +50,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 							gradientStartColorVar="--case-study-gradient-start"
 						/>
 						<Typography
-							className="text-[14px] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
+							className="text-[0.875rem] uppercase font-bold bg-linear-to-r from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 							variant="regular"
 						>
 							{t("tag")}
@@ -57,7 +58,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 					</div>
 					<Typography
 						className={cn(
-							"text-[16px] capitalize",
+							"text-[1rem] capitalize",
 							type === "coordinator" ? "bg-primary-200" : "bg-gray-300",
 						)}
 						variant="regular"
@@ -68,7 +69,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 				<div className="flex gap-4 flex-col">
 					<Typography
 						className={cn(
-							"text-[22px] text-black line-clamp-1",
+							"text-[1.375rem] text-black line-clamp-1",
 							"group-hover:text-primary group-hover:underline",
 							"group-focus:text-primary group-focus:underline",
 						)}

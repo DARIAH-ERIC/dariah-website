@@ -83,7 +83,7 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 					<div
 						className={cn(
 							resourceTypeBgColor,
-							"px-2 py-0.5 uppercase text-regular text-[12px] text-white font-bold",
+							"px-2 py-0.5 uppercase text-caption text-white font-bold",
 						)}
 					>
 						{resourceTypeText}
@@ -94,7 +94,7 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 						</div>
 					)}
 				</div>
-				<Typography className="text-[18px]" variant="h4">
+				<Typography className="text-h5" variant="h2">
 					{title}
 				</Typography>
 				<Typography className="line-clamp-3 wrap-anywhere" variant="regular">

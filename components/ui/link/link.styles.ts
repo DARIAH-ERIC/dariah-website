@@ -19,7 +19,7 @@ export const linkStyles = styles({
 				"focus-visible:outline-none",
 			),
 			tertiary: cn(
-				"gap-2 text-regular text-[14px] w-fit [&>span]:text-primary",
+				"gap-2 text-regular text-[0.875rem] w-fit [&>span]:text-primary",
 				"hover:text-primary hover:underline hover:decoration-2 hover:underline-offset-[24%]",
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>span]:bg-accent-100",
 				"focus-visible:outline-none",
@@ -39,12 +39,12 @@ export const linkStyles = styles({
 				"disabled:text-gray-400",
 			),
 			paragraph: cn(
-				"gap-2 text-regular text-[18px] w-fit underline text-primary",
+				"gap-2 text-regular text-[1.25rem] w-fit underline text-primary",
 				"hover:text-black hover:[&>svg]:fill-black",
 				"focus-visible:text-section-text focus-visible:decoration-[3px] focus-visible:underline-offset-[24%] focus-visible:underline focus-visible:[&>svg]:fill-black focus-visible:[&>span]:bg-accent-100",
 				"focus-visible:outline-none",
 			),
-			"breadcrumb-current": "text-regular text-black text-[14px] cursor-default!",
+			"breadcrumb-current": "text-regular text-black text-[0.875rem] cursor-default!",
 			"button-primary": cn(
 				"cursor-pointer p-1.5 box-border *:flex *:justify-center *:items-center *:size-full *:gap-2",
 				"transition-colors duration-200 ease-in-out",

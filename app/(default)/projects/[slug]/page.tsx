@@ -108,7 +108,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 						<Link href="/projects" variant="secondary" withDefaultLeftIcon={true}>
 							{t("browseAll")}
 						</Link>
-						<Typography className="uppercase" variant="h3">
+						<Typography className="text-h3 uppercase" variant="h1">
 							{acronym}
 						</Typography>
 					</div>
@@ -123,7 +123,9 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 						websiteUrl={website?.url}
 					/>
 					<div className="flex flex-col gap-4 px-2 pt-10">
-						<Typography variant="h3">{"Summary"}</Typography>
+						<Typography className="text-h3" variant="h2">
+							{"Summary"}
+						</Typography>
 						<Typography variant="regular">{summary}</Typography>
 					</div>
 					{hasRichText && (
@@ -133,7 +135,7 @@ export default async function ProjectPage(props: Readonly<ProjectPageProps>): Pr
 					)}
 					<div className="flex flex-col py-6 px-2 gap-10">
 						<div className="flex flex-col gap-4">
-							<Typography variant="h4">
+							<Typography className="text-h4" variant="h2">
 								{t("participants.title", { number: participants.length.toString() || "0" })}
 							</Typography>
 							{participants.length === 0 ? (

@@ -58,7 +58,7 @@ export default async function LegalNoticePage(): Promise<ReactNode> {
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="font-light" variant="h2">
 					{title}
 				</Typography>
 				<div className="flex-col flex gap-8 justify-between xl:pb-12 xl:flex-row 2xl:gap-21">

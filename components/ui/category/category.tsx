@@ -31,7 +31,7 @@ export function Category({ name }: Readonly<CategoryProps>): ReactNode {
 	return (
 		<div className="flex gap-2">
 			{Object.keys(TYPE_ICONS).includes(name) ? TYPE_ICONS[name as keyof typeof TYPE_ICONS] : null}
-			<Typography className="text-primary-500 text-[14px] font-bold uppercase" variant="small">
+			<Typography className="text-primary-500 text-[0.875rem] font-bold uppercase" variant="small">
 				{name.replaceAll("-", " ").replaceAll("_", " ")}
 			</Typography>
 		</div>

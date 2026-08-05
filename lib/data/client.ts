@@ -243,7 +243,6 @@ export function navigation() {
 				label: "news and events",
 			},
 			{
-				href: "/events",
 				label: "events",
 			},
 		],
@@ -268,8 +267,19 @@ export function navigation() {
 				label: "Get involved",
 			},
 			{
-				href: "/get-involved/funding-calls",
 				label: "Funding Calls",
+			},
+		],
+		joinDariahPage: [
+			{
+				href: "/",
+				label: "home",
+			},
+			{
+				label: "Get involved",
+			},
+			{
+				label: "Join DARIAH",
 			},
 		],
 		organisationAndGovernance: [
@@ -281,7 +291,6 @@ export function navigation() {
 				label: "About",
 			},
 			{
-				href: "/about/organisation-and-governance",
 				label: "Organisation & Governance",
 			},
 		],
@@ -306,7 +315,6 @@ export function navigation() {
 				label: "about",
 			},
 			{
-				href: "/about/impact-case-studies",
 				label: "impact case studies",
 			},
 		],
@@ -331,7 +339,6 @@ export function navigation() {
 				label: "network",
 			},
 			{
-				href: "/network/members-and-partners",
 				label: "members and partners",
 			},
 		],
@@ -356,7 +363,6 @@ export function navigation() {
 				label: "news and events",
 			},
 			{
-				href: "/news",
 				label: "news",
 			},
 		],
@@ -381,7 +387,6 @@ export function navigation() {
 				label: "get involved",
 			},
 			{
-				href: "/get-involved/opportunities",
 				label: "opportunities",
 			},
 		],
@@ -434,7 +439,6 @@ export function navigation() {
 				label: "news and events",
 			},
 			{
-				href: "/spotlights",
 				label: "spotlight",
 			},
 		],
@@ -459,7 +463,6 @@ export function navigation() {
 				label: "network",
 			},
 			{
-				href: "/network/working-groups/",
 				label: "working groups",
 			},
 		],

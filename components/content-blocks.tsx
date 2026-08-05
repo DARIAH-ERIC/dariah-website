@@ -61,7 +61,7 @@ function renderContentBlock(
 						referrerPolicy="strict-origin-when-cross-origin"
 						// eslint-disable-next-line @eslint-react/dom/no-unsafe-iframe-sandbox
 						sandbox="allow-scripts allow-same-origin"
-						src={field.url}
+						src={`${field.url}?hl=en`}
 						title={caption || "Embedded content"}
 						width="1600"
 					></iframe>

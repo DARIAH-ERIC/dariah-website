@@ -29,7 +29,7 @@ export function DateInput(props: Readonly<Omit<DateInputProps, "children">>): Re
 					return (
 						<DateSegment
 							aria-hidden={true}
-							className="text-regular text-black text-[16px] placeholder-gray-700 focus:outline-primary"
+							className="text-small text-black placeholder-gray-700 focus:outline-primary"
 							segment={segment}
 						/>
 					);

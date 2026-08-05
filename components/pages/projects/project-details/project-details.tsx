@@ -136,7 +136,7 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 			</div>
 			{image?.url !== undefined && (
 				<Image
-					alt={image.alt ?? ""}
+					alt={image.alt ?? "Image description will be added soon"}
 					className="w-62.5 h-48 object-contain"
 					height={192}
 					src={image.url}

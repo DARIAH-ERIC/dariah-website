@@ -22,8 +22,8 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 	return (
 		<section className="w-full px-6 py-20 items-center flex flex-col 3xl:px-26.25 3xl:py-22.5">
 			<Typography
-				className="font-heading text-[56px] font-light w-full lg:px-7.25 lg:text-[85px]"
-				variant="h1"
+				className="font-heading text-[3.5rem] font-light w-full lg:px-7.25 lg:text-[5.3125rem]"
+				variant="h2"
 			>
 				{t("NetworkSection.title")}
 			</Typography>
@@ -39,11 +39,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
+								<p className="font-heading text-[8rem] font-black leading-[1.3] tracking-[0.02em] xl:text-[6.25rem] 3xl:text-[8rem]">
 									{stats.memberCountries}
 								</p>
 								<Typography
-									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									className="pb-5.5 text-[1.5rem] text-start xl:text-center 3xl:text-start"
 									variant="h3"
 								>
 									{t("NetworkSection.countries")}
@@ -60,11 +60,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
+								<p className="font-heading text-[8rem] font-black leading-[1.3] tracking-[0.02em] xl:text-[6.25rem] 3xl:text-[8rem]">
 									{stats.partnerInstitutions}
 								</p>
 								<Typography
-									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									className="pb-5.5 text-[1.5rem] text-start xl:text-center 3xl:text-start"
 									variant="h3"
 								>
 									{t("NetworkSection.partnerInstitutions")}
@@ -81,11 +81,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
+								<p className="font-heading text-[8rem] font-black leading-[1.3] tracking-[0.02em] xl:text-[6.25rem] 3xl:text-[8rem]">
 									{stats.cooperatingPartners}
 								</p>
 								<Typography
-									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									className="pb-5.5 text-[1.5rem] text-start xl:text-center 3xl:text-start"
 									variant="h3"
 								>
 									{t("NetworkSection.cooperatingPartners")}
@@ -101,11 +101,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
-								<p className="font-heading text-[128px] font-black leading-[1.3] tracking-[0.02em] xl:text-[100px] 3xl:text-[128px]">
+								<p className="font-heading text-[8rem] font-black leading-[1.3] tracking-[0.02em] xl:text-[6.25rem] 3xl:text-[8rem]">
 									{stats.workingGroups}
 								</p>
 								<Typography
-									className="pb-5.5 text-[24px] text-start xl:text-center 3xl:text-start"
+									className="pb-5.5 text-[1.5rem] text-start xl:text-center 3xl:text-start"
 									variant="h3"
 								>
 									{t("NetworkSection.workingGroups")}

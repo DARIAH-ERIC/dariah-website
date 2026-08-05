@@ -1,5 +1,6 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { type ReactNode, useRef, useState } from "react";
 import { useInstantSearch, useSearchBox, type UseSearchBoxProps } from "react-instantsearch";
 
@@ -16,6 +17,7 @@ export function SearchBox(props: Readonly<UseSearchBoxProps & { className?: stri
 	const [inputValue, setInputValue] = useState(query);
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { className } = props;
+	const t = useTranslations("DariahResourceCataloguePage");
 
 	const isSearchStalled = status === "stalled";
 
@@ -64,7 +66,7 @@ export function SearchBox(props: Readonly<UseSearchBoxProps & { className?: stri
 				onChange={(event) => {
 					setQuery(event);
 				}}
-				placeholder="data management"
+				placeholder={t("searchBox.placeholder")}
 				startIcon={<SearchIcon className="size-5" />}
 				value={inputValue}
 			/>

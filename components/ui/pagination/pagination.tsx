@@ -2,6 +2,7 @@
 
 import { cn } from "@acdh-oeaw/style-variants";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button/button";
@@ -27,6 +28,8 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 		firstPageIndex = 1,
 		refinePage,
 	} = props;
+
+	const t = useTranslations("(default).Pagination");
 
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -91,7 +94,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 				}}
 				variant="icon-button-color-bg"
 			>
-				<ChevronLeftIcon aria-label="previous-page" />
+				<ChevronLeftIcon aria-label={t("prevPage")} />
 			</Button>
 
 			{pagesArr.map((page) => {
@@ -99,6 +102,8 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 					<PaginationItem
 						key={page}
 						active={page === currentPage}
+						aria-current={page === currentPage ? "page" : undefined}
+						aria-label={t("pageNo", { number: (page + pagesToTextDiff).toString() })}
 						onPress={() => {
 							goToPage(page);
 						}}
@@ -115,7 +120,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 				}}
 				variant="icon-button-color-bg"
 			>
-				<ChevronForwardIcon aria-label="next-page" />
+				<ChevronForwardIcon aria-label={t("prevPage")} />
 			</Button>
 		</div>
 	);

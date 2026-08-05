@@ -93,7 +93,7 @@ export default async function ContactPage({
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="text-h2 font-light" variant="h1">
 					{title}
 				</Typography>
 			</div>
@@ -103,7 +103,7 @@ export default async function ContactPage({
 			<div className="flex flex-col gap-2">
 				<div className="py-2 flex gap-2 bg-gray-100 shadow-light justify-center items-center w-full">
 					<InfoIcon className="size-4" />
-					<Typography className="text-[15px]" variant="small">
+					<Typography className="text-[0.9375rem]" variant="small">
 						{t("infoText")}
 					</Typography>
 				</div>

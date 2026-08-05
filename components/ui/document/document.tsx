@@ -21,6 +21,7 @@ export function Document(props: Readonly<DocumentProps>): ReactNode {
 
 	return (
 		<NavLink
+			aria-label={title || t("placeholderName")}
 			className={cn(
 				"px-4 py-3 flex border-2 border-transparent text-black flex-wrap flex-col max-w-full items-start justify-between gap-2",
 				isEven ? "bg-gray-100" : "bg-transparent z-2",
@@ -31,10 +32,10 @@ export function Document(props: Readonly<DocumentProps>): ReactNode {
 			)}
 			href={documentUrl}
 		>
-			<Typography className={cn("text-[18px]")} variant="h4">
+			<Typography className={cn("text-h5! font-normal!")} variant="regular">
 				{title || t("placeholderName")}
 			</Typography>
-			<Typography className="flex gap-2 items-center text-[18px]" variant="h4">
+			<Typography className="flex gap-2 items-center text-h5! font-semibold!" variant="regular">
 				{previewText ?? t("viewPDF")} <ChevronForwardIcon className="size-5" />
 			</Typography>
 		</NavLink>

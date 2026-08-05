@@ -23,7 +23,7 @@ export function QuickLinks(props: Readonly<QuickLinksProps>): ReactNode {
 
 	return (
 		<div className={cn("flex-col gap-4 w-full h-fit xl:top-0 xl:sticky xl:w-51.5", className)}>
-			<Typography className="text-[45px] font-light" variant="h4">
+			<Typography className="text-h4 text-[2.8125rem] font-light" variant="h2">
 				{t("quickLinks.title")}
 			</Typography>
 			{links === undefined || links.length === 0 ? (

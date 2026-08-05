@@ -71,7 +71,7 @@ export default async function OpportunitiesPage({
 			)}
 			<div className="flex flex-col px-4 gap-14 lg:px-16 xl:px-32 2xl:px-86">
 				<div className="flex flex-col gap-6 items-center">
-					<Typography className="w-full" variant="h2">
+					<Typography className="text-h2 w-full" variant="h1">
 						{t("title")}
 					</Typography>
 					<Image
@@ -86,7 +86,9 @@ export default async function OpportunitiesPage({
 					<Filters />
 				</div>
 				<div className="flex flex-col gap-8 lg:px-25 2xl:px-51">
-					<Typography variant="h4">{t("results", { count: data.length })}</Typography>
+					<Typography aria-atomic="true" aria-live="polite" variant="h4">
+						{t("results", { count: total })}
+					</Typography>
 					{data.length === 0 ? (
 						<div className="py-2 flex flex-col gap-6 items-center pb-16">
 							<Image

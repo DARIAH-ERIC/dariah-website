@@ -15,10 +15,11 @@ interface PersonCardProps {
 	imageAlt?: string | null;
 	name: string;
 	position: Person["positions"];
+	nameTag?: "h3" | "h4";
 }
 
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
-	const { href, imageUrl, imageAlt, name, position } = props;
+	const { href, imageUrl, imageAlt, name, position, nameTag = "h4" } = props;
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
@@ -127,7 +128,9 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 				width={136}
 			/>
 			<div className="flex flex-col py-1 gap-5.5 w-full">
-				<Typography variant="h5">{name}</Typography>
+				<Typography className="text-h5" variant={nameTag}>
+					{name}
+				</Typography>
 				<Typography className="text-gray-800 font-medium" variant="regular">
 					{positionNames}
 				</Typography>

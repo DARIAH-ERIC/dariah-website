@@ -23,7 +23,9 @@ export function DesktopRefinementList(props: Readonly<DesktopRefinementListProps
 
 	return (
 		<div className="flex flex-col gap-2">
-			<Typography variant="h4">{t(`filter.${attribute}` as never)}</Typography>
+			<Typography className="text-h4" variant="h3">
+				{t(`filter.${attribute}` as never)}
+			</Typography>
 			<RefinementListItems
 				attribute={attribute}
 				canToggleShowMore={canToggleShowMore}

@@ -1,24 +1,19 @@
 import cn from "clsx/lite";
-import type { ComponentProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-interface SkipLinkProps extends ComponentProps<"a"> {
-	children: ReactNode;
-	href: `#${string}`;
-}
+import { Link, type LinkProps } from "@/components/ui/link/link";
 
-export function SkipLink(props: Readonly<SkipLinkProps>): ReactNode {
+export function SkipLink(props: Readonly<LinkProps>): ReactNode {
 	const { children, className, href, ...rest } = props;
 
 	return (
-		<a
+		<Link
 			{...rest}
-			className={cn(
-				"absolute -translate-y-3/2 focus:translate-y-0 focus:outline-2 focus:outline-offset-0",
-				className,
-			)}
+			className={cn("absolute z-0 focus:z-9", className)}
 			href={href}
+			variant="button-secondary-blue"
 		>
 			{children}
-		</a>
+		</Link>
 	);
 }

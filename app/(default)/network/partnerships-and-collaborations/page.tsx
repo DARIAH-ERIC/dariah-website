@@ -62,7 +62,7 @@ export default async function PartnershipsAndCollaborationsPage(): Promise<React
 						})}
 					</Breadcrumbs>
 				)}
-				<Typography className="text-[45px] font-light" variant="h2">
+				<Typography className="font-light" variant="h2">
 					{title}
 				</Typography>
 				<div className="flex-col flex gap-8 justify-between xl:py-12 xl:flex-row 2xl:gap-21">

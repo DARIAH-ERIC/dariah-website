@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import React, { type ReactNode } from "react";
+import React, { type ReactNode, useCallback } from "react";
 import { Configure, InstantSearch } from "react-instantsearch";
 
 import { ContentBlocks } from "@/components/content-blocks";
@@ -34,8 +34,17 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 	const envCollectionName = env.NEXT_PUBLIC_TYPESENSE_RESOURCE_COLLECTION_NAME;
 
 	const query = searchParams.get("query") ?? "";
-	const pageUrlStringValue = searchParams.get("page");
+	const pageUrlStringValue = searchParams.get("dariah-resources[page]");
 	const pageUrlValue = pageUrlStringValue !== null ? Number.parseInt(pageUrlStringValue) : 0;
+
+	const setHeadingFocus = useCallback(
+		(node: HTMLHeadingElement | null) => {
+			if (node && pageUrlValue > 1) {
+				node.focus();
+			}
+		},
+		[pageUrlValue],
+	);
 
 	return (
 		<InstantSearch
@@ -66,7 +75,12 @@ export function SearchContainer(props: Readonly<SearchContainerProps>): ReactNod
 						)}
 						<div className="flex flex-col gap-12 lg:gap-7 xl:px-19 3xl:px-39">
 							<div className="flex flex-col gap-7">
-								<Typography className="font-heading text-[45px] font-light" variant="h1">
+								<Typography
+									ref={setHeadingFocus}
+									className="font-heading text-[2.8125rem] font-light"
+									tabIndex={pageUrlValue > 1 ? -1 : undefined}
+									variant="h1"
+								>
 									{title ?? t("title")}
 								</Typography>
 								<div>

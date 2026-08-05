@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@acdh-oeaw/style-variants";
-import type { ElementType, HTMLAttributes, ReactNode } from "react";
+import type { ElementType, HTMLAttributes, ReactNode, Ref } from "react";
 
 const typographyConfig = {
 	h1: {
@@ -49,6 +49,7 @@ type TypographyProps = HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement>
 	children?: ReactNode;
 	as?: ElementType;
 	className?: string;
+	ref?: Ref<HTMLHeadingElement | HTMLParagraphElement>;
 };
 
 export function Typography(props: Readonly<TypographyProps>): ReactNode {
@@ -58,7 +59,7 @@ export function Typography(props: Readonly<TypographyProps>): ReactNode {
 	const Component = as ?? element;
 
 	return (
-		<Component className={cn(variantClass, className)} {...rest}>
+		<Component className={cn(variantClass, className, "focus:outline-none")} {...rest}>
 			{children}
 		</Component>
 	);

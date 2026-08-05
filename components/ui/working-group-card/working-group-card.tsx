@@ -4,10 +4,10 @@ import type { ReactNode } from "react";
 
 import { Image } from "@/components/image";
 import { WorkingGroupIcon } from "@/components/ui/icons/working-group";
-import { NavLink } from "@/components/ui/link/nav-link";
+import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 
-interface WorkingGroupCard {
+interface WorkingGroupCard extends NavLinkProps {
 	title: string;
 	imageUrl: string;
 	imageAlt?: string | null;
@@ -15,7 +15,7 @@ interface WorkingGroupCard {
 }
 
 export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
-	const { title, imageUrl, imageAlt, href } = props;
+	const { title, imageUrl, imageAlt, href, ...rest } = props;
 	const t = useTranslations("WorkingGroupsDetailPage.card");
 
 	return (
@@ -26,6 +26,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 				"focus:shadow-standard focus:outline-accent-800 focus:outline-4",
 			)}
 			href={href}
+			{...rest}
 		>
 			<Image
 				alt={imageAlt ?? ""}
@@ -48,7 +49,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 						gradientStartColorVar="--case-study-gradient-start"
 					/>
 					<Typography
-						className="text-[14px] font-bold bg-linear-to-r uppercase from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
+						className="text-[0.875rem] font-bold bg-linear-to-r uppercase from-case-study-gradient-start to-case-study-gradient-end bg-clip-text text-transparent"
 						variant="regular"
 					>
 						{t("tag")}
@@ -56,11 +57,11 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 				</div>
 				<Typography
 					className={cn(
-						"line-clamp-2",
+						"line-clamp-2 text-regular font-body",
 						"group-hover:text-primary group-hover:underline",
 						"group-focus:text-primary group-focus:underline",
 					)}
-					variant="regular"
+					variant="h3"
 				>
 					{title}
 				</Typography>

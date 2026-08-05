@@ -64,24 +64,19 @@ export default async function ImpactCaseStudiesPage(
 						})}
 					</Breadcrumbs>
 				)}
-				<ListDescription content={content} title={title} />
+				<ListDescription content={content} page={Number(page)} title={title} />
 			</div>
 			<div className="flex flex-col gap-18.75 pb-11">
 				{grouppedItems.length > 0 ? (
 					grouppedItems.map(([year, items]) => {
 						return (
 							<div key={year} className="flex flex-col gap-10 px-4 lg:px-31">
-								<div className="flex gap-2.5 items-end">
-									<Typography
-										className="text-[64px] text-case-study-year leading-[100%] font-light"
-										variant="h3"
-									>
+								<Typography className="flex gap-2.5 items-end text-h3" variant="h2">
+									<span className="text-[4rem] text-case-study-year leading-[100%] font-light">
 										{year}
-									</Typography>
-									<Typography className="font-light uppercase text-gray-700" variant="h3">
-										{t("sectionText")}
-									</Typography>
-								</div>
+									</span>
+									<span className="font-light uppercase text-gray-700">{t("sectionText")}</span>
+								</Typography>
 								<ul className="grid gap-5 mx-auto md:grid-cols-2 xl:grid-cols-3">
 									{items.map((item) => {
 										const { entity, image, title } = item;

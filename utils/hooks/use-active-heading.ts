@@ -6,11 +6,15 @@ export const useActiveHeading = (ids: Array<string>): string => {
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
+				let isActiveSet = false;
 				for (const entry of entries) {
 					if (entry.isIntersecting) {
 						setActiveId(entry.target.id);
+						isActiveSet = true;
 					}
 				}
+
+				if (!isActiveSet && (!activeId || !ids.includes(activeId))) setActiveId(ids[0] ?? "");
 			},
 			{
 				rootMargin: "0px 0px -80% 0px",
@@ -25,7 +29,7 @@ export const useActiveHeading = (ids: Array<string>): string => {
 		return () => {
 			observer.disconnect();
 		};
-	}, [ids]);
+	}, [ids, activeId]);
 
 	return activeId;
 };
