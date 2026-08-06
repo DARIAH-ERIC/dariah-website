@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { EventInfoSection } from "@/components/pages/events/event-detail-page/event-info-section";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { EventCard } from "@/components/ui/event-card/event-card";
@@ -113,7 +113,7 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 					{t("browseAll")}
 				</Link>
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:flex-wrap lg:px-0">
-					<Image
+					<ContentImage
 						alt={image.alt ?? "Image description will be added soon"}
 						className="w-82 h-40 object-contain lg:w-197.5 lg:h-101.25"
 						height={405}

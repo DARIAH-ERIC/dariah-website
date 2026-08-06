@@ -1,7 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import type { ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import { getFormattedDateForCard } from "@/utils/spotlight-page.utils";
@@ -51,7 +51,7 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 					{summary}
 				</Typography>
 			</div>
-			<Image
+			<ContentImage
 				alt={imageAlt ?? ""}
 				className={cn(
 					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm object-cover",

@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
@@ -135,7 +135,7 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 				</div>
 			</div>
 			{image?.url !== undefined && (
-				<Image
+				<ContentImage
 					alt={image.alt ?? "Image description will be added soon"}
 					className="w-62.5 h-48 object-contain"
 					height={192}

@@ -2,7 +2,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import { Fragment, type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage, Image } from "@/components/image";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
@@ -23,6 +23,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
+	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	const sortedPosition = sortUserPosition(position);
 
@@ -120,7 +121,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 			)}
 			href={href}
 		>
-			<Image
+			<ProfileImage
 				alt={imageAlt ?? ""}
 				className="object-cover min-w-34 size-34 mt-2"
 				height={136}

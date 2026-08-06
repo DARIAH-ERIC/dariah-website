@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { NewsCard } from "@/components/ui/news-card/news-card";
@@ -104,7 +104,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							{summary}
 						</Typography>
 						<figure className="flex flex-col gap-y-4">
-							<Image
+							<ContentImage
 								alt={image.alt ?? "Image description will be added soon"}
 								className="w-full"
 								height={628.25}

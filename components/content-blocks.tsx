@@ -3,7 +3,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import type { ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
 import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
@@ -112,7 +112,7 @@ function renderContentBlock(
 
 			return (
 				<figure key={index} className={cn("flex flex-col gap-y-2 py-4 mt-1.5", layoutClassName)}>
-					<Image
+					<ContentImage
 						alt={field.image.alt ?? ""}
 						height={isFloated ? 450 : 900}
 						src={field.image.url}
@@ -140,7 +140,7 @@ function renderContentBlock(
 							field.side === "end" ? "@xl:float-end @xl:ml-7" : "@xl:float-start @xl:mr-7",
 						)}
 					>
-						<Image
+						<ContentImage
 							alt={field.image.alt ?? ""}
 							className="size-50 max-w-full object-cover"
 							height={400}

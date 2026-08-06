@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { PersonCard } from "@/components/ui/person-card/person-card";
@@ -95,7 +95,7 @@ export default async function ImpactCaseStudyPage(
 			</div>
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-y-4">
-					<Image
+					<ContentImage
 						alt={image.alt ?? "Image description will be added soon"}
 						className="w-480 h-125 object-contain"
 						height={621}

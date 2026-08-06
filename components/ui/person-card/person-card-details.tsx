@@ -2,7 +2,7 @@ import type { JSONContent } from "@tiptap/core";
 import { useTranslations } from "next-intl";
 import type { ReactNode, Ref } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage, Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
@@ -26,10 +26,11 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 	const t = useTranslations("(default).PersonCard");
 
 	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
+	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	return (
 		<div className="flex flex-col gap-4 xl:flex-row">
-			<Image
+			<ProfileImage
 				alt={imageAlt ?? ""}
 				className="size-43 object-cover"
 				height={172}

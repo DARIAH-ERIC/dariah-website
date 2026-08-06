@@ -2,7 +2,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { WorkingGroupIcon } from "@/components/ui/icons/working-group";
 import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
@@ -28,7 +28,7 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 			href={href}
 			{...rest}
 		>
-			<Image
+			<ContentImage
 				alt={imageAlt ?? ""}
 				className="size-80 rounded-t-sm object-contain md:size-96.25"
 				height={385}
