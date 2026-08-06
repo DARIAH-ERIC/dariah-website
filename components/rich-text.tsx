@@ -140,7 +140,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 						class: cn(
 							// eslint-disable-next-line better-tailwindcss/no-unknown-classes
 							linkStyles({ variant: "paragraph" }),
-							"inline break-all [[href^='mailto:']]:whitespace-nowrap",
+							"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
 						),
 					},
 				},

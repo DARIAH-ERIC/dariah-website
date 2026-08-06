@@ -51,8 +51,11 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 				horizontalRule: false,
 				link: {
 					HTMLAttributes: {
-						// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
-						class: cn(linkStyles({ variant: "paragraph" }), "inline"),
+						class: cn(
+							// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
+							linkStyles({ variant: "paragraph" }),
+							"inline [font-size:inherit]! leading-[inherit]!",
+						),
 					},
 				},
 				listItem: false,
