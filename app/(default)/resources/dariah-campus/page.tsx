@@ -45,20 +45,20 @@ export default async function DariahResourceCataloguePage(
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
 			<div className="absolute inset-0 z-0 mask-(--resource-catalogue-divider) bg-(image:--resource-catalogue-divider) h-20 backdrop-blur-[5rem]" />
-			<div className="flex gap-15 px-4 py-8 z-1 lg:px-33">
-				<div className="flex flex-col gap-14 max-w-251">
-					{breadcrumbs.length > 0 && (
-						<Breadcrumbs>
-							{breadcrumbs.map(({ label, href }) => {
-								return (
-									<Breadcrumb key={label} className="w-fit" href={href}>
-										{label}
-									</Breadcrumb>
-								);
-							})}
-						</Breadcrumbs>
-					)}
-					<div className="flex flex-col gap-8">
+			<div className="flex w-full flex-col gap-14 px-4 py-8 z-1 lg:px-33">
+				{breadcrumbs.length > 0 && (
+					<Breadcrumbs>
+						{breadcrumbs.map(({ label, href }) => {
+							return (
+								<Breadcrumb key={label} className="w-fit" href={href}>
+									{label}
+								</Breadcrumb>
+							);
+						})}
+					</Breadcrumbs>
+				)}
+				<div className="grid w-full gap-x-15 gap-y-8 xl:grid-cols-[minmax(0,1fr)_auto]">
+					<div className="flex w-full max-w-251 min-w-0 flex-col gap-8">
 						<Typography className="text-h2 font-medium" variant="h1">
 							{title}
 						</Typography>
@@ -67,16 +67,16 @@ export default async function DariahResourceCataloguePage(
 							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
 							src={resourceLogo}
 						/>
-						<div>
-							<ContentBlocks fields={content} />
-						</div>
 					</div>
+					<div className="w-full max-w-251 min-w-0 xl:row-start-2 xl:col-start-1">
+						<ContentBlocks fields={content} />
+					</div>
+					<ResourceLogo
+						alt={image?.alt ?? "Dariah campus Logo"}
+						className="hidden w-108.5 xl:row-start-2 xl:col-start-2 xl:block"
+						src={resourceLogo}
+					/>
 				</div>
-				<ResourceLogo
-					alt={image?.alt ?? "Dariah campus Logo"}
-					className="hidden w-108.5 xl:block"
-					src={resourceLogo}
-				/>
 			</div>
 			<Suspense>
 				<SearchContainer source="dariah-campus" />
