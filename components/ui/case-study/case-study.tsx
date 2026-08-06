@@ -2,7 +2,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
@@ -27,7 +27,7 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 			)}
 			href={href}
 		>
-			<Image
+			<ContentImage
 				alt={imageAlt ?? ""}
 				className="w-82 h-64.5 object-cover 3xl:w-133.75 3xl:h-78.25"
 				height={313}

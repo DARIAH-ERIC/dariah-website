@@ -4,7 +4,7 @@ import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ContentImage, Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
@@ -39,6 +39,8 @@ export default async function DariahResourceCataloguePage(
 	const {
 		data: { content, image, title },
 	} = staticContentResponse;
+	const ResourceLogo = image?.url == null ? Image : ContentImage;
+	const resourceLogo = image?.url ?? logoSshoc;
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
@@ -60,20 +62,20 @@ export default async function DariahResourceCataloguePage(
 						<Typography className="text-h2 font-medium" variant="h1">
 							{title}
 						</Typography>
-						<Image
+						<ResourceLogo
 							alt={image?.alt ?? "SSH open marketplace Logo"}
 							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
-							src={image?.url ?? logoSshoc}
+							src={resourceLogo}
 						/>
 						<div>
 							<ContentBlocks fields={content} />
 						</div>
 					</div>
 				</div>
-				<Image
+				<ResourceLogo
 					alt={image?.alt ?? "SSH open marketplace Logo"}
 					className="hidden w-108.5 md:block"
-					src={image?.url ?? logoSshoc}
+					src={resourceLogo}
 				/>
 			</div>
 			<Suspense>

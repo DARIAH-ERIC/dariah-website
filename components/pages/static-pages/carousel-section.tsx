@@ -3,7 +3,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import { type ReactNode, useState } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { Carousel } from "@/components/ui/carousel/carousel";
 
 interface ImageItemProps {
@@ -24,7 +24,7 @@ export function CarouselSection(props: Readonly<CarouselSectionProps>): ReactNod
 		<div className="h-107.25 px-4 w-full bg-(image:--static-pages-carousel-bg) flex items-center justify-center md:h-150 xl:h-267.75">
 			<div className="flex flex-col gap-12 justify-center items-center">
 				{selectedImage && (
-					<Image
+					<ContentImage
 						alt={selectedImage.alt ?? ""}
 						className="h-55.5 w-full md:h-61.5 xl:w-290.5 xl:h-154.5"
 						height={618}
@@ -38,7 +38,7 @@ export function CarouselSection(props: Readonly<CarouselSectionProps>): ReactNod
 						const isSelected = id === selectedImage?.id;
 
 						return (
-							<Image
+							<ContentImage
 								key={id}
 								alt={alt ?? ""}
 								className={cn(

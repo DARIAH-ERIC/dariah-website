@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
@@ -106,7 +106,7 @@ export default async function SpotlightArticlePage(
 						<Typography variant="regular">{getFormattedDateForDetails(publishedAt)}</Typography>
 					</div>
 					<figure className="flex flex-col gap-y-4">
-						<Image
+						<ContentImage
 							alt={image.alt ?? "Image description will be added soon"}
 							className="w-full h-87.5 object-contain"
 							height={350}

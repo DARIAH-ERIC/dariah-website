@@ -21,7 +21,7 @@ export function ResourcesSection(): ReactNode {
 				alt="Our Resources background image"
 				className="object-cover size-full z-0"
 				fill={true}
-				preload={true}
+				sizes="(min-width: 1920px) 1920px, 100vw"
 				src={resourcesBg}
 			/>
 			<div className="absolute top-0 left-0 backdrop-blur-[50px] bg-(image:--section-news-bg) size-full opacity-80 z-1">

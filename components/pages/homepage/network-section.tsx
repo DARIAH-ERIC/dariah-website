@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
 
@@ -31,7 +31,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 				<div className="flex flex-col gap-6 items-center">
 					<div className="flex flex-col items-center mt-7.75 xl:flex-row lg:justify-center lg:gap-4 lg:mt-0 3xl:justify-between">
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<Image
+							<ContentImage
 								alt=""
 								className="size-78"
 								height={514}
@@ -52,7 +52,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</div>
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<Image
+							<ContentImage
 								alt=""
 								className="size-78"
 								height={514}
@@ -73,7 +73,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</div>
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<Image
+							<ContentImage
 								alt=""
 								className="size-78"
 								height={514}
@@ -93,7 +93,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 							</div>
 						</div>
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<Image
+							<ContentImage
 								alt=""
 								className="size-78"
 								height={514}

@@ -2,7 +2,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
 import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
@@ -33,7 +33,7 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			{...rest}
 		>
 			{imageUrl != null ? (
-				<Image
+				<ContentImage
 					alt={imageAlt ?? ""}
 					className="w-82 h-62.25 bg-white object-contain md:w-96.25 xl:w-80 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25 3xl:w-96.25"
 					height={249}

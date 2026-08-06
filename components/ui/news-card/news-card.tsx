@@ -4,7 +4,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
@@ -101,7 +101,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					imageWrapperVariants[variant],
 				)}
 			>
-				<Image
+				<ContentImage
 					alt={imageAlt ?? ""}
 					className={cn(
 						"overflow-hidden transition-transform duration-300 ease-in-out object-cover",

@@ -1,7 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 import type { EventCardProps } from "@/components/ui/event-card/event-card.types";
 import { LocationIcon } from "@/components/ui/icons/location";
 import { NavLink } from "@/components/ui/link/nav-link";
@@ -50,7 +50,7 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 				</div>
 			</div>
 			{imageUrl != null && (
-				<Image
+				<ContentImage
 					alt={imageAlt ?? ""}
 					className="w-67 h-36.5 object-contain"
 					height={146}

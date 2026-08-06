@@ -1,7 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import type { ReactNode } from "react";
 
-import { Image } from "@/components/image";
+import { ContentImage } from "@/components/image";
 
 export interface GalleryItemProps {
 	alt: string | null;
@@ -15,7 +15,7 @@ export function GalleryItem(props: Readonly<GalleryItemProps>): ReactNode {
 
 	return (
 		<figure className={cn("flex flex-col gap-y-2", className)}>
-			<Image
+			<ContentImage
 				alt={alt ?? ""}
 				className="w-full aspect-3/2 object-cover"
 				height={900}

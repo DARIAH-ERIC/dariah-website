@@ -18,8 +18,8 @@ const config: Config = {
 		return headers;
 	},
 	images: {
+		qualities: [90],
 		remotePatterns: [{ hostname: "imgproxy.acdh.oeaw.ac.at" }],
-		unoptimized: true,
 	},
 	logging: {
 		browserToTerminal: true,

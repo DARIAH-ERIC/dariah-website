@@ -14,8 +14,11 @@ export function HeroSection(): ReactNode {
 			<Image
 				alt="Hero background image"
 				className="object-cover object-center z-0"
+				fetchPriority="high"
 				fill={true}
+				loading="eager"
 				preload={true}
+				sizes="(min-width: 1920px) 1920px, 100vw"
 				src={heroBg}
 			/>
 			<div className="flex relative z-1 flex-col items-center mt-35 gap-11.5 lg:items-start lg:mt-57.75 lg:ml-26">

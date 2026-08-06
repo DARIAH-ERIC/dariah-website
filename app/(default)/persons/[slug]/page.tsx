@@ -5,9 +5,9 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
+import { ContentImage } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { PersonPositions } from "@/components/ui/person-card/person-positions";
-// import { Image } from "@/components/image";
 import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
@@ -61,11 +61,12 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 				{person.name}
 			</Typography>
 			{person.image != null ? (
-				// eslint-disable-next-line @next/next/no-img-element
-				<img
+				<ContentImage
 					alt={person.image.alt ?? ""}
 					className="size-48 rounded-md object-cover -order-1 mb-4"
+					height={192}
 					src={person.image.url}
+					width={192}
 				/>
 			) : null}
 			<div className="max-w-4xl">
