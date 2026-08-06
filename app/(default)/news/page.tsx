@@ -116,7 +116,7 @@ export default async function NewsPage(props: Readonly<NewsPageProps>): Promise<
 				{renderFeaturedNews()}
 			</div>
 
-			<div className="flex flex-col px-4 gap-14 lg:px-34">
+			<div className="flex flex-col px-4 gap-14 lg:px-34 2xl:px-12 3xl:px-34">
 				<ListHeading page={Number(page)} title={t("title")} />
 				<ul className="grid grid-cols-1 gap-16 md:grid-cols-2 2xl:gap-x-35.5" role="list">
 					{listItems.map((item) => {

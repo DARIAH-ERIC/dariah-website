@@ -102,6 +102,7 @@ export function ResourceListCard(props: Readonly<ResourceCardProps>): ReactNode 
 				</Typography>
 			</div>
 			<Link
+				className="[&>span]:max-w-fit"
 				endIcon={<OpenInNewIcon className="size-5" />}
 				href={resourceUrl}
 				variant="button-tertiary"
