@@ -116,8 +116,6 @@ export default async function OpportunitiesPage({
 									duration: { start: startDate, end: endDate },
 								} = opportunity;
 
-								console.log(opportunity, startDate, endDate);
-
 								const url = website ?? `/get-involved/opportunities/${slug}`;
 
 								return (
