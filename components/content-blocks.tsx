@@ -35,7 +35,9 @@ function renderContentBlock(
 			return (
 				<aside key={index} className="flex flex-col gap-2.5 p-10 bg-primary-100 mt-4 *:first:mt-0!">
 					{field.title !== "" && field.title !== null && (
-						<Typography variant="h5">{field.title}</Typography>
+						<Typography className="text-h5" variant="h2">
+							{field.title}
+						</Typography>
 					)}
 					<RichText content={field.content as JSONContent} />
 				</aside>

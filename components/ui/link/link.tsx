@@ -40,7 +40,6 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 		endIcon,
 		withDefaultLeftIcon = false,
 		withDefaultRightIcon = false,
-		"aria-label": ariaLabel,
 		...rest
 	} = props;
 
@@ -62,12 +61,11 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 		}
 	};
 
-	const parsedAriaLabel = isExternalUrl() ? `${ariaLabel ?? ""} ${t("external")}` : ariaLabel;
+	const isExternal = isExternalUrl();
 
 	return (
 		<AriaLink
 			{...rest}
-			aria-label={parsedAriaLabel}
 			className={(renderProps) => {
 				return linkStyles({ ...renderProps, className, variant });
 			}}
@@ -87,7 +85,10 @@ export function Link(props: Readonly<LinkProps>): ReactNode {
 		>
 			{withDefaultLeftIcon ? <ChevronLeftIcon /> : null}
 			{startIcon}
-			<ChildrenWrapper>{children}</ChildrenWrapper>
+			<ChildrenWrapper>
+				{children}
+				{isExternal && <span className="sr-only">{t("external")}</span>}
+			</ChildrenWrapper>
 			{endIcon}
 			{withDefaultRightIcon ? <ChevronForwardIcon /> : null}
 		</AriaLink>

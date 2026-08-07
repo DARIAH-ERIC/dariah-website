@@ -85,7 +85,12 @@ export default async function OpportunitiesPage({
 					<Filters />
 				</div>
 				<div className="flex flex-col gap-8 lg:px-25 2xl:px-51">
-					<Typography aria-atomic="true" aria-live="polite" variant="h4">
+					<Typography
+						aria-atomic="true"
+						aria-live="polite"
+						className="text-h4! font-heading!"
+						variant="regular"
+					>
 						{t("results", { count: total })}
 					</Typography>
 					{data.length === 0 ? (

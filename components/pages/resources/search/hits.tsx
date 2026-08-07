@@ -47,7 +47,12 @@ export function Hits(
 
 	return (
 		<>
-			<Typography aria-atomic="true" aria-live="polite" variant="h4">
+			<Typography
+				aria-atomic="true"
+				aria-live="polite"
+				className="text-h4! font-heading!"
+				variant="regular"
+			>
 				{t("resultsInfo", { count, query: queryToInfoText })}
 			</Typography>
 			<ul className="list-none flex flex-col gap-8 max-w-301">
