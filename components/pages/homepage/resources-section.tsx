@@ -47,22 +47,22 @@ export function ResourcesSection(): ReactNode {
 						</Typography>
 						<Link
 							className="w-full mt-2 lg:w-62.75 [&>span]:py-0.5!"
-							href="/resources/dariah-resource-catalogue"
+							href="/resources/resource-catalogue"
 							variant="button-primary"
 						>
 							{t("ResourcesSection.description.button")}
 						</Link>
 					</div>
 				</div>
-				<div className="flex flex-col items-center justify-center gap-6 px-1.5 2xl:gap-30.5 xl:flex-row">
+				<div className="flex flex-col items-center justify-center gap-6 px-1.5 2xl:gap-15 3xl:gap-30.5 xl:flex-row">
 					<NavLink
 						className="w-117.25 max-w-full p-0! block! group"
 						href={"/resources/dariah-campus"}
 					>
-						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
+						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
 							<Image
 								alt="DARIAH Campus Logo"
-								className="w-59.5 2xl:w-96.75"
+								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
 								src={logoDariahCampus}
 							/>
 						</div>
@@ -95,10 +95,10 @@ export function ResourcesSection(): ReactNode {
 						className="w-117.25 max-w-full p-0! block! group"
 						href={"/resources/transformations"}
 					>
-						<div className="flex items-center pl-5.5 h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
+						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
 							<Image
 								alt="DARIAH Transformations Logo"
-								className="w-59.5 2xl:w-96.75"
+								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
 								src={logoDariahTransformations}
 							/>
 						</div>
@@ -131,8 +131,12 @@ export function ResourcesSection(): ReactNode {
 						className="w-117.25 max-w-full p-0! block! group"
 						href={"/resources/ssh-open-marketplace"}
 					>
-						<div className="pl-5.5 flex items-center h-34.5 bg-resource-container-bg lg:h-37.75 lg:pl-10.75">
-							<Image alt="DARIAH Campus Logo" className="w-59.5 2xl:w-96.75" src={logoSshoc} />
+						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
+							<Image
+								alt="DARIAH Campus Logo"
+								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
+								src={logoSshoc}
+							/>
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
 							<div className="h-27 line-clamp-4">

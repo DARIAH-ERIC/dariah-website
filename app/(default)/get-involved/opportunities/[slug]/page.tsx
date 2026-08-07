@@ -73,7 +73,7 @@ export default async function OpportunityPage(
 	const parsedContent = addIdsToContent(content);
 
 	return (
-		<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
+		<Main className="container flex flex-col mb-16 relative xl:gap-0 xl:mb-0">
 			<div className="flex flex-1 flex-col gap-8 px-4 pt-8 xl:px-8 xl:pb-12 2xl:px-40">
 				{breadcrumbs.length > 0 && (
 					<Breadcrumbs>
