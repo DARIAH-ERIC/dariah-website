@@ -246,7 +246,7 @@ export function NavMenuItems(props: Readonly<NavMenuItemsProps>): ReactNode {
 }
 
 const navMenuItemStyles = cn(
-	"px-5 py-1 cursor-pointer text-regular text-text-link-bg uppercase bg-transparent font-normal rounded-none",
+	"px-5 py-1 cursor-pointer text-regular text-text-link-bg bg-transparent font-normal rounded-none",
 	"hover:bg-button-bg",
 	"data-focus-visible:bg-button-bg data-focus-visible:outline-3 data-focus-visible:outline-primary",
 	"pressed:text-primary pressed:bg-transparent pressed:outline-none",
