@@ -1,7 +1,7 @@
 import { log, unreachable } from "@acdh-oeaw/lib";
 import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
-import type { ReactNode } from "react";
+import { type ReactNode, useId } from "react";
 
 import { ContentImage } from "@/components/image";
 import { RichText } from "@/components/rich-text";
@@ -10,6 +10,7 @@ import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
 import { GalleryGrid } from "@/components/ui/gallery/gallery-grid";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
+import { collectFootnotes, numberFootnotes } from "@/lib/rich-text-footnotes";
 
 interface ContentBlocksProps {
 	className?: string;
@@ -18,13 +19,55 @@ interface ContentBlocksProps {
 
 export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
 	const { className, fields } = props;
+	const footnoteScope = useId().replaceAll(":", "");
+	const numberedFields = numberFootnotes(fields);
+	const footnotes = collectFootnotes(numberedFields);
+	const footnotesLabelId = `footnotes-${footnoteScope}`;
 
-	return <div className={cn("@container", className)}>{fields.map(renderContentBlock)}</div>;
+	return (
+		<div className={cn("@container", className)}>
+			{numberedFields.map((field, index) => renderContentBlock(field, index, footnoteScope))}
+			{footnotes.length > 0 ? (
+				<section
+					aria-labelledby={footnotesLabelId}
+					className="clear-both border-t border-gray-300 pt-4 mt-6"
+					role="doc-endnotes"
+				>
+					<p className="text-small font-semibold text-gray-700 uppercase" id={footnotesLabelId}>
+						Footnotes
+					</p>
+					<ol className={cn(listStyles, "list-decimal mt-2 text-regular")}>
+						{footnotes.map((note, index) => {
+							const number = index + 1;
+
+							return (
+								<li id={`fn-${footnoteScope}-${String(number)}`} key={number}>
+									{note != null ? <RichTextCaption content={note} /> : null}
+									{"\u00A0"}
+									<a
+										aria-label={`Back to footnote ${String(number)} in the text`}
+										className="text-gray-700 no-underline"
+										href={`#fnref-${footnoteScope}-${String(number)}`}
+										role="doc-backlink"
+									>
+										↩
+									</a>
+								</li>
+							);
+						})}
+					</ol>
+				</section>
+			) : null}
+		</div>
+	);
 }
+
+const listStyles = cn("pl-6 list-outside", "[&>li>p:first-child]:mt-0!");
 
 function renderContentBlock(
 	field: components["schemas"]["Page"]["content"][number],
 	index: number,
+	footnoteScope: string,
 ): ReactNode {
 	switch (field.type) {
 		case "accordion": {
@@ -39,7 +82,7 @@ function renderContentBlock(
 							{field.title}
 						</Typography>
 					)}
-					<RichText content={field.content as JSONContent} />
+					<RichText content={field.content as JSONContent} footnoteScope={footnoteScope} />
 				</aside>
 			);
 		}
@@ -155,13 +198,19 @@ function renderContentBlock(
 							</figcaption>
 						)}
 					</figure>
-					<RichText content={field.content as JSONContent} />
+					<RichText content={field.content as JSONContent} footnoteScope={footnoteScope} />
 				</div>
 			);
 		}
 
 		case "rich_text": {
-			return <RichText key={index} content={field.content as JSONContent} />;
+			return (
+				<RichText
+					key={index}
+					content={field.content as JSONContent}
+					footnoteScope={footnoteScope}
+				/>
+			);
 		}
 
 		default: {
