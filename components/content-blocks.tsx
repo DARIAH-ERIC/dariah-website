@@ -8,6 +8,7 @@ import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
 import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
 import { GalleryGrid } from "@/components/ui/gallery/gallery-grid";
+import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
 import { collectFootnotes, numberFootnotes } from "@/lib/rich-text-footnotes";
@@ -72,7 +73,37 @@ function renderContentBlock(
 ): ReactNode {
 	switch (field.type) {
 		case "accordion": {
-			return null;
+			if (field.items.length === 0) {
+				return null;
+			}
+
+			return (
+				<div
+					key={index}
+					className="flex flex-col divide-y divide-gray-300 rounded-lg border border-gray-300 mt-4"
+				>
+					{field.items.map((item, itemIndex) => {
+						return (
+							// Accordion items do not have ids in the API schema.
+							// eslint-disable-next-line @eslint-react/no-array-index-key
+							<details key={itemIndex} className="group px-4">
+								<summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-3 font-medium text-regular [&::-webkit-details-marker]:hidden">
+									{item.title}
+									<ChevronDownIcon
+										aria-hidden="true"
+										className="shrink-0 transition-transform group-open:rotate-180"
+									/>
+								</summary>
+								{item.content != null ? (
+									<div className="pb-3 *:first:mt-0!">
+										<RichText content={item.content as JSONContent} footnoteScope={footnoteScope} />
+									</div>
+								) : null}
+							</details>
+						);
+					})}
+				</div>
+			);
 		}
 
 		case "callout": {
