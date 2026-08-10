@@ -177,6 +177,10 @@ function renderContentBlock(
 		}
 
 		case "image": {
+			/**
+			 * The layout determines the slot claimed by the figure, not the rendered image width. Keep
+			 * narrower sources at their intrinsic width and centre them instead of stretching them to fill.
+			 */
 			const layoutClassName = {
 				default: "",
 				wide: "-mx-4 lg:-mx-12",
@@ -191,6 +195,7 @@ function renderContentBlock(
 				<figure key={index} className={cn("flex flex-col gap-y-2 py-4 mt-1.5", layoutClassName)}>
 					<ContentImage
 						alt={field.image.alt ?? ""}
+						className="ms-auto me-auto inline-auto max-inline-full"
 						height={isFloated ? 450 : 900}
 						src={field.image.url}
 						width={isFloated ? 800 : 1600}
