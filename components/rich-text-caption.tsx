@@ -56,6 +56,8 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 							linkStyles({ variant: "paragraph" }),
 							"inline [font-size:inherit]! leading-[inherit]!",
 						),
+						target: null,
+						rel: null,
 					},
 				},
 				listItem: false,
@@ -72,5 +74,25 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 				undoRedo: false,
 			}),
 		],
+		options: {
+			markMapping: {
+				link({ children, mark }) {
+					const href = typeof mark.attrs?.href === "string" ? mark.attrs.href : undefined;
+
+					return (
+						<a
+							className={cn(
+								// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
+								linkStyles({ variant: "paragraph" }),
+								"inline [font-size:inherit]! leading-[inherit]!",
+							)}
+							href={href}
+						>
+							{children}
+						</a>
+					);
+				},
+			},
+		},
 	});
 }

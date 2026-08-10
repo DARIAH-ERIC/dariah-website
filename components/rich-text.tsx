@@ -1,5 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
+import { Node, type JSONContent } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
 import { TableKit } from "@tiptap/extension-table/kit";
 import { StarterKit } from "@tiptap/starter-kit";
@@ -13,6 +13,7 @@ import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextProps {
 	content: JSONContent;
+	footnoteScope?: string;
 }
 
 interface HeadingAttributes {
@@ -119,8 +120,39 @@ const ExtendedHeading = Heading.extend({
 	},
 });
 
+/**
+ * The note is stored on the inline atom. `number` is derived by the page renderer and must be part
+ * of the schema or Tiptap will discard it before the node mapping sees it.
+ */
+const Footnote = Node.create({
+	name: "footnote",
+	group: "inline",
+	inline: true,
+	atom: true,
+
+	addAttributes() {
+		return {
+			content: { default: null },
+			number: {
+				default: null,
+				parseHTML: () => null,
+				renderHTML: () => ({}),
+			},
+		};
+	},
+
+	parseHTML() {
+		return [{ tag: "sup[data-footnote]" }];
+	},
+
+	renderHTML() {
+		// The empty child closes `sup`; HTML does not have self-closing superscript tags.
+		return ["sup", { "data-footnote": "" }, ""];
+	},
+});
+
 export function RichText(props: Readonly<RichTextProps>): ReactNode {
-	const { content } = props;
+	const { content, footnoteScope = "rich-text" } = props;
 
 	const format = useFormatter();
 
@@ -142,6 +174,8 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 							linkStyles({ variant: "paragraph" }),
 							"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
 						),
+						target: null,
+						rel: null,
 					},
 				},
 				blockquote: {
@@ -183,6 +217,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			}),
 			PlaceholderValue,
 			ButtonLink,
+			Footnote,
 			/**
 			 * Tables carry data rather than layout, so column widths are left to the stylesheet:
 			 * `resizable: false` matches the backend, which therefore never writes `colwidth`.
@@ -190,7 +225,42 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			TableKit.configure({ table: { resizable: false } }),
 		],
 		options: {
+			markMapping: {
+				link({ children, mark }) {
+					const href = typeof mark.attrs?.href === "string" ? mark.attrs.href : undefined;
+
+					return (
+						<a
+							className={cn(
+								// eslint-disable-next-line better-tailwindcss/no-unknown-classes
+								linkStyles({ variant: "paragraph" }),
+								"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
+							)}
+							href={href}
+						>
+							{children}
+						</a>
+					);
+				},
+			},
 			nodeMapping: {
+				footnote({ node }) {
+					const number = node.attrs?.number;
+
+					if (typeof number !== "number") return <sup data-footnote="" />;
+
+					return (
+						<a
+							aria-label={`Footnote ${String(number)}`}
+							className="font-medium text-primary underline"
+							href={`#fn-${footnoteScope}-${String(number)}`}
+							id={`fnref-${footnoteScope}-${String(number)}`}
+							role="doc-noteref"
+						>
+							<sup data-footnote="">{number}</sup>
+						</a>
+					);
+				},
 				placeholderValue(nodeProps) {
 					return renderPlaceholderValue(nodeProps, format);
 				},
