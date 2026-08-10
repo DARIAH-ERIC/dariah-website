@@ -19,7 +19,7 @@ interface ContentBlocksProps {
 
 export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
 	const { className, fields } = props;
-	const footnoteScope = useId().replaceAll(":", "");
+	const footnoteScope = useId();
 	const numberedFields = numberFootnotes(fields);
 	const footnotes = collectFootnotes(numberedFields);
 	const footnotesLabelId = `footnotes-${footnoteScope}`;
@@ -62,7 +62,8 @@ export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
 	);
 }
 
-const listStyles = cn("pl-6 list-outside", "[&>li>p:first-child]:mt-0!");
+/** Footnotes are separated by the same `mt-4` that sits between paragraphs. */
+const listStyles = cn("pl-6 list-outside", "[&>li>p:first-child]:mt-0!", "[&>li+li]:mt-4");
 
 function renderContentBlock(
 	field: components["schemas"]["Page"]["content"][number],
