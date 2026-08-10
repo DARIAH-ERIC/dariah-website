@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { type ReactNode, useState } from "react";
+import { type ReactNode, type SubmitEvent, useState } from "react";
 import * as v from "valibot";
 
 import { Button } from "@/components/ui/button/button";
@@ -57,7 +57,8 @@ export function SubscribeNewsletter(): ReactNode {
 		}
 	};
 
-	const handleNewsletterSubmit = () => {
+	const handleNewsletterSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		if (subscribeStatus !== "idle") return;
 
 		setSubscribeStatus("loading");
@@ -85,23 +86,25 @@ export function SubscribeNewsletter(): ReactNode {
 					{t("navigation.newsletter.description.part3")}
 				</Typography>
 				<div className="flex flex-col gap-2">
-					<div className="flex gap-0.5 items-end">
+					<form className="flex gap-0.5 items-end" onSubmit={handleNewsletterSubmit}>
 						<TextField
 							aria-errormessage={emailError}
+							autoComplete="email"
 							className="flex-1"
 							label={t("navigation.newsletter.form.label")}
 							onChange={handleEmailChange}
+							type="email"
 							value={email}
 						/>
 						<Button
 							isDisabled={subscribeStatus !== "idle"}
 							isPending={subscribeStatus === "loading"}
-							onClick={handleNewsletterSubmit}
+							type="submit"
 							variant="secondary-blue"
 						>
 							{t("navigation.newsletter.form.button")}
 						</Button>
-					</div>
+					</form>
 					{emailError !== undefined && (
 						<Typography className="text-red-500" variant="small">
 							{emailError}
