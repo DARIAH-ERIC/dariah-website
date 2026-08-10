@@ -246,7 +246,7 @@
 			"title": "Funding Calls"
 		},
 		"title": "Funding Calls",
-		"emptyOpenCalls": "There are no open funding calls at the moment.",
+		"emptyOpenCalls": "There are no open funding calls at the moment. Please check again in the future.",
 		"emptyClosedCalls": "There are no closed funding calls at the moment.",
 		"seePastCalls": "See past funding calls",
 		"hidePastCalls": "Hide past funding calls",
