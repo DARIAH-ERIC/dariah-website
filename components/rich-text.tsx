@@ -1,6 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
-import { Node, type JSONContent } from "@tiptap/core";
+import type { JSONContent } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
+import { Table } from "@tiptap/extension-table";
 import { TableKit } from "@tiptap/extension-table/kit";
 import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
@@ -9,6 +10,8 @@ import type { ReactNode } from "react";
 
 import { ButtonLink, renderButtonLink } from "@/components/button-link";
 import { PlaceholderValue, renderPlaceholderValue } from "@/components/placeholder-value";
+import { RichTextCaption } from "@/components/rich-text-caption";
+import { Footnote, RichTextFootnote } from "@/components/rich-text-footnote";
 import { createRichTextLinkRenderer } from "@/components/rich-text-link";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
@@ -89,6 +92,11 @@ interface TableCellNodeProps {
 	children?: ReactNode;
 }
 
+interface TableNodeProps {
+	node: { attrs: Record<string, unknown> };
+	children?: ReactNode;
+}
+
 /**
  * The cell extensions spell their span attributes the HTML way, which React rejects, so render
  * cells here instead of letting the static renderer serialise them.
@@ -111,6 +119,27 @@ function renderTableCell(element: "td" | "th", props: TableCellNodeProps): React
 	);
 }
 
+/**
+ * The caption remains the table's first child so it names the table for assistive technology;
+ * `caption-bottom` changes only its visual placement.
+ */
+function renderTable(props: TableNodeProps, footnoteScope: string): ReactNode {
+	const caption = props.node.attrs.caption;
+
+	return (
+		<div className="overflow-x-auto my-4">
+			<table className="w-full border-collapse">
+				{caption != null ? (
+					<caption className="caption-bottom pt-2 text-left text-small text-gray-900">
+						<RichTextCaption content={caption} footnoteScope={footnoteScope} />
+					</caption>
+				) : null}
+				<tbody>{props.children}</tbody>
+			</table>
+		</div>
+	);
+}
+
 const ExtendedHeading = Heading.extend({
 	addAttributes() {
 		return {
@@ -130,35 +159,17 @@ const ExtendedHeading = Heading.extend({
 });
 
 /**
- * The note is stored on the inline atom. `number` is derived by the page renderer and must be part
- * of the schema or Tiptap will discard it before the node mapping sees it.
+ * A table caption is rich-text JSON stored as an attribute because the table's children must all be
+ * rows. Registering it on the schema preserves it until the custom table mapping can render it.
  */
-const Footnote = Node.create({
-	name: "footnote",
-	group: "inline",
-	inline: true,
-	atom: true,
-
+const CaptionedTable = Table.extend({
 	addAttributes() {
 		return {
-			content: { default: null },
-			number: {
-				default: null,
-				parseHTML: () => null,
-				renderHTML: () => ({}),
-			},
+			...this.parent?.(),
+			caption: { default: null },
 		};
 	},
-
-	parseHTML() {
-		return [{ tag: "sup[data-footnote]" }];
-	},
-
-	renderHTML() {
-		// The empty child closes `sup`; HTML does not have self-closing superscript tags.
-		return ["sup", { "data-footnote": "" }, ""];
-	},
-});
+}).configure({ resizable: false });
 
 export function RichText(props: Readonly<RichTextProps>): ReactNode {
 	const { content, footnoteScope = "rich-text" } = props;
@@ -221,27 +232,16 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			 * Tables carry data rather than layout, so column widths are left to the stylesheet:
 			 * `resizable: false` matches the backend, which therefore never writes `colwidth`.
 			 */
-			TableKit.configure({ table: { resizable: false } }),
+			TableKit.configure({ table: false }),
+			CaptionedTable,
 		],
 		options: {
 			markMapping: richTextLink.markMapping,
 			nodeMapping: {
 				footnote({ node }) {
-					const number = node.attrs?.number;
+					const number: unknown = node.attrs.number;
 
-					if (typeof number !== "number") return <sup data-footnote="" />;
-
-					return (
-						<a
-							aria-label={`Footnote ${String(number)}`}
-							className="font-medium text-primary underline"
-							href={`#fn-${footnoteScope}-${String(number)}`}
-							id={`fnref-${footnoteScope}-${String(number)}`}
-							role="doc-noteref"
-						>
-							<sup data-footnote="">{number}</sup>
-						</a>
-					);
+					return <RichTextFootnote footnoteScope={footnoteScope} number={number} />;
 				},
 				placeholderValue(nodeProps) {
 					return renderPlaceholderValue(nodeProps, format);
@@ -259,13 +259,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 				 * the `tbody` that the extension's own `renderHTML` provides, so reinstate it here.
 				 */
 				table(nodeProps) {
-					return (
-						<div className="overflow-x-auto my-4">
-							<table className="w-full border-collapse">
-								<tbody>{nodeProps.children}</tbody>
-							</table>
-						</div>
-					);
+					return renderTable(nodeProps, footnoteScope);
 				},
 
 				tableHeader(nodeProps) {

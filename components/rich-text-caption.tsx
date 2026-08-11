@@ -4,11 +4,13 @@ import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
 import type { ReactNode } from "react";
 
+import { Footnote, RichTextFootnote } from "@/components/rich-text-footnote";
 import { createRichTextLinkRenderer } from "@/components/rich-text-link";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextCaptionProps {
 	content: unknown;
+	footnoteScope?: string;
 }
 
 const richTextCaptionLink = createRichTextLinkRenderer(
@@ -40,7 +42,7 @@ export function getRichTextPlainText(content: unknown): string {
 }
 
 export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNode {
-	const { content } = props;
+	const { content, footnoteScope = "rich-text-caption" } = props;
 
 	if (typeof content === "string") return content;
 	if (!isJSONContent(content)) return null;
@@ -72,9 +74,17 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 				underline: false,
 				undoRedo: false,
 			}),
+			Footnote,
 		],
 		options: {
 			markMapping: richTextCaptionLink.markMapping,
+			nodeMapping: {
+				footnote({ node }) {
+					const number: unknown = node.attrs.number;
+
+					return <RichTextFootnote footnoteScope={footnoteScope} number={number} />;
+				},
+			},
 		},
 	});
 }
