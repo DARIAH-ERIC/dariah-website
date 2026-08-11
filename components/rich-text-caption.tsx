@@ -4,11 +4,20 @@ import { StarterKit } from "@tiptap/starter-kit";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
 import type { ReactNode } from "react";
 
+import { createRichTextLinkRenderer } from "@/components/rich-text-link";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextCaptionProps {
 	content: unknown;
 }
+
+const richTextCaptionLink = createRichTextLinkRenderer(
+	cn(
+		// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
+		linkStyles({ variant: "paragraph" }),
+		"inline [font-size:inherit]! leading-[inherit]!",
+	),
+);
 
 function isJSONContent(content: unknown): content is JSONContent {
 	return (
@@ -49,17 +58,7 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 				hardBreak: false,
 				heading: false,
 				horizontalRule: false,
-				link: {
-					HTMLAttributes: {
-						class: cn(
-							// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
-							linkStyles({ variant: "paragraph" }),
-							"inline [font-size:inherit]! leading-[inherit]!",
-						),
-						target: null,
-						rel: null,
-					},
-				},
+				link: richTextCaptionLink.linkOptions,
 				listItem: false,
 				listKeymap: false,
 				orderedList: false,
@@ -75,24 +74,7 @@ export function RichTextCaption(props: Readonly<RichTextCaptionProps>): ReactNod
 			}),
 		],
 		options: {
-			markMapping: {
-				link({ children, mark }) {
-					const href = typeof mark.attrs?.href === "string" ? mark.attrs.href : undefined;
-
-					return (
-						<a
-							className={cn(
-								// eslint-disable-next-line better-tailwindcss/no-unknown-classes -- `paragraph` is a style variant, not a class.
-								linkStyles({ variant: "paragraph" }),
-								"inline [font-size:inherit]! leading-[inherit]!",
-							)}
-							href={href}
-						>
-							{children}
-						</a>
-					);
-				},
-			},
+			markMapping: richTextCaptionLink.markMapping,
 		},
 	});
 }

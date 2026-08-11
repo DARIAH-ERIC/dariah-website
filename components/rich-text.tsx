@@ -9,6 +9,7 @@ import type { ReactNode } from "react";
 
 import { ButtonLink, renderButtonLink } from "@/components/button-link";
 import { PlaceholderValue, renderPlaceholderValue } from "@/components/placeholder-value";
+import { createRichTextLinkRenderer } from "@/components/rich-text-link";
 import { linkStyles } from "@/components/ui/link/link.styles";
 
 interface RichTextProps {
@@ -73,6 +74,14 @@ const listStyles = cn(
 	"mt-4 pl-6 list-outside",
 	"[&>li>p:first-child]:mt-0!",
 	"[&>li>ol]:mt-0! [&>li>ul]:mt-0!",
+);
+
+const richTextLink = createRichTextLinkRenderer(
+	cn(
+		// eslint-disable-next-line better-tailwindcss/no-unknown-classes
+		linkStyles({ variant: "paragraph" }),
+		"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
+	),
 );
 
 interface TableCellNodeProps {
@@ -167,17 +176,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 						class: "text-regular mt-4",
 					},
 				},
-				link: {
-					HTMLAttributes: {
-						class: cn(
-							// eslint-disable-next-line better-tailwindcss/no-unknown-classes
-							linkStyles({ variant: "paragraph" }),
-							"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
-						),
-						target: null,
-						rel: null,
-					},
-				},
+				link: richTextLink.linkOptions,
 				blockquote: {
 					HTMLAttributes: {
 						class: cn(
@@ -225,24 +224,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 			TableKit.configure({ table: { resizable: false } }),
 		],
 		options: {
-			markMapping: {
-				link({ children, mark }) {
-					const href = typeof mark.attrs?.href === "string" ? mark.attrs.href : undefined;
-
-					return (
-						<a
-							className={cn(
-								// eslint-disable-next-line better-tailwindcss/no-unknown-classes
-								linkStyles({ variant: "paragraph" }),
-								"inline break-all [font-size:inherit]! leading-[inherit]! [[href^='mailto:']]:whitespace-nowrap",
-							)}
-							href={href}
-						>
-							{children}
-						</a>
-					);
-				},
-			},
+			markMapping: richTextLink.markMapping,
 			nodeMapping: {
 				footnote({ node }) {
 					const number = node.attrs?.number;
