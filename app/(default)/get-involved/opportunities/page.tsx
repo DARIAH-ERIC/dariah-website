@@ -12,6 +12,8 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
+import noOpportunitiesImage from "@/public/assets/images/no-opportunities.svg";
+import opportunitiesListImage from "@/public/assets/images/opportunities-list-image.png";
 
 interface OpportunitiesSearchParams {
 	page?: string;
@@ -74,10 +76,10 @@ export default async function OpportunitiesPage({
 						{t("title")}
 					</Typography>
 					<Image
-						alt={t("title")}
+						alt=""
 						className="w-82 h-42.25 object-cover md:w-308 md:h-55.75"
 						height={223}
-						src={"/assets/images/opportunities-list-image.png"}
+						src={opportunitiesListImage}
 						width={1232}
 					/>
 				</div>
@@ -95,12 +97,7 @@ export default async function OpportunitiesPage({
 					</Typography>
 					{data.length === 0 ? (
 						<div className="py-2 flex flex-col gap-6 items-center pb-16">
-							<Image
-								alt={t("emptyState")}
-								height={228}
-								src={"/assets/images/no-opportunities.svg"}
-								width={220}
-							/>
+							<Image alt="" height={228} src={noOpportunitiesImage} width={220} />
 							<Typography variant="regular">{t("emptyState")}</Typography>
 						</div>
 					) : (

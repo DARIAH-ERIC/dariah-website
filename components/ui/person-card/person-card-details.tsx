@@ -9,6 +9,7 @@ import { Link } from "@/components/ui/link/link";
 import { PersonPositions } from "@/components/ui/person-card/person-positions";
 import { Typography } from "@/components/ui/typography/typography";
 import type { Person } from "@/lib/data/api-client";
+import personPlaceholder from "@/public/assets/images/person-placeholder.svg";
 
 interface PersonCardDetailsProps {
 	imageUrl?: string | null;
@@ -25,7 +26,7 @@ export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): Reac
 	const { imageUrl, imageAlt, name, email, position, description, tabIndex, ref } = props;
 	const t = useTranslations("(default).PersonCard");
 
-	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
+	const displayedImage = imageUrl ?? personPlaceholder;
 	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	return (

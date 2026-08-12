@@ -59,11 +59,7 @@ export default function GlobalErrorPage(props: Readonly<GlobalErrorPageProps>): 
 							<Main>
 								<div className="flex flex-1 flex-col gap-8 px-4 pt-8 lg:px-8 lg:pb-12 xl:px-40">
 									<div className="flex min-h-[30vw] flex-wrap flex-1 gap-6 px-4 items-center justify-center lg:px-8 lg:gap-15">
-										<Image
-											alt={t.title}
-											className={"h-22 w-72.5 lg:h-38.5 lg:w-107"}
-											src={logoDariah}
-										/>
+										<Image alt="" className={"h-22 w-72.5 lg:h-38.5 lg:w-107"} src={logoDariah} />
 										<div className="flex flex-col gap-8 h-fit">
 											<Typography className="font-bold" variant="h2">
 												{t.title}

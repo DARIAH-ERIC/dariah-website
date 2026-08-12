@@ -65,7 +65,7 @@ export default async function DariahResourceCataloguePage(
 							{title}
 						</Typography>
 						<ResourceLogo
-							alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
+							alt={image?.alt ?? ""}
 							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
 							src={resourceLogo}
 						/>
@@ -74,7 +74,7 @@ export default async function DariahResourceCataloguePage(
 						<ContentBlocks fields={content} />
 					</div>
 					<ResourceLogo
-						alt={image?.alt ?? "Transformations: A DARIAH Journal Logo"}
+						alt={image?.alt ?? ""}
 						className="hidden w-108.5 xl:row-start-2 xl:col-start-2 xl:block"
 						src={resourceLogo}
 					/>

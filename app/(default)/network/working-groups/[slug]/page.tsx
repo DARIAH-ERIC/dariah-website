@@ -205,7 +205,7 @@ export default async function WorkingGroupPage(
 						</div>
 						{image != null ? (
 							<ContentImage
-								alt={image.alt ?? "Image description will be added soon"}
+								alt={image.alt ?? ""}
 								className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
 								height={442}
 								src={image.url}

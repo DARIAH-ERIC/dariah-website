@@ -45,7 +45,7 @@ export function Navigation(props: Readonly<NavigationProps>): ReactNode {
 				>
 					<span className="sr-only">{home.label}</span>
 					<Image
-						alt="DARIAH-EU logo"
+						alt=""
 						className="w-35.5 xl:w-50 xl:h-15"
 						decoding="auto"
 						fetchPriority="high"

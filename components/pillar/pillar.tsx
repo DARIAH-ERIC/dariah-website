@@ -24,7 +24,7 @@ export function Pillar(props: Readonly<PillarProps>): ReactNode {
 			className="group flex flex-col gap-10 cursor-default items-start p-0!"
 			href={href ?? "/"}
 		>
-			<Image alt="Pilar Technology" height={305} src={image} width={384} />
+			<Image alt="" height={305} src={image} width={384} />
 			<div className="flex flex-col justify-between w-69.75 h-95 font-heading">
 				<div className="flex flex-col gap-7">
 					<Typography className="text-[1.5rem]" variant="h3">

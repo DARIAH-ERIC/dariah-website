@@ -105,7 +105,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 						</Typography>
 						<figure className="flex flex-col gap-y-4">
 							<ContentImage
-								alt={image.alt ?? "Image description will be added soon"}
+								alt={image.alt ?? ""}
 								className="w-full"
 								height={628.25}
 								src={image.url}

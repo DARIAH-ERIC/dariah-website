@@ -1,9 +1,13 @@
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { Image } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
+import cooperatingPartnersImage from "@/public/assets/images/DARIAH-EU_Cooperating Partners.gif";
+import memberCountriesImage from "@/public/assets/images/DARIAH-EU_Member Countries.gif";
+import nationalPartnersImage from "@/public/assets/images/DARIAH-EU_National Partners.gif";
+import workingGroupsImage from "@/public/assets/images/DARIAH-EU_Working Groups.gif";
 
 interface NetworkSectionProps {
 	stats: {
@@ -31,11 +35,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 				<div className="flex flex-col gap-6 items-center">
 					<div className="flex flex-col items-center mt-7.75 xl:flex-row lg:justify-center lg:gap-4 lg:mt-0 3xl:justify-between">
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<ContentImage
+							<Image
 								alt=""
 								className="size-78"
 								height={514}
-								src="/assets/images/DARIAH-EU_Member Countries.gif"
+								src={memberCountriesImage}
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
@@ -52,11 +56,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</div>
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<ContentImage
+							<Image
 								alt=""
 								className="size-78"
 								height={514}
-								src="/assets/images/DARIAH-EU_National Partners.gif"
+								src={nationalPartnersImage}
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
@@ -73,11 +77,11 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 						</div>
 
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<ContentImage
+							<Image
 								alt=""
 								className="size-78"
 								height={514}
-								src="/assets/images/DARIAH-EU_Cooperating Partners.gif"
+								src={cooperatingPartnersImage}
 								width={514}
 							/>
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
@@ -93,13 +97,7 @@ export function NetworkSection(props: Readonly<NetworkSectionProps>): ReactNode 
 							</div>
 						</div>
 						<div className="relative w-78 h-111.5 flex justify-center 3xl:w-102.25 lg:h-125.75">
-							<ContentImage
-								alt=""
-								className="size-78"
-								height={514}
-								src="/assets/images/DARIAH-EU_Working Groups.gif"
-								width={514}
-							/>
+							<Image alt="" className="size-78" height={514} src={workingGroupsImage} width={514} />
 							<div className="text-text-link-bg flex items-end gap-x-7.25 gap-y-2 absolute bottom-0 left-1/2 -translate-x-1/2 xl:justify-center xl:items-center xl:flex-wrap 3xl:flex-nowrap">
 								<p className="font-heading text-[8rem] font-black leading-[1.3] tracking-[0.02em] xl:text-[6.25rem] 3xl:text-[8rem]">
 									{stats.workingGroups}

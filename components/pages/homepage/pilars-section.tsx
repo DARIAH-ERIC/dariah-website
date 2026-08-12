@@ -3,6 +3,10 @@ import React, { type ReactNode } from "react";
 
 import { Pillar } from "@/components/pillar/pillar";
 import { Typography } from "@/components/ui/typography/typography";
+import pillarCommunities from "@/public/assets/images/pillar-communities.svg";
+import pillarKnowledge from "@/public/assets/images/pillar-knowledge.svg";
+import pillarPolicy from "@/public/assets/images/pillar-policy.svg";
+import pillarTechnology from "@/public/assets/images/pillar-technology.svg";
 
 export function PilarsSection(): ReactNode {
 	const t = useTranslations("HomePage");
@@ -18,25 +22,25 @@ export function PilarsSection(): ReactNode {
 				<Pillar
 					description={t("PillarsSection.technology.description")}
 					href="/about/strategy#technology"
-					image={"/assets/images/pillar-technology.svg"}
+					image={pillarTechnology}
 					title={t("PillarsSection.technology.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.knowledge.description")}
 					href="/about/strategy#knowledge"
-					image={"/assets/images/pillar-knowledge.svg"}
+					image={pillarKnowledge}
 					title={t("PillarsSection.knowledge.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.communities.description")}
 					href="/about/strategy#communities"
-					image={"/assets/images/pillar-communities.svg"}
+					image={pillarCommunities}
 					title={t("PillarsSection.communities.title")}
 				/>
 				<Pillar
 					description={t("PillarsSection.policy.description")}
 					href="/about/strategy#policy"
-					image={"/assets/images/pillar-policy.svg"}
+					image={pillarPolicy}
 					title={t("PillarsSection.policy.title")}
 				/>
 			</div>
