@@ -100,12 +100,7 @@ export default async function MembersAndPartnersPage(
 								: `(${t("status.is_cooperating_partner_of")})`}
 						</Typography>
 						{image?.url !== undefined && (
-							<ContentImage
-								alt={image.alt ?? "Image description will be added soon"}
-								height={72}
-								src={image.url}
-								width={207}
-							/>
+							<ContentImage alt={image.alt ?? ""} height={72} src={image.url} width={207} />
 						)}
 						<MembersAndPartnersTabs
 							memberOrPartner={response.data}

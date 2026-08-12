@@ -12,7 +12,7 @@ export function HeroSection(): ReactNode {
 	return (
 		<section className={`w-full h-165 relative lg:h-241.25`}>
 			<Image
-				alt="Hero background image"
+				alt=""
 				className="object-cover object-center z-0"
 				fetchPriority="high"
 				fill={true}

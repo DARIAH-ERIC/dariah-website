@@ -7,6 +7,7 @@ import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import type { Person } from "@/lib/data/api-client";
+import personPlaceholder from "@/public/assets/images/person-placeholder.svg";
 import { sortUserPosition } from "@/utils/person-card.utils";
 
 interface PersonCardProps {
@@ -22,7 +23,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	const { href, imageUrl, imageAlt, name, position, nameTag = "h4" } = props;
 	const t = useTranslations("(default).PersonCard");
 
-	const displayedImage = imageUrl ?? "/assets/images/person-placeholder.svg";
+	const displayedImage = imageUrl ?? personPlaceholder;
 	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	const sortedPosition = sortUserPosition(position);

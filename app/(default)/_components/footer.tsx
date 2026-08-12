@@ -69,11 +69,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 					href={secondary.home.href}
 					size="icon"
 				>
-					<Image
-						alt={secondary.home.label}
-						className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")}
-						src={logoDariah}
-					/>
+					<Image alt="" className={cn("h-22 w-72.5", "lg:h-38.5 lg:w-107")} src={logoDariah} />
 				</NavLink>
 
 				<div
@@ -172,7 +168,7 @@ export async function Footer(props: Readonly<FooterProps>): Promise<ReactNode> {
 						"xl:py-0 xl:px-10",
 					)}
 				>
-					<Image alt={t("navigation.cc.alt")} className="size-5" src={logoCC} />
+					<Image alt="" className="size-5" src={logoCC} />
 					<Typography variant="small">
 						{t("navigation.cc.part1")}
 						<Link

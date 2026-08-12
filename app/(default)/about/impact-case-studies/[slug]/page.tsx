@@ -96,7 +96,7 @@ export default async function ImpactCaseStudyPage(
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-y-4">
 					<ContentImage
-						alt={image.alt ?? "Image description will be added soon"}
+						alt={image.alt ?? ""}
 						className="w-480 h-125 object-contain"
 						height={621}
 						src={image.url}

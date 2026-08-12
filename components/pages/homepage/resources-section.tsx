@@ -18,7 +18,7 @@ export function ResourcesSection(): ReactNode {
 	return (
 		<section className="relative w-full">
 			<Image
-				alt="Our Resources background image"
+				alt=""
 				className="object-cover size-full z-0"
 				fill={true}
 				sizes="(min-width: 1920px) 1920px, 100vw"
@@ -61,7 +61,7 @@ export function ResourcesSection(): ReactNode {
 					>
 						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
 							<Image
-								alt="DARIAH Campus Logo"
+								alt=""
 								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
 								src={logoDariahCampus}
 							/>
@@ -97,7 +97,7 @@ export function ResourcesSection(): ReactNode {
 					>
 						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
 							<Image
-								alt="DARIAH Transformations Logo"
+								alt=""
 								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
 								src={logoDariahTransformations}
 							/>
@@ -132,11 +132,7 @@ export function ResourcesSection(): ReactNode {
 						href={"/resources/ssh-open-marketplace"}
 					>
 						<div className="flex items-center justify-center h-34.5 bg-resource-container-bg lg:h-37.75">
-							<Image
-								alt="DARIAH Campus Logo"
-								className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75"
-								src={logoSshoc}
-							/>
+							<Image alt="" className="w-59.5 xl:w-65 2xl:w-70 3xl:w-92.75" src={logoSshoc} />
 						</div>
 						<div className="flex flex-col gap-1 px-4 py-6 bg-white lg:px-10 lg:pt-8 lg:pb-6">
 							<div className="h-27 line-clamp-4">

@@ -45,7 +45,7 @@ export function FundingCallCard(props: Readonly<FundingCallCardProps>): ReactNod
 			href={href}
 		>
 			<div className="p-4 flex justify-center flex-col gap-4 bg-(image:--funding-call-bg) w-full z-1 h-57.25 xl:justify-start xl:px-11 xl:gap-6 xl:pt-11.5 xl:pb-14.5 md:h-54 2xl:max-w-407.5">
-				<Image alt={title} className="w-39.75 h-12.25" height={49} src={logo} width={159} />
+				<Image alt="" className="w-39.75 h-12.25" height={49} src={logo} width={159} />
 				<div className="flex flex-col gap-4 xl:flex-row">
 					<Typography
 						className={
