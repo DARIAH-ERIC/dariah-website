@@ -94,9 +94,11 @@ function renderContentBlock(
 										className="shrink-0 transition-transform group-open:rotate-180"
 									/>
 								</summary>
-								{item.content != null ? (
-									<div className="pb-3 *:first:mt-0!">
-										<RichText content={item.content as JSONContent} footnoteScope={footnoteScope} />
+								{item.blocks.length > 0 ? (
+									<div className="flow-root pb-3 *:first:mt-0!">
+										{item.blocks.map((block, blockIndex) => {
+											return renderContentBlock(block, blockIndex, footnoteScope);
+										})}
 									</div>
 								) : null}
 							</details>
@@ -107,14 +109,22 @@ function renderContentBlock(
 		}
 
 		case "callout": {
+			const hasTitle = field.title !== "" && field.title !== null;
+
 			return (
-				<aside key={index} className="flex flex-col gap-2.5 p-10 bg-primary-100 mt-4 *:first:mt-0!">
-					{field.title !== "" && field.title !== null && (
+				<aside key={index} className="flow-root p-10 bg-primary-100 mt-4 *:first:mt-0!">
+					{hasTitle ? (
 						<Typography className="text-h5" variant="h2">
 							{field.title}
 						</Typography>
-					)}
-					<RichText content={field.content as JSONContent} footnoteScope={footnoteScope} />
+					) : null}
+					{field.blocks.length > 0 ? (
+						<div className={cn("flow-root *:first:mt-0!", hasTitle && "mt-2.5")}>
+							{field.blocks.map((block, blockIndex) => {
+								return renderContentBlock(block, blockIndex, footnoteScope);
+							})}
+						</div>
+					) : null}
 				</aside>
 			);
 		}
