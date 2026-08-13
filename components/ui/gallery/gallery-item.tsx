@@ -17,7 +17,7 @@ export function GalleryItem(props: Readonly<GalleryItemProps>): ReactNode {
 		<figure className={cn("flex flex-col gap-y-2", className)}>
 			<ContentImage
 				alt={alt ?? ""}
-				className="w-full aspect-3/2 object-cover"
+				className="ms-auto me-auto inline-auto max-block-96 max-inline-full"
 				height={900}
 				src={url}
 				width={1350}

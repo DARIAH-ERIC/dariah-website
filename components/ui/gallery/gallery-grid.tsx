@@ -10,7 +10,10 @@ export function GalleryGrid(props: Readonly<GalleryGridProps>): ReactNode {
 	const { items } = props;
 
 	return (
-		<ul className="grid grid-cols-1 gap-6 @xl:grid-cols-2 @4xl:grid-cols-3" role="list">
+		<ul
+			className="grid grid-cols-[repeat(auto-fill,minmax(min(22.5rem,100%),1fr))] items-start gap-6"
+			role="list"
+		>
 			{items.map((item, index) => {
 				return (
 					<li key={index}>
