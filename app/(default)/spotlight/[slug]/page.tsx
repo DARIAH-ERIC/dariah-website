@@ -108,8 +108,11 @@ export default async function SpotlightArticlePage(
 					<figure className="flex flex-col gap-y-4">
 						<ApiImage
 							className="w-full h-87.5 object-contain"
+							fetchPriority="high"
 							height={350}
 							image={image}
+							loading="eager"
+							preload={true}
 							sizes="(min-width: 80rem) 1100px, 100vw"
 							width={1100}
 						/>

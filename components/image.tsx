@@ -75,17 +75,36 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 		 * to contribute — it has no candidates to choose between and no dimensions to reserve space
 		 * with, and would refuse to render for want of the latter. A plain element says the same thing
 		 * without the ceremony; the loading attributes are the ones `next/image` would have set.
+		 *
+		 * Which includes the ones a slot asks for. Losing its `preload` here would be a silent
+		 * downgrade — the call site cannot tell a vector from a raster, so an above-the-fold slot has
+		 * to keep its priority whichever it is handed.
 		 */
 		if (layoutWidth == null && rest.fill !== true) {
+			const { className, fetchPriority, loading, preload } = rest;
+
 			return (
-				// eslint-disable-next-line @next/next/no-img-element
-				<img
-					alt={alt ?? image.alt ?? ""}
-					className={rest.className}
-					decoding="async"
-					loading="lazy"
-					src={src}
-				/>
+				<>
+					{/**
+					 * What `next/image` hoists for a preloaded image, minus the `imageSrcSet` there are no
+					 * candidates for. Rendered as an element rather than requested through `react-dom`'s
+					 * `preload`, which emits nothing when called from a server component; react hoists this
+					 * into the head either way.
+					 */}
+					{preload === true ? (
+						<link as="image" fetchPriority={fetchPriority} href={src} rel="preload" />
+					) : null}
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img
+						alt={alt ?? image.alt ?? ""}
+						className={className}
+						decoding="async"
+						fetchPriority={fetchPriority}
+						/** `preload` is what takes an image out of lazy loading in `next/image`; match that. */
+						loading={loading ?? (preload === true ? "eager" : "lazy")}
+						src={src}
+					/>
+				</>
 			);
 		}
 

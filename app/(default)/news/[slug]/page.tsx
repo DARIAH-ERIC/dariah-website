@@ -106,8 +106,11 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 						<figure className="flex flex-col gap-y-4">
 							<ApiImage
 								className="w-full"
+								fetchPriority="high"
 								height={628.25}
 								image={image}
+								loading="eager"
+								preload={true}
 								sizes="(min-width: 80rem) 1150px, 100vw"
 								width={1150}
 							/>

@@ -23,9 +23,9 @@ export const sourceWidthParam = "sw";
 /**
  * The one quality the built-in optimizer is configured to serve (`images.qualities`).
  *
- * Spelled out here because a custom loader is not handed the image config, so the branch that
- * delegates to `/_next/image` cannot read it back off `config.qualities` the way the default loader
- * does — and that route rejects a `q` outside the configured set. Applies to locally served images
- * only: the variant endpoint takes no quality parameter, and imgproxy decides for itself.
+ * A single-entry list is what pins it: next clamps whatever quality an image asks for onto the
+ * nearest configured rung, so every rendition comes back at this one and no call site has to say
+ * so. Applies to locally served images only — the variant endpoint takes no quality parameter, and
+ * imgproxy decides for itself.
  */
 export const imageQuality = 90;

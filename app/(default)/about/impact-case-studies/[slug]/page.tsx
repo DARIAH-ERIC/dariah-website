@@ -97,8 +97,11 @@ export default async function ImpactCaseStudyPage(
 				<figure className="flex flex-col gap-y-4">
 					<ApiImage
 						className="w-480 h-125 object-contain"
+						fetchPriority="high"
 						height={621}
 						image={image}
+						loading="eager"
+						preload={true}
 						sizes="100vw"
 						width={1920}
 					/>

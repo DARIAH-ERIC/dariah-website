@@ -115,8 +115,11 @@ export default async function EventPage(props: Readonly<EventPageProps>): Promis
 				<div className="flex flex-col items-center px-4 gap-5 lg:flex-row lg:flex-wrap lg:px-0">
 					<ApiImage
 						className="w-82 h-40 object-contain lg:w-197.5 lg:h-101.25"
+						fetchPriority="high"
 						height={405}
 						image={image}
+						loading="eager"
+						preload={true}
 						sizes="(min-width: 64rem) 790px, 328px"
 						width={790}
 					/>
