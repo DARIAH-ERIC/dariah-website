@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
 	args: {
-		imageUrl: "/assets/images/temp-case-study.svg",
+		image: { srcUrl: "/assets/images/temp-case-study.svg", width: 535, height: 313, alt: null },
 		title: "DARIAH-EU Cooperating Partnership creates opportunities for Digital Hellenic Studies",
 	},
 };

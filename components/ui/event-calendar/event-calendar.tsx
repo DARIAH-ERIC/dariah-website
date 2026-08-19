@@ -103,13 +103,13 @@ export function EventCalendar(props: Readonly<CalendarProps>): ReactNode {
 								entity: { slug },
 								duration: { end, start },
 								location,
-								image: { url: imageUrl },
+								image,
 							} = event;
 							return (
 								<EventCard
 									key={id}
 									endDate={end}
-									imageUrl={imageUrl}
+									image={image}
 									localization={location}
 									slug={slug}
 									startDate={start}

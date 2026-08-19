@@ -2,24 +2,24 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
 import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 import { parseDateForProject } from "@/utils/project-page.utils";
 
 interface ProjectProps extends NavLinkProps {
 	endDate: Date;
 	href: string;
-	imageUrl?: string;
-	imageAlt?: string | null;
+	image?: ImageAsset | null;
 	startDate: Date;
 	title: string;
 	type: "coordinator" | "participant";
 }
 
 export function Project(props: Readonly<ProjectProps>): ReactNode {
-	const { title, imageUrl, imageAlt, type, startDate, endDate, href, ...rest } = props;
+	const { title, image, type, startDate, endDate, href, ...rest } = props;
 	const t = useTranslations("ProjectsDetailPage.projectCard");
 
 	return (
@@ -32,12 +32,12 @@ export function Project(props: Readonly<ProjectProps>): ReactNode {
 			href={href}
 			{...rest}
 		>
-			{imageUrl != null ? (
-				<ContentImage
-					alt={imageAlt ?? ""}
+			{image != null ? (
+				<ApiImage
 					className="w-82 h-62.25 bg-white object-contain md:w-96.25 xl:w-80 xl:h-50 2xl:w-82 2xl:h-62.25 sm:w-96.25 3xl:w-96.25"
 					height={249}
-					src={imageUrl}
+					image={image}
+					sizes="(min-width: 120rem) 385px, (min-width: 96rem) 328px, (min-width: 80rem) 320px, (min-width: 48rem) 385px, 328px"
 					width={385}
 				/>
 			) : null}

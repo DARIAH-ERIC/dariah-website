@@ -15,11 +15,18 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const image = {
+	srcUrl: "/assets/images/temp-news-1.jpg",
+	width: 1350,
+	height: 900,
+	alt: null,
+};
+
 const items = [
-	{ alt: "First", caption: "A caption for the first image", url: "/assets/images/temp-news-1.jpg" },
-	{ alt: "Second", url: "/assets/images/temp-news-1.jpg" },
-	{ alt: "Third", caption: "A caption for the third image", url: "/assets/images/temp-news-1.jpg" },
-	{ alt: "Fourth", url: "/assets/images/temp-news-1.jpg" },
+	{ caption: "A caption for the first image", image: { ...image, alt: "First" } },
+	{ image: { ...image, alt: "Second" } },
+	{ caption: "A caption for the third image", image: { ...image, alt: "Third" } },
+	{ image: { ...image, alt: "Fourth" } },
 ];
 
 export const Grid: Story = {

@@ -1,22 +1,22 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import type { ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 import { getFormattedDateForCard } from "@/utils/spotlight-page.utils";
 
 interface SpotlightCardProps {
 	title: string;
 	summary: string;
-	imageUrl: string;
-	imageAlt?: string | null;
+	image: ImageAsset;
 	href: string;
 	publishedAt: Date;
 }
 
 export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
-	const { title, summary, publishedAt, imageUrl, imageAlt, href } = props;
+	const { title, summary, publishedAt, image, href } = props;
 
 	return (
 		<NavLink
@@ -51,14 +51,14 @@ export function SpotlightCard(props: Readonly<SpotlightCardProps>): ReactNode {
 					{summary}
 				</Typography>
 			</div>
-			<ContentImage
-				alt={imageAlt ?? ""}
+			<ApiImage
 				className={cn(
 					"w-76 h-44.75 shadow-spotlight-image rounded-t-sm object-cover",
 					"lg:w-90 lg:h-48 lg:ml-auto xl:w-105 xl:h-60 2xl:mt-auto 3xl:w-105.5 3xl:h-65.5",
 				)}
 				height={262}
-				src={imageUrl}
+				image={image}
+				sizes="(min-width: 80rem) 422px, (min-width: 64rem) 360px, 304px"
 				width={422}
 			/>
 		</NavLink>

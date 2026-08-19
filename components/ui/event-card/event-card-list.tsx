@@ -1,7 +1,7 @@
 import { cn } from "@acdh-oeaw/style-variants";
 import React, { type ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import type { EventCardProps } from "@/components/ui/event-card/event-card.types";
 import { LocationIcon } from "@/components/ui/icons/location";
 import { NavLink } from "@/components/ui/link/nav-link";
@@ -9,7 +9,7 @@ import { Tag } from "@/components/ui/tag/tag";
 import { Typography } from "@/components/ui/typography/typography";
 
 export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
-	const { title, localization, imageUrl, imageAlt, startDate, slug } = props;
+	const { title, localization, image, startDate, slug } = props;
 
 	const status = startDate < new Date() ? "past" : "upcoming";
 
@@ -49,12 +49,12 @@ export function EventCardList(props: Readonly<EventCardProps>): ReactNode {
 					</Typography>
 				</div>
 			</div>
-			{imageUrl != null && (
-				<ContentImage
-					alt={imageAlt ?? ""}
+			{image != null && (
+				<ApiImage
 					className="w-67 h-36.5 object-contain"
 					height={146}
-					src={imageUrl}
+					image={image}
+					sizes="268px"
 					width={268}
 				/>
 			)}

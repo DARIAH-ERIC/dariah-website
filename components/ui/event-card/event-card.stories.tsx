@@ -52,6 +52,6 @@ export const ListWithImage: Story = {
 		startDate: new Date("2025-07-21"),
 		title: "European Summer University in Digital Humanities “Culture and Technology” 2025",
 		type: "training",
-		imageUrl: "/assets/images/temp-news-2.svg",
+		image: { srcUrl: "/assets/images/temp-news-2.svg", width: 268, height: 146, alt: null },
 	},
 };

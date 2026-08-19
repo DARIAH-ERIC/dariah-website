@@ -4,7 +4,7 @@ import { type ReactNode, Suspense } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage, Image } from "@/components/image";
+import { ApiImage, Image } from "@/components/image";
 import { SearchContainer } from "@/components/pages/resources/dariah-resources-by-source/search-container";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
@@ -41,8 +41,6 @@ export default async function DariahResourceCataloguePage(
 	const {
 		data: { content, image, title },
 	} = staticContentResponse;
-	const ResourceLogo = image?.url == null ? Image : ContentImage;
-	const resourceLogo = image?.url ?? logoDariahTransformations;
 
 	return (
 		<Main className="container relative flex flex-col gap-20 pb-20">
@@ -64,20 +62,36 @@ export default async function DariahResourceCataloguePage(
 						<Typography className="text-h2 font-medium" variant="h1">
 							{title}
 						</Typography>
-						<ResourceLogo
-							alt={image?.alt ?? ""}
-							className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
-							src={resourceLogo}
-						/>
+						{image != null ? (
+							<ApiImage
+								className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+								image={image}
+								sizes="(min-width: 80rem) 434px, 100vw"
+							/>
+						) : (
+							<Image
+								alt=""
+								className="block w-full max-w-108.5 mt-4 xl:mt-0 xl:hidden"
+								src={logoDariahTransformations}
+							/>
+						)}
 					</div>
 					<div className="w-full max-w-251 min-w-0 xl:row-start-2 xl:col-start-1">
 						<ContentBlocks fields={content} />
 					</div>
-					<ResourceLogo
-						alt={image?.alt ?? ""}
-						className="hidden w-108.5 xl:row-start-2 xl:col-start-2 xl:block"
-						src={resourceLogo}
-					/>
+					{image != null ? (
+						<ApiImage
+							className="hidden w-108.5 xl:row-start-2 xl:col-start-2 xl:block"
+							image={image}
+							sizes="(min-width: 80rem) 434px, 100vw"
+						/>
+					) : (
+						<Image
+							alt=""
+							className="hidden w-108.5 xl:row-start-2 xl:col-start-2 xl:block"
+							src={logoDariahTransformations}
+						/>
+					)}
 				</div>
 			</div>
 			<Suspense>

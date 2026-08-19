@@ -1,10 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 import { getTopicFromUrl, parseDateForProjectDuration } from "@/utils/project-page.utils";
 
 interface Coordinator {
@@ -37,10 +38,7 @@ interface Coordinator {
 
 interface ProjectDetailsProps {
 	name: string;
-	image: {
-		url: string;
-		alt: string | null;
-	} | null;
+	image: ImageAsset | null;
 	funding: number | null;
 	topic: string | null;
 	coordinators: Array<Coordinator>;
@@ -134,12 +132,12 @@ export async function ProjectDetails(props: Readonly<ProjectDetailsProps>): Prom
 					)}
 				</div>
 			</div>
-			{image?.url !== undefined && (
-				<ContentImage
-					alt={image.alt ?? ""}
+			{image != null && (
+				<ApiImage
 					className="w-62.5 h-48 object-contain"
 					height={192}
-					src={image.url}
+					image={image}
+					sizes="250px"
 					width={250}
 				/>
 			)}

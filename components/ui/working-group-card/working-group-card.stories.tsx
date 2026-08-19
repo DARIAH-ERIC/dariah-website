@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
 	args: {
-		imageUrl: "/assets/images/temp-news-1.jpg",
+		image: { srcUrl: "/assets/images/temp-news-1.jpg", width: 385, height: 385, alt: null },
 		title: "ARTEMIS",
 		href: "/",
 	},

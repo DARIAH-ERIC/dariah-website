@@ -2,29 +2,26 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import { Fragment, type ReactNode } from "react";
 
-import { ContentImage, Image } from "@/components/image";
+import { ApiImage, Image } from "@/components/image";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
 import type { Person } from "@/lib/data/api-client";
+import type { ImageAsset } from "@/lib/images/variants";
 import personPlaceholder from "@/public/assets/images/person-placeholder.svg";
 import { sortUserPosition } from "@/utils/person-card.utils";
 
 interface PersonCardProps {
 	href?: string;
-	imageUrl?: string | null;
-	imageAlt?: string | null;
+	image?: ImageAsset | null;
 	name: string;
 	position: Person["positions"];
 	nameTag?: "h3" | "h4";
 }
 
 export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
-	const { href, imageUrl, imageAlt, name, position, nameTag = "h4" } = props;
+	const { href, image, name, position, nameTag = "h4" } = props;
 	const t = useTranslations("(default).PersonCard");
-
-	const displayedImage = imageUrl ?? personPlaceholder;
-	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	const sortedPosition = sortUserPosition(position);
 
@@ -122,13 +119,23 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 			)}
 			href={href}
 		>
-			<ProfileImage
-				alt={imageAlt ?? ""}
-				className="object-cover min-w-34 size-34 mt-2"
-				height={136}
-				src={displayedImage}
-				width={136}
-			/>
+			{image != null ? (
+				<ApiImage
+					className="object-cover min-w-34 size-34 mt-2"
+					height={136}
+					image={image}
+					sizes="136px"
+					width={136}
+				/>
+			) : (
+				<Image
+					alt=""
+					className="object-cover min-w-34 size-34 mt-2"
+					height={136}
+					src={personPlaceholder}
+					width={136}
+				/>
+			)}
 			<div className="flex flex-col py-1 gap-5.5 w-full">
 				<Typography className="text-h5" variant={nameTag}>
 					{name}

@@ -79,8 +79,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 										key={id}
 										ref={isFirst ? firstActiveCardRef : undefined}
 										href={href}
-										imageAlt={image.alt}
-										imageUrl={image.url}
+										image={image}
 										tabIndex={isFirst ? 0 : undefined}
 										title={name}
 									/>
@@ -111,8 +110,7 @@ export function WorkingGroupsTabs(props: Readonly<WorkingGroupsTabsProps>): Reac
 										key={id}
 										ref={isFirst ? firstInactiveCardRef : undefined}
 										href={href}
-										imageAlt={image.alt}
-										imageUrl={image.url}
+										image={image}
 										tabIndex={isFirst ? 0 : undefined}
 										title={name}
 									/>

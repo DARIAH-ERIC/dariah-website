@@ -2,6 +2,7 @@ import type { NextConfig as Config } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 import { env } from "./config/env.config.ts";
+import { imageQuality } from "./config/image.config.ts";
 
 const config: Config = {
 	allowedDevOrigins: ["127.0.0.1"],
@@ -18,8 +19,26 @@ const config: Config = {
 		return headers;
 	},
 	images: {
-		qualities: [90],
-		remotePatterns: [{ hostname: "imgproxy.acdh.oeaw.ac.at" }],
+		/**
+		 * The api's image-variant endpoint accepts only the widths on its allowlist, so the ladder
+		 * `next/image` picks `srcset` candidates from is that allowlist rather than the defaults. Both
+		 * lists are candidates; what separates them is that the smallest `deviceSizes` entry is also
+		 * the floor below which a `sizes`-bearing image is offered nothing. The two rungs narrower
+		 * than any viewport therefore belong in `imageSizes`, where a fixed-width thumbnail can still
+		 * reach them but a full-bleed slot is not handed a 320px candidate.
+		 *
+		 * @see {@link file://./config/image.config.ts}
+		 */
+		deviceSizes: [640, 960, 1280, 1600, 2048, 2560, 3200, 3840],
+		imageSizes: [320, 480],
+		/**
+		 * Every image on the site is now addressed through `lib/images/loader.ts`: api images become
+		 * variant-endpoint urls, and everything local is handed back to `/_next/image`. No image url
+		 * reaches the optimizer from outside this app any more, which is what `remotePatterns` used to
+		 * be here to allow.
+		 */
+		loaderFile: "./lib/images/loader.ts",
+		qualities: [imageQuality],
 	},
 	logging: {
 		browserToTerminal: true,

@@ -77,8 +77,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										ref={isFirst ? firstActiveCardRef : undefined}
 										endDate={duration.end}
 										href={href}
-										imageAlt={image?.alt}
-										imageUrl={image?.url}
+										image={image}
 										startDate={duration.start}
 										tabIndex={isFirst ? 0 : undefined}
 										title={acronym ?? name}
@@ -115,8 +114,7 @@ export function ProjectTabs(props: Readonly<ProjectTabsProps>): ReactNode {
 										ref={isFirst ? firstInactiveCardRef : undefined}
 										endDate={duration.end}
 										href={href}
-										imageAlt={image?.alt}
-										imageUrl={image?.url}
+										image={image}
 										startDate={duration.start}
 										tabIndex={isFirst ? 0 : undefined}
 										title={acronym ?? name}

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { PersonCard } from "@/components/ui/person-card/person-card";
@@ -95,11 +95,11 @@ export default async function ImpactCaseStudyPage(
 			</div>
 			<div className="flex flex-col gap-11.5">
 				<figure className="flex flex-col gap-y-4">
-					<ContentImage
-						alt={image.alt ?? ""}
+					<ApiImage
 						className="w-480 h-125 object-contain"
 						height={621}
-						src={image.url}
+						image={image}
+						sizes="100vw"
 						width={1920}
 					/>
 					{image.caption !== null && (
@@ -141,13 +141,11 @@ export default async function ImpactCaseStudyPage(
 													slug: personSlug,
 												} = contributor;
 
-												const { url: imageUrl } = contributorImage ?? { url: null };
-
 												return (
 													<PersonCard
 														key={id}
 														href={`/about/impact-case-studies/${slug}?person=${personSlug}#contributors`}
-														imageUrl={imageUrl}
+														image={contributorImage}
 														name={name}
 														position={positions}
 													/>

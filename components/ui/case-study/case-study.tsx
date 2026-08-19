@@ -2,20 +2,20 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { MenuBookIcon } from "@/components/ui/icons/menu-book";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 
 interface CaseStudyProps {
 	title: string;
-	imageUrl: string;
-	imageAlt?: string | null;
+	image: ImageAsset;
 	href?: string;
 }
 
 export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
-	const { title, imageUrl, imageAlt, href } = props;
+	const { title, image, href } = props;
 	const t = useTranslations("ImpactCaseStudiesDetailPage");
 
 	return (
@@ -27,11 +27,11 @@ export function CaseStudy(props: Readonly<CaseStudyProps>): ReactNode {
 			)}
 			href={href}
 		>
-			<ContentImage
-				alt={imageAlt ?? ""}
+			<ApiImage
 				className="w-82 h-64.5 object-cover 3xl:w-133.75 3xl:h-78.25"
 				height={313}
-				src={imageUrl}
+				image={image}
+				sizes="(min-width: 120rem) 535px, 328px"
 				width={535}
 			/>
 			<div className="flex gap-2 p-4 flex-col">

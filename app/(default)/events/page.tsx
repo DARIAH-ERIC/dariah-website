@@ -172,8 +172,7 @@ export default async function EventsPage({
 													</Typography>
 													<EventCard
 														endDate={event.duration.end}
-														imageAlt={event.image.alt}
-														imageUrl={event.image.url}
+														image={event.image}
 														localization={event.location}
 														slug={event.entity.slug}
 														startDate={event.duration.start}

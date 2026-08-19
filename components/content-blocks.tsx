@@ -3,7 +3,7 @@ import { cn } from "@acdh-oeaw/style-variants";
 import type { JSONContent } from "@tiptap/core";
 import { type ReactNode, useId } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
 import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
@@ -165,9 +165,8 @@ function renderContentBlock(
 
 			const items = field.items.map((item) => {
 				return {
-					alt: item.image.alt,
 					caption: item.caption != null ? <RichTextCaption content={item.caption} /> : undefined,
-					url: item.image.url,
+					image: item.image,
 				};
 			});
 
@@ -203,12 +202,11 @@ function renderContentBlock(
 
 			return (
 				<figure key={index} className={cn("flex flex-col gap-y-2 py-4 mt-1.5", layoutClassName)}>
-					<ContentImage
-						alt={field.image.alt ?? ""}
+					<ApiImage
 						className="ms-auto me-auto inline-auto max-inline-full"
-						height={isFloated ? 450 : 900}
-						src={field.image.url}
-						width={isFloated ? 800 : 1600}
+						image={field.image}
+						/** A floated figure is capped at `max-w-72`; every other layout fills the column. */
+						sizes={isFloated ? "288px" : "(min-width: 80rem) 1150px, 100vw"}
 					/>
 					{field.caption !== null && (
 						<figcaption className="text-small text-gray-900">
@@ -232,11 +230,11 @@ function renderContentBlock(
 							field.side === "end" ? "@xl:float-end @xl:ml-7" : "@xl:float-start @xl:mr-7",
 						)}
 					>
-						<ContentImage
-							alt={field.image.alt ?? ""}
+						<ApiImage
 							className="size-50 max-w-full object-cover"
 							height={400}
-							src={field.image.url}
+							image={field.image}
+							sizes="200px"
 							width={400}
 						/>
 						{field.caption !== null && (

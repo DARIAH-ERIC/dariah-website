@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { OpenInNewIcon } from "@/components/ui/icons/open-in-new";
 import { Link } from "@/components/ui/link/link";
@@ -204,11 +204,11 @@ export default async function WorkingGroupPage(
 							</div>
 						</div>
 						{image != null ? (
-							<ContentImage
-								alt={image.alt ?? ""}
+							<ApiImage
 								className="max-h-full max-w-full w-100 object-contain md:w-150 md:h-75 lg:h-110.5 lg:w-197.25"
 								height={442}
-								src={image.url}
+								image={image}
+								sizes="(min-width: 64rem) 789px, (min-width: 48rem) 600px, 400px"
 								width={789}
 							/>
 						) : null}
@@ -244,13 +244,11 @@ export default async function WorkingGroupPage(
 																slug: personSlug,
 															} = chair;
 
-															const { url: imageUrl } = chairImage ?? { url: null };
-
 															return (
 																<PersonCard
 																	key={id}
 																	href={`/network/working-groups/${slug}?person=${personSlug}#chairs`}
-																	imageUrl={imageUrl}
+																	image={chairImage}
 																	name={name}
 																	nameTag="h3"
 																	position={positions}

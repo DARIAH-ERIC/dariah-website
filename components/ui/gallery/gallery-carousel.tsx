@@ -7,7 +7,7 @@ import { Carousel } from "@/components/ui/carousel/carousel";
 import { GalleryItem, type GalleryItemProps } from "@/components/ui/gallery/gallery-item";
 
 interface GalleryCarouselProps {
-	items: Array<GalleryItemProps>;
+	items: Array<Omit<GalleryItemProps, "sizes">>;
 }
 
 const BREAKPOINTS = {
@@ -34,7 +34,15 @@ export function GalleryCarousel(props: Readonly<GalleryCarouselProps>): ReactNod
 			containerClassName="w-full"
 		>
 			{items.map((item, index) => {
-				return <GalleryItem key={index} alt={item.alt} caption={item.caption} url={item.url} />;
+				return (
+					<GalleryItem
+						key={index}
+						caption={item.caption}
+						image={item.image}
+						/** One slide at every breakpoint, so a slide is the whole content column. */
+						sizes="(min-width: 80rem) 1150px, 100vw"
+					/>
+				);
 			})}
 		</Carousel>
 	);
