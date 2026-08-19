@@ -2,20 +2,20 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { WorkingGroupIcon } from "@/components/ui/icons/working-group";
 import { NavLink, type NavLinkProps } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 
 interface WorkingGroupCard extends NavLinkProps {
 	title: string;
-	imageUrl: string;
-	imageAlt?: string | null;
+	image: ImageAsset;
 	href: string;
 }
 
 export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
-	const { title, imageUrl, imageAlt, href, ...rest } = props;
+	const { title, image, href, ...rest } = props;
 	const t = useTranslations("WorkingGroupsDetailPage.card");
 
 	return (
@@ -28,11 +28,11 @@ export function WorkingGroupCard(props: Readonly<WorkingGroupCard>): ReactNode {
 			href={href}
 			{...rest}
 		>
-			<ContentImage
-				alt={imageAlt ?? ""}
+			<ApiImage
 				className="size-80 rounded-t-sm object-contain md:size-96.25"
 				height={385}
-				src={imageUrl}
+				image={image}
+				sizes="(min-width: 48rem) 385px, 320px"
 				width={385}
 			/>
 			<div

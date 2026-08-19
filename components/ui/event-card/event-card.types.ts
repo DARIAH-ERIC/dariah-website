@@ -1,3 +1,5 @@
+import type { ImageAsset } from "@/lib/images/variants";
+
 export interface EventCardProps {
 	title: string;
 	slug: string;
@@ -6,6 +8,5 @@ export interface EventCardProps {
 	startDate: Date;
 	variant: "list" | "homepage";
 	type?: "training" | "conference" | "workshop";
-	imageUrl?: string;
-	imageAlt?: string | null;
+	image?: ImageAsset | null;
 }

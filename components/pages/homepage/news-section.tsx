@@ -27,8 +27,7 @@ export function NewsSection(props: Readonly<NewsSectionProps>): ReactNode {
 							key={id}
 							date={publishedAt}
 							description={summary}
-							imageAlt={image.alt}
-							imageUrl={image.url}
+							image={image}
 							linkUrl={href}
 							title={title}
 							type={type}

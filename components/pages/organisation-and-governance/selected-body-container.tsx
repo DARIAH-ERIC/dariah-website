@@ -109,14 +109,11 @@ export function SelectedBodyContainer(props: Readonly<SelectedBodyContainerProps
 							usersForSelectedBody.map((user) => {
 								const { id, name, positions, slug, image: userImage } = user;
 
-								const { url: imageUrl, alt: imageAlt } = userImage ?? { url: null, alt: null };
-
 								return (
 									<PersonCard
 										key={id}
 										href={`/about/organisation-and-governance?selectedBody=${selectedBody}&selectedUser=${slug}`}
-										imageAlt={imageAlt}
-										imageUrl={imageUrl}
+										image={userImage}
 										name={name}
 										position={positions}
 									/>

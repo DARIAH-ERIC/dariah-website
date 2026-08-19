@@ -1,3 +1,5 @@
+import type { ImageAsset } from "@/lib/images/variants";
+
 export interface CalendarEvent {
 	publishedAt: Date;
 	duration: {
@@ -9,9 +11,7 @@ export interface CalendarEvent {
 	summary: string;
 	location: string;
 	isFullDay: boolean;
-	image: {
-		url: string;
-	};
+	image: ImageAsset;
 	entity: {
 		slug: string;
 	};

@@ -66,8 +66,7 @@ export default async function SpotlightArticlesPage(): Promise<ReactNode> {
 								<SpotlightCard
 									key={slug}
 									href={href}
-									imageAlt={image.alt}
-									imageUrl={image.url}
+									image={image}
 									publishedAt={publishedAt}
 									summary={summary}
 									title={title}

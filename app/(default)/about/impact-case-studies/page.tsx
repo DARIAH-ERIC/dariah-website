@@ -82,15 +82,7 @@ export default async function ImpactCaseStudiesPage(
 										const { slug } = entity;
 										const href = `/about/impact-case-studies/${slug}`;
 
-										return (
-											<CaseStudy
-												key={slug}
-												href={href}
-												imageAlt={image.alt}
-												imageUrl={image.url}
-												title={title}
-											/>
-										);
+										return <CaseStudy key={slug} href={href} image={image} title={title} />;
 									})}
 								</ul>
 							</div>

@@ -218,13 +218,11 @@ export function MembersAndPartnersTabs(props: Readonly<MembersAndPartnersTabsPro
 																	slug,
 																} = contributor;
 
-																const { url: imageUrl } = contributorImage ?? { url: null };
-
 																return (
 																	<PersonCard
 																		key={id}
 																		href={`${pathname}?person=${slug}#contributors`}
-																		imageUrl={imageUrl}
+																		image={contributorImage}
 																		name={name}
 																		position={positions}
 																	/>

@@ -4,18 +4,18 @@ import { cn } from "@acdh-oeaw/style-variants";
 import { useTranslations } from "next-intl";
 import React, { type ReactNode } from "react";
 
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { ChevronForwardIcon } from "@/components/ui/icons/chevron-forward";
 import { NewsIcon } from "@/components/ui/icons/news";
 import { NavLink } from "@/components/ui/link/nav-link";
 import { Typography } from "@/components/ui/typography/typography";
+import type { ImageAsset } from "@/lib/images/variants";
 import { type AnnouncementType, getFormattedDateForNews } from "@/utils/news-page.utils";
 
 interface NewsCardProps {
 	title: string;
 	description?: string;
-	imageUrl: string;
-	imageAlt?: string | null;
+	image: ImageAsset;
 	linkUrl: string;
 	date: Date;
 	type?: AnnouncementType;
@@ -24,17 +24,7 @@ interface NewsCardProps {
 }
 
 export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
-	const {
-		variant,
-		title,
-		description,
-		imageUrl,
-		imageAlt,
-		linkUrl,
-		date,
-		type = "news",
-		className,
-	} = props;
+	const { variant, title, description, image, linkUrl, date, type = "news", className } = props;
 	const t = useTranslations("NewsPage");
 	const tags = {
 		funding_calls: t("newsCard.tags.funding-call"),
@@ -43,22 +33,47 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	} satisfies Record<AnnouncementType, string>;
 	const tag = tags[type];
 
+	/**
+	 * `imageSizes` describes the slot at each breakpoint, and is what turns the `srcset` into
+	 * something a phone benefits from: every variant is full-bleed until its own breakpoint, so
+	 * without it the declared desktop width would be requested on mobile too.
+	 */
 	const getImageSizeForVariant = () => {
 		switch (variant) {
 			case "featured": {
-				return { imageWidth: 755, imageHeight: 339 };
+				return {
+					imageWidth: 755,
+					imageHeight: 339,
+					imageSizes: "(min-width: 80rem) 755px, 100vw",
+				};
 			}
 			case "standard": {
-				return { imageWidth: 361, imageHeight: 244 };
+				return {
+					imageWidth: 361,
+					imageHeight: 244,
+					imageSizes: "(min-width: 80rem) 361px, 100vw",
+				};
 			}
 			case "list-item": {
-				return { imageWidth: 362, imageHeight: 220 };
+				return {
+					imageWidth: 362,
+					imageHeight: 220,
+					imageSizes: "(min-width: 120rem) 362px, (min-width: 96rem) 340px, 100vw",
+				};
 			}
 			case "list-headline": {
-				return { imageWidth: 925, imageHeight: 431 };
+				return {
+					imageWidth: 925,
+					imageHeight: 431,
+					imageSizes: "(min-width: 64rem) 925px, 100vw",
+				};
 			}
 			default: {
-				return { imageWidth: 361, imageHeight: 244 };
+				return {
+					imageWidth: 361,
+					imageHeight: 244,
+					imageSizes: "(min-width: 80rem) 361px, 100vw",
+				};
 			}
 		}
 	};
@@ -66,7 +81,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 	const variantWithDescription = ["featured", "list-item", "list-headline"].includes(variant);
 	const isListVariant = ["list-item", "list-headline"].includes(variant);
 
-	const { imageWidth, imageHeight } = getImageSizeForVariant();
+	const { imageWidth, imageHeight, imageSizes } = getImageSizeForVariant();
 
 	const containerVariants = {
 		featured: "max-w-full xl:max-w-[40%] 3xl:max-w-full w-188.75 h-147.25",
@@ -101,8 +116,7 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 					imageWrapperVariants[variant],
 				)}
 			>
-				<ContentImage
-					alt={imageAlt ?? ""}
+				<ApiImage
 					className={cn(
 						"overflow-hidden transition-transform duration-300 ease-in-out object-cover",
 						"group-hover:scale-110",
@@ -110,7 +124,8 @@ export function NewsCard(props: Readonly<NewsCardProps>): ReactNode {
 						"group-focus:scale-110",
 					)}
 					height={imageHeight}
-					src={imageUrl}
+					image={image}
+					sizes={imageSizes}
 					width={imageWidth}
 				/>
 				<div

@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { MembersAndPartnersTabs } from "@/components/pages/members-and-partners/detail-page/members-and-partners-tabs";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
@@ -99,9 +99,7 @@ export default async function MembersAndPartnersPage(
 								? `(${t("status.is_member_of")})`
 								: `(${t("status.is_cooperating_partner_of")})`}
 						</Typography>
-						{image?.url !== undefined && (
-							<ContentImage alt={image.alt ?? ""} height={72} src={image.url} width={207} />
-						)}
+						{image != null && <ApiImage height={72} image={image} sizes="207px" width={207} />}
 						<MembersAndPartnersTabs
 							memberOrPartner={response.data}
 							selectedPerson={selectedPerson}

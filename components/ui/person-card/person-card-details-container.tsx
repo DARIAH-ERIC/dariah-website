@@ -40,8 +40,7 @@ export function PersonCardDetailsContainer(
 					}) as JSONContent
 				}
 				email={selectedPerson.email ?? undefined}
-				imageAlt={selectedPerson.image?.alt}
-				imageUrl={selectedPerson.image?.url}
+				image={selectedPerson.image}
 				name={selectedPerson.name}
 				position={selectedPerson.positions}
 				tabIndex={-1}

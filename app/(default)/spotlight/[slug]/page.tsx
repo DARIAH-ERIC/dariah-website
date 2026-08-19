@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { Link } from "@/components/ui/link/link";
@@ -106,11 +106,14 @@ export default async function SpotlightArticlePage(
 						<Typography variant="regular">{getFormattedDateForDetails(publishedAt)}</Typography>
 					</div>
 					<figure className="flex flex-col gap-y-4">
-						<ContentImage
-							alt={image.alt ?? ""}
+						<ApiImage
 							className="w-full h-87.5 object-contain"
+							fetchPriority="high"
 							height={350}
-							src={image.url}
+							image={image}
+							loading="eager"
+							preload={true}
+							sizes="(min-width: 80rem) 1100px, 100vw"
 							width={1100}
 						/>
 						{image.caption !== null && (
@@ -151,13 +154,11 @@ export default async function SpotlightArticlePage(
 															slug: personSlug,
 														} = contributor;
 
-														const { url: imageUrl } = contributorImage ?? { url: null };
-
 														return (
 															<PersonCard
 																key={id}
 																href={`/spotlight/${slug}?person=${personSlug}#contributors`}
-																imageUrl={imageUrl}
+																image={contributorImage}
 																name={name}
 																position={positions}
 															/>

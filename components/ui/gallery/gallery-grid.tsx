@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { GalleryItem, type GalleryItemProps } from "@/components/ui/gallery/gallery-item";
 
 interface GalleryGridProps {
-	items: Array<GalleryItemProps>;
+	items: Array<Omit<GalleryItemProps, "sizes">>;
 }
 
 export function GalleryGrid(props: Readonly<GalleryGridProps>): ReactNode {
@@ -17,7 +17,16 @@ export function GalleryGrid(props: Readonly<GalleryGridProps>): ReactNode {
 			{items.map((item, index) => {
 				return (
 					<li key={index}>
-						<GalleryItem alt={item.alt} caption={item.caption} url={item.url} />
+						<GalleryItem
+							caption={item.caption}
+							image={item.image}
+							/**
+							 * The track is `auto-fill` over a 22.5rem minimum, so the column count follows the
+							 * content column rather than the viewport and cannot be stated exactly. These are
+							 * the counts that minimum works out to at each breakpoint.
+							 */
+							sizes="(min-width: 80rem) 33vw, (min-width: 48rem) 50vw, 100vw"
+						/>
 					</li>
 				);
 			})}

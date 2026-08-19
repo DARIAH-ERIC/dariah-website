@@ -1,3 +1,5 @@
+import type { ImageAsset } from "@/lib/images/variants";
+
 declare module "*.css";
 
 export interface Person {
@@ -28,9 +30,7 @@ export interface Person {
 		};
 		description: string | null;
 	}> | null;
-	image: {
-		url: string;
-	};
+	image: ImageAsset | null;
 	slug: string;
 	role:
 		| "national_coordinator"

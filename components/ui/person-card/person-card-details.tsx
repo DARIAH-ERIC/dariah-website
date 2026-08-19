@@ -2,18 +2,18 @@ import type { JSONContent } from "@tiptap/core";
 import { useTranslations } from "next-intl";
 import type { ReactNode, Ref } from "react";
 
-import { ContentImage, Image } from "@/components/image";
+import { ApiImage, Image } from "@/components/image";
 import { RichText } from "@/components/rich-text";
 import { EmailIcon } from "@/components/ui/icons/email";
 import { Link } from "@/components/ui/link/link";
 import { PersonPositions } from "@/components/ui/person-card/person-positions";
 import { Typography } from "@/components/ui/typography/typography";
 import type { Person } from "@/lib/data/api-client";
+import type { ImageAsset } from "@/lib/images/variants";
 import personPlaceholder from "@/public/assets/images/person-placeholder.svg";
 
 interface PersonCardDetailsProps {
-	imageUrl?: string | null;
-	imageAlt?: string | null;
+	image?: ImageAsset | null;
 	name: string;
 	email?: string;
 	position: Person["positions"];
@@ -23,21 +23,28 @@ interface PersonCardDetailsProps {
 }
 
 export function PersonCardDetails(props: Readonly<PersonCardDetailsProps>): ReactNode {
-	const { imageUrl, imageAlt, name, email, position, description, tabIndex, ref } = props;
+	const { image, name, email, position, description, tabIndex, ref } = props;
 	const t = useTranslations("(default).PersonCard");
-
-	const displayedImage = imageUrl ?? personPlaceholder;
-	const ProfileImage = imageUrl == null ? Image : ContentImage;
 
 	return (
 		<div className="flex flex-col gap-4 xl:flex-row">
-			<ProfileImage
-				alt={imageAlt ?? ""}
-				className="size-43 object-cover"
-				height={172}
-				src={displayedImage}
-				width={172}
-			/>
+			{image != null ? (
+				<ApiImage
+					className="size-43 object-cover"
+					height={172}
+					image={image}
+					sizes="172px"
+					width={172}
+				/>
+			) : (
+				<Image
+					alt=""
+					className="size-43 object-cover"
+					height={172}
+					src={personPlaceholder}
+					width={172}
+				/>
+			)}
 			<div className="flex flex-col gap-2 px-4">
 				<Typography ref={ref} tabIndex={tabIndex} variant="h5">
 					{name}

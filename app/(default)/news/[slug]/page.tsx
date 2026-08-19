@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { RichTextCaption } from "@/components/rich-text-caption";
 import { Breadcrumb, Breadcrumbs } from "@/components/ui/breadcrumbs/breadcrumbs";
 import { NewsCard } from "@/components/ui/news-card/news-card";
@@ -104,11 +104,14 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 							{summary}
 						</Typography>
 						<figure className="flex flex-col gap-y-4">
-							<ContentImage
-								alt={image.alt ?? ""}
+							<ApiImage
 								className="w-full"
+								fetchPriority="high"
 								height={628.25}
-								src={image.url}
+								image={image}
+								loading="eager"
+								preload={true}
+								sizes="(min-width: 80rem) 1150px, 100vw"
 								width={1150}
 							/>
 							{image.caption !== null && (
@@ -155,8 +158,7 @@ export default async function NewsItemPage(props: Readonly<NewsItemPageProps>): 
 									className="xl:max-w-[23%]! 3xl:max-w-full!"
 									date={newsItem.publishedAt}
 									description={newsItem.summary}
-									imageAlt={newsItem.image.alt}
-									imageUrl={newsItem.image.url}
+									image={newsItem.image}
 									linkUrl={href}
 									title={newsItem.title}
 									type={newsItem.type}

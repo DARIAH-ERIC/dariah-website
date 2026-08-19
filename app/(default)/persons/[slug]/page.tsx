@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "@/app/(default)/_components/main";
 import { ContentBlocks } from "@/components/content-blocks";
-import { ContentImage } from "@/components/image";
+import { ApiImage } from "@/components/image";
 import { Link } from "@/components/ui/link/link";
 import { PersonPositions } from "@/components/ui/person-card/person-positions";
 import { Typography } from "@/components/ui/typography/typography";
@@ -61,11 +61,11 @@ export default async function PersonPage(props: Readonly<PersonPageProps>): Prom
 				{person.name}
 			</Typography>
 			{person.image != null ? (
-				<ContentImage
-					alt={person.image.alt ?? ""}
+				<ApiImage
 					className="size-48 rounded-md object-cover -order-1 mb-4"
 					height={192}
-					src={person.image.url}
+					image={person.image}
+					sizes="192px"
 					width={192}
 				/>
 			) : null}
