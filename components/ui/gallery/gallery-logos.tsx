@@ -13,8 +13,8 @@ interface GalleryLogosProps {
 	items: Array<GalleryLogoItemProps>;
 }
 
-/** The shared height cap, in pixels, mirroring `max-block-14` below. */
-const logoMaxHeight = 56;
+/** The shared height cap, in pixels, mirroring `max-block-24` below. */
+const logoMaxHeight = 96;
 
 /**
  * A row of organiser or funder marks: a list of things to recognise rather than a set of images to
@@ -36,7 +36,7 @@ export function GalleryLogos(props: Readonly<GalleryLogosProps>): ReactNode {
 					<li key={index} className="flex items-center">
 						<ApiImage
 							alt={item.alt}
-							className="inline-auto max-block-14 max-inline-full"
+							className="inline-auto max-block-24 max-inline-full"
 							image={item.image}
 							sizes={getLogoSizes(item.image)}
 						/>
@@ -54,7 +54,7 @@ export function GalleryLogos(props: Readonly<GalleryLogosProps>): ReactNode {
  * It is an upper bound: a mark too wide for the row is clamped to the row instead, which only
  * leaves the declared width a little generous — never short, so nothing renders soft. Naming a
  * plain width rather than a viewport fraction is also what lets the narrow rungs of the ladder be
- * offered at all, which is the point for something 3.5rem tall.
+ * offered at all, which is the point for something 6rem tall.
  *
  * A vector has no resolution to ladder against and is served as-is, so it needs none of this.
  */
