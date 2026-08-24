@@ -8,6 +8,7 @@ import { RichText } from "@/components/rich-text";
 import { getRichTextPlainText, RichTextCaption } from "@/components/rich-text-caption";
 import { GalleryCarousel } from "@/components/ui/gallery/gallery-carousel";
 import { GalleryGrid } from "@/components/ui/gallery/gallery-grid";
+import { GalleryLogos } from "@/components/ui/gallery/gallery-logos";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { Typography } from "@/components/ui/typography/typography";
 import type { components } from "@/lib/api/types";
@@ -151,7 +152,7 @@ function renderContentBlock(
 					></iframe>
 					{field.caption !== null && (
 						<figcaption className="text-small text-gray-900">
-							<RichTextCaption content={field.caption} />
+							<RichTextCaption content={field.caption} footnoteScope={footnoteScope} />
 						</figcaption>
 					)}
 				</figure>
@@ -163,21 +164,58 @@ function renderContentBlock(
 				return null;
 			}
 
+			/**
+			 * The gallery's own caption says what the set shows, as against the per-item captions that
+			 * credit the individual images. It therefore belongs to the figure wrapping the whole
+			 * arrangement rather than to any one item, and renders under every layout.
+			 */
+			const caption =
+				field.caption !== null ? (
+					<figcaption className="text-small text-gray-900">
+						<RichTextCaption content={field.caption} footnoteScope={footnoteScope} />
+					</figcaption>
+				) : null;
+
+			/**
+			 * A logo row renders no item captions — one under every mark would rebuild the grid the
+			 * layout exists to avoid — so an item's caption, which credits the asset, is only reachable
+			 * as alternative text. The asset's own alt still wins wherever it has one.
+			 */
+			if (field.layout === "logos") {
+				const logos = field.items.map((item) => {
+					return {
+						alt: item.image.alt ?? getRichTextPlainText(item.caption),
+						image: item.image,
+					};
+				});
+
+				return (
+					<figure key={index} className="flex flex-col gap-y-2 py-4">
+						<GalleryLogos items={logos} />
+						{caption}
+					</figure>
+				);
+			}
+
 			const items = field.items.map((item) => {
 				return {
-					caption: item.caption != null ? <RichTextCaption content={item.caption} /> : undefined,
+					caption:
+						item.caption != null ? (
+							<RichTextCaption content={item.caption} footnoteScope={footnoteScope} />
+						) : undefined,
 					image: item.image,
 				};
 			});
 
 			return (
-				<div key={index} className="py-4">
+				<figure key={index} className="flex flex-col gap-y-2 py-4">
 					{field.layout === "carousel" ? (
 						<GalleryCarousel items={items} />
 					) : (
 						<GalleryGrid items={items} />
 					)}
-				</div>
+					{caption}
+				</figure>
 			);
 		}
 
@@ -210,7 +248,7 @@ function renderContentBlock(
 					/>
 					{field.caption !== null && (
 						<figcaption className="text-small text-gray-900">
-							<RichTextCaption content={field.caption} />
+							<RichTextCaption content={field.caption} footnoteScope={footnoteScope} />
 						</figcaption>
 					)}
 				</figure>
@@ -239,7 +277,7 @@ function renderContentBlock(
 						/>
 						{field.caption !== null && (
 							<figcaption className="text-small text-gray-900 mt-2">
-								<RichTextCaption content={field.caption} />
+								<RichTextCaption content={field.caption} footnoteScope={footnoteScope} />
 							</figcaption>
 						)}
 					</figure>
