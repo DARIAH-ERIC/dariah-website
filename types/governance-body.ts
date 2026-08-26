@@ -9,11 +9,7 @@ export type RelationshipType =
 	| "supports-ncc-and-jrc";
 
 export type GovernanceVariants =
-	| "governing-body"
-	| "executive-body"
-	| "advisory-body"
-	| "operational-body"
-	| "working-groups";
+	"governing-body" | "executive-body" | "advisory-body" | "operational-body" | "working-groups";
 
 export type GovernanceBody =
 	| "general-assembly"

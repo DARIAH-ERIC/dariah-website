@@ -29,10 +29,7 @@ export interface NavigationMenu {
 }
 
 export type NavigationItem =
-	| NavigationAction
-	| NavigationLink
-	| NavigationSeparator
-	| NavigationMenu;
+	NavigationAction | NavigationLink | NavigationSeparator | NavigationMenu;
 
 export type NavigationFooterItem = NavigationMenu;
 

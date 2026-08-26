@@ -24,8 +24,7 @@ import { getGrouppedPersonMembers } from "@/utils/global.utils";
 
 interface MembersAndPartnersTabsProps {
 	memberOrPartner:
-		| components["schemas"]["MemberOrObserver"]
-		| components["schemas"]["CooperatingPartner"];
+		components["schemas"]["MemberOrObserver"] | components["schemas"]["CooperatingPartner"];
 	selectedPerson?: Person;
 }
 

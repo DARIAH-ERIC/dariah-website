@@ -1,7 +1,5 @@
 type SortByDirection<TCriterion extends string> =
-	| TCriterion
-	| `${TCriterion}:asc`
-	| `${TCriterion}:desc`;
+	TCriterion | `${TCriterion}:asc` | `${TCriterion}:desc`;
 
 export type ResourceCatalogueSubfilter = Record<
 	string,

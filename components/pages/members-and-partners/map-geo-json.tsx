@@ -15,9 +15,7 @@ import type { MemberOrPartnerList } from "@/lib/data/api-client";
 import type { CountryGeoJSON, CountryProperties } from "@/types/map";
 
 type ActiveCountry =
-	| (MemberOrPartnerList["data"][number] & { location: LatLng })
-	| undefined
-	| null;
+	(MemberOrPartnerList["data"][number] & { location: LatLng }) | undefined | null;
 
 interface MapGeoJsonProps {
 	activeCountry: ActiveCountry;

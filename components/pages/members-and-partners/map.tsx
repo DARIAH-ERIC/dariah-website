@@ -19,9 +19,7 @@ import type { CountryGeoJSON } from "@/types/map";
 import { useMediaQuery } from "@/utils/hooks/use-media-query";
 
 type ActiveCountry =
-	| (MemberOrPartnerList["data"][number] & { location: LatLng })
-	| undefined
-	| null;
+	(MemberOrPartnerList["data"][number] & { location: LatLng }) | undefined | null;
 
 interface MapProps {
 	geoJson: CountryGeoJSON;
