@@ -11,10 +11,12 @@ export function convertNavigationMenu(
 	for (const item of items) {
 		if (item.label === "Home") continue;
 
-		if (item.children.length > 0) {
+		const itemChildren = item.children ?? [];
+
+		if (itemChildren.length > 0) {
 			const children: Record<string, NavigationLink> = {};
 
-			for (const child of item.children) {
+			for (const child of itemChildren) {
 				children[child.id] = {
 					type: "link",
 					label: child.label,
