@@ -186,6 +186,7 @@
 		"emptyState": "No documents or policies found.",
 		"emptyStateSection": "No documents or policies found for section.",
 		"viewPDF": "View PDF",
+		"viewLink": "Open link",
 		"placeholderName": "No title provided"
 	},
 	"ErrorPage": {

@@ -61,6 +61,8 @@ export interface RelatedEntity {
 		| "impact_case_studies"
 		| "spotlight_articles";
 	label: string | null;
+	/** Website href provided by the api, `null` when the entity has no page. */
+	href?: string | null;
 }
 
 export interface RelatedResource {

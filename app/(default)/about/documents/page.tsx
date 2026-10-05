@@ -11,6 +11,7 @@ import { Typography } from "@/components/ui/typography/typography";
 import { client } from "@/lib/data/api-client";
 import { navigation } from "@/lib/data/client";
 import { createOpenGraphMetadata } from "@/lib/metadata/open-graph";
+import type { DocumentOrPolicy } from "@/types/documents";
 import { getSectionsFromGroups, splitDocumentsByGroup } from "@/utils/document-page.utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,6 +36,15 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 	const { data: items } = response.data;
 	const { documentsWithoutGroup, documentsByGroup } = splitDocumentsByGroup(items);
 	const sections = getSectionsFromGroups(documentsByGroup);
+
+	/** Items are either an uploaded file or an external link. */
+	function getDocumentUrl(item: DocumentOrPolicy): string | undefined {
+		return item.document?.url ?? item.link?.url;
+	}
+
+	function getPreviewText(item: DocumentOrPolicy): string {
+		return item.document == null && item.link != null ? t("viewLink") : t("viewPDF");
+	}
 
 	return (
 		<Main className="flex flex-1 flex-col gap-14 px-4 pt-8 pb-30 container lg:items-center 2xl:px-31.5">
@@ -68,13 +78,15 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 							{documentsWithoutGroup.length > 0 && (
 								<div className="flex gap-6 flex-col">
 									{documentsWithoutGroup.map((document, index) => {
-										const {
-											id,
-											document: { url },
-											title,
-										} = document;
+										const { id, title } = document;
 										return (
-											<Document key={id} documentUrl={url} isEven={index % 2 === 0} title={title} />
+											<Document
+												key={id}
+												documentUrl={getDocumentUrl(document)}
+												isEven={index % 2 === 0}
+												previewText={getPreviewText(document)}
+												title={title}
+											/>
 										);
 									})}
 								</div>
@@ -92,16 +104,13 @@ export default async function DocumentsPoliciesPage(): Promise<ReactNode> {
 													<Typography variant="regular">{t("emptyStateSection")}</Typography>
 												)}
 												{section.items.map((item, index) => {
-													const {
-														id,
-														document: { url },
-														title,
-													} = item;
+													const { id, title } = item;
 													return (
 														<Document
 															key={id}
-															documentUrl={url}
+															documentUrl={getDocumentUrl(item)}
 															isEven={index % 2 === 0}
+															previewText={getPreviewText(item)}
 															title={title}
 														/>
 													);

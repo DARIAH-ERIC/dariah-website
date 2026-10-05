@@ -5,7 +5,10 @@ export interface DocumentOrPolicy {
 	url: string | null;
 	document: {
 		url: string;
-	};
+	} | null;
+	link: {
+		url: string;
+	} | null;
 	entity: {
 		slug: string;
 	};

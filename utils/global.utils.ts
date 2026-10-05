@@ -1,3 +1,5 @@
+import { isNonEmptyString } from "@acdh-oeaw/lib";
+
 import { env } from "@/config/env.config";
 import type { components } from "@/lib/api/types";
 import type { SpotlightArticle, WorkingGroup } from "@/lib/data/api-client";
@@ -62,12 +64,20 @@ export const getUrlForGovernanceBody = (slug: string): string | undefined => {
 };
 
 export const getEntityUrl = (entity: RelatedEntity): string | undefined => {
-	const { type: entityType, slug, id } = entity;
+	const { type: entityType, slug, href } = entity;
 	const apiUrl = env.NEXT_PUBLIC_API_BASE_URL;
 
 	switch (entityType) {
 		case "documents_policies": {
-			return `${apiUrl}/api/v1/documents-policies/${id}/document`;
+			/**
+			 * Documents and policies are either an uploaded file or an external link, which only the
+			 * api-provided `href` distinguishes. The file download endpoint returns 404 for external links.
+			 */
+			if (isNonEmptyString(href)) {
+				return href;
+			}
+
+			return `${apiUrl}/api/v1/documents-policies/slugs/${slug}/document`;
 		}
 		case "events": {
 			return `/events/${slug}`;
