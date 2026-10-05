@@ -1,5 +1,5 @@
 import { cn } from "@acdh-oeaw/style-variants";
-import type { JSONContent } from "@tiptap/core";
+import { type JSONContent, mergeAttributes, Node } from "@tiptap/core";
 import { Heading } from "@tiptap/extension-heading";
 import { Table } from "@tiptap/extension-table";
 import { TableKit } from "@tiptap/extension-table/kit";
@@ -25,9 +25,12 @@ interface HeadingAttributes {
 	id?: string;
 }
 
-/** An empty spacer paragraph - `{ "type": "paragraph" }`, or one holding only whitespace. */
+/**
+ * An empty spacer paragraph - `{ "type": "paragraph" }`, or one holding only whitespace. An empty
+ * lead-in counts too, since the backend treats it as empty content as well.
+ */
 function isBlankNode(node: JSONContent): boolean {
-	if (node.type !== "paragraph") {
+	if (node.type !== "paragraph" && node.type !== "leadIn") {
 		return false;
 	}
 
@@ -159,6 +162,31 @@ const ExtendedHeading = Heading.extend({
 });
 
 /**
+ * Lead-in text introducing what follows. The backend stores it as a textblock of its own rather
+ * than a paragraph attribute, so it needs its own node to be rendered at all.
+ */
+const LeadIn = Node.create({
+	name: "leadIn",
+	group: "block",
+	content: "inline*",
+
+	parseHTML() {
+		return [{ tag: "p[data-lead-in]", priority: 60 }];
+	},
+
+	renderHTML({ HTMLAttributes }) {
+		return [
+			"p",
+			mergeAttributes(HTMLAttributes, {
+				class: "mt-4 font-heading text-h4 font-light leading-[1.4]",
+				"data-lead-in": "",
+			}),
+			0,
+		];
+	},
+});
+
+/**
  * A table caption is rich-text JSON stored as an attribute because the table's children must all be
  * rows. Registering it on the schema preserves it until the custom table mapping can render it.
  */
@@ -225,6 +253,7 @@ export function RichText(props: Readonly<RichTextProps>): ReactNode {
 					),
 				},
 			}),
+			LeadIn,
 			PlaceholderValue,
 			ButtonLink,
 			Footnote,
