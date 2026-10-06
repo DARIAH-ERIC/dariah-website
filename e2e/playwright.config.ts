@@ -1,71 +1,55 @@
-/* eslint-disable no-restricted-syntax */
+import { fileURLToPath } from "node:url";
 
-import { join } from "node:path";
+import nextEnv from "@next/env";
+import { defineConfig, devices } from "@playwright/test";
+import isInCi from "is-in-ci";
+import * as v from "valibot";
 
-import { isNonEmptyString } from "@acdh-oeaw/lib";
-import { config as dotenv } from "@dotenvx/dotenvx";
-import { defineConfig, devices, type PlaywrightTestConfig } from "@playwright/test";
-import isCI from "is-in-ci";
+import { client } from "#/configs/env.schema.ts";
 
-/**
- * Reading `.env` files here instead of using `dotenvx run` so environment variables are
- * available to the vs code plugin as well.
- */
-dotenv({
-	path: [".env.test.local", ".env.local", ".env.test", ".env"].map((filePath) => {
-		return join(import.meta.dirname, "..", filePath);
-	}),
-	ignore: ["MISSING_ENV_FILE"],
-	quiet: true,
-});
+const projectDir = fileURLToPath(new URL("..", import.meta.url));
 
-function getConfig():
-	| { kind: "remote"; baseUrl: string; webServer: undefined }
-	| { kind: "local"; baseUrl: string; webServer: PlaywrightTestConfig["webServer"] } {
-	const remoteBaseUrl = process.env.PLAYWRIGHT_TEST_APP_BASE_URL;
-
-	if (isNonEmptyString(remoteBaseUrl)) {
-		return {
-			kind: "remote",
-			baseUrl: remoteBaseUrl,
-			webServer: undefined,
-		};
-	}
-
-	const port = Number(process.env.PORT) || 3000;
-	const baseUrl = `http://localhost:${String(port)}`;
-
-	return {
-		kind: "local",
-		baseUrl,
-		webServer: {
-			command: `pnpm run start --port ${String(port)}`,
-			url: baseUrl,
-			reuseExistingServer: !isCI,
-		},
-	};
-}
-
-const config = getConfig();
+const { combinedEnv } = nextEnv.loadEnvConfig(projectDir);
+const env = v.parse(v.object({ NEXT_PUBLIC_APP_BASE_URL: client.entries.NEXT_PUBLIC_APP_BASE_URL }), combinedEnv);
 
 export default defineConfig({
-	testDir: "../e2e",
-	snapshotDir: "../e2e/snapshots",
+	expect: {
+		toMatchAriaSnapshot: {
+			pathTemplate: "{testDir}/snapshots/{testFilePath}-snapshots/{arg}{ext}",
+		},
+	},
+	forbidOnly: isInCi,
 	fullyParallel: true,
-	forbidOnly: isCI,
-	retries: isCI ? 2 : 0,
-	maxFailures: 10,
-	workers: isCI ? 1 : undefined,
-	reporter: isCI ? [["github"], ["html", { open: "never" }]] : [["html"]],
+	maxFailures: isInCi ? 10 : 0,
+	reporter: isInCi ? "github" : "html",
+	retries: isInCi ? 2 : 0,
+	snapshotPathTemplate: "{testDir}/snapshots/{testFilePath}-snapshots/{arg}{-projectName}{-platform}{ext}",
+	testDir: ".",
+	timeout: 30_000,
 	use: {
-		baseURL: config.baseUrl,
+		baseURL: env.NEXT_PUBLIC_APP_BASE_URL,
 		screenshot: "on-first-failure",
 		trace: "on-first-retry",
 	},
+	webServer: isInCi
+		? undefined
+		: {
+				command: "bun run dev",
+				cwd: projectDir,
+				/**
+				 * Enables `instant()` and next's test proxy, which `next.onFetch` needs. The tests which use the proxy only run
+				 * with `E2E_TEST_PROXY=1` set for playwright as well, see `#/e2e/lib/test.ts`. An already running server must
+				 * have both set itself.
+				 */
+				env: { EXPOSE_TESTING_API: "1", E2E_TEST_PROXY: "1" },
+				reuseExistingServer: true,
+				url: env.NEXT_PUBLIC_APP_BASE_URL,
+			},
+	workers: isInCi ? 1 : undefined,
 	projects: [
 		{
 			name: "chromium",
-			use: { ...devices["Desktop Chrome"], channel: "chromium" },
+			use: { ...devices["Desktop Chrome"], channel: "chrome" },
 		},
 		{
 			name: "firefox",
@@ -75,24 +59,5 @@ export default defineConfig({
 			name: "webkit",
 			use: { ...devices["Desktop Safari"] },
 		},
-		/** Test against mobile viewports. */
-		// {
-		//     name: "Mobile Chrome",
-		//     use: { ...devices["Pixel 5"] },
-		// },
-		// {
-		//     name: "Mobile Safari",
-		//     use: { ...devices["iPhone 12"] },
-		// },
-		/** Test against branded browsers. */
-		// {
-		//     name: "Microsoft Edge",
-		//     use: { ...devices["Desktop Edge"], channel: "msedge" },
-		// },
-		// {
-		//     name: "Google Chrome",
-		//     use: { ...devices["Desktop Chrome"], channel: "chrome" },
-		// },
 	],
-	webServer: config.webServer,
 });

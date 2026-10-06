@@ -1,3 +1,301 @@
+diff --git a/dist/esm/server/lib/router-utils/route-types-utils.js b/dist/esm/server/lib/router-utils/route-types-utils.js
+index 966535e8d9885187d71bdd0b0b3f4d2909a33a13..61c514f44739703827f381397281ca99ff006076 100644
+--- a/dist/esm/server/lib/router-utils/route-types-utils.js
++++ b/dist/esm/server/lib/router-utils/route-types-utils.js
+@@ -1,7 +1,7 @@
+ import path from 'path';
+ import { getRouteRegex } from '../../../shared/lib/router/utils/route-regex';
+ import fs from 'fs';
+-import { generateRouteTypesFile, generateLinkTypesFile, generateValidatorFile, generateValidatorFileStrict, generateRouteTypesFileStrict } from './typegen';
++import { generateRouteTypesFile, generateLinkTypesFile, generateNavigationTypesFile, generateValidatorFile, generateValidatorFileStrict, generateRouteTypesFileStrict } from './typegen';
+ import { tryToParsePath } from '../../../lib/try-to-parse-path';
+ import { extractInterceptionRouteInformation, isInterceptionRouteAppPath } from '../../../shared/lib/router/utils/interception-routes';
+ import { UNDERSCORE_GLOBAL_ERROR_ROUTE, UNDERSCORE_NOT_FOUND_ROUTE } from '../../../shared/lib/entry-constants';
+@@ -150,6 +150,7 @@ export function convertCustomRouteSource(source) {
+         appRouteHandlerRoutes: {},
+         redirectRoutes: {},
+         rewriteRoutes: {},
++        navigationSearchParams: {},
+         rootParams: new Map(),
+         appRouteHandlers: new Set(appRouteHandlers.map(({ filePath })=>getRelativePath(filePath))),
+         pageApiRoutes: new Set(pageApiRoutes.map(({ filePath })=>getRelativePath(filePath))),
+@@ -214,6 +215,14 @@ export function convertCustomRouteSource(source) {
+         }
+         // Use the resolved route (for interception routes, this gives us the canonical route)
+         const resolvedRoute = resolveInterceptingRoute(route);
++        const searchParamsPath = path.join(path.dirname(filePath), 'search-params.ts');
++        if (fs.existsSync(searchParamsPath)) {
++            const existingSearchParamsPath = manifest.navigationSearchParams[resolvedRoute];
++            if (existingSearchParamsPath && existingSearchParamsPath !== searchParamsPath) {
++                throw new Error(`Multiple search-params.ts files resolve to the route ${JSON.stringify(resolvedRoute)}: ${existingSearchParamsPath} and ${searchParamsPath}`);
++            }
++            manifest.navigationSearchParams[resolvedRoute] = searchParamsPath;
++        }
+         if (!manifest.appRoutes[resolvedRoute]) {
+             manifest.appRoutes[resolvedRoute] = {
+                 path: getRelativePath(filePath),
+@@ -276,6 +285,15 @@ export async function writeRouteTypesManifest(manifest, filePath, config) {
+     }
+     // Write the main routes.d.ts file
+     await fs.promises.writeFile(filePath, config.experimental.strictRouteTypes ? generateRouteTypesFileStrict(manifest) : generateRouteTypesFile(manifest));
++    // Keep one authoritative public registry even though dev and build route
++    // declarations live in separate directories and can coexist.
++    const typesParent = path.dirname(dirname);
++    const navigationTypesDir = path.basename(typesParent) === 'dev' ? path.join(path.dirname(typesParent), 'types') : dirname;
++    await fs.promises.mkdir(navigationTypesDir, {
++        recursive: true
++    });
++    const navigationTypesPath = path.join(navigationTypesDir, 'navigation.d.ts');
++    await fs.promises.writeFile(navigationTypesPath, generateNavigationTypesFile(manifest, navigationTypesPath, filePath));
+     // Write the link.d.ts file if typedRoutes is enabled
+     if (config.typedRoutes === true) {
+         const linkTypesPath = path.join(dirname, 'link.d.ts');
+diff --git a/dist/esm/server/lib/router-utils/setup-dev-bundler.js b/dist/esm/server/lib/router-utils/setup-dev-bundler.js
+index 9dce7fc13086a00a6b8cabb6350380855b59a55d..8331425b46ee1e407ecc0b5f832b36cb450ca75f 100644
+--- a/dist/esm/server/lib/router-utils/setup-dev-bundler.js
++++ b/dist/esm/server/lib/router-utils/setup-dev-bundler.js
+@@ -132,6 +132,7 @@ async function startWatcher(opts) {
+         appRouteHandlerRoutes: {},
+         redirectRoutes: {},
+         rewriteRoutes: {},
++        navigationSearchParams: {},
+         appPagePaths: new Set(),
+         pagesRouterPagePaths: new Set(),
+         layoutPaths: new Set(),
+diff --git a/dist/esm/server/lib/router-utils/typegen.js b/dist/esm/server/lib/router-utils/typegen.js
+index 2c2952eb2dba87b149a34d2eb1f94d1a56c5a324..c241936fe9fc0627f67e6f8f9e0548bc102817db 100644
+--- a/dist/esm/server/lib/router-utils/typegen.js
++++ b/dist/esm/server/lib/router-utils/typegen.js
+@@ -1,4 +1,5 @@
+ import { isDynamicRoute } from '../../../shared/lib/router/utils/is-dynamic';
++import path from 'path';
+ function generateRouteTypes(routesManifest) {
+     const appRoutes = Object.keys(routesManifest.appRoutes).sort();
+     const pageRoutes = Object.keys(routesManifest.pageRoutes).sort();
+@@ -101,6 +102,34 @@ function generateParamTypes(routesManifest) {
+     paramTypes += '}\n';
+     return paramTypes;
+ }
++export function generateNavigationTypesFile(routesManifest, filePath, routeTypesFilePath) {
++    let routeTypesImportPath = path.relative(path.dirname(filePath), routeTypesFilePath).replaceAll('\\', '/').replace(/\.d\.ts$/, '.js');
++    if (!routeTypesImportPath.startsWith('.')) {
++        routeTypesImportPath = './' + routeTypesImportPath;
++    }
++    let searchParamsRegistry = '  interface NavigationSearchParamsRegistry {\n';
++    const sortedSearchParams = Object.entries(routesManifest.navigationSearchParams).sort(([a], [b])=>a.localeCompare(b));
++    for (const [route, searchParamsPath] of sortedSearchParams){
++        let importPath = path.relative(path.dirname(filePath), searchParamsPath).replaceAll('\\', '/').replace(/\.ts$/, '.js');
++        if (!importPath.startsWith('.')) {
++            importPath = './' + importPath;
++        }
++        searchParamsRegistry += `    ${JSON.stringify(route)}: typeof import(${JSON.stringify(importPath)}).searchParams\n`;
++    }
++    searchParamsRegistry += '  }\n';
++    return `// This file is generated automatically by Next.js
++// Do not edit this file manually
++
++import 'next'
++import type { AppRoutes, PageRoutes, ParamMap, RewriteRoutes } from ${JSON.stringify(routeTypesImportPath)}
++
++declare module 'next' {
++  interface NavigationRouteRegistry extends Pick<ParamMap, AppRoutes | PageRoutes | RewriteRoutes> {
++  }
++
++${searchParamsRegistry}}
++`;
++}
+ function generateLayoutSlotMap(routesManifest) {
+     let slotMap = 'interface LayoutSlotMap {\n';
+     // Sort routes deterministically for consistent output
+diff --git a/dist/server/lib/router-utils/route-types-utils.d.ts b/dist/server/lib/router-utils/route-types-utils.d.ts
+index 875cd8c6ebc7436b42bcb4655d8e60dae6509409..811760b802401b5a86d45703f2faf67faaa43df1 100644
+--- a/dist/server/lib/router-utils/route-types-utils.d.ts
++++ b/dist/server/lib/router-utils/route-types-utils.d.ts
+@@ -19,6 +19,8 @@ export interface RouteTypesManifest {
+     redirectRoutes: Record<string, ManifestRouteInfo>;
+     /** Map of rewrite source => ManifestRouteInfo */
+     rewriteRoutes: Record<string, ManifestRouteInfo>;
++    /** Map of app route => absolute colocated search parameter codec path */
++    navigationSearchParams: Record<string, string>;
+     /** File paths for validation */
+     appPagePaths: Set<string>;
+     pagesRouterPagePaths: Set<string>;
+diff --git a/dist/server/lib/router-utils/route-types-utils.js b/dist/server/lib/router-utils/route-types-utils.js
+index a6f5d58538e1b92b8ee8e60fcff81ec3524053f1..cebeb37d977af45d3b17b673692016cc51cef286 100644
+--- a/dist/server/lib/router-utils/route-types-utils.js
++++ b/dist/server/lib/router-utils/route-types-utils.js
+@@ -181,6 +181,7 @@ async function createRouteTypesManifest({ dir, pageRoutes, appRoutes, appRouteHa
+         appRouteHandlerRoutes: {},
+         redirectRoutes: {},
+         rewriteRoutes: {},
++        navigationSearchParams: {},
+         rootParams: new Map(),
+         appRouteHandlers: new Set(appRouteHandlers.map(({ filePath })=>getRelativePath(filePath))),
+         pageApiRoutes: new Set(pageApiRoutes.map(({ filePath })=>getRelativePath(filePath))),
+@@ -245,6 +246,14 @@ async function createRouteTypesManifest({ dir, pageRoutes, appRoutes, appRouteHa
+         }
+         // Use the resolved route (for interception routes, this gives us the canonical route)
+         const resolvedRoute = resolveInterceptingRoute(route);
++        const searchParamsPath = _path.default.join(_path.default.dirname(filePath), 'search-params.ts');
++        if (_fs.default.existsSync(searchParamsPath)) {
++            const existingSearchParamsPath = manifest.navigationSearchParams[resolvedRoute];
++            if (existingSearchParamsPath && existingSearchParamsPath !== searchParamsPath) {
++                throw new Error(`Multiple search-params.ts files resolve to the route ${JSON.stringify(resolvedRoute)}: ${existingSearchParamsPath} and ${searchParamsPath}`);
++            }
++            manifest.navigationSearchParams[resolvedRoute] = searchParamsPath;
++        }
+         if (!manifest.appRoutes[resolvedRoute]) {
+             manifest.appRoutes[resolvedRoute] = {
+                 path: getRelativePath(filePath),
+@@ -307,6 +316,15 @@ async function writeRouteTypesManifest(manifest, filePath, config) {
+     }
+     // Write the main routes.d.ts file
+     await _fs.default.promises.writeFile(filePath, config.experimental.strictRouteTypes ? (0, _typegen.generateRouteTypesFileStrict)(manifest) : (0, _typegen.generateRouteTypesFile)(manifest));
++    // Keep one authoritative public registry even though dev and build route
++    // declarations live in separate directories and can coexist.
++    const typesParent = _path.default.dirname(dirname);
++    const navigationTypesDir = _path.default.basename(typesParent) === 'dev' ? _path.default.join(_path.default.dirname(typesParent), 'types') : dirname;
++    await _fs.default.promises.mkdir(navigationTypesDir, {
++        recursive: true
++    });
++    const navigationTypesPath = _path.default.join(navigationTypesDir, 'navigation.d.ts');
++    await _fs.default.promises.writeFile(navigationTypesPath, (0, _typegen.generateNavigationTypesFile)(manifest, navigationTypesPath, filePath));
+     // Write the link.d.ts file if typedRoutes is enabled
+     if (config.typedRoutes === true) {
+         const linkTypesPath = _path.default.join(dirname, 'link.d.ts');
+diff --git a/dist/server/lib/router-utils/setup-dev-bundler.js b/dist/server/lib/router-utils/setup-dev-bundler.js
+index d6bb38198e5af7499c6cbf6cb32ec3c26fff23cc..50b9d10eb33408d0802bc2f8d4e7e020383b917e 100644
+--- a/dist/server/lib/router-utils/setup-dev-bundler.js
++++ b/dist/server/lib/router-utils/setup-dev-bundler.js
+@@ -200,6 +200,7 @@ async function startWatcher(opts) {
+         appRouteHandlerRoutes: {},
+         redirectRoutes: {},
+         rewriteRoutes: {},
++        navigationSearchParams: {},
+         appPagePaths: new Set(),
+         pagesRouterPagePaths: new Set(),
+         layoutPaths: new Set(),
+diff --git a/dist/server/lib/router-utils/typegen.d.ts b/dist/server/lib/router-utils/typegen.d.ts
+index bbdc84972adbdef8cdcedcdb9e902629e880bb45..df536f0c68f12a914b9ec13d61bf118ce8104a7d 100644
+--- a/dist/server/lib/router-utils/typegen.d.ts
++++ b/dist/server/lib/router-utils/typegen.d.ts
+@@ -1,5 +1,6 @@
+ import type { RouteTypesManifest } from './route-types-utils';
+ export declare function generateLinkTypesFile(routesManifest: RouteTypesManifest): string;
++export declare function generateNavigationTypesFile(routesManifest: RouteTypesManifest, filePath: string, routeTypesFilePath: string): string;
+ export declare function generateValidatorFile(routesManifest: RouteTypesManifest): string;
+ export declare function generateValidatorFileStrict(routesManifest: RouteTypesManifest): string;
+ export declare function generateRouteTypesFile(routesManifest: RouteTypesManifest): string;
+diff --git a/dist/server/lib/router-utils/typegen.js b/dist/server/lib/router-utils/typegen.js
+index 432bdf6a10e4b329874a08768fd533e84fbe7076..faa24ce7ff150a707923a5e64351bc9ab28c67f0 100644
+--- a/dist/server/lib/router-utils/typegen.js
++++ b/dist/server/lib/router-utils/typegen.js
+@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
+ });
+ 0 && (module.exports = {
+     generateLinkTypesFile: null,
++    generateNavigationTypesFile: null,
+     generateRouteTypesFile: null,
+     generateRouteTypesFileStrict: null,
+     generateValidatorFile: null,
+@@ -19,6 +20,9 @@ _export(exports, {
+     generateLinkTypesFile: function() {
+         return generateLinkTypesFile;
+     },
++    generateNavigationTypesFile: function() {
++        return generateNavigationTypesFile;
++    },
+     generateRouteTypesFile: function() {
+         return generateRouteTypesFile;
+     },
+@@ -33,6 +37,7 @@ _export(exports, {
+     }
+ });
+ const _isdynamic = require("../../../shared/lib/router/utils/is-dynamic");
++const _path = require("path");
+ function generateRouteTypes(routesManifest) {
+     const appRoutes = Object.keys(routesManifest.appRoutes).sort();
+     const pageRoutes = Object.keys(routesManifest.pageRoutes).sort();
+@@ -135,6 +140,34 @@ function generateParamTypes(routesManifest) {
+     paramTypes += '}\n';
+     return paramTypes;
+ }
++function generateNavigationTypesFile(routesManifest, filePath, routeTypesFilePath) {
++    let routeTypesImportPath = _path.relative(_path.dirname(filePath), routeTypesFilePath).replaceAll('\\', '/').replace(/\.d\.ts$/, '.js');
++    if (!routeTypesImportPath.startsWith('.')) {
++        routeTypesImportPath = './' + routeTypesImportPath;
++    }
++    let searchParamsRegistry = '  interface NavigationSearchParamsRegistry {\n';
++    const sortedSearchParams = Object.entries(routesManifest.navigationSearchParams).sort(([a], [b])=>a.localeCompare(b));
++    for (const [route, searchParamsPath] of sortedSearchParams){
++        let importPath = _path.relative(_path.dirname(filePath), searchParamsPath).replaceAll('\\', '/').replace(/\.ts$/, '.js');
++        if (!importPath.startsWith('.')) {
++            importPath = './' + importPath;
++        }
++        searchParamsRegistry += `    ${JSON.stringify(route)}: typeof import(${JSON.stringify(importPath)}).searchParams\n`;
++    }
++    searchParamsRegistry += '  }\n';
++    return `// This file is generated automatically by Next.js
++// Do not edit this file manually
++
++import 'next'
++import type { AppRoutes, PageRoutes, ParamMap, RewriteRoutes } from ${JSON.stringify(routeTypesImportPath)}
++
++declare module 'next' {
++  interface NavigationRouteRegistry extends Pick<ParamMap, AppRoutes | PageRoutes | RewriteRoutes> {
++  }
++
++${searchParamsRegistry}}
++`;
++}
+ function generateLayoutSlotMap(routesManifest) {
+     let slotMap = 'interface LayoutSlotMap {\n';
+     // Sort routes deterministically for consistent output
+diff --git a/dist/types.d.ts b/dist/types.d.ts
+index 57efb0a6a551bf35ac8d2640f875e6b84d91dd4f..b3e76210d7975b161a5ba4d114f345db7409a59f 100644
+--- a/dist/types.d.ts
++++ b/dist/types.d.ts
+@@ -29,6 +29,40 @@ export type { RouterTransitionType, RouterTransitionPrefetchIntent, RouterTransi
+  * ```
+  */
+ export type Route<RouteInferType = any> = string & {};
++/**
++ * Generated route patterns that can be used for application navigation.
++ * This interface is augmented by `next dev`, `next build`, and `next typegen`.
++ * @internal
++ */
++export interface NavigationRouteRegistry {
++}
++/**
++ * Search parameter codecs discovered next to application pages.
++ * This interface is augmented by generated navigation declarations.
++ * @internal
++ */
++export interface NavigationSearchParamsRegistry {
++}
++/**
++ * Root route parameters supplied by navigation infrastructure rather than
++ * callers, such as a locale segment managed by an i18n library.
++ * @internal
++ */
++export interface NavigationRootParams {
++}
++type RawNavigationPathname = Extract<keyof NavigationRouteRegistry, string>;
++type StripNavigationRoot<Path extends string> = Path extends `/[${infer Param}]/${infer Rest}` ? Param extends keyof NavigationRootParams ? `/${Rest}` : Path : Path extends `/[${infer Param}]` ? Param extends keyof NavigationRootParams ? '/' : Path : Path;
++type RawNavigationPathnameFor<Path extends string, Candidate extends RawNavigationPathname = RawNavigationPathname> = Candidate extends unknown ? StripNavigationRoot<Candidate> extends Path ? Candidate : never : never;
++type NavigationParam<Value> = undefined extends Value ? Exclude<Value, undefined> extends string[] ? readonly string[] | undefined : Value : Value extends string[] ? readonly [string, ...string[]] : Value;
++type NavigationParams<Value> = {
++    [Key in keyof Value]: NavigationParam<Value[Key]>;
++};
++/** A generated, navigable application route pattern. */
++export type Pathname = StripNavigationRoot<RawNavigationPathname>;
++/** Parameters required to build a generated application route pattern. */
++export type PathnameParams<Path extends Pathname> = Omit<NavigationParams<NavigationRouteRegistry[RawNavigationPathnameFor<Path>]>, keyof NavigationRootParams>;
++/** The colocated search parameter codec associated with a pathname, if any. */
++export type SearchParamsCodecFor<Path extends Pathname> = RawNavigationPathnameFor<Path> extends keyof NavigationSearchParamsRegistry ? NavigationSearchParamsRegistry[RawNavigationPathnameFor<Path>] : never;
+ declare module 'react' {
+     interface ImgHTMLAttributes<T> {
+         fetchPriority?: 'high' | 'low' | 'auto' | undefined;
 diff --git a/image-types/global.d.ts b/image-types/global.d.ts
 index 661c316e89b3c1aa5913b8afebdbf3e6299eccd7..3a749f8e1d0b1b6f454d1f8695b3ae8dbd1934ac 100644
 --- a/image-types/global.d.ts

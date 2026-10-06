@@ -1,87 +1,72 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+import { test as base } from "next/experimental/testmode/playwright.js";
 
-import { createUrl } from "@acdh-oeaw/lib";
-import { test as base } from "@playwright/test";
+/**
+ * Mirrors the `inert` attribute to `aria-hidden`, on every element it is set on, removed from or inserted with. Runs in
+ * the page, before any of its scripts.
+ *
+ * Only marked elements are un-hidden again, so an `aria-hidden` the page sets itself is left alone. Not covered: the
+ * rest of the page going inert because of a modal `<dialog>`, which does not set the attribute.
+ */
+function mirrorInertToAriaHidden(): void {
+	const marker = "data-e2e-inert";
 
-import { env } from "@/config/env.config";
-import { type AccessibilityScanner, createAccessibilityScanner } from "@/e2e/lib/fixtures/a11y";
-import { createI18n, type I18n, type WithI18n } from "@/e2e/lib/fixtures/i18n";
-import { ImprintPage } from "@/e2e/lib/fixtures/imprint-page";
-import { IndexPage } from "@/e2e/lib/fixtures/index-page";
-import { defaultLocale, type IntlLocale } from "@/lib/i18n/locales";
+	function sync(element: Element): void {
+		if (element.hasAttribute("inert")) {
+			if (element.getAttribute("aria-hidden") !== "true") {
+				element.setAttribute("aria-hidden", "true");
+				element.setAttribute(marker, "");
+			}
+		} else if (element.hasAttribute(marker)) {
+			element.removeAttribute("aria-hidden");
+			element.removeAttribute(marker);
+		}
+	}
 
-interface Fixtures {
-	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-	beforeEachTest: void;
+	const observer = new MutationObserver((records) => {
+		for (const record of records) {
+			if (record.type === "attributes") {
+				sync(record.target as Element);
+			} else {
+				for (const node of record.addedNodes) {
+					if (node instanceof Element) {
+						sync(node);
+						for (const element of node.querySelectorAll("[inert]")) {
+							sync(element);
+						}
+					}
+				}
+			}
+		}
+	});
 
-	createAccessibilityScanner: () => Promise<AccessibilityScanner>;
-	createI18n: (locale?: IntlLocale) => Promise<I18n>;
-	createImprintPage: (locale?: IntlLocale) => Promise<WithI18n<{ imprintPage: ImprintPage }>>;
-	createIndexPage: (locale?: IntlLocale) => Promise<WithI18n<{ indexPage: IndexPage }>>;
+	observer.observe(document, { attributeFilter: ["inert"], childList: true, subtree: true });
 }
 
-export const test = base.extend<Fixtures>({
-	/** @see {@link https://playwright.dev/docs/test-fixtures#adding-global-beforeeachaftereach-hooks} */
-	beforeEachTest: [
-		async ({ context }, use) => {
-			if (env.NEXT_PUBLIC_APP_MATOMO_BASE_URL != null) {
-				/**
-				 * If we were to block loading the actual matomo javascript snippet, we would need to
-				 * check if `windows._paq` was pushed to (because no requests to `matomo.php`
-				 * would be dispatched).
-				 */
-				// const scriptUrl = String(
-				// 	createUrl({ baseUrl: env.NEXT_PUBLIC_APP_MATOMO_BASE_URL, pathname: "/matomo.js" }),
-				// );
-
-				// await context.route(scriptUrl, (route) => {
-				// 	return route.fulfill({ status: 200, body: "" });
-				// });
-
-				const baseUrl = String(
-					createUrl({ baseUrl: env.NEXT_PUBLIC_APP_MATOMO_BASE_URL, pathname: "/matomo.php?**" }),
-				);
-
-				await context.route(baseUrl, (route) => {
-					return route.fulfill({ status: 204, body: "" });
-				});
-			}
-
-			await use();
-		},
-		{ auto: true },
-	],
-
-	async createAccessibilityScanner({ page }, use) {
-		await use(() => {
-			return createAccessibilityScanner(page);
-		});
+/**
+ * Playwright's `test`, with `inert` elements hidden from its role queries and aria snapshots, as they are from
+ * assistive technology. Playwright only takes `aria-hidden` into account, but react-aria hides content with `inert` -
+ * e.g. everything outside an open modal.
+ *
+ * Extends next's experimental test mode, whose `next` fixture answers the server's own fetches with `next.onFetch`.
+ * Only a test which uses that fixture is affected, and only against a server started with `E2E_TEST_PROXY=1`. Such a
+ * test is skipped unless playwright runs with `E2E_TEST_PROXY=1` too: whether the server has the proxy cannot be told
+ * from here, and without it a mocked request reaches the real api - e.g. a newsletter subscription.
+ *
+ * The proxy turns off the server's incremental cache, so `instant()` tests need a server without it - see
+ * `tasks/05-e2e-known-issues.md`.
+ *
+ * @see https://github.com/microsoft/playwright/issues/36938
+ */
+export const test = base.extend({
+	async context({ context }, use) {
+		await context.addInitScript(mirrorInertToAriaHidden);
+		await use(context);
 	},
-
-	async createI18n({ page }, use) {
-		await use((locale = defaultLocale) => {
-			return createI18n(page, locale);
-		});
-	},
-
-	async createImprintPage({ page }, use) {
-		async function createImprintPage(locale = defaultLocale) {
-			const i18n = await createI18n(page, locale);
-			const imprintPage = new ImprintPage(page, locale, i18n);
-			return { i18n, imprintPage };
-		}
-
-		await use(createImprintPage);
-	},
-
-	async createIndexPage({ page }, use) {
-		async function createIndexPage(locale = defaultLocale) {
-			const i18n = await createI18n(page, locale);
-			const indexPage = new IndexPage(page, locale, i18n);
-			return { i18n, indexPage };
-		}
-
-		await use(createIndexPage);
+	async next({ next }, use, testInfo) {
+		// oxlint-disable-next-line node/no-process-env
+		const hasTestProxy = process.env.E2E_TEST_PROXY === "1";
+		testInfo.skip(!hasTestProxy, "Needs next's test proxy: set `E2E_TEST_PROXY=1` for the server and for playwright.");
+		await use(next);
 	},
 });
 

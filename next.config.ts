@@ -1,182 +1,111 @@
-import type { NextConfig as Config } from "next";
+import optimizeLocales from "@react-aria/optimize-locales-plugin";
+import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
-import { env } from "./config/env.config.ts";
-import { imageQuality } from "./config/image.config.ts";
+import { env } from "#/configs/env.config.ts";
+import { languages } from "#/configs/i18n/locales.config.ts";
+import { messages, srcPath } from "#/configs/i18n/messages.config.ts";
+import { imageQuality, imageVariantWidths } from "#/configs/image.config.ts";
+import { redirects } from "#/configs/redirects.config.ts";
 
-const config: Config = {
-	allowedDevOrigins: ["127.0.0.1"],
-	// cacheComponents: true,
+const localeOptimization = optimizeLocales.turbopack([
+	{ condition: { not: "browser" }, locales: languages },
+	{ condition: "browser", locales: [] },
+]);
+
+const config: NextConfig = {
+	cacheComponents: true,
+	/**
+	 * Api data is invalidated on demand by the revalidation webhook, so entries are long-lived. The daily background
+	 * refresh is only a safety net for a lost webhook, and `stale` stays at the 5 minutes an entry needs to be part of
+	 * the app shell.
+	 */
+	cacheLife: {
+		content: {
+			stale: 300,
+			revalidate: 86_400,
+			expire: 31_536_000,
+		},
+	},
 	experimental: {
+		agentFeedback: true,
+		agentUpgrade: "latest",
+		cachedNavigations: true,
+		/**
+		 * Enables `instant()` e2e assertions against a local production build; never true in a real deploy. See
+		 * `instant-nav.rig.md`.
+		 */
+		// oxlint-disable-next-line node/no-process-env
+		exposeTestingApiInProductionBuild: process.env.EXPOSE_TESTING_API === "1",
 		globalNotFound: true,
-	},
-	headers() {
-		const headers: Awaited<ReturnType<NonNullable<Config["headers"]>>> = [
-			/** @see {@link https://nextjs.org/docs/app/guides/self-hosting#streaming-and-suspense} */
-			{ source: "/:path*{/}?", headers: [{ key: "x-accel-buffering", value: "no" }] },
-		];
-
-		return headers;
-	},
-	images: {
+		strictRouteTypes: true,
 		/**
-		 * The api's image-variant endpoint accepts only the widths on its allowlist, so the ladder
-		 * `next/image` picks `srcset` candidates from is that allowlist rather than the defaults. Both
-		 * lists are candidates; what separates them is that the smallest `deviceSizes` entry is also
-		 * the floor below which a `sizes`-bearing image is offered nothing. The two rungs narrower
-		 * than any viewport therefore belong in `imageSizes`, where a fixed-width thumbnail can still
-		 * reach them but a full-bleed slot is not handed a 320px candidate.
+		 * Lets e2e tests answer the server's own fetches, e.g. the newsletter subscription the server action sends to the
+		 * api. Any request can redirect them to a port of its choosing, so never true in a real deploy.
 		 *
-		 * @see {@link file://./config/image.config.ts}
+		 * Not tied to `EXPOSE_TESTING_API`: the proxy turns off the incremental cache in `next start`, so no prerendered
+		 * page is served from the build - a dynamic route's page is the route's generic shell, resumed per request - and
+		 * `instant()` tests fail against such a server. See `tasks/05-e2e-known-issues.md`.
 		 */
-		deviceSizes: [640, 960, 1280, 1600, 2048, 2560, 3200, 3840],
-		imageSizes: [320, 480],
-		/**
-		 * Every image on the site is now addressed through `lib/images/loader.ts`: api images become
-		 * variant-endpoint urls, and everything local is handed back to `/_next/image`. No image url
-		 * reaches the optimizer from outside this app any more, which is what `remotePatterns` used to
-		 * be here to allow.
-		 */
-		loaderFile: "./lib/images/loader.ts",
+		// oxlint-disable-next-line node/no-process-env
+		testProxy: process.env.E2E_TEST_PROXY === "1",
+		turbopackRustReactCompiler: true,
+	},
+	/**
+	 * Images from the knowledge base are rendered by the api's own variant endpoint, which signs an imgproxy rendition
+	 * and redirects to it - so they never pass through `/_next/image`, and no asset host has to be allow-listed.
+	 * `ApiImage` passes the loader for those urls per instance; a site-wide `loader: "custom"` would make next `404`
+	 * every `/_next/image` request, taking the optimizer away from locally served images as well.
+	 *
+	 * `deviceSizes`/`imageSizes` are the endpoint's own ladder, split at the 640 rung the way next expects: the widths in
+	 * the two lists are the candidates it puts in a `srcset`, and the endpoint answers any width not on the ladder with a
+	 * `400`.
+	 */
+	images: {
+		deviceSizes: imageVariantWidths.filter((width) => width >= 640),
+		imageSizes: imageVariantWidths.filter((width) => width < 640),
 		qualities: [imageQuality],
 	},
 	logging: {
 		browserToTerminal: true,
 		fetches: {
+			hmrRefreshes: true,
 			fullUrl: true,
 		},
 	},
 	output: env.BUILD_MODE,
+	outputFileTracingIncludes: {
+		"**/*": ["./assets/fonts/**/*.ttf"],
+	},
+	partialPrefetching: true,
 	reactCompiler: true,
 	redirects() {
-		const redirects: Awaited<ReturnType<NonNullable<Config["redirects"]>>> = [
-			{
-				source: "/about/dariah-in-nutshell",
-				destination: "/about/dariah-in-a-nutshell",
-				permanent: true,
-			},
-			{ source: "/about/documents-list", destination: "/about/documents", permanent: true },
-			{
-				source: "/about/history-of-dariah",
-				destination: "/about/dariah-in-a-nutshell",
-				permanent: true,
-			},
-			{ source: "/about/join-dariah", destination: "/get-involved/join-dariah", permanent: true },
-			{
-				source: "/about/mission-vision",
-				destination: "/about/dariah-in-a-nutshell",
-				permanent: true,
-			},
-			{
-				source: "/activities/dariah-theme",
-				destination: "/get-involved/funding-calls",
-				permanent: true,
-			},
-			{
-				source: "/activities/impact-case-studies/:path*",
-				destination: "/about/impact-case-studies/:path*",
-				permanent: true,
-			},
-			{
-				source: "/activities/working-groups-list",
-				destination: "/network/working-groups",
-				permanent: true,
-			},
-			{
-				source: "/activities/working-groups/:path*",
-				destination: "/network/working-groups/:path*",
-				permanent: true,
-			},
-			{ source: "/activities/open-science", destination: "/about/strategy", permanent: true },
-			{
-				source: "/activities/open-science/dariah-open",
-				destination: "/about/strategy",
-				permanent: true,
-			},
-			{
-				source: "/activities/open-science/data-re-use",
-				destination: "/about/strategy",
-				permanent: true,
-			},
-			{
-				source: "/activities/open-science/openmethods",
-				destination: "/about/strategy",
-				permanent: true,
-			},
-			{
-				source: "/activities/open-science/transformations",
-				destination: "/resources/transformations",
-				permanent: true,
-			},
-			{ source: "/activities/projects-list", destination: "/projects", permanent: true },
-			{
-				source: "/activities/projects-and-affiliations/:path*",
-				destination: "/projects/:path*",
-				permanent: true,
-			},
-			{
-				source: "/activities/spotlight/:path*",
-				destination: "/spotlight/:path*",
-				permanent: true,
-			},
-			{
-				source: "/activities/training-and-education",
-				destination: "/about/strategy",
-				permanent: true,
-			},
-			{ source: "/category/news", destination: "/news", permanent: true },
-			{ source: "/event/:path*", destination: "/events/:path*", permanent: true },
-			{ source: "/news-events/dariah-newsletters", destination: "/newsletters", permanent: true },
-			{
-				source: "/tools-services/tools-and-services",
-				destination: "/resources/resource-catalogue",
-				permanent: true,
-			},
-			{
-				source: String.raw`/:year(\d{4})/:month(\d{2})/:date(\d{2})/:path*`,
-				destination: "/news/:path*",
-				permanent: true,
-			},
-			// { source: "/about/glossary", destination: "", permanent: true },
-			// { source: "/about/publications", destination: "", permanent: true },
-			// { source: "/network/we-are-dariah-team", destination: "", permanent: true },
-		];
-
 		return Promise.resolve(redirects);
 	},
 	turbopack: {
 		rules: {
-			/** @see {@link https://github.com/vercel/next.js/discussions/77721#discussioncomment-14576268} */
-			"*": {
-				condition: {
-					all: [
-						"foreign",
-						"browser",
-						{
-							path: /(@react-stately|@react-aria|@react-spectrum|react-aria-components)\/.*\/[a-z]{2}-[A-Z]{2}/,
-						},
-					],
-				},
-				loaders: ["null-loader"],
-				as: "*.js",
+			...localeOptimization.rules,
+			"*.css": {
+				loaders: ["@tailwindcss/turbopack"],
+				as: "*.css",
 			},
 		},
 	},
+	typedRoutes: false,
 	typescript: {
 		ignoreBuildErrors: true,
 	},
 };
 
-const plugins: Array<(config: Config) => Config> = [
+const plugins: Array<(config: NextConfig) => NextConfig> = [
 	createNextIntlPlugin({
 		experimental: {
-			/** @see {@link https://next-intl.dev/docs/workflows/typescript#messages-arguments} */
-			createMessagesDeclaration: ["./content/en/metadata/index.json", "./messages/en.json"],
+			extract: true,
+			messages: { ...messages, precompile: true },
+			srcPath,
 		},
 		requestConfig: "./lib/i18n/request.ts",
 	}),
 ];
 
-export default plugins.reduce((config, plugin) => {
-	return plugin(config);
-}, config);
+export default plugins.reduce((config, plugin) => plugin(config), config);

@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
 
-import { defaultLocale } from "@/lib/i18n/locales";
-import { getMetadata } from "@/lib/i18n/metadata";
+import { getSiteMetadata } from "#/lib/data/site-metadata.ts";
+import { defaultLocale } from "#/lib/i18n/locales.ts";
 
 export default async function manifest(): Promise<MetadataRoute.Manifest> {
-	const meta = await getMetadata(defaultLocale);
+	const siteMetadata = await getSiteMetadata();
 
 	return {
-		name: meta.manifest.name,
-		short_name: meta.manifest["short-name"],
-		description: meta.manifest.description,
+		name: siteMetadata.title,
+		short_name: siteMetadata.title,
+		description: siteMetadata.description,
+		lang: defaultLocale,
 		start_url: "/",
 		display: "standalone",
 		background_color: "#fff",

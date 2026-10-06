@@ -1,32 +1,21 @@
 allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
-  core-js: false
+  better-sqlite3: false
   esbuild: true
-  sharp: true
-  simple-git-hooks: true
-  typesense-instantsearch-adapter: false
-  unrs-resolver: false
+  lefthook: true
+  msgpackr-extract: false
+
+autoDedupe: true
 
 engineStrict: true
 
-minimumReleaseAge: 1440
-
-minimumReleaseAgeExclude:
-  - react
-  - react-dom
-  - next
-  - '@next/env@16.3.3'
-  - '@next/swc-darwin-arm64@16.3.3'
-  - '@next/swc-darwin-x64@16.3.3'
-  - '@next/swc-linux-arm64-gnu@16.3.3'
-  - '@next/swc-linux-arm64-musl@16.3.3'
-  - '@next/swc-linux-x64-gnu@16.3.3'
-  - '@next/swc-linux-x64-musl@16.3.3'
-  - '@next/swc-win32-arm64-msvc@16.3.3'
-  - '@next/swc-win32-x64-msvc@16.3.3'
+minimumReleaseAge: 240
 
 patchedDependencies:
+  '@react-aria/optimize-locales-plugin': patches/@react-aria__optimize-locales-plugin.patch
   next: patches/next.patch
+
+saveTypes: true
 
 shellEmulator: true

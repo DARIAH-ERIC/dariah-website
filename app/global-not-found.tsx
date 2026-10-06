@@ -1,54 +1,46 @@
 import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
+import { getExtracted as getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
-import { DocumentBody } from "@/app/_components/document-body";
-import { HtmlDocument } from "@/app/_components/html-document";
-import { Providers } from "@/app/_components/providers";
-import { Footer } from "@/app/(default)/_components/footer";
-import { Header } from "@/app/(default)/_components/header";
-import { Main } from "@/components/main";
-import { NotFound } from "@/components/pages/not-found/not-found";
-import { defaultLocale } from "@/lib/i18n/locales";
-import { getMetadata } from "@/lib/i18n/metadata";
+import { Footer } from "#/app/(app)/(default)/_components/footer.tsx";
+import { Header } from "#/app/(app)/(default)/_components/header.tsx";
+import { NotFoundContent } from "#/app/(app)/(default)/_components/not-found-content.tsx";
+import { PageFrame } from "#/app/(app)/(default)/_components/page-frame.tsx";
+import { SkipLink } from "#/app/(app)/(default)/_components/skip-link.tsx";
+import { HtmlDocument } from "#/app/(app)/_components/html-document.tsx";
+import { Providers } from "#/app/(app)/_components/providers.tsx";
+import { getSiteMetadata } from "#/lib/data/site-metadata.ts";
+import { defaultLocale } from "#/lib/i18n/locales.ts";
 
-export { viewport } from "@/app/_lib/viewport.config";
+export { viewport } from "#/app/(app)/_lib/viewport.config.ts";
 
+/** The title template of `app/(app)/layout.tsx` does not apply here, so the site title is appended by hand. */
 export async function generateMetadata(): Promise<Metadata> {
-	const t = await getTranslations("GlobalNotFoundPage");
-	const meta = await getMetadata();
+	const [t, site] = await Promise.all([getTranslations(), getSiteMetadata()]);
 
-	const metadata: Metadata = {
-		title: [t("meta.title"), meta.title].join(" | "),
-		/**
-		 * Automatically set by next.js.
-		 *
-		 * @see {@link https://nextjs.org/docs/app/api-reference/functions/not-found}
-		 */
-		// robots: {
-		// 	index: false,
-		// },
+	return {
+		title: `${t("Page not found")} | ${site.title}`,
+		description: site.description,
 	};
-
-	return metadata;
 }
 
-export default function GlobalNotFoundPage(): ReactNode {
-	const locale = defaultLocale;
-
+/**
+ * Rendered for urls which match no route at all. Next skips every layout for these, so this composes the document shell
+ * of `app/(app)/layout.tsx` and the header and footer of `app/(app)/(default)/layout.tsx` itself.
+ */
+export default function GlobalNotFound(): ReactNode {
 	return (
-		<HtmlDocument locale={locale}>
-			<DocumentBody>
-				<Providers locale={locale}>
-					<div className="relative isolate flex min-h-full flex-col bg-white">
+		<HtmlDocument locale={defaultLocale}>
+			<body>
+				<Providers>
+					<PageFrame>
+						<SkipLink />
 						<Header />
-						<Main className="container flex flex-col mb-16 relative lg:gap-0 lg:mb-0">
-							<NotFound />
-						</Main>
+						<NotFoundContent />
 						<Footer />
-					</div>
+					</PageFrame>
 				</Providers>
-			</DocumentBody>
+			</body>
 		</HtmlDocument>
 	);
 }

@@ -1,50 +1,20 @@
-import { env } from "@/config/env.config";
-import { imageVariantWidths, maxImageVariantWidth, sourceWidthParam } from "@/config/image.config";
-
-/**
- * An image as the api describes it.
- *
- * `width` and `height` are the source's own pixel dimensions and are null for vectors, which have
- * no raster resolution — see `ApiImage` for what that changes about how one is rendered.
- */
-export interface ImageAsset {
-	alt?: string | null;
-	height: number | null;
-	srcUrl: string;
-	width: number | null;
-}
-
-/**
- * Whether a `src` addresses the api, and so the variant endpoint, rather than something this app
- * serves itself.
- *
- * The loader is global — `images.loaderFile` replaces the default one for every image on the site,
- * not just the api's — so it has to tell the two apart before it can decide what to build.
- */
-export function isApiImageSrc(src: string): boolean {
-	return src.startsWith(env.NEXT_PUBLIC_API_BASE_URL);
-}
+import { imageVariantWidths, maxImageVariantWidth, sourceWidthParam } from "#/configs/image.config.ts";
 
 /**
  * Round a requested width up to a rung the endpoint will accept.
  *
- * With the ladder mirrored into `images.deviceSizes`/`images.imageSizes` this is a no-op for
- * anything `next/image` asks for; it exists so that a rung dropped from one of the two lists
- * degrades into a slightly larger image rather than a 400 from the endpoint.
+ * With the ladder mirrored into `images.deviceSizes`/`images.imageSizes` this is a no-op for anything `next/image` asks
+ * for; it exists so that a rung dropped from one of those lists degrades into a slightly larger image rather than a
+ * `400` from the endpoint.
  */
 export function toVariantWidth(width: number): number {
-	return (
-		imageVariantWidths.find((rung) => {
-			return rung >= width;
-		}) ?? maxImageVariantWidth
-	);
+	return imageVariantWidths.find((rung) => rung >= width) ?? maxImageVariantWidth;
 }
 
 /**
  * The endpoint url for one rendition, with the loader's own bookkeeping stripped back out.
  *
- * Only the loader calls this, and only for a src it has already established addresses the api, so
- * the url is known to be absolute here.
+ * Only the loader calls this, and only `ApiImage` hands it a src, so the url is known to be absolute here.
  */
 export function createImageVariantUrl(srcUrl: string, width: number): string {
 	const url = new URL(srcUrl);
@@ -56,13 +26,48 @@ export function createImageVariantUrl(srcUrl: string, width: number): string {
 }
 
 /**
- * Append query parameters to a `src` without assuming it is absolute.
- *
- * `ApiImage` runs before the loader and takes whatever `srcUrl` an asset carries, which in a story
- * or a fixture is a plain path — enough for `next/image` but not for `new URL`.
+ * Append query parameters to a `src` without assuming it is absolute - a fixture's `srcUrl` may be a plain path, which
+ * is enough for `next/image` but not for `new URL`.
  */
 export function appendSearchParams(srcUrl: string, params: Record<string, string>): string {
 	const query = new URLSearchParams(params).toString();
 
 	return srcUrl.includes("?") ? `${srcUrl}&${query}` : `${srcUrl}?${query}`;
+}
+
+/**
+ * What kind of asset an image is, by the `prefix` segment of the variant endpoint's path - `avatars`, `documents`,
+ * `images` or `logos`, as `getAssetImage` enumerates them in the openapi document. `null` for a url which is not one of
+ * the endpoint's, or one whose prefix is unknown.
+ *
+ * Reading it off the url rather than taking it from a caller is what lets a layout decision follow the asset itself: a
+ * portrait and an organisation's mark want a different slot from an article's lead image, and every entity carrying one
+ * points at the prefix which says which it is.
+ */
+export function getImageAssetKind(srcUrl: string): "avatars" | "documents" | "images" | "logos" | null {
+	const kind = /\/assets\/(?<kind>avatars|documents|images|logos)\//u.exec(srcUrl)?.groups?.kind;
+
+	return kind === "avatars" || kind === "documents" || kind === "images" || kind === "logos" ? kind : null;
+}
+
+/**
+ * The variant endpoint's path parameters for an image, read back off its `srcUrl` - the prefix, the asset's name and
+ * the version. `null` for a url which is not one of the endpoint's, e.g. a fixture's plain path.
+ */
+export function parseImageAssetUrl(
+	srcUrl: string,
+): { prefix: NonNullable<ReturnType<typeof getImageAssetKind>>; name: string; version: "v1" } | null {
+	const prefix = getImageAssetKind(srcUrl);
+	const name = /\/assets\/[^/]+\/(?<name>[^/?#]+)\/image\/v1(?:[?#]|$)/u.exec(srcUrl)?.groups?.name;
+
+	return prefix != null && name != null ? { prefix, name, version: "v1" } : null;
+}
+
+/**
+ * Whether an api image is an svg, by the media type the api records for it. A vector has no resolution to request
+ * renditions against, and no pixel size - only an aspect ratio - so it takes a different path wherever a raster would
+ * be scaled.
+ */
+export function isSvgImage(image: Readonly<{ mimeType: string }>): boolean {
+	return image.mimeType === "image/svg+xml";
 }

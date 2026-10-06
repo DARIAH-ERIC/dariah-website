@@ -1,0 +1,1756 @@
+msgid ""
+msgstr ""
+"Language: en\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @eloqnt/format-po\n"
+"X-Message-Key: msgctxt\n"
+
+#: app/(app)/(default)/_components/back-to-top-link.tsx
+msgctxt "Gs9Kfp"
+msgid "Back to top"
+msgstr "Back to top"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "todKnO"
+msgid "DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society."
+msgstr "DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society."
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "Vge-RX"
+msgid "Footer"
+msgstr "Footer"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "FqQoQa"
+msgid "Subscribe to our newsletter"
+msgstr "Subscribe to our newsletter"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "-NKIgg"
+msgid "Get monthly updates on news, events, and resources from DARIAH and our community. Subscribing to it is the ideal way of staying informed!"
+msgstr "Get monthly updates on news, events, and resources from DARIAH and our community. Subscribing to it is the ideal way of staying informed!"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "l1XTI5"
+msgid "Follow us"
+msgstr "Follow us"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "ZEEVQX"
+msgid "Social media"
+msgstr "Social media"
+
+#: app/(app)/(default)/_components/footer.tsx
+msgctxt "8rymPo"
+msgid "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with <a>DARIAH's Open Access Policy</a>."
+msgstr "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with <a>DARIAH's Open Access Policy</a>."
+
+#: app/(app)/(default)/_components/header.tsx
+#: app/(app)/(default)/_components/mobile-navigation.tsx
+msgctxt "CtrL_L"
+msgid "DARIAH-EU Home"
+msgstr "DARIAH-EU Home"
+
+#: app/(app)/(default)/_components/header.tsx
+#: app/(app)/(default)/_components/mobile-navigation.tsx
+msgctxt "EFTSMc"
+msgid "Main"
+msgstr "Main"
+
+#: app/(app)/(default)/_components/header.tsx
+#: app/(app)/(default)/_components/mobile-navigation.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/page.tsx
+msgctxt "xmcVZ0"
+msgid "Search"
+msgstr "Search"
+
+#: app/(app)/(default)/_components/mobile-navigation.tsx
+msgctxt "tKMlOc"
+msgid "Menu"
+msgstr "Menu"
+
+#: app/(app)/(default)/_components/mobile-navigation.tsx
+msgctxt "dg8ZEb"
+msgid "Close menu"
+msgstr "Close menu"
+
+#: app/(app)/(default)/_components/not-found-content.tsx
+#: app/(app)/(default)/not-found.tsx
+#: app/global-not-found.tsx
+msgctxt "QRccCM"
+msgid "Page not found"
+msgstr "Page not found"
+
+#: app/(app)/(default)/_components/not-found-content.tsx
+msgctxt "1lXhw1"
+msgid "The page you are looking for does not exist or has been moved."
+msgstr "The page you are looking for does not exist or has been moved."
+
+#: app/(app)/(default)/_components/not-found-content.tsx
+#: app/(app)/(default)/error.tsx
+msgctxt "mShMz9"
+msgid "Go to the home page"
+msgstr "Go to the home page"
+
+#: app/(app)/(default)/_components/pagination.tsx
+#: app/(app)/(default)/events/page.tsx
+msgctxt "ZATT08"
+msgid "Pagination"
+msgstr "Pagination"
+
+#: app/(app)/(default)/_components/pagination.tsx
+msgctxt "k9hDFZ"
+msgid "Previous page"
+msgstr "Previous page"
+
+#: app/(app)/(default)/_components/pagination.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "wFmAFC"
+msgid "Page"
+msgstr "Page"
+
+#: app/(app)/(default)/_components/pagination.tsx
+msgctxt "rBj9Ib"
+msgid "Next page"
+msgstr "Next page"
+
+#: app/(app)/(default)/_components/search-form.tsx
+#: app/(app)/(default)/search/page.tsx
+msgctxt "2s4GWd"
+msgid "Loading results…"
+msgstr "Loading results…"
+
+#: app/(app)/(default)/_components/skip-link.tsx
+msgctxt "2sRCsy"
+msgid "Skip to main content"
+msgstr "Skip to main content"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "I1ZCPK"
+msgid "Technology"
+msgstr "Technology"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "DAEjz5"
+msgid "We make digital methods and tools an integral part of humanities research, promoting open, sustainable and responsible technologies."
+msgstr "We make digital methods and tools an integral part of humanities research, promoting open, sustainable and responsible technologies."
+
+#: app/(app)/(default)/(index)/page.tsx
+#: components/person-card.tsx
+msgctxt "S--WdB"
+msgid "Read more"
+msgstr "Read more"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "5OteMI"
+msgid "Knowledge"
+msgstr "Knowledge"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "53yUVt"
+msgid "We foster a culture of shared learning, ensuring that knowledge remains a driving force for innovation and collaboration."
+msgstr "We foster a culture of shared learning, ensuring that knowledge remains a driving force for innovation and collaboration."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "7KXsY9"
+msgid "Communities"
+msgstr "Communities"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "KVTFIO"
+msgid "We connect researchers, institution, and networks across disciplines and countries, fostering inclusive collaboration and supportive communities."
+msgstr "We connect researchers, institution, and networks across disciplines and countries, fostering inclusive collaboration and supportive communities."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "o1vbho"
+msgid "Policy"
+msgstr "Policy"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "58WWUD"
+msgid "We advocate for and shape inclusive and sustainable research infrastructure."
+msgstr "We advocate for and shape inclusive and sustainable research infrastructure."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "980mVZ"
+msgid "Resource catalogue"
+msgstr "Resource catalogue"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "b3O8a0"
+msgid "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resource Catalogue to discover the richness that DARIAH has to offer."
+msgstr "Our members and partners contribute to the DARIAH infrastructure with a diverse range of resources. Explore the DARIAH Resource Catalogue to discover the richness that DARIAH has to offer."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "9C4Qlz"
+msgid "Browse catalogue"
+msgstr "Browse catalogue"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "fjS4xG"
+msgid "DARIAH-Campus"
+msgstr "DARIAH-Campus"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "jjKNJw"
+msgid "DARIAH-Campus is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education."
+msgstr "DARIAH-Campus is a discovery framework and a hosting platform for DARIAH and DARIAH-affiliated offerings in training and education."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "e5qYov"
+msgid "Explore DARIAH-Campus"
+msgstr "Explore DARIAH-Campus"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "UM5lCu"
+msgid "Transformations. A DARIAH Journal"
+msgstr "Transformations. A DARIAH Journal"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "zspyZi"
+msgid "Transformations. A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities."
+msgstr "Transformations. A DARIAH Journal is a multilingual journal focusing on use of digital tools, methods, and resources in Digital Humanities."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "nVr5Mg"
+msgid "Explore Transformations"
+msgstr "Explore Transformations"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "GzadHz"
+msgid "SSH Open Marketplace"
+msgstr "SSH Open Marketplace"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "hyH4aL"
+msgid "SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research."
+msgstr "SSH Open Marketplace is a discovery portal which pools and contextualises resources for Social Sciences and Humanities research."
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "8_z_51"
+msgid "Explore SSH Open Marketplace"
+msgstr "Explore SSH Open Marketplace"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "8ksnK4"
+msgid "<line>Digital Research Infrastructure</line> <line>for Arts and Humanities</line>"
+msgstr "<line>Digital Research Infrastructure</line> <line>for Arts and Humanities</line>"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "U8u4uF"
+msgid "Get involved"
+msgstr "Get involved"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "fT4Ett"
+msgid "Learn more about DARIAH-EU"
+msgstr "Learn more about DARIAH-EU"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "XAeOqs"
+msgid "Stay updated"
+msgstr "Stay updated"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "8NAECm"
+msgid "See all news"
+msgstr "See all news"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "lBJhOj"
+msgid "Upcoming events"
+msgstr "Upcoming events"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "FN2Mat"
+msgid "See all events"
+msgstr "See all events"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "5lgcSN"
+msgid "Four pillars of our work"
+msgstr "Four pillars of our work"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "mSi2vt"
+msgid "Our resources"
+msgstr "Our resources"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "soByV4"
+msgid "Our network"
+msgstr "Our network"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "e7kf1x"
+msgid "Read more about members and partners"
+msgstr "Read more about members and partners"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "u-zKEW"
+msgid "Read more about working groups"
+msgstr "Read more about working groups"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "ETiPDd"
+msgid "<em>DARIAH-EU</em> thrives because of its network. <em>Be part of it!</em>"
+msgstr "<em>DARIAH-EU</em> thrives because of its network. <em>Be part of it!</em>"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "Oan4J-"
+msgid "Loading announcements…"
+msgstr "Loading announcements…"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "mYZ8in"
+msgid "Featured news"
+msgstr "Featured news"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "SVOWvp"
+msgid "Featured opportunity"
+msgstr "Featured opportunity"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "RpRod4"
+msgid "Featured funding call"
+msgstr "Featured funding call"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/news/_components/news-list.tsx
+#: app/(app)/(default)/news/(list)/layout.tsx
+#: app/(app)/(default)/news/(list)/page.tsx
+#: app/(app)/(default)/news/(list)/page/[page]/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/announcement-type.tsx
+#: components/related-content.tsx
+#: lib/data/feeds.ts
+msgctxt "NZyhSX"
+msgid "News"
+msgstr "News"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/announcement-type.tsx
+#: components/related-content.tsx
+msgctxt "sHGUY0"
+msgid "Opportunity"
+msgstr "Opportunity"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/announcement-type.tsx
+#: components/related-content.tsx
+msgctxt "70IjCC"
+msgid "Funding call"
+msgstr "Funding call"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/news/_components/news-list.tsx
+#: app/(app)/(default)/news/[slug]/page.tsx
+msgctxt "lyHURF"
+msgid "Continue reading"
+msgstr "Continue reading"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/events/calendar/page.tsx
+#: app/(app)/(default)/events/page.tsx
+msgctxt "W5OKN5"
+msgid "Loading events…"
+msgstr "Loading events…"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "iosLrX"
+msgid "Member countries"
+msgstr "Member countries"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "Y4pZ01"
+msgid "National partner institutions"
+msgstr "National partner institutions"
+
+#: app/(app)/(default)/(index)/page.tsx
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "noF5D0"
+msgid "Cooperating partners"
+msgstr "Cooperating partners"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "S-6JuP"
+msgid "Working groups"
+msgstr "Working groups"
+
+#: app/(app)/(default)/(index)/page.tsx
+msgctxt "T4VxQN"
+msgid "Loading…"
+msgstr "Loading…"
+
+#: app/(app)/(default)/about/documents/page.tsx
+msgctxt "5q3qC0"
+msgid "Download"
+msgstr "Download"
+
+#: app/(app)/(default)/about/documents/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "CGONVc"
+msgid "(external website)"
+msgstr "(external website)"
+
+#: app/(app)/(default)/about/documents/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
+msgctxt "YXprDM"
+msgid "Visit website"
+msgstr "Visit website"
+
+#: app/(app)/(default)/about/documents/page.tsx
+msgctxt "fv3bh5"
+msgid "View PDF"
+msgstr "View PDF"
+
+#: app/(app)/(default)/about/impact-case-studies/_components/impact-case-study-list.tsx
+msgctxt "POZqkv"
+msgid "Case studies"
+msgstr "Case studies"
+
+#: app/(app)/(default)/about/impact-case-studies/_components/impact-case-study-list.tsx
+msgctxt "QWR9h3"
+msgid "Loading case studies…"
+msgstr "Loading case studies…"
+
+#: app/(app)/(default)/about/impact-case-studies/_components/impact-case-study-list.tsx
+msgctxt "_fSOKS"
+msgid "Case study"
+msgstr "Case study"
+
+#: app/(app)/(default)/about/impact-case-studies/[slug]/page.tsx
+#: app/(app)/(default)/news/[slug]/page.tsx
+#: app/(app)/(default)/spotlight/[slug]/page.tsx
+msgctxt "CQw5ZT"
+msgid "Loading article…"
+msgstr "Loading article…"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "QjnTnk"
+msgid "Appointed by"
+msgstr "Appointed by"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "fbWTQi"
+msgid "Advised by"
+msgstr "Advised by"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "oA5Cj7"
+msgid "Supported by"
+msgstr "Supported by"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "Cxfmc2"
+msgid "Overseen by"
+msgstr "Overseen by"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "A2fGJ_"
+msgid "Includes representatives of"
+msgstr "Includes representatives of"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "7ORSvz"
+msgid "Appoints"
+msgstr "Appoints"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "gjFidz"
+msgid "Advises"
+msgstr "Advises"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "hY4lzx"
+msgid "Supports"
+msgstr "Supports"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "jkjGZg"
+msgid "Oversees"
+msgstr "Oversees"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "z-GELB"
+msgid "Represented in"
+msgstr "Represented in"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/body-relations.tsx
+msgctxt "mn5pjI"
+msgid "Relations"
+msgstr "Relations"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "wDFRJ4"
+msgid "Organigram"
+msgstr "Organigram"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "JdMgyu"
+msgid "Select a body to see its description and members."
+msgstr "Select a body to see its description and members."
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "OZuUIF"
+msgid "Governing body"
+msgstr "Governing body"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "6G_N0P"
+msgid "Executive body"
+msgstr "Executive body"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "sR4g7q"
+msgid "Advisory body"
+msgstr "Advisory body"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "rbyoDX"
+msgid "Operational body"
+msgstr "Operational body"
+
+#: app/(app)/(default)/about/organisation-and-governance/_components/organigram.tsx
+msgctxt "otTBkE"
+msgid "{count, plural, one {# member} other {# members}}"
+msgstr "{count, plural, one {# member} other {# members}}"
+
+#: app/(app)/(default)/about/organisation-and-governance/[slug]/page.tsx
+msgctxt "SbyN0Q"
+msgid "{count, plural, one {Director} other {Directors}}"
+msgstr "{count, plural, one {Director} other {Directors}}"
+
+#: app/(app)/(default)/about/organisation-and-governance/[slug]/page.tsx
+#: app/(app)/(default)/network/working-groups/[slug]/page.tsx
+msgctxt "HU7CCG"
+msgid "{count, plural, one {Chair} other {Chairs}}"
+msgstr "{count, plural, one {Chair} other {Chairs}}"
+
+#: app/(app)/(default)/about/organisation-and-governance/[slug]/page.tsx
+#: app/(app)/(default)/network/working-groups/[slug]/page.tsx
+msgctxt "tF8t2n"
+msgid "{count, plural, one {Vice-chair} other {Vice-chairs}}"
+msgstr "{count, plural, one {Vice-chair} other {Vice-chairs}}"
+
+#: app/(app)/(default)/about/organisation-and-governance/[slug]/page.tsx
+msgctxt "Q5dfnK"
+msgid "{count, plural, one {Member} other {Members}}"
+msgstr "{count, plural, one {Member} other {Members}}"
+
+#: app/(app)/(default)/analytics/_components/visits-chart.tsx
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "AqRInY"
+msgid "Visits"
+msgstr "Visits"
+
+#: app/(app)/(default)/analytics/_components/visits-chart.tsx
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "duCRCA"
+msgid "Unique visitors"
+msgstr "Unique visitors"
+
+#: app/(app)/(default)/analytics/_components/visits-chart.tsx
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "LkX2w-"
+msgid "{month} (in progress)"
+msgstr "{month} (in progress)"
+
+#: app/(app)/(default)/analytics/_components/visits-chart.tsx
+msgctxt "DXRV03"
+msgid "Visits: {count}"
+msgstr "Visits: {count}"
+
+#: app/(app)/(default)/analytics/_components/visits-chart.tsx
+msgctxt "DUOuxN"
+msgid "Unique visitors: {count}"
+msgstr "Unique visitors: {count}"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "GZJpDf"
+msgid "Analytics"
+msgstr "Analytics"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "Xvdfi8"
+msgid "Visits to the DARIAH-EU website per month."
+msgstr "Visits to the DARIAH-EU website per month."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "bheoon"
+msgid "Visits to the DARIAH-EU website over the past {count} months, as counted by Matomo."
+msgstr "Visits to the DARIAH-EU website over the past {count} months, as counted by Matomo."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "3R5Qbe"
+msgid "Analytics are not configured for this website."
+msgstr "Analytics are not configured for this website."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "Vk6KeH"
+msgid "{change} compared with {month}"
+msgstr "{change} compared with {month}"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "cm_2eF"
+msgid "Visits in {month}"
+msgstr "Visits in {month}"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "r2IYLD"
+msgid "Unique visitors in {month}"
+msgstr "Unique visitors in {month}"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "-mv46A"
+msgid "Per month"
+msgstr "Per month"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "4kaGgb"
+msgid "{month} is still in progress."
+msgstr "{month} is still in progress."
+
+#: app/(app)/(default)/analytics/page.tsx
+#: app/(app)/(default)/events/_components/view-switcher.tsx
+msgctxt "TBovrx"
+msgid "Month"
+msgstr "Month"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "pFZfPa"
+msgid "n/a"
+msgstr "n/a"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "7t2TRV"
+msgid "About these numbers"
+msgstr "About these numbers"
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "Xpcxj4"
+msgid "A visit is a series of page views without a break of more than 30 minutes. The website does not set cookies, so a visitor is recognised by their browser and network for one day at most: someone who returns on another day is counted as another unique visitor. Unique visitors per month are therefore an upper bound."
+msgstr "A visit is a series of page views without a break of more than 30 minutes. The website does not set cookies, so a visitor is recognised by their browser and network for one day at most: someone who returns on another day is counted as another unique visitor. Unique visitors per month are therefore an upper bound."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "v-YNdi"
+msgid "The numbers are updated hourly."
+msgstr "The numbers are updated hourly."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "dxrEvE"
+msgid "Loading analytics…"
+msgstr "Loading analytics…"
+
+#: app/(app)/(default)/error.tsx
+msgctxt "JqiqNj"
+msgid "Something went wrong"
+msgstr "Something went wrong"
+
+#: app/(app)/(default)/error.tsx
+msgctxt "CzOomb"
+msgid "An unexpected error occurred while loading this page. Please try again."
+msgstr "An unexpected error occurred while loading this page. Please try again."
+
+#: app/(app)/(default)/error.tsx
+msgctxt "iOyeN1"
+msgid "Error reference: {digest}"
+msgstr "Error reference: {digest}"
+
+#: app/(app)/(default)/error.tsx
+#: components/section-error-boundary.tsx
+msgctxt "FazwRl"
+msgid "Try again"
+msgstr "Try again"
+
+#: app/(app)/(default)/events/_components/events-filter.tsx
+msgctxt "FpYKfr"
+msgid "Events starting from"
+msgstr "Events starting from"
+
+#: app/(app)/(default)/events/_components/events-filter.tsx
+msgctxt "kY8d5-"
+msgid "Find events"
+msgstr "Find events"
+
+#: app/(app)/(default)/events/_components/events-filter.tsx
+#: app/(app)/(default)/events/_components/view-switcher.tsx
+msgctxt "pX8Y8h"
+msgid "View as"
+msgstr "View as"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+#: app/(app)/(default)/newsletters/_components/subscribe-form.tsx
+msgctxt "gczcC5"
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "Coy6SH"
+msgid "Calendar"
+msgstr "Calendar"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "S0N-28"
+msgid "Calendar app"
+msgstr "Calendar app"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "v_Qaxn"
+msgid "Apple Calendar, Outlook, Thunderbird"
+msgstr "Apple Calendar, Outlook, Thunderbird"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "lbr3Lq"
+msgid "Copy link"
+msgstr "Copy link"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "zU_q1N"
+msgid "Link copied"
+msgstr "Link copied"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "8rtOj1"
+msgid "To paste into any other calendar app"
+msgstr "To paste into any other calendar app"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "ZFKHLd"
+msgid "Feed reader"
+msgstr "Feed reader"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "x_zuFu"
+msgid "RSS feed"
+msgstr "RSS feed"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "BbnaLD"
+msgid "New events as they are announced"
+msgstr "New events as they are announced"
+
+#: app/(app)/(default)/events/_components/subscribe-menu.tsx
+msgctxt "SEwdPj"
+msgid "Link copied to the clipboard"
+msgstr "Link copied to the clipboard"
+
+#: app/(app)/(default)/events/_components/view-switcher.tsx
+msgctxt "nOk9mh"
+msgid "List"
+msgstr "List"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "zp1ntK"
+msgid "Loading event…"
+msgstr "Loading event…"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "op6XsK"
+msgid "Add to calendar"
+msgstr "Add to calendar"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "P7PLVj"
+msgid "Date"
+msgstr "Date"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "PYmHhr"
+msgid "Venue"
+msgstr "Venue"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "JkLHGw"
+msgid "Website"
+msgstr "Website"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "AtDDG9"
+msgid "Previous event"
+msgstr "Previous event"
+
+#: app/(app)/(default)/events/[slug]/page.tsx
+msgctxt "wzeR0T"
+msgid "Next event"
+msgstr "Next event"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "0GYcsb"
+msgid "Events calendar"
+msgstr "Events calendar"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+#: app/(app)/(default)/events/page.tsx
+msgctxt "3Lz20O"
+msgid "Conferences, workshops, webinars and training events organised by DARIAH-EU and its community."
+msgstr "Conferences, workshops, webinars and training events organised by DARIAH-EU and its community."
+
+#: app/(app)/(default)/events/calendar/page.tsx
+#: app/(app)/(default)/events/page.tsx
+msgctxt "ZvKSfJ"
+msgid "Events"
+msgstr "Events"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+#: app/(app)/(default)/events/page.tsx
+msgctxt "7d_WoU"
+msgid "Add the events to your calendar, or follow them in a feed reader."
+msgstr "Add the events to your calendar, or follow them in a feed reader."
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "AxDOiG"
+msgid "Months"
+msgstr "Months"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "3tcBM8"
+msgid "Previous month:"
+msgstr "Previous month:"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "X9TjYl"
+msgid "Next month:"
+msgstr "Next month:"
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "09Asxl"
+msgid "No events this month."
+msgstr "No events this month."
+
+#: app/(app)/(default)/events/calendar/page.tsx
+msgctxt "kkpP2k"
+msgid "today"
+msgstr "today"
+
+#: app/(app)/(default)/events/page.tsx
+msgctxt "XydFUQ"
+msgid "See previous events"
+msgstr "See previous events"
+
+#: app/(app)/(default)/events/page.tsx
+msgctxt "CH-6pI"
+msgid "See next events"
+msgstr "See next events"
+
+#: app/(app)/(default)/events/page.tsx
+msgctxt "0popYG"
+msgid "There are no events on or after this date."
+msgstr "There are no events on or after this date."
+
+#: app/(app)/(default)/events/page.tsx
+msgctxt "u6Yq_E"
+msgid "There are no events before this date."
+msgstr "There are no events before this date."
+
+#: app/(app)/(default)/events/page.tsx
+#: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: components/event-card.tsx
+msgctxt "6_aEFZ"
+msgid "Upcoming"
+msgstr "Upcoming"
+
+#: app/(app)/(default)/events/page.tsx
+#: components/event-card.tsx
+msgctxt "VuzjdC"
+msgid "Ongoing"
+msgstr "Ongoing"
+
+#: app/(app)/(default)/events/page.tsx
+#: components/event-card.tsx
+msgctxt "12Hk45"
+msgid "Past"
+msgstr "Past"
+
+#: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
+msgctxt "65UtzV"
+msgid "Loading funding calls…"
+msgstr "Loading funding calls…"
+
+#: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "JfG49w"
+msgid "Open"
+msgstr "Open"
+
+#: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "Fv1ZSz"
+msgid "Closed"
+msgstr "Closed"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "00_TZT"
+msgid "Loading opportunities…"
+msgstr "Loading opportunities…"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "hOxIeP"
+msgid "Availability"
+msgstr "Availability"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "aH4De2"
+msgid "Source"
+msgstr "Source"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "zQvVDJ"
+msgid "All"
+msgstr "All"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "efpm3U"
+msgid "All sources"
+msgstr "All sources"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/page.tsx
+msgctxt "g8U-FI"
+msgid "{total, plural, one {# result} other {# results}}"
+msgstr "{total, plural, one {# result} other {# results}}"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "80_rKT"
+msgid "Show all opportunities"
+msgstr "Show all opportunities"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "y9mKsK"
+msgid "There are no opportunities matching these filters."
+msgstr "There are no opportunities matching these filters."
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "o787Ox"
+msgid "There are no opportunities at the moment."
+msgstr "There are no opportunities at the moment."
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "RTkgMo"
+msgid "DARIAH"
+msgstr "DARIAH"
+
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "QG6-rR"
+msgid "External"
+msgstr "External"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "7L86Z5"
+msgid "Member"
+msgstr "Member"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "TLrvIO"
+msgid "Observer"
+msgstr "Observer"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "UU2dpt"
+msgid "{count, plural, one {# cooperating partner} other {# cooperating partners}}"
+msgstr "{count, plural, one {# cooperating partner} other {# cooperating partners}}"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "g-t4ez"
+msgid "Member country"
+msgstr "Member country"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "-JSvH5"
+msgid "Observer country"
+msgstr "Observer country"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "bK71J7"
+msgid "Country with cooperating partners"
+msgstr "Country with cooperating partners"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "-a-2ug"
+msgid "Members"
+msgstr "Members"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "RLWBie"
+msgid "Observers"
+msgstr "Observers"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "K7AkdL"
+msgid "Show"
+msgstr "Show"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "n6WiTf"
+msgid "All countries"
+msgstr "All countries"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "xbi38c"
+msgid "Zoom in"
+msgstr "Zoom in"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "_UnJ3S"
+msgid "Zoom out"
+msgstr "Zoom out"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "9BuJMX"
+msgid "{country} is a member of DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+msgstr "{country} is a member of DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "aDLKAA"
+msgid "{country} is an observer of DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+msgstr "{country} is an observer of DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "3vTnvO"
+msgid "Institutions in {country} cooperating with DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+msgstr "Institutions in {country} cooperating with DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "z8XEBy"
+msgid "Partner institutions"
+msgstr "Partner institutions"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "cVwexr"
+msgid "National consortium"
+msgstr "National consortium"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "KypGo1"
+msgid "Coordinated by <institution>{name}</institution>"
+msgstr "Coordinated by <institution>{name}</institution>"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "VOGpz1"
+msgid "Represented by <institution>{name}</institution>"
+msgstr "Represented by <institution>{name}</institution>"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "QUD5Hd"
+msgid "{count, plural, one {Cooperating partner} other {Cooperating partners}}"
+msgstr "{count, plural, one {Cooperating partner} other {Cooperating partners}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "jCkwJn"
+msgid "{count, plural, one {Website:} other {Websites:}}"
+msgstr "{count, plural, one {Website:} other {Websites:}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "LaG1SX"
+msgid "Social media:"
+msgstr "Social media:"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "bXoLdo"
+msgid "{count, plural, one {National coordinator} other {National coordinators}}"
+msgstr "{count, plural, one {National coordinator} other {National coordinators}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "b_q790"
+msgid "{count, plural, one {Deputy national coordinator} other {Deputy national coordinators}}"
+msgstr "{count, plural, one {Deputy national coordinator} other {Deputy national coordinators}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "MexO_V"
+msgid "National coordination staff"
+msgstr "National coordination staff"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "O84yR3"
+msgid "{count, plural, one {National representative} other {National representatives}}"
+msgstr "{count, plural, one {National representative} other {National representatives}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "bUPRzR"
+msgid "{count, plural, one {Deputy national representative} other {Deputy national representatives}}"
+msgstr "{count, plural, one {Deputy national representative} other {Deputy national representatives}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "6ZbwcO"
+msgid "{count, plural, one {Contact} other {Contacts}}"
+msgstr "{count, plural, one {Contact} other {Contacts}}"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+#: components/article.tsx
+msgctxt "ZLmyG9"
+msgid "Contributors"
+msgstr "Contributors"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "0Ac9xY"
+msgid "Website<hidden> of {name}</hidden>"
+msgstr "Website<hidden> of {name}</hidden>"
+
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+msgctxt "q6z6ss"
+msgid "ROR<hidden> record of {name}</hidden>"
+msgstr "ROR<hidden> record of {name}</hidden>"
+
+#: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
+#: app/(app)/(default)/network/working-groups/(list)/layout.tsx
+msgctxt "D6m9La"
+msgid "Active Working Groups"
+msgstr "Active Working Groups"
+
+#: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
+#: app/(app)/(default)/network/working-groups/(list)/inactive/page.tsx
+#: app/(app)/(default)/network/working-groups/(list)/layout.tsx
+msgctxt "oaZuYz"
+msgid "Past Working Groups"
+msgstr "Past Working Groups"
+
+#: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "OFTO7O"
+msgid "Working group"
+msgstr "Working group"
+
+#: app/(app)/(default)/network/working-groups/(list)/layout.tsx
+msgctxt "1MgzM6"
+msgid "Working group status"
+msgstr "Working group status"
+
+#: app/(app)/(default)/network/working-groups/[slug]/page.tsx
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "zFegDD"
+msgid "Contact"
+msgstr "Contact"
+
+#: app/(app)/(default)/network/working-groups/[slug]/page.tsx
+msgctxt "KLtrTn"
+msgid "Mailing list"
+msgstr "Mailing list"
+
+#: app/(app)/(default)/news/_components/news-list.tsx
+msgctxt "UZ9GeH"
+msgid "Follow the latest news, opportunities and funding calls in your feed reader."
+msgstr "Follow the latest news, opportunities and funding calls in your feed reader."
+
+#: app/(app)/(default)/news/_components/news-list.tsx
+#: app/(app)/(default)/news/[slug]/page.tsx
+msgctxt "v5-0Yy"
+msgid "Loading news…"
+msgstr "Loading news…"
+
+#: app/(app)/(default)/news/(list)/page.tsx
+#: app/(app)/(default)/news/(list)/page/[page]/page.tsx
+msgctxt "mHy6Dy"
+msgid "News, announcements and stories from DARIAH-EU and its community across Europe."
+msgstr "News, announcements and stories from DARIAH-EU and its community across Europe."
+
+#: app/(app)/(default)/news/[slug]/page.tsx
+msgctxt "P0HF-H"
+msgid "Latest news"
+msgstr "Latest news"
+
+#: app/(app)/(default)/newsletters/_actions/subscribe.ts
+msgctxt "wcisD2"
+msgid "Please provide a valid email address."
+msgstr "Please provide a valid email address."
+
+#: app/(app)/(default)/newsletters/_actions/subscribe.ts
+msgctxt "0qOfOY"
+msgid "This email address is already subscribed."
+msgstr "This email address is already subscribed."
+
+#: app/(app)/(default)/newsletters/_actions/subscribe.ts
+msgctxt "VSBZFQ"
+msgid "Subscribing failed. Please try again later."
+msgstr "Subscribing failed. Please try again later."
+
+#: app/(app)/(default)/newsletters/_actions/subscribe.ts
+msgctxt "-os9A5"
+msgid "Thank you! Please check your inbox to confirm your subscription."
+msgstr "Thank you! Please check your inbox to confirm your subscription."
+
+#: app/(app)/(default)/newsletters/_components/subscribe-form.tsx
+msgctxt "hJZwTS"
+msgid "Email address"
+msgstr "Email address"
+
+#: app/(app)/(default)/newsletters/_components/subscribe-form.tsx
+msgctxt "mNgI1_"
+msgid "Subscribing…"
+msgstr "Subscribing…"
+
+#: app/(app)/(default)/newsletters/page.tsx
+msgctxt "s3-zER"
+msgid "Subscribe to the newsletter"
+msgstr "Subscribe to the newsletter"
+
+#: app/(app)/(default)/newsletters/page.tsx
+msgctxt "7AG8-D"
+msgid "Newsletter archive"
+msgstr "Newsletter archive"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "MbFYjH"
+msgid "{name}: {positions}"
+msgstr "{name}: {positions}"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "sl1N--"
+msgid "Loading person…"
+msgstr "Loading person…"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "hVxfnN"
+msgid "Positions"
+msgstr "Positions"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "5ez1Yf"
+msgid "Biography"
+msgstr "Biography"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "P9erFE"
+msgid "Former positions"
+msgstr "Former positions"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "Ig2JLg"
+msgid "Impact case study"
+msgstr "Impact case study"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/spotlight/page.tsx
+#: components/related-content.tsx
+msgctxt "5uRwRL"
+msgid "Spotlight article"
+msgstr "Spotlight article"
+
+#: app/(app)/(default)/persons/[slug]/page.tsx
+msgctxt "3KNMbJ"
+msgid "Articles"
+msgstr "Articles"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+#: app/(app)/(default)/projects/(list)/layout.tsx
+msgctxt "Xuaaqj"
+msgid "Active Projects"
+msgstr "Active Projects"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+#: app/(app)/(default)/projects/(list)/inactive/page.tsx
+#: app/(app)/(default)/projects/(list)/layout.tsx
+msgctxt "3OeIt4"
+msgid "Past Projects"
+msgstr "Past Projects"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "gWc5Mu"
+msgid "Coordinator"
+msgstr "Coordinator"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "Fcb_BA"
+msgid "Funder"
+msgstr "Funder"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "fVMECF"
+msgid "Participant"
+msgstr "Participant"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "KN-Md8"
+msgid "Affiliated"
+msgstr "Affiliated"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "A56Ths"
+msgid "Duration: from {date}"
+msgstr "Duration: from {date}"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+msgctxt "-Epxu7"
+msgid "Duration: {range}"
+msgstr "Duration: {range}"
+
+#: app/(app)/(default)/projects/_components/project-list.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "k36uSw"
+msgid "Project"
+msgstr "Project"
+
+#: app/(app)/(default)/projects/(list)/layout.tsx
+msgctxt "MpQmud"
+msgid "Project status"
+msgstr "Project status"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "tnOf__"
+msgid "from {date}"
+msgstr "from {date}"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "IuFETn"
+msgid "Duration"
+msgstr "Duration"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "80fGdS"
+msgid "EU contribution"
+msgstr "EU contribution"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "UdtpV7"
+msgid "Topic"
+msgstr "Topic"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "iUWYAG"
+msgid "{count, plural, one {Coordinator} other {Coordinators}}"
+msgstr "{count, plural, one {Coordinator} other {Coordinators}}"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "f-GKc4"
+msgid "Call"
+msgstr "Call"
+
+#: app/(app)/(default)/projects/[slug]/page.tsx
+msgctxt "zx0myy"
+msgid "Participants"
+msgstr "Participants"
+
+#: app/(app)/(default)/resources/_components/latest-resources.tsx
+msgctxt "3oyqjm"
+msgid "Discover the latest resources"
+msgstr "Discover the latest resources"
+
+#: app/(app)/(default)/resources/_components/latest-resources.tsx
+msgctxt "NesKZ8"
+msgid "Explore more resources"
+msgstr "Explore more resources"
+
+#: app/(app)/(default)/resources/_components/latest-resources.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "rA6THG"
+msgid "Loading resources…"
+msgstr "Loading resources…"
+
+#: app/(app)/(default)/resources/_components/latest-resources.tsx
+msgctxt "V5JQj-"
+msgid "No results found."
+msgstr "No results found."
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "uN69Ic"
+msgid "Publication"
+msgstr "Publication"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "n7yYXG"
+msgid "Service"
+msgstr "Service"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "r3C4x_"
+msgid "Software"
+msgstr "Software"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "X0GLby"
+msgid "Training material"
+msgstr "Training material"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "pv1lF7"
+msgid "Workflow"
+msgstr "Workflow"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+msgctxt "6DJ9gA"
+msgid "Core service"
+msgstr "Core service"
+
+#: app/(app)/(default)/resources/_components/resource.tsx
+msgctxt "PyLkIf"
+msgid "Go to resource"
+msgstr "Go to resource"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facet-checkbox-group.tsx
+msgctxt "GZo7vg"
+msgid "See less"
+msgstr "See less"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facet-checkbox-group.tsx
+msgctxt "yoLwRW"
+msgid "See more"
+msgstr "See more"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "js2iuU"
+msgid "Show filters"
+msgstr "Show filters"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "qoRgGA"
+msgid "{count, plural, other {# active}}"
+msgstr "{count, plural, other {# active}}"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "zSOvI0"
+msgid "Filters"
+msgstr "Filters"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "78vrMq"
+msgid "Close filters"
+msgstr "Close filters"
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "rIKgMi"
+msgid "No resources match your search, so there is nothing to filter."
+msgstr "No resources match your search, so there is nothing to filter."
+
+#: app/(app)/(default)/resources/resource-catalogue/_components/facets-panel.tsx
+msgctxt "athI9y"
+msgid "{total, plural, one {See # result} other {See # results}}"
+msgstr "{total, plural, one {See # result} other {See # results}}"
+
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "ZydsS3"
+msgid "Search resources"
+msgstr "Search resources"
+
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "WHleoJ"
+msgid "Resource type"
+msgstr "Resource type"
+
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "F4gyn3"
+msgid "Clear filters"
+msgstr "Clear filters"
+
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "HHBXQn"
+msgid "Check the spelling, or use fewer filters."
+msgstr "Check the spelling, or use fewer filters."
+
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/page.tsx
+msgctxt "0d9EPJ"
+msgid "Check the spelling, or try a broader term."
+msgstr "Check the spelling, or try a broader term."
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "k87Jhh"
+msgid "Search the website"
+msgstr "Search the website"
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "ccXLVi"
+msgid "Category"
+msgstr "Category"
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "cAFg5A"
+msgid "{total, plural, one {# result} other {# results}} for “{query}”"
+msgstr "{total, plural, one {# result} other {# results}} for “{query}”"
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "Y9U18g"
+msgid "Search all categories"
+msgstr "Search all categories"
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "eVjsE7"
+msgid "Search the Resource Catalogue"
+msgstr "Search the Resource Catalogue"
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "6Jb005"
+msgid "Check the spelling, try a broader term, or search all categories."
+msgstr "Check the spelling, try a broader term, or search all categories."
+
+#: app/(app)/(default)/search/page.tsx
+msgctxt "9g2jKz"
+msgid "All categories"
+msgstr "All categories"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "vONi-O"
+msgid "Country"
+msgstr "Country"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "9PQRIm"
+msgid "Document or policy"
+msgstr "Document or policy"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "m1czzY"
+msgid "Event"
+msgstr "Event"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "GaKOBV"
+msgid "Governance body"
+msgstr "Governance body"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "dMwAna"
+msgid "Institution"
+msgstr "Institution"
+
+#: app/(app)/(default)/search/page.tsx
+#: components/related-content.tsx
+msgctxt "1mnmBr"
+msgid "Person"
+msgstr "Person"
+
+#: components/article.tsx
+msgctxt "2dh5Xx"
+msgid "{count, plural, one {Lead author} other {Lead authors}}"
+msgstr "{count, plural, one {Lead author} other {Lead authors}}"
+
+#: components/article.tsx
+msgctxt "2AkmKY"
+msgid "{count, plural, one {Contributing author} other {Contributing authors}}"
+msgstr "{count, plural, one {Contributing author} other {Contributing authors}}"
+
+#: components/article.tsx
+msgctxt "52XlLM"
+msgid "{count, plural, one {Editor} other {Editors}}"
+msgstr "{count, plural, one {Editor} other {Editors}}"
+
+#: components/breadcrumbs.tsx
+msgctxt "ByoZDD"
+msgid "Breadcrumbs"
+msgstr "Breadcrumbs"
+
+#: components/breadcrumbs.tsx
+msgctxt "ejEGdx"
+msgid "Home"
+msgstr "Home"
+
+#: components/content-layout.tsx
+msgctxt "S3SiEe"
+msgid "Quick links"
+msgstr "Quick links"
+
+#: components/content-layout.tsx
+msgctxt "PL7zG-"
+msgid "Related Content"
+msgstr "Related Content"
+
+#: components/date-range.tsx
+msgctxt "xZV_vP"
+msgid "From {date}"
+msgstr "From {date}"
+
+#: components/feed-link.tsx
+msgctxt "Y0MpZL"
+msgid "Subscribe via RSS"
+msgstr "Subscribe via RSS"
+
+#: components/page-header.tsx
+msgctxt "ohgkvi"
+msgid "Loading page…"
+msgstr "Loading page…"
+
+#: components/person-card.tsx
+msgctxt "qXxI65"
+msgid "National Representative of {country}"
+msgstr "National Representative of {country}"
+
+#: components/person-card.tsx
+msgctxt "G8a0NZ"
+msgid "National Representative Deputy of {country}"
+msgstr "National Representative Deputy of {country}"
+
+#: components/person-card.tsx
+msgctxt "mKF-X_"
+msgid "National Coordinator of {country}"
+msgstr "National Coordinator of {country}"
+
+#: components/person-card.tsx
+msgctxt "h8lzE2"
+msgid "National Coordinator Deputy of {country}"
+msgstr "National Coordinator Deputy of {country}"
+
+#: components/person-card.tsx
+msgctxt "3dySNp"
+msgid "National Coordination Staff of {country}"
+msgstr "National Coordination Staff of {country}"
+
+#: components/person-card.tsx
+msgctxt "Bv_Edh"
+msgid "DARIAH-EU Director (President of the Board)"
+msgstr "DARIAH-EU Director (President of the Board)"
+
+#: components/person-card.tsx
+msgctxt "lMIVc7"
+msgid "DARIAH-EU Director"
+msgstr "DARIAH-EU Director"
+
+#: components/person-card.tsx
+msgctxt "mWrqUI"
+msgid "{name} Working Group"
+msgstr "{name} Working Group"
+
+#: components/person-card.tsx
+msgctxt "ausVXG"
+msgid "Chair of the {name}"
+msgstr "Chair of the {name}"
+
+#: components/person-card.tsx
+msgctxt "4WksIP"
+msgid "Vice-chair of the {name}"
+msgstr "Vice-chair of the {name}"
+
+#: components/person-card.tsx
+msgctxt "dw9qyF"
+msgid "Member of the {name}"
+msgstr "Member of the {name}"
+
+#: components/person-card.tsx
+msgctxt "uwkeo3"
+msgid "Contact for the {name}"
+msgstr "Contact for the {name}"
+
+#: components/person-card.tsx
+msgctxt "YDgQoS"
+msgid "General Assembly"
+msgstr "General Assembly"
+
+#: components/person-card.tsx
+msgctxt "B4lLMt"
+msgid "National Coordinator Committee"
+msgstr "National Coordinator Committee"
+
+#: components/person-card.tsx
+msgctxt "eVGlwV"
+msgid "Senior Management Team"
+msgstr "Senior Management Team"
+
+#: components/person-card.tsx
+msgctxt "cTX_LS"
+msgid "DARIAH Coordination Office"
+msgstr "DARIAH Coordination Office"
+
+#: components/person-card.tsx
+msgctxt "xAKWly"
+msgid "Joint Research Committee"
+msgstr "Joint Research Committee"
+
+#: components/person-card.tsx
+msgctxt "M8KlQx"
+msgid "Scientific Advisory Board"
+msgstr "Scientific Advisory Board"
+
+#: components/related-content.tsx
+msgctxt "XM9U65"
+msgid "Regional hub"
+msgstr "Regional hub"
+
+#: components/related-content.tsx
+msgctxt "T6ugQZ"
+msgid "ERIC"
+msgstr "ERIC"
+
+#: components/related-content.tsx
+msgctxt "wmyg6t"
+msgid "Resource"
+msgstr "Resource"
+
+#: components/rich-text.tsx
+msgctxt "4ioeud"
+msgid "Footnote {number}"
+msgstr "Footnote {number}"
+
+#: components/rich-text.tsx
+msgctxt "t1Ql7Y"
+msgid "Footnotes"
+msgstr "Footnotes"
+
+#: components/rich-text.tsx
+msgctxt "TiPYmy"
+msgid "Back to footnote {number} in the text"
+msgstr "Back to footnote {number} in the text"
+
+#: components/section-error-boundary.tsx
+msgctxt "xhdWqv"
+msgid "This section could not be loaded."
+msgstr "This section could not be loaded."
+
+#: components/subscribe-section.tsx
+msgctxt "G0gadY"
+msgid "Stay up to date"
+msgstr "Stay up to date"
+
+#: components/table-of-contents.tsx
+msgctxt "TM7OHi"
+msgid "On this page"
+msgstr "On this page"
+
+#: lib/data/feeds.ts
+msgctxt "OqRYxO"
+msgid "{title}: News"
+msgstr "{title}: News"
+
+#: lib/data/feeds.ts
+msgctxt "4-hNua"
+msgid "{title}: Events"
+msgstr "{title}: Events"
+
+#: lib/data/feeds.ts
+msgctxt "zB5VYc"
+msgid "Opportunities"
+msgstr "Opportunities"
+
+#: lib/data/feeds.ts
+msgctxt "5-5Dw_"
+msgid "Funding calls"
+msgstr "Funding calls"

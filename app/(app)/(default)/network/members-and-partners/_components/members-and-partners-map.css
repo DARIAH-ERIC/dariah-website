@@ -1,0 +1,6 @@
+/**
+ * Leaflet's styles, in the `components` layer which `styles/index.css` declares via `@import "tailwindcss"`, so
+ * Tailwind's utilities override them without `!`. A layer of its own would be declared after `utilities`, and win.
+ * Imported here rather than in the global stylesheet, so only the page with the map loads them.
+ */
+@import "leaflet/dist/leaflet.css" layer(components);

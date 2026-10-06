@@ -1,8 +1,26 @@
-/* stylelint-disable custom-property-empty-line-before */
+/**
+ * ====================================================================================================================
+ * Imports.
+ * ====================================================================================================================
+ */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/**
+ * ====================================================================================================================
+ * Plugins.
+ * ====================================================================================================================
+ */
+
+@plugin "@tailwindcss/typography";
 @plugin "tailwindcss-react-aria-components";
+
+/**
+ * ====================================================================================================================
+ * Breakpoints.
+ * ====================================================================================================================
+ */
 
 @theme {
 	--breakpoint-xs: 30rem;
@@ -14,395 +32,791 @@
 	--breakpoint-3xl: 120rem;
 }
 
-/** ===============================================================================================
- * Theme.
- * ============================================================================================= */
+/**
+ * ====================================================================================================================
+ * Spacing.
+ * ====================================================================================================================
+ */
 
-@theme inline {
+@theme {
+	/**
+	 * Inline padding of the header and page sections, as `px-container`; full-bleed backgrounds and images ignore it.
+	 * The mobile design's 24px up to about a 950px viewport, then grows linearly to the design's 134px at 1920px.
+	 */
+	--spacing-container: clamp(1.5rem, 11.4vw - 5.29rem, 8.375rem);
+
+	/** Gap between cards in a row, as `gap-x-gutter`: from 40px at a 1024px viewport to the design's 90px at 1920px. */
+	--spacing-gutter: clamp(2.5rem, 5.58vw - 1.07rem, 5.625rem);
+
+	/**
+	 * Gap between cards set wide apart, e.g. the home page's events and resources, as `gap-x-gutter-wide`: from 32px at a
+	 * 1024px viewport to the design's 128px at 1920px.
+	 */
+	--spacing-gutter-wide: clamp(2rem, 15vw - 10rem, 8rem);
+
+	/**
+	 * Space around a row of cards set well apart from what comes before and after it, e.g. the home page's resources, as
+	 * `mbe-block-loose`: from 96px at a 1024px viewport to the design's 160px at 1920px.
+	 */
+	--spacing-block-loose: clamp(6rem, 7.14vw + 1.43rem, 10rem);
+
+	/**
+	 * Space around a row of cards set apart from what comes before and after it, e.g. the home page's events, as
+	 * `mbs-block`: from 40px at a 1024px viewport to the design's 70px at 1920px.
+	 */
+	--spacing-block: clamp(2.5rem, 3.35vw + 0.36rem, 4.375rem);
+
+	/**
+	 * Height of the home page's hero, as `min-block-hero`: the viewport's, less room for the header and the start of the
+	 * next section's heading, but no more than 70% of the viewport's width; capped at the design's 924px, and floored
+	 * for short viewports.
+	 */
+	--spacing-hero: clamp(30rem, min(100svh - 10rem, 70vw), 57.75rem);
+
+	/**
+	 * How far the heading after the home page's hero overlaps its bottom, as `-mbs-hero-overlap`: from 120px at a phone's
+	 * width to the design's 170px at 1920px.
+	 */
+	--spacing-hero-overlap: clamp(7.5rem, 3.9rem + 5.6vw, 10.625rem);
+
+	/**
+	 * Gap between the columns of a content page (outline, content, quick links), as `gap-x-columns`: from 48px at a 1024px
+	 * viewport to the design's 84px at 1920px.
+	 */
+	--spacing-columns: clamp(3rem, 4.02vw + 0.43rem, 5.25rem);
+
+	/**
+	 * Widest a column of running text may be, as `max-inline-measure`: around 80 characters per line, the limit of wcag
+	 * 1.4.8. In `ch`, so it follows the font size of the element it is set on.
+	 */
+	--container-measure: 70ch;
+
+	/**
+	 * The main area's extra inset beside `px-container`, as `-mx-inset` for what bleeds out of it, e.g. a featured image:
+	 * none up to an 80rem (1280px) viewport, then growing to 8rem (128px) at 1920px. The header and footer keep to
+	 * `px-container`, so the main area reads as a column set into the page rather than spanning it.
+	 */
+	--spacing-inset: clamp(0rem, (100vw - 80rem) * 0.2, 8rem);
+
+	/** Inline padding of everything in `<main>` but the home page, as `px-main`: the container's, plus the inset. */
+	--spacing-main: calc(var(--spacing-container) + var(--spacing-inset));
+
+	/** A page title's widest line, as `max-inline-title`: the design's 1100px column. */
+	--container-title: 68.75rem;
+
+	/** The outline beside a page's content (see `ContentLayout`). */
+	--container-toc: 16rem;
+
+	/**
+	 * The related content beside a page's content (see `ContentLayout`): whatever the content's measure leaves, but at
+	 * least `related-min`, where the content gives way instead, and at most `quick-links` for a list of links or
+	 * `related-cards` for cards.
+	 */
+	--container-related-min: 16rem;
+	--container-quick-links: 20rem;
+	--container-related-cards: 27rem;
+
+	/** The home page hero's heading box, as `max-inline-hero-heading`: two lines at the design's size. */
+	--container-hero-heading: 15.5em;
+}
+
+/**
+ * ============================================================================================
+ * Fonts.
+ * ============================================================================================
+ */
+
+@theme {
 	--font-body: var(--_font-body, var(--default-font-family));
 	--font-heading: var(--_font-heading, var(--font-body));
 	--font-code: var(--_font-code, var(--default-mono-font-family));
 }
 
+/**
+ * ====================================================================================================================
+ * Primitives.
+ *
+ * The raw values of the design: every colour, font size, weight, line height and letter spacing it uses, named for
+ * what they are rather than what they are for. They are plain custom properties, not theme variables, so tailwind
+ * generates no utilities for them: code never uses them directly, only through the semantic tokens below, which name
+ * a role (`text-weak`, `background-callout`, `text-title-2`). A value only belongs here once a semantic token uses it.
+ * ====================================================================================================================
+ */
+
+@layer theme {
+	:root {
+		/** Blue: the brand colour, and the lighter blues around it. */
+		--primitive-color-blue-25: #eaf1f9;
+		--primitive-color-blue-50: #e6f0f6;
+		--primitive-color-blue-100: #e2eff6;
+		--primitive-color-blue-300: #83b7d5;
+		--primitive-color-blue-600: #0870ac;
+		--primitive-color-blue-950: #001d6b;
+
+		/**
+		 * Gray: the only grays, all with the slight blue of tailwind's default `gray-*` scale, so that a gray surface never
+		 * reads as a different tint from the canvas. The steps between tailwind's take the same hue, with a chroma between
+		 * those of their neighbours. `gray-550` is a touch darker than tailwind's `gray-500` at `55.1%` lightness, which falls
+		 * short of 4.5:1 as text on the light blues and on `gray-100`.
+		 */
+		--primitive-color-gray-50: oklch(98.5% 0.002 247.839deg);
+		--primitive-color-gray-100: oklch(96.7% 0.003 264.542deg);
+		--primitive-color-gray-200: oklch(92.8% 0.006 264.531deg);
+		--primitive-color-gray-250: oklch(90.7% 0.008 264deg);
+		--primitive-color-gray-300: oklch(81.4% 0.014 264deg);
+		--primitive-color-gray-350: oklch(77.9% 0.017 264deg);
+		--primitive-color-gray-400: oklch(68.9% 0.023 264deg);
+		--primitive-color-gray-450: #898f9c;
+		--primitive-color-gray-500: oklch(58.6% 0.026 264deg);
+		--primitive-color-gray-550: oklch(53% 0.027 264.364deg);
+		--primitive-color-gray-600: oklch(44.6% 0.03 256.802deg);
+		--primitive-color-gray-700: oklch(39.8% 0.033 264deg);
+
+		/** The design's black: a very dark blue, not on the `gray-*` scale. */
+		--primitive-color-black: #272f3e;
+		--primitive-color-white: #fff;
+
+		/** Status: tailwind's default `amber-400` and `red-700`. */
+		--primitive-color-amber-400: oklch(82.8% 0.189 84.429deg);
+		--primitive-color-red-700: oklch(50.5% 0.213 27.518deg);
+
+		/** The strategy's four pillars, each a lighter and a darker shade. */
+		--primitive-color-cyan-500: #0d9fbf;
+		--primitive-color-cyan-700: #007b96;
+		--primitive-color-lime-500: #acca00;
+		--primitive-color-lime-700: #7d9204;
+		--primitive-color-orange-400: #ff963e;
+		--primitive-color-orange-600: #d6670a;
+		--primitive-color-purple-500: #83559f;
+		--primitive-color-purple-800: #5c0094;
+
+		/**
+		 * The organigram's kinds of governance body. The ochre is a touch darker than the design's `#ae6305`, which falls short
+		 * of 4.5:1 as the text of a tag on its own tint.
+		 */
+		--primitive-color-navy-800: #044367;
+		--primitive-color-green-800: #11593a;
+		--primitive-color-ochre-700: #a05a04;
+		--primitive-color-rust-800: #772d02;
+
+		/** The resource catalogue's kinds of resource, each a darker shade and a lighter one for a card's border. */
+		--primitive-color-sea-800: #065989;
+		--primitive-color-teal-300: #80c5c2;
+		--primitive-color-teal-700: #237f7b;
+		--primitive-color-olive-700: #72705a;
+		--primitive-color-mauve-200: #bcb2b8;
+		--primitive-color-mauve-700: #844b6e;
+
+		/** The home page's network statistics: their rings, alternating, and the lighter end of the glow behind each icon. */
+		--primitive-color-indigo-500: #4353d1;
+		--primitive-color-blue-500: #0083d5;
+		--primitive-color-blue-400: #36b6ff;
+
+		/** The home page's events band, from a dark blue through a teal to a yellow green. */
+		--primitive-color-blue-800: #004083;
+
+		/** Behind an event card's translucent body on a dark background, at 30%. */
+		--primitive-color-blue-700: #015ebf;
+		--primitive-color-teal-500: #00aabc;
+		--primitive-color-lime-400: #afc918;
+
+		/**
+		 * The landing page's hero photo: dark at its edges, from a plum to a violet, with a crimson glow left of the middle and
+		 * a lavender blue one right of it, where the photo's burst of light is.
+		 */
+		--primitive-color-plum-950: #3a1731;
+		--primitive-color-violet-950: #211a2d;
+		--primitive-color-crimson-800: #611135;
+		--primitive-color-periwinkle-500: #6a78b8;
+
+		/** The events calendar: a grayish, muted blue, from its weekdays' row to the header of a day with events. */
+		--primitive-color-slate-50: #f0f3f8;
+		--primitive-color-slate-200: #c1cde0;
+		--primitive-color-slate-700: #4d638d;
+		--primitive-color-slate-800: #354e7d;
+
+		/** Font sizes, named for their size in pixels at the default root font size. */
+		--primitive-font-size-12: 0.75rem;
+		--primitive-font-size-14: 0.875rem;
+		--primitive-font-size-16: 1rem;
+		--primitive-font-size-18: 1.125rem;
+		--primitive-font-size-20: 1.25rem;
+		--primitive-font-size-22: 1.375rem;
+		--primitive-font-size-24: 1.5rem;
+		--primitive-font-size-28: 1.75rem;
+		--primitive-font-size-32: 2rem;
+		--primitive-font-size-40: 2.5rem;
+		--primitive-font-size-45: 2.8125rem;
+		--primitive-font-size-48: 3rem;
+		--primitive-font-size-54: 3.375rem;
+		--primitive-font-size-64: 4rem;
+		--primitive-font-size-72: 4.5rem;
+		--primitive-font-size-80: 5rem;
+		--primitive-font-size-84: 5.25rem;
+		--primitive-font-size-96: 6rem;
+		--primitive-font-size-128: 8rem;
+
+		/** Font weights: those of the faces loaded in `fonts.config.ts`. */
+		--primitive-font-weight-light: 300;
+		--primitive-font-weight-regular: 400;
+		--primitive-font-weight-medium: 500;
+		--primitive-font-weight-bold: 700;
+		--primitive-font-weight-black: 900;
+
+		/** Line heights. */
+		--primitive-line-height-none: 1;
+		--primitive-line-height-tighter: 1.2;
+		--primitive-line-height-tight: 1.25;
+		--primitive-line-height-snug: 1.375;
+		--primitive-line-height-normal: 1.5;
+		--primitive-line-height-relaxed: 1.625;
+		--primitive-line-height-loose: 1.75;
+
+		/** Letter spacings. */
+		--primitive-letter-spacing-tight: -0.01em;
+		--primitive-letter-spacing-normal: 0;
+		--primitive-letter-spacing-wide: 0.02em;
+	}
+}
+
+/**
+ * ====================================================================================================================
+ * Typography.
+ * ====================================================================================================================
+ */
+
 @theme {
-	--primary: rgb(8 112 172);
-	--primary-100: rgb(230 240 246);
-	--primary-200: rgb(205 226 238);
-	--primary-300: rgb(131 183 213);
-	--primary-400: rgb(57 140 188);
-	--primary-500: rgb(58 110 177);
-	--primary-600: rgb(6 89 137);
-	--primary-700: rgb(4 67 103);
+	/**
+	 * Only the semantic tokens below make utilities: tailwind's own font sizes, weights, line heights and letter spacings
+	 * are dropped, so `text-lg` or `tracking-wide` do not exist. `leading-none` and the spacing based `leading-<n>` are
+	 * not theme variables, and remain.
+	 */
+	--text-*: initial;
+	--font-weight-*: initial;
+	--leading-*: initial;
+	--tracking-*: initial;
 
-	--accent: rgb(30 57 108);
-	--accent-100: rgb(193 205 224);
-	--accent-200: rgb(170 184 207);
-	--accent-300: rgb(146 163 191);
-	--accent-400: rgb(123 142 174);
-	--accent-500: rgb(100 120 158);
-	--accent-600: rgb(77 99 141);
-	--accent-700: rgb(53 78 125);
-	--accent-800: rgb(30 57 108);
-	--accent-900: rgb(17 42 90);
+	/**
+	 * Weights, to set a text style heavier or lighter than its own, e.g. `text-body font-medium` for a link, or
+	 * `aria-[current=page]:font-bold` for the current item of a navigation.
+	 */
+	--font-weight-light: var(--primitive-font-weight-light);
+	--font-weight-regular: var(--primitive-font-weight-regular);
+	--font-weight-medium: var(--primitive-font-weight-medium);
+	--font-weight-bold: var(--primitive-font-weight-bold);
 
-	--gray: rgb(155 155 155);
-	--gray-100: rgb(250 250 250);
-	--gray-200: rgb(242 242 242);
-	--gray-300: rgb(231 231 231);
-	--gray-400: rgb(214 214 214);
-	--gray-500: rgb(194 194 194);
-	--gray-600: rgb(155 155 155);
-	--gray-700: rgb(124 124 124);
-	--gray-800: rgb(82 82 82);
-	--gray-900: rgb(51 51 51);
+	/**
+	 * Line heights, to set a text style tighter or looser than its own. Picked by line length rather than by place: the
+	 * longer the line, the more space the eye needs to find the start of the next one.
+	 *
+	 * `leading-heading` for a heading which may wrap, e.g. a card's title, and `leading-body` for body text at a short
+	 * measure - a card's summary, around 40 characters per line. `leading-relaxed` for large text in the heading font
+	 * which runs to a few lines, e.g. a teaser's description, and `leading-reading` for running text at a full reading
+	 * measure, around 70 characters.
+	 */
+	--leading-heading: var(--primitive-line-height-snug);
+	--leading-body: var(--primitive-line-height-normal);
+	--leading-relaxed: var(--primitive-line-height-relaxed);
+	--leading-reading: var(--primitive-line-height-loose);
 
-	--white: rgb(255 255 255);
-	--black: rgb(38 38 38);
+	/**
+	 * Text styles, each a size with its line height and weight, as `text-*`. The utility sets them through tailwind's
+	 * `--tw-*` variables, so a `font-*` or `leading-*` utility on the same element overrides them whatever the order.
+	 *
+	 * Only the display, titles 1 to 3, the lead in and body set a letter spacing of their own. The others inherit the
+	 * body's, `-0.01em` of the body size: the same absolute spacing at every size.
+	 */
 
-	--section-text: rgb(39 47 62);
-	--section-box-bg: rgb(231 231 231);
-	--section-news-bg: linear-gradient(278.84deg, rgb(8 112 172) 0%, rgb(131 183 213) 90%);
+	/** Display: the landing page's hero heading. From 32px on a phone to 84px at 1920px. */
+	--text-display: clamp(var(--primitive-font-size-32), 1.2rem + 3.4vw, var(--primitive-font-size-84));
+	--text-display--line-height: var(--primitive-line-height-tight);
+	--text-display--font-weight: var(--primitive-font-weight-bold);
+	--text-display--letter-spacing: var(--primitive-letter-spacing-tight);
 
-	--map-pin: rgb(44 159 154);
+	/** Title 1: a page's title, and the headings of a page's closing sections. 32px below `sm` (see below). */
+	--text-title-1: var(--primitive-font-size-45);
+	--text-title-1--line-height: var(--primitive-line-height-tighter);
+	--text-title-1--font-weight: var(--primitive-font-weight-light);
+	--text-title-1--letter-spacing: var(--primitive-letter-spacing-tight);
 
-	--working-groups-detail-divider: linear-gradient(90deg, rgb(109 139 127) 0%, rgb(0 87 143) 100%);
+	/** Title 2: a section's heading. */
+	--text-title-2: var(--primitive-font-size-28);
+	--text-title-2--line-height: var(--primitive-line-height-normal);
+	--text-title-2--font-weight: var(--primitive-font-weight-bold);
+	--text-title-2--letter-spacing: var(--primitive-letter-spacing-tight);
 
-	--static-pages-carousel-bg: linear-gradient(180deg, rgb(4 67 103) 64.75%, rgb(8 133 205) 100%);
-	--spotlight-list-divider: linear-gradient(180deg, var(--purple) -100%, transparent 80%);
-	--resource-catalogue-divider: linear-gradient(180deg, rgb(0 131 213) -100%, transparent 80%);
+	/** Title 3: a subsection's heading. */
+	--text-title-3: var(--primitive-font-size-24);
+	--text-title-3--line-height: var(--primitive-line-height-normal);
+	--text-title-3--font-weight: var(--primitive-font-weight-bold);
+	--text-title-3--letter-spacing: var(--primitive-letter-spacing-tight);
 
-	--section-resources-top-bg: rgb(0 29 107);
+	/** Title 4: a card's title in a list. */
+	--text-title-4: var(--primitive-font-size-22);
+	--text-title-4--line-height: var(--primitive-line-height-snug);
+	--text-title-4--font-weight: var(--primitive-font-weight-bold);
 
-	--section-events-bg: linear-gradient(
-		99.49deg,
-		rgb(0 64 131) 3.62%,
-		rgb(0 170 188) 53.67%,
-		rgb(175 201 24) 99.71%
-	);
+	/** Title 5: a small block's title, e.g. a callout's. */
+	--text-title-5: var(--primitive-font-size-20);
+	--text-title-5--line-height: var(--primitive-line-height-normal);
+	--text-title-5--font-weight: var(--primitive-font-weight-bold);
 
-	--block-quote-section-bg: linear-gradient(
+	/** Lead in: the paragraph introducing a page. */
+	--text-lead: var(--primitive-font-size-20);
+	--text-lead--line-height: var(--primitive-line-height-normal);
+	--text-lead--font-weight: var(--primitive-font-weight-medium);
+	--text-lead--letter-spacing: var(--primitive-letter-spacing-normal);
+
+	/** Body. */
+	--text-body: var(--primitive-font-size-18);
+	--text-body--line-height: var(--primitive-line-height-normal);
+	--text-body--font-weight: var(--primitive-font-weight-regular);
+	--text-body--letter-spacing: var(--primitive-letter-spacing-tight);
+
+	/** Caption: text accompanying other content, e.g. a figure's caption, a date, or the breadcrumbs. */
+	--text-caption: var(--primitive-font-size-16);
+	--text-caption--line-height: var(--primitive-line-height-normal);
+	--text-caption--font-weight: var(--primitive-font-weight-regular);
+
+	/** Button small: a compact link styled as a button, e.g. "Go to resource" on a card in a grid. */
+	--text-button-small: var(--primitive-font-size-16);
+	--text-button-small--line-height: var(--primitive-line-height-normal);
+	--text-button-small--font-weight: var(--primitive-font-weight-bold);
+
+	/** Small: fine print, e.g. a form's messages or the licence, and in bold capitals a card's kind above its title. */
+	--text-small: var(--primitive-font-size-14);
+	--text-small--line-height: calc(1.25 / 0.875);
+	--text-small--font-weight: var(--primitive-font-weight-regular);
+
+	/** Badge: a short status label, set in capitals, e.g. an event's "Ongoing". */
+	--text-badge: var(--primitive-font-size-12);
+	--text-badge--line-height: calc(1 / 0.75);
+	--text-badge--font-weight: var(--primitive-font-weight-bold);
+
+	/**
+	 * Figures: a number set as a graphic, e.g. a statistic or an event's day, from the largest to the smallest. Set solid,
+	 * as they stand beside rather than above other text.
+	 */
+	--text-figure-1: var(--primitive-font-size-80);
+	--text-figure-1--line-height: var(--primitive-line-height-none);
+	--text-figure-1--font-weight: var(--primitive-font-weight-black);
+	--text-figure-2: var(--primitive-font-size-72);
+	--text-figure-2--line-height: var(--primitive-line-height-none);
+	--text-figure-2--font-weight: var(--primitive-font-weight-black);
+	--text-figure-3: var(--primitive-font-size-64);
+	--text-figure-3--line-height: var(--primitive-line-height-none);
+	--text-figure-3--font-weight: var(--primitive-font-weight-black);
+	--text-figure-4: var(--primitive-font-size-48);
+	--text-figure-4--line-height: var(--primitive-line-height-none);
+	--text-figure-4--font-weight: var(--primitive-font-weight-black);
+
+	/**
+	 * The home page's network statistics, once they sit in one row: from figure 1's size at a 1536px viewport, where it
+	 * still fits beside its label, to the design's 128px at 1920px. Tracked out, as in the design.
+	 */
+	--text-figure-statistic: clamp(var(--primitive-font-size-80), 12.5vw - 7rem, var(--primitive-font-size-128));
+	--text-figure-statistic--line-height: var(--primitive-line-height-none);
+	--text-figure-statistic--font-weight: var(--primitive-font-weight-black);
+	--text-figure-statistic--letter-spacing: var(--primitive-letter-spacing-wide);
+
+	/**
+	 * The same on a phone, where the statistics stack: from figure 1's size at a 320px viewport to 96px from 360px,
+	 * the largest at which the widest figure still fits beside its label; the mobile design's is larger still.
+	 */
+	--text-figure-statistic-narrow: clamp(var(--primitive-font-size-80), 40vw - 3rem, var(--primitive-font-size-96));
+	--text-figure-statistic-narrow--line-height: var(--primitive-line-height-none);
+	--text-figure-statistic-narrow--font-weight: var(--primitive-font-weight-black);
+	--text-figure-statistic-narrow--letter-spacing: var(--primitive-letter-spacing-wide);
+
+	/**
+	 * A pillar's description on the home page: in one column, the mobile design's 24px; in more, a sixteenth of the
+	 * card's width (the design's 24px in a 384px card), between the body size and 24px, so lines keep about the same
+	 * length in every layout. The card's width depends on the number of columns, so each has its own size:
+	 * `text-pillar-1`, `text-pillar-2` and `text-pillar-4`.
+	 */
+	--text-pillar-1: var(--primitive-font-size-24);
+	--text-pillar-2: clamp(var(--primitive-font-size-18), 3.125vw - 0.1953rem, var(--primitive-font-size-24));
+	--text-pillar-4: clamp(var(--primitive-font-size-18), 0.9375vw + 0.375rem, var(--primitive-font-size-24));
+
+	/** The home page's call to join, over a photo: from title 2's size at a 1024px viewport to 40px at 1920px. */
+	--text-banner: clamp(var(--primitive-font-size-28), 1.3393vw + 0.8929rem, var(--primitive-font-size-40));
+	--text-banner--line-height: var(--primitive-line-height-normal);
+	--text-banner--letter-spacing: var(--primitive-letter-spacing-tight);
+}
+
+/**
+ * Title 1 is 32px on a phone, as in the mobile design: at 45px, a long article title runs to seven lines and pushes its
+ * featured image below the fold. A step rather than a curve, like the design's two sizes; a media query, since a theme
+ * variable cannot hold one. In the base layer, which follows the theme layer and so overrides it: a media query inside
+ * `@layer theme` is dropped by the build.
+ */
+@layer base {
+	@media (width < 40rem) {
+		:root {
+			--text-title-1: var(--primitive-font-size-32);
+		}
+	}
+}
+
+/**
+ * ====================================================================================================================
+ * Colors.
+ * ====================================================================================================================
+ */
+
+@theme {
+	/** Only the semantic tokens below make utilities: tailwind's palette, `white` and `black` included, is dropped. */
+	--color-*: initial;
+
+	/** Backgrounds. */
+	--color-background-base: var(--primitive-color-white);
+	--color-background-canvas: var(--primitive-color-gray-50);
+	--color-background-accent: var(--primitive-color-blue-100);
+	--color-background-accent-strong: var(--primitive-color-blue-600);
+
+	/** The accent at a tenth of its strength, over whatever is below, e.g. a related content card. */
+	--color-background-accent-weak: color-mix(in sRGB, var(--primitive-color-blue-600) 10%, transparent);
+
+	/** A callout set apart from the text; a touch lighter than `background-accent`. */
+	--color-background-callout: var(--primitive-color-blue-50);
+
+	/** A tile set off from the canvas, e.g. a link to more below a section. */
+	--color-background-muted: var(--primitive-color-gray-100);
+
+	/** A card under the pointer, e.g. an event in the events list. */
+	--color-background-card-hover: var(--primitive-color-blue-25);
+
+	/** A form field's box. */
+	--color-background-field: var(--primitive-color-gray-50);
+
+	/**
+	 * A band or card set off from the page, in the canvas's gray, e.g. alternate rows of a list.
+	 */
+	--color-background-subtle: var(--primitive-color-gray-50);
+
+	/** Standing in for an image which is missing, e.g. a person's portrait. */
+	--color-background-placeholder: var(--primitive-color-gray-250);
+
+	/** A dark tile among light ones. */
+	--color-background-strong: var(--primitive-color-gray-700);
+
+	/** Dark, under `text-inverse`: the mobile navigation menu. */
+	--color-background-navigation: var(--primitive-color-navy-800);
+
+	/** Dark, under `text-inverse`, e.g. a secondary button on a photo; with an alpha to let the photo show through. */
+	--color-background-inverse: var(--primitive-color-black);
+
+	/** A tint laid over a photo, with an `opacity-*`, so text on it stays legible. */
+	--color-background-overlay: var(--primitive-color-blue-950);
+
+	/** A tag, e.g. a project's role. */
+	--color-background-tag: var(--primitive-color-gray-200);
+
+	/**
+	 * Tints an event card's translucent body on a dark background, as `bg-background-event/30` behind it, so the body
+	 * reads a touch bluer than the background alone would make it.
+	 */
+	--color-background-event: var(--primitive-color-blue-700);
+
+	/** A badge which should catch the eye, e.g. an event's "Ongoing". */
+	--color-background-highlight: var(--primitive-color-amber-400);
+
+	/**
+	 * The members and partners map: a member country is solid, a cooperating partner striped in the member colour over
+	 * a lighter blue: the pattern, not only the lighter shade, tells them apart.
+	 */
+	--color-background-map-member: var(--primitive-color-blue-600);
+	--color-background-map-partner: var(--primitive-color-blue-300);
+
+	/**
+	 * The events calendar: its weekdays' row, and a day with events, whose header is dark, under `text-inverse`. Today's
+	 * header is a lighter shade of it, when today has no events.
+	 */
+	--color-calendar-weekdays: var(--primitive-color-slate-200);
+	--color-calendar-day: var(--primitive-color-slate-50);
+	--color-calendar-day-header: var(--primitive-color-slate-800);
+	--color-calendar-today: var(--primitive-color-slate-700);
+
+	/**
+	 * The organigram: each kind of governance body has a colour of its own, for its card's header, rule and acronym, and
+	 * for the tags naming a body of that kind.
+	 */
+	--color-governance-governing: var(--primitive-color-navy-800);
+	--color-governance-executive: var(--primitive-color-green-800);
+	--color-governance-advisory: var(--primitive-color-ochre-700);
+	--color-governance-operational: var(--primitive-color-rust-800);
+	--color-governance-other: var(--primitive-color-blue-600);
+
+	/** The resource catalogue's kinds of resource. The design has one colour for tools and services: software and services. */
+	--color-resource-publication: var(--primitive-color-olive-700);
+	--color-resource-service: var(--primitive-color-sea-800);
+	--color-resource-software: var(--primitive-color-sea-800);
+	--color-resource-training-material: var(--primitive-color-teal-700);
+	--color-resource-workflow: var(--primitive-color-mauve-700);
+	--color-resource-publication-border: var(--primitive-color-gray-350);
+	--color-resource-service-border: var(--primitive-color-blue-300);
+	--color-resource-software-border: var(--primitive-color-blue-300);
+	--color-resource-training-material-border: var(--primitive-color-teal-300);
+	--color-resource-workflow-border: var(--primitive-color-mauve-200);
+
+	/**
+	 * The home page's network statistics: the rings around each icon, alternating from one statistic to the next, and the
+	 * disc behind the icon, over a glow fading from the disc's colour to a lighter blue.
+	 */
+	--color-statistic-ring-odd: var(--primitive-color-indigo-500);
+	--color-statistic-ring-even: var(--primitive-color-blue-500);
+	--color-statistic-disc: var(--primitive-color-blue-600);
+	--color-statistic-glow: var(--primitive-color-blue-400);
+
+	/**
+	 * The two series of the analytics page's chart, validated for colour vision deficiencies: apart enough under each kind,
+	 * and from the surface. The teal is below 3:1 against white, so the chart has a legend and a table with every value.
+	 */
+	--color-chart-visits: var(--primitive-color-blue-600);
+	--color-chart-unique-visitors: var(--primitive-color-teal-500);
+
+	/** Text. */
+	--color-text-strong: var(--primitive-color-black);
+	--color-text-accent: var(--primitive-color-blue-600);
+
+	/** Secondary text, e.g. a caption or a label beside a heading. */
+	--color-text-weak: var(--primitive-color-gray-550);
+	--color-text-inverse: var(--primitive-color-white);
+	--color-text-error: var(--primitive-color-red-700);
+
+	/** Strokes: borders, rules and dividers. */
+	--color-stroke-strong: var(--primitive-color-black);
+	--color-stroke-weak: var(--primitive-color-gray-200);
+
+	/** Between weak and strong, e.g. the table of contents' rule. */
+	--color-stroke-medium: var(--primitive-color-gray-300);
+	--color-stroke-accent: var(--primitive-color-blue-600);
+	--color-stroke-inverse: var(--primitive-color-white);
+	--color-stroke-error: var(--primitive-color-red-700);
+
+	/** The organigram's arrows between governance bodies. */
+	--color-stroke-connector: var(--primitive-color-gray-500);
+
+	/** A form control's outline, e.g. an unchecked checkbox's. */
+	--color-stroke-control: var(--primitive-color-gray-400);
+
+	/** The rule below a pillar's title on the landing page. */
+	--color-stroke-pillar: var(--primitive-color-gray-450);
+
+	/** Icons. */
+	--color-icon-strong: var(--primitive-color-gray-600);
+	--color-icon-accent: var(--primitive-color-blue-600);
+
+	/**
+	 * The focus outline, see `focus-visible-outline`. `focus-outline-inverse` on a dark background or a photo, e.g.
+	 * `[--color-focus-outline:var(--color-focus-outline-inverse)]`.
+	 */
+	--color-focus-outline: var(--primitive-color-blue-600);
+	--color-focus-outline-inverse: var(--primitive-color-white);
+}
+
+/**
+ * ====================================================================================================================
+ * Gradients.
+ * ====================================================================================================================
+ */
+
+@theme {
+	/** The brand colour fading to a lighter blue, e.g. laid over a photo with an `opacity-*`. */
+	--gradient-accent: linear-gradient(
 		278.84deg,
-		rgb(8 112 172 / 20%) 0%,
-		rgb(131 183 213 / 20%) 90%
+		var(--primitive-color-blue-600) 0%,
+		var(--primitive-color-blue-300) 90%
 	);
 
-	--event-card-bg: rgb(1 94 191 / 30%);
-	--event-card-details-bg: rgb(255 255 255 / 85%);
-	--event-card-details-bg-hover: rgb(255 255 255 / 74%);
-	--event-card-list-bg-hover: rgb(234 241 249);
-
-	--event-bg-calendar: rgb(193 205 224 / 24%);
-
-	--case-study-year: rgb(65 118 133);
-	--case-study-gradient-start: rgb(95 121 111);
-	--case-study-gradient-end: rgb(0 87 143);
-	--case-study-gradient: linear-gradient(
-		90deg,
-		var(--case-study-gradient-start) -0.14%,
-		var(--case-study-gradient-end) 99.86%
+	/** `gradient-accent` at a fifth of its strength, e.g. behind a quote. */
+	--gradient-accent-subtle: linear-gradient(
+		278.84deg,
+		color-mix(in sRGB, var(--primitive-color-blue-600) 20%, transparent) 0%,
+		color-mix(in sRGB, var(--primitive-color-blue-300) 20%, transparent) 90%
 	);
 
-	--funding-call-bg: linear-gradient(
-		90deg,
-		rgb(255 255 255 / 96%) 17.31%,
-		rgb(255 255 255 / 16%) 100%
+	/** The home page's events band. */
+	--gradient-events: linear-gradient(
+		99.49deg,
+		var(--primitive-color-blue-800) 3.62%,
+		var(--primitive-color-teal-500) 53.67%,
+		var(--primitive-color-lime-400) 99.71%
 	);
 
-	--governance-body-card-hover-bg: rgb(255 255 255 / 92%);
-	--governance-body-card-focus-bg: rgb(255 255 255 / 92%);
-	--governance-body-card-active-bg: rgb(255 255 255 / 80%);
+	/**
+	 * What shows of the landing page's hero before its photo does: the photo's glows over its dark edges, placed where
+	 * they sit in the crop a desktop screen shows. Narrower crops show less of the photo's sides, so there the lavender
+	 * glow moves toward the edge, as the burst of light does.
+	 */
+	--gradient-hero:
+		radial-gradient(
+			ellipse 38% 48% at 63% 50% in oklab,
+			var(--primitive-color-periwinkle-500) 0%,
+			color-mix(in oklab, var(--primitive-color-periwinkle-500) 45%, transparent) 40%,
+			transparent 100%
+		),
+		radial-gradient(
+			ellipse 22% 38% at 16% 52% in oklab,
+			color-mix(in oklab, var(--primitive-color-crimson-800) 80%, transparent) 0%,
+			transparent 100%
+		),
+		linear-gradient(to right in oklab, var(--primitive-color-plum-950) 0%, var(--primitive-color-violet-950) 100%);
 
-	--governance-body-card-executive-body: rgb(17 89 58);
-	--governance-body-card-advisory-body: rgb(174 99 5);
-	--governance-body-card-operational-body: rgb(119 45 2);
-	--governance-body-card-working-groups: rgb(8 123 172);
-
-	--governance-body-tag-appoints-bod-text: rgb(17 89 58);
-	--governance-body-tag-appoints-bod-bg: rgb(236 242 239);
-
-	--governance-body-tag-appoints-sab-text: rgb(161 91 3);
-	--governance-body-tag-appoints-sab-bg: rgb(253 250 245);
-
-	--governance-body-tag-appoints-dco-and-jrc-text: rgb(119 45 2);
-	--governance-body-tag-appoints-dco-and-jrc-bg: rgb(244 238 235);
-
-	--governance-body-tag-advises-bod-text: rgb(17 89 58);
-	--governance-body-tag-advises-bod-bg: rgb(17 89 58 / 8%);
-
-	--governance-body-tag-represented-in-smt-text: rgb(161 91 3);
-	--governance-body-tag-represented-in-smt-bg: rgb(253 250 245);
-
-	--governance-body-tag-oversees-wg-bg: rgb(8 112 172 / 8%);
-
-	--governance-body-tag-supports-wg-smt-bg: rgb(8 112 172 / 8%);
-
-	--governance-body-tag-supports-ncc-and-jrc-text: rgb(119 45 2);
-	--governance-body-tag-supports-ncc-and-jrc-bg: rgb(119 45 2 / 8%);
-
-	--resource-container-bg: rgb(255 255 255 / 90%);
-	--resource-training-material: rgb(35 127 123);
-	--resource-workflow: rgb(132 75 110);
-	--resource-workflow-border: rgb(188 178 184);
-	--resource-publication: rgb(114 112 90);
-	--resource-publication-border: rgb(183 183 183);
-	--resource-service-text: rgb(36 78 103);
-
-	--tag-upcoming-bg: rgb(255 187 0);
-
-	--button-primary: rgb(0 102 153);
-	--in-text-link: rgb(6 89 137);
-	--text-link-bg: rgb(39 47 62);
-	--button-bg: rgb(226 239 246);
-	--pagination-bg: rgb(71 71 71);
-
-	--subfilter-text: rgb(97 97 97);
-
-	--blue: rgb(0 131 213);
-	--green: rgb(175 205 2);
-	--orange: rgb(253 132 2);
-	--purple: rgb(134 16 204);
-
-	/** FIGMA COLORS */
-	--shadow-footer: 0px 0px 30px 0px rgb(0 0 0 / 25%);
-	--shadow-header: 0px 0px 15px 0px rgb(0 0 0 / 15%);
-	--shadow-standard: 0px 12px 12px 0px rgb(0 0 0 / 12%);
-
-	--shadow-light: 0px 2px 4px 0px rgb(0 0 0 / 8%);
-	--shadow-carousel-button: 0px 4px 4px 0px rgb(0 0 0 / 25%);
-	--shadow-event-card: 0px 0px 4px 0px rgb(0 0 0 / 25%);
-
-	--shadow-filters-mobile: 0px -1px 13.7px 0px rgb(0 0 0 / 25%);
-
-	--shadow-spotlight-image: -2px -2px 4px 0px rgb(0 0 0 / 16%);
-
-	--shadow-funding-call-card: 0px 1px 4px 0px rgb(0 0 0 /25%);
-	--shadow-funding-call-card-hover: 0px 4px 8px 0px rgb(0 0 0 /25%);
-
-	--color-primary: var(--primary);
-	--color-primary-100: var(--primary-100);
-	--color-primary-200: var(--primary-200);
-	--color-primary-300: var(--primary-300);
-	--color-primary-400: var(--primary-400);
-	--color-primary-500: var(--primary-500);
-	--color-primary-600: var(--primary-600);
-	--color-primary-700: var(--primary-700);
-
-	--color-accent: var(--accent);
-	--color-accent-100: var(--accent-100);
-	--color-accent-200: var(--accent-200);
-	--color-accent-300: var(--accent-300);
-	--color-accent-400: var(--accent-400);
-	--color-accent-500: var(--accent-500);
-	--color-accent-600: var(--accent-600);
-	--color-accent-700: var(--accent-700);
-	--color-accent-800: var(--accent-800);
-	--color-accent-900: var(--accent-900);
-
-	--color-gray: var(--gray);
-	--color-gray-100: var(--gray-100);
-	--color-gray-200: var(--gray-200);
-	--color-gray-300: var(--gray-300);
-	--color-gray-400: var(--gray-400);
-	--color-gray-500: var(--gray-500);
-	--color-gray-600: var(--gray-600);
-	--color-gray-700: var(--gray-700);
-	--color-gray-800: var(--gray-800);
-	--color-gray-900: var(--gray-900);
-
-	--color-white: var(--white);
-	--color-black: var(--black);
-
-	--color-section-text: var(--section-text);
-	--color-section-box-bg: var(--section-box-bg);
-	--color-section-news-bg: var(--section-news-bg);
-	--color-static-pages-carousel-bg: var(--static-pages-carousel-bg);
-	--color-section-resources-top-bg: var(--section-resources-top-bg);
-	--color-section-events-bg: var(--section-events-bg);
-	--color-event-card-bg: var(--event-card-bg);
-	--color-event-card-details-bg: var(--event-card-details-bg);
-	--color-event-card-details-bg-hover: var(--event-card-details-bg-hover);
-	--color-event-card-list-bg-hover: var(--event-card-list-bg-hover);
-	--color-event-bg-calendar: var(--event-bg-calendar);
-
-	--color-case-study-gradient-start: var(--case-study-gradient-start);
-	--color-case-study-gradient-end: var(--case-study-gradient-end);
-	--color-case-study-gradient: var(--case-study-gradient);
-
-	--color-map-pin: var(--map-pin);
-
-	--color-case-study-year: var(--case-study-year);
-
-	--color-governance-body-card-hover-bg: var(--governance-body-card-hover-bg);
-	--color-governance-body-card-focus-bg: var(--governance-body-card-focus-bg);
-	--color-governance-body-card-active-bg: var(--governance-body-card-active-bg);
-
-	--color-governance-body-card-executive-body: var(--governance-body-card-executive-body);
-	--color-governance-body-card-advisory-body: var(--governance-body-card-advisory-body);
-	--color-governance-body-card-operational-body: var(--governance-body-card-operational-body);
-	--color-governance-body-card-working-groups: var(--governance-body-card-working-groups);
-
-	--color-governance-body-tag-appoints-bod-text: var(--governance-body-tag-appoints-bod-text);
-	--color-governance-body-tag-appoints-bod-bg: var(--governance-body-tag-appoints-bod-bg);
-
-	--color-governance-body-tag-appoints-sab-text: var(--governance-body-tag-appoints-sab-text);
-	--color-governance-body-tag-appoints-sab-bg: var(--governance-body-tag-appoints-sab-bg);
-
-	--color-governance-body-tag-appoints-dco-and-jrc-text: var(
-		--governance-body-tag-appoints-dco-and-jrc-text
+	/** The strategy's pillars. */
+	--gradient-pillar-technology: linear-gradient(
+		121.37deg,
+		var(--primitive-color-cyan-500) 24%,
+		var(--primitive-color-cyan-700) 100%
 	);
-	--color-governance-body-tag-appoints-dco-and-jrc-bg: var(
-		--governance-body-tag-appoints-dco-and-jrc-bg
+	--gradient-pillar-knowledge: linear-gradient(
+		124.52deg,
+		var(--primitive-color-lime-500) 24.36%,
+		var(--primitive-color-lime-700) 100%
 	);
-
-	--color-governance-body-tag-advises-bod-text: var(--governance-body-tag-advises-bod-text);
-	--color-governance-body-tag-advises-bod-bg: var(--governance-body-tag-advises-bod-bg);
-
-	--color-governance-body-tag-represented-in-smt-text: var(
-		--governance-body-tag-represented-in-smt-text
+	--gradient-pillar-communities: linear-gradient(
+		125.98deg,
+		var(--primitive-color-orange-400) 23.22%,
+		var(--primitive-color-orange-600) 99.73%
 	);
-	--color-governance-body-tag-represented-in-smt-bg: var(
-		--governance-body-tag-represented-in-smt-bg
+	--gradient-pillar-policy: linear-gradient(
+		124.49deg,
+		var(--primitive-color-purple-500) 30.35%,
+		var(--primitive-color-purple-800) 99.08%
 	);
-
-	--color-governance-body-tag-oversees-wg-bg: var(--governance-body-tag-oversees-wg-bg);
-
-	--color-governance-body-tag-supports-wg-smt-bg: var(--governance-body-tag-supports-wg-smt-bg);
-
-	--color-governance-body-tag-supports-ncc-and-jrc-text: var(
-		--governance-body-tag-supports-ncc-and-jrc-text
-	);
-	--color-governance-body-tag-supports-ncc-and-jrc-bg: var(
-		--governance-body-tag-supports-ncc-and-jrc-bg
-	);
-
-	--color-resource-container-bg: var(--resource-container-bg);
-	--color-resource-training-material: var(--resource-training-material);
-	--color-resource-workflow: var(--resource-workflow);
-	--color-resource-workflow-border: var(--resource-workflow-border);
-	--color-resource-publication: var(--resource-publication);
-	--color-resource-publication-border: var(--resource-publication-border);
-	--color-resource-service-text: var(--resource-service-text);
-
-	--color-tag-upcoming-bg: var(--tag-upcoming-bg);
-
-	--color-button-primary: var(--button-primary);
-	--color-in-text-link: var(--in-text-link);
-	--color-text-link-bg: var(--text-link-bg);
-	--color-button-bg: var(--button-bg);
-	--color-pagination-bg: var(--pagination-bg);
-
-	--color-subfilter-text: var(--subfilter-text);
-
-	--color-palette-blue: var(--palette-blue);
-	--color-palette-green: var(--palette-green);
-	--color-palette-orange: var(--palette-orange);
-	--color-palette-purple: var(--palette-purple);
-
-	/** FIGMA COLORS */
 }
 
-@theme inline {
-	--color-background-base: var(--color-neutral-50);
-	--color-background-inverse: var(--color-neutral-800);
-	--color-text-strong: var(--color-neutral-950);
-	--color-text-weak: var(--color-neutral-600);
-	--color-text-inverse-strong: var(--color-neutral-100);
-	--color-text-inverse-weak: var(--color-neutral-400);
-	--color-text-negative: var(--color-red-600);
-	--color-text-positive: var(--color-green-600);
-	--color-stroke-strong: var(--color-neutral-300);
-	--color-stroke-weak: var(--color-neutral-200);
-	--color-icon-neutral: var(--color-neutral-600);
-	--color-focus-outline: var(--color-neutral-950);
+/** Gradients as background images, e.g. `bg-gradient-accent`. */
+@utility bg-gradient-* {
+	background-image: --value(--gradient-*);
 }
 
-@theme inline {
-	/** TYPOGRAPHY */
-	--font-size-h1: 5.25rem;
-	--font-size-h2: 2.8125rem;
-	--font-size-h3: 1.75rem;
-	--font-size-h4: 1.5rem;
-	--font-size-h5: 1.25rem;
+/**
+ * ====================================================================================================================
+ * Blurs.
+ *
+ * For `blur-*` and `backdrop-blur-*`. Half the design's values: css takes the standard deviation of the gaussian, figma
+ * about twice that.
+ * ====================================================================================================================
+ */
 
-	--font-size-regular: 1.125rem;
-	--font-size-small: 1rem;
-	--font-size-caption: 0.75rem;
+@theme {
+	/** The home page hero's heading box, over the photo. */
+	--blur-hero-heading: 2px;
 
-	--line-height-small: 120%;
-	--line-height-medium: 130%;
-	--line-height-large: 150%;
+	/** The gradient over the whole of the home page's resources section. */
+	--blur-resources-gradient: 25px;
 
-	--letter-spacing-small: -1.5%;
-	--letter-spacing-medium: -1%;
-	--letter-spacing-none: 0%;
-
-	--font-weight-bold: 700;
-	--font-weight-regular: 400;
-
-	--text-h1: var(--font-size-h1);
-	--text-h1--line-height: var(--line-height-medium);
-	--text-h1--font-weight: var(--font-weight-bold);
-	--text-h1--letter-spacing: var(--letter-spacing-small);
-
-	--text-h2: var(--font-size-h2);
-	--text-h2--line-height: var(--line-height-small);
-	--text-h2--font-weight: var(--font-weight-light);
-	--text-h2--letter-spacing: var(--letter-spacing-medium);
-
-	--text-h3: var(--font-size-h3);
-	--text-h3--line-height: var(--line-height-small);
-	--text-h3--font-weight: var(--font-weight-bold);
-	--text-h3--letter-spacing: var(--letter-spacing-medium);
-
-	--text-h4: var(--font-size-h4);
-	--text-h4--line-height: var(--line-height-large);
-	--text-h4--font-weight: var(--font-weight-bold);
-	--text-h4--letter-spacing: var(--letter-spacing-medium);
-
-	--text-h5: var(--font-size-h5);
-	--text-h5--line-height: var(--line-height-large);
-	--text-h5--font-weight: var(--font-weight-bold);
-	--text-h5--letter-spacing: var(--letter-spacing-medium);
-
-	--text-regular: var(--font-size-regular);
-	--text-regular--line-height: var(--line-height-large);
-	--text-regular--font-weight: var(--font-weight-regular);
-	--text-regular--letter-spacing: var(--letter-spacing-none);
-
-	--text-small: var(--font-size-small);
-	--text-small--line-height: var(--line-height-large);
-	--text-small--font-weight: var(--font-weight-regular);
-	--text-small--letter-spacing: var(--letter-spacing-none);
-
-	--text-caption: var(--font-size-caption);
-	--text-caption--line-height: var(--line-height-large);
-	--text-caption--font-weight: var(--font-weight-regular);
-	--text-caption--letter-spacing: var(--letter-spacing-none);
+	/** The darker overlay behind the home page resources section's intro and logo panels. */
+	--blur-resources-overlay: 6.7px;
 }
 
-/** ===============================================================================================
+/**
+ * ====================================================================================================================
+ * Animations.
+ *
+ * With reduced motion, the global rule in the base layer cuts every animation short, so an element shows its static
+ * state: an animation must not use a fill mode, so that state is the element's own style.
+ * ====================================================================================================================
+ */
+
+@theme {
+	/**
+	 * The rings around a network statistic's icon on the home page, as `animate-rings-pulse`: they contract, hold, and
+	 * expand again to the design's static frame, together, as the animated gifs they replace did.
+	 */
+	--animate-rings-pulse: rings-pulse 6.9s ease-in-out infinite;
+
+	/** A calmer alternative, as `animate-rings-breathe` on the outer rings only: they settle slightly and swell again. */
+	--animate-rings-breathe: rings-breathe 4s ease-in-out infinite alternate;
+
+	@keyframes rings-pulse {
+		0%,
+		100% {
+			scale: 1;
+		}
+
+		48%,
+		58% {
+			scale: 0.76;
+		}
+	}
+
+	@keyframes rings-breathe {
+		to {
+			scale: 0.96;
+		}
+	}
+}
+
+/**
+ * ====================================================================================================================
+ * Shadows.
+ * ====================================================================================================================
+ */
+
+@theme {
+	/**
+	 * A card lifted off the page, in two layers, each on its own element since an element takes one `shadow-*` utility:
+	 * `shadow-card-edge`, tight around the whole card, draws its outline, and `shadow-card`, soft on every side, lifts it
+	 * (on an event card only its body, and the card clips it, so it only falls on the header above).
+	 */
+	--shadow-card-edge: 0 0 4px 0 rgb(0 0 0 / 25%);
+	--shadow-card: 0 0 20px 0 rgb(0 0 0 / 15%);
+
+	/** A small element barely lifted off its surroundings, e.g. an event's status badge: the design's "Light shadow". */
+	--shadow-light: 0 2px 4px 0 rgb(0 0 0 / 8%);
+
+	/** The home page hero's heading box, lifted off the photo. */
+	--shadow-hero-heading: 0 4px 4px 0 rgb(0 0 0 / 45%);
+
+	/**
+	 * Text over a photo: `text-shadow-lift`, offset below, for a heading, and `text-shadow-halo`, all around and nearly
+	 * opaque, for running text, which is thinner and needs more contrast.
+	 */
+	--text-shadow-lift: 0 4px 4px rgb(0 0 0 / 25%);
+	--text-shadow-halo: 0 0 10px rgb(0 0 0 / 90%);
+
+	/**
+	 * `shadow-card-edge` as a filter, for a box with a pointer drawn by a pseudo-element, e.g. a map tooltip: a filter
+	 * follows the painted shape, pointer included, where a box shadow only follows the box.
+	 */
+	--drop-shadow-card-edge: 0 0 4px rgb(0 0 0 / 25%);
+}
+
+/**
+ * ============================================================================================
  * Global styles.
- * ============================================================================================= */
+ * ============================================================================================
+ */
 
 @layer base {
 	:root {
-		background-color: var(--color-background-base);
-		color: var(--color-text-strong);
+		color-scheme: light;
 		font-family: var(--font-body);
+		color: var(--color-text-strong);
 		overflow-wrap: break-word;
 		font-synthesis: none;
 		text-rendering: optimizeLegibility;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-font-smoothing: antialiased;
 		text-size-adjust: none;
+		background-color: var(--color-background-canvas);
 		-webkit-tap-highlight-color: transparent;
 		interpolate-size: allow-keywords;
-		color-scheme: light;
+		scrollbar-gutter: stable;
 	}
 
 	:root,
 	body {
 		block-size: 100%;
+	}
+
+	body {
+		font-size: var(--text-body);
+		line-height: var(--text-body--line-height);
+		font-weight: var(--text-body--font-weight);
+		letter-spacing: var(--text-body--letter-spacing);
 	}
 
 	:target {
@@ -430,23 +844,6 @@
 		display: none !important;
 	}
 
-	.leaflet-popup-tip {
-		display: none;
-	}
-
-	.leaflet-popup-content-wrapper {
-		border: 1px solid var(--gray-300) !important;
-		border-radius: 0 !important;
-		background-color: var(--gray-200) !important;
-		box-shadow: var(--shadow-light) !important;
-	}
-
-	.leaflet-popup-content {
-		width: fit-content !important;
-		margin: 0 !important;
-	}
-
-	/* stylelint-disable-next-line order/order */
 	@media (prefers-reduced-motion: reduce) {
 		@view-transition {
 			navigation: none;
@@ -462,7 +859,7 @@
 		}
 	}
 
-	/**  Scale up hit targets on high resolution devices. */
+	/** Scale up hit targets on high resolution devices. */
 	@media (resolution >= 200dpi) {
 		:root {
 			font-size: 18px;
@@ -470,9 +867,11 @@
 	}
 }
 
-/** ===============================================================================================
+/**
+ * ============================================================================================
  * Utilities.
- * ============================================================================================= */
+ * ============================================================================================
+ */
 
 @utility container {
 	width: 100%;
@@ -480,16 +879,140 @@
 	margin-inline: auto;
 }
 
-@utility focus-outline {
-	outline: transparent none 2px;
+/**
+ * Set `--focus-outline-offset` on an element to move its outline, e.g. `[--focus-outline-offset:-3px]` to draw it
+ * inside the element.
+ */
+@utility focus-visible-outline {
+	outline: transparent none 3px;
 
-	&:focus-visible {
-		outline: 2px solid var(--color-focus-outline);
-		outline-offset: 2px;
+	&:is(:focus-visible, [data-focus-visible]) {
+		outline: 3px solid var(--color-focus-outline);
+		outline-offset: var(--focus-outline-offset, 2px);
 	}
 }
 
-@utility touch-target {
+/**
+ * Room for {@link focus-visible-outline} inside a scroll container, which clips its content on both axes - `overflow-y:
+ * auto` alone makes `overflow-x` clip too - and so cuts off the outline of a link at its edge. Padded by the outline's
+ * reach and pulled out by as much again, so the content stays where it was. A sticky offset positions the border box,
+ * not the margin box, so on a sticky container take the 5px off its inset, and add 10px to a maximum size.
+ */
+@utility focus-outline-room {
+	margin: -5px;
+	padding: 5px;
+}
+
+/**
+ * The focus outline of a field drawn inside it, set on a wrapper sized like the field, e.g. a field joined to a button.
+ * The outline's width is rounded down to whole device pixels, its offset is not: at a device pixel ratio of 1.5, a 3px
+ * outline at `-3px` is 2.67px wide and stops short of the field's edge, leaving a seam at the button. A border on a box
+ * over the field is laid out from the box's edges, so it lines up with the button at any ratio. The field itself takes
+ * `outline-none`. The wrapper is positioned, so it paints over a joined button's outline unless the button is
+ * positioned too, e.g. `relative`.
+ */
+@utility focus-within-outline-inset {
+	position: relative;
+
+	&:has(:focus-visible)::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border: 3px solid var(--color-focus-outline);
+		pointer-events: none;
+	}
+}
+
+@utility lead-in {
+	@apply text-lead font-heading;
+}
+
+/**
+ * Landing page section headings. The heading is trimmed to its cap height, so spacing around it is measured from the
+ * visible glyphs.
+ *
+ * Below `md`, where every section is a single column, it is the mobile design's 54px, a little smaller on a phone
+ * narrower than 360px, so "Stay updated" still fits on one line. From `md`, it follows the hero heading's curve, so it
+ * is never larger than the hero heading, up to the title size. From `lg`, the "Stay updated" heading's box ends where
+ * the second column starts, and from `2xl` it matches the hero heading again.
+ */
+@utility section-heading {
+	font-size: min(15vw, var(--primitive-font-size-54));
+	line-height: var(--text-title-1--line-height);
+	font-weight: var(--text-title-1--font-weight);
+	letter-spacing: var(--text-title-1--letter-spacing);
+	text-box: trim-both cap alphabetic;
+
+	@variant md {
+		font-size: min(var(--text-display), var(--text-title-1));
+	}
+
+	@variant lg {
+		font-size: clamp(2.5rem, 5.2vw - 0.7rem, var(--primitive-font-size-84));
+	}
+
+	@variant 2xl {
+		font-size: max(var(--text-title-1), var(--text-display));
+	}
+}
+
+/**
+ * Tight and loose lists, as in markdown. The editor wraps every list item's text in a paragraph, so the prose
+ * styles would space every list like a loose one. A list none of whose items holds more than one paragraph is tight:
+ * its items sit close, without paragraph margins. A list with a multi-paragraph item keeps the loose spacing
+ * throughout, as in markdown, so its items stay distinguishable from the paragraphs within them.
+ */
+@utility prose-tight-lists {
+	& :where(ul, ol):not(:has(> li > p ~ p)) > li {
+		margin-block: 0.5em;
+	}
+
+	& :where(ul, ol):not(:has(> li > p ~ p)) > li > p {
+		margin-block: 0;
+	}
+}
+
+/**
+ * A placeholder shape in a loading skeleton, sized by the element itself, e.g. with a width and height or an aspect ratio.
+ *
+ * Shapes pulse, fading in and out together, rather than shimmer: a highlight band moved across each shape crosses a wide
+ * image placeholder much faster than a narrow text line, and a single band across the page, with a fixed background,
+ * animates `background-position`, which repaints every frame. Opacity is animated by the compositor. Skeletons are part
+ * of the prerendered shell, and must animate before hydration, so this is plain CSS, not the web animations api.
+ *
+ * Shapes fade in after a short delay, so a fallback that is replaced quickly never flashes: the space is reserved
+ * either way. With reduced motion, the global rule above cuts both animations short, so the shapes are static.
+ */
+@utility skeleton {
+	background-color: var(--color-background-placeholder);
+	border-radius: var(--radius-sm);
+	animation:
+		skeleton-in 200ms ease-out 300ms both,
+		skeleton-pulse 2s ease-in-out 500ms infinite;
+}
+
+@keyframes skeleton-in {
+	from {
+		opacity: 0;
+	}
+}
+
+@keyframes skeleton-pulse {
+	50% {
+		opacity: 0.55;
+	}
+}
+
+@utility scrollbar-hidden {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+@utility touch-area {
 	--touch-area: 44px;
 
 	position: relative;
@@ -505,1341 +1028,32 @@
 			min-width: var(--touch-area);
 			height: 100%;
 			min-height: var(--touch-area);
+			pointer-events: inherit;
 			transform: translate(-50%, -50%);
 		}
 	}
 }
 
-/** ===============================================================================================
- * Rich text.
- * ============================================================================================= */
-
-/** @see {@link https://github.com/tailwindlabs/tailwindcss-typography/tree/css-only} */
-
-/* stylelint-disable number-max-precision */
-
-@layer base {
-	:root {
-		--richtext-body: var(--color-neutral-700);
-		--richtext-headings: var(--color-neutral-900);
-		--richtext-lead: var(--color-neutral-600);
-		--richtext-links: var(--color-neutral-900);
-		--richtext-bold: var(--color-neutral-900);
-		--richtext-counters: var(--color-neutral-500);
-		--richtext-bullets: var(--color-neutral-300);
-		--richtext-hr: var(--color-neutral-200);
-		--richtext-quotes: var(--color-neutral-900);
-		--richtext-quote-borders: var(--color-neutral-200);
-		--richtext-captions: var(--color-neutral-500);
-		--richtext-kbd: var(--color-neutral-900);
-		--richtext-kbd-shadows: var(--color-neutral-900);
-		--richtext-code: var(--color-neutral-900);
-		--richtext-pre-code: var(--color-neutral-200);
-		--richtext-pre-bg: var(--color-neutral-800);
-		--richtext-th-borders: var(--color-neutral-300);
-		--richtext-td-borders: var(--color-neutral-200);
-	}
-}
-
-@utility richtext {
-	color: var(--richtext-body);
-	font-size: 1rem;
-	line-height: 1.75;
-
-	:not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-		&:where(p) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-		}
-
-		&:where([class~="lead"]) {
-			margin-top: 1.2em;
-			margin-bottom: 1.2em;
-			color: var(--richtext-lead);
-			font-size: 1.25em;
-			line-height: 1.6;
-		}
-
-		&:where(a) {
-			border-radius: var(--radius-xs);
-			color: var(--richtext-links);
-			font-weight: 500;
-			text-decoration: underline;
-		}
-
-		&:where(strong) {
-			color: var(--richtext-bold);
-			font-weight: 600;
-		}
-
-		&:where(a strong) {
-			color: inherit;
-		}
-
-		/** Links carry their own weight, which would otherwise un-bold them inside bold text. */
-		&:where(strong a, thead th a) {
-			font-weight: inherit;
-		}
-
-		&:where(blockquote strong) {
-			color: inherit;
-		}
-
-		&:where(thead th strong) {
-			color: inherit;
-		}
-
-		&:where(ol) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-			padding-left: 1.625em;
-			list-style-type: decimal;
-		}
-
-		&:where(ol[type="A"]) {
-			list-style-type: upper-alpha;
-		}
-
-		&:where(ol[type="a"]) {
-			list-style-type: lower-alpha;
-		}
-
-		&:where(ol[type="A" s]) {
-			list-style-type: upper-alpha;
-		}
-
-		&:where(ol[type="a" s]) {
-			list-style-type: lower-alpha;
-		}
-
-		&:where(ol[type="I"]) {
-			list-style-type: upper-roman;
-		}
-
-		&:where(ol[type="i"]) {
-			list-style-type: lower-roman;
-		}
-
-		&:where(ol[type="I" s]) {
-			list-style-type: upper-roman;
-		}
-
-		&:where(ol[type="i" s]) {
-			list-style-type: lower-roman;
-		}
-
-		&:where(ol[type="1"]) {
-			list-style-type: decimal;
-		}
-
-		&:where(ul) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-			padding-left: 1.625em;
-			list-style-type: disc;
-		}
-
-		&:where(ol > li)::marker {
-			color: var(--richtext-counters);
-			font-weight: 400;
-		}
-
-		&:where(ul > li)::marker {
-			color: var(--richtext-bullets);
-		}
-
-		&:where(dt) {
-			margin-top: 1.25em;
-			color: var(--richtext-headings);
-			font-weight: 600;
-		}
-
-		&:where(hr) {
-			margin-top: 3em;
-			margin-bottom: 3em;
-			border-color: var(--richtext-hr);
-			border-top-width: 1px;
-		}
-
-		&:where(blockquote) {
-			margin-top: 1.6em;
-			margin-bottom: 1.6em;
-			padding-left: 1em;
-			border-left-width: 0.25rem;
-			border-left-color: var(--richtext-quote-borders);
-			color: var(--richtext-quotes);
-			font-weight: 500;
-			font-style: italic;
-			quotes: "\201C" "\201D" "\2018" "\2019";
-		}
-
-		&:where(blockquote p:first-of-type)::before {
-			content: open-quote;
-		}
-
-		&:where(blockquote p:last-of-type)::after {
-			content: close-quote;
-		}
-
-		&:where(h1) {
-			margin-top: 0;
-			margin-bottom: 0.8888889em;
-			color: var(--richtext-headings);
-			font-weight: 800;
-			font-size: 2.25em;
-			line-height: 1.1111111;
-		}
-
-		&:where(h1 strong) {
-			color: inherit;
-			font-weight: 900;
-		}
-
-		&:where(h2) {
-			margin-top: 2em;
-			margin-bottom: 1em;
-			color: var(--richtext-headings);
-			font-weight: 700;
-			font-size: 1.5em;
-			line-height: 1.3333333;
-		}
-
-		&:where(h2 strong) {
-			color: inherit;
-			font-weight: 800;
-		}
-
-		&:where(h3) {
-			margin-top: 1.6em;
-			margin-bottom: 0.6em;
-			color: var(--richtext-headings);
-			font-weight: 600;
-			font-size: 1.25em;
-			line-height: 1.6;
-		}
-
-		&:where(h3 strong) {
-			color: inherit;
-			font-weight: 700;
-		}
-
-		&:where(h4) {
-			margin-top: 1.5em;
-			margin-bottom: 0.5em;
-			color: var(--richtext-headings);
-			font-weight: 600;
-			line-height: 1.5;
-		}
-
-		&:where(h4 strong) {
-			color: inherit;
-			font-weight: 700;
-		}
-
-		&:where(img) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(picture) {
-			display: block;
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(kbd) {
-			padding: 0.1875em 0.375em;
-			border-radius: 0.3125rem;
-			color: var(--richtext-kbd);
-			box-shadow:
-				0 0 0 1px --alpha(var(--richtext-kbd-shadows) / 10%),
-				0 3px 0 --alpha(var(--richtext-kbd-shadows) / 10%);
-			font-weight: 500;
-			font-size: 0.875em;
-			font-family: inherit;
-		}
-
-		&:where(code) {
-			color: var(--richtext-code);
-			font-weight: 600;
-			font-size: 0.875em;
-		}
-
-		&:where(code)::before,
-		&:where(code)::after {
-			content: "`";
-		}
-
-		&:where(a code) {
-			color: inherit;
-		}
-
-		&:where(h1 code) {
-			color: inherit;
-		}
-
-		&:where(h2 code) {
-			color: inherit;
-			font-size: 0.875em;
-		}
-
-		&:where(h3 code) {
-			color: inherit;
-			font-size: 0.9em;
-		}
-
-		&:where(h4 code) {
-			color: inherit;
-		}
-
-		&:where(blockquote code) {
-			color: inherit;
-		}
-
-		&:where(thead th code) {
-			color: inherit;
-		}
-
-		&:where(pre) {
-			overflow-x: auto;
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-			padding: 0.8571429em 1.1428571em;
-			border-radius: 0.375rem;
-			background-color: var(--richtext-pre-bg);
-			color: var(--richtext-pre-code);
-			font-weight: 400;
-			font-size: 0.875em;
-			line-height: 1.7142857;
-		}
-
-		&:where(pre code) {
-			padding: 0;
-			border-width: 0;
-			border-radius: 0;
-			background-color: transparent;
-			color: inherit;
-			font-weight: inherit;
-			font-size: inherit;
-			font-family: inherit;
-			line-height: inherit;
-		}
-
-		&:where(pre code)::before {
-			content: none;
-		}
-
-		&:where(pre code)::after {
-			content: none;
-		}
-
-		&:where(table) {
-			width: 100%;
-			margin-top: 2em;
-			margin-bottom: 2em;
-			table-layout: auto;
-			font-size: 0.875em;
-			line-height: 1.7142857;
-			text-align: left;
-		}
-
-		&:where(thead) {
-			border-bottom-width: 1px;
-			border-bottom-color: var(--richtext-th-borders);
-		}
-
-		&:where(thead th) {
-			vertical-align: bottom;
-			padding-right: 0.5714286em;
-			padding-bottom: 0.5714286em;
-			padding-left: 0.5714286em;
-			color: var(--richtext-headings);
-			font-weight: 600;
-		}
-
-		&:where(tbody tr) {
-			border-bottom-width: 1px;
-			border-bottom-color: var(--richtext-td-borders);
-		}
-
-		&:where(tbody tr:last-child) {
-			border-bottom-width: 0;
-		}
-
-		&:where(tbody td) {
-			vertical-align: baseline;
-		}
-
-		&:where(tfoot) {
-			border-top-width: 1px;
-			border-top-color: var(--richtext-th-borders);
-		}
-
-		&:where(tfoot td) {
-			vertical-align: top;
-		}
-
-		&:where(figure > *) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(figcaption) {
-			margin-top: 0.8571429em;
-			color: var(--richtext-captions);
-			font-size: 0.875em;
-			line-height: 1.4285714;
-
-			& :first-child {
-				margin-top: 0;
-			}
-
-			& :last-child {
-				margin-bottom: 0;
-			}
-		}
-
-		&:where(picture > img) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(video) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(li) {
-			margin-top: 0.5em;
-			margin-bottom: 0.5em;
-		}
-
-		&:where(ol > li) {
-			padding-left: 0.375em;
-		}
-
-		&:where(ul > li) {
-			padding-left: 0.375em;
-		}
-
-		&:where(.richtext > ul > li p) {
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		&:where(.richtext > ul > li > *:first-child) {
-			margin-top: 1.25em;
-		}
-
-		&:where(.richtext > ul > li > *:last-child) {
-			margin-bottom: 1.25em;
-		}
-
-		&:where(.richtext > ol > li > *:first-child) {
-			margin-top: 1.25em;
-		}
-
-		&:where(.richtext > ol > li > *:last-child) {
-			margin-bottom: 1.25em;
-		}
-
-		&:where(ul ul, ul ol, ol ul, ol ol) {
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		&:where(dl) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-		}
-
-		&:where(dd) {
-			margin-top: 0.5em;
-			padding-left: 1.625em;
-		}
-
-		&:where(hr + *) {
-			margin-top: 0;
-		}
-
-		&:where(h2 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h3 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h4 + *) {
-			margin-top: 0;
-		}
-
-		&:where(thead th:first-child) {
-			padding-left: 0;
-		}
-
-		&:where(thead th:last-child) {
-			padding-right: 0;
-		}
-
-		&:where(tbody td, tfoot td) {
-			padding: 0.5714286em;
-		}
-
-		&:where(tbody td:first-child, tfoot td:first-child) {
-			padding-left: 0;
-		}
-
-		&:where(tbody td:last-child, tfoot td:last-child) {
-			padding-right: 0;
-		}
-
-		&:where(figure) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(.richtext > :first-child) {
-			margin-top: 0;
-		}
-
-		&:where(.richtext > :last-child) {
-			margin-bottom: 0;
-		}
-	}
-}
-
-@utility richtext-sm {
-	font-size: 0.875rem;
-	line-height: 1.7142857;
-
-	:not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-		&:where(p) {
-			margin-top: 1.1428571em;
-			margin-bottom: 1.1428571em;
-		}
-
-		&:where([class~="lead"]) {
-			margin-top: 0.8888889em;
-			margin-bottom: 0.8888889em;
-			font-size: 1.2857143em;
-			line-height: 1.5555556;
-		}
-
-		&:where(blockquote) {
-			margin-top: 1.3333333em;
-			margin-bottom: 1.3333333em;
-			padding-inline-start: 1.1111111em;
-		}
-
-		&:where(h1) {
-			margin-top: 0;
-			margin-bottom: 0.8em;
-			font-size: 2.1428571em;
-			line-height: 1.2;
-		}
-
-		&:where(h2) {
-			margin-top: 1.6em;
-			margin-bottom: 0.8em;
-			font-size: 1.4285714em;
-			line-height: 1.4;
-		}
-
-		&:where(h3) {
-			margin-top: 1.5555556em;
-			margin-bottom: 0.4444444em;
-			font-size: 1.2857143em;
-			line-height: 1.5555556;
-		}
-
-		&:where(h4) {
-			margin-top: 1.4285714em;
-			margin-bottom: 0.5714286em;
-			line-height: 1.4285714;
-		}
-
-		&:where(img) {
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-		}
-
-		&:where(picture) {
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-		}
-
-		&:where(picture > img) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(video) {
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-		}
-
-		&:where(kbd) {
-			padding-inline: 0.3571429em;
-			padding-top: 0.1428571em;
-			padding-bottom: 0.1428571em;
-			border-radius: 0.3125rem;
-			font-size: 0.8571429em;
-		}
-
-		&:where(code) {
-			font-size: 0.8571429em;
-		}
-
-		&:where(h2 code) {
-			font-size: 0.9em;
-		}
-
-		&:where(h3 code) {
-			font-size: 0.8888889em;
-		}
-
-		&:where(pre) {
-			margin-top: 1.6666667em;
-			margin-bottom: 1.6666667em;
-			padding-inline: 1em;
-			padding-top: 0.6666667em;
-			padding-bottom: 0.6666667em;
-			border-radius: 0.25rem;
-			font-size: 0.8571429em;
-			line-height: 1.6666667;
-		}
-
-		&:where(ol) {
-			margin-top: 1.1428571em;
-			margin-bottom: 1.1428571em;
-			padding-inline-start: 1.5714286em;
-		}
-
-		&:where(ul) {
-			margin-top: 1.1428571em;
-			margin-bottom: 1.1428571em;
-			padding-inline-start: 1.5714286em;
-		}
-
-		&:where(li) {
-			margin-top: 0.2857143em;
-			margin-bottom: 0.2857143em;
-		}
-
-		&:where(ol > li) {
-			padding-inline-start: 0.4285714em;
-		}
-
-		&:where(ul > li) {
-			padding-inline-start: 0.4285714em;
-		}
-
-		&:where(.richtext-sm > ul > li p) {
-			margin-top: 0.5714286em;
-			margin-bottom: 0.5714286em;
-		}
-
-		&:where(.richtext-sm > ul > li > p:first-child) {
-			margin-top: 1.1428571em;
-		}
-
-		&:where(.richtext-sm > ul > li > p:last-child) {
-			margin-bottom: 1.1428571em;
-		}
-
-		&:where(.richtext-sm > ol > li > p:first-child) {
-			margin-top: 1.1428571em;
-		}
-
-		&:where(.richtext-sm > ol > li > p:last-child) {
-			margin-bottom: 1.1428571em;
-		}
-
-		&:where(ul ul, ul ol, ol ul, ol ol) {
-			margin-top: 0.5714286em;
-			margin-bottom: 0.5714286em;
-		}
-
-		&:where(dl) {
-			margin-top: 1.1428571em;
-			margin-bottom: 1.1428571em;
-		}
-
-		&:where(dt) {
-			margin-top: 1.1428571em;
-		}
-
-		&:where(dd) {
-			margin-top: 0.2857143em;
-			padding-inline-start: 1.5714286em;
-		}
-
-		&:where(hr) {
-			margin-top: 2.8571429em;
-			margin-bottom: 2.8571429em;
-		}
-
-		&:where(hr + *) {
-			margin-top: 0;
-		}
-
-		&:where(h2 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h3 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h4 + *) {
-			margin-top: 0;
-		}
-
-		&:where(table) {
-			font-size: 0.8571429em;
-			line-height: 1.5;
-		}
-
-		&:where(thead th) {
-			padding-inline: 1em;
-			padding-bottom: 0.6666667em;
-		}
-
-		&:where(thead th:first-child) {
-			padding-inline-start: 0;
-		}
-
-		&:where(thead th:last-child) {
-			padding-inline-end: 0;
-		}
-
-		&:where(tbody td, tfoot td) {
-			padding-inline: 1em;
-			padding-top: 0.6666667em;
-			padding-bottom: 0.6666667em;
-		}
-
-		&:where(tbody td:first-child, tfoot td:first-child) {
-			padding-inline-start: 0;
-		}
-
-		&:where(tbody td:last-child, tfoot td:last-child) {
-			padding-inline-end: 0;
-		}
-
-		&:where(figure) {
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-		}
-
-		&:where(figure > *) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(figcaption) {
-			margin-top: 0.6666667em;
-			font-size: 0.8571429em;
-			line-height: 1.3333333;
-		}
-
-		&:where(.richtext-sm > :first-child) {
-			margin-top: 0;
-		}
-
-		&:where(.richtext-sm > :last-child) {
-			margin-bottom: 0;
-		}
-	}
-}
-
-@utility richtext-base {
-	font-size: 1rem;
-	line-height: 1.75;
-
-	:not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-		&:where(p) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-		}
-
-		&:where([class~="lead"]) {
-			margin-top: 1.2em;
-			margin-bottom: 1.2em;
-			font-size: 1.25em;
-			line-height: 1.6;
-		}
-
-		&:where(blockquote) {
-			margin-top: 1.6em;
-			margin-bottom: 1.6em;
-			padding-inline-start: 1em;
-		}
-
-		&:where(h1) {
-			margin-top: 0;
-			margin-bottom: 0.8888889em;
-			font-size: 2.25em;
-			line-height: 1.1111111;
-		}
-
-		&:where(h2) {
-			margin-top: 2em;
-			margin-bottom: 1em;
-			font-size: 1.5em;
-			line-height: 1.3333333;
-		}
-
-		&:where(h3) {
-			margin-top: 1.6em;
-			margin-bottom: 0.6em;
-			font-size: 1.25em;
-			line-height: 1.6;
-		}
-
-		&:where(h4) {
-			margin-top: 1.5em;
-			margin-bottom: 0.5em;
-			line-height: 1.5;
-		}
-
-		&:where(img) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(picture) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(picture > img) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(video) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(kbd) {
-			padding-inline: 0.375em;
-			padding-top: 0.1875em;
-			padding-bottom: 0.1875em;
-			border-radius: 0.3125rem;
-			font-size: 0.875em;
-		}
-
-		&:where(code) {
-			font-size: 0.875em;
-		}
-
-		&:where(h2 code) {
-			font-size: 0.875em;
-		}
-
-		&:where(h3 code) {
-			font-size: 0.9em;
-		}
-
-		&:where(pre) {
-			margin-top: 1.7142857em;
-			margin-bottom: 1.7142857em;
-			padding-inline: 1.1428571em;
-			padding-top: 0.8571429em;
-			padding-bottom: 0.8571429em;
-			border-radius: 0.375rem;
-			font-size: 0.875em;
-			line-height: 1.7142857;
-		}
-
-		&:where(ol) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-			padding-inline-start: 1.625em;
-		}
-
-		&:where(ul) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-			padding-inline-start: 1.625em;
-		}
-
-		&:where(li) {
-			margin-top: 0.5em;
-			margin-bottom: 0.5em;
-		}
-
-		&:where(ol > li) {
-			padding-inline-start: 0.375em;
-		}
-
-		&:where(ul > li) {
-			padding-inline-start: 0.375em;
-		}
-
-		.richtext-base :where(.richtext-base > ul > li p) {
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		.richtext-base
-			:where(.richtext-base > ul > li > p:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 1.25em;
-		}
-
-		.richtext-base
-			:where(.richtext-base > ul > li > p:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 1.25em;
-		}
-
-		.richtext-base
-			:where(.richtext-base > ol > li > p:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 1.25em;
-		}
-
-		.richtext-base
-			:where(.richtext-base > ol > li > p:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 1.25em;
-		}
-
-		.richtext-base
-			:where(ul ul, ul ol, ol ul, ol ol):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 0.75em;
-			margin-bottom: 0.75em;
-		}
-
-		&:where(dl):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 1.25em;
-			margin-bottom: 1.25em;
-		}
-
-		&:where(dt):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 1.25em;
-		}
-
-		&:where(dd):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0.5em;
-			padding-inline-start: 1.625em;
-		}
-
-		&:where(hr):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 3em;
-			margin-bottom: 3em;
-		}
-
-		&:where(hr + *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-		}
-
-		&:where(h2 + *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-		}
-
-		&:where(h3 + *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-		}
-
-		&:where(h4 + *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-		}
-
-		&:where(table):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			font-size: 0.875em;
-			line-height: 1.7142857;
-		}
-
-		&:where(thead th):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			padding-inline: 0.5714286em;
-			padding-bottom: 0.5714286em;
-		}
-
-		.richtext-base
-			:where(thead th:first-child):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			padding-inline-start: 0;
-		}
-
-		.richtext-base
-			:where(thead th:last-child):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			padding-inline-end: 0;
-		}
-
-		.richtext-base
-			:where(tbody td, tfoot td):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			padding-inline: 0.5714286em;
-			padding-top: 0.5714286em;
-			padding-bottom: 0.5714286em;
-		}
-
-		.richtext-base
-			:where(tbody td:first-child, tfoot td:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			padding-inline-start: 0;
-		}
-
-		.richtext-base
-			:where(tbody td:last-child, tfoot td:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			padding-inline-end: 0;
-		}
-
-		&:where(figure):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-		}
-
-		&:where(figure > *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(figcaption):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0.8571429em;
-			font-size: 0.875em;
-			line-height: 1.4285714;
-		}
-
-		.richtext-base
-			:where(.richtext-base > :first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 0;
-		}
-
-		.richtext-base
-			:where(.richtext-base > :last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 0;
-		}
-	}
-}
-
-@utility richtext-lg {
-	font-size: 1.125rem;
-	line-height: 1.7777778;
-
-	:not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-		&:where(p) {
-			margin-top: 1.3333333em;
-			margin-bottom: 1.3333333em;
-		}
-
-		&:where([class~="lead"]) {
-			margin-top: 1.0909091em;
-			margin-bottom: 1.0909091em;
-			font-size: 1.2222222em;
-			line-height: 1.4545455;
-		}
-
-		&:where(blockquote) {
-			margin-top: 1.6666667em;
-			margin-bottom: 1.6666667em;
-			padding-inline-start: 1em;
-		}
-
-		&:where(h1) {
-			margin-top: 0;
-			margin-bottom: 0.8333333em;
-			font-size: 2.6666667em;
-			line-height: 1;
-		}
-
-		&:where(h2) {
-			margin-top: 1.8666667em;
-			margin-bottom: 1.0666667em;
-			font-size: 1.6666667em;
-			line-height: 1.3333333;
-		}
-
-		&:where(h3) {
-			margin-top: 1.6666667em;
-			margin-bottom: 0.6666667em;
-			font-size: 1.3333333em;
-			line-height: 1.5;
-		}
-
-		&:where(h4) {
-			margin-top: 1.7777778em;
-			margin-bottom: 0.4444444em;
-			line-height: 1.5555556;
-		}
-
-		&:where(img) {
-			margin-top: 1.7777778em;
-			margin-bottom: 1.7777778em;
-		}
-
-		&:where(picture) {
-			margin-top: 1.7777778em;
-			margin-bottom: 1.7777778em;
-		}
-
-		&:where(picture > img) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(video) {
-			margin-top: 1.7777778em;
-			margin-bottom: 1.7777778em;
-		}
-
-		&:where(kbd) {
-			padding-inline: 0.4444444em;
-			padding-top: 0.2222222em;
-			padding-bottom: 0.2222222em;
-			border-radius: 0.3125rem;
-			font-size: 0.8888889em;
-		}
-
-		&:where(code) {
-			font-size: 0.8888889em;
-		}
-
-		&:where(h2 code) {
-			font-size: 0.8666667em;
-		}
-
-		&:where(h3 code) {
-			font-size: 0.875em;
-		}
-
-		&:where(pre) {
-			margin-top: 2em;
-			margin-bottom: 2em;
-			padding-inline: 1.5em;
-			padding-top: 1em;
-			padding-bottom: 1em;
-			border-radius: 0.375rem;
-			font-size: 0.8888889em;
-			line-height: 1.75;
-		}
-
-		&:where(ol) {
-			margin-top: 1.3333333em;
-			margin-bottom: 1.3333333em;
-			padding-inline-start: 1.5555556em;
-		}
-
-		&:where(ul) {
-			margin-top: 1.3333333em;
-			margin-bottom: 1.3333333em;
-			padding-inline-start: 1.5555556em;
-		}
-
-		&:where(li) {
-			margin-top: 0.6666667em;
-			margin-bottom: 0.6666667em;
-		}
-
-		&:where(ol > li) {
-			padding-inline-start: 0.4444444em;
-		}
-
-		&:where(ul > li) {
-			padding-inline-start: 0.4444444em;
-		}
-
-		.richtext-lg :where(.richtext-lg > ul > li p) {
-			margin-top: 0.8888889em;
-			margin-bottom: 0.8888889em;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > ul > li > p:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 1.3333333em;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > ul > li > p:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 1.3333333em;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > ol > li > p:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 1.3333333em;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > ol > li > p:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 1.3333333em;
-		}
-
-		.richtext-lg :where(ul ul, ul ol, ol ul, ol ol) {
-			margin-top: 0.8888889em;
-			margin-bottom: 0.8888889em;
-		}
-
-		&:where(dl) {
-			margin-top: 1.3333333em;
-			margin-bottom: 1.3333333em;
-		}
-
-		&:where(dt) {
-			margin-top: 1.3333333em;
-		}
-
-		&:where(dd) {
-			margin-top: 0.6666667em;
-			padding-inline-start: 1.5555556em;
-		}
-
-		&:where(hr) {
-			margin-top: 3.1111111em;
-			margin-bottom: 3.1111111em;
-		}
-
-		&:where(hr + *) {
-			margin-top: 0;
-		}
-
-		&:where(h2 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h3 + *) {
-			margin-top: 0;
-		}
-
-		&:where(h4 + *) {
-			margin-top: 0;
-		}
-
-		&:where(table) {
-			font-size: 0.8888889em;
-			line-height: 1.5;
-		}
-
-		&:where(thead th) {
-			padding-inline: 0.75em;
-			padding-bottom: 0.75em;
-		}
-
-		.richtext-lg :where(thead th:first-child) {
-			padding-inline-start: 0;
-		}
-
-		.richtext-lg :where(thead th:last-child) {
-			padding-inline-end: 0;
-		}
-
-		&:where(tbody td, tfoot td) {
-			padding-inline: 0.75em;
-			padding-top: 0.75em;
-			padding-bottom: 0.75em;
-		}
-
-		.richtext-lg
-			:where(tbody td:first-child, tfoot td:first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			padding-inline-start: 0;
-		}
-
-		.richtext-lg
-			:where(tbody td:last-child, tfoot td:last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			padding-inline-end: 0;
-		}
-
-		&:where(figure):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 1.7777778em;
-			margin-bottom: 1.7777778em;
-		}
-
-		&:where(figure > *):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-
-		&:where(figcaption):not(:where([class~="not-richtext"], [class~="not-richtext"] *)) {
-			margin-top: 1em;
-			font-size: 0.8888889em;
-			line-height: 1.5;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > :first-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-top: 0;
-		}
-
-		.richtext-lg
-			:where(.richtext-lg > :last-child):not(
-				:where([class~="not-richtext"], [class~="not-richtext"] *)
-			) {
-			margin-bottom: 0;
-		}
-	}
-}
-
-/** ===============================================================================================
- * Syntax highlighting.
- * ============================================================================================= */
-
-@layer base {
-	/** @see {@link https://shiki.style/packages/transformers} */
-	.shiki {
-		& .line.higlighted {
-			display: inline-block;
-			width: calc(100% + 48px);
-			margin: 0 -24px;
-			padding: 0 24px;
-			background-color: oklch(0% 0 0deg / 80%);
-			transition: background-color 0.5s;
-		}
-
-		& .highlighted-word {
-			margin: -1px -3px;
-			padding: 1px 3px;
-			border: 1px solid var(--color-stroke-weak);
-			border-radius: var(--rounded-xs);
-		}
-
-		& .line.diff {
-			&::before {
-				position: absolute;
-				left: 10px;
-			}
-		}
-
-		& .line.diff.add {
-			&::before {
-				content: "+";
-				color: var(--color-green-600);
-			}
-		}
-
-		& .line.diff.remove {
-			&::before {
-				content: "-";
-				color: var(--color-red-600);
-			}
-		}
-	}
+/**
+ * The typography plugin's colours, which are tailwind's `gray-*` palette, mapped to the semantic tokens, so running text
+ * matches the rest of the page.
+ */
+@utility prose {
+	--tw-prose-body: var(--color-text-strong);
+	--tw-prose-headings: var(--color-text-strong);
+	--tw-prose-lead: var(--color-text-weak);
+	--tw-prose-links: var(--color-text-accent);
+	--tw-prose-bold: var(--color-text-strong);
+	--tw-prose-counters: var(--color-text-weak);
+	--tw-prose-bullets: var(--color-stroke-medium);
+	--tw-prose-hr: var(--color-stroke-weak);
+	--tw-prose-quotes: var(--color-text-strong);
+	--tw-prose-quote-borders: var(--color-stroke-weak);
+	--tw-prose-captions: var(--color-text-weak);
+	--tw-prose-kbd: var(--color-text-strong);
+	--tw-prose-code: var(--color-text-strong);
+	--tw-prose-pre-code: var(--color-text-inverse);
+	--tw-prose-pre-bg: var(--color-background-inverse);
+	--tw-prose-th-borders: var(--color-stroke-medium);
+	--tw-prose-td-borders: var(--color-stroke-weak);
 }

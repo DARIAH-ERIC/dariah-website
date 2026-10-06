@@ -1,22 +1,28 @@
 {
 	"$schema": "https://www.schemastore.org/tsconfig",
-	"extends": "@acdh-oeaw/tsconfig",
+	"extends": "./configs/typescript/base.json",
 	"compilerOptions": {
+		/**
+		 * Duplicates the `imports` map in `package.json`, which bun fails to resolve when the specifier starts with `#/`.
+		 * Typescript, turbopack and node resolve `#/*` via `package.json` regardless, so this only exists for the code we
+		 * run with bun directly - `next.config.ts` and the scripts in `./scripts`.
+		 *
+		 * @see {@link https://github.com/oven-sh/bun/issues/28995}
+		 */
 		"paths": {
-			"@/*": ["./*"]
+			"#/*": ["./*"]
 		},
 		"plugins": [{ "name": "next" }]
 	},
 	"include": [
-		"./**/*.js",
-		"./**/*.ts",
-		"./**/*.tsx",
-		"./next-env.d.ts",
-		".next/dev/types/**/*.ts",
+		"types/**/*.d.ts",
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
 		".next/types/**/*.ts",
-		"./types/**/*.d.ts",
-		"./.storybook/**/*.ts",
-		"./.storybook/**/*.tsx"
+		".next/dev/types/**/*.ts",
+		".storybook/**/*.ts",
+		".storybook/**/*.tsx"
 	],
-	"exclude": ["node_modules", "out", "public", "storybook-static"]
+	"exclude": ["dist/", "node_modules/", "out/", "public/", "storybook-static/", "tests/types/"]
 }

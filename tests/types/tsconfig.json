@@ -1,0 +1,19 @@
+{
+	"extends": "../../tsconfig.json",
+	"include": [
+		"../../next-env.d.ts",
+		"../../.next/types/navigation.d.ts",
+		"../../types/**/*.d.ts",
+		"../../lib/i18n/types.ts",
+		"../../lib/navigation/href.ts",
+		"../../lib/navigation/search-params.ts",
+		"../../lib/navigation/to-array.ts",
+		"../../lib/api/endpoint.ts",
+		"../../lib/api/endpoints.ts",
+		"../../lib/api/schemas.ts",
+		"./search-params.fixture.ts",
+		"./api.test-d.ts",
+		"./navigation.test-d.ts"
+	],
+	"exclude": []
+}
