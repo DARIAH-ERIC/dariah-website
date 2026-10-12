@@ -1,7 +1,7 @@
 import "server-only";
 
 import NextImage from "next/image";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { preconnect } from "react-dom";
 
 import type { ImageProps } from "#/components/image.tsx";
@@ -28,7 +28,9 @@ interface ApiImageProps extends Omit<ImageProps, "alt" | "src"> {
  * width at 1x and 2x, and a phone downloads the desktop rung.
  */
 export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
-	const { alt, image, ...rest } = props;
+	const { alt, image, style: ownStyle, ...rest } = props;
+
+	const style = withFocalPoint(image, ownStyle);
 
 	/**
 	 * A high priority image is usually the page's largest contentful paint, and it is two other origins away: the api's
@@ -56,7 +58,7 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 		 * the other follows before the file arrives, where it would otherwise start at nothing and grow once it had.
 		 */
 		if (rest.width == null && rest.fill !== true) {
-			const { className, fetchPriority, loading, style } = rest;
+			const { className, fetchPriority, loading } = rest;
 
 			return (
 				// oxlint-disable-next-line next/no-img-element -- See above: `next/image` cannot render this one.
@@ -72,7 +74,7 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 			);
 		}
 
-		return <NextImage {...rest} alt={alt ?? image.alt ?? ""} src={image.srcUrl} unoptimized={true} />;
+		return <NextImage {...rest} alt={alt ?? image.alt ?? ""} src={image.srcUrl} style={style} unoptimized={true} />;
 	}
 
 	/**
@@ -89,6 +91,27 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 			alt={alt ?? image.alt ?? ""}
 			loader={apiImageLoader}
 			src={appendSearchParams(image.srcUrl, { [sourceWidthParam]: String(image.width) })}
+			style={style}
 		/>
 	);
+}
+
+/**
+ * Hands the image's focal point to the stylesheet as `--focal-point`, which `object-cover` images use as their
+ * `object-position` (see `styles/index.css`). A variable rather than `object-position` itself, so that only a cropped
+ * image moves: the same property would also shift a logo fitted with `object-contain`.
+ *
+ * Rounded, because `0.29 * 100` is `28.999999999999996`.
+ */
+function withFocalPoint(image: BlockImage, style: CSSProperties | undefined): CSSProperties | undefined {
+	if (image.focalPoint == null) {
+		return style;
+	}
+
+	const { x, y } = image.focalPoint;
+
+	return {
+		"--focal-point": `${String(Math.round(x * 10_000) / 100)}% ${String(Math.round(y * 10_000) / 100)}%`,
+		...style,
+	};
 }

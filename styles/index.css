@@ -844,6 +844,16 @@
 		display: none !important;
 	}
 
+	/**
+	 * Keeps the point an editor chose in view wherever an api image is cropped: `ApiImage` sets the variable from the
+	 * image's `focalPoint`. Limited to `object-cover`, because under `object-contain` the same property would slide a
+	 * fitted logo off-centre in its box. Zero specificity, and in this layer, so an `object-*` position utility on the
+	 * element still wins.
+	 */
+	:where(img.object-cover) {
+		object-position: var(--focal-point, 50% 50%);
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		@view-transition {
 			navigation: none;
