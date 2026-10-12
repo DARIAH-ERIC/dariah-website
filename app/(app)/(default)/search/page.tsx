@@ -29,7 +29,9 @@ import { Fragment, type ReactNode, Suspense, useId } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { Pagination } from "#/app/(app)/(default)/_components/pagination.tsx";
+import { SearchTracker } from "#/app/(app)/(default)/_components/search-tracker.tsx";
 import { searchParams as resourcesSearchParams } from "#/app/(app)/(default)/resources/resource-catalogue/search-params.ts";
+import { useWebsiteTypeLabels } from "#/app/(app)/(default)/search/_components/type-labels.ts";
 import { WebsiteSearchForm } from "#/app/(app)/(default)/search/_components/website-search-form.tsx";
 import { searchParams, searchTypes } from "#/app/(app)/(default)/search/search-params.ts";
 import { Breadcrumbs } from "#/components/breadcrumbs.tsx";
@@ -135,6 +137,13 @@ async function SearchResults(props: Pick<SearchPageProps, "searchParams">): Prom
 		<Fragment>
 			<SearchForm query={q} type={type} />
 			{result != null ? <SearchResultsList page={page} query={q} result={result} type={type} /> : null}
+			<SearchTracker
+				count={result?.pagination.total ?? 0}
+				filters={{ type: type != null ? [type] : [] }}
+				keyword={q}
+				name="search"
+				page={page}
+			/>
 		</Fragment>
 	);
 }
@@ -268,7 +277,7 @@ function SearchResult(props: Readonly<{ document: WebsiteDocument }>): ReactNode
 	const { document } = props;
 
 	const format = useFormatter();
-	const typeLabels = useTypeLabels();
+	const typeLabels = useWebsiteTypeLabels();
 
 	const Icon = typeIcons[document.type];
 	const date =
@@ -315,7 +324,7 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 	const { query, type } = props;
 
 	const t = useTranslations();
-	const typeLabels = useTypeLabels();
+	const typeLabels = useWebsiteTypeLabels();
 	const id = useId();
 
 	return (
@@ -366,31 +375,4 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 			/>
 		</WebsiteSearchForm>
 	);
-}
-
-function useTypeLabels(): Record<WebsiteDocumentType, string> {
-	const t = useTranslations();
-
-	return {
-		country: t("Country"),
-		"document-or-policy": t("Document or policy"),
-		event: t("Event"),
-		"funding-call": t("Funding call"),
-		"governance-body": t("Governance body"),
-		"impact-case-study": t("Impact case study"),
-		institution: t("Institution"),
-		"national-consortium": t("National consortium"),
-		"news-item": t("News"),
-		opportunity: t("Opportunity"),
-		page: t("Page"),
-		person: t("Person"),
-		project: t("Project"),
-		"spotlight-article": t("Spotlight article"),
-		"working-group": t("Working group"),
-		publication: t("Publication"),
-		service: t("Service"),
-		software: t("Software"),
-		"training-material": t("Training material"),
-		workflow: t("Workflow"),
-	};
 }

@@ -7,6 +7,7 @@ import { type ReactNode, Suspense, useId } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { Pagination } from "#/app/(app)/(default)/_components/pagination.tsx";
+import { SearchTracker } from "#/app/(app)/(default)/_components/search-tracker.tsx";
 import {
 	CoreServiceLabel,
 	ResourceLink,
@@ -191,6 +192,18 @@ async function ResourcesResults(props: Pick<ResourceCataloguePageProps, "searchP
 					pages={result.pagination.totalPages}
 				/>
 			) : null}
+			{/* Facet values are only checked to be slugs, so unknown ones are left out. */}
+			<SearchTracker
+				count={result.pagination.total}
+				filters={{
+					type: types,
+					consortium: nationalConsortia.filter((slug) => consortiumLabels.has(slug)),
+					"working-group": workingGroups.filter((slug) => workingGroupLabels.has(slug)),
+				}}
+				keyword={q}
+				name="resource-catalogue"
+				page={page}
+			/>
 		</ResourcesForm>
 	);
 }

@@ -8,6 +8,11 @@ import { Fragment, type ReactNode, Suspense, useId } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { Pagination } from "#/app/(app)/(default)/_components/pagination.tsx";
+import { SearchTracker } from "#/app/(app)/(default)/_components/search-tracker.tsx";
+import {
+	useOpportunitySourceLabels,
+	useOpportunityStatusLabels,
+} from "#/app/(app)/(default)/get-involved/opportunities/_components/labels.ts";
 import { OpportunitiesFilterForm } from "#/app/(app)/(default)/get-involved/opportunities/_components/opportunities-filter-form.tsx";
 import {
 	opportunitySources,
@@ -149,6 +154,12 @@ async function OpportunitiesResults(props: Pick<OpportunitiesPageProps, "searchP
 					prefetch={true}
 				/>
 			) : null}
+			<SearchTracker
+				count={list.total}
+				filters={{ status: status != null ? [status] : [], source: source != null ? [source] : [] }}
+				name="opportunities"
+				page={list.page}
+			/>
 		</OpportunitiesForm>
 	);
 }
@@ -191,8 +202,8 @@ function OpportunitiesForm(
 	const { children, source, status } = props;
 
 	const t = useTranslations();
-	const statusLabels = useStatusLabels();
-	const sourceLabels = useSourceLabels();
+	const statusLabels = useOpportunityStatusLabels();
+	const sourceLabels = useOpportunitySourceLabels();
 
 	return (
 		<OpportunitiesFilterForm
@@ -375,7 +386,7 @@ function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null
 function StatusBadge(props: Readonly<{ status: OpportunityStatus }>): ReactNode {
 	const { status } = props;
 
-	const labels = useStatusLabels();
+	const labels = useOpportunityStatusLabels();
 
 	return <Badge tone={status === "open" ? "highlight" : "muted"}>{labels[status]}</Badge>;
 }
@@ -383,26 +394,7 @@ function StatusBadge(props: Readonly<{ status: OpportunityStatus }>): ReactNode 
 function SourceBadge(props: Readonly<{ source: OpportunitySource }>): ReactNode {
 	const { source } = props;
 
-	const labels = useSourceLabels();
+	const labels = useOpportunitySourceLabels();
 
 	return <Badge tone={source === "dariah" ? "accent" : "muted"}>{labels[source]}</Badge>;
-}
-
-function useStatusLabels(): Record<OpportunityStatus, string> {
-	const t = useTranslations();
-
-	return {
-		open: t("Open"),
-		upcoming: t("Upcoming"),
-		closed: t("Closed"),
-	};
-}
-
-function useSourceLabels(): Record<OpportunitySource, string> {
-	const t = useTranslations();
-
-	return {
-		dariah: t("DARIAH"),
-		external: t("External"),
-	};
 }
