@@ -106,7 +106,7 @@ msgid "Previous page"
 msgstr "Previous page"
 
 #: app/(app)/(default)/_components/pagination.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "wFmAFC"
 msgid "Page"
@@ -324,7 +324,7 @@ msgstr "Featured funding call"
 #: app/(app)/(default)/news/(list)/layout.tsx
 #: app/(app)/(default)/news/(list)/page.tsx
 #: app/(app)/(default)/news/(list)/page/[page]/page.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/announcement-type.tsx
 #: components/related-content.tsx
 #: lib/data/feeds.ts
@@ -333,7 +333,7 @@ msgid "News"
 msgstr "News"
 
 #: app/(app)/(default)/(index)/page.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/announcement-type.tsx
 #: components/related-content.tsx
 msgctxt "sHGUY0"
@@ -341,7 +341,7 @@ msgid "Opportunity"
 msgstr "Opportunity"
 
 #: app/(app)/(default)/(index)/page.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/announcement-type.tsx
 #: components/related-content.tsx
 msgctxt "70IjCC"
@@ -551,6 +551,135 @@ msgctxt "Q5dfnK"
 msgid "{count, plural, one {Member} other {Members}}"
 msgstr "{count, plural, one {Member} other {Members}}"
 
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "L8ZTW3"
+msgid "Searches and filters"
+msgstr "Searches and filters"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "e6vUMO"
+msgid "How the website search, the Resource Catalogue and the opportunities' filters were used over the past {days} days. Search terms are listed only when searched in at least {visits} visits."
+msgstr "How the website search, the Resource Catalogue and the opportunities' filters were used over the past {days} days. Search terms are listed only when searched in at least {visits} visits."
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "cQPvcW"
+msgid "No searches or filters have been tracked yet."
+msgstr "No searches or filters have been tracked yet."
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "HTPwZr"
+msgid "Website search"
+msgstr "Website search"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "VvQPFQ"
+msgid "Resource Catalogue"
+msgstr "Resource Catalogue"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: lib/data/feeds.ts
+msgctxt "zB5VYc"
+msgid "Opportunities"
+msgstr "Opportunities"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "8FOzEG"
+msgid "Searches"
+msgstr "Searches"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "1N1LFf"
+msgid "Searches without results"
+msgstr "Searches without results"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "t9CDl3"
+msgid "Most searched terms"
+msgstr "Most searched terms"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "UD_BhG"
+msgid "Search term"
+msgstr "Search term"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "0xjd-l"
+msgid "No term has been searched in at least {visits} visits yet."
+msgstr "No term has been searched in at least {visits} visits yet."
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "0AllKO"
+msgid "Most used filters"
+msgstr "Most used filters"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "9Obw6C"
+msgid "Filter"
+msgstr "Filter"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "GufXy5"
+msgid "Value"
+msgstr "Value"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "O0hU9y"
+msgid "Times selected"
+msgstr "Times selected"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "AmPTI2"
+msgid "No filter has been used yet."
+msgstr "No filter has been used yet."
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/search/page.tsx
+msgctxt "ccXLVi"
+msgid "Category"
+msgstr "Category"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+msgctxt "WHleoJ"
+msgid "Resource type"
+msgstr "Resource type"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "cVwexr"
+msgid "National consortium"
+msgstr "National consortium"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
+#: app/(app)/(default)/resources/resource-catalogue/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "OFTO7O"
+msgid "Working group"
+msgstr "Working group"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "hOxIeP"
+msgid "Availability"
+msgstr "Availability"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+#: app/(app)/(default)/get-involved/opportunities/page.tsx
+msgctxt "aH4De2"
+msgid "Source"
+msgstr "Source"
+
+#: app/(app)/(default)/analytics/_components/search-analytics.tsx
+msgctxt "YGsaPk"
+msgid "Loading search analytics…"
+msgstr "Loading search analytics…"
+
 #: app/(app)/(default)/analytics/_components/visits-chart.tsx
 #: app/(app)/(default)/analytics/page.tsx
 msgctxt "AqRInY"
@@ -644,6 +773,11 @@ msgstr "About these numbers"
 msgctxt "Xpcxj4"
 msgid "A visit is a series of page views without a break of more than 30 minutes. The website does not set cookies, so a visitor is recognised by their browser and network for one day at most: someone who returns on another day is counted as another unique visitor. Unique visitors per month are therefore an upper bound."
 msgstr "A visit is a series of page views without a break of more than 30 minutes. The website does not set cookies, so a visitor is recognised by their browser and network for one day at most: someone who returns on another day is counted as another unique visitor. Unique visitors per month are therefore an upper bound."
+
+#: app/(app)/(default)/analytics/page.tsx
+msgctxt "gzYrWh"
+msgid "Searches are those on the website search and in the Resource Catalogue. They are counted once the user stops typing, and only from the month they were first tracked: earlier months show n/a."
+msgstr "Searches are those on the website search and in the Resource Catalogue. They are counted once the user stops typing, and only from the month they were first tracked: earlier months show n/a."
 
 #: app/(app)/(default)/analytics/page.tsx
 msgctxt "v-YNdi"
@@ -859,7 +993,7 @@ msgstr "There are no events before this date."
 
 #: app/(app)/(default)/events/page.tsx
 #: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/_components/labels.ts
 #: components/event-card.tsx
 msgctxt "6_aEFZ"
 msgid "Upcoming"
@@ -883,31 +1017,31 @@ msgid "Loading funding calls…"
 msgstr "Loading funding calls…"
 
 #: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/_components/labels.ts
 msgctxt "JfG49w"
 msgid "Open"
 msgstr "Open"
 
 #: app/(app)/(default)/get-involved/funding-calls/_components/funding-call-list.tsx
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/_components/labels.ts
 msgctxt "Fv1ZSz"
 msgid "Closed"
 msgstr "Closed"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/labels.ts
+msgctxt "RTkgMo"
+msgid "DARIAH"
+msgstr "DARIAH"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/labels.ts
+msgctxt "QG6-rR"
+msgid "External"
+msgstr "External"
 
 #: app/(app)/(default)/get-involved/opportunities/page.tsx
 msgctxt "00_TZT"
 msgid "Loading opportunities…"
 msgstr "Loading opportunities…"
-
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
-msgctxt "hOxIeP"
-msgid "Availability"
-msgstr "Availability"
-
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
-msgctxt "aH4De2"
-msgid "Source"
-msgstr "Source"
 
 #: app/(app)/(default)/get-involved/opportunities/page.tsx
 msgctxt "zQvVDJ"
@@ -941,16 +1075,6 @@ msgstr "There are no opportunities matching these filters."
 msgctxt "o787Ox"
 msgid "There are no opportunities at the moment."
 msgstr "There are no opportunities at the moment."
-
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
-msgctxt "RTkgMo"
-msgid "DARIAH"
-msgstr "DARIAH"
-
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
-msgctxt "QG6-rR"
-msgid "External"
-msgstr "External"
 
 #: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
 #: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
@@ -1035,14 +1159,6 @@ msgid "Partner institutions"
 msgstr "Partner institutions"
 
 #: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
-#: app/(app)/(default)/resources/resource-catalogue/page.tsx
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "cVwexr"
-msgid "National consortium"
-msgstr "National consortium"
-
-#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
 msgctxt "KypGo1"
 msgid "Coordinated by <institution>{name}</institution>"
 msgstr "Coordinated by <institution>{name}</institution>"
@@ -1125,14 +1241,6 @@ msgstr "Active Working Groups"
 msgctxt "oaZuYz"
 msgid "Past Working Groups"
 msgstr "Past Working Groups"
-
-#: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
-#: app/(app)/(default)/resources/resource-catalogue/page.tsx
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "OFTO7O"
-msgid "Working group"
-msgstr "Working group"
 
 #: app/(app)/(default)/network/working-groups/(list)/layout.tsx
 msgctxt "1MgzM6"
@@ -1238,14 +1346,14 @@ msgid "Former positions"
 msgstr "Former positions"
 
 #: app/(app)/(default)/persons/[slug]/page.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "Ig2JLg"
 msgid "Impact case study"
 msgstr "Impact case study"
 
 #: app/(app)/(default)/persons/[slug]/page.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: app/(app)/(default)/spotlight/page.tsx
 #: components/related-content.tsx
 msgctxt "5uRwRL"
@@ -1301,7 +1409,7 @@ msgid "Duration: {range}"
 msgstr "Duration: {range}"
 
 #: app/(app)/(default)/projects/_components/project-list.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "k36uSw"
 msgid "Project"
@@ -1369,35 +1477,35 @@ msgid "No results found."
 msgstr "No results found."
 
 #: app/(app)/(default)/resources/_components/resource.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "uN69Ic"
 msgid "Publication"
 msgstr "Publication"
 
 #: app/(app)/(default)/resources/_components/resource.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "n7yYXG"
 msgid "Service"
 msgstr "Service"
 
 #: app/(app)/(default)/resources/_components/resource.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "r3C4x_"
 msgid "Software"
 msgstr "Software"
 
 #: app/(app)/(default)/resources/_components/resource.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "X0GLby"
 msgid "Training material"
 msgstr "Training material"
 
 #: app/(app)/(default)/resources/_components/resource.tsx
-#: app/(app)/(default)/search/page.tsx
+#: app/(app)/(default)/search/_components/type-labels.ts
 #: components/related-content.tsx
 msgctxt "pv1lF7"
 msgid "Workflow"
@@ -1459,11 +1567,6 @@ msgid "Search resources"
 msgstr "Search resources"
 
 #: app/(app)/(default)/resources/resource-catalogue/page.tsx
-msgctxt "WHleoJ"
-msgid "Resource type"
-msgstr "Resource type"
-
-#: app/(app)/(default)/resources/resource-catalogue/page.tsx
 msgctxt "F4gyn3"
 msgid "Clear filters"
 msgstr "Clear filters"
@@ -1479,15 +1582,46 @@ msgctxt "0d9EPJ"
 msgid "Check the spelling, or try a broader term."
 msgstr "Check the spelling, or try a broader term."
 
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "vONi-O"
+msgid "Country"
+msgstr "Country"
+
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "9PQRIm"
+msgid "Document or policy"
+msgstr "Document or policy"
+
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "m1czzY"
+msgid "Event"
+msgstr "Event"
+
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "GaKOBV"
+msgid "Governance body"
+msgstr "Governance body"
+
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "dMwAna"
+msgid "Institution"
+msgstr "Institution"
+
+#: app/(app)/(default)/search/_components/type-labels.ts
+#: components/related-content.tsx
+msgctxt "1mnmBr"
+msgid "Person"
+msgstr "Person"
+
 #: app/(app)/(default)/search/page.tsx
 msgctxt "k87Jhh"
 msgid "Search the website"
 msgstr "Search the website"
-
-#: app/(app)/(default)/search/page.tsx
-msgctxt "ccXLVi"
-msgid "Category"
-msgstr "Category"
 
 #: app/(app)/(default)/search/page.tsx
 msgctxt "cAFg5A"
@@ -1513,42 +1647,6 @@ msgstr "Check the spelling, try a broader term, or search all categories."
 msgctxt "9g2jKz"
 msgid "All categories"
 msgstr "All categories"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "vONi-O"
-msgid "Country"
-msgstr "Country"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "9PQRIm"
-msgid "Document or policy"
-msgstr "Document or policy"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "m1czzY"
-msgid "Event"
-msgstr "Event"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "GaKOBV"
-msgid "Governance body"
-msgstr "Governance body"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "dMwAna"
-msgid "Institution"
-msgstr "Institution"
-
-#: app/(app)/(default)/search/page.tsx
-#: components/related-content.tsx
-msgctxt "1mnmBr"
-msgid "Person"
-msgstr "Person"
 
 #: components/article.tsx
 msgctxt "2dh5Xx"
@@ -1744,11 +1842,6 @@ msgstr "{title}: News"
 msgctxt "4-hNua"
 msgid "{title}: Events"
 msgstr "{title}: Events"
-
-#: lib/data/feeds.ts
-msgctxt "zB5VYc"
-msgid "Opportunities"
-msgstr "Opportunities"
 
 #: lib/data/feeds.ts
 msgctxt "5-5Dw_"

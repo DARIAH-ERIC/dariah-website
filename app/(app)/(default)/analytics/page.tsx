@@ -5,6 +5,10 @@ import { connection } from "next/server";
 import { type ReactNode, Suspense } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
+import {
+	SearchAnalytics,
+	SearchAnalyticsSkeleton,
+} from "#/app/(app)/(default)/analytics/_components/search-analytics.tsx";
 import { VisitsChart, VisitsChartSkeleton } from "#/app/(app)/(default)/analytics/_components/visits-chart.tsx";
 import { PageHeader } from "#/components/page-header.tsx";
 import { Skeleton, SkeletonShape } from "#/components/ui/skeleton.tsx";
@@ -69,6 +73,7 @@ async function Analytics(): Promise<ReactNode> {
 	}
 
 	const hasUniqueVisitors = months.some((month) => month.uniqueVisitors != null);
+	const hasSearches = months.some((month) => month.searches != null);
 	/** The last month is the current one, still in progress, so the figures are for the one before. */
 	const current = months.at(-1);
 	const latest = months.at(-2);
@@ -131,6 +136,11 @@ async function Analytics(): Promise<ReactNode> {
 										{t("Unique visitors")}
 									</th>
 								) : null}
+								{hasSearches ? (
+									<th className="py-3 ps-6 text-end" scope="col">
+										{t("Searches")}
+									</th>
+								) : null}
 							</tr>
 						</thead>
 						<tbody>
@@ -147,12 +157,22 @@ async function Analytics(): Promise<ReactNode> {
 											{month.uniqueVisitors != null ? format.number(month.uniqueVisitors) : t("n/a")}
 										</td>
 									) : null}
+									{hasSearches ? (
+										<td className="py-3 ps-6 text-end">
+											{month.searches != null ? format.number(month.searches) : t("n/a")}
+										</td>
+									) : null}
 								</tr>
 							))}
 						</tbody>
 					</table>
 				</div>
 			</section>
+
+			{/* Read separately, so the visits do not wait for it. */}
+			<Suspense fallback={<SearchAnalyticsSkeleton />}>
+				<SearchAnalytics />
+			</Suspense>
 
 			<section aria-labelledby="analytics-about" className="flex flex-col gap-y-4">
 				<h2 className="text-title-4" id="analytics-about">
@@ -163,6 +183,13 @@ async function Analytics(): Promise<ReactNode> {
 						"A visit is a series of page views without a break of more than 30 minutes. The website does not set cookies, so a visitor is recognised by their browser and network for one day at most: someone who returns on another day is counted as another unique visitor. Unique visitors per month are therefore an upper bound.",
 					)}
 				</p>
+				{hasSearches ? (
+					<p>
+						{t(
+							"Searches are those on the website search and in the Resource Catalogue. They are counted once the user stops typing, and only from the month they were first tracked: earlier months show n/a.",
+						)}
+					</p>
+				) : null}
 				<p>{t("The numbers are updated hourly.")}</p>
 			</section>
 		</div>

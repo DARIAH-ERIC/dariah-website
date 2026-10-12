@@ -8,7 +8,9 @@ import { NotFoundContent } from "#/app/(app)/(default)/_components/not-found-con
 import { PageFrame } from "#/app/(app)/(default)/_components/page-frame.tsx";
 import { SkipLink } from "#/app/(app)/(default)/_components/skip-link.tsx";
 import { HtmlDocument } from "#/app/(app)/_components/html-document.tsx";
+import { MatomoAnalytics } from "#/app/(app)/_components/matomo-analytics.tsx";
 import { Providers } from "#/app/(app)/_components/providers.tsx";
+import { env } from "#/configs/env.config.ts";
 import { getSiteMetadata } from "#/lib/data/site-metadata.ts";
 import { defaultLocale } from "#/lib/i18n/locales.ts";
 
@@ -26,7 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /**
  * Rendered for urls which match no route at all. Next skips every layout for these, so this composes the document shell
- * of `app/(app)/layout.tsx` and the header and footer of `app/(app)/(default)/layout.tsx` itself.
+ * of `app/(app)/layout.tsx` - with its analytics - and the header and footer of `app/(app)/(default)/layout.tsx`
+ * itself.
  */
 export default function GlobalNotFound(): ReactNode {
 	return (
@@ -40,6 +43,9 @@ export default function GlobalNotFound(): ReactNode {
 						<Footer />
 					</PageFrame>
 				</Providers>
+				{env.NEXT_PUBLIC_APP_MATOMO_ID != null ? (
+					<MatomoAnalytics baseUrl={env.NEXT_PUBLIC_APP_MATOMO_BASE_URL} id={env.NEXT_PUBLIC_APP_MATOMO_ID} />
+				) : null}
 			</body>
 		</HtmlDocument>
 	);

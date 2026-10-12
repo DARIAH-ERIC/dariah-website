@@ -1,11 +1,15 @@
 import { useExtracted as useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
+import { NotFoundTracker } from "#/app/(app)/(default)/_components/not-found-tracker.tsx";
 import { href } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
 
-/** Shared by `app/global-not-found.tsx`, for unmatched urls, and `not-found.tsx`, for `notFound()` calls in pages. */
+/**
+ * Shared by `app/global-not-found.tsx`, for unmatched urls, and `not-found.tsx`, for `notFound()` calls in pages. Its
+ * view is tracked as a not-found page, see `NotFoundTracker`.
+ */
 export function NotFoundContent(): ReactNode {
 	const t = useTranslations();
 
@@ -26,6 +30,9 @@ export function NotFoundContent(): ReactNode {
 					{t("Go to the home page")}
 				</Link>
 			</div>
+			<Suspense fallback={null}>
+				<NotFoundTracker />
+			</Suspense>
 		</Main>
 	);
 }
