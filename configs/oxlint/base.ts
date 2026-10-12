@@ -345,7 +345,7 @@ const config = defineConfig({
 		"unicorn/prefer-native-coercion-functions": "warn",
 		"unicorn/prefer-number-coercion": "error",
 		"unicorn/prefer-prototype-methods": "error",
-		"unicorn/prefer-query-selector": "warn",
+		"unicorn/prefer-query-selector": ["warn", { allowWithVariables: true }],
 		"unicorn/prefer-regexp-test": "warn",
 		"unicorn/prefer-single-call": "off",
 		"unicorn/prefer-string-replace-all": "warn",
