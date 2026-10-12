@@ -10,7 +10,13 @@ autoDedupe: true
 
 engineStrict: true
 
-minimumReleaseAge: 240
+lockfile:
+  includeResolutionSettings: true
+
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+  - '@types/bun@1.4.3'
 
 patchedDependencies:
   '@react-aria/optimize-locales-plugin': patches/@react-aria__optimize-locales-plugin.patch

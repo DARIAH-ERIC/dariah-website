@@ -1,3 +1,4 @@
+import { getDefaultSelectors } from "eslint-plugin-better-tailwindcss/api/defaults";
 import { defineConfig } from "oxlint";
 
 /**
@@ -5,7 +6,9 @@ import { defineConfig } from "oxlint";
  * `oxlint.config.ts` can compose them; declaring a `settings` key in this file would be silently dropped.
  */
 export const settings = {
+	/** Custom `selectors` replace the plugin's defaults instead of extending them, so the defaults are spread back in. */
 	selectors: [
+		...getDefaultSelectors(),
 		{
 			kind: "callee",
 			name: "^cn$",
