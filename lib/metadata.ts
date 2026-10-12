@@ -38,9 +38,9 @@ export function toDescription(text: string): string {
 }
 
 /**
- * An api image as `og:image`: a 16:9 crop wide enough for a large link preview. Portraits and logos are only scaled,
- * since a crop would cut into a face or a mark. No `width`/`height`, because the endpoint does not upscale, so the
- * rendition of a small source would not match them.
+ * An api image as `og:image`: a 16:9 crop wide enough for a large link preview, around the image's focal point.
+ * Portraits and logos are only scaled, since a crop would cut into a face or a mark. No `width`/`height`, because the
+ * endpoint does not upscale, so the rendition of a small source would not match them.
  *
  * An svg is passed through by the endpoint as it is, and crawlers do not render one, so it goes through the
  * `/og-images` route instead, which renders it to a png of a known size - see `createSvgOpenGraphImage`.
@@ -59,9 +59,25 @@ export function toOpenGraphImage(image: Image): OpenGraphImage {
 	}
 
 	const kind = getImageAssetKind(image.srcUrl);
-	const params: Record<string, string> = kind === "images" ? { w: "1280", ar: "16x9" } : { w: "1280" };
+	const params: Record<string, string> =
+		kind === "images" ? { w: "1280", ar: "16x9", ...getFocalPointParam(image) } : { w: "1280" };
 
 	return { url: appendSearchParams(image.srcUrl, params), alt };
+}
+
+/**
+ * The image's focal point, as the url's key for the crop around it. The endpoint crops around the point it has stored,
+ * not this one, but its renditions are cached as immutable - so the url has to change along with the point, or a moved
+ * one would keep serving the old crop. Two decimals, which is all the endpoint accepts.
+ */
+function getFocalPointParam(image: Image): { fp: string } | Record<string, never> {
+	if (image.focalPoint == null) {
+		return {};
+	}
+
+	const { x, y } = image.focalPoint;
+
+	return { fp: `${String(Math.round(x * 100) / 100)},${String(Math.round(y * 100) / 100)}` };
 }
 
 /**
