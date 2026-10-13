@@ -136,6 +136,7 @@
 			"onFail": "download"
 		}
 	},
+	"packageManager": "pnpm@12.11.2",
 	"patchedDependencies": {
 		"@react-aria/optimize-locales-plugin@2.1.0": "patches/@react-aria__optimize-locales-plugin.patch",
 		"next@16.4.0": "patches/next.patch"
