@@ -22,6 +22,7 @@ import statisticWorkingGroupsIcon from "#/assets/images/statistic-working-groups
 import { ApiImage } from "#/components/api-image.tsx";
 import { EventCard } from "#/components/event-card.tsx";
 import { Image } from "#/components/image.tsx";
+import { JsonLd } from "#/components/json-ld.tsx";
 import { SectionErrorBoundary } from "#/components/section-error-boundary.tsx";
 import { Skeleton, SkeletonShape, SkeletonText } from "#/components/ui/skeleton.tsx";
 import type { Announcement } from "#/lib/api/schemas.ts";
@@ -29,6 +30,7 @@ import { type LatestAnnouncement, announcementHref, getLatestAnnouncements } fro
 import { getUpcomingEvents } from "#/lib/data/events.ts";
 import { getSiteMetadata } from "#/lib/data/site-metadata.ts";
 import { getStatistics } from "#/lib/data/statistics.ts";
+import { createOrganization, createWebSite } from "#/lib/json-ld.ts";
 import { createAlternates, createOpenGraph } from "#/lib/metadata.ts";
 import { type Href, href } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
@@ -53,6 +55,18 @@ export async function generateMetadata(): Promise<Metadata> {
 			...(site.ogDescription != null ? { description: site.ogDescription } : {}),
 		}),
 	};
+}
+
+/** The organisation and the website, described once, here - see `#/lib/json-ld.ts`. */
+async function SiteJsonLd(): Promise<ReactNode> {
+	const site = await getSiteMetadata();
+
+	return (
+		<Fragment>
+			<JsonLd item={createOrganization(site)} />
+			<JsonLd item={createWebSite(site)} />
+		</Fragment>
+	);
 }
 
 export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
@@ -148,6 +162,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 
 	return (
 		<Main>
+			<SiteJsonLd />
 			{/**
 			 * The hero's height follows the viewport's (`min-block-hero`), so the start of the next section's heading shows above
 			 * the fold - but no more than 70% of the viewport's width, so it doesn't dwarf the page on portrait screens. It grows

@@ -1664,14 +1664,14 @@ msgid "{count, plural, one {Editor} other {Editors}}"
 msgstr "{count, plural, one {Editor} other {Editors}}"
 
 #: components/breadcrumbs.tsx
-msgctxt "ByoZDD"
-msgid "Breadcrumbs"
-msgstr "Breadcrumbs"
-
-#: components/breadcrumbs.tsx
 msgctxt "ejEGdx"
 msgid "Home"
 msgstr "Home"
+
+#: components/breadcrumbs.tsx
+msgctxt "ByoZDD"
+msgid "Breadcrumbs"
+msgstr "Breadcrumbs"
 
 #: components/content-layout.tsx
 msgctxt "S3SiEe"
