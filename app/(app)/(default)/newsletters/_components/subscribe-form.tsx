@@ -44,8 +44,9 @@ export function SubscribeForm(): ReactNode {
 								type="email"
 							/>
 						</div>
+						{/* Overlaps the input's focus ring by its own border, so the two make one 3px seam rather than 5px. */}
 						<button
-							className="relative border-2 border-stroke-accent bg-background-accent-strong px-6 font-heading font-bold text-text-inverse [text-box:trim-both_cap_alphabetic] enabled:hover:bg-background-base enabled:hover:text-text-accent disabled:opacity-70 focus-visible-outline"
+							className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-6 font-heading font-bold text-text-inverse [text-box:trim-both_cap_alphabetic] enabled:hover:bg-background-base enabled:hover:text-text-accent disabled:opacity-70 focus-visible-outline"
 							disabled={isPending}
 							type="submit"
 						>

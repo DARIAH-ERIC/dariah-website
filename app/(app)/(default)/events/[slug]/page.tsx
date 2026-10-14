@@ -10,11 +10,13 @@ import { Fragment, type ReactNode, Suspense } from "react";
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { ContentLayout } from "#/components/content-layout.tsx";
 import { EventCard } from "#/components/event-card.tsx";
+import { JsonLd } from "#/components/json-ld.tsx";
 import { PageHeader, PageHeaderSkeleton } from "#/components/page-header.tsx";
 import { SectionErrorBoundary } from "#/components/section-error-boundary.tsx";
 import { SkeletonText } from "#/components/ui/skeleton.tsx";
 import type { Event, EventBase } from "#/lib/api/schemas.ts";
 import { getAdjacentEvents, getEventBySlug, getEventSlugs, getEventStatus, today } from "#/lib/data/events.ts";
+import { createEvent } from "#/lib/json-ld.ts";
 import { createMetadata } from "#/lib/metadata.ts";
 import { href, serializeHref, unsafeHref } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
@@ -102,11 +104,14 @@ async function EventContent(props: Pick<EventPageProps, "params">): Promise<Reac
 		notFound();
 	}
 
+	const current = href({ pathname: "/events/[slug]", params: { slug } });
+
 	return (
 		<Fragment>
+			<JsonLd item={await createEvent({ href: current, item })} />
 			<div className="px-main">
 				<PageHeader
-					current={href({ pathname: "/events/[slug]", params: { slug } })}
+					current={current}
 					image={item.image}
 					imageVariant="wide-banner"
 					parent={href({ pathname: "/events" })}
