@@ -3,18 +3,20 @@ import type { Metadata } from "next";
 import { useFormatter, useExtracted as useTranslations } from "next-intl";
 import { getExtracted as getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { type ReactNode, Suspense, useId } from "react";
+import { Fragment, type ReactNode, Suspense, useId } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { AnnouncementType } from "#/components/announcement-type.tsx";
 import { ApiImage } from "#/components/api-image.tsx";
 import { Article } from "#/components/article.tsx";
+import { JsonLd } from "#/components/json-ld.tsx";
 import { PageHeaderSkeleton } from "#/components/page-header.tsx";
 import { SectionErrorBoundary } from "#/components/section-error-boundary.tsx";
 import { Skeleton, SkeletonShape, SkeletonText } from "#/components/ui/skeleton.tsx";
 import type { Announcement } from "#/lib/api/schemas.ts";
 import { announcementHref } from "#/lib/data/announcements.ts";
 import { getLatestNews, getNewsItemBySlug, getNewsItemSlugs, latestNewsCount } from "#/lib/data/news.ts";
+import { createArticle } from "#/lib/json-ld.ts";
 import { createMetadata } from "#/lib/metadata.ts";
 import { href } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
@@ -106,13 +108,13 @@ async function NewsItem(props: Pick<NewsItemPageProps, "params">): Promise<React
 		notFound();
 	}
 
+	const current = href({ pathname: "/news/[slug]", params: { slug } });
+
 	return (
-		<Article
-			current={href({ pathname: "/news/[slug]", params: { slug } })}
-			item={item}
-			parent={href({ pathname: "/news" })}
-			publishedAt={item.publishedAt}
-		/>
+		<Fragment>
+			<JsonLd item={await createArticle({ type: "NewsArticle", href: current, item })} />
+			<Article current={current} item={item} parent={href({ pathname: "/news" })} publishedAt={item.publishedAt} />
+		</Fragment>
 	);
 }
 
