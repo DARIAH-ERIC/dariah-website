@@ -352,8 +352,9 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 							type="search"
 						/>
 					</div>
+					{/* Overlaps the input's focus ring by its own border, so the two make one 3px seam rather than 5px. */}
 					<button
-						className="relative border-2 border-stroke-accent bg-background-accent-strong px-8 font-heading font-bold text-text-inverse hover:bg-background-base hover:text-text-accent focus-visible-outline"
+						className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-8 font-heading font-bold text-text-inverse hover:bg-background-base hover:text-text-accent focus-visible-outline"
 						type="submit"
 					>
 						{t("Search")}
