@@ -668,8 +668,8 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 						image={item.image}
 						sizes={
 							isLead
-								? "(min-width: 120rem) 60rem, (min-width: 96rem) 50vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw"
-								: "(min-width: 120rem) 30rem, (min-width: 96rem) 25vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw"
+								? "(min-width: 120rem) 60rem, (min-width: 96rem) 50vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, calc(100vw - 4rem)"
+								: "(min-width: 120rem) 30rem, (min-width: 96rem) 25vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, calc(100vw - 4rem)"
 						}
 					/>
 					<div
