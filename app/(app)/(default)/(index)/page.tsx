@@ -516,11 +516,13 @@ interface PillarCardProps extends CardProps {
 function PillarCard(props: Readonly<PillarCardProps>): ReactNode {
 	const { title, description, href, background, icon, label } = props;
 
-	const headingId = useId();
-	const labelId = useId();
-
 	/**
 	 * The rule below the title is decoration, drawn by the heading itself.
+	 *
+	 * The link's visible label is the generic "Read more", so the title follows it as visually hidden text, starting the
+	 * link's name with what is visible, which voice control users say to activate it (wcag 2.5.3, label in name). It is
+	 * text in the link rather than `aria-labelledby`: lighthouse's link text audit reads the link's rendered text and
+	 * ignores aria, so it flags a link that shows only "Read more".
 	 *
 	 * The description's size follows the card's width, with a `text-pillar-*` size for each number of columns. Its
 	 * measure is narrower than the card, as in the design, by an end padding rather than a maximum width: a fixed measure
@@ -544,10 +546,7 @@ function PillarCard(props: Readonly<PillarCardProps>): ReactNode {
 					/>
 				</div>
 			</div>
-			<h3
-				className="mbs-10 font-heading text-title-2 uppercase after:mbs-7 after:block after:inline-25 after:border-be-3 after:border-stroke-pillar after:content-['']"
-				id={headingId}
-			>
+			<h3 className="mbs-10 font-heading text-title-2 uppercase after:mbs-7 after:block after:inline-25 after:border-be-3 after:border-stroke-pillar after:content-['']">
 				{title}
 			</h3>
 			<p className="mbs-7 pe-[15%] font-heading lg:max-xl:pe-[5%] text-pillar-1 leading-relaxed text-pretty sm:text-pillar-2 lg:text-pillar-4">
@@ -555,11 +554,11 @@ function PillarCard(props: Readonly<PillarCardProps>): ReactNode {
 			</p>
 			<footer className="mbs-9 sm:mbs-7">
 				<Link
-					aria-labelledby={`${labelId} ${headingId}`}
 					className="inline-flex items-center gap-2 font-medium underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-12 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 					href={href}
 				>
-					<span id={labelId}>{label}</span>
+					{label}
+					<span className="sr-only"> {title}</span>
 					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
 				</Link>
 			</footer>
@@ -673,8 +672,8 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 						image={item.image}
 						sizes={
 							isLead
-								? "(min-width: 120rem) 60rem, (min-width: 96rem) 50vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw"
-								: "(min-width: 120rem) 30rem, (min-width: 96rem) 25vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, 100vw"
+								? "(min-width: 120rem) 60rem, (min-width: 96rem) 50vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, calc(100vw - 4rem)"
+								: "(min-width: 120rem) 30rem, (min-width: 96rem) 25vw, (min-width: 64rem) 33vw, (min-width: 48rem) 50vw, calc(100vw - 4rem)"
 						}
 					/>
 					<div
@@ -846,6 +845,12 @@ interface StatisticImageProps {
  * A statistic's icon on a disc, over a glow, in concentric rings - drawn in the design's 407px square and scaled to the
  * element's width. The rings keep a 1px stroke at any size. They animate through `scale`, from the square's centre;
  * with reduced motion, the global rule stops them in the design's static frame.
+ *
+ * Chrome does not throttle animations offscreen: the rings' scale is not composited - an svg element's transform isn't,
+ * and a non-scaling stroke has to be redrawn at each scale anyway - so they would cost a style recalc, layout and paint
+ * on every frame while the page is open, wherever it is scrolled. `content-visibility: auto` skips rendering the
+ * element while it is offscreen, its animations included. That also takes the size of its contents away from it
+ * offscreen, so `aspect-square` gives it the size of the square svg: its width is the layout's.
  */
 function StatisticImage(props: Readonly<StatisticImageProps>): ReactNode {
 	const { animation, className, icon, rings } = props;
@@ -853,7 +858,7 @@ function StatisticImage(props: Readonly<StatisticImageProps>): ReactNode {
 	const glowId = useId();
 
 	return (
-		<div className={cn("relative grid place-items-center", className)}>
+		<div className={cn("relative grid aspect-square place-items-center [content-visibility:auto]", className)}>
 			<svg aria-hidden={true} className="block inline-full" fill="none" viewBox="0 0 407 407">
 				<defs>
 					<linearGradient
