@@ -75,7 +75,8 @@ const EventRowSchema = v.object({
 	label: v.string(),
 	nb_events: v.number(),
 	nb_visits: v.number(),
-	max_event_value: v.optional(v.number()),
+	/** `null` for events tracked without a value, e.g. pagination, and those of other trackers on the site. */
+	max_event_value: v.nullish(v.number()),
 });
 
 /** Events by action, each with its events by name as a subtable - asked for with `expanded`. */
