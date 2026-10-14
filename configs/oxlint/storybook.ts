@@ -32,6 +32,12 @@ const config = defineConfig({
 				"import/no-default-export": "off",
 			},
 		},
+		{
+			files: [".storybook/*.ts", ".storybook/*.tsx"],
+			rules: {
+				"import/no-default-export": "off",
+			},
+		},
 	],
 });
 
