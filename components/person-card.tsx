@@ -71,9 +71,11 @@ interface PersonCardProps {
 }
 
 /**
- * The link's label is the generic "Read more", so the person's name follows it in the link's name - "Read more <name>",
- * starting with what is visible, which voice control users say to activate it (wcag 2.5.3, label in name). It stretches
- * over the whole card, which draws its focus outline.
+ * The link's visible label is the generic "Read more", so the person's name follows it as visually hidden text,
+ * starting the link's name with what is visible, which voice control users say to activate it (wcag 2.5.3, label in
+ * name). It is text in the link rather than `aria-labelledby`: lighthouse's link text audit reads the link's rendered
+ * text and ignores aria, so it flags a link that shows only "Read more". The link stretches over the whole card, which
+ * draws its focus outline.
  *
  * The image is 136px wide at every width, beside the text from `sm` up and above it on a phone, where beside it would
  * leave the text a column too narrow to read - a few words to a line. A person without a portrait gets the DARIAH-EU
@@ -90,9 +92,6 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 	const Heading = headingLevel === 3 ? "h3" : "h4";
 
 	const t = useTranslations();
-
-	const nameId = useId();
-	const labelId = useId();
 
 	const getPositionLabel = usePositionLabel();
 
@@ -117,10 +116,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 				)}
 			</div>
 			<div className="flex min-inline-0 flex-col gap-y-2 pbs-1">
-				<Heading
-					className="text-title-4 leading-heading text-text-strong [text-box:trim-start_cap_alphabetic]"
-					id={nameId}
-				>
+				<Heading className="text-title-4 leading-heading text-text-strong [text-box:trim-start_cap_alphabetic]">
 					{person.name}
 				</Heading>
 				{roles.length > 0 || affiliations.length > 0 ? (
@@ -130,12 +126,12 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 					</div>
 				) : null}
 				<Link
-					aria-labelledby={`${labelId} ${nameId}`}
 					className="mbs-2 inline-flex items-center gap-2 self-start text-body font-medium text-text-strong underline-offset-4 outline-none group-hover:underline after:absolute after:inset-0 focus-visible:after:outline-3 focus-visible:after:outline-offset-4 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 					href={href({ pathname: "/persons/[slug]", params: { slug: person.slug } })}
 					prefetch="intent"
 				>
-					<span id={labelId}>{t("Read more")}</span>
+					{t("Read more")}
+					<span className="sr-only"> {person.name}</span>
 					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
 				</Link>
 			</div>
