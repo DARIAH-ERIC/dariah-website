@@ -33,14 +33,15 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 	const style = withFocalPoint(image, ownStyle);
 
 	/**
-	 * A high priority image is usually the page's largest contentful paint, and it is two other origins away: the api's
-	 * variant endpoint, which answers with a redirect, and imgproxy, which serves the rendition. With a preconnect to
-	 * each in the head, both connections are open by the time the image is found in the body.
+	 * An api image is two other origins away: the api's variant endpoint, which answers with a redirect, and imgproxy,
+	 * which serves the rendition. With a preconnect to each, both connections are open by the time the image is requested -
+	 * for a high priority image, usually the page's largest contentful paint, as soon as it is found in the body, and for
+	 * a lazy one near the viewport, like the landing page's news cards, soon after. React emits each origin once per
+	 * page, and for a prerendered page as a `Link` response header rather than a tag in the head. A page whose lazy
+	 * images are never scrolled near pays for two unused handshakes, which the browser drops after a few seconds.
 	 */
-	if (rest.fetchPriority === "high") {
-		preconnect(new URL(image.srcUrl).origin);
-		preconnect(env.IMGPROXY_BASE_URL);
-	}
+	preconnect(new URL(image.srcUrl).origin);
+	preconnect(env.IMGPROXY_BASE_URL);
 
 	/**
 	 * A vector has no resolution to ladder against, and the endpoint hands one back untouched, so naming a width would
