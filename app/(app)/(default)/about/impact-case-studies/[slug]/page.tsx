@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { useExtracted as useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
-import { type ReactNode, Suspense } from "react";
+import { Fragment, type ReactNode, Suspense } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { Article } from "#/components/article.tsx";
+import { JsonLd } from "#/components/json-ld.tsx";
 import { PageHeaderSkeleton } from "#/components/page-header.tsx";
 import { getImpactCaseStudyBySlug, getImpactCaseStudySlugs } from "#/lib/data/impact-case-studies.ts";
+import { createArticle } from "#/lib/json-ld.ts";
 import { createMetadata } from "#/lib/metadata.ts";
 import { href } from "#/lib/navigation/href.ts";
 
@@ -84,11 +86,12 @@ async function ImpactCaseStudy(props: Pick<ImpactCaseStudyPageProps, "params">):
 		notFound();
 	}
 
+	const current = href({ pathname: "/about/impact-case-studies/[slug]", params: { slug } });
+
 	return (
-		<Article
-			current={href({ pathname: "/about/impact-case-studies/[slug]", params: { slug } })}
-			item={item}
-			parent={href({ pathname: "/about/impact-case-studies" })}
-		/>
+		<Fragment>
+			<JsonLd item={await createArticle({ type: "Article", href: current, item })} />
+			<Article current={current} item={item} parent={href({ pathname: "/about/impact-case-studies" })} />
+		</Fragment>
 	);
 }

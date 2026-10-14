@@ -1,8 +1,10 @@
 import { getExtracted as getTranslations } from "next-intl/server";
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 
+import { JsonLd } from "#/components/json-ld.tsx";
 import { SkeletonText } from "#/components/ui/skeleton.tsx";
 import { getNavigationMenu } from "#/lib/data/navigation.ts";
+import { createBreadcrumbList } from "#/lib/json-ld.ts";
 import { type Href, href, serializeHref } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
 
@@ -28,6 +30,9 @@ interface BreadcrumbsProps {
  * section is a dropdown with no page of its own, so it is named but not linked - nor coloured as a link; a page the
  * menu does not list gets only the home link, unless it names a `parent` the menu does list, in a section or at its top
  * level.
+ *
+ * The same trail goes to search engines as structured data, once the page's label is known - see
+ * `createBreadcrumbList`.
  */
 export async function Breadcrumbs(props: Readonly<BreadcrumbsProps>): Promise<ReactNode> {
 	const { current, label, parent } = props;
@@ -47,40 +52,53 @@ export async function Breadcrumbs(props: Readonly<BreadcrumbsProps>): Promise<Re
 				? section.children.find((child) => !child.isExternal && child.href === pathname)
 				: menu?.items.find((item) => item.kind === "link" && !item.isExternal && item.href === pathname);
 
+	const home = href({ pathname: "/" });
+
 	return (
-		<nav aria-label={t("Breadcrumbs")}>
-			<ol className="flex flex-wrap items-baseline gap-x-2 text-caption uppercase" role="list">
-				<li className="flex items-baseline gap-x-2">
-					<Link className="text-text-accent hover:underline focus-visible-outline" href={href({ pathname: "/" })}>
-						{t("Home")}
-					</Link>
-					<Separator />
-				</li>
-				{section != null ? (
+		<Fragment>
+			{label != null ? (
+				<JsonLd
+					item={createBreadcrumbList([
+						{ name: t("Home"), href: home },
+						...(parent != null && parentItem != null ? [{ name: parentItem.label, href: parent }] : []),
+						{ name: label, href: current },
+					])}
+				/>
+			) : null}
+			<nav aria-label={t("Breadcrumbs")}>
+				<ol className="flex flex-wrap items-baseline gap-x-2 text-caption uppercase" role="list">
 					<li className="flex items-baseline gap-x-2">
-						<span>{section.label}</span>
-						<Separator />
-					</li>
-				) : null}
-				{parent != null && parentItem != null ? (
-					<li className="flex items-baseline gap-x-2">
-						<Link className="text-text-accent hover:underline focus-visible-outline" href={parent}>
-							{parentItem.label}
+						<Link className="text-text-accent hover:underline focus-visible-outline" href={home}>
+							{t("Home")}
 						</Link>
 						<Separator />
 					</li>
-				) : null}
-				<li>
-					{label != null ? (
-						<span aria-current="page" className="text-text-strong">
-							{label}
-						</span>
-					) : (
-						<SkeletonText className="inline-40" />
-					)}
-				</li>
-			</ol>
-		</nav>
+					{section != null ? (
+						<li className="flex items-baseline gap-x-2">
+							<span>{section.label}</span>
+							<Separator />
+						</li>
+					) : null}
+					{parent != null && parentItem != null ? (
+						<li className="flex items-baseline gap-x-2">
+							<Link className="text-text-accent hover:underline focus-visible-outline" href={parent}>
+								{parentItem.label}
+							</Link>
+							<Separator />
+						</li>
+					) : null}
+					<li>
+						{label != null ? (
+							<span aria-current="page" className="text-text-strong">
+								{label}
+							</span>
+						) : (
+							<SkeletonText className="inline-40" />
+						)}
+					</li>
+				</ol>
+			</nav>
+		</Fragment>
 	);
 }
 
