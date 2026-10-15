@@ -1,10 +1,10 @@
 allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
-  better-sqlite3: false
+  better-sqlite3: true
   esbuild: true
   lefthook: true
-  msgpackr-extract: false
+  msgpackr-extract: true
 
 autoDedupe: true
 
@@ -13,10 +13,7 @@ engineStrict: true
 lockfile:
   includeResolutionSettings: true
 
-minimumReleaseAge: 1440
-
-minimumReleaseAgeExclude:
-  - '@types/bun@1.4.3'
+minimumReleaseAge: 720
 
 patchedDependencies:
   '@react-aria/optimize-locales-plugin': patches/@react-aria__optimize-locales-plugin.patch
