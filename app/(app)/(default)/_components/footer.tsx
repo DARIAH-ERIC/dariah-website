@@ -123,7 +123,12 @@ export async function Footer(): Promise<ReactNode> {
 				</div>
 			</div>
 
-			<small className="mbs-16 flex items-center gap-3 text-small">
+			{/* One line, separated by middots, which wraps on narrow viewports. */}
+			<address className="mbs-16 text-small not-italic">
+				{t("DARIAH ERIC · c/o CNRS – UAR3598 – Huma-Num · 54 boulevard Raspail · 75006 Paris · France")}
+			</address>
+
+			<small className="mbs-3 flex items-center gap-3 text-small">
 				{/* Decorative: the licence is named in the sentence next to them. Their colour is `--color-icon-strong`, a step
 				    lighter than the text as marks read heavier than type, baked into the files as `#4a5565`. */}
 				<span className="flex shrink-0 items-center gap-1">

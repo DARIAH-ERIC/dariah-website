@@ -7,6 +7,7 @@ import type {
 	NewsArticle,
 	Organization,
 	Person,
+	PostalAddress,
 	WebSite,
 	WithContext,
 } from "schema-dts";
@@ -52,6 +53,15 @@ function toImageUrl(image: Image): string {
 	return toAbsoluteUrl(url.toString());
 }
 
+/** The postal address of the statutory seat, as the footer shows it. The api has no address, so it is fixed here. */
+const organizationAddress: PostalAddress = {
+	"@type": "PostalAddress",
+	streetAddress: "c/o CNRS – UAR3598 – Huma-Num, 54 boulevard Raspail",
+	postalCode: "75006",
+	addressLocality: "Paris",
+	addressCountry: "FR",
+};
+
 /**
  * The organisation behind the site, with its social media profiles as `sameAs`. The `website` entry is this site
  * itself, which is already its `url`.
@@ -66,6 +76,7 @@ export function createOrganization(site: SiteMetadata): WithContext<Organization
 		url: toAbsoluteUrl("/"),
 		logo: toAbsoluteUrl("/android-chrome-512x512.png"),
 		...(site.email != null ? { email: site.email } : {}),
+		address: organizationAddress,
 		sameAs: site.socialMedia.filter((link) => link.type !== "website").map((link) => link.url),
 	};
 }
