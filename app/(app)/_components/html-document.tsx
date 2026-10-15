@@ -20,7 +20,7 @@ export function HtmlDocument(props: Readonly<HtmlDocumentProps>): ReactNode {
 			className={cn(fonts.body.variable, fonts.heading.variable, fonts.code.variable)}
 			dir={isRTL(locale) ? "rtl" : "ltr"}
 			lang={locale}
-			style={fonts.headingFontFamilyStyle}
+			style={fonts.fontFamilyStyle}
 		>
 			{children}
 		</html>

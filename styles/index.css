@@ -126,10 +126,15 @@
  * ============================================================================================
  */
 
+/**
+ * Each stack ends in a generic family, which the stacks the font loaders generate leave out: without one, a glyph that
+ * neither the web font nor its fallbacks have is drawn in the browser's default font, a serif. The generated fallbacks
+ * are the local Arial, which Linux and Android do not have.
+ */
 @theme {
-	--font-body: var(--_font-body, var(--default-font-family));
-	--font-heading: var(--_font-heading, var(--font-body));
-	--font-code: var(--_font-code, var(--default-mono-font-family));
+	--font-body: var(--_font-body, var(--default-font-family)), sans-serif;
+	--font-heading: var(--_font-heading, var(--font-body)), sans-serif;
+	--font-code: var(--_font-code, var(--default-mono-font-family)), monospace;
 }
 
 /**

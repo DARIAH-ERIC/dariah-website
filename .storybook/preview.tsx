@@ -12,7 +12,7 @@ import { defaultLocale, timeZone } from "#/lib/i18n/locales.ts";
  * element below it they would not take effect.
  */
 document.documentElement.classList.add(fonts.body.variable, fonts.heading.variable, fonts.code.variable);
-for (const [property, value] of Object.entries(fonts.headingFontFamilyStyle)) {
+for (const [property, value] of Object.entries(fonts.fontFamilyStyle)) {
 	document.documentElement.style.setProperty(property, String(value));
 }
 document.documentElement.lang = defaultLocale;
