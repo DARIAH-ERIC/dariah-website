@@ -106,7 +106,7 @@ const config = defineConfig({
 		"react/jsx-no-script-url": "warn",
 		"react/memo-dependencies": "error",
 		"react/no-namespace": "error",
-		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
+		"react/no-unstable-nested-components": ["error", { allowAsProps: true }],
 		"react/react-in-jsx-scope": "off",
 		"react/style-prop-object": "warn",
 

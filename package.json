@@ -36,9 +36,9 @@
 		"storybook:build": "bun run --bun storybook build",
 		"storybook:dev": "bun run --bun storybook dev --no-open --port 6006",
 		"test:e2e": "playwright test --config ./e2e/playwright.config.ts --update-snapshots=missing",
-		"test:types": "tsc --project ./tests/types/tsconfig.json",
+		"test:types": "bun run --bun tsc --project ./tests/types/tsconfig.json",
 		"test:unit": "bun test ./tests/unit",
-		"types:check": "tsc --noEmit",
+		"types:check": "bun run --bun tsc --noEmit",
 		"types:prepare": "ENV_VALIDATION=\"none\" bun run --bun next typegen"
 	},
 	"dependencies": {
@@ -121,11 +121,18 @@
 			"version": "12.11.2",
 			"onFail": "download"
 		},
-		"runtime": {
-			"name": "bun",
-			"version": "^1.4.3",
-			"onFail": "download"
-		}
+		"runtime": [
+			{
+				"name": "bun",
+				"version": "^1.4.3",
+				"onFail": "download"
+			},
+			{
+				"name": "node",
+				"version": "^24.22.0",
+				"onFail": "warn"
+			}
+		]
 	},
 	"engines": {
 		"runtime": {
