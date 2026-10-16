@@ -106,7 +106,7 @@ const config = defineConfig({
 		"react/jsx-no-script-url": "warn",
 		"react/memo-dependencies": "error",
 		"react/no-namespace": "error",
-		"react/no-unstable-nested-components": "error",
+		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
 		"react/react-in-jsx-scope": "off",
 		"react/style-prop-object": "warn",
 
@@ -116,7 +116,8 @@ const config = defineConfig({
 		 * ================================================================================================================
 		 */
 
-		"react/jsx-no-constructed-context-values": "warn",
+		/** Off because the React Compiler memoizes context values automatically. */
+		"react/jsx-no-constructed-context-values": "off",
 		"react/no-array-index-key": "warn",
 		"react/no-deriving-state-in-effects": "error",
 		"react/no-object-type-as-default-prop": "warn",
