@@ -79,6 +79,11 @@ export const redirects: Redirects = [
 		permanent: true,
 	},
 	{ source: "/category/news", destination: "/news", permanent: true },
+	{
+		source: "/country/:id",
+		destination: "/network/members-and-partners/:id",
+		permanent: true,
+	},
 	{ source: "/event/:path*", destination: "/events/:path*", permanent: true },
 	/** The legacy calendar feed, which calendar apps keep polling at the url they subscribed to. */
 	{
