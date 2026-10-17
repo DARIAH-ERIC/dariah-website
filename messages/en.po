@@ -42,6 +42,11 @@ msgid "Social media"
 msgstr "Social media"
 
 #: app/(app)/(default)/_components/footer.tsx
+msgctxt "mZbYKi"
+msgid "DARIAH ERIC · c/o CNRS – UAR3598 – Huma-Num · 54 boulevard Raspail · 75006 Paris · France"
+msgstr "DARIAH ERIC · c/o CNRS – UAR3598 – Huma-Num · 54 boulevard Raspail · 75006 Paris · France"
+
+#: app/(app)/(default)/_components/footer.tsx
 msgctxt "8rymPo"
 msgid "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with <a>DARIAH's Open Access Policy</a>."
 msgstr "Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with <a>DARIAH's Open Access Policy</a>."
