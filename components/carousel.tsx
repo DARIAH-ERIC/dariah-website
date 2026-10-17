@@ -3,7 +3,7 @@
 import cn from "clsx/lite";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useExtracted as useTranslations } from "next-intl";
-import { type ReactNode, type RefObject, useEffect, useRef, useState } from "react";
+import { type ReactNode, type RefObject, useEffect, useId, useRef, useState } from "react";
 
 /** How far, in css pixels, the strip may sit off an edge and still count as at it - scroll positions are fractional. */
 const edgeTolerance = 1;
@@ -63,11 +63,20 @@ function useScrollState(ref: RefObject<HTMLElement | null>): ScrollState | null 
 	return scrollState;
 }
 
-interface CarouselProps {
-	/** What the strip holds, for its accessible name - e.g. "Image gallery". */
-	label: string;
+type CarouselProps = {
 	slides: Array<ReactNode>;
-}
+} & (
+	| {
+			/** What the strip holds, for its accessible name - e.g. "Image gallery". */
+			label: string;
+			labelledBy?: never;
+	  }
+	| {
+			/** The id of a visible label, such as the gallery's own caption, to name the strip by instead. */
+			labelledBy: string;
+			label?: never;
+	  }
+);
 
 /**
  * A row of slides that scrolls sideways, one slide snapping to the start edge at a time.
@@ -84,13 +93,15 @@ interface CarouselProps {
  * chromium and firefox already make a scroller focusable, safari does not.
  *
  * A list, and a `group` rather than a `region` landmark, so a page with several galleries gets no landmark for each and
- * a screen reader still announces a slide's position in the set.
+ * a screen reader still announces a slide's position in the set. The buttons point at the list with `aria-controls`, as
+ * in the aria practices guide's carousel example.
  */
 export function Carousel(props: Readonly<CarouselProps>): ReactNode {
-	const { label, slides } = props;
+	const { label, labelledBy, slides } = props;
 
 	const t = useTranslations();
 
+	const listId = useId();
 	const scrollerRef = useRef<HTMLUListElement>(null);
 	const scrollState = useScrollState(scrollerRef);
 
@@ -132,9 +143,10 @@ export function Carousel(props: Readonly<CarouselProps>): ReactNode {
 		"flex items-center justify-center border-2 border-stroke-accent text-text-accent block-10 inline-10 focus-visible-outline hover:not-aria-disabled:bg-background-accent-strong hover:not-aria-disabled:text-text-inverse aria-disabled:border-stroke-weak aria-disabled:text-text-weak";
 
 	return (
-		<div aria-label={label} aria-roledescription={t("carousel")} role="group">
+		<div aria-label={label} aria-labelledby={labelledBy} aria-roledescription={t("carousel")} role="group">
 			<ul
 				className="flex snap-x snap-mandatory list-none gap-4 overflow-x-auto p-0 pbe-2 focus-visible-outline motion-safe:scroll-smooth"
+				id={listId}
 				ref={scrollerRef}
 				role="list"
 				// oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- A scroller safari does not make focusable itself, see above.
@@ -150,6 +162,7 @@ export function Carousel(props: Readonly<CarouselProps>): ReactNode {
 			{scrollState != null && !scrollState.previous && !scrollState.next ? null : (
 				<div className={cn("mbs-2 flex justify-end gap-2", scrollState == null && "invisible")}>
 					<button
+						aria-controls={listId}
 						aria-disabled={scrollState?.previous !== true}
 						className={buttonClassName}
 						onClick={() => {
@@ -161,6 +174,7 @@ export function Carousel(props: Readonly<CarouselProps>): ReactNode {
 						<span className="sr-only">{t("Previous slide")}</span>
 					</button>
 					<button
+						aria-controls={listId}
 						aria-disabled={scrollState?.next !== true}
 						className={buttonClassName}
 						onClick={() => {

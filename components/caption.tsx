@@ -11,6 +11,8 @@ interface CaptionProps {
 	content: unknown;
 	license?: BlockImage["license"];
 	className?: string;
+	/** For a carousel to be named by its gallery's caption. */
+	id?: string;
 }
 
 /**
@@ -27,7 +29,7 @@ interface CaptionProps {
  * them from the text around them; on hover the underline thickens and the link darkens to the body's colour.
  */
 export function Caption(props: Readonly<CaptionProps>): ReactNode {
-	const { content, license, className } = props;
+	const { content, license, className, id } = props;
 	const hasCaption = !isEmptyRichTextDocument(content as JSONContent | null | undefined);
 
 	if (!hasCaption && license == null) {
@@ -40,6 +42,7 @@ export function Caption(props: Readonly<CaptionProps>): ReactNode {
 				"mbs-3 text-caption text-text-weak [&_a]:underline [&_a]:underline-offset-2 [&_a]:focus-visible-outline [&_a]:hover:text-text-strong [&_a]:hover:decoration-2",
 				className,
 			)}
+			id={id}
 		>
 			{hasCaption ? <InlineRichText content={content} /> : null}
 			{license != null ? (

@@ -1,7 +1,7 @@
 import type { JSONContent } from "@tiptap/core";
 import cn from "clsx/lite";
 import { useExtracted as useTranslations } from "next-intl";
-import type { ReactNode } from "react";
+import { type ReactNode, useId } from "react";
 
 import { ApiImage } from "#/components/api-image.tsx";
 import { Caption } from "#/components/caption.tsx";
@@ -283,6 +283,8 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 
 	const t = useTranslations();
 
+	const captionId = useId();
+
 	const items = (Array.isArray(block.items) ? block.items.filter((item) => isRecord(item)) : [])
 		.map((item) => {
 			return { image: asImage(item.image), caption: item.caption };
@@ -294,6 +296,8 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 	}
 
 	const layout = block.layout;
+
+	const hasCaption = !isEmptyRichTextDocument(block.caption as JSONContent | null | undefined);
 
 	const images =
 		layout === "logos" ? (
@@ -315,8 +319,12 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 				))}
 			</ul>
 		) : layout === "carousel" ? (
+			/**
+			 * Named by the gallery's own caption when it has one, so two galleries on a page are told apart by what they show
+			 * rather than both reading as "Image gallery".
+			 */
 			<Carousel
-				label={t("Image gallery")}
+				{...(hasCaption ? { labelledBy: captionId } : { label: t("Image gallery") })}
 				slides={items.map((item, index) => (
 					/** A cap, not a fixed width: a narrow source makes a narrow slide rather than being stretched over one. */
 					// oxlint-disable-next-line react/no-array-index-key -- Gallery items carry no id of their own.
@@ -354,14 +362,14 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 			</div>
 		);
 
-	if (isEmptyRichTextDocument(block.caption as JSONContent | null | undefined)) {
+	if (!hasCaption) {
 		return images;
 	}
 
 	return (
 		<figure>
 			{images}
-			<Caption content={block.caption} />
+			<Caption content={block.caption} id={captionId} />
 		</figure>
 	);
 }
