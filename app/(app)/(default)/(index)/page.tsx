@@ -257,8 +257,12 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * line. The space above and below the cards grows from 40px at 1024px to the design's 70px at 1920px; on phones, where
 			 * the cards stack, it is the mobile design's 64px, and the link to all events only as wide as its label, at the
 			 * screen's edge.
+			 *
+			 * From here down, the sections are rendered only once they near the viewport (`deferred-render-*`). Their estimated
+			 * heights are their content box heights as measured at each breakpoint, in spacing steps. The section above is not
+			 * deferred: its heading reaches up over the hero, and would be clipped.
 			 */}
-			<section className="mbs-24 grid gap-x-8 bg-gradient-events px-container pbs-20 pbe-18 text-text-inverse md:pbs-16 md:pbe-20 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-gutter-wide">
+			<section className="deferred-render-456 sm:deferred-render-404 md:deferred-render-233 lg:deferred-render-219 xl:deferred-render-146 2xl:deferred-render-154 mbs-24 grid gap-x-8 bg-gradient-events px-container pbs-20 pbe-18 text-text-inverse md:pbs-16 md:pbe-20 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-gutter-wide">
 				<h2 className="col-span-full section-heading">{t("Upcoming events")}</h2>
 				<SectionErrorBoundary className="col-span-full mbs-16 md:mbs-block">
 					<Suspense fallback={<EventsSectionSkeleton />}>
@@ -280,7 +284,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * Columns: one below `sm`; two from `sm`; four from `lg`, where the cards are wide enough for a readable line length;
 			 * at two, the cards would be wider than the design's 384px from there, with an outsize image panel.
 			 */}
-			<section className="px-container pbs-16 pbe-24 md:pbs-20 xl:pbe-32">
+			<section className="deferred-render-800 sm:deferred-render-317 md:deferred-render-354 lg:deferred-render-159 xl:deferred-render-164 2xl:deferred-render-195 px-container pbs-16 pbe-24 md:pbs-20 xl:pbe-32">
 				<h2 className="section-heading">{t("Four pillars of our work")}</h2>
 				<ul className="mbs-16 grid gap-x-9 sm:mbs-10 sm:grid-cols-2 lg:grid-cols-4" role="list">
 					{pillars.map((card) => (
@@ -308,7 +312,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * events section's, from 32px at 1024px to the design's 128px at 1920px, and so does the space above and below the
 			 * cards, from 96px to the design's 160px.
 			 */}
-			<section className="relative grid grid-rows-[auto_--spacing(37.5)_auto] overflow-hidden md:max-lg:grid-rows-[auto_0_auto] px-container pbs-20 pbe-block-loose text-text-inverse">
+			<section className="deferred-render-449 sm:deferred-render-399 md:deferred-render-280 lg:deferred-render-216 xl:deferred-render-190 2xl:deferred-render-198 relative grid grid-rows-[auto_--spacing(37.5)_auto] overflow-hidden md:max-lg:grid-rows-[auto_0_auto] px-container pbs-20 pbe-block-loose text-text-inverse">
 				<Image
 					alt=""
 					className="object-cover"
@@ -340,7 +344,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 				</ul>
 			</section>
 
-			<section className="px-container pbs-20 pbe-24">
+			<section className="deferred-render-573 sm:deferred-render-543 md:deferred-render-304 lg:deferred-render-279 xl:deferred-render-283 2xl:deferred-render-190 px-container pbs-20 pbe-24">
 				<h2 className="section-heading">{t("Our network")}</h2>
 				{/* Without the figures, the section is its heading and the links to the network's pages. */}
 				<SectionErrorBoundary isHidden={true}>
@@ -379,7 +383,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * the mobile design, the section is taller and the photo enlarged from its bottom edge, so it is cropped in on the
 			 * people, and the box spans the width.
 			 */}
-			<section className="relative flex min-block-200 max-inline-full flex-col items-center justify-end overflow-clip sm:min-block-112 sm:px-container lg:aspect-12/5">
+			<section className="deferred-render-0 relative flex min-block-200 max-inline-full flex-col items-center justify-end overflow-clip sm:min-block-112 sm:px-container lg:aspect-12/5">
 				<Image
 					alt=""
 					className="origin-bottom object-cover max-sm:scale-135"

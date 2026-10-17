@@ -931,6 +931,24 @@
 	}
 }
 
+/**
+ * Skips rendering a page section while it is offscreen - no style, layout or paint, its animations included - for
+ * sections below the fold of a long page. It is skipped for rendering only: with a screen reader running, its content
+ * is exposed as usual, and keyboard focus, find-in-page and links to a fragment in it render it and scroll it into view.
+ * While skipped, `text-transform` is not applied to the names exposed, so an `uppercase` heading is read as written.
+ *
+ * Until it has been rendered once, the section's content box takes the block size given as a spacing multiple, e.g.
+ * `deferred-render-475` for 118.75rem, as an estimate of its rendered height: in rem, it follows the user's font size.
+ * After that, the browser remembers its last rendered size. An estimate far off shows as the scrollbar thumb changing
+ * size while scrolling; scroll anchoring keeps the content in view in place.
+ *
+ * It contains paint, so, like `overflow: clip`, nothing in the section may draw outside it, focus outlines included.
+ */
+@utility deferred-render-* {
+	content-visibility: auto;
+	contain-intrinsic-block-size: auto calc(var(--spacing) * --value(number));
+}
+
 @utility lead-in {
 	@apply text-lead font-heading;
 }
