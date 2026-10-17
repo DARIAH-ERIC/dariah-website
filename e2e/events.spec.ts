@@ -60,7 +60,6 @@ async function getListedMonths(page: Page): Promise<Array<string>> {
  * same name, which belongs to no form (`form=""`).
  */
 function getSubmittedDate(page: Page, name: "anchor" | "month"): Locator {
-	// oxlint-disable-next-line playwright/no-raw-locators -- A hidden input has no role.
 	return page.locator(`input[name="${name}"]:not([type="date"])`);
 }
 

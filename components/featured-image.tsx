@@ -78,7 +78,7 @@ export function FeaturedImage(props: Readonly<FeaturedImageProps>): ReactNode {
 	return (
 		<figure className={isCompact ? "me-auto max-inline-[min(18rem,100%)]" : undefined}>
 			<ApiImage
-				className="ms-auto me-auto inline-auto border border-stroke-weak"
+				className="ms-auto me-auto border border-stroke-weak inline-auto"
 				{...loading}
 				image={image}
 				/**

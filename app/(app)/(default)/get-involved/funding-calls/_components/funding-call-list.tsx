@@ -98,9 +98,9 @@ function FundingCallCard(props: Readonly<{ call: FundingCallBase | null }>): Rea
 	return (
 		<Root
 			aria-labelledby={call != null ? headingId : undefined}
-			className="group relative flex inline-full flex-col bg-background-base shadow-card-edge sm:min-block-64 sm:justify-center"
+			className="group relative flex flex-col bg-background-base shadow-card-edge inline-full sm:justify-center sm:min-block-64"
 		>
-			<div className="relative aspect-1200/565 sm:absolute sm:inset-y-0 sm:inset-e-0 sm:inline-3/5 sm:aspect-auto sm:mask-[linear-gradient(to_right,transparent,black_60%)]">
+			<div className="relative aspect-1200/565 sm:absolute sm:inset-y-0 sm:inset-e-0 sm:aspect-auto sm:mask-[linear-gradient(to_right,transparent,black_60%)] sm:inline-3/5">
 				{call != null ? (
 					<ApiImage
 						alt=""
@@ -113,7 +113,7 @@ function FundingCallCard(props: Readonly<{ call: FundingCallBase | null }>): Rea
 					<SkeletonShape className="absolute inset-0 rounded-none" />
 				)}
 			</div>
-			<div className="z-1 flex flex-col items-start gap-y-5 px-6 py-8 sm:max-inline-1/2 sm:px-13">
+			<div className="z-1 flex flex-col items-start gap-y-5 px-6 py-8 sm:px-13 sm:max-inline-1/2">
 				<Image alt="" className="block-16 inline-auto" src={logo} />
 				{call != null ? (
 					<h2 className="flex flex-col items-start gap-y-2 font-heading text-title-3" id={headingId}>
@@ -124,7 +124,7 @@ function FundingCallCard(props: Readonly<{ call: FundingCallBase | null }>): Rea
 						>
 							{call.title}
 						</Link>
-						<Suspense fallback={<SkeletonShape className="text-badge block-[calc(1lh+--spacing(1))] inline-16" />}>
+						<Suspense fallback={<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-16" />}>
 							<FundingCallStatusBadge call={call} />
 						</Suspense>
 					</h2>
@@ -134,7 +134,7 @@ function FundingCallCard(props: Readonly<{ call: FundingCallBase | null }>): Rea
 				{call != null ? (
 					<DateRange className="text-caption" end={call.duration.end} start={call.duration.start} />
 				) : (
-					<SkeletonText className="inline-48 text-caption" />
+					<SkeletonText className="text-caption inline-48" />
 				)}
 			</div>
 		</Root>

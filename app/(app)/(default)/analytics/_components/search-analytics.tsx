@@ -175,8 +175,8 @@ function UsageTable(props: Readonly<UsageTableProps>): ReactNode {
 
 	return (
 		<div className="overflow-x-auto">
-			<table className="inline-full text-start">
-				<caption className="text-start font-bold pbe-3">{caption}</caption>
+			<table className="text-start inline-full">
+				<caption className="pbe-3 text-start font-bold">{caption}</caption>
 				<thead>
 					<tr className="border-be-2 border-stroke-strong">
 						{columns.map((column, index) => (
@@ -195,7 +195,7 @@ function UsageTable(props: Readonly<UsageTableProps>): ReactNode {
 						rows.map((row) => (
 							<tr key={row.key} className="border-be border-stroke-weak">
 								{row.cells.map((cell, index) => (
-									<td key={columns[index]} className="py-3 pe-6 text-start [overflow-wrap:anywhere]">
+									<td key={columns[index]} className="py-3 pe-6 text-start wrap-anywhere">
 										{cell}
 									</td>
 								))}

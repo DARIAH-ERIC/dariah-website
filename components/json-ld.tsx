@@ -15,9 +15,10 @@ interface JsonLdProps {
 const unsafeCharacters = /[<>&\u2028\u2029]/gu;
 
 function serialize(item: WithContext<Thing>): string {
-	return JSON.stringify(item).replaceAll(unsafeCharacters, (character) => {
-		return `\\u${character.charCodeAt(0).toString(16).padStart(4, "0")}`;
-	});
+	return JSON.stringify(item).replaceAll(
+		unsafeCharacters,
+		(character) => `\\u${character.codePointAt(0)!.toString(16).padStart(4, "0")}`,
+	);
 }
 
 /** Structured data for search engines - see `#/lib/json-ld.ts`. */

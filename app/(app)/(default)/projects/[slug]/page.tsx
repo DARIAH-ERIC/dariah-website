@@ -168,7 +168,7 @@ function ProjectFacts(props: Readonly<ProjectFactsProps>): ReactNode {
 
 	return (
 		<Fragment>
-			{hasAcronym ? <p className="font-heading text-title-4 font-regular mbe-2">{project.acronym}</p> : null}
+			{hasAcronym ? <p className="mbe-2 font-heading text-title-4 font-regular">{project.acronym}</p> : null}
 			<dl className="grid grid-cols-[max-content_minmax(0,1fr)] gap-x-8 gap-y-3">
 				{facts.map((fact) => {
 					if (fact.value == null) {
@@ -242,7 +242,7 @@ function Partners(props: Readonly<PartnersProps>): ReactNode {
 	return (
 		<section aria-labelledby={headingId} className="mbs-16">
 			<h2
-				className="text-small font-bold text-text-strong after:mbs-4 after:block after:block-0.5 after:inline-17.5 after:bg-stroke-weak"
+				className="text-small font-bold text-text-strong after:mbs-4 after:block after:bg-stroke-weak after:block-0.5 after:inline-17.5"
 				id={headingId}
 			>
 				{t("Participants")}

@@ -115,7 +115,7 @@ export function ContentLayout(props: Readonly<ContentLayoutProps>): ReactNode {
 		sections != null ? (
 			<div className="min-inline-0">
 				{content}
-				<div className="empty:hidden *:mbs-12 *:border-bs *:border-stroke-weak *:pbs-12">{sections}</div>
+				<div className="*:mbs-12 *:border-bs *:border-stroke-weak *:pbs-12 empty:hidden">{sections}</div>
 			</div>
 		) : (
 			content
@@ -153,7 +153,7 @@ export function ContentLayout(props: Readonly<ContentLayoutProps>): ReactNode {
 		>
 			{hasOutline ? (
 				<TableOfContents
-					className="hidden lg:sticky lg:block lg:self-start lg:overflow-y-auto lg:focus-outline-room lg:focus-visible-outline lg:inset-bs-[calc(--spacing(8)-5px)] lg:max-block-[calc(100dvh-4rem+10px)]"
+					className="hidden lg:sticky lg:inset-bs-[calc(--spacing(8)-5px)] lg:focus-outline-room lg:block lg:self-start lg:overflow-y-auto lg:focus-visible-outline lg:max-block-[calc(100dvh-4rem+10px)]"
 					headings={headings}
 				/>
 			) : null}

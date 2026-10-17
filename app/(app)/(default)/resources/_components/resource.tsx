@@ -65,7 +65,7 @@ export function CoreServiceLabel(): ReactNode {
 				resourceColors.service,
 			)}
 		>
-			<PentagonIcon aria-hidden={true} className="size-5 shrink-0" />
+			<PentagonIcon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 			{t("Core service")}
 		</p>
 	);
@@ -110,7 +110,7 @@ export function ResourceLink(
 				{t("Go to resource")}
 				<span className="sr-only">: {document.label}</span>
 			</span>
-			<ExternalLinkIcon aria-hidden={true} className="size-5" />
+			<ExternalLinkIcon aria-hidden={true} className="block-5 inline-5" />
 		</Link>
 	);
 }

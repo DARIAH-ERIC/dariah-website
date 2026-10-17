@@ -144,13 +144,13 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 			<div className="flex flex-col">
 				<p className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
 					<span className="flex items-baseline gap-x-2">
-						<NewspaperIcon aria-hidden={true} className="size-4 shrink-0 self-center text-icon-accent" />
+						<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 						{item != null ? (
 							<span className="text-small font-bold text-text-accent uppercase">
 								<AnnouncementType type={item.type} />
 							</span>
 						) : (
-							<SkeletonText className="inline-12 text-small" />
+							<SkeletonText className="text-small inline-12" />
 						)}
 					</span>
 					{item != null ? (
@@ -158,7 +158,7 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 							{format.dateTime(new Date(item.publishedAt), { dateStyle: "long" })}
 						</time>
 					) : (
-						<SkeletonText className="inline-32 text-caption" />
+						<SkeletonText className="text-caption inline-32" />
 					)}
 				</p>
 				{item != null ? (
@@ -188,7 +188,7 @@ function ContinueReadingPlaceholder(): ReactNode {
 	return (
 		<span className="inline-flex items-center gap-2 font-heading font-bold">
 			{t("Continue reading")}
-			<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+			<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 		</span>
 	);
 }
@@ -214,12 +214,12 @@ export function ContinueReadingLink(props: Readonly<ContinueReadingLinkProps>): 
 	return (
 		<Link
 			aria-labelledby={`${labelId} ${headingId}`}
-			className="inline-flex items-center gap-2 font-heading font-bold underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-8 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
+			className="inline-flex items-center gap-2 font-heading font-bold decoration-2 underline-offset-6 outline-none after:absolute after:inset-0 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-8 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 			href={announcementHref(item)}
 			prefetch="intent"
 		>
 			<span id={labelId}>{t("Continue reading")}</span>
-			<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+			<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 		</Link>
 	);
 }

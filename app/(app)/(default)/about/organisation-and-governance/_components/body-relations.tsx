@@ -115,7 +115,7 @@ export function BodyRelations(props: Readonly<BodyRelationsProps>): ReactNode {
 	return (
 		<section aria-labelledby={headingId} className="mbs-16 pbe-8">
 			<h2
-				className="text-small font-bold text-text-strong after:mbs-4 after:block after:block-0.5 after:inline-17.5 after:bg-stroke-weak"
+				className="text-small font-bold text-text-strong after:mbs-4 after:block after:bg-stroke-weak after:block-0.5 after:inline-17.5"
 				id={headingId}
 			>
 				{t("Relations")}
@@ -129,7 +129,7 @@ export function BodyRelations(props: Readonly<BodyRelationsProps>): ReactNode {
 								fact.targets.map((target) => (
 									<Link
 										key={target}
-										className="font-medium text-text-accent underline hover:no-underline focus-visible-outline"
+										className="font-medium text-text-accent underline focus-visible-outline hover:no-underline"
 										href={
 											target === "working-groups"
 												? href({ pathname: "/network/working-groups" })

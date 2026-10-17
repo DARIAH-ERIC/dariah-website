@@ -41,7 +41,7 @@ export function Accordion(props: Readonly<AccordionProps>): ReactNode {
 					 * `flex` drops the default disclosure triangle, which the chevron below replaces; the webkit pseudo-element is safari's
 					 * own marker, which survives the display change.
 					 */}
-					<summary className="focus-visible-outline flex cursor-pointer items-center justify-between gap-4 pbs-3 pbe-3 font-medium [&::-webkit-details-marker]:hidden">
+					<summary className="flex cursor-pointer items-center justify-between gap-4 pbs-3 pbe-3 font-medium focus-visible-outline [&::-webkit-details-marker]:hidden">
 						<h3>{item.title}</h3>
 						{/**
 						 * The chevron is the only indication of state for a sighted reader; `details` carries it for everyone else, which is
@@ -49,7 +49,7 @@ export function Accordion(props: Readonly<AccordionProps>): ReactNode {
 						 */}
 						<ChevronDownIcon
 							aria-hidden={true}
-							className="block-5 inline-5 shrink-0 transition-transform group-open:rotate-180"
+							className="shrink-0 transition-transform block-5 inline-5 group-open:rotate-180"
 							strokeWidth={2.5}
 						/>
 					</summary>

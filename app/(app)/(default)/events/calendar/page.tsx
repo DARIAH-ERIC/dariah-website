@@ -125,15 +125,15 @@ function CalendarResultsSkeleton(): ReactNode {
 		<Skeleton label={t("Loading events…")}>
 			<EventsFilterSkeleton />
 			<div className="xl:px-24">
-				<SkeletonText className="inline-56 text-title-3" />
+				<SkeletonText className="text-title-3 inline-56" />
 				<div className="mbs-10 flex flex-wrap justify-between gap-4">
-					<SkeletonText className="inline-36 font-heading font-bold" />
-					<SkeletonText className="inline-36 font-heading font-bold" />
+					<SkeletonText className="font-heading font-bold inline-36" />
+					<SkeletonText className="font-heading font-bold inline-36" />
 				</div>
 				<div className="mbs-10 lg:border lg:border-stroke-weak">
 					<div aria-hidden={true} className="hidden grid-cols-7 bg-calendar-weekdays lg:grid">
 						{weekdays.map((weekday) => (
-							<span key={weekday} className="py-2 text-center text-badge tracking-wide uppercase">
+							<span key={weekday} className="py-2 text-center text-badge tracking-[0.0833em] uppercase">
 								{weekday}
 							</span>
 						))}
@@ -236,29 +236,29 @@ function MonthCalendar(props: Readonly<MonthCalendarProps>): ReactNode {
 			<h2 className="text-title-3">{formatMonth(format, first)}</h2>
 			<nav aria-label={t("Months")} className="mbs-10 flex flex-wrap justify-between gap-4">
 				<Link
-					className="inline-flex items-center gap-x-3 font-heading font-bold underline-offset-4 hover:underline focus-visible-outline"
+					className="inline-flex items-center gap-x-3 font-heading font-bold underline-offset-4 focus-visible-outline hover:underline"
 					href={hrefFor(previous.toString().slice(0, 7))}
 					prefetch={true}
 				>
-					<ChevronLeftIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronLeftIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 					<span className="sr-only">{t("Previous month:")} </span>
 					{formatMonth(format, previous)}
 				</Link>
 				<Link
-					className="inline-flex items-center gap-x-3 font-heading font-bold underline-offset-4 hover:underline focus-visible-outline"
+					className="inline-flex items-center gap-x-3 font-heading font-bold underline-offset-4 focus-visible-outline hover:underline"
 					href={hrefFor(next.toString().slice(0, 7))}
 					prefetch={true}
 				>
 					<span className="sr-only">{t("Next month:")} </span>
 					{formatMonth(format, next)}
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</nav>
 			{!hasEventsInMonth ? <NoResults className="mbs-10 lg:sr-only">{t("No events this month.")}</NoResults> : null}
 			<div className="mbs-10 lg:border lg:border-stroke-weak">
 				<div aria-hidden={true} className="hidden grid-cols-7 bg-calendar-weekdays lg:grid">
 					{days.slice(0, 7).map((day) => (
-						<span key={day.toString()} className="py-2 text-center text-badge tracking-wide uppercase">
+						<span key={day.toString()} className="py-2 text-center text-badge tracking-[0.0833em] uppercase">
 							{format.dateTime(day.toDate("UTC"), { weekday: "long", timeZone: "UTC" })}
 						</span>
 					))}
@@ -292,7 +292,9 @@ function MonthCalendar(props: Readonly<MonthCalendarProps>): ReactNode {
 													: "bg-background-muted text-text-weak",
 									)}
 								>
-									{isToday ? <span aria-hidden={true} className="size-1.5 rounded-full bg-current" /> : null}
+									{isToday ? (
+										<span aria-hidden={true} className="rounded-full bg-current block-1.5 inline-1.5" />
+									) : null}
 									<time dateTime={date}>
 										<span aria-hidden={true} className="max-lg:hidden">
 											{isOutside
@@ -311,11 +313,11 @@ function MonthCalendar(props: Readonly<MonthCalendarProps>): ReactNode {
 									{isToday ? <span className="sr-only">({t("today")})</span> : null}
 								</p>
 								{hasEvents ? (
-									<ul className="flex flex-col gap-y-3 px-3 py-3 lg:px-4" role="list">
+									<ul className="flex flex-col gap-y-3 p-3 lg:px-4" role="list">
 										{dayEvents.map((event) => (
 											<li key={event.id} className="lg:text-small">
 												<Link
-													className="text-text-accent hyphens-auto underline-offset-4 hover:underline focus-visible-outline"
+													className="hyphens-auto text-text-accent underline-offset-4 focus-visible-outline hover:underline"
 													href={href({ pathname: "/events/[slug]", params: { slug: event.entity.slug } })}
 													prefetch="intent"
 												>

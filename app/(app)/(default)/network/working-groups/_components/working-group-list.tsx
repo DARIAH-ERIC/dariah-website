@@ -28,7 +28,7 @@ export async function WorkingGroupList(props: Readonly<WorkingGroupListProps>): 
 			<h2 className="sr-only">{status === "active" ? t("Active Working Groups") : t("Past Working Groups")}</h2>
 			{/** The same grid as the projects page: as many columns as fit, up to four. */}
 			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(max(min(18rem,100%),(100%_-_3.75rem)/4),1fr))] gap-x-5 gap-y-8"
+				className="grid grid-cols-[repeat(auto-fill,minmax(max(min(18rem,100%),(100%-3.75rem)/4),1fr))] gap-x-5 gap-y-8"
 				role="list"
 			>
 				{workingGroups.map((workingGroup) => (
@@ -60,7 +60,7 @@ function WorkingGroupCard(props: Readonly<WorkingGroupCardProps>): ReactNode {
 	const t = useTranslations();
 
 	return (
-		<article className="group relative flex inline-full flex-col shadow-card-edge hover:bg-background-card-hover">
+		<article className="group relative flex flex-col shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-3/2 border-be border-stroke-weak bg-background-base">
 				{workingGroup.image != null ? (
 					<ApiImage alt="" className="object-contain" fill={true} image={workingGroup.image} sizes={cardImageSizes} />
@@ -68,7 +68,7 @@ function WorkingGroupCard(props: Readonly<WorkingGroupCardProps>): ReactNode {
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex items-center gap-x-3">
-					<UsersIcon aria-hidden={true} className="size-4 shrink-0 fill-current text-icon-accent" />
+					<UsersIcon aria-hidden={true} className="shrink-0 fill-current text-icon-accent block-4 inline-4" />
 					<span className="text-small font-bold text-text-accent uppercase">{t("Working group")}</span>
 				</p>
 				{/** Unlike a project card's title, this one has no short rule under it: nothing follows it. */}

@@ -60,7 +60,7 @@ export default function ErrorPage(props: Readonly<ErrorPageProps>): ReactNode {
 					) : null}
 					<div className="mbs-10 flex flex-wrap gap-4">
 						<button
-							className="inline-flex min-block-15 cursor-pointer items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+							className="inline-flex cursor-pointer items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 focus-visible-outline min-block-15 hover:underline"
 							onClick={() => {
 								retry();
 							}}
@@ -69,7 +69,7 @@ export default function ErrorPage(props: Readonly<ErrorPageProps>): ReactNode {
 							{t("Try again")}
 						</button>
 						<Link
-							className="inline-flex min-block-15 items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+							className="inline-flex items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 focus-visible-outline min-block-15 hover:underline"
 							href={href({ pathname: "/" })}
 						>
 							{t("Go to the home page")}

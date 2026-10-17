@@ -33,11 +33,11 @@ export function EntityIntro(props: Readonly<EntityIntroProps>): ReactNode {
 
 	return (
 		<div className="flex flex-col-reverse items-start gap-y-6 sm:flex-row sm:items-center sm:justify-between sm:gap-x-10">
-			{hasDetails ? <div className="flex min-inline-0 flex-col gap-y-2">{children}</div> : null}
+			{hasDetails ? <div className="flex flex-col gap-y-2 min-inline-0">{children}</div> : null}
 			{logo != null ? (
 				<ApiImage
 					alt=""
-					className="block-16 inline-auto max-inline-48 shrink-0 object-contain object-left sm:block-28 sm:max-inline-56 sm:object-right"
+					className="shrink-0 object-contain object-left block-16 inline-auto max-inline-48 sm:object-right sm:block-28 sm:max-inline-56"
 					image={logo}
 					sizes="(min-width: 40rem) 14rem, 12rem"
 				/>
@@ -53,13 +53,13 @@ export function EntityIntro(props: Readonly<EntityIntroProps>): ReactNode {
  */
 export function EntityIntroSkeleton(): ReactNode {
 	return (
-		<div className="max-inline-measure pbe-24">
+		<div className="pbe-24 max-inline-measure">
 			<div className="flex flex-col-reverse items-start gap-y-6 sm:flex-row sm:items-center sm:justify-between sm:gap-x-10">
-				<div className="flex inline-full flex-col gap-y-2 sm:max-inline-md">
-					<SkeletonText className="inline-3/4 text-title-4" />
+				<div className="flex flex-col gap-y-2 inline-full sm:max-inline-md">
+					<SkeletonText className="text-title-4 inline-3/4" />
 					<SkeletonText lines={2} />
 				</div>
-				<SkeletonShape className="size-16 shrink-0 sm:size-28" />
+				<SkeletonShape className="shrink-0 block-16 inline-16 sm:block-28 sm:inline-28" />
 			</div>
 			<SkeletonText className="mbs-12" lines={4} />
 		</div>

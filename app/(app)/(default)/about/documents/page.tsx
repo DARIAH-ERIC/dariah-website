@@ -97,7 +97,7 @@ export default async function DocumentsPage(_props: Readonly<DocumentsPageProps>
 			<PageHeader current={href({ pathname: "/about/documents" })} image={null} title={page.title} />
 			<div className="pbe-24 lg:grid lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-x-columns">
 				<TableOfContents
-					className="hidden lg:sticky lg:block lg:self-start lg:overflow-y-auto lg:inset-bs-8 lg:max-block-[calc(100dvh-4rem)]"
+					className="hidden lg:sticky lg:inset-bs-8 lg:block lg:self-start lg:overflow-y-auto lg:max-block-[calc(100dvh-4rem)]"
 					headings={headings}
 				/>
 				<div className="flex flex-col gap-y-14">
@@ -172,14 +172,18 @@ function DocumentList(props: Readonly<DocumentListProps>): ReactNode {
 			{items.map((item) => (
 				<li
 					key={item.id}
-					className="group flex flex-col items-start gap-x-8 gap-y-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-1 border border-transparent pbs-4 pbe-4 ps-2.5 pe-5 text-body hover:text-text-accent odd:border-stroke-weak odd:bg-background-subtle focus-within-outline-inset"
+					className="group focus-within-outline-inset flex flex-col items-start gap-x-8 gap-y-2 border border-transparent ps-2.5 pe-5 pbs-4 pbe-4 text-body odd:border-stroke-weak odd:bg-background-subtle hover:text-text-accent sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-y-1"
 				>
 					<span>{item.title}</span>
 					{item.document != null ? (
 						<a className={linkClassName} href={item.document.url}>
 							{isPdf(item.document.url) ? labels.pdf : labels.download}
 							<span className="sr-only">: {item.title}</span>
-							<ChevronRightIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" strokeWidth={2.5} />
+							<ChevronRightIcon
+								aria-hidden={true}
+								className="shrink-0 text-icon-accent block-4 inline-4"
+								strokeWidth={2.5}
+							/>
 						</a>
 					) : item.link != null ? (
 						<a className={linkClassName} href={item.link.url}>
@@ -187,7 +191,11 @@ function DocumentList(props: Readonly<DocumentListProps>): ReactNode {
 							<span className="sr-only">
 								: {item.title} {labels.external}
 							</span>
-							<ExternalLinkIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" strokeWidth={2.5} />
+							<ExternalLinkIcon
+								aria-hidden={true}
+								className="shrink-0 text-icon-accent block-4 inline-4"
+								strokeWidth={2.5}
+							/>
 						</a>
 					) : null}
 				</li>

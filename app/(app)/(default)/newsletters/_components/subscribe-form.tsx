@@ -27,16 +27,16 @@ export function SubscribeForm(): ReactNode {
 			{!isSuccess ? (
 				<Fragment>
 					{/* Padding, not a margin on the row: hovering the label hovers the input, so no gap may sit between them. */}
-					<label className="block font-medium pbe-2" htmlFor={emailId}>
+					<label className="block pbe-2 font-medium" htmlFor={emailId}>
 						{t("Email address")}
 					</label>
-					<div className="flex min-block-15 shadow-[0_0_4px_0_rgb(0_0_0/0.08)]">
-						<div className="flex min-inline-0 flex-1 focus-within-outline-inset">
+					<div className="flex shadow-[0_0_4px_0_rgb(0_0_0/0.08)] min-block-15">
+						<div className="focus-within-outline-inset flex flex-1 min-inline-0">
 							<input
 								aria-describedby={hasError ? errorId : undefined}
 								aria-invalid={hasError ? true : undefined}
 								autoComplete="email"
-								className="min-inline-0 flex-1 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 outline-none hover:border-stroke-accent aria-invalid:border-stroke-error"
+								className="flex-1 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 outline-none min-inline-0 hover:border-stroke-accent aria-invalid:border-stroke-error"
 								defaultValue={hasError ? state.email : undefined}
 								id={emailId}
 								name="email"
@@ -46,7 +46,7 @@ export function SubscribeForm(): ReactNode {
 						</div>
 						{/* Overlaps the input's focus ring by its own border, so the two make one 3px seam rather than 5px. */}
 						<button
-							className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-6 font-heading font-bold text-text-inverse [text-box:trim-both_cap_alphabetic] enabled:hover:bg-background-base enabled:hover:text-text-accent disabled:opacity-70 focus-visible-outline"
+							className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-6 font-heading font-bold text-text-inverse focus-visible-outline [text-box:trim-both_cap_alphabetic] enabled:hover:bg-background-base enabled:hover:text-text-accent disabled:opacity-70"
 							disabled={isPending}
 							type="submit"
 						>

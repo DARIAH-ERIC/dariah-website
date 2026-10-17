@@ -69,11 +69,11 @@ export function VisitsChart(props: Readonly<VisitsChartProps>): ReactNode {
 			{hasUniqueVisitors ? (
 				<ul className="flex flex-wrap gap-x-6 gap-y-2 text-small" role="list">
 					<li className="flex items-center gap-x-2">
-						<span className="size-3 rounded-xs bg-chart-visits" />
+						<span className="rounded-xs bg-chart-visits block-3 inline-3" />
 						{t("Visits")}
 					</li>
 					<li className="flex items-center gap-x-2">
-						<span className="size-3 rounded-xs bg-chart-unique-visitors" />
+						<span className="rounded-xs bg-chart-unique-visitors block-3 inline-3" />
 						{t("Unique visitors")}
 					</li>
 				</ul>
@@ -84,7 +84,7 @@ export function VisitsChart(props: Readonly<VisitsChartProps>): ReactNode {
 				 * The axis labels sit on their gridlines, positioned absolutely, so the column is as tall as the plot. The invisible
 				 * copies give it the width of the widest label.
 				 */}
-				<div className="relative block-64 text-end text-small text-text-weak tabular-nums">
+				<div className="relative text-end text-small text-text-weak tabular-nums block-64">
 					{ticks.map((tick) => (
 						<span key={tick} className="invisible block leading-none">
 							{format.number(tick, { notation: "compact" })}
@@ -109,7 +109,7 @@ export function VisitsChart(props: Readonly<VisitsChartProps>): ReactNode {
 							style={{ insetBlockEnd: toPercent(tick) }}
 						/>
 					))}
-					<div className="relative grid block-full grid-flow-col auto-cols-fr">
+					<div className="relative grid auto-cols-fr grid-flow-col block-full">
 						{months.map((month, index) => {
 							const isCurrent = index === months.length - 1;
 
@@ -154,7 +154,7 @@ export function VisitsChart(props: Readonly<VisitsChartProps>): ReactNode {
 				</div>
 
 				{/* The month names, under their columns: a single letter on phones, where three would not fit twelve times. */}
-				<div className="col-start-2 grid grid-flow-col auto-cols-fr text-center text-small text-text-weak mbs-2">
+				<div className="col-start-2 mbs-2 grid auto-cols-fr grid-flow-col text-center text-small text-text-weak">
 					{months.map((month, index) => {
 						const isYearStart = index === 0 || month.month.endsWith("-01");
 

@@ -27,7 +27,7 @@ export function FeedLink(props: Readonly<{ className?: string; feed: FeedName }>
 			href={serializeHref(getFeedHref(feed))}
 			type="application/rss+xml"
 		>
-			<RssIcon aria-hidden={true} className="size-5 shrink-0" />
+			<RssIcon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 			{t("Subscribe via RSS")}
 		</a>
 	);

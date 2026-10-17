@@ -71,7 +71,7 @@ export function BackToTopLink(): ReactNode {
 				)}
 				href={`#${pageTopId}`}
 			>
-				<ChevronUpIcon aria-hidden={true} className="size-5" strokeWidth={2.5} />
+				<ChevronUpIcon aria-hidden={true} className="block-5 inline-5" strokeWidth={2.5} />
 			</a>
 		</Fragment>
 	);

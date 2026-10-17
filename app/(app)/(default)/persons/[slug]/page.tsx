@@ -112,10 +112,10 @@ function PersonSkeleton(): ReactNode {
 			{/** No page of the menu lists a person, so the trail is the same for any `current` it does not list. */}
 			<Breadcrumbs current={href({ pathname: "/" })} label={null} />
 			<div className="mbs-14 grid items-start gap-x-12 gap-y-8 sm:grid-cols-[auto_minmax(0,1fr)]">
-				<SkeletonShape className="size-48 rounded-none sm:size-64" />
+				<SkeletonShape className="rounded-none block-48 inline-48 sm:block-64 sm:inline-64" />
 				<div className="flex flex-col gap-y-8">
-					<SkeletonText className="inline-2/3 text-title-1" />
-					<SkeletonText className="inline-1/2 text-body" lines={2} />
+					<SkeletonText className="text-title-1 inline-2/3" />
+					<SkeletonText className="text-body inline-1/2" lines={2} />
 				</div>
 			</div>
 		</Skeleton>
@@ -137,7 +137,7 @@ async function PersonContent(props: Pick<PersonPageProps, "params">): Promise<Re
 		<Fragment>
 			<Breadcrumbs current={href({ pathname: "/persons/[slug]", params: { slug } })} label={item.name} />
 			<PersonHeader item={item} />
-			<div className="flex flex-col gap-y-16 mbs-16">
+			<div className="mbs-16 flex flex-col gap-y-16">
 				{hasBiography ? <Biography item={item} /> : null}
 				<FormerPositions positions={getFormerPositions(item.positions ?? [], item.formerPositions ?? [])} />
 				<Articles articles={item.articles} />
@@ -160,7 +160,7 @@ function PersonHeader(props: Readonly<{ item: Person }>): ReactNode {
 
 	return (
 		<header className="mbs-14 grid items-start gap-x-12 gap-y-8 sm:grid-cols-[auto_minmax(0,1fr)]">
-			<div className="relative size-48 sm:size-64">
+			<div className="relative block-48 inline-48 sm:block-64 sm:inline-64">
 				{item.image != null ? (
 					<ApiImage
 						alt=""
@@ -172,7 +172,7 @@ function PersonHeader(props: Readonly<{ item: Person }>): ReactNode {
 						sizes="(min-width: 40rem) 16rem, 12rem"
 					/>
 				) : (
-					<div className="grid size-full place-items-center bg-background-placeholder px-[7%]">
+					<div className="grid place-items-center bg-background-placeholder px-[7%] block-full inline-full">
 						<Image alt="" className="block-auto inline-full" loading="eager" src={logo} />
 					</div>
 				)}
@@ -206,7 +206,7 @@ function PositionLabel(props: Readonly<{ label: string; position: Position }>): 
 
 	return (
 		<Link
-			className="underline decoration-stroke-weak underline-offset-4 hover:decoration-current focus-visible-outline"
+			className="underline decoration-stroke-weak underline-offset-4 focus-visible-outline hover:decoration-current"
 			href={unsafeHref(position.entity.href, false)}
 		>
 			{label}
@@ -293,14 +293,14 @@ function ContactLinks(props: Readonly<{ item: Person }>): ReactNode {
 					return (
 						<li key={link.id}>
 							<Link
-								className="inline-flex items-center gap-x-2 break-all font-medium text-text-accent underline underline-offset-4 focus-visible-outline"
+								className="inline-flex items-center gap-x-2 font-medium break-all text-text-accent underline underline-offset-4 focus-visible-outline"
 								href={unsafeHref(link.href, true)}
 							>
 								{"src" in Icon ? (
 									/* Decorative: the link's text already names the service. */
-									<Image alt="" className="size-5 shrink-0" src={Icon} />
+									<Image alt="" className="shrink-0 block-5 inline-5" src={Icon} />
 								) : (
-									<Icon aria-hidden={true} className="size-5 shrink-0" />
+									<Icon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 								)}
 								{link.label}
 							</Link>

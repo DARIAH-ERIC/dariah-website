@@ -132,7 +132,7 @@ function NewsletterArchive(props: Readonly<NewsletterArchiveProps>): ReactNode {
 							{issues.map((item) => (
 								<li key={item.id} className="flex">
 									<a
-										className="group flex inline-full items-start justify-between gap-x-4 bg-background-base px-5 py-4 shadow-card-edge hover:text-text-accent focus-visible-outline"
+										className="group flex items-start justify-between gap-x-4 bg-background-base px-5 py-4 shadow-card-edge focus-visible-outline inline-full hover:text-text-accent"
 										href={item.archive_url}
 									>
 										<span className="flex flex-col gap-y-1">
@@ -141,7 +141,7 @@ function NewsletterArchive(props: Readonly<NewsletterArchiveProps>): ReactNode {
 												{format.dateTime(new Date(item.send_time), { dateStyle: "long" })}
 											</time>
 										</span>
-										<ExternalLinkIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent mbs-1" />
+										<ExternalLinkIcon aria-hidden={true} className="mbs-1 shrink-0 text-icon-accent block-4 inline-4" />
 									</a>
 								</li>
 							))}

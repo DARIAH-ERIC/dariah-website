@@ -153,8 +153,8 @@ export function Organigram(props: Readonly<OrganigramProps>): ReactNode {
 	return (
 		<section aria-label={t("Organigram")}>
 			{/* Smaller below `sm`, with less padding, so the hint stays on one line on a phone. */}
-			<p className="-mx-main flex items-center justify-center gap-x-1.5 bg-background-muted px-3 py-3 text-small sm:gap-x-2 sm:px-main sm:text-caption">
-				<InfoIcon aria-hidden={true} className="size-3.5 shrink-0 sm:size-4" />
+			<p className="-mx-main flex items-center justify-center gap-x-1.5 bg-background-muted p-3 text-small sm:gap-x-2 sm:px-main sm:text-caption">
+				<InfoIcon aria-hidden={true} className="shrink-0 block-3.5 inline-3.5 sm:block-4 sm:inline-4" />
 				{t("Select a body to see its description and members.")}
 			</p>
 			<div className="mbs-16 flex flex-col gap-y-8 xl:grid xl:grid-cols-[minmax(0,1fr)_8rem_minmax(0,1fr)_8rem_minmax(0,0.85fr)] xl:grid-rows-[auto_5rem_minmax(4rem,auto)_minmax(4rem,auto)_5rem_auto_5rem_auto] xl:gap-0">
@@ -252,7 +252,7 @@ function BodyCard(props: Readonly<BodyCardProps>): ReactNode {
 				bodyColors[body.kind],
 			)}
 		>
-			<p className="bg-(--body-color) px-4 py-2 text-badge text-text-inverse uppercase min-block-[calc(1lh+--spacing(4))]">
+			<p className="bg-(--body-color) px-4 py-2 text-badge text-text-inverse uppercase min-block-[calc(1lh+(--spacing(4)))]">
 				{getKindLabel(body.kind)}
 			</p>
 			<div className="flex flex-1 flex-col gap-y-4 p-4">
@@ -276,7 +276,7 @@ function BodyCard(props: Readonly<BodyCardProps>): ReactNode {
 							</Link>
 						</h2>
 						<p className="flex items-center gap-x-2 text-body font-medium">
-							<UsersIcon aria-hidden={true} className="size-5 text-icon-accent" />
+							<UsersIcon aria-hidden={true} className="text-icon-accent block-5 inline-5" />
 							<span aria-hidden={true}>{memberCount}</span>
 							<span className="sr-only">
 								{t("{count, plural, one {# member} other {# members}}", { count: memberCount })}

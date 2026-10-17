@@ -101,14 +101,13 @@ export function FacetsPanel(
 
 	function showResults(): void {
 		dialogRef.current?.close();
-		// oxlint-disable-next-line unicorn/prefer-query-selector -- A `useId` id is not guaranteed to be a valid css selector without escaping.
 		document.getElementById(resultsId)?.focus();
 	}
 
 	return (
 		<div className={className}>
 			<button
-				className="flex items-center justify-center gap-x-2 border-2 border-stroke-accent bg-background-base px-6 py-3 font-heading font-bold text-text-accent min-block-15 inline-full hover:bg-background-accent-strong hover:text-text-inverse focus-visible-outline lg:hidden"
+				className="flex items-center justify-center gap-x-2 border-2 border-stroke-accent bg-background-base px-6 py-3 font-heading font-bold text-text-accent focus-visible-outline inline-full min-block-15 hover:bg-background-accent-strong hover:text-text-inverse lg:hidden"
 				onClick={open}
 				type="button"
 			>
@@ -124,7 +123,7 @@ export function FacetsPanel(
 				<dialog
 					ref={dialogRef}
 					aria-labelledby={`${id}-heading`}
-					className="fixed inset-0 m-0 flex-col border-0 bg-background-base p-0 text-text-strong block-dvh max-block-none max-inline-none inline-full backdrop:bg-transparent open:flex"
+					className="fixed inset-0 m-0 flex-col border-0 bg-background-base p-0 text-text-strong block-dvh inline-full max-block-none max-inline-none backdrop:bg-transparent open:flex"
 					onClose={() => {
 						setIsOpen(false);
 					}}
@@ -140,13 +139,13 @@ export function FacetsPanel(
 						</h2>
 						<button
 							aria-label={t("Close filters")}
-							className="flex touch-area text-icon-accent focus-visible-outline"
+							className="touch-area flex text-icon-accent focus-visible-outline"
 							onClick={() => {
 								dialogRef.current?.close();
 							}}
 							type="button"
 						>
-							<XIcon aria-hidden={true} className="size-6" strokeWidth={2.5} />
+							<XIcon aria-hidden={true} className="block-6 inline-6" strokeWidth={2.5} />
 						</button>
 					</div>
 					<div className="flex flex-1 flex-col overflow-y-auto p-4">
@@ -158,7 +157,7 @@ export function FacetsPanel(
 					</div>
 					<div className="shrink-0 p-4 shadow-[0_-4px_12px_0_rgb(0_0_0/0.08)]">
 						<button
-							className="flex items-center justify-center border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse min-block-15 inline-full hover:bg-background-base hover:text-text-accent focus-visible-outline"
+							className="flex items-center justify-center border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse focus-visible-outline inline-full min-block-15 hover:bg-background-base hover:text-text-accent"
 							onClick={showResults}
 							type="button"
 						>

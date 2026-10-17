@@ -187,13 +187,13 @@ export function MembersAndPartnersMap(props: Readonly<MembersAndPartnersMapProps
 				 * focus outline whole.
 				 */}
 				<ul
-					className="flex flex-col gap-y-4 ps-8 pe-4 pbe-6 lg:-mbs-[5px] lg:flex-1 lg:overflow-y-auto lg:pbs-[5px] lg:focus-visible-outline lg:[--focus-outline-offset:-3px]"
+					className="flex flex-col gap-y-4 ps-8 pe-4 pbe-6 lg:mbs-[-5px] lg:flex-1 lg:overflow-y-auto lg:pbs-[5px] lg:focus-visible-outline lg:[--focus-outline-offset:-3px]"
 					role="list"
 				>
 					{visibleItems.map((item) => (
 						<li key={item.id} className="flex flex-col gap-y-1">
 							<Link
-								className="font-heading text-title-5 font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+								className="font-heading text-title-5 font-bold text-text-accent underline-offset-4 focus-visible-outline hover:underline"
 								href={href({ pathname: "/network/members-and-partners/[slug]", params: { slug: item.slug } })}
 								prefetch="intent"
 							>
@@ -210,7 +210,7 @@ export function MembersAndPartnersMap(props: Readonly<MembersAndPartnersMapProps
 			>
 				{presentStatuses.map((status) => (
 					<li key={status} className="flex items-center gap-x-2">
-						<span aria-hidden={true} className={`${swatchClassNames[status]} size-4 shrink-0`} />
+						<span aria-hidden={true} className={`${swatchClassNames[status]} shrink-0 block-4 inline-4`} />
 						{legendLabels[status]}
 					</li>
 				))}
@@ -323,7 +323,7 @@ function CountriesMap(props: Readonly<CountriesMapProps>): ReactNode {
 		<div className={filter !== "all" ? filterClassNames[filter] : undefined}>
 			<div
 				ref={elementRef}
-				className={`${zoomControlClassNames} isolate block-96 bg-background-callout font-body lg:block-[clamp(32rem,85svh,56rem)] [&_.country]:fill-background-placeholder [&_.country]:stroke-stroke-inverse [&_.country-partner]:fill-[url(#members-and-partners-map-partner)] [&_.country-member]:fill-background-map-member [&_.country-observer]:fill-[color-mix(in_srgb,var(--color-background-map-member)_60%,var(--color-background-overlay))] [&_.country.leaflet-interactive]:hover:stroke-stroke-strong [&_.country.leaflet-interactive]:hover:[stroke-width:2]`}
+				className={`${zoomControlClassNames} isolate bg-background-callout font-body block-96 lg:block-[clamp(32rem,85svh,56rem)] [&_.country]:fill-background-placeholder [&_.country]:stroke-stroke-inverse [&_.country-member]:fill-background-map-member [&_.country-observer]:fill-[color-mix(in_srgb,var(--color-background-map-member)_60%,var(--color-background-overlay))] [&_.country-partner]:fill-[url(#members-and-partners-map-partner)] [&_.country.leaflet-interactive]:hover:stroke-stroke-strong [&_.country.leaflet-interactive]:hover:stroke-2`}
 			/>
 		</div>
 	);

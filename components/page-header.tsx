@@ -61,7 +61,7 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 			<Breadcrumbs current={current} label={title} parent={parent} />
 			{label != null ? <p className="mbs-14 text-small font-bold text-text-accent uppercase">{label}</p> : null}
 			<div className={cn(label != null ? "mbs-2" : "mbs-14", "flex items-start justify-between gap-x-columns")}>
-				<h1 className="min-inline-0 max-inline-title text-title-1">{title}</h1>
+				<h1 className="text-title-1 max-inline-title min-inline-0">{title}</h1>
 				{logo != null ? (
 					<div className="hidden shrink-0 block-0 lg:block">
 						<Image alt="" className="block-22 inline-auto" src={logo} />
@@ -138,7 +138,7 @@ export function PageHeaderSkeleton(props: Readonly<PageHeaderSkeletonProps>): Re
 		<Skeleton className={cn("min-block-svh", className)} label={label ?? t("Loading page…")}>
 			<div className="pbs-8 pbe-12">
 				<Breadcrumbs current={parent} label={null} parent={parent} />
-				{hasLabel ? <SkeletonText className="mbs-14 inline-24 text-small" /> : null}
+				{hasLabel ? <SkeletonText className="mbs-14 text-small inline-24" /> : null}
 				<SkeletonText
 					className={cn(
 						hasLabel ? "mbs-2" : "mbs-14",
@@ -149,14 +149,14 @@ export function PageHeaderSkeleton(props: Readonly<PageHeaderSkeletonProps>): Re
 					)}
 					lines={titleLines}
 				/>
-				{isDated ? <SkeletonText className="mbs-6 inline-40 text-caption" /> : null}
+				{isDated ? <SkeletonText className="mbs-6 text-caption inline-40" /> : null}
 				{image != null ? (
 					<div className="-mx-inset mbs-12">
 						<SkeletonShape className={cn("rounded-none inline-full max-block-155", imagePlaceholderClassName[image])} />
 					</div>
 				) : null}
 			</div>
-			{children ?? <SkeletonText className="lead-in max-inline-measure pbe-24" lines={4} />}
+			{children ?? <SkeletonText className="pbe-24 lead-in max-inline-measure" lines={4} />}
 		</Skeleton>
 	);
 }

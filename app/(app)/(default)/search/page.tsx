@@ -86,7 +86,7 @@ export default async function SearchPage(props: Readonly<SearchPageProps>): Prom
 	return (
 		<Main className="px-main pbs-8 pbe-24">
 			<Breadcrumbs current={href({ pathname: "/search" })} label={page.title} />
-			<h1 className="mbs-14 max-inline-title text-title-1">{page.title}</h1>
+			<h1 className="mbs-14 text-title-1 max-inline-title">{page.title}</h1>
 			<ContentBlocks blocks={page.content} className="mbs-8 max-inline-measure" />
 			{/*
 			 * Not an empty form as the fallback: it would be replaced once the search params resolve, flashing an empty
@@ -284,10 +284,10 @@ function SearchResult(props: Readonly<{ document: WebsiteDocument }>): ReactNode
 		datedTypes.has(document.type) && document.source_updated_at != null ? new Date(document.source_updated_at) : null;
 
 	return (
-		<article className="flex max-inline-measure flex-col gap-y-4">
+		<article className="flex flex-col gap-y-4 max-inline-measure">
 			<p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-caption">
 				<span className="flex items-center gap-x-2 font-bold text-text-accent uppercase">
-					<Icon aria-hidden={true} className="size-5 shrink-0" />
+					<Icon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 					{typeLabels[document.type]}
 				</span>
 				{date != null ? (
@@ -299,7 +299,7 @@ function SearchResult(props: Readonly<{ document: WebsiteDocument }>): ReactNode
 			<h3 className="text-title-5">
 				{document.link != null ? (
 					<Link
-						className="hover:underline focus-visible-outline"
+						className="focus-visible-outline hover:underline"
 						href={unsafeHref(document.link, /^https?:\/\//.test(document.link))}
 						prefetch="intent"
 					>
@@ -336,15 +336,15 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 				<label className="font-bold" htmlFor={`${id}-q`}>
 					{t("Search the website")}
 				</label>
-				<div className="flex min-block-15 shadow-[0_0_4px_0_rgb(0_0_0/0.08)]">
-					<div className="flex min-inline-0 flex-1 focus-within-outline-inset">
+				<div className="flex shadow-[0_0_4px_0_rgb(0_0_0/0.08)] min-block-15">
+					<div className="focus-within-outline-inset flex flex-1 min-inline-0">
 						<SearchIcon
 							aria-hidden={true}
-							className="pointer-events-none absolute inset-bs-1/2 inset-s-4 size-5 -translate-y-1/2 text-icon-strong"
+							className="pointer-events-none absolute inset-s-4 inset-bs-1/2 -translate-y-1/2 text-icon-strong block-5 inline-5"
 						/>
 						<input
 							autoComplete="off"
-							className="min-inline-0 flex-1 border-be-2 border-stroke-weak bg-background-field py-2.5 ps-12 pe-12 outline-none hover:border-stroke-accent"
+							className="flex-1 border-be-2 border-stroke-weak bg-background-field py-2.5 ps-12 pe-12 outline-none min-inline-0 hover:border-stroke-accent"
 							defaultValue={query}
 							id={`${id}-q`}
 							maxLength={200}
@@ -354,7 +354,7 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 					</div>
 					{/* Overlaps the input's focus ring by its own border, so the two make one 3px seam rather than 5px. */}
 					<button
-						className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-8 font-heading font-bold text-text-inverse hover:bg-background-base hover:text-text-accent focus-visible-outline"
+						className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-8 font-heading font-bold text-text-inverse focus-visible-outline hover:bg-background-base hover:text-text-accent"
 						type="submit"
 					>
 						{t("Search")}

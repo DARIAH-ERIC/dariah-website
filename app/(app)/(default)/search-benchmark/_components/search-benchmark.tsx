@@ -445,7 +445,7 @@ export function SearchBenchmark(props: Readonly<{ connection: SearchBenchmarkCon
 
 			{/* The benchmark drives this same-origin page through its dom, which rules out a sandbox. */}
 			{/* oxlint-disable-next-line react/iframe-missing-sandbox */}
-			<iframe className="h-80 w-full border" ref={frameRef} title="Search page under test" />
+			<iframe className="border block-80 inline-full" ref={frameRef} title="Search page under test" />
 		</section>
 	);
 }

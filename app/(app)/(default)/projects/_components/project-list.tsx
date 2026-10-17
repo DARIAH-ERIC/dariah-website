@@ -28,7 +28,7 @@ export async function ProjectList(props: Readonly<ProjectListProps>): Promise<Re
 			<h2 className="sr-only">{status === "active" ? t("Active Projects") : t("Past Projects")}</h2>
 			{/** As many columns as fit, up to four. The impact case studies and spotlight pages keep up to three. */}
 			<ul
-				className="grid grid-cols-[repeat(auto-fill,minmax(max(min(18rem,100%),(100%_-_3.75rem)/4),1fr))] gap-x-5 gap-y-8"
+				className="grid grid-cols-[repeat(auto-fill,minmax(max(min(18rem,100%),(100%-3.75rem)/4),1fr))] gap-x-5 gap-y-8"
 				role="list"
 			>
 				{projects.map((project) => (
@@ -91,12 +91,12 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 	}
 
 	return (
-		<article className="group relative flex inline-full flex-col shadow-card-edge hover:bg-background-card-hover">
+		<article className="group relative flex flex-col shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-3/2 border-be border-stroke-weak bg-background-base">
 				{project.image != null ? (
 					<ApiImage alt="" className="object-contain" fill={true} image={project.image} sizes={cardImageSizes} />
 				) : (
-					<div className="grid size-full place-items-center bg-background-placeholder">
+					<div className="grid place-items-center bg-background-placeholder block-full inline-full">
 						<Image alt="" className="block-auto inline-[57%]" src={logo} />
 					</div>
 				)}
@@ -104,7 +104,7 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
 					<p className="flex items-center gap-x-3">
-						<FolderIcon aria-hidden={true} className="size-4 shrink-0 fill-current text-icon-accent" />
+						<FolderIcon aria-hidden={true} className="shrink-0 fill-current text-icon-accent block-4 inline-4" />
 						<span className="text-small font-bold text-text-accent uppercase">{t("Project")}</span>
 					</p>
 					{project.role != null ? (
@@ -119,7 +119,7 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 					) : null}
 				</div>
 				{/** The title is underlined by a short rule, as the design does, drawn by the heading itself. */}
-				<h3 className="font-heading text-title-3 leading-heading group-hover:text-text-accent after:mbs-4 after:block after:block-px after:inline-29 after:bg-stroke-weak">
+				<h3 className="font-heading text-title-3 leading-heading group-hover:text-text-accent after:mbs-4 after:block after:bg-stroke-weak after:block-px after:inline-29">
 					<Link
 						className="underline-offset-4 outline-none group-hover:underline after:absolute after:inset-0 focus-visible:after:outline-3 focus-visible:after:outline-offset-4 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 						href={href({ pathname: "/projects/[slug]", params: { slug: project.entity.slug } })}

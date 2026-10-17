@@ -99,7 +99,6 @@ function getCountryList(page: Page): Locator {
 
 /** The map's country outlines: svg paths, which have no role. Interactive ones have a page and a tooltip. */
 function getCountryOutlines(page: Page, status?: "member"): Locator {
-	// oxlint-disable-next-line playwright/no-raw-locators -- Leaflet's svg paths have no role.
 	return page.locator(`path.country${status != null ? `.country-${status}` : ""}.leaflet-interactive`);
 }
 

@@ -77,7 +77,7 @@ export function FacetCheckboxGroup(
 					<button
 						aria-controls={`${id}-panel`}
 						aria-expanded={isOpen}
-						className="group flex items-center justify-between gap-x-2 px-2 py-4 text-start inline-full [--focus-outline-offset:-3px] aria-expanded:bg-background-muted focus-visible-outline"
+						className="group flex items-center justify-between gap-x-2 px-2 py-4 text-start focus-visible-outline [--focus-outline-offset:-3px] inline-full aria-expanded:bg-background-muted"
 						onClick={() => {
 							setIsOpen(!isOpen);
 						}}
@@ -86,7 +86,7 @@ export function FacetCheckboxGroup(
 						{label}
 						<ChevronDownIcon
 							aria-hidden={true}
-							className="size-5 shrink-0 text-icon-accent transition-transform group-aria-expanded:rotate-180"
+							className="shrink-0 text-icon-accent transition-transform block-5 inline-5 group-aria-expanded:rotate-180"
 							strokeWidth={2.5}
 						/>
 					</button>
@@ -104,7 +104,7 @@ export function FacetCheckboxGroup(
 							<li key={value} className="flex items-center gap-x-4" hidden={isHidden}>
 								<span className="grid shrink-0 place-items-center *:[grid-area:1/1]">
 									<input
-										className="peer size-5 appearance-none rounded-xs border-[1.5px] border-stroke-control bg-background-base checked:border-stroke-accent checked:bg-background-accent-strong hover:border-stroke-accent focus-visible-outline"
+										className="peer appearance-none rounded-xs border-[1.5px] border-stroke-control bg-background-base focus-visible-outline block-5 inline-5 checked:border-stroke-accent checked:bg-background-accent-strong hover:border-stroke-accent"
 										defaultChecked={isSelected}
 										id={`${id}-${value}`}
 										name={name}
@@ -113,7 +113,7 @@ export function FacetCheckboxGroup(
 									/>
 									<CheckIcon
 										aria-hidden={true}
-										className="pointer-events-none invisible size-4 text-text-inverse peer-checked:visible"
+										className="pointer-events-none invisible text-text-inverse block-4 inline-4 peer-checked:visible"
 										strokeWidth={3}
 									/>
 								</span>
@@ -128,7 +128,7 @@ export function FacetCheckboxGroup(
 					<button
 						aria-controls={`${id}-values`}
 						aria-expanded={isExpanded}
-						className="flex items-center gap-x-2 text-caption font-medium mbs-4 hover:text-text-accent focus-visible-outline"
+						className="mbs-4 flex items-center gap-x-2 text-caption font-medium focus-visible-outline hover:text-text-accent"
 						onClick={() => {
 							setIsExpanded(!isExpanded);
 						}}
@@ -155,11 +155,11 @@ export function FacetCheckboxGroupSkeleton(props: Readonly<{ label: string }>): 
 
 	return (
 		<div>
-			<p className="font-heading text-body font-bold mbe-4">{label}</p>
+			<p className="mbe-4 font-heading text-body font-bold">{label}</p>
 			<div className="flex flex-col gap-y-3">
 				{Array.from({ length: collapsedValues }, (_, index) => (
 					<div key={index} className="flex items-center gap-x-4">
-						<SkeletonShape className="size-5 shrink-0 rounded-xs" />
+						<SkeletonShape className="shrink-0 rounded-xs block-5 inline-5" />
 						<SkeletonText className={cn("text-caption", index % 2 === 0 ? "inline-40" : "inline-28")} />
 					</div>
 				))}

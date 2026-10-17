@@ -39,7 +39,7 @@ function SectionErrorFallback(props: Readonly<SectionErrorFallbackProps>, errorI
 		<div className={className}>
 			<p>{t("This section could not be loaded.")}</p>
 			<button
-				className="mbs-6 inline-flex min-block-15 cursor-pointer items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+				className="mbs-6 inline-flex cursor-pointer items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 focus-visible-outline min-block-15 hover:underline"
 				onClick={() => {
 					retry();
 				}}

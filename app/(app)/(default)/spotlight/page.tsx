@@ -54,11 +54,11 @@ export default async function SpotlightPage(_props: Readonly<SpotlightPageProps>
 			<PageHeader current={href({ pathname: "/spotlight" })} image={page.image} title={page.title} />
 			<ContentBlocks
 				blocks={page.content}
-				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:font-regular [&_.prose]:leading-body [&_.prose_p]:break-inside-avoid"
+				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
 			/>
 			{/** The same grid as the impact case studies: as many 22rem columns as fit, up to three. */}
 			<ul
-				className="mbs-16 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%_-_2.5rem)/3),1fr))] gap-x-5 gap-y-8"
+				className="mbs-16 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%-2.5rem)/3),1fr))] gap-x-5 gap-y-8"
 				role="list"
 			>
 				{items.map((item) => (
@@ -88,13 +88,13 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 	const t = useTranslations();
 
 	return (
-		<article className="group relative flex inline-full flex-col bg-background-base shadow-card-edge hover:bg-background-card-hover">
+		<article className="group relative flex flex-col bg-background-base shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-5/3 border border-stroke-weak bg-background-base">
 				<ApiImage alt="" className="object-cover" fill={true} image={item.image} sizes={cardImageSizes} />
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex items-center gap-x-3">
-					<SparklesIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" />
+					<SparklesIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" />
 					<span className="text-small font-bold text-text-accent uppercase">{t("Spotlight article")}</span>
 				</p>
 				<h2 className="font-heading text-title-4 group-hover:text-text-accent">

@@ -56,7 +56,7 @@ function NavigationMenuItems(props: Readonly<NavigationMenuItemsProps>): ReactNo
 									{child.isExternal ? (
 										<ExternalLinkIcon
 											aria-hidden={true}
-											className="ms-2 inline size-4 align-[calc(-1rem/12)] text-icon-accent"
+											className="ms-2 inline align-[calc(-1rem/12)] text-icon-accent block-4 inline-4"
 										/>
 									) : null}
 								</NavigationMenuLink>
@@ -70,7 +70,7 @@ function NavigationMenuItems(props: Readonly<NavigationMenuItemsProps>): ReactNo
 					{item.isExternal ? (
 						<ExternalLinkIcon
 							aria-hidden={true}
-							className="ms-2 inline size-4 align-[calc(-1rem/12)] text-icon-accent"
+							className="ms-2 inline align-[calc(-1rem/12)] text-icon-accent block-4 inline-4"
 						/>
 					) : null}
 				</NavigationMenuLink>
@@ -102,7 +102,7 @@ export async function Header(): Promise<ReactNode> {
 	return (
 		<header className="flex items-center gap-8 border-be border-stroke-weak px-[calc(var(--spacing-container)-1rem)] py-3">
 			<NavigationLink
-				className="m-4 flex shrink-0 [--focus-outline-offset:6px] focus-visible-outline"
+				className="m-4 flex shrink-0 focus-visible-outline [--focus-outline-offset:6px]"
 				href={href({ pathname: "/" })}
 			>
 				{/**
@@ -117,10 +117,10 @@ export async function Header(): Promise<ReactNode> {
 			</NavigationMenu>
 			<NavigationLink
 				aria-label={t("Search")}
-				className="flex shrink-0 touch-area bg-background-subtle p-3 [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent max-xl:hidden 2xl:ms-16 focus-visible-outline"
+				className="touch-area flex shrink-0 bg-background-subtle p-3 focus-visible-outline [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent max-xl:hidden 2xl:ms-16"
 				href={href({ pathname: "/search" })}
 			>
-				<SearchIcon aria-hidden={true} className="size-5" />
+				<SearchIcon aria-hidden={true} className="block-5 inline-5" />
 			</NavigationLink>
 			<MobileNavigation className="ms-auto xl:hidden" items={items} />
 		</header>

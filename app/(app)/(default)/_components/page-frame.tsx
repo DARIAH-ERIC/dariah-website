@@ -21,7 +21,7 @@ export function PageFrame(props: Readonly<PageFrameProps>): ReactNode {
 	const { children } = props;
 
 	return (
-		<div className="container min-block-full bg-background-base 3xl:border-x 3xl:border-stroke-weak" id={pageTopId}>
+		<div className="container bg-background-base min-block-full 3xl:border-x 3xl:border-stroke-weak" id={pageTopId}>
 			{children}
 		</div>
 	);

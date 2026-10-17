@@ -134,7 +134,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 							href={hrefFor(previous)}
 							prefetch={prefetch}
 						>
-							<ChevronLeftIcon aria-hidden={true} className="size-6" strokeWidth={2.5} />
+							<ChevronLeftIcon aria-hidden={true} className="block-6 inline-6" strokeWidth={2.5} />
 						</Link>
 					</li>
 				) : null}
@@ -183,7 +183,7 @@ export function Pagination(props: Readonly<PaginationProps>): ReactNode {
 							href={hrefFor(next)}
 							prefetch={prefetch}
 						>
-							<ChevronRightIcon aria-hidden={true} className="size-6" strokeWidth={2.5} />
+							<ChevronRightIcon aria-hidden={true} className="block-6 inline-6" strokeWidth={2.5} />
 						</Link>
 					</li>
 				) : null}

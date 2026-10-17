@@ -104,12 +104,12 @@ async function OpportunityContent(props: Pick<OpportunityPageProps, "params">): 
 			>
 				{item.website != null ? (
 					<Link
-						className="inline-flex items-center gap-x-3 font-heading font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+						className="inline-flex items-center gap-x-3 font-heading font-bold text-text-accent underline-offset-4 focus-visible-outline hover:underline"
 						href={unsafeHref(item.website, true)}
 					>
 						{t("Visit website")}
 						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="size-5" />
+						<ExternalLinkIcon aria-hidden={true} className="block-5 inline-5" />
 					</Link>
 				) : null}
 			</ContentLayout>

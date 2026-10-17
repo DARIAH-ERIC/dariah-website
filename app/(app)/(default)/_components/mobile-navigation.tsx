@@ -67,13 +67,13 @@ function MobileNavigationMenu(props: Readonly<MobileNavigationMenuProps>): React
 							{item.kind === "submenu" ? (
 								<Disclosure id={item.id}>
 									<Button
-										className="group flex cursor-pointer items-center justify-between gap-1.5 px-6 py-4 font-heading text-body font-medium inline-full [--focus-outline-offset:-3px] not-aria-expanded:[--color-focus-outline:var(--color-focus-outline-inverse)] aria-expanded:bg-background-muted aria-expanded:text-text-strong focus-visible-outline"
+										className="group flex cursor-pointer items-center justify-between gap-1.5 px-6 py-4 font-heading text-body font-medium focus-visible-outline [--focus-outline-offset:-3px] inline-full not-aria-expanded:[--color-focus-outline:var(--color-focus-outline-inverse)] aria-expanded:bg-background-muted aria-expanded:text-text-strong"
 										slot="trigger"
 									>
 										{item.label}
 										<ChevronDownIcon
 											aria-hidden={true}
-											className="-me-0.25 size-4 shrink-0 transition-transform group-aria-expanded:rotate-180 group-aria-expanded:text-icon-accent"
+											className="-me-0.25 shrink-0 transition-transform block-4 inline-4 group-aria-expanded:rotate-180 group-aria-expanded:text-icon-accent"
 											strokeWidth={2.5}
 										/>
 									</Button>
@@ -82,7 +82,7 @@ function MobileNavigationMenu(props: Readonly<MobileNavigationMenuProps>): React
 											{item.children.map((child) => (
 												<li key={child.id}>
 													<NavigationLink
-														className="block px-6 py-2.5 font-heading text-body [--focus-outline-offset:-3px] aria-[current=page]:text-text-accent focus-visible-outline"
+														className="block px-6 py-2.5 font-heading text-body focus-visible-outline [--focus-outline-offset:-3px] aria-[current=page]:text-text-accent"
 														href={unsafeHref(child.href, child.isExternal)}
 														onClick={onNavigate}
 													>
@@ -90,7 +90,7 @@ function MobileNavigationMenu(props: Readonly<MobileNavigationMenuProps>): React
 														{child.isExternal ? (
 															<ExternalLinkIcon
 																aria-hidden={true}
-																className="ms-2 inline size-4 align-[calc(-1rem/12)] text-icon-accent"
+																className="ms-2 inline align-[calc(-1rem/12)] text-icon-accent block-4 inline-4"
 															/>
 														) : null}
 													</NavigationLink>
@@ -101,13 +101,16 @@ function MobileNavigationMenu(props: Readonly<MobileNavigationMenuProps>): React
 								</Disclosure>
 							) : (
 								<NavigationLink
-									className="block px-6 py-4 font-heading text-body font-medium [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:-3px] aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-6 focus-visible-outline"
+									className="block px-6 py-4 font-heading text-body font-medium focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:-3px] aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-6"
 									href={unsafeHref(item.href, item.isExternal)}
 									onClick={onNavigate}
 								>
 									{item.label}
 									{item.isExternal ? (
-										<ExternalLinkIcon aria-hidden={true} className="ms-2 inline size-4 align-[calc(-1rem/12)]" />
+										<ExternalLinkIcon
+											aria-hidden={true}
+											className="ms-2 inline align-[calc(-1rem/12)] block-4 inline-4"
+										/>
 									) : null}
 								</NavigationLink>
 							)}
@@ -192,9 +195,9 @@ export function MobileNavigation(props: Readonly<MobileNavigationProps>): ReactN
 			<DialogTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
 				<Button
 					aria-label={t("Menu")}
-					className="flex shrink-0 cursor-pointer touch-area bg-background-subtle p-3 [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent focus-visible-outline"
+					className="touch-area flex shrink-0 cursor-pointer bg-background-subtle p-3 focus-visible-outline [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent"
 				>
-					<MenuIcon aria-hidden={true} className="size-5" />
+					<MenuIcon aria-hidden={true} className="block-5 inline-5" />
 				</Button>
 				<Modal
 					className="fixed inset-0 z-50 bg-background-base duration-200 entering:animate-in entering:fade-in exiting:animate-out exiting:fade-out"
@@ -204,9 +207,9 @@ export function MobileNavigation(props: Readonly<MobileNavigationProps>): ReactN
 						aria-label={t("Menu")}
 						className="flex flex-col bg-background-navigation text-text-inverse outline-hidden block-dvh"
 					>
-						<div className="container flex bg-background-base text-text-strong shrink-0 items-center justify-between gap-8 px-[calc(var(--spacing-container)-1rem)] py-3">
+						<div className="container flex shrink-0 items-center justify-between gap-8 bg-background-base px-[calc(var(--spacing-container)-1rem)] py-3 text-text-strong">
 							<NavigationLink
-								className="m-4 flex shrink-0 [--focus-outline-offset:6px] focus-visible-outline"
+								className="m-4 flex shrink-0 focus-visible-outline [--focus-outline-offset:6px]"
 								href={href({ pathname: "/" })}
 								onClick={close}
 							>
@@ -214,21 +217,21 @@ export function MobileNavigation(props: Readonly<MobileNavigationProps>): ReactN
 							</NavigationLink>
 							<Button
 								aria-label={t("Close menu")}
-								className="flex shrink-0 cursor-pointer touch-area bg-background-subtle p-3 [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent focus-visible-outline"
+								className="touch-area flex shrink-0 cursor-pointer bg-background-subtle p-3 focus-visible-outline [--focus-outline-offset:-3px] hover:bg-background-accent hover:text-icon-accent focus-visible:bg-background-accent focus-visible:text-icon-accent"
 								slot="close"
 							>
-								<XIcon aria-hidden={true} className="size-5" />
+								<XIcon aria-hidden={true} className="block-5 inline-5" />
 							</Button>
 						</div>
 						<div className="flex-1 overflow-y-auto">
 							<MobileNavigationMenu items={items} onNavigate={close} />
 						</div>
 						<NavigationLink
-							className="flex shrink-0 items-center gap-4 border-bs border-stroke-inverse px-6 py-4 font-heading text-body font-medium [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:-3px] aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-6 focus-visible-outline"
+							className="flex shrink-0 items-center gap-4 border-bs border-stroke-inverse px-6 py-4 font-heading text-body font-medium focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:-3px] aria-[current=page]:underline aria-[current=page]:decoration-2 aria-[current=page]:underline-offset-6"
 							href={href({ pathname: "/search" })}
 							onClick={close}
 						>
-							<SearchIcon aria-hidden={true} className="size-5" />
+							<SearchIcon aria-hidden={true} className="block-5 inline-5" />
 							{t("Search")}
 						</NavigationLink>
 					</Dialog>

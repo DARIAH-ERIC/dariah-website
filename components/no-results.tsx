@@ -57,7 +57,7 @@ function NoResultsLink(props: Readonly<{ children: ReactNode; href: Href }>): Re
 			href={href}
 		>
 			{children}
-			<ArrowRightIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" strokeWidth={2.5} />
+			<ArrowRightIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 		</Link>
 	);
 }

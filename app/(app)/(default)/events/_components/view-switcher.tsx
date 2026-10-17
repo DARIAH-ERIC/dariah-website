@@ -47,10 +47,10 @@ export function ViewSwitcher(
 							<li key={id} className="flex-1">
 								<Link
 									aria-current={id === view ? "page" : undefined}
-									className="relative flex items-center justify-center gap-x-2 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 font-medium min-block-15 hover:border-stroke-accent focus-visible:z-1 focus-visible-outline aria-[current=page]:border-stroke-accent aria-[current=page]:bg-background-accent-strong aria-[current=page]:text-text-inverse"
+									className="relative flex items-center justify-center gap-x-2 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 font-medium focus-visible-outline min-block-15 hover:border-stroke-accent focus-visible:z-1 aria-[current=page]:border-stroke-accent aria-[current=page]:bg-background-accent-strong aria-[current=page]:text-text-inverse"
 									href={hrefs[id]}
 								>
-									<Icon aria-hidden={true} className="size-5 shrink-0" />
+									<Icon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 									{label}
 								</Link>
 							</li>

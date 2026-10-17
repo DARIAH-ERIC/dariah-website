@@ -70,21 +70,21 @@ export function SubscribeMenu(props: Readonly<{ className?: string; feedUrl: str
 	return (
 		<div className={className}>
 			<MenuTrigger>
-				<Button className="group inline-flex min-block-15 items-center gap-x-3 border-2 border-stroke-accent bg-background-base px-8 font-heading text-body font-bold text-text-accent hover:bg-background-accent-strong hover:text-text-inverse focus-visible-outline aria-expanded:bg-background-accent-strong aria-expanded:text-text-inverse">
-					<CalendarSyncIcon aria-hidden={true} className="size-5 shrink-0" />
+				<Button className="group inline-flex items-center gap-x-3 border-2 border-stroke-accent bg-background-base px-8 font-heading text-body font-bold text-text-accent focus-visible-outline min-block-15 hover:bg-background-accent-strong hover:text-text-inverse aria-expanded:bg-background-accent-strong aria-expanded:text-text-inverse">
+					<CalendarSyncIcon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 					{t("Subscribe")}
 					<ChevronDownIcon
 						aria-hidden={true}
-						className="size-5 shrink-0 transition-transform group-aria-expanded:rotate-180 motion-reduce:transition-none"
+						className="shrink-0 transition-transform block-5 inline-5 group-aria-expanded:rotate-180 motion-reduce:transition-none"
 						strokeWidth={2.5}
 					/>
 				</Button>
 				<Popover
-					className="min-inline-(--trigger-width) border border-stroke-weak bg-background-base shadow-lg"
+					className="border border-stroke-weak bg-background-base shadow-lg min-inline-(--trigger-width)"
 					offset={4}
 					placement="bottom end"
 				>
-					<Menu className="max-block-[inherit] overflow-y-auto py-2 outline-none">
+					<Menu className="overflow-y-auto py-2 outline-none max-block-[inherit]">
 						<MenuSection>
 							<Header className={sectionHeaderClassName}>{t("Calendar")}</Header>
 							<MenuItem className={itemClassName} href={webcalUrl} textValue={t("Calendar app")}>
@@ -116,9 +116,9 @@ export function SubscribeMenu(props: Readonly<{ className?: string; feedUrl: str
 								<Text className="flex items-center gap-x-2 font-heading" slot="label">
 									{isCopied ? t("Link copied") : t("Copy link")}
 									{isCopied ? (
-										<CheckIcon aria-hidden={true} className="size-4 shrink-0" strokeWidth={2.5} />
+										<CheckIcon aria-hidden={true} className="shrink-0 block-4 inline-4" strokeWidth={2.5} />
 									) : (
-										<CopyIcon aria-hidden={true} className="size-4 shrink-0" />
+										<CopyIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
 									)}
 								</Text>
 								<Text className="text-small text-text-weak" slot="description">
@@ -132,7 +132,7 @@ export function SubscribeMenu(props: Readonly<{ className?: string; feedUrl: str
 							<MenuItem className={itemClassName} href={rssHref} textValue={t("RSS feed")}>
 								<Text className="flex items-center gap-x-2 font-heading" slot="label">
 									{t("RSS feed")}
-									<RssIcon aria-hidden={true} className="size-4 shrink-0" />
+									<RssIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
 								</Text>
 								<Text className="text-small text-text-weak" slot="description">
 									{t("New events as they are announced")}
