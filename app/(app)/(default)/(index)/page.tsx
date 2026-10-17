@@ -2,10 +2,14 @@ import { clsx as cn } from "clsx";
 import { ChevronRightIcon, NewspaperIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { useFormatter, useExtracted as useTranslations } from "next-intl";
+import { getImageProps } from "next/image";
 import { type ComponentProps, Fragment, type ReactNode, Suspense, useId } from "react";
+import { preload } from "react-dom";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import backgroundGetInvolvedSection from "#/assets/images/background-get-involved.jpg";
+import backgroundHeroMedium from "#/assets/images/background-hero-medium.jpg";
+import backgroundHeroNarrow from "#/assets/images/background-hero-narrow.jpg";
 import backgroundHeroSection from "#/assets/images/background-hero.jpg";
 import backgroundResourcesSection from "#/assets/images/background-resources.jpg";
 import logoDariahCampus from "#/assets/images/logo-dariah-campus.svg";
@@ -175,32 +179,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * block.
 			 */}
 			<section className="relative isolate flex bg-gradient-hero min-block-[calc(var(--spacing-hero)+var(--spacing-hero-overlap))] flex-col px-container before:grow-3 after:grow pbs-36 pbe-42 md:min-block-hero md:pbs-16 md:pbe-[calc(var(--spacing-hero-overlap)+--spacing(16))]">
-				{/**
-				 * The hero fills the top of the page, so it is this page's largest contentful paint. `fetchPriority` rather than next's
-				 * `preload`: the two are alternatives - next ignores `preload` when either `loading` or `fetchPriority` is set. The
-				 * image is preloaded all the same: react's server renderer hoists a `<link rel="preload">` into the head for any eager
-				 * `<img>` outside a `<picture>`, and flushes it first when `fetchPriority` is `high`. So it outranks the other images
-				 * the browser discovers, and its request starts before the stylesheets'.
-				 *
-				 * No blur placeholder: the gradient behind it stands in for one. The placeholder is an svg blur filter drawn at the
-				 * hero's full size, and the heading's backdrop blur blurs it again - rasterized in software, as on lighthouse's
-				 * machines, the two held up the first paint on desktop by about 300ms, although the image itself had long arrived.
-				 */}
-				<Image
-					alt=""
-					className="object-cover"
-					fetchPriority="high"
-					fill={true}
-					loading="eager"
-					/**
-					 * `object-cover` in a box proportionally taller than the photo (2.26:1), so the photo is drawn at the box's
-					 * height times 2.26, wider than the box. The height is the section's `min-block`: the viewport's height less
-					 * 10rem, at most 70vw, between 30rem and 57.75rem. Below `md` it is the 30rem minimum in practice, plus the
-					 * heading's overlap, about 7.5rem - so about 85rem wide.
-					 */
-					sizes="(min-width: 48rem) max(min(100vw, 120rem), min(226vh - 22.6rem, 158vw, 130rem), 68rem), 85rem"
-					src={backgroundHeroSection}
-				/>
+				<HeroImage />
 				<div className="relative">
 					{/**
 					 * The box blurs the photo behind it and multiplies a translucent tint over that, as in the design. Each is its own
@@ -466,6 +445,69 @@ function CatalogueIntro(props: Readonly<CardProps>): ReactNode {
 				</Link>
 			</footer>
 		</article>
+	);
+}
+
+/**
+ * The hero fills the top of the page, so it is this page's largest contentful paint.
+ *
+ * `object-cover` in a box proportionally taller than the photo (2.26:1) draws the photo at the box's height, wider than
+ * the box, and centred. Below `md` the box is portrait or close to square - 600-730px tall, with its content - so a
+ * phone shows less than a quarter of the photo's width. There, the photo is swapped for crops of its centre (3:4 below
+ * `30rem`, 4:3 up to `md`), each at least as wide as the box at those widths: drawn at the same scale, they show the
+ * same part of the photo, at a third and three fifths of its pixels - fewer bytes, and less to decode before it paints.
+ * Each `sizes` is the drawn width: the box's height times the crop's ratio, or the viewport's width if wider.
+ *
+ * React's server renderer hoists a `<link rel="preload">` for an eager `<img>` - but not for one in a `<picture>`, as
+ * it cannot tell which source the browser will pick. So each source is preloaded here, for its own media query, with
+ * `fetchPriority` `high`, which react flushes first, ahead of the stylesheets.
+ *
+ * No blur placeholder: the gradient behind it stands in for one. The placeholder is an svg blur filter drawn at the
+ * hero's full size, and the heading's backdrop blur blurs it again - rasterized in software, as on lighthouse's
+ * machines, the two held up the first paint on desktop by about 300ms, although the image itself had long arrived.
+ */
+function HeroImage(): ReactNode {
+	const crops = [
+		{ media: "(width < 30rem)", sizes: "max(100vw, 36rem)", src: backgroundHeroNarrow },
+		{ media: "(30rem <= width < 48rem)", sizes: "max(100vw, 61rem)", src: backgroundHeroMedium },
+	].map(({ media, sizes, src }) => {
+		const { props } = getImageProps({ alt: "", fill: true, sizes, src });
+
+		preload(props.src, { as: "image", fetchPriority: "high", imageSizes: sizes, imageSrcSet: props.srcSet, media });
+
+		return { media, sizes, srcSet: props.srcSet };
+	});
+
+	/**
+	 * The height is the section's `min-block`: the viewport's height less 10rem, at most 70vw, between 30rem and
+	 * 57.75rem.
+	 */
+	const sizes = "max(min(100vw, 120rem), min(226vh - 22.6rem, 158vw, 130rem), 68rem)";
+	const { props } = getImageProps({
+		alt: "",
+		className: "object-cover",
+		fetchPriority: "high",
+		fill: true,
+		loading: "eager",
+		sizes,
+		src: backgroundHeroSection,
+	});
+
+	preload(props.src, {
+		as: "image",
+		fetchPriority: "high",
+		imageSizes: sizes,
+		imageSrcSet: props.srcSet,
+		media: "(width >= 48rem)",
+	});
+
+	return (
+		<picture>
+			{crops.map(({ media, sizes, srcSet }) => (
+				<source key={media} media={media} sizes={sizes} srcSet={srcSet} />
+			))}
+			<img {...props} alt="" />
+		</picture>
 	);
 }
 
