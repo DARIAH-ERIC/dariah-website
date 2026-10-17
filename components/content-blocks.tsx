@@ -1,9 +1,11 @@
 import type { JSONContent } from "@tiptap/core";
 import cn from "clsx/lite";
+import { useExtracted as useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import { ApiImage } from "#/components/api-image.tsx";
 import { Caption } from "#/components/caption.tsx";
+import { Carousel } from "#/components/carousel.tsx";
 import { Footnotes, RichTextContent } from "#/components/rich-text.tsx";
 import { Accordion, type AccordionItem } from "#/components/ui/accordion.tsx";
 import type { BlockImage } from "#/lib/api/schemas.ts";
@@ -164,7 +166,7 @@ function ContentBlockView(props: Readonly<ContentBlockViewProps>): ReactNode {
 						 * At its own aspect ratio, so a portrait keeps its head and a logo its ends; capped, so an unusually tall
 						 * image is cropped rather than towering beside the text.
 						 */}
-						<ApiImage className="block-auto inline-full max-block-56 object-cover" image={image} sizes="9rem" />
+						<ApiImage className="object-cover block-auto inline-full max-block-56" image={image} sizes="9rem" />
 						<Caption content={block.caption} license={image.license} />
 					</figure>
 					<RichTextContent content={block.content} />
@@ -279,6 +281,8 @@ interface GalleryBlockViewProps {
 function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 	const { block } = props;
 
+	const t = useTranslations();
+
 	const items = (Array.isArray(block.items) ? block.items.filter((item) => isRecord(item)) : [])
 		.map((item) => {
 			return { image: asImage(item.image), caption: item.caption };
@@ -311,11 +315,12 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 				))}
 			</ul>
 		) : layout === "carousel" ? (
-			<div className="flex snap-x snap-mandatory gap-4 overflow-x-auto pbe-2">
-				{items.map((item, index) => (
+			<Carousel
+				label={t("Image gallery")}
+				slides={items.map((item, index) => (
 					/** A cap, not a fixed width: a narrow source makes a narrow slide rather than being stretched over one. */
 					// oxlint-disable-next-line react/no-array-index-key -- Gallery items carry no id of their own.
-					<figure className="max-inline-[min(20rem,80vw)] shrink-0 snap-start" key={index}>
+					<figure className="max-inline-[min(20rem,80vw)]" key={index}>
 						<ApiImage
 							className="ms-auto me-auto inline-auto max-block-96"
 							image={item.image}
@@ -324,7 +329,7 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 						<Caption content={item.caption} license={item.image.license} />
 					</figure>
 				))}
-			</div>
+			/>
 		) : (
 			/**
 			 * `auto-fill`, not `auto-fit`: an empty track keeps its width, so a two-image gallery reads as the first two

@@ -1678,6 +1678,26 @@ msgctxt "ByoZDD"
 msgid "Breadcrumbs"
 msgstr "Breadcrumbs"
 
+#: components/carousel.tsx
+msgctxt "c7T-Ci"
+msgid "carousel"
+msgstr "carousel"
+
+#: components/carousel.tsx
+msgctxt "MH3koz"
+msgid "Previous slide"
+msgstr "Previous slide"
+
+#: components/carousel.tsx
+msgctxt "Y9bYKH"
+msgid "Next slide"
+msgstr "Next slide"
+
+#: components/content-blocks.tsx
+msgctxt "K-Q04b"
+msgid "Image gallery"
+msgstr "Image gallery"
+
 #: components/content-layout.tsx
 msgctxt "S3SiEe"
 msgid "Quick links"
