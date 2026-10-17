@@ -36,7 +36,7 @@ export async function Footer(): Promise<ReactNode> {
 
 			<div className="mbs-10 grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-[3fr_2fr]">
 				<div>
-					<p className="max-inline-xl font-heading text-title-3 leading-heading font-light [text-box:trim-start_cap_alphabetic]">
+					<p className="font-heading text-title-3 leading-heading font-light [text-box:trim-start_cap_alphabetic] max-inline-xl">
 						{t(
 							"DARIAH's mission is to empower research communities with digital methods to create, connect and share knowledge about culture and society.",
 						)}
@@ -53,16 +53,16 @@ export async function Footer(): Promise<ReactNode> {
 												{item.children.map((child) => (
 													<li key={child.id}>
 														<NavigationLink
-															className="flex items-center gap-4 py-1 underline-offset-4 hover:underline focus-visible-outline"
+															className="flex items-center gap-4 py-1 underline-offset-4 focus-visible-outline hover:underline"
 															href={unsafeHref(child.href, child.isExternal)}
 														>
 															{/* An email address is marked as one, as in the design; other links get the usual chevron. */}
 															{child.href.startsWith("mailto:") ? (
-																<MailIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" />
+																<MailIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" />
 															) : (
 																<ChevronRightIcon
 																	aria-hidden={true}
-																	className="size-4 shrink-0 text-icon-accent"
+																	className="shrink-0 text-icon-accent block-4 inline-4"
 																	strokeWidth={2.5}
 																/>
 															)}
@@ -74,7 +74,7 @@ export async function Footer(): Promise<ReactNode> {
 										</Fragment>
 									) : (
 										<NavigationLink
-											className="font-heading font-bold underline-offset-4 hover:underline focus-visible-outline"
+											className="font-heading font-bold underline-offset-4 focus-visible-outline hover:underline"
 											href={unsafeHref(item.href, item.isExternal)}
 										>
 											{item.label}
@@ -110,7 +110,7 @@ export async function Footer(): Promise<ReactNode> {
 									<li key={link.id}>
 										{/* The mark is the link's only content, so it carries its accessible name. */}
 										<Link
-											className="flex touch-area p-2.5 [--focus-outline-offset:-3px] hover:bg-background-accent focus-visible:bg-background-accent focus-visible-outline"
+											className="touch-area flex p-2.5 focus-visible-outline [--focus-outline-offset:-3px] hover:bg-background-accent focus-visible:bg-background-accent"
 											href={unsafeHref(link.url, true)}
 										>
 											<Image alt={link.name} className="block-6 inline-6" src={socialMediaLogos[link.type]} />
@@ -140,7 +140,6 @@ export async function Footer(): Promise<ReactNode> {
 					{t.rich(
 						"Unless otherwise indicated, all site content is licensed under a Creative Commons - Attribution CC-BY 4.0 license. This is in line with <a>DARIAH's Open Access Policy</a>.",
 						{
-							// oxlint-disable-next-line react/no-unstable-nested-components
 							a(chunks) {
 								return (
 									<a

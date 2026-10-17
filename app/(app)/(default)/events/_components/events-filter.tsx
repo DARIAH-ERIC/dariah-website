@@ -38,10 +38,10 @@ export function EventsFilter(props: Readonly<EventsFilterProps>): ReactNode {
 			<Form action={action} className="flex flex-wrap items-end gap-3 md:gap-4">
 				<DatePicker className="flex-1 md:flex-none" defaultValue={date} label={t("Events starting from")} name={name} />
 				<button
-					className="flex items-center justify-center border-2 border-stroke-accent bg-background-accent-strong font-heading font-bold text-text-inverse min-block-15 min-inline-15 hover:bg-background-base hover:text-text-accent focus-visible-outline sm:px-8"
+					className="flex items-center justify-center border-2 border-stroke-accent bg-background-accent-strong font-heading font-bold text-text-inverse focus-visible-outline min-block-15 min-inline-15 hover:bg-background-base hover:text-text-accent sm:px-8"
 					type="submit"
 				>
-					<SearchIcon aria-hidden={true} className="size-5 sm:hidden" />
+					<SearchIcon aria-hidden={true} className="block-5 inline-5 sm:hidden" />
 					<span className="max-sm:sr-only">{t("Find events")}</span>
 				</button>
 			</Form>
@@ -59,8 +59,8 @@ export function EventsFilterSkeleton(): ReactNode {
 			<div className="flex flex-col gap-y-2">
 				<span className="font-bold">{t("Events starting from")}</span>
 				<div className="flex flex-wrap gap-3 md:gap-4">
-					<SkeletonShape className="min-block-15 flex-1 md:flex-none md:inline-44" />
-					<SkeletonShape className="min-block-15 inline-15 sm:inline-36" />
+					<SkeletonShape className="flex-1 min-block-15 md:flex-none md:inline-44" />
+					<SkeletonShape className="inline-15 min-block-15 sm:inline-36" />
 				</div>
 			</div>
 			{/* No label below `md`, like the switcher's, which keeps it for screen readers only. */}

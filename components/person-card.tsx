@@ -49,7 +49,7 @@ export function PersonGroup(props: Readonly<PersonGroupProps>): ReactNode {
 	return (
 		<section aria-labelledby={headingId}>
 			<Heading
-				className="text-small font-bold text-text-strong after:mbs-4 after:block after:block-0.5 after:inline-17.5 after:bg-stroke-weak"
+				className="text-small font-bold text-text-strong after:mbs-4 after:block after:bg-stroke-weak after:block-0.5 after:inline-17.5"
 				id={headingId}
 			>
 				{label}
@@ -106,21 +106,21 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 
 	return (
 		<article className="group relative flex flex-col items-start gap-y-4 sm:flex-row sm:gap-x-4">
-			<div className="relative size-34 shrink-0">
+			<div className="relative shrink-0 block-34 inline-34">
 				{person.image != null ? (
 					<ApiImage alt="" className="object-cover" fill={true} image={person.image} sizes="8.5rem" />
 				) : (
-					<div className="grid size-full place-items-center bg-background-placeholder px-[7%]">
+					<div className="grid place-items-center bg-background-placeholder px-[7%] block-full inline-full">
 						<Image alt="" className="block-auto inline-full" src={logo} />
 					</div>
 				)}
 			</div>
-			<div className="flex min-inline-0 flex-col gap-y-2 pbs-1">
+			<div className="flex flex-col gap-y-2 pbs-1 min-inline-0">
 				<Heading className="text-title-4 leading-heading text-text-strong [text-box:trim-start_cap_alphabetic]">
 					{person.name}
 				</Heading>
 				{roles.length > 0 || affiliations.length > 0 ? (
-					<div className="flex max-inline-[50ch] flex-col gap-y-1 text-caption leading-heading text-text-weak">
+					<div className="flex flex-col gap-y-1 text-caption leading-heading text-text-weak max-inline-[50ch]">
 						{roles.length > 0 ? <p>{roles.join(", ")}</p> : null}
 						{affiliations.length > 0 ? <p>{affiliations.join(", ")}</p> : null}
 					</div>
@@ -132,7 +132,7 @@ export function PersonCard(props: Readonly<PersonCardProps>): ReactNode {
 				>
 					{t("Read more")}
 					<span className="sr-only"> {person.name}</span>
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</div>
 		</article>

@@ -78,7 +78,7 @@ export default function EventPage(props: Readonly<EventPageProps>): ReactNode {
 						parent={href({ pathname: "/events" })}
 						titleLines={{ base: 4, sm: 3, lg: 2 }}
 					>
-						<SkeletonText className="inline-1/2 pbe-24" lines={3} />
+						<SkeletonText className="pbe-24 inline-1/2" lines={3} />
 					</PageHeaderSkeleton>
 				}
 			>
@@ -125,11 +125,11 @@ async function EventContent(props: Pick<EventPageProps, "params">): Promise<Reac
 						<div className="flex flex-col items-start gap-y-8">
 							<EventFacts item={item} />
 							<a
-								className="inline-flex items-center gap-x-3 border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse hover:bg-background-base hover:text-text-accent focus-visible-outline"
+								className="inline-flex items-center gap-x-3 border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse focus-visible-outline hover:bg-background-base hover:text-text-accent"
 								download={`${slug}.ics`}
 								href={serializeHref(unsafeHref(`/events/${encodeURIComponent(slug)}/calendar.ics`, false))}
 							>
-								<CalendarPlusIcon aria-hidden={true} className="size-5" />
+								<CalendarPlusIcon aria-hidden={true} className="block-5 inline-5" />
 								{t("Add to calendar")}
 							</a>
 						</div>
@@ -180,7 +180,7 @@ function EventFacts(props: Readonly<{ item: Event }>): ReactNode {
 			term: t("Website"),
 			value: (
 				<Link
-					className="break-all font-medium text-text-accent underline hover:no-underline focus-visible-outline"
+					className="font-medium break-all text-text-accent underline focus-visible-outline hover:no-underline"
 					href={unsafeHref(item.website, true)}
 				>
 					{item.website}
@@ -235,7 +235,7 @@ function AdjacentEventsList(
 
 	return (
 		<div className="border-bs border-stroke-weak bg-background-subtle px-main pbs-12 pbe-16">
-			<div className="grid max-inline-title gap-x-columns gap-y-12 md:grid-cols-2">
+			<div className="grid gap-x-columns gap-y-12 max-inline-title md:grid-cols-2">
 				{items.map(({ id, label, event, className }) =>
 					event != null ? (
 						<section key={id} className={cn("@container flex flex-col gap-y-8", className)}>

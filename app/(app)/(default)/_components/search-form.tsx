@@ -68,7 +68,7 @@ export function SearchForm(props: Readonly<SearchFormProps>): ReactNode {
 			<span className={statusClassName} role="status">
 				{isPending ? (
 					<Fragment>
-						<LoaderCircleIcon aria-hidden={true} className="size-5 animate-spin" />
+						<LoaderCircleIcon aria-hidden={true} className="animate-spin block-5 inline-5" />
 						<span className="sr-only">{t("Loading results…")}</span>
 					</Fragment>
 				) : null}

@@ -29,7 +29,7 @@ export function LatestResources(props: Readonly<LatestResourcesProps>): ReactNod
 
 	return (
 		<section aria-labelledby={id} className="grid gap-x-5 pbe-24 md:grid-cols-2 xl:grid-cols-3">
-			<h2 className="col-span-full text-title-2 mbe-10" id={id}>
+			<h2 className="col-span-full mbe-10 text-title-2" id={id}>
 				{t("Discover the latest resources")}
 			</h2>
 			<SectionErrorBoundary className="col-span-full">
@@ -38,11 +38,11 @@ export function LatestResources(props: Readonly<LatestResourcesProps>): ReactNod
 				</Suspense>
 			</SectionErrorBoundary>
 			<Link
-				className="-me-main mbs-16 flex items-center gap-2 bg-background-strong px-6 py-7 font-medium text-text-inverse underline-offset-4 hover:underline focus-visible-outline md:col-start-2 xl:col-start-3"
+				className="-me-main mbs-16 flex items-center gap-2 bg-background-strong px-6 py-7 font-medium text-text-inverse underline-offset-4 focus-visible-outline hover:underline md:col-start-2 xl:col-start-3"
 				href={unsafeHref(upstreamUrl, true)}
 			>
 				{t("Explore more resources")}
-				<ChevronRightIcon aria-hidden={true} className="size-4" strokeWidth={2.5} />
+				<ChevronRightIcon aria-hidden={true} className="block-4 inline-4" strokeWidth={2.5} />
 			</Link>
 		</section>
 	);
@@ -104,7 +104,7 @@ function LatestResourceCard(props: Readonly<{ document: ResourceDocument | null 
 	const Root = document != null ? "article" : "div";
 
 	return (
-		<Root className="flex inline-full flex-col items-start gap-y-4 bg-background-subtle p-6 shadow-card-edge">
+		<Root className="flex flex-col items-start gap-y-4 bg-background-subtle p-6 shadow-card-edge inline-full">
 			{document != null ? (
 				<h3 className="text-title-3 leading-heading">{document.label}</h3>
 			) : (
@@ -113,7 +113,7 @@ function LatestResourceCard(props: Readonly<{ document: ResourceDocument | null 
 			{document != null ? (
 				<ResourceTypeBadge type={document.type} />
 			) : (
-				<SkeletonShape className="text-badge block-[calc(1lh+--spacing(2))] inline-24" />
+				<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(2)))] inline-24" />
 			)}
 			{document == null ? (
 				<SkeletonText className="self-stretch leading-body" lines={5} />

@@ -238,20 +238,20 @@ function LatestNewsCard(props: Readonly<LatestNewsCardProps>): ReactNode {
 					<SkeletonShape className="absolute inset-0 rounded-none" />
 				)}
 				<p className="absolute inset-s-0 inset-be-0 flex flex-wrap content-center items-baseline gap-x-3 gap-y-1 bg-background-base px-4 py-3 min-block-12">
-					<NewspaperIcon aria-hidden={true} className="size-4 shrink-0 self-center text-icon-accent" />
+					<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 					{item != null ? (
 						<span className="text-small font-bold text-text-accent uppercase">
 							<AnnouncementType type={item.type} />
 						</span>
 					) : (
-						<SkeletonText className="inline-12 text-small" />
+						<SkeletonText className="text-small inline-12" />
 					)}
 					{item != null ? (
 						<time className="text-caption whitespace-nowrap" dateTime={item.publishedAt}>
 							{format.dateTime(new Date(item.publishedAt), { dateStyle: "long" })}
 						</time>
 					) : (
-						<SkeletonText className="inline-32 text-caption" />
+						<SkeletonText className="text-caption inline-32" />
 					)}
 				</p>
 			</div>
@@ -266,17 +266,17 @@ function LatestNewsCard(props: Readonly<LatestNewsCardProps>): ReactNode {
 				{item != null ? (
 					<Link
 						aria-labelledby={`${labelId} ${headingId}`}
-						className="inline-flex items-center gap-2 font-heading font-bold underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-8 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
+						className="inline-flex items-center gap-2 font-heading font-bold decoration-2 underline-offset-6 outline-none after:absolute after:inset-0 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-8 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 						href={announcementHref(item)}
 						prefetch="intent"
 					>
 						<span id={labelId}>{t("Continue reading")}</span>
-						<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+						<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 					</Link>
 				) : (
 					<span className="inline-flex items-center gap-2 font-heading font-bold">
 						{t("Continue reading")}
-						<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+						<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 					</span>
 				)}
 			</div>

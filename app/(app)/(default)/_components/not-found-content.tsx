@@ -24,7 +24,7 @@ export function NotFoundContent(): ReactNode {
 					{t("The page you are looking for does not exist or has been moved.")}
 				</p>
 				<Link
-					className="mbs-10 inline-flex min-block-15 items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+					className="mbs-10 inline-flex items-center border-2 border-stroke-accent bg-background-base px-12 font-heading text-body font-bold text-text-accent underline-offset-4 focus-visible-outline min-block-15 hover:underline"
 					href={href({ pathname: "/" })}
 				>
 					{t("Go to the home page")}

@@ -39,7 +39,12 @@ const appRestrictedImports = {
 			message: "Please use `getExtracted` instead, which is what messages are extracted from.",
 			name: "next-intl/server",
 		},
+		/**
+		 * `getImageProps` stays allowed, for an art directed `<picture>` the wrappers cannot render. For static imports it
+		 * goes through the same built-in optimizer as `#/components/image.tsx`.
+		 */
 		{
+			allowImportNames: ["getImageProps"],
 			message:
 				"Please use `#/components/image.tsx`, or `#/components/api-image.tsx` for api images, which handle the custom image loader's cases.",
 			name: "next/image",

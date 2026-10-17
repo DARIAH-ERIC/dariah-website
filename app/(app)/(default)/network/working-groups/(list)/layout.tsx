@@ -31,7 +31,7 @@ export default async function WorkingGroupsLayout(props: Readonly<WorkingGroupsL
 				<PageHeader current={href({ pathname: "/network/working-groups" })} image={page.image} title={page.title} />
 				<ContentBlocks
 					blocks={page.content}
-					className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:font-regular [&_.prose]:leading-body [&_.prose_p]:break-inside-avoid"
+					className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
 				/>
 			</div>
 			<TabNavigation

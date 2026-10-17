@@ -213,12 +213,12 @@ function ConsortiumDetails(props: Readonly<ConsortiumDetailsProps>): ReactNode {
 					{t("National consortium")}{" "}
 					{consortium.website != null ? (
 						<Link
-							className="font-bold whitespace-nowrap text-text-accent underline-offset-4 hover:underline focus-visible-outline"
+							className="font-bold whitespace-nowrap text-text-accent underline-offset-4 focus-visible-outline hover:underline"
 							href={unsafeHref(consortium.website, true)}
 						>
 							{consortium.name}
 							<span className="sr-only"> {t("(external website)")}</span>
-							<ExternalLinkIcon aria-hidden={true} className="ms-2 inline size-5 align-[-0.125em]" />
+							<ExternalLinkIcon aria-hidden={true} className="ms-2 inline align-[-0.125em] block-5 inline-5" />
 						</Link>
 					) : (
 						<span className="font-bold">{consortium.name}</span>
@@ -229,7 +229,6 @@ function ConsortiumDetails(props: Readonly<ConsortiumDetailsProps>): ReactNode {
 				<p className="text-text-weak">
 					{t.rich("Coordinated by <institution>{name}</institution>", {
 						name: coordinating.name,
-						// oxlint-disable-next-line react/no-unstable-nested-components
 						institution(chunks) {
 							return <InstitutionLink institution={coordinating}>{chunks}</InstitutionLink>;
 						},
@@ -240,7 +239,6 @@ function ConsortiumDetails(props: Readonly<ConsortiumDetailsProps>): ReactNode {
 				<p className="text-text-weak">
 					{t.rich("Represented by <institution>{name}</institution>", {
 						name: representative.name,
-						// oxlint-disable-next-line react/no-unstable-nested-components
 						institution(chunks) {
 							return <InstitutionLink institution={representative}>{chunks}</InstitutionLink>;
 						},
@@ -369,7 +367,7 @@ function WebLinks(props: Readonly<WebLinksProps>): ReactNode {
 								<Link className={websiteLinkClassName} href={unsafeHref(link.url, true)}>
 									{link.name}
 									<span className="sr-only"> {t("(external website)")}</span>
-									<ExternalLinkIcon aria-hidden={true} className="size-5 shrink-0" />
+									<ExternalLinkIcon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 								</Link>
 							</li>
 						))}
@@ -384,7 +382,7 @@ function WebLinks(props: Readonly<WebLinksProps>): ReactNode {
 							<li key={link.id}>
 								{/* The mark is the link's only content, so it carries its accessible name. */}
 								<Link
-									className="flex touch-area p-2.5 [--focus-outline-offset:-3px] hover:bg-background-accent focus-visible:bg-background-accent focus-visible-outline"
+									className="touch-area flex p-2.5 focus-visible-outline [--focus-outline-offset:-3px] hover:bg-background-accent focus-visible:bg-background-accent"
 									href={unsafeHref(link.url, true)}
 								>
 									<Image alt={link.name} className="block-6 inline-6" src={socialMediaLogos[link.type]} />
@@ -563,7 +561,7 @@ function InstitutionLinks(props: Readonly<InstitutionLinksProps>): ReactNode {
 					<Link className={institutionLinkClassName} href={unsafeHref(institution.website, true)}>
 						{t.rich("Website<hidden> of {name}</hidden>", { name: institution.name, hidden })}
 						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="size-4 shrink-0" />
+						<ExternalLinkIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
 					</Link>
 				</li>
 			) : null}
@@ -572,7 +570,7 @@ function InstitutionLinks(props: Readonly<InstitutionLinksProps>): ReactNode {
 					<Link className={institutionLinkClassName} href={unsafeHref(institution.ror, true)}>
 						{t.rich("ROR<hidden> record of {name}</hidden>", { name: institution.name, hidden })}
 						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="size-4 shrink-0" />
+						<ExternalLinkIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
 					</Link>
 				</li>
 			) : null}

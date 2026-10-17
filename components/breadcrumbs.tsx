@@ -68,7 +68,7 @@ export async function Breadcrumbs(props: Readonly<BreadcrumbsProps>): Promise<Re
 			<nav aria-label={t("Breadcrumbs")}>
 				<ol className="flex flex-wrap items-baseline gap-x-2 text-caption uppercase" role="list">
 					<li className="flex items-baseline gap-x-2">
-						<Link className="text-text-accent hover:underline focus-visible-outline" href={home}>
+						<Link className="text-text-accent focus-visible-outline hover:underline" href={home}>
 							{t("Home")}
 						</Link>
 						<Separator />
@@ -81,7 +81,7 @@ export async function Breadcrumbs(props: Readonly<BreadcrumbsProps>): Promise<Re
 					) : null}
 					{parent != null && parentItem != null ? (
 						<li className="flex items-baseline gap-x-2">
-							<Link className="text-text-accent hover:underline focus-visible-outline" href={parent}>
+							<Link className="text-text-accent focus-visible-outline hover:underline" href={parent}>
 								{parentItem.label}
 							</Link>
 							<Separator />

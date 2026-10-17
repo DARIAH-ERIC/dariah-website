@@ -53,7 +53,7 @@ export default async function MembersAndPartnersPage(
 			<PageHeader current={href({ pathname: "/network/members-and-partners" })} image={page.image} title={page.title} />
 			<ContentBlocks
 				blocks={page.content}
-				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:font-regular [&_.prose]:leading-body [&_.prose_p]:break-inside-avoid"
+				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
 			/>
 			<div className="mbs-16">
 				<MembersAndPartnersMap

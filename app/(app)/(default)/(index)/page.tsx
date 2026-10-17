@@ -178,7 +178,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * in it (`gradient-hero`) - so what shows before the image paints, or if it fails, is close to it rather than a flat
 			 * block.
 			 */}
-			<section className="relative isolate flex bg-gradient-hero min-block-[calc(var(--spacing-hero)+var(--spacing-hero-overlap))] flex-col px-container before:grow-3 after:grow pbs-36 pbe-42 md:min-block-hero md:pbs-16 md:pbe-[calc(var(--spacing-hero-overlap)+--spacing(16))]">
+			<section className="relative isolate flex flex-col bg-gradient-hero px-container pbs-36 pbe-42 min-block-[calc(var(--spacing-hero)+var(--spacing-hero-overlap))] before:grow-3 after:grow md:pbs-16 md:pbe-[calc(var(--spacing-hero-overlap)+(--spacing(16)))] md:min-block-hero">
 				<HeroImage />
 				<div className="relative">
 					{/**
@@ -189,10 +189,9 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 					 * design, its text in line with the page's. Each phrase starts a line of its own and is balanced within it, so a narrow
 					 * screen breaks the heading between its phrases, at any size and whatever the font's metrics.
 					 */}
-					<h1 className="relative max-inline-hero-heading px-6 py-7 font-heading text-display text-balance text-text-inverse shadow-hero-heading before:absolute before:inset-0 before:backdrop-blur-hero-heading after:absolute after:inset-0 after:bg-background-inverse/60 after:mix-blend-multiply max-md:-ms-container md:px-10 md:py-8 xl:px-14">
+					<h1 className="relative px-6 py-7 font-heading text-display text-balance text-text-inverse shadow-hero-heading max-inline-hero-heading before:absolute before:inset-0 before:backdrop-blur-hero-heading after:absolute after:inset-0 after:bg-background-inverse/60 after:mix-blend-multiply max-md:-ms-container md:px-10 md:py-8 xl:px-14">
 						<span className="relative z-1">
 							{t.rich("<line>Digital Research Infrastructure</line> <line>for Arts and Humanities</line>", {
-								// oxlint-disable-next-line react/no-unstable-nested-components
 								line(chunks) {
 									return <span className="block">{chunks}</span>;
 								},
@@ -206,13 +205,13 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 					 */}
 					<div className="mbs-12 flex flex-wrap gap-x-10 gap-y-4 max-sm:flex-col max-sm:gap-y-6 md:mbs-14">
 						<Link
-							className="min-block-15 content-center border-2 border-stroke-inverse text-center bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse [text-box:trim-both_cap_alphabetic] hover:bg-background-base hover:border-stroke-accent hover:text-text-accent focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:4px]"
+							className="content-center border-2 border-stroke-inverse bg-background-accent-strong px-6 py-3 text-center font-heading font-bold text-text-inverse focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:4px] [text-box:trim-both_cap_alphabetic] min-block-15 hover:border-stroke-accent hover:bg-background-base hover:text-text-accent"
 							href={href({ pathname: "/get-involved/join-dariah" })}
 						>
 							{t("Get involved")}
 						</Link>
 						<Link
-							className="min-block-15 content-center border-2 border-stroke-inverse text-center bg-background-inverse px-6 py-3 font-heading font-bold text-text-inverse [text-box:trim-both_cap_alphabetic] hover:bg-background-base hover:border-stroke-strong hover:text-text-strong focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:4px]"
+							className="content-center border-2 border-stroke-inverse bg-background-inverse px-6 py-3 text-center font-heading font-bold text-text-inverse focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] [--focus-outline-offset:4px] [text-box:trim-both_cap_alphabetic] min-block-15 hover:border-stroke-strong hover:bg-background-base hover:text-text-strong"
 							href={href({ pathname: "/about/dariah-in-a-nutshell" })}
 						>
 							{t("Learn more about DARIAH-EU")}
@@ -232,7 +231,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * one line.
 			 */}
 			<section className="grid gap-x-8 px-container md:grid-cols-2 lg:grid-cols-3 lg:gap-x-gutter 2xl:grid-cols-[2fr_1fr_1fr]">
-				<h2 className="relative -mbs-hero-overlap -ms-container bg-background-base max-md:-me-container ps-container pe-container md:pe-8 md:max-lg:-me-8 md:max-2xl:pe-20 lg:max-2xl:-me-gutter py-[calc((var(--spacing-hero-overlap)-1cap)/2)] section-heading md:min-inline-max">
+				<h2 className="relative -ms-container -mbs-hero-overlap bg-background-base py-[calc((var(--spacing-hero-overlap)-1cap)/2)] ps-container pe-container section-heading max-md:-me-container md:pe-8 md:min-inline-max md:max-2xl:pe-20 md:max-lg:-me-8 lg:max-2xl:-me-gutter">
 					{t("Stay updated")}
 				</h2>
 				<SectionErrorBoundary className="col-span-full mbs-10 md:mbs-12">
@@ -241,11 +240,11 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 					</Suspense>
 				</SectionErrorBoundary>
 				<Link
-					className="-me-container mbs-10 flex items-center gap-2 bg-background-strong px-6 py-7 font-medium text-text-inverse decoration-2 underline-offset-6 hover:underline focus-visible-outline max-md:justify-self-end md:col-start-2 lg:col-start-3"
+					className="-me-container mbs-10 flex items-center gap-2 bg-background-strong px-6 py-7 font-medium text-text-inverse decoration-2 underline-offset-6 focus-visible-outline hover:underline max-md:justify-self-end md:col-start-2 lg:col-start-3"
 					href={href({ pathname: "/news" })}
 				>
 					{t("See all news")}
-					<ChevronRightIcon aria-hidden={true} className="size-4" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</section>
 
@@ -262,7 +261,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * heights are their content box heights as measured at each breakpoint, in spacing steps. The section above is not
 			 * deferred: its heading reaches up over the hero, and would be clipped.
 			 */}
-			<section className="deferred-render-456 sm:deferred-render-404 md:deferred-render-233 lg:deferred-render-219 xl:deferred-render-146 2xl:deferred-render-154 mbs-24 grid gap-x-8 bg-gradient-events px-container pbs-20 pbe-18 text-text-inverse md:pbs-16 md:pbe-20 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-gutter-wide">
+			<section className="mbs-24 grid gap-x-8 bg-gradient-events px-container pbs-20 pbe-18 text-text-inverse deferred-render-456 sm:deferred-render-404 md:grid-cols-2 md:pbs-16 md:pbe-20 md:deferred-render-233 lg:deferred-render-219 xl:grid-cols-3 xl:gap-x-gutter-wide xl:deferred-render-146 2xl:deferred-render-154">
 				<h2 className="col-span-full section-heading">{t("Upcoming events")}</h2>
 				<SectionErrorBoundary className="col-span-full mbs-16 md:mbs-block">
 					<Suspense fallback={<EventsSectionSkeleton />}>
@@ -270,11 +269,11 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 					</Suspense>
 				</SectionErrorBoundary>
 				<Link
-					className="mbs-16 flex items-center gap-2 bg-background-base px-6 py-7 font-medium text-text-strong decoration-2 underline-offset-6 hover:text-text-accent hover:underline focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] max-md:-me-container max-md:justify-self-end md:col-start-2 md:mbs-block xl:col-start-3"
+					className="mbs-16 flex items-center gap-2 bg-background-base px-6 py-7 font-medium text-text-strong decoration-2 underline-offset-6 focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] hover:text-text-accent hover:underline max-md:-me-container max-md:justify-self-end md:col-start-2 md:mbs-block xl:col-start-3"
 					href={href({ pathname: "/events" })}
 				>
 					{t("See all events")}
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</section>
 
@@ -284,7 +283,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * Columns: one below `sm`; two from `sm`; four from `lg`, where the cards are wide enough for a readable line length;
 			 * at two, the cards would be wider than the design's 384px from there, with an outsize image panel.
 			 */}
-			<section className="deferred-render-800 sm:deferred-render-317 md:deferred-render-354 lg:deferred-render-159 xl:deferred-render-164 2xl:deferred-render-195 px-container pbs-16 pbe-24 md:pbs-20 xl:pbe-32">
+			<section className="px-container pbs-16 pbe-24 deferred-render-800 sm:deferred-render-317 md:pbs-20 md:deferred-render-354 lg:deferred-render-159 xl:pbe-32 xl:deferred-render-164 2xl:deferred-render-195">
 				<h2 className="section-heading">{t("Four pillars of our work")}</h2>
 				<ul className="mbs-16 grid gap-x-9 sm:mbs-10 sm:grid-cols-2 lg:grid-cols-4" role="list">
 					{pillars.map((card) => (
@@ -312,7 +311,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * events section's, from 32px at 1024px to the design's 128px at 1920px, and so does the space above and below the
 			 * cards, from 96px to the design's 160px.
 			 */}
-			<section className="deferred-render-449 sm:deferred-render-399 md:deferred-render-280 lg:deferred-render-216 xl:deferred-render-190 2xl:deferred-render-198 relative grid grid-rows-[auto_--spacing(37.5)_auto] overflow-hidden md:max-lg:grid-rows-[auto_0_auto] px-container pbs-20 pbe-block-loose text-text-inverse">
+			<section className="relative grid grid-rows-[auto_--spacing(37.5)_auto] overflow-hidden px-container pbs-20 pbe-block-loose text-text-inverse deferred-render-449 sm:deferred-render-399 md:deferred-render-280 md:max-lg:grid-rows-[auto_0_auto] lg:deferred-render-216 xl:deferred-render-190 2xl:deferred-render-198">
 				<Image
 					alt=""
 					className="object-cover"
@@ -326,17 +325,17 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 				/>
 				<div
 					aria-hidden={true}
-					className="row-span-2 row-start-1 col-start-1 -mbs-20 -mx-container bg-background-overlay opacity-40 backdrop-blur-resources-overlay"
+					className="col-start-1 row-span-2 row-start-1 -mx-container -mbs-20 bg-background-overlay opacity-40 backdrop-blur-resources-overlay"
 				/>
-				<div className="relative row-start-1 col-start-1 mbe-14 grid gap-x-gutter-wide gap-y-16 md:mbe-block-loose md:grid-cols-3 md:gap-y-8">
+				<div className="relative col-start-1 row-start-1 mbe-14 grid gap-x-gutter-wide gap-y-16 md:mbe-block-loose md:grid-cols-3 md:gap-y-8">
 					<h2 className="section-heading">{t("Our resources")}</h2>
 					<CatalogueIntro {...catalogue} />
 				</div>
-				<ul className="relative row-span-2 row-start-2 col-start-1 grid gap-x-gutter-wide lg:grid-cols-3" role="list">
+				<ul className="relative col-start-1 row-span-2 row-start-2 grid gap-x-gutter-wide lg:grid-cols-3" role="list">
 					{resources.map((card) => (
 						<li
 							key={card.id}
-							className="relative row-span-3 grid grid-rows-subgrid max-md:mbs-14 max-lg:first:mbs-0 md:max-lg:mbs-8"
+							className="relative row-span-3 grid grid-rows-subgrid max-lg:first:mbs-0 max-md:mbs-14 md:max-lg:mbs-8"
 						>
 							<ResourceCard {...card} />
 						</li>
@@ -344,7 +343,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 				</ul>
 			</section>
 
-			<section className="deferred-render-573 sm:deferred-render-543 md:deferred-render-304 lg:deferred-render-279 xl:deferred-render-283 2xl:deferred-render-190 px-container pbs-20 pbe-24">
+			<section className="px-container pbs-20 pbe-24 deferred-render-573 sm:deferred-render-543 md:deferred-render-304 lg:deferred-render-279 xl:deferred-render-283 2xl:deferred-render-190">
 				<h2 className="section-heading">{t("Our network")}</h2>
 				{/* Without the figures, the section is its heading and the links to the network's pages. */}
 				<SectionErrorBoundary isHidden={true}>
@@ -360,18 +359,22 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 				 */}
 				<div className="mbs-10 grid gap-x-6 gap-y-4 font-medium max-sm:-me-container lg:grid-cols-[1fr_auto] 2xl:grid-cols-4">
 					<Link
-						className="flex items-center justify-center gap-2 bg-background-muted px-4 py-7 text-center text-text-strong decoration-2 underline-offset-6 hover:underline focus-visible-outline 2xl:col-span-3"
+						className="flex items-center justify-center gap-2 bg-background-muted px-4 py-7 text-center text-text-strong decoration-2 underline-offset-6 focus-visible-outline hover:underline 2xl:col-span-3"
 						href={href({ pathname: "/network/members-and-partners" })}
 					>
 						{t("Read more about members and partners")}
-						<ChevronRightIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" strokeWidth={2.5} />
+						<ChevronRightIcon
+							aria-hidden={true}
+							className="shrink-0 text-icon-accent block-4 inline-4"
+							strokeWidth={2.5}
+						/>
 					</Link>
 					<Link
-						className="flex items-center justify-center gap-2 bg-background-strong px-4 py-7 text-center text-text-inverse decoration-2 underline-offset-6 hover:underline focus-visible-outline"
+						className="flex items-center justify-center gap-2 bg-background-strong px-4 py-7 text-center text-text-inverse decoration-2 underline-offset-6 focus-visible-outline hover:underline"
 						href={href({ pathname: "/network/working-groups" })}
 					>
 						{t("Read more about working groups")}
-						<ChevronRightIcon aria-hidden={true} className="size-4 shrink-0" strokeWidth={2.5} />
+						<ChevronRightIcon aria-hidden={true} className="shrink-0 block-4 inline-4" strokeWidth={2.5} />
 					</Link>
 				</div>
 			</section>
@@ -383,7 +386,7 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 			 * the mobile design, the section is taller and the photo enlarged from its bottom edge, so it is cropped in on the
 			 * people, and the box spans the width.
 			 */}
-			<section className="deferred-render-0 relative flex min-block-200 max-inline-full flex-col items-center justify-end overflow-clip sm:min-block-112 sm:px-container lg:aspect-12/5">
+			<section className="relative flex flex-col items-center justify-end overflow-clip deferred-render-0 max-inline-full min-block-200 sm:px-container sm:min-block-112 lg:aspect-12/5">
 				<Image
 					alt=""
 					className="origin-bottom object-cover max-sm:scale-135"
@@ -396,18 +399,17 @@ export default function IndexPage(_props: Readonly<IndexPageProps>): ReactNode {
 					sizes="(min-width: 64rem) min(100vw, 120rem), (min-width: 40rem) max(100vw, 42rem), 101rem"
 					src={backgroundGetInvolvedSection}
 				/>
-				<div className="relative inline-full max-inline-284 bg-background-base/85 px-6 pbs-4 pbe-4 text-center">
+				<div className="relative bg-background-base/85 px-6 pbs-4 pbe-4 text-center inline-full max-inline-284">
 					<h2 className="sr-only">{t("Get involved")}</h2>
 					<p className="font-heading text-title-2 font-regular text-balance lg:text-banner">
 						{t.rich("<em>DARIAH-EU</em> thrives because of its network. <em>Be part of it!</em>", {
-							// oxlint-disable-next-line react/no-unstable-nested-components
 							em(chunks) {
 								return <em className="font-bold not-italic">{chunks}</em>;
 							},
 						})}
 					</p>
 					<Link
-						className="mbs-2 inline-flex min-block-15 items-center justify-center border-2 border-stroke-accent bg-background-base px-16 font-heading max-sm:flex text-body font-bold text-text-accent hover:bg-background-accent-strong hover:text-text-inverse focus-visible-outline"
+						className="mbs-2 inline-flex items-center justify-center border-2 border-stroke-accent bg-background-base px-16 font-heading text-body font-bold text-text-accent focus-visible-outline min-block-15 hover:bg-background-accent-strong hover:text-text-inverse max-sm:flex"
 						href={href({ pathname: "/get-involved/join-dariah" })}
 					>
 						{t("Get involved")}
@@ -438,11 +440,11 @@ function CatalogueIntro(props: Readonly<CardProps>): ReactNode {
 			<h3 className="font-heading text-title-3 text-shadow-lift" id={headingId}>
 				{title}
 			</h3>
-			<p className="mbs-4 font-heading text-title-3 font-regular leading-relaxed text-shadow-halo">{description}</p>
+			<p className="mbs-4 font-heading text-title-3 leading-relaxed font-regular text-shadow-halo">{description}</p>
 			<footer className="mbs-8">
 				<Link
 					aria-labelledby={`${labelId} ${headingId}`}
-					className="inline-flex min-block-15 items-center justify-center bg-background-base px-12 font-heading text-body font-bold text-text-accent max-sm:flex decoration-2 underline-offset-6 hover:underline focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)]"
+					className="inline-flex items-center justify-center bg-background-base px-12 font-heading text-body font-bold text-text-accent decoration-2 underline-offset-6 focus-visible-outline [--color-focus-outline:var(--color-focus-outline-inverse)] min-block-15 hover:underline max-sm:flex"
 					href={href}
 				>
 					<span id={labelId}>{label}</span>
@@ -531,17 +533,17 @@ function ResourceCard(props: Readonly<ResourceCardProps>): ReactNode {
 
 	return (
 		<article className="relative row-span-3 grid grid-rows-subgrid text-text-strong md:max-lg:grid-cols-[1fr_2fr]">
-			<h3 className="flex block-37.5 items-center justify-center bg-background-base/90 px-5 sm:px-10 md:max-lg:row-span-3 md:max-lg:block-auto md:max-lg:min-block-37.5">
-				<Image alt={title} className="max-block-26 min-inline-0 max-inline-95 inline-auto" src={logo} />
+			<h3 className="flex items-center justify-center bg-background-base/90 px-5 block-37.5 sm:px-10 md:max-lg:row-span-3 md:max-lg:block-auto md:max-lg:min-block-37.5">
+				<Image alt={title} className="inline-auto max-block-26 max-inline-95 min-inline-0" src={logo} />
 			</h3>
 			<p className="bg-background-base px-4 pbs-8 text-body sm:px-10">{description}</p>
 			<footer className="bg-background-base px-4 pbs-5 pbe-8 sm:px-10 md:max-lg:row-span-2">
 				<Link
-					className="inline-flex items-center gap-2 text-body font-medium underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-2 focus-visible:after:outline-focus-outline-inverse focus-visible:after:outline-solid"
+					className="inline-flex items-center gap-2 text-body font-medium decoration-2 underline-offset-6 outline-none after:absolute after:inset-0 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-2 focus-visible:after:outline-focus-outline-inverse focus-visible:after:outline-solid"
 					href={href}
 				>
 					{label}
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</footer>
 		</article>
@@ -588,20 +590,20 @@ function PillarCard(props: Readonly<PillarCardProps>): ReactNode {
 					/>
 				</div>
 			</div>
-			<h3 className="mbs-10 font-heading text-title-2 uppercase after:mbs-7 after:block after:inline-25 after:border-be-3 after:border-stroke-pillar after:content-['']">
+			<h3 className="mbs-10 font-heading text-title-2 uppercase after:mbs-7 after:block after:border-be-3 after:border-stroke-pillar after:content-[''] after:inline-25">
 				{title}
 			</h3>
-			<p className="mbs-7 pe-[15%] font-heading lg:max-xl:pe-[5%] text-pillar-1 leading-relaxed text-pretty sm:text-pillar-2 lg:text-pillar-4">
+			<p className="mbs-7 pe-[15%] font-heading text-pillar-1/relaxed text-pretty sm:text-pillar-2 lg:text-pillar-4 lg:max-xl:pe-[5%]">
 				{description}
 			</p>
 			<footer className="mbs-9 sm:mbs-7">
 				<Link
-					className="inline-flex items-center gap-2 font-medium underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-12 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
+					className="inline-flex items-center gap-2 font-medium decoration-2 underline-offset-6 outline-none after:absolute after:inset-0 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-12 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 					href={href}
 				>
 					{label}
 					<span className="sr-only"> {title}</span>
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</footer>
 		</article>
@@ -724,7 +726,7 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 							isLead && "2xl:px-8",
 						)}
 					>
-						<NewspaperIcon aria-hidden={true} className="size-4 shrink-0 self-center text-icon-accent" />
+						<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 						<span className="text-small font-bold text-text-accent uppercase">{labels[item.type]}</span>
 						<time className="text-caption whitespace-nowrap" dateTime={item.publishedAt}>
 							{format.dateTime(new Date(item.publishedAt), { dateStyle: "long" })}
@@ -741,12 +743,12 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 			<footer className="pbs-8">
 				<Link
 					aria-labelledby={`${labelId} ${headingId}`}
-					className="inline-flex items-center gap-2 font-medium underline-offset-6 outline-none after:absolute after:inset-0 decoration-2 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-12 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
+					className="inline-flex items-center gap-2 font-medium decoration-2 underline-offset-6 outline-none after:absolute after:inset-0 hover:text-text-accent hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-12 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
 					href={announcementHref(item)}
 					prefetch="intent"
 				>
 					<span id={labelId}>{t("Continue reading")}</span>
-					<ChevronRightIcon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+					<ChevronRightIcon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 				</Link>
 			</footer>
 		</article>
@@ -843,11 +845,11 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 					<dt className="contents">
 						<StatisticImage
 							animation="pulse"
-							className="col-span-full mbe-8 inline-full max-inline-100 justify-self-center sm:max-inline-80 2xl:mbe-20 2xl:max-inline-100"
+							className="col-span-full mbe-8 justify-self-center inline-full max-inline-100 sm:max-inline-80 2xl:mbe-20 2xl:max-inline-100"
 							icon={item.icon}
 							rings={index % 2 === 0 ? "odd" : "even"}
 						/>
-						<span className="col-start-3 row-start-2 max-inline-min ms-6 font-heading text-title-5 sm:text-title-3">
+						<span className="col-start-3 row-start-2 ms-6 font-heading text-title-5 max-inline-min sm:text-title-3">
 							{item.label}
 						</span>
 					</dt>

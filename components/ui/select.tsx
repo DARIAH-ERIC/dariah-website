@@ -108,29 +108,31 @@ export function Select<T extends string>(props: Readonly<SelectProps<T>>): React
 				)}
 			>
 				{icon}
-				<SelectValue className="min-inline-0 flex-1 truncate" />
+				<SelectValue className="flex-1 truncate min-inline-0" />
 				<ChevronDownIcon
 					strokeWidth={2.5}
 					aria-hidden={true}
-					className="size-5 shrink-0 text-icon-accent transition-transform group-aria-expanded:rotate-180 motion-reduce:transition-none"
+					className="shrink-0 text-icon-accent transition-transform block-5 inline-5 group-aria-expanded:rotate-180 motion-reduce:transition-none"
 				/>
 			</Button>
 			<Popover
-				className="min-inline-(--trigger-width) border border-stroke-weak bg-background-base shadow-lg"
+				className="border border-stroke-weak bg-background-base shadow-lg min-inline-(--trigger-width)"
 				offset={4}
 			>
-				<ListBox className="max-block-[inherit] overflow-y-auto py-2 outline-none">
+				<ListBox className="overflow-y-auto py-2 outline-none max-block-[inherit]">
 					{options.map((option) => (
 						<ListBoxItem
 							key={option.id}
-							className="flex cursor-default items-center justify-between gap-x-4 px-4 py-2.5 font-heading outline-none selected:text-text-accent hover:bg-background-accent focus:bg-background-accent"
+							className="flex cursor-default items-center justify-between gap-x-4 px-4 py-2.5 font-heading outline-none hover:bg-background-accent focus:bg-background-accent selected:text-text-accent"
 							id={option.id}
 							textValue={option.label}
 						>
 							{({ isSelected }) => (
 								<Fragment>
 									{option.label}
-									{isSelected ? <CheckIcon aria-hidden={true} className="size-4 shrink-0" strokeWidth={2.5} /> : null}
+									{isSelected ? (
+										<CheckIcon aria-hidden={true} className="shrink-0 block-4 inline-4" strokeWidth={2.5} />
+									) : null}
 								</Fragment>
 							)}
 						</ListBoxItem>

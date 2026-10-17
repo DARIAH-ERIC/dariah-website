@@ -49,17 +49,17 @@ export function DatePicker(props: Readonly<DatePickerProps>): ReactNode {
 			name={name}
 		>
 			<Label className="font-bold">{label}</Label>
-			<Group className="flex items-center border-be-2 border-stroke-weak bg-background-field ps-4 shadow-[0_0_4px_0_rgb(0_0_0/0.08)] min-block-15 hover:border-stroke-accent focus-within:outline-3 focus-within:-outline-offset-3 focus-within:outline-focus-outline focus-within:outline-solid">
+			<Group className="flex items-center border-be-2 border-stroke-weak bg-background-field ps-4 shadow-[0_0_4px_0_rgb(0_0_0/0.08)] min-block-15 focus-within:outline-3 focus-within:-outline-offset-3 focus-within:outline-focus-outline focus-within:outline-solid hover:border-stroke-accent">
 				<DateInput className="flex flex-1 py-2.5 tabular-nums">
 					{(segment) => (
 						<DateSegment
-							className="px-0.5 outline-none data-placeholder:text-text-weak focus:bg-background-accent-strong focus:text-text-inverse"
+							className="px-0.5 outline-none focus:bg-background-accent-strong focus:text-text-inverse data-placeholder:text-text-weak"
 							segment={segment}
 						/>
 					)}
 				</DateInput>
 				<Button className="flex items-center self-stretch px-4 text-icon-accent outline-none hover:text-text-strong">
-					<CalendarIcon aria-hidden={true} className="size-5" />
+					<CalendarIcon aria-hidden={true} className="block-5 inline-5" />
 				</Button>
 			</Group>
 			<Popover className="border border-stroke-weak bg-background-base shadow-lg" offset={4} placement="bottom start">
@@ -67,17 +67,17 @@ export function DatePicker(props: Readonly<DatePickerProps>): ReactNode {
 					<Calendar>
 						<header className="flex items-center justify-between gap-x-4 pbe-4">
 							<Button
-								className="flex size-9 items-center justify-center text-icon-accent hover:bg-background-accent focus-visible-outline"
+								className="flex items-center justify-center text-icon-accent focus-visible-outline block-9 inline-9 hover:bg-background-accent"
 								slot="previous"
 							>
-								<ChevronLeftIcon aria-hidden={true} className="size-4" strokeWidth={2.5} />
+								<ChevronLeftIcon aria-hidden={true} className="block-4 inline-4" strokeWidth={2.5} />
 							</Button>
 							<Heading className="font-heading font-bold" />
 							<Button
-								className="flex size-9 items-center justify-center text-icon-accent hover:bg-background-accent focus-visible-outline"
+								className="flex items-center justify-center text-icon-accent focus-visible-outline block-9 inline-9 hover:bg-background-accent"
 								slot="next"
 							>
-								<ChevronRightIcon aria-hidden={true} className="size-4" strokeWidth={2.5} />
+								<ChevronRightIcon aria-hidden={true} className="block-4 inline-4" strokeWidth={2.5} />
 							</Button>
 						</header>
 						<CalendarGrid className="border-collapse">
@@ -91,7 +91,7 @@ export function DatePicker(props: Readonly<DatePickerProps>): ReactNode {
 							<CalendarGridBody>
 								{(date) => (
 									<CalendarCell
-										className="flex size-10 cursor-default items-center justify-center tabular-nums outline-none outside-month:text-text-weak selected:bg-background-accent-strong selected:font-bold selected:text-text-inverse hover:bg-background-accent selected:hover:bg-background-accent-strong focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-focus-outline focus-visible:outline-solid"
+										className="flex cursor-default items-center justify-center tabular-nums outline-none block-10 inline-10 hover:bg-background-accent focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-focus-outline focus-visible:outline-solid outside-month:text-text-weak selected:bg-background-accent-strong selected:font-bold selected:text-text-inverse selected:hover:bg-background-accent-strong"
 										date={date}
 									/>
 								)}

@@ -57,7 +57,7 @@ export async function ImpactCaseStudyList(props: Readonly<ImpactCaseStudyListPro
 						 * a track from overflowing a column narrower than its minimum.
 						 */}
 						<ul
-							className="mbs-10 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%_-_2.5rem)/3),1fr))] gap-x-5 gap-y-8"
+							className="mbs-10 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%-2.5rem)/3),1fr))] gap-x-5 gap-y-8"
 							role="list"
 						>
 							{items.map((item) => (
@@ -93,10 +93,10 @@ export function ImpactCaseStudyListSkeleton(): ReactNode {
 	return (
 		<Skeleton className="mbs-16" label={t("Loading case studies…")}>
 			<p className="flex flex-wrap items-baseline gap-x-3 font-heading">
-				<SkeletonText className="inline-[2.5em] text-figure-4 sm:text-figure-3" />
+				<SkeletonText className="text-figure-4 inline-[2.5em] sm:text-figure-3" />
 				<span className="text-title-3 font-light text-text-strong uppercase sm:text-title-2">{t("Case studies")}</span>
 			</p>
-			<div className="mbs-10 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%_-_2.5rem)/3),1fr))] gap-x-5 gap-y-8">
+			<div className="mbs-10 grid grid-cols-[repeat(auto-fill,minmax(max(min(22rem,100%),(100%-2.5rem)/3),1fr))] gap-x-5 gap-y-8">
 				{[0, 1, 2].map((index) => (
 					<div key={index} className="flex shadow-card">
 						<ImpactCaseStudyCard item={null} />
@@ -150,7 +150,7 @@ function ImpactCaseStudyCard(props: Readonly<ImpactCaseStudyCardProps>): ReactNo
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex items-center gap-x-3">
-					<BookOpenTextIcon aria-hidden={true} className="size-4 shrink-0 text-icon-accent" />
+					<BookOpenTextIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" />
 					<span className="text-small font-bold text-text-accent uppercase">{t("Case study")}</span>
 				</p>
 				<h3 className="font-heading text-title-4 group-hover:text-text-accent">

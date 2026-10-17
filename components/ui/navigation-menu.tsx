@@ -320,7 +320,7 @@ export function NavigationMenuTrigger(props: Readonly<NavigationMenuTriggerProps
 			{children}
 			<ChevronDownIcon
 				aria-hidden={true}
-				className="-me-0.25 size-4 shrink-0 text-icon-accent transition-transform group-aria-expanded:rotate-180"
+				className="-me-0.25 shrink-0 text-icon-accent transition-transform block-4 inline-4 group-aria-expanded:rotate-180"
 				strokeWidth={2.5}
 			/>
 		</button>

@@ -102,7 +102,7 @@ function LabelWithChevron(props: Readonly<LabelWithChevronProps>): ReactNode {
 				{label.slice(index)}
 				<ChevronRightIcon
 					aria-hidden={true}
-					className="ms-3 inline size-4 align-[-0.125em] text-icon-accent"
+					className="ms-3 inline align-[-0.125em] text-icon-accent block-4 inline-4"
 					strokeWidth={2.5}
 				/>
 			</span>

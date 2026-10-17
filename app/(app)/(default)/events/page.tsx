@@ -159,7 +159,7 @@ function EventsResultsSkeleton(): ReactNode {
 			<EventsFilterSkeleton />
 			<div className="xl:px-24">
 				<div className="border-s-2 border-dashed border-stroke-weak ps-5 sm:ps-6">
-					<SkeletonText className="inline-48 text-title-3" />
+					<SkeletonText className="text-title-3 inline-48" />
 					<div className="mbs-8 flex flex-col gap-y-8">
 						{[0, 1, 2].map((index) => (
 							<EventItem key={index} event={null} />
@@ -211,7 +211,7 @@ function PaginationLink(
 			href={href}
 			prefetch={true}
 		>
-			<Icon aria-hidden={true} className="size-4 text-icon-accent" strokeWidth={2.5} />
+			<Icon aria-hidden={true} className="text-icon-accent block-4 inline-4" strokeWidth={2.5} />
 			{children}
 		</Link>
 	);
@@ -295,16 +295,16 @@ function EventItem(props: Readonly<{ event: EventBase; now: string } | { event: 
 			<div className="relative grid gap-x-6 gap-y-3 sm:grid-cols-[9rem_minmax(0,1fr)]">
 				<span
 					aria-hidden={true}
-					className="absolute inset-bs-1.5 -inset-s-[calc(--spacing(5)+5px)] size-2 rounded-full bg-stroke-weak sm:-inset-s-[calc(--spacing(6)+5px)]"
+					className="absolute -inset-s-[calc(--spacing(5)+5px)] inset-bs-1.5 rounded-full bg-stroke-weak block-2 inline-2 sm:-inset-s-[calc(--spacing(6)+5px)]"
 				/>
-				<SkeletonText className="inline-24 font-medium" />
+				<SkeletonText className="font-medium inline-24" />
 				<div className="relative flex gap-x-8 bg-background-subtle p-5 shadow-card-edge">
-					<div className="flex min-inline-0 flex-1 flex-col items-start gap-y-3">
-						<SkeletonShape className="text-badge block-[calc(1lh+--spacing(1))] inline-20" />
+					<div className="flex flex-1 flex-col items-start gap-y-3 min-inline-0">
+						<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-20" />
 						<SkeletonText className="self-stretch font-heading text-title-5 leading-heading" lines={2} />
-						<SkeletonText className="mbs-auto inline-1/2 pbs-6" />
+						<SkeletonText className="mbs-auto pbs-6 inline-1/2" />
 					</div>
-					<SkeletonShape className="relative hidden aspect-2/1 inline-80 shrink-0 self-center md:block" />
+					<SkeletonShape className="relative hidden aspect-2/1 shrink-0 self-center inline-80 md:block" />
 				</div>
 			</div>
 		);
@@ -320,7 +320,7 @@ function EventItem(props: Readonly<{ event: EventBase; now: string } | { event: 
 		<article aria-labelledby={headingId} className="relative grid gap-x-6 gap-y-3 sm:grid-cols-[9rem_minmax(0,1fr)]">
 			<span
 				aria-hidden={true}
-				className="absolute inset-bs-1.5 -inset-s-[calc(--spacing(5)+5px)] size-2 rounded-full bg-stroke-weak sm:-inset-s-[calc(--spacing(6)+5px)]"
+				className="absolute -inset-s-[calc(--spacing(5)+5px)] inset-bs-1.5 rounded-full bg-stroke-weak block-2 inline-2 sm:-inset-s-[calc(--spacing(6)+5px)]"
 			/>
 			<p className="font-medium uppercase">
 				<time dateTime={event.duration.start}>
@@ -328,7 +328,7 @@ function EventItem(props: Readonly<{ event: EventBase; now: string } | { event: 
 				</time>
 			</p>
 			<div className="group relative flex gap-x-8 bg-background-subtle p-5 shadow-card-edge hover:bg-background-card-hover">
-				<div className="flex min-inline-0 flex-1 flex-col items-start gap-y-3">
+				<div className="flex flex-1 flex-col items-start gap-y-3 min-inline-0">
 					<Badge tone={status === "past" ? "muted" : "highlight"}>{statusLabels[status]}</Badge>
 					<h3 className="font-heading text-title-5 leading-heading group-hover:text-text-accent" id={headingId}>
 						<Link
@@ -341,13 +341,13 @@ function EventItem(props: Readonly<{ event: EventBase; now: string } | { event: 
 					</h3>
 					{event.location.length > 0 ? (
 						<p className="mbs-auto flex items-center gap-x-3 pbs-6">
-							<MapPinIcon aria-hidden={true} className="size-5 shrink-0" />
+							<MapPinIcon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 							{event.location}
 						</p>
 					) : null}
 				</div>
 				{/* Positioned, so it would paint above the link's overlay and catch its clicks. */}
-				<div className="pointer-events-none relative hidden aspect-2/1 inline-80 shrink-0 self-center md:block">
+				<div className="pointer-events-none relative hidden aspect-2/1 shrink-0 self-center inline-80 md:block">
 					<ApiImage alt="" className="object-cover" fill={true} image={event.image} sizes="20rem" />
 				</div>
 			</div>

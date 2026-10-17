@@ -92,7 +92,7 @@ function FeaturedNewsCard(props: Readonly<{ item: Announcement }>): ReactNode {
 					sizes="(min-width: 120rem) 57rem, (min-width: 64rem) 55vw, 90vw"
 				/>
 			</div>
-			<div className="z-1 flex flex-col gap-y-5 bg-background-base pbs-8 lg:col-[2/4] lg:row-1 lg:self-center lg:px-7 lg:py-8 lg:my-14">
+			<div className="z-1 flex flex-col gap-y-5 bg-background-base pbs-8 lg:col-[2/4] lg:row-1 lg:my-14 lg:self-center lg:px-7 lg:py-8">
 				<time className="text-caption" dateTime={item.publishedAt}>
 					{format.dateTime(new Date(item.publishedAt), { dateStyle: "long" })}
 				</time>

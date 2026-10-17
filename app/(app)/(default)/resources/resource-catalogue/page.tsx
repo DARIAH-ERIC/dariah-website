@@ -253,14 +253,14 @@ function ResourcesForm(
 		<ResourcesSearchForm className={layout} statusClassName="col-span-full row-start-1 self-start justify-self-end">
 			<div className="col-span-full row-start-1 lg:col-start-2">
 				{/* Styled like the newsletter subscribe form. Padding, not a margin: hovering the label hovers the input. */}
-				<label className="block font-medium pbe-2" htmlFor={`${id}-q`}>
+				<label className="block pbe-2 font-medium" htmlFor={`${id}-q`}>
 					{t("Search resources")}
 				</label>
-				<div className="flex min-block-15 shadow-[0_0_4px_0_rgb(0_0_0/0.08)]">
-					<div className="flex min-inline-0 flex-1 focus-within-outline-inset">
+				<div className="flex shadow-[0_0_4px_0_rgb(0_0_0/0.08)] min-block-15">
+					<div className="focus-within-outline-inset flex flex-1 min-inline-0">
 						<input
 							autoComplete="off"
-							className="min-inline-0 flex-1 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 outline-none hover:border-stroke-accent"
+							className="flex-1 border-be-2 border-stroke-weak bg-background-field px-4 py-2.5 outline-none min-inline-0 hover:border-stroke-accent"
 							defaultValue={query}
 							id={`${id}-q`}
 							maxLength={200}
@@ -270,10 +270,10 @@ function ResourcesForm(
 					</div>
 					{/* Overlaps the input's focus ring by its own border, so the two make one 3px seam rather than 5px. */}
 					<button
-						className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-6 text-text-inverse hover:bg-background-base hover:text-text-accent focus-visible-outline"
+						className="relative -ms-0.5 border-2 border-stroke-accent bg-background-accent-strong px-6 text-text-inverse focus-visible-outline hover:bg-background-base hover:text-text-accent"
 						type="submit"
 					>
-						<SearchIcon aria-hidden={true} className="size-5" />
+						<SearchIcon aria-hidden={true} className="block-5 inline-5" />
 						<span className="sr-only">{t("Search")}</span>
 					</button>
 				</div>
@@ -406,12 +406,12 @@ function ResourceCard(props: Readonly<{ document: ResourceDocument | null }>): R
 	if (document == null) {
 		return (
 			<div className="flex flex-col gap-6 border border-s-6 border-stroke-weak bg-background-base p-6 sm:flex-row sm:items-center sm:gap-x-10 sm:px-8">
-				<div className="flex min-inline-0 flex-1 flex-col items-start gap-y-3">
-					<SkeletonShape className="text-badge block-[calc(1lh+--spacing(2))] inline-24" />
-					<SkeletonText className="inline-2/3 text-title-4 leading-heading" />
+				<div className="flex flex-1 flex-col items-start gap-y-3 min-inline-0">
+					<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(2)))] inline-24" />
+					<SkeletonText className="text-title-4 leading-heading inline-2/3" />
 					<SkeletonText className="self-stretch leading-body" lines={3} />
 				</div>
-				<SkeletonShape className="min-block-12 inline-47 shrink-0" />
+				<SkeletonShape className="shrink-0 inline-47 min-block-12" />
 			</div>
 		);
 	}
@@ -423,7 +423,7 @@ function ResourceCard(props: Readonly<{ document: ResourceDocument | null }>): R
 				resourceColors[document.type],
 			)}
 		>
-			<div className="flex min-inline-0 flex-1 flex-col items-start gap-y-3">
+			<div className="flex flex-1 flex-col items-start gap-y-3 min-inline-0">
 				<div className="flex flex-wrap items-center gap-x-6 gap-y-2">
 					<ResourceTypeBadge type={document.type} />
 					{document.type === "service" && document.kind === "core" ? <CoreServiceLabel /> : null}

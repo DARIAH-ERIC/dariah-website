@@ -21,7 +21,7 @@ export async function SkipLink(): Promise<ReactNode> {
 	return (
 		<div className="relative">
 			<a
-				className="absolute start-8 top-7 z-50 bg-background-accent-strong px-6 py-2.5 font-heading text-body font-bold whitespace-nowrap text-text-inverse ring-2 ring-background-base not-focus:sr-only focus-visible-outline"
+				className="absolute inset-s-8 inset-bs-7 z-50 bg-background-accent-strong px-6 py-2.5 font-heading text-body font-bold whitespace-nowrap text-text-inverse ring-2 ring-background-base focus-visible-outline not-focus:sr-only"
 				href={`#${mainContentId}`}
 			>
 				{t("Skip to main content")}

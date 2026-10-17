@@ -96,7 +96,7 @@ export default async function OpportunitiesPage(props: Readonly<OpportunitiesPag
 	return (
 		<Main className="px-main pbs-8 pbe-24">
 			<Breadcrumbs current={href({ pathname: "/get-involved/opportunities" })} label={page.title} />
-			<h1 className="mbs-14 max-inline-title text-title-1">{page.title}</h1>
+			<h1 className="mbs-14 text-title-1 max-inline-title">{page.title}</h1>
 			<Image
 				alt=""
 				className="mbs-12 block-auto inline-full"
@@ -185,7 +185,7 @@ function OpportunitiesResultsSkeleton(): ReactNode {
 				<SkeletonField className="inline-full sm:inline-100" label={t("Source")} />
 			</div>
 			<div className={listClassName}>
-				<SkeletonText className="inline-32 text-title-4" />
+				<SkeletonText className="text-title-4 inline-32" />
 				<div className="mbs-8 flex flex-col gap-y-4">
 					{[0, 1, 2].map((index) => (
 						<OpportunityCard key={index} opportunity={null} />
@@ -332,8 +332,8 @@ function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null
 			<div className="flex flex-col gap-y-4 border-s-6 border-transparent bg-background-subtle px-6 py-8">
 				<SkeletonText className="font-heading text-title-5 leading-heading" lines={{ base: 3, sm: 2, lg: 2 }} />
 				<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-caption">
-					<SkeletonShape className="text-badge block-[calc(1lh+--spacing(1))] inline-16" />
-					<SkeletonShape className="text-badge block-[calc(1lh+--spacing(1))] inline-16" />
+					<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-16" />
+					<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-16" />
 					<SkeletonText className="inline-48" />
 				</div>
 				<SkeletonText className="leading-body" lines={3} />
@@ -367,7 +367,10 @@ function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null
 					{website != null ? (
 						<Fragment>
 							<span className="sr-only"> {t("(external website)")}</span>
-							<ExternalLinkIcon aria-hidden={true} className="ms-3 inline size-5 align-[-0.125em] text-icon-accent" />
+							<ExternalLinkIcon
+								aria-hidden={true}
+								className="ms-3 inline align-[-0.125em] text-icon-accent block-5 inline-5"
+							/>
 						</Fragment>
 					) : null}
 				</Link>

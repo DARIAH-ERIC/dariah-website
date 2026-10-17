@@ -95,7 +95,7 @@ async function Analytics(): Promise<ReactNode> {
 	}
 
 	return (
-		<div className="flex flex-col gap-y-16 mbs-12">
+		<div className="mbs-12 flex flex-col gap-y-16">
 			{latest != null ? (
 				<dl className="grid gap-6 sm:grid-cols-2">
 					<Figure
@@ -119,8 +119,8 @@ async function Analytics(): Promise<ReactNode> {
 				</h2>
 				<VisitsChart hasUniqueVisitors={hasUniqueVisitors} months={months} />
 				<div className="overflow-x-auto">
-					<table className="inline-full text-start">
-						<caption className="text-start text-small text-text-weak caption-bottom pbs-3">
+					<table className="text-start inline-full">
+						<caption className="caption-bottom pbs-3 text-start text-small text-text-weak">
 							{current != null ? t("{month} is still in progress.", { month: formatMonth(current.month) }) : null}
 						</caption>
 						<thead>
@@ -219,7 +219,7 @@ function AnalyticsSkeleton(): ReactNode {
 	const t = useTranslations();
 
 	return (
-		<Skeleton className="flex flex-col gap-y-16 mbs-12" label={t("Loading analytics…")}>
+		<Skeleton className="mbs-12 flex flex-col gap-y-16" label={t("Loading analytics…")}>
 			<div className="grid gap-6 sm:grid-cols-2">
 				<SkeletonShape className="block-44" />
 				<SkeletonShape className="block-44" />

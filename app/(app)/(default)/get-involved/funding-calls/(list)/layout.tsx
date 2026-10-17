@@ -28,7 +28,7 @@ export default async function FundingCallsLayout(props: Readonly<FundingCallsLay
 			<PageHeader current={href({ pathname: "/get-involved/funding-calls" })} image={null} title={page.title} />
 			<ContentBlocks
 				blocks={page.content}
-				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:font-regular [&_.prose]:leading-body [&_.prose_p]:break-inside-avoid"
+				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
 			/>
 			<div className="mbs-16">{children}</div>
 		</Main>

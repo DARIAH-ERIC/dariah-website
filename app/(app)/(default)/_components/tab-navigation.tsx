@@ -43,7 +43,7 @@ export function TabNavigation(props: Readonly<TabNavigationProps>): ReactNode {
 				{tabs.map((tab) => (
 					<li key={tab.label}>
 						<TabLink
-							className="block border-transparent px-4 font-heading max-sm:border-s-4 max-sm:py-3 sm:border-be-4 sm:pbe-5 text-lead font-regular text-text-strong hover:border-stroke-weak focus-visible-outline aria-[current=page]:border-stroke-accent aria-[current=page]:font-bold"
+							className="block border-transparent px-4 lead-in font-regular text-text-strong focus-visible-outline hover:border-stroke-weak max-sm:border-s-4 max-sm:py-3 sm:border-be-4 sm:pbe-5 aria-[current=page]:border-stroke-accent aria-[current=page]:font-bold"
 							href={tab.href}
 							segment={tab.segment}
 						>

@@ -32,7 +32,6 @@ function useActiveHeadingId(ids: Array<string>): string | null {
 	useEffect(() => {
 		const elements = key
 			.split(" ")
-			// oxlint-disable-next-line unicorn/prefer-query-selector -- A slug may start with a digit, which is a valid id but not a valid css selector without escaping.
 			.map((id) => document.getElementById(id))
 			.filter((element): element is HTMLElement => element != null);
 

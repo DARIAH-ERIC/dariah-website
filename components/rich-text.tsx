@@ -252,7 +252,7 @@ function renderBlockquoteNode(
 		>
 			<Image
 				alt=""
-				className="pointer-events-none absolute -z-10 m-0 inline-[223px] inset-be-10 inset-s-[46%]"
+				className="pointer-events-none absolute inset-s-[46%] inset-be-10 -z-10 m-0 inline-[223px]"
 				src={quoteMark}
 			/>
 			<div className="text-body leading-reading [&>p]:m-0 [&>p+p]:mbs-4">
@@ -314,7 +314,7 @@ export function Footnotes(props: Readonly<FootnotesProps>): ReactNode {
 	return (
 		<section
 			aria-labelledby={headingId}
-			className="clear-both border-bs border-stroke-weak text-caption mbs-14 pbs-8"
+			className="clear-both mbs-14 border-bs border-stroke-weak pbs-8 text-caption"
 			role="doc-endnotes"
 		>
 			<h2 className="sr-only" id={headingId}>
@@ -326,7 +326,7 @@ export function Footnotes(props: Readonly<FootnotesProps>): ReactNode {
 
 					return (
 						<li
-							className="wrap-anywhere ps-1 [&_a:not([role=doc-backlink])]:underline"
+							className="ps-1 wrap-anywhere [&_a:not([role=doc-backlink])]:underline"
 							id={`fn${String(number)}`}
 							// oxlint-disable-next-line react/no-array-index-key -- Footnotes carry no id of their own; the list is server-rendered and never reordered.
 							key={index}

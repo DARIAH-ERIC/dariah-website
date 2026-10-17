@@ -57,7 +57,7 @@ export default async function OrganisationAndGovernancePage(
 			/>
 			<ContentBlocks
 				blocks={page.content}
-				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:font-regular [&_.prose]:leading-body [&_.prose_p]:break-inside-avoid"
+				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
 			/>
 			<div className="mbs-16">
 				<Organigram items={items} />

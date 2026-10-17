@@ -97,8 +97,8 @@ export function EventCard(props: Readonly<EventCardProps>): ReactNode {
 					</Fragment>
 				) : (
 					<Fragment>
-						<SkeletonText className="inline-3/4 font-heading text-figure-4" />
-						<SkeletonShape className="text-badge block-[calc(1lh+--spacing(1))] inline-20" />
+						<SkeletonText className="font-heading text-figure-4 inline-3/4" />
+						<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-20" />
 					</Fragment>
 				)}
 			</div>
@@ -125,8 +125,8 @@ export function EventCard(props: Readonly<EventCardProps>): ReactNode {
 				)}
 				{event == null || event.location.length > 0 ? (
 					<p className="mbs-4 flex items-center gap-3 text-body font-light">
-						<span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-background-base">
-							<MapPinIcon aria-hidden={true} className="size-4" />
+						<span className="flex shrink-0 items-center justify-center rounded-full bg-background-base block-8 inline-8">
+							<MapPinIcon aria-hidden={true} className="block-4 inline-4" />
 						</span>
 						{event != null ? event.location : <SkeletonText className="inline-1/2" />}
 					</p>

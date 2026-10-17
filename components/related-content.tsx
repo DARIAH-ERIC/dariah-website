@@ -172,7 +172,7 @@ export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode 
 					return (
 						<li key={entry.id}>
 							<article className="group relative bg-background-accent-weak">
-								<p className="flex inline-fit items-center gap-x-3 bg-background-base px-6 py-4.5">
+								<p className="flex items-center gap-x-3 bg-background-base px-6 py-4.5 inline-fit">
 									<Icon
 										aria-hidden={true}
 										className={cn(
