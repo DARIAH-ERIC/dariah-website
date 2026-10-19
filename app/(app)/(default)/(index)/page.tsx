@@ -890,11 +890,9 @@ interface StatisticImageProps {
  * element's width. The rings keep a 1px stroke at any size. They animate through `scale`, from the square's centre;
  * with reduced motion, the global rule stops them in the design's static frame.
  *
- * Chrome does not throttle animations offscreen: the rings' scale is not composited - an svg element's transform isn't,
- * and a non-scaling stroke has to be redrawn at each scale anyway - so they would cost a style recalc, layout and paint
- * on every frame while the page is open, wherever it is scrolled. `content-visibility: auto` skips rendering the
- * element while it is offscreen, its animations included. That also takes the size of its contents away from it
- * offscreen, so `aspect-square` gives it the size of the square svg: its width is the layout's.
+ * Chrome does not throttle animations offscreen, and the rings' scale is not composited, so they would cost a style
+ * recalc, layout and paint on every frame, wherever the page is scrolled: the section's `deferred-render-*` skips
+ * rendering them, their animations included, while the section is offscreen.
  */
 function StatisticImage(props: Readonly<StatisticImageProps>): ReactNode {
 	const { animation, className, icon, rings } = props;
@@ -902,7 +900,7 @@ function StatisticImage(props: Readonly<StatisticImageProps>): ReactNode {
 	const glowId = useId();
 
 	return (
-		<div className={cn("relative grid aspect-square place-items-center [content-visibility:auto]", className)}>
+		<div className={cn("relative grid place-items-center", className)}>
 			<svg aria-hidden={true} className="block inline-full" fill="none" viewBox="0 0 407 407">
 				<defs>
 					<linearGradient
