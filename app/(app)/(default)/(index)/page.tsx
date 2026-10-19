@@ -799,9 +799,11 @@ async function StatisticsSection(): Promise<ReactNode> {
 
 /**
  * Each figure's image and label make up its term: the image is decorative, and `display: contents` lets both sit in the
- * figure's grid, the number between them in the source order screen readers follow, but below the image and beside the
- * label on screen. The label sets one word per line, as in the design, and its last line sits on the number's
- * baseline.
+ * figure's flex row, the number between them in the source order screen readers follow, but below the image, which
+ * takes a line of its own, and beside the label on screen. The label sets one word per line, as in the design, and its
+ * last line sits on the number's baseline. A grid with `auto` columns for the number and label would do the same, but
+ * WebKit on iOS at times keeps those columns' widths from a layout at another viewport width, where the number's font
+ * size differs, and breaks the number within its column.
  *
  * The images and labels are known without the statistics, so while they load, the list is rendered as it will be, with
  * a placeholder for each figure.
@@ -841,19 +843,19 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 	return (
 		<dl className="mbs-6 grid gap-x-10 gap-y-12 md:grid-cols-[repeat(2,minmax(0,21rem))] md:justify-center 2xl:grid-cols-4">
 			{items.map((item, index) => (
-				<div key={item.id} className="grid grid-cols-[1fr_auto_auto_1fr] items-baseline-last">
+				<div key={item.id} className="flex flex-wrap items-baseline-last justify-center">
 					<dt className="contents">
 						<StatisticImage
 							animation="pulse"
-							className="col-span-full mbe-8 justify-self-center inline-full max-inline-100 sm:max-inline-80 2xl:mbe-20 2xl:max-inline-100"
+							className="mbe-8 basis-full max-inline-100 sm:max-inline-80 2xl:mbe-20 2xl:max-inline-100"
 							icon={item.icon}
 							rings={index % 2 === 0 ? "odd" : "even"}
 						/>
-						<span className="col-start-3 row-start-2 ms-6 font-heading text-title-5 max-inline-min sm:text-title-3">
+						<span className="order-1 ms-6 font-heading text-title-5 max-inline-min sm:text-title-3">
 							{item.label}
 						</span>
 					</dt>
-					<dd className="col-start-2 row-start-2 font-heading text-figure-statistic-narrow tabular-nums sm:text-figure-2 xl:text-figure-1 2xl:text-figure-statistic">
+					<dd className="font-heading text-figure-statistic-narrow tabular-nums sm:text-figure-2 xl:text-figure-1 2xl:text-figure-statistic">
 						{item.value ?? (
 							<Fragment>
 								<SkeletonText className="inline-[1.5em]" />
