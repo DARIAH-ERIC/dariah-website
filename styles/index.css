@@ -416,19 +416,19 @@
 	--text-figure-4--font-weight: var(--primitive-font-weight-black);
 
 	/**
-	 * The home page's network statistics, once they sit in one row: from figure 1's size at a 1536px viewport, where it
-	 * still fits beside its label, to the design's 128px at 1920px. Tracked out, as in the design.
+	 * The home page's network statistics, once they sit in one row: as large as the widest figure fits beside its label
+	 * at a third of its size, up to figure 2's size from a 1700px viewport. Tracked out, as in the design.
 	 */
-	--text-figure-statistic: clamp(var(--primitive-font-size-80), 12.5vw - 7rem, var(--primitive-font-size-128));
+	--text-figure-statistic: min(4.25vw, var(--primitive-font-size-72));
 	--text-figure-statistic--line-height: var(--primitive-line-height-none);
 	--text-figure-statistic--font-weight: var(--primitive-font-weight-black);
 	--text-figure-statistic--letter-spacing: var(--primitive-letter-spacing-wide);
 
 	/**
-	 * The same on a phone, where the statistics stack: from figure 1's size at a 320px viewport to 96px from 360px,
-	 * the largest at which the widest figure still fits beside its label; the mobile design's is larger still.
+	 * The same on a phone, where the statistics stack: as large as the widest figure fits beside its label at a third of
+	 * its size, up to figure 2's size from a 382px viewport.
 	 */
-	--text-figure-statistic-narrow: clamp(var(--primitive-font-size-80), 40vw - 3rem, var(--primitive-font-size-96));
+	--text-figure-statistic-narrow: clamp(var(--primitive-font-size-48), 22vw - 0.75rem, var(--primitive-font-size-72));
 	--text-figure-statistic-narrow--line-height: var(--primitive-line-height-none);
 	--text-figure-statistic-narrow--font-weight: var(--primitive-font-weight-black);
 	--text-figure-statistic-narrow--letter-spacing: var(--primitive-letter-spacing-wide);

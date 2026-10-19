@@ -800,10 +800,14 @@ async function StatisticsSection(): Promise<ReactNode> {
 /**
  * Each figure's image and label make up its term: the image is decorative, and `display: contents` lets both sit in the
  * figure's flex row, the number between them in the source order screen readers follow, but below the image, which
- * takes a line of its own, and beside the label on screen. The label sets one word per line, as in the design, and its
- * last line sits on the number's baseline. A grid with `auto` columns for the number and label would do the same, but
- * WebKit on iOS at times keeps those columns' widths from a layout at another viewport width, where the number's font
- * size differs, and breaks the number within its column.
+ * takes a line of its own, and beside the label on screen. A grid with `auto` columns for the number and label would do
+ * the same, but WebKit on iOS at times keeps those columns' widths from a layout at another viewport width, where the
+ * number's font size differs, and breaks the number within its column.
+ *
+ * The label is set in two lines at a third of the number's size, 1.5 times spaced, as in the design at 72px: its last
+ * line sits on the number's baseline, and its first line's capitals are as high as the number's. The figure sets the
+ * number's size, which the label and the space before it follow in `em`. Each label gives its lines in the message, as
+ * no width would break all four into two lines.
  *
  * The images and labels are known without the statistics, so while they load, the list is rendered as it will be, with
  * a placeholder for each figure.
@@ -813,28 +817,32 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 
 	const t = useTranslations();
 
+	function line(chunks: ReactNode): ReactNode {
+		return <span className="block">{chunks}</span>;
+	}
+
 	const items = [
 		{
 			id: "member-countries",
-			label: t("Member countries"),
+			label: t.rich("<line>Member</line> <line>countries</line>", { line }),
 			value: statistics?.memberCountries,
 			icon: statisticMemberCountriesIcon,
 		},
 		{
 			id: "partner-institutions",
-			label: t("National partner institutions"),
+			label: t.rich("<line>National partner</line> <line>institutions</line>", { line }),
 			value: statistics?.partnerInstitutions,
 			icon: statisticNationalPartnersIcon,
 		},
 		{
 			id: "cooperating-partners",
-			label: t("Cooperating partners"),
+			label: t.rich("<line>Cooperating</line> <line>partners</line>", { line }),
 			value: statistics?.cooperatingPartners,
 			icon: statisticCooperatingPartnersIcon,
 		},
 		{
 			id: "working-groups",
-			label: t("Working groups"),
+			label: t.rich("<line>Working</line> <line>groups</line>", { line }),
 			value: statistics?.workingGroups,
 			icon: statisticWorkingGroupsIcon,
 		},
@@ -843,7 +851,10 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 	return (
 		<dl className="mbs-6 grid gap-x-10 gap-y-12 md:grid-cols-[repeat(2,minmax(0,21rem))] md:justify-center 2xl:grid-cols-4">
 			{items.map((item, index) => (
-				<div key={item.id} className="flex flex-wrap items-baseline-last justify-center">
+				<div
+					key={item.id}
+					className="flex flex-wrap items-baseline-last justify-center font-heading text-figure-statistic-narrow sm:text-figure-2 2xl:text-figure-statistic"
+				>
 					<dt className="contents">
 						<StatisticImage
 							animation="pulse"
@@ -851,11 +862,11 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 							icon={item.icon}
 							rings={index % 2 === 0 ? "odd" : "even"}
 						/>
-						<span className="order-1 ms-6 font-heading text-title-5 max-inline-min sm:text-title-3">
+						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-body font-bold tracking-[-0.01em] whitespace-nowrap">
 							{item.label}
 						</span>
 					</dt>
-					<dd className="font-heading text-figure-statistic-narrow tabular-nums sm:text-figure-2 xl:text-figure-1 2xl:text-figure-statistic">
+					<dd className="tabular-nums">
 						{item.value ?? (
 							<Fragment>
 								<SkeletonText className="inline-[1.5em]" />

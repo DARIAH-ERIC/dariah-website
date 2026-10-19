@@ -368,25 +368,24 @@ msgid "Loading events…"
 msgstr "Loading events…"
 
 #: app/(app)/(default)/(index)/page.tsx
-msgctxt "iosLrX"
-msgid "Member countries"
-msgstr "Member countries"
+msgctxt "-yQkSz"
+msgid "<line>Member</line> <line>countries</line>"
+msgstr "<line>Member</line> <line>countries</line>"
 
 #: app/(app)/(default)/(index)/page.tsx
-msgctxt "Y4pZ01"
-msgid "National partner institutions"
-msgstr "National partner institutions"
+msgctxt "dUjeu6"
+msgid "<line>National partner</line> <line>institutions</line>"
+msgstr "<line>National partner</line> <line>institutions</line>"
 
 #: app/(app)/(default)/(index)/page.tsx
-#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
-msgctxt "noF5D0"
-msgid "Cooperating partners"
-msgstr "Cooperating partners"
+msgctxt "D8GwuU"
+msgid "<line>Cooperating</line> <line>partners</line>"
+msgstr "<line>Cooperating</line> <line>partners</line>"
 
 #: app/(app)/(default)/(index)/page.tsx
-msgctxt "S-6JuP"
-msgid "Working groups"
-msgstr "Working groups"
+msgctxt "mHdmBX"
+msgid "<line>Working</line> <line>groups</line>"
+msgstr "<line>Working</line> <line>groups</line>"
 
 #: app/(app)/(default)/(index)/page.tsx
 msgctxt "T4VxQN"
@@ -1122,6 +1121,11 @@ msgstr "Members"
 msgctxt "RLWBie"
 msgid "Observers"
 msgstr "Observers"
+
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "noF5D0"
+msgid "Cooperating partners"
+msgstr "Cooperating partners"
 
 #: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
 msgctxt "K7AkdL"
