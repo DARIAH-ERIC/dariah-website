@@ -805,10 +805,10 @@ async function StatisticsSection(): Promise<ReactNode> {
  * label would do the same, but WebKit on iOS at times keeps those columns' widths from a layout at another viewport
  * width, where the number's font size differs, and breaks the number within its column.
  *
- * The label is set in two lines at a third of the number's size, 1.5 times spaced, as in the design at 72px: its last
- * line sits on the number's baseline, and its first line's capitals are as high as the number's. The figure sets the
- * number's size, which the label and the space before it follow in `em`. Each label gives its lines in the message, as
- * no width would break all four into two lines.
+ * The label is set in two lines at a third of the number's size, 1.25 times spaced, and centred on the number, so its
+ * lines sit a little within the number's height, from its capitals to its baseline. The figure sets the number's size,
+ * which the label and the space before it follow in `em`. Each label gives its lines in the message, as no width would
+ * break all four into two lines.
  *
  * The images and labels are known without the statistics, so while they load, the list is rendered as it will be, with
  * a placeholder for each figure.
@@ -854,7 +854,7 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 			{items.map((item, index) => (
 				<div
 					key={item.id}
-					className="flex flex-wrap items-baseline-last justify-center font-heading text-figure-statistic-narrow sm:text-figure-2 2xl:text-figure-statistic"
+					className="flex flex-wrap items-center justify-center font-heading text-figure-statistic-narrow sm:text-figure-2 2xl:text-figure-statistic"
 				>
 					<dt className="contents">
 						<div className="mbe-8 basis-full 2xl:mbe-20">
@@ -865,7 +865,7 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 								rings={index % 2 === 0 ? "odd" : "even"}
 							/>
 						</div>
-						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-body font-bold tracking-[-0.01em] whitespace-nowrap">
+						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-tight font-bold tracking-[-0.01em] whitespace-nowrap">
 							{item.label}
 						</span>
 					</dt>
