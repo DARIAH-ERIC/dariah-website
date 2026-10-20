@@ -800,9 +800,10 @@ async function StatisticsSection(): Promise<ReactNode> {
 /**
  * Each figure's image and label make up its term: the image is decorative, and `display: contents` lets both sit in the
  * figure's flex row, the number between them in the source order screen readers follow, but below the image, which
- * takes a line of its own, and beside the label on screen. A grid with `auto` columns for the number and label would do
- * the same, but WebKit on iOS at times keeps those columns' widths from a layout at another viewport width, where the
- * number's font size differs, and breaks the number within its column.
+ * takes a line of its own, and beside the label on screen. The image's wrapper takes that line, as the image's maximum
+ * width would cap its flex basis and leave room for the number beside it. A grid with `auto` columns for the number and
+ * label would do the same, but WebKit on iOS at times keeps those columns' widths from a layout at another viewport
+ * width, where the number's font size differs, and breaks the number within its column.
  *
  * The label is set in two lines at a third of the number's size, 1.5 times spaced, as in the design at 72px: its last
  * line sits on the number's baseline, and its first line's capitals are as high as the number's. The figure sets the
@@ -856,12 +857,14 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 					className="flex flex-wrap items-baseline-last justify-center font-heading text-figure-statistic-narrow sm:text-figure-2 2xl:text-figure-statistic"
 				>
 					<dt className="contents">
-						<StatisticImage
-							animation="pulse"
-							className="mbe-8 basis-full max-inline-100 sm:max-inline-80 2xl:mbe-20 2xl:max-inline-100"
-							icon={item.icon}
-							rings={index % 2 === 0 ? "odd" : "even"}
-						/>
+						<div className="mbe-8 basis-full 2xl:mbe-20">
+							<StatisticImage
+								animation="pulse"
+								className="mx-auto max-inline-100 sm:max-inline-80 2xl:max-inline-100"
+								icon={item.icon}
+								rings={index % 2 === 0 ? "odd" : "even"}
+							/>
+						</div>
 						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-body font-bold tracking-[-0.01em] whitespace-nowrap">
 							{item.label}
 						</span>
