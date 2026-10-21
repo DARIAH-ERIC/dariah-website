@@ -805,7 +805,7 @@ async function StatisticsSection(): Promise<ReactNode> {
  * label would do the same, but WebKit on iOS at times keeps those columns' widths from a layout at another viewport
  * width, where the number's font size differs, and breaks the number within its column.
  *
- * The label is set in two lines at a third of the number's size, 1.25 times spaced, and centred on the number, so its
+ * The label is set in two lines at a third of the number's size, 1.375 times spaced, and centred on the number, so its
  * lines sit a little within the number's height, from its capitals to its baseline. The figure sets the number's size,
  * which the label and the space before it follow in `em`. Each label gives its lines in the message, as no width would
  * break all four into two lines.
@@ -865,7 +865,7 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 								rings={index % 2 === 0 ? "odd" : "even"}
 							/>
 						</div>
-						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-tight font-bold tracking-[-0.01em] whitespace-nowrap">
+						<span className="order-1 ms-[1em] text-[calc(1em/3)] leading-heading font-bold tracking-[-0.01em] whitespace-nowrap">
 							{item.label}
 						</span>
 					</dt>
