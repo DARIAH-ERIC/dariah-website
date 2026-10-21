@@ -36,7 +36,8 @@ const config = defineConfig({
 		 * ================================================================================================================
 		 */
 
-		"better-tailwindcss/no-unknown-classes": ["error", { ignore: ["lead", "not-prose", "not-richtext"] }],
+		/** `ignore` takes unanchored regular expressions, so a bare `lead` would also ignore every `leading-*` class. */
+		"better-tailwindcss/no-unknown-classes": ["error", { ignore: ["^lead$", "^not-prose$", "^not-richtext$"] }],
 		"better-tailwindcss/no-conflicting-classes": "error",
 		"better-tailwindcss/no-restricted-classes": "error",
 
