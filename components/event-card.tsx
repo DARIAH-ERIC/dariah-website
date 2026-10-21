@@ -52,26 +52,40 @@ export function EventCard(props: Readonly<EventCardProps>): ReactNode {
 		past: t("Past"),
 	};
 
-	function formatDays(event: EventBase): { days: string; months: string } {
+	/**
+	 * The days in large figures, each followed by its month and year in small type. Days in one month share them, e.g.
+	 * "28–30 September 2026". Across months, each day keeps its own, abbreviated so the date fits on one line in the
+	 * card, e.g. "30 Nov – 2 Dec 2026", as "30–2 Nov – Dec 2026" leaves the reader to pair them up; the year is shared
+	 * unless it differs too, e.g. "30 Dec 2026 – 2 Jan 2027".
+	 */
+	function formatDays(event: EventBase): Array<{ days: string; months: string }> {
 		/** Calendar dates stored as UTC, see `EventBase["duration"]`: formatted in UTC, or the day may shift. */
 		const start = new Date(event.duration.start);
 		const end = new Date(event.duration.end ?? event.duration.start);
 		const day = (date: Date) => format.dateTime(date, { day: "numeric", timeZone: "UTC" });
 		const isSameDay = event.duration.start.slice(0, 10) === (event.duration.end ?? event.duration.start).slice(0, 10);
-		/**
-		 * Collapses a shared year, e.g. "July – August 2026". Ranges across months abbreviate them, e.g. "Jul – Aug 2026",
-		 * so the date fits on one line in the card.
-		 */
 		const isSameMonth = event.duration.start.slice(0, 7) === (event.duration.end ?? event.duration.start).slice(0, 7);
+		const isSameYear = event.duration.start.slice(0, 4) === (event.duration.end ?? event.duration.start).slice(0, 4);
 
-		return {
-			days: isSameDay ? day(start) : `${day(start)}–${day(end)}`,
-			months: format.dateTimeRange(start, end, {
-				month: isSameMonth ? "long" : "short",
-				year: "numeric",
-				timeZone: "UTC",
-			}),
-		};
+		if (isSameMonth) {
+			return [
+				{
+					days: isSameDay ? day(start) : `${day(start)}–${day(end)}`,
+					months: format.dateTime(start, { month: "long", year: "numeric", timeZone: "UTC" }),
+				},
+			];
+		}
+
+		const startMonth = format.dateTime(start, {
+			month: "short",
+			year: isSameYear ? undefined : "numeric",
+			timeZone: "UTC",
+		});
+
+		return [
+			{ days: day(start), months: `${startMonth} –` },
+			{ days: day(end), months: format.dateTime(end, { month: "short", year: "numeric", timeZone: "UTC" }) },
+		];
 	}
 
 	const dates = event != null ? formatDays(event) : null;
@@ -90,8 +104,12 @@ export function EventCard(props: Readonly<EventCardProps>): ReactNode {
 				{event != null ? (
 					<Fragment>
 						<p className="flex flex-wrap content-center items-baseline gap-x-3">
-							<span className="font-heading text-figure-4">{dates?.days}</span>
-							<span className="text-title-5 font-regular uppercase">{dates?.months}</span>
+							{dates?.map(({ days, months }) => (
+								<span key={months} className="flex items-baseline gap-x-3">
+									<span className="font-heading text-figure-4">{days}</span>
+									<span className="text-title-5 font-regular uppercase">{months}</span>
+								</span>
+							))}
 						</p>
 						<Badge tone={status === "past" ? "muted" : "highlight"}>{statusLabels[status]}</Badge>
 					</Fragment>
