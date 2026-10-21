@@ -167,6 +167,11 @@ function renderLeadInNode(props: Readonly<{ children?: ReactNode | Array<ReactNo
 	return <p className="lead-in">{props.children}</p>;
 }
 
+/**
+ * A call-to-action link, set as one of the site's buttons. `not-prose` keeps the typography plugin's link styles (and the
+ * `prose-a:` ones on the wrapper) off it. The cms offers `primary`, `secondary` and `outline`; the design has a filled
+ * and an outlined button, so anything but `primary` takes the outlined one.
+ */
 function renderButtonLinkNode(props: Readonly<{ node: { attrs?: Record<string, unknown> | null } }>): ReactNode {
 	const attrs = props.node.attrs ?? null;
 	const href = attrs?.href;
@@ -176,7 +181,21 @@ function renderButtonLinkNode(props: Readonly<{ node: { attrs?: Record<string, u
 		return null;
 	}
 
-	return <a href={href}>{label}</a>;
+	const isPrimary = (attrs?.variant ?? "primary") === "primary";
+
+	return (
+		<a
+			className={cn(
+				"not-prose inline-flex items-center justify-center border-2 border-stroke-accent px-6 py-3 font-heading font-bold focus-visible-outline",
+				isPrimary
+					? "bg-background-accent-strong text-text-inverse hover:bg-background-base hover:text-text-accent"
+					: "bg-background-base text-text-accent hover:bg-background-accent-strong hover:text-text-inverse",
+			)}
+			href={href}
+		>
+			{label}
+		</a>
+	);
 }
 
 /**
