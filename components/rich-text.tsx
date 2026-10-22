@@ -395,11 +395,11 @@ export function RichTextContent(props: Readonly<RichTextContentProps>): ReactNod
 		 * with none, or in a formatting context of its own, does not provide. On a phone each heading is a step smaller,
 		 * 24px and 20px: next to the page's title, 32px there and light, a bold 28px section heading reads as the stronger
 		 * one. Links take the accent colour and the site's focus outline. Lists are tight or loose as in markdown (see
-		 * `prose-tight-lists`).
+		 * `prose-tight-lists`). A heading 4 directly after another one keeps its space above it (see `prose-heading-runs`).
 		 */
 		<div
 			className={cn(
-				"prose-tight-lists prose prose-lg leading-reading max-inline-none prose-h2:mbs-14 prose-h2:text-title-2 max-sm:prose-h2:text-title-3 max-sm:prose-h3:text-title-5 prose-h3:mbs-6 prose-h3:text-title-3 prose-a:font-medium prose-a:text-text-accent prose-a:focus-visible-outline prose-a:hover:decoration-2",
+				"prose-tight-lists prose-heading-runs prose prose-lg leading-reading max-inline-none prose-h2:mbs-14 prose-h2:text-title-2 max-sm:prose-h2:text-title-3 max-sm:prose-h3:text-title-5 prose-h3:mbs-6 prose-h3:text-title-3 prose-a:font-medium prose-a:text-text-accent prose-a:focus-visible-outline prose-a:hover:decoration-2",
 				className,
 			)}
 		>

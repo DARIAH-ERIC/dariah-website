@@ -999,6 +999,19 @@
 }
 
 /**
+ * Space before a heading 4 that directly follows another one, e.g. an agenda slot without a description and then the
+ * next slot. The typography plugin removes the top margin of whatever follows a heading, which is right for the
+ * heading's own text but leaves two consecutive headings only the first one's bottom margin apart. This puts back
+ * `prose-lg`'s top margin for a heading 4. Headings 2 and 3 already keep theirs, set with `prose-h2:mbs-*` and
+ * `prose-h3:mbs-*` on the text. A heading 4 directly under a heading 3 stays close to it.
+ */
+@utility prose-heading-runs {
+	& :where(h4) + h4 {
+		margin-block-start: 1.7777778em;
+	}
+}
+
+/**
  * A placeholder shape in a loading skeleton, sized by the element itself, e.g. with a width and height or an aspect ratio.
  *
  * Shapes pulse, fading in and out together, rather than shimmer: a highlight band moved across each shape crosses a wide
