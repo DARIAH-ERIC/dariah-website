@@ -151,6 +151,20 @@ test.describe("/feeds/events.ics", () => {
 	});
 });
 
+test.describe("legacy uploads", () => {
+	/** The redirect is not followed, so the test does not depend on the api serving the file. */
+	test("redirect a legacy download link to the documents-policies entry's file", async ({ request }) => {
+		const response = await request.get("/wp-content/uploads/2019/08/Strategic-Plan_2019-2026.pdf", {
+			maxRedirects: 0,
+		});
+
+		expect(response.status()).toBe(308);
+		expect(new URL(response.headers()["location"]!).pathname).toBe(
+			"/api/v1/documents-policies/slugs/dariah-strategic-plan-2019-2026/document",
+		);
+	});
+});
+
 test.describe("health checks", () => {
 	for (const pathname of ["/health/live", "/health/ready"]) {
 		test(`${pathname} reports the app as up`, async ({ request }) => {
