@@ -1,6 +1,16 @@
 import type { NextConfig } from "next";
 
+import { env } from "#/configs/env.config.ts";
+
 type Redirects = Awaited<ReturnType<NonNullable<NextConfig["redirects"]>>>;
+
+/**
+ * A documents-policies entry's file, which the api streams by the entry's slug - the url the documents page links to as
+ * well.
+ */
+function documentUrl(slug: string): string {
+	return `${env.NEXT_PUBLIC_API_BASE_URL}/api/v1/documents-policies/slugs/${slug}/document`;
+}
 
 /** Redirects for urls from the legacy dariah.eu website. */
 export const redirects: Redirects = [
@@ -101,6 +111,12 @@ export const redirects: Redirects = [
 	{
 		source: String.raw`/:year(\d{4})/:month(\d{2})/:date(\d{2})/:path*`,
 		destination: "/news/:path*",
+		permanent: true,
+	},
+	/** Download links to files the legacy website hosted, which are documents-policies entries now. */
+	{
+		source: "/wp-content/uploads/2019/08/Strategic-Plan_2019-2026.pdf",
+		destination: documentUrl("dariah-strategic-plan-2019-2026"),
 		permanent: true,
 	},
 ];
