@@ -1,5 +1,4 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
-	"buildCommand": "bun run --sequential generate:openapi generate:pages build",
 	"bunVersion": "1.4.x"
 }

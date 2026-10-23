@@ -9,7 +9,7 @@
 	},
 	"scripts": {
 		"analyze": "bun run --bun next analyze",
-		"build": "bun run --bun next build",
+		"build": "bun run --sequential generate:openapi generate:pages && bun run --bun next build",
 		"dev": "bun run --bun next dev",
 		"dev:env:init": "sh ./scripts/dev/env.sh",
 		"dev:services:down": "sh ./scripts/dev/services.sh stop",
