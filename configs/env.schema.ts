@@ -74,13 +74,6 @@ export const serverRuntime = v.object({
 	MATOMO_API_TOKEN: v.optional(v.pipe(v.string(), v.nonEmpty())),
 	PORT: v.optional(v.pipe(v.string(), v.toNumber(), v.integer(), v.minValue(1))),
 	REVALIDATION_WEBHOOK_SECRET: v.optional(v.pipe(v.string(), v.nonEmpty())),
-	/**
-	 * Serves the search latency benchmark at `/search-benchmark`. Keep disabled in production, except while measuring:
-	 * its api route sends uncached searches to typesense on every request.
-	 */
-	SEARCH_BENCHMARK: v.optional(v.picklist(["disabled", "enabled"]), "disabled"),
-	/** Set by vercel in functions, e.g. `fra1`. Reported by the search benchmark. */
-	VERCEL_REGION: v.optional(v.pipe(v.string(), v.nonEmpty())),
 });
 
 /**

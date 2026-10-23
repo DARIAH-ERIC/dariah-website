@@ -1,5 +1,5 @@
 import { Result } from "better-result";
-import { Client, type ConfigurationOptions, type DocumentSchema, type SearchResponse } from "typesense";
+import { Client, type DocumentSchema, type SearchResponse } from "typesense";
 
 import { cacheSearchResultsForSeconds } from "#/configs/search.config.ts";
 import {
@@ -96,11 +96,6 @@ export type {
 	SearchableCollection,
 } from "#/lib/search/search.ts";
 
-export interface SearchServiceConfig extends Pick<
-	ConfigurationOptions,
-	"cacheSearchResultsForSeconds" | "sendApiKeyAsQueryParam"
-> {}
-
 export interface CreateSearchServiceParams {
 	apiKey: string;
 	nodes: Array<{ host: string; port: number; protocol: "http" | "https" }>;
@@ -108,7 +103,6 @@ export interface CreateSearchServiceParams {
 		resources: string;
 		website: string;
 	};
-	config?: SearchServiceConfig;
 }
 
 export interface CollectionSearchClient<C extends SearchableCollection, Document> {
@@ -202,7 +196,7 @@ function createCollectionSearchClient<F extends ReadonlyArray<CollectionFieldCon
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function createSearchService(params: CreateSearchServiceParams) {
-	const { apiKey, collections, nodes, config } = params;
+	const { apiKey, collections, nodes } = params;
 
 	const client = new Client({
 		apiKey,
@@ -211,7 +205,6 @@ export function createSearchService(params: CreateSearchServiceParams) {
 		nodes,
 		numRetries: 3,
 		retryIntervalSeconds: 0.1,
-		...config,
 	});
 
 	return {
