@@ -42,7 +42,6 @@ const staticPathnames = {
 	"/resources/transformations": true,
 	/** Search result pages are not meant to be indexed. */
 	"/search": false,
-	"/search-benchmark": false,
 	"/spotlight": true,
 } satisfies Record<StaticPathname, boolean>;
 

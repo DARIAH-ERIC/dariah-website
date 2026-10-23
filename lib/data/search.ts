@@ -9,7 +9,6 @@ import {
 	type ResourceSearchResult,
 	type ResourceSource,
 	type SearchService,
-	type SearchServiceConfig,
 	type WebsiteSearchResult,
 	createSearchService,
 } from "#/lib/search/index.ts";
@@ -24,7 +23,7 @@ import {
  * A search service for the app's collections. Only the search-only key is used here, never the admin key. Throws when
  * the key is missing, which is optional at build time: it can only be generated once the collections exist.
  */
-export function createAppSearchService(config?: SearchServiceConfig): SearchService {
+export function createAppSearchService(): SearchService {
 	const apiKey = env.NEXT_PUBLIC_TYPESENSE_SEARCH_API_KEY;
 
 	if (apiKey == null) {
@@ -44,7 +43,6 @@ export function createAppSearchService(config?: SearchServiceConfig): SearchServ
 			resources: env.NEXT_PUBLIC_TYPESENSE_COLLECTION_NAME_RESOURCES,
 			website: env.NEXT_PUBLIC_TYPESENSE_COLLECTION_NAME_WEBSITE,
 		},
-		config,
 	});
 }
 

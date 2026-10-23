@@ -14,8 +14,8 @@ type Sample =
 
 /**
  * How each route is audited: one without dynamic segments at its pathname, followed by the search string given, and one
- * with dynamic segments at a single sample url, as its pages share one template. `null` skips the route. Exhaustive, so
- * a new route fails type checking until it has been decided on here.
+ * with dynamic segments at a single sample url, as its pages share one template. Exhaustive, so a new route fails type
+ * checking until it has been decided on here.
  */
 const routes = {
 	"/": "",
@@ -61,11 +61,9 @@ const routes = {
 	"/resources/transformations": "",
 	/** With a query, so the results are audited as well as the form. */
 	"/search": "?q=dariah",
-	/** An internal tool, only served when enabled. */
-	"/search-benchmark": null,
 	"/spotlight": "",
 	"/spotlight/[slug]": { from: "sitemap" },
-} satisfies Record<Pathname, string | Sample | null>;
+} satisfies Record<Pathname, string | Sample>;
 
 /**
  * The success criteria the accessibility declaration is measured against - wcag 2.2, levels a and aa - and axe's best
@@ -184,10 +182,6 @@ async function getViolations(page: Page): Promise<Array<Record<string, unknown>>
 
 test.describe("accessibility", () => {
 	for (const [route, target] of Object.entries(routes)) {
-		if (target == null) {
-			continue;
-		}
-
 		test(`${route} has no detectable accessibility violations`, async ({ page, request }) => {
 			const url = await getUrl(route, target, page, request);
 

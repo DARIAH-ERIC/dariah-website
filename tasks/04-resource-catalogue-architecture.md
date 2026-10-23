@@ -62,7 +62,7 @@ results itself.
 - ❌ Pagination links and `generateMetadata` (`noindex` for filtered views) keep working from the url, but the client
   must keep the url in sync itself.
 
-The benchmark page is `/search-benchmark` (gated by `SEARCH_BENCHMARK=enabled` at run time).
+The measurements came from a benchmark page at `/search-benchmark`, since removed.
 
 ## 2. How the url relates to the filter state
 

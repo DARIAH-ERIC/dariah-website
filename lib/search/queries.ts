@@ -3,7 +3,7 @@ import type { SearchWebsiteParams, WebsiteDocumentType, WebsiteSearchField } fro
 
 /**
  * The typesense search params behind the website's search pages. Kept free of server-only dependencies, so the same
- * requests can be built wherever a search runs - see `#/lib/data/search.ts` and the search benchmark.
+ * requests can be built wherever a search runs - see `#/lib/data/search.ts`.
  */
 
 /** Only the human-readable fields; `source`, `type` and ids are indexed for filtering and faceting, not for matching. */
