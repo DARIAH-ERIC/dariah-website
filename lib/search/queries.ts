@@ -13,6 +13,14 @@ const resourcesQueryBy: ReadonlyArray<ResourceSearchField> = ["label", "descript
 const perPage = 20;
 
 /**
+ * By default, typesense only drops query tokens when matching every token finds no document at all. A single document
+ * matching every token would then hide all partial matches, which reappear as soon as a filter excludes that document -
+ * so narrowing a search could show results the broader search did not. Dropping tokens until a page is filled keeps
+ * partial matches, which still rank below full matches.
+ */
+const dropTokensThreshold = perPage;
+
+/**
  * Best match first, and the most recent `source_updated_at` among equally good matches - which, without a query, is
  * every document, so browsing lists the newest first. What "newest" means depends on the type, e.g. events sort by
  * their event date, furthest in the future first - see the field in `./collections/website.ts`. Documents without a
@@ -40,6 +48,7 @@ export function createWebsiteSearchParams(options: WebsiteSearchOptions): Search
 		sortBy,
 		page,
 		perPage,
+		dropTokensThreshold,
 	};
 }
 
@@ -72,5 +81,6 @@ export function createResourcesSearchParams(options: ResourcesSearchOptions): Se
 		sortBy,
 		page,
 		perPage,
+		dropTokensThreshold,
 	};
 }

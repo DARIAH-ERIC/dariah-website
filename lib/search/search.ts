@@ -113,6 +113,11 @@ export interface SearchCollectionParams<C extends SearchableCollection> {
 	/** Joins onto referenced collections, to filter, facet and sort on their fields. */
 	joins?: ReadonlyArray<AnySearchJoin>;
 	maxFacetValues?: number;
+	/**
+	 * Typesense first only matches documents containing every query token, and drops tokens to find more matches only
+	 * when that finds fewer than this many documents. Defaults to typesense's own default of `1`.
+	 */
+	dropTokensThreshold?: number;
 }
 
 export interface SearchFacetValuesParams<C extends SearchableCollection> {
@@ -422,7 +427,7 @@ export function createSearchPlan<F extends ReadonlyArray<CollectionFieldConfig>,
 	/** The runtime name of every collection this one references, keyed as in the reference. */
 	referencedNames: Readonly<Record<string, string>> = {},
 ): SearchPlan<Document, FacetFieldName<F>> {
-	const { maxFacetValues, page = 1, perPage = 20, query, queryBy, sortBy } = params;
+	const { dropTokensThreshold, maxFacetValues, page = 1, perPage = 20, query, queryBy, sortBy } = params;
 	const facets: SearchFacetsConfig<Collection<F>> = params.facets ?? {};
 
 	const context = createFilterContext(collection, fieldTypes, params);
@@ -479,6 +484,10 @@ export function createSearchPlan<F extends ReadonlyArray<CollectionFieldConfig>,
 		main.max_facet_values = maxFacetValues;
 	}
 
+	if (dropTokensThreshold != null) {
+		main.drop_tokens_threshold = dropTokensThreshold;
+	}
+
 	/** A disjunctive facet's counts have to ignore its own selection, which needs a request of its own. */
 	function createFacetRequest(
 		facetByExpression: string,
@@ -499,6 +508,11 @@ export function createSearchPlan<F extends ReadonlyArray<CollectionFieldConfig>,
 
 		if (maxFacetValues != null) {
 			facetParams.max_facet_values = maxFacetValues;
+		}
+
+		/** Counts must cover the same documents as the hits. */
+		if (dropTokensThreshold != null) {
+			facetParams.drop_tokens_threshold = dropTokensThreshold;
 		}
 
 		return facetParams;
