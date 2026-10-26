@@ -7,7 +7,7 @@ import { createResourcesSearchParams, createWebsiteSearchParams } from "#/lib/se
 import { createSearchPlan } from "#/lib/search/search.ts";
 
 describe("website search", () => {
-	test("keeps partial matches whether or not a type is selected", () => {
+	test("drops query tokens until a page is filled, whether or not a type is selected", () => {
 		for (const type of [undefined, "news-item"] as const) {
 			const params = createWebsiteSearchParams({ query: "small grants 2026", type, page: 1 });
 			const plan = createSearchPlan(websiteCollection, getFieldTypes(websiteCollection.fields), params);
@@ -18,7 +18,7 @@ describe("website search", () => {
 });
 
 describe("resources search", () => {
-	test("counts facets over the same documents as the hits", () => {
+	test("uses the same drop tokens threshold for facet counts as for the hits", () => {
 		const params = createResourcesSearchParams({
 			query: "small grants 2026",
 			types: ["publication"],
