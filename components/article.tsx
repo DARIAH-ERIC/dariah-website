@@ -2,7 +2,7 @@ import { useExtracted as useTranslations } from "next-intl";
 import { type ReactNode, useId } from "react";
 
 import { ContentLayout } from "#/components/content-layout.tsx";
-import { PageHeader } from "#/components/page-header.tsx";
+import { type DatePrecision, PageHeader } from "#/components/page-header.tsx";
 import { PersonGroup } from "#/components/person-card.tsx";
 import type { RelatedResource } from "#/components/related-links.tsx";
 import type { EntityRef, Image, ImpactCaseStudy } from "#/lib/api/schemas.ts";
@@ -17,6 +17,8 @@ interface ArticleProps {
 	parent: Href;
 	/** For an article dated by when it was published, e.g. a news item - see `PageHeader`. */
 	publishedAt?: string;
+	/** See `PageHeader`. */
+	datePrecision?: DatePrecision;
 	item: {
 		title: string;
 		summary: string;
@@ -40,12 +42,13 @@ interface ArticleProps {
  * content (see `ContentLayout`'s `sections`).
  */
 export function Article(props: Readonly<ArticleProps>): ReactNode {
-	const { current, parent, publishedAt, item } = props;
+	const { current, parent, publishedAt, datePrecision, item } = props;
 
 	return (
 		<div className="px-main">
 			<PageHeader
 				current={current}
+				datePrecision={datePrecision}
 				image={item.image}
 				imageVariant="banner"
 				parent={parent}
