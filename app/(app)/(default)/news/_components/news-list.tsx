@@ -142,7 +142,7 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 				)}
 			</div>
 			<div className="flex flex-col">
-				<p className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
 					<span className="flex items-baseline gap-x-2">
 						<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 						{item != null ? (
@@ -154,11 +154,14 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 						)}
 					</span>
 					{item != null ? (
-						<time className="text-caption whitespace-nowrap" dateTime={item.publishedAt}>
+						<time
+							className="border-s border-stroke-medium ps-3 text-small font-medium whitespace-nowrap text-text-weak"
+							dateTime={item.publishedAt}
+						>
 							{format.dateTime(new Date(item.publishedAt), { dateStyle: "long" })}
 						</time>
 					) : (
-						<SkeletonText className="text-caption inline-32" />
+						<SkeletonText className="text-small inline-32" />
 					)}
 				</p>
 				{item != null ? (

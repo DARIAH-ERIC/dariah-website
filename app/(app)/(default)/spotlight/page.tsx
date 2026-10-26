@@ -97,12 +97,15 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 				<ApiImage alt="" className="object-cover" fill={true} image={item.image} sizes={cardImageSizes} />
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
-				<p className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
+				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
 					<span className="flex items-baseline gap-x-3">
 						<SparklesIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 						<span className="text-small font-bold text-text-accent uppercase">{t("Spotlight article")}</span>
 					</span>
-					<time className="text-caption whitespace-nowrap" dateTime={item.publishedAt}>
+					<time
+						className="border-s border-stroke-medium ps-3 text-small font-medium whitespace-nowrap text-text-weak"
+						dateTime={item.publishedAt}
+					>
 						{format.dateTime(new Date(item.publishedAt), { month: "long", year: "numeric" })}
 					</time>
 				</p>
