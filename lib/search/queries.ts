@@ -6,17 +6,20 @@ import type { SearchWebsiteParams, WebsiteDocumentType, WebsiteSearchField } fro
  * requests can be built wherever a search runs - see `#/lib/data/search.ts`.
  */
 
-/** Only the human-readable fields; `source`, `type` and ids are indexed for filtering and faceting, not for matching. */
+/**
+ * Only the human-readable fields; `source`, `type` and ids are indexed for filtering and faceting, not for matching.
+ * Without `query_by_weights`, typesense weights fields by their order here, so a match in the label ranks first.
+ */
 const websiteQueryBy: ReadonlyArray<WebsiteSearchField> = ["label", "description"];
 const resourcesQueryBy: ReadonlyArray<ResourceSearchField> = ["label", "description", "keywords"];
 
 const perPage = 20;
 
 /**
- * By default, typesense only drops query tokens when matching every token finds no document at all. A single document
- * matching every token would then hide all partial matches, which reappear as soon as a filter excludes that document -
- * so narrowing a search could show results the broader search did not. Dropping tokens until a page is filled keeps
- * partial matches, which still rank below full matches.
+ * Tolerates query tokens that no document matches, e.g. "winners" for a title that says "winning". Typesense drops
+ * tokens by position, not the one that does not match, and by default stops as soon as any document matches - which can
+ * be a poor match when the unmatched token is not the last one. Dropping tokens until a page is filled also finds the
+ * documents that match all but one token. Partial matches rank below full matches.
  */
 const dropTokensThreshold = perPage;
 

@@ -510,7 +510,10 @@ export function createSearchPlan<F extends ReadonlyArray<CollectionFieldConfig>,
 			facetParams.max_facet_values = maxFacetValues;
 		}
 
-		/** Counts must cover the same documents as the hits. */
+		/**
+		 * Matches like the main request. The threshold applies per request, so counts can still differ from the hits when
+		 * this request's filters find enough full matches and the main request's do not.
+		 */
 		if (dropTokensThreshold != null) {
 			facetParams.drop_tokens_threshold = dropTokensThreshold;
 		}
