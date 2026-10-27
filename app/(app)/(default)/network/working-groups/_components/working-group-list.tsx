@@ -50,9 +50,9 @@ interface WorkingGroupCardProps {
 
 /**
  * A project card (see `app/(app)/(default)/projects/_components/project-list.tsx`) without the duration or the role,
- * which a working group does not have: the image is usually the group's logo, so it is shown whole, on white, and the
- * title's link stretches over the whole card. The title is the group's full name, with its acronym, which alone says
- * little about the group.
+ * which a working group does not have: the image is usually the group's logo, so it is shown whole, on white, inset a
+ * little, and the title's link stretches over the whole card. The title is the group's full name, with its acronym,
+ * which alone says little about the group.
  */
 function WorkingGroupCard(props: Readonly<WorkingGroupCardProps>): ReactNode {
 	const { workingGroup } = props;
@@ -63,7 +63,13 @@ function WorkingGroupCard(props: Readonly<WorkingGroupCardProps>): ReactNode {
 		<article className="group relative flex flex-col shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-3/2 border-be border-stroke-weak bg-background-base">
 				{workingGroup.image != null ? (
-					<ApiImage alt="" className="object-contain" fill={true} image={workingGroup.image} sizes={cardImageSizes} />
+					<ApiImage
+						alt=""
+						className="object-contain p-3"
+						fill={true}
+						image={workingGroup.image}
+						sizes={cardImageSizes}
+					/>
 				) : null}
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">

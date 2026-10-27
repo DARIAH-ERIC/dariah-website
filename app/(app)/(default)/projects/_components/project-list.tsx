@@ -54,10 +54,11 @@ interface ProjectCardProps {
 /**
  * A coordinator's role tag is tinted blue, so the projects DARIAH leads stand out; the others are grey.
  *
- * The image is usually the project's logo, so it is shown whole, on white, rather than cropped. A project without one
- * gets the same placeholder as a person without a portrait: the white DARIAH logo on grey, as wide relative to the
- * box's height as on the square portrait, so it is not blown up to the card's width. The title's link stretches over
- * the whole card, so its focus outline is drawn on the card's box.
+ * The image is usually the project's logo, so it is shown whole, on white, rather than cropped, and inset a little, so
+ * a logo drawn to the edge of its file does not touch the card's. A project without one gets the same placeholder as a
+ * person without a portrait: the white DARIAH logo on grey, as wide relative to the box's height as on the square
+ * portrait, so it is not blown up to the card's width. The title's link stretches over the whole card, so its focus
+ * outline is drawn on the card's box.
  */
 function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 	const { project } = props;
@@ -94,7 +95,7 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 		<article className="group relative flex flex-col shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-3/2 border-be border-stroke-weak bg-background-base">
 				{project.image != null ? (
-					<ApiImage alt="" className="object-contain" fill={true} image={project.image} sizes={cardImageSizes} />
+					<ApiImage alt="" className="object-contain p-3" fill={true} image={project.image} sizes={cardImageSizes} />
 				) : (
 					<div className="grid place-items-center bg-background-placeholder block-full inline-full">
 						<Image alt="" className="block-auto inline-[57%]" src={logo} />
