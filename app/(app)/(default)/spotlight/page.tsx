@@ -1,6 +1,6 @@
 import { SparklesIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { useExtracted as useTranslations } from "next-intl";
+import { useFormatter, useExtracted as useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -79,6 +79,9 @@ interface SpotlightArticleCardProps {
 }
 
 /**
+ * The type label, then the month and year it was published, as on the article's own page; a news card's date is set the
+ * same way, beside its type.
+ *
  * The title's link stretches over the whole card, so its focus outline is drawn on the card's box. The card draws its
  * edge shadow, its list item the soft one (see `--shadow-card` in `styles/index.css`).
  */
@@ -86,6 +89,7 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 	const { item } = props;
 
 	const t = useTranslations();
+	const format = useFormatter();
 
 	return (
 		<article className="group relative flex flex-col bg-background-base shadow-card-edge inline-full hover:bg-background-card-hover">
@@ -93,9 +97,17 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 				<ApiImage alt="" className="object-cover" fill={true} image={item.image} sizes={cardImageSizes} />
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
-				<p className="flex items-center gap-x-3">
-					<SparklesIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" />
-					<span className="text-small font-bold text-text-accent uppercase">{t("Spotlight article")}</span>
+				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+					<span className="flex items-baseline gap-x-3">
+						<SparklesIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
+						<span className="text-small font-bold text-text-accent uppercase">{t("Spotlight article")}</span>
+					</span>
+					<time
+						className="border-s border-stroke-medium ps-3 text-small font-medium whitespace-nowrap text-text-weak"
+						dateTime={item.publishedAt}
+					>
+						{format.dateTime(new Date(item.publishedAt), { month: "long", year: "numeric" })}
+					</time>
 				</p>
 				<h2 className="font-heading text-title-4 group-hover:text-text-accent">
 					<Link

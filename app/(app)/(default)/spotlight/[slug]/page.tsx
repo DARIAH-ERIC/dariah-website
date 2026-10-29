@@ -66,6 +66,7 @@ export default function SpotlightArticlePage(props: Readonly<SpotlightArticlePag
 						label={t("Loading article…")}
 						className="px-main"
 						image="banner"
+						isDated={true}
 						parent={href({ pathname: "/spotlight" })}
 						titleLines={{ base: 4, sm: 3, lg: 2 }}
 					/>
@@ -91,7 +92,13 @@ async function SpotlightArticle(props: Pick<SpotlightArticlePageProps, "params">
 	return (
 		<Fragment>
 			<JsonLd item={await createArticle({ type: "Article", href: current, item })} />
-			<Article current={current} item={item} parent={href({ pathname: "/spotlight" })} />
+			<Article
+				current={current}
+				datePrecision="month"
+				item={item}
+				parent={href({ pathname: "/spotlight" })}
+				publishedAt={item.publishedAt}
+			/>
 		</Fragment>
 	);
 }

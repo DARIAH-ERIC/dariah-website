@@ -1,5 +1,5 @@
 import cn from "clsx/lite";
-import { useFormatter, useExtracted as useTranslations } from "next-intl";
+import { type DateTimeFormatOptions, useFormatter, useExtracted as useTranslations } from "next-intl";
 import type { ComponentProps, ReactNode } from "react";
 
 import { Breadcrumbs } from "#/components/breadcrumbs.tsx";
@@ -19,6 +19,13 @@ import type { Href } from "#/lib/navigation/href.ts";
 
 type ImageVariant = NonNullable<ComponentProps<typeof FeaturedImage>["variant"]>;
 
+export type DatePrecision = "day" | "month";
+
+const dateFormats: Record<DatePrecision, DateTimeFormatOptions> = {
+	day: { dateStyle: "long" },
+	month: { month: "long", year: "numeric" },
+};
+
 interface PageHeaderProps {
 	/** The page's own `href`, for its breadcrumbs. */
 	current: Href;
@@ -28,10 +35,15 @@ interface PageHeaderProps {
 	/** A category above the title, e.g. a member's status - set as a card's type label is, not as part of the title. */
 	label?: string;
 	/**
-	 * Shown below the title, for an item dated by when it was published, e.g. a news item. Not read from the item: a
-	 * spotlight article or an impact case study carries a `publishedAt` too, but is not dated on its page.
+	 * Shown below the title, for an item dated by when it was published, e.g. a news item. Not read from the item: an
+	 * impact case study carries a `publishedAt` too, but is not dated on its page.
 	 */
 	publishedAt?: string;
+	/**
+	 * How exactly `publishedAt` is shown: the full date by default, or only its month and year, e.g. a spotlight
+	 * article's.
+	 */
+	datePrecision?: DatePrecision;
 	image: ApiImage | null | undefined;
 	/** See `FeaturedImage`: a banner by default, or a `"wide-banner"` for an image with text set in it, e.g. an event's. */
 	imageVariant?: ImageVariant;
@@ -52,7 +64,17 @@ interface PageHeaderProps {
  * reaches into the space below the header rather than pushing the content down.
  */
 export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
-	const { current, parent, title, label, publishedAt, image, imageVariant = "banner", logo } = props;
+	const {
+		current,
+		parent,
+		title,
+		label,
+		publishedAt,
+		datePrecision = "day",
+		image,
+		imageVariant = "banner",
+		logo,
+	} = props;
 
 	const format = useFormatter();
 
@@ -70,7 +92,7 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 			</div>
 			{publishedAt != null ? (
 				<p className="mbs-6 text-caption">
-					<time dateTime={publishedAt}>{format.dateTime(new Date(publishedAt), { dateStyle: "long" })}</time>
+					<time dateTime={publishedAt}>{format.dateTime(new Date(publishedAt), dateFormats[datePrecision])}</time>
 				</p>
 			) : null}
 			{image != null ? (
