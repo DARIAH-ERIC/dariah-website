@@ -12,23 +12,8 @@ function documentUrl(slug: string): string {
 	return `${env.NEXT_PUBLIC_API_BASE_URL}/api/v1/documents-policies/slugs/${slug}/document`;
 }
 
-/** Redirects for urls from the legacy dariah.eu website, and stable urls for documents that get new versions. */
+/** Redirects for urls from the legacy dariah.eu website. */
 export const redirects: Redirects = [
-	/**
-	 * Stable urls for the current version of the statutes and the internal rules of procedure, which get a new
-	 * documents-policies entry for each version. Temporary, so browsers and search engines do not cache the target, which
-	 * must be updated here when a new version is published.
-	 */
-	{
-		source: "/about/documents/statutes",
-		destination: documentUrl("dariah-eric-statutes-february-2026"),
-		permanent: false,
-	},
-	{
-		source: "/about/documents/irp",
-		destination: documentUrl("internal-rules-of-procedure-and-policies-december-2024"),
-		permanent: false,
-	},
 	{
 		source: "/about/dariah-in-nutshell",
 		destination: "/about/dariah-in-a-nutshell",
