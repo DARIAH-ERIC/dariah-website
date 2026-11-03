@@ -60,9 +60,15 @@ const config: NextConfig = {
 	 * `deviceSizes`/`imageSizes` are the endpoint's own ladder, split at the 640 rung the way next expects: the widths in
 	 * the two lists are the candidates it puts in a `srcset`, and the endpoint answers any width not on the ladder with a
 	 * `400`.
+	 *
+	 * The optimizer encodes locally served photos (the hero and the section backgrounds) as avif for browsers that accept
+	 * it, webp otherwise. At the same quality, avif is about 35-40% smaller: the phone hero, the landing page's largest
+	 * contentful paint, is 67KB instead of 107KB. It is slower to encode, but only on a width's first request, which is
+	 * then cached.
 	 */
 	images: {
 		deviceSizes: imageVariantWidths.filter((width) => width >= 640),
+		formats: ["image/avif", "image/webp"],
 		imageSizes: imageVariantWidths.filter((width) => width < 640),
 		qualities: [imageQuality],
 	},
