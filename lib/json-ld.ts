@@ -42,7 +42,7 @@ const websiteId = toAbsoluteUrl("/#website");
  * repeated beside the `@id`, since the page with the full description is a different one.
  */
 function toOrganizationRef(site: SiteMetadata): Organization {
-	return { "@type": "Organization", "@id": organizationId, name: site.title, url: toAbsoluteUrl("/") };
+	return { "@type": "Organization", "@id": organizationId, name: site.shortName, url: toAbsoluteUrl("/") };
 }
 
 /** The same 16:9 rendition, cropped around the focal point, which the link preview uses - see `toOpenGraphImage`. */
@@ -62,6 +62,20 @@ const organizationAddress: PostalAddress = {
 	addressCountry: "FR",
 };
 
+/** The organisation's legal name, as the ERIC was established. Not in the api, so it is fixed here. */
+const organizationLegalName = "DARIAH ERIC";
+
+/**
+ * Every name the organisation goes by, for search engines to match it by: the full name from the api, and the
+ * abbreviations, which are fixed here since the short name in the api is editable. Without the `name` itself.
+ */
+function getAlternateNames(site: SiteMetadata): Array<string> {
+	const names = new Set([site.name, "DARIAH", "DARIAH-EU", organizationLegalName]);
+	names.delete(site.shortName);
+
+	return [...names];
+}
+
 /**
  * The organisation behind the site, with its social media profiles as `sameAs`. The `website` entry is this site
  * itself, which is already its `url`.
@@ -71,7 +85,9 @@ export function createOrganization(site: SiteMetadata): WithContext<Organization
 		"@context": "https://schema.org",
 		"@type": "Organization",
 		"@id": organizationId,
-		name: site.title,
+		name: site.shortName,
+		alternateName: getAlternateNames(site),
+		legalName: organizationLegalName,
 		description: site.description,
 		url: toAbsoluteUrl("/"),
 		logo: toAbsoluteUrl("/android-chrome-512x512.png"),
@@ -82,15 +98,16 @@ export function createOrganization(site: SiteMetadata): WithContext<Organization
 }
 
 /**
- * The website, which gives search results the site's name. No `SearchAction`: Google no longer shows a sitelinks search
- * box.
+ * The website, which gives search results the site's name - the short one, with the others as fallbacks. No
+ * `SearchAction`: Google no longer shows a sitelinks search box.
  */
 export function createWebSite(site: SiteMetadata): WithContext<WebSite> {
 	return {
 		"@context": "https://schema.org",
 		"@type": "WebSite",
 		"@id": websiteId,
-		name: site.title,
+		name: site.shortName,
+		alternateName: getAlternateNames(site),
 		description: site.description,
 		url: toAbsoluteUrl("/"),
 		publisher: { "@id": organizationId },

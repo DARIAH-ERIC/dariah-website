@@ -93,7 +93,7 @@ export async function createOpenGraph(openGraph: OpenGraph = {}): Promise<OpenGr
 
 	return {
 		type: "website",
-		siteName: site.title,
+		siteName: site.shortName,
 		locale: openGraphLocale,
 		...(site.ogImage != null ? { images: [toOpenGraphImage(site.ogImage)] } : {}),
 		...openGraph,

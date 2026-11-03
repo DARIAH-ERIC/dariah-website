@@ -21,7 +21,7 @@ export default async function NotFound(): Promise<ReactNode> {
 
 	return (
 		<Fragment>
-			<title>{`${t("Page not found")} | ${site.title}`}</title>
+			<title>{`${t("Page not found")} | ${site.shortName}`}</title>
 			<NotFoundContent />
 		</Fragment>
 	);

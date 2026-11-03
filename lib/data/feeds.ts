@@ -45,12 +45,12 @@ export type FeedName = keyof typeof feedPathnames;
 /** The pathname of the calendar feed's route handler, which is not an rss feed, so not one of `feedPathnames`. */
 const calendarFeedPathname = "/feeds/events.ics";
 
-async function getFeedTitles(siteTitle: string): Promise<Record<FeedName, string>> {
+async function getFeedTitles(siteName: string): Promise<Record<FeedName, string>> {
 	const t = await getTranslations({ locale });
 
 	return {
-		news: t("{title}: News", { title: siteTitle }),
-		events: t("{title}: Events", { title: siteTitle }),
+		news: t("{title}: News", { title: siteName }),
+		events: t("{title}: Events", { title: siteName }),
 	};
 }
 
@@ -126,7 +126,7 @@ export async function getNewsFeed(): Promise<string> {
 		};
 	});
 
-	const titles = await getFeedTitles(siteMetadata.title);
+	const titles = await getFeedTitles(siteMetadata.shortName);
 
 	return serialize(
 		{
@@ -186,7 +186,7 @@ export async function getEventsFeed(from: string): Promise<string> {
 		};
 	});
 
-	const titles = await getFeedTitles(siteMetadata.title);
+	const titles = await getFeedTitles(siteMetadata.shortName);
 
 	return serialize(
 		{
@@ -238,7 +238,7 @@ export async function getEventsCalendarFeed(today: string): Promise<string> {
 	const events = eventsResult.unwrap();
 	const siteMetadata = siteMetadataResult.unwrap().data;
 
-	const titles = await getFeedTitles(siteMetadata.title);
+	const titles = await getFeedTitles(siteMetadata.shortName);
 
 	return createCalendarFeed({
 		name: titles.events,
