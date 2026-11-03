@@ -48,15 +48,16 @@ interface IndexPageProps extends PageProps<"/"> {}
 export const ensureStatic = "navigation";
 
 /**
- * The title names the site in full, after its short name, which every other page ends on. When the full name already
- * contains the short name, it stands alone. The description is the root layout's default; the api may give the link
- * preview its own title and description.
+ * The title is the site's short name, which every other page ends on, described by its full name - with a dash rather
+ * than the template's `|`, so it reads as name and description, not as the page and site of other titles reversed. When
+ * the full name already contains the short name, it stands alone. The description is the root layout's default; the api
+ * may give the link preview its own title and description.
  */
 export async function generateMetadata(): Promise<Metadata> {
 	const site = await getSiteMetadata();
 
 	return {
-		title: { absolute: site.name.includes(site.shortName) ? site.name : `${site.shortName} | ${site.name}` },
+		title: { absolute: site.name.includes(site.shortName) ? site.name : `${site.shortName} – ${site.name}` },
 		alternates: await createAlternates({ canonical: "/" }),
 		openGraph: await createOpenGraph({
 			url: "/",
