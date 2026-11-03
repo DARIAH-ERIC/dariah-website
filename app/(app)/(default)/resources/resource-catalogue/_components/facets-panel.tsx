@@ -34,7 +34,7 @@ export const FacetsDialogContext = createContext(false);
  * The facets: a column beside the results from `lg` up, and a full-screen modal dialog below, opened by a "Show
  * filters" button, which counts the active filters.
  *
- * A native `dialog`, not react-aria's `Modal` like the mobile navigation: that mounts its content only while open, and
+ * A native `dialog`, like the mobile navigation, not react-aria's `Modal`: that mounts its content only while open, and
  * portals it out of the page. The checkboxes must stay in the search form at all times, or a query typed while the
  * dialog is closed would be submitted without them. `showModal()` makes the rest of the page inert, so neither `Tab`
  * nor a screen reader's cursor can leave the dialog for the page, closes on `Escape`, and returns focus to the button.

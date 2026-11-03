@@ -43,6 +43,21 @@ function getDialogLink(page: Page, name: string): Locator {
 	return getDialog(page).getByRole("link", { name });
 }
 
+/**
+ * A section of the menu in the dialog: a native `details`, a group whose `open` state is what assistive technology
+ * reports as its `summary`'s expanded state. Playwright's role engine gives a `summary` no role, so it is found by its
+ * text.
+ */
+function getSection(page: Page, name: string): Locator {
+	return getDialog(page)
+		.getByRole("group")
+		.filter({ has: page.getByText(name, { exact: true }) });
+}
+
+function getSectionTrigger(page: Page, name: string): Locator {
+	return getSection(page, name).getByText(name, { exact: true });
+}
+
 /** The list a trigger discloses, resolved the way assistive technology does: via the button's `aria-controls`. */
 async function getDisclosedList(page: Page, trigger: Locator): Promise<Locator> {
 	const id = await trigger.getAttribute("aria-controls");
@@ -304,10 +319,13 @@ test.describe("primary navigation on small screens", () => {
 		await getMenuButton(page).click();
 
 		await expect(getDialog(page)).toBeVisible();
-		/** The landmark around the menu button is hidden from assistive technology while the dialog is open. */
-		await expect(getNavigation(page)).toHaveCount(1);
+		/**
+		 * Modal, so the page behind it - the landmark around the menu button included - is inert and hidden from assistive
+		 * technology. Playwright's role engine does not model that, so it is asserted via `:modal`.
+		 */
+		expect(await getDialog(page).evaluate((dialog) => dialog.matches(":modal"))).toBe(true);
 		await expect(getDialog(page).getByRole("navigation", { name: "Main" })).toBeVisible();
-		await expect(getTrigger(page, "About")).toBeVisible();
+		await expect(getSectionTrigger(page, "About")).toBeVisible();
 	});
 
 	test("closes via the close button, and moves focus back to the menu button", async ({ page }) => {
@@ -326,14 +344,14 @@ test.describe("primary navigation on small screens", () => {
 
 		await open.click();
 
-		const trigger = getTrigger(page, "About");
+		const section = getSection(page, "About");
 		const link = getDialogLink(page, "Strategy");
 
 		await expect(link).toBeHidden();
 
-		await trigger.click();
+		await getSectionTrigger(page, "About").click();
 
-		await expect(trigger).toHaveAttribute("aria-expanded", "true");
+		await expect(section).toHaveAttribute("open");
 		await expect(link).toBeVisible();
 
 		await link.focus();
@@ -346,17 +364,16 @@ test.describe("primary navigation on small screens", () => {
 	test("switches to another section with a single tap", async ({ page }) => {
 		await getMenuButton(page).click();
 
-		const about = getTrigger(page, "About");
-		const network = getTrigger(page, "Network");
+		const about = getSection(page, "About");
+		const network = getSection(page, "Network");
 
-		await about.click();
-		await expect(about).toHaveAttribute("aria-expanded", "true");
+		await getSectionTrigger(page, "About").click();
+		await expect(about).toHaveAttribute("open");
 
-		/** Collapsing "About" on `pointerdown` would move "Network" from under the pointer before `pointerup`. */
-		await network.click();
+		await getSectionTrigger(page, "Network").click();
 
-		await expect(network).toHaveAttribute("aria-expanded", "true");
-		await expect(about).toHaveAttribute("aria-expanded", "false");
+		await expect(network).toHaveAttribute("open");
+		await expect(about).not.toHaveAttribute("open");
 		await expect(getDialogLink(page, "Strategy")).toBeHidden();
 		await expect(getDialogLink(page, "Working groups")).toBeVisible();
 	});
@@ -365,22 +382,22 @@ test.describe("primary navigation on small screens", () => {
 		await gotoHydrated(page, "/about/strategy");
 		await getMenuButton(page).click();
 
-		const about = getTrigger(page, "About");
+		const about = getSection(page, "About");
 		const link = getDialogLink(page, "Strategy");
 
-		await expect(about).toHaveAttribute("aria-expanded", "true");
+		await expect(about).toHaveAttribute("open");
 		await expect(link).toHaveAttribute("aria-current", "page");
 
 		/** Only on opening: collapsing it afterwards sticks. */
-		await about.click();
+		await getSectionTrigger(page, "About").click();
 
-		await expect(about).toHaveAttribute("aria-expanded", "false");
+		await expect(about).not.toHaveAttribute("open");
 		await expect(link).toBeHidden();
 	});
 
 	test("closes when following a link", async ({ page }) => {
 		await getMenuButton(page).click();
-		await getTrigger(page, "About").click();
+		await getSectionTrigger(page, "About").click();
 		await getDialog(page).getByRole("link", { name: "Strategy" }).click();
 
 		await expect(page).toHaveURL("/about/strategy");
@@ -411,21 +428,33 @@ test.describe("primary navigation on small screens", () => {
 		await expect(getDialog(page)).toBeHidden();
 	});
 
-	test("keeps focus inside the dialog", async ({ page }) => {
+	test("keeps focus out of the page behind the dialog", async ({ page }) => {
 		await getMenuButton(page).click();
 
 		const dialog = getDialog(page);
 		const first = dialog.getByRole("link", { name: "DARIAH-EU" });
 		const last = dialog.getByRole("link", { name: "Search" });
 
+		/**
+		 * Whether an element of the page outside the dialog has focus. A native modal dialog lets `Tab` leave the document
+		 * for the browser's own controls, rather than wrapping around, which leaves no element of the page focused.
+		 */
+		async function isFocusBehindDialog(): Promise<boolean> {
+			return page.evaluate(() => {
+				const element = document.activeElement;
+
+				return element != null && element !== document.body && element.closest("dialog") == null;
+			});
+		}
+
 		await first.focus();
 		await page.keyboard.press("Shift+Tab");
 
-		/** Wrapped around to the last focusable element instead of leaving the dialog. */
-		await expect(last).toBeFocused();
+		expect(await isFocusBehindDialog()).toBe(false);
 
+		await last.focus();
 		await page.keyboard.press("Tab");
 
-		await expect(first).toBeFocused();
+		expect(await isFocusBehindDialog()).toBe(false);
 	});
 });
