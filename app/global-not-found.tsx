@@ -16,12 +16,12 @@ import { defaultLocale } from "#/lib/i18n/locales.ts";
 
 export { viewport } from "#/app/(app)/_lib/viewport.config.ts";
 
-/** The title template of `app/(app)/layout.tsx` does not apply here, so the site title is appended by hand. */
+/** The title template of `app/(app)/layout.tsx` does not apply here, so the site's short name is appended by hand. */
 export async function generateMetadata(): Promise<Metadata> {
 	const [t, site] = await Promise.all([getTranslations(), getSiteMetadata()]);
 
 	return {
-		title: `${t("Page not found")} | ${site.title}`,
+		title: `${t("Page not found")} | ${site.shortName}`,
 		description: site.description,
 	};
 }

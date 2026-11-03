@@ -41,17 +41,23 @@ import { Link } from "#/lib/navigation/link.tsx";
 
 interface IndexPageProps extends PageProps<"/"> {}
 
-/** Title and description are the root layout's defaults; the api may give the link preview its own. */
 /**
  * Nothing on this page depends on the request, so it is prerendered whole, and `next build` fails if a change makes any
  * of it render per request.
  */
 export const ensureStatic = "navigation";
 
+/**
+ * The title is the site's short name, which every other page ends on, described by its full name - with a dash rather
+ * than the template's `|`, so it reads as name and description, not as the page and site of other titles reversed. When
+ * the full name already contains the short name, it stands alone. The description is the root layout's default; the api
+ * may give the link preview its own title and description.
+ */
 export async function generateMetadata(): Promise<Metadata> {
 	const site = await getSiteMetadata();
 
 	return {
+		title: { absolute: site.name.includes(site.shortName) ? site.name : `${site.shortName} – ${site.name}` },
 		alternates: await createAlternates({ canonical: "/" }),
 		openGraph: await createOpenGraph({
 			url: "/",

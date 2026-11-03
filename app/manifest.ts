@@ -7,8 +7,8 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
 	const siteMetadata = await getSiteMetadata();
 
 	return {
-		name: siteMetadata.title,
-		short_name: siteMetadata.title,
+		name: siteMetadata.name,
+		short_name: siteMetadata.shortName,
 		description: siteMetadata.description,
 		lang: defaultLocale,
 		start_url: "/",
