@@ -18,6 +18,9 @@ interface TabLinkProps {
  * A `TabNavigation` link, marked as current when its segment is the selected one. A layout is not re-rendered when
  * navigating between its pages, so only the client knows which one is shown. Every tab is a static route, so the
  * segment is known when prerendering, and the static html already has the right tab marked.
+ *
+ * Focus stays on the link after it is followed, rather than moving back to the top of the page - see
+ * `FocusOnNavigation`.
  */
 export function TabLink(props: Readonly<TabLinkProps>): ReactNode {
 	const { segment, href, className, children } = props;
@@ -28,6 +31,7 @@ export function TabLink(props: Readonly<TabLinkProps>): ReactNode {
 		<Link
 			aria-current={segment === selectedSegment ? "page" : undefined}
 			className={className}
+			data-keep-focus-on-navigation={true}
 			href={href}
 			prefetch={true}
 			scroll={false}

@@ -28,11 +28,11 @@ interface TabNavigationProps {
  * current one marked by a bar at its start.
  *
  * The tabs must be rendered by the layout shared by the routes they switch between, not by each page: the layout is not
- * remounted on navigation, so focus stays on the link - Next.js does not move it. Screen readers do not read out the
- * link's `aria-current` change, but Next.js's route announcer reads out the new page title, so each route needs its
- * own. A status region with the tab's item count is no use alongside it: screen readers like Orca interrupt one live
- * announcement with the next, so only the title would be heard. Next.js would also scroll to the top of the page, past
- * the intro, so the links do not scroll.
+ * remounted on navigation, so focus stays on the link - `FocusOnNavigation` leaves it there. Screen readers do not read
+ * out the link's `aria-current` change, but Next.js's route announcer reads out the new page title, so each route needs
+ * its own. A status region with the tab's item count is no use alongside it: screen readers like Orca interrupt one
+ * live announcement with the next, so only the title would be heard. Next.js would also scroll to the top of the page,
+ * past the intro, so the links do not scroll.
  */
 export function TabNavigation(props: Readonly<TabNavigationProps>): ReactNode {
 	const { label, tabs, className } = props;

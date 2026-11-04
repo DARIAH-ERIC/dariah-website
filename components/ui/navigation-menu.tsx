@@ -20,6 +20,7 @@ import { mergeRefs } from "react-aria/mergeRefs";
 import { useOverlayPosition } from "react-aria/useOverlayPosition";
 
 import { NavigationLink, type NavigationLinkProps } from "#/lib/navigation/navigation-link.tsx";
+import { focusPageTop } from "#/lib/navigation/page-top-focus.ts";
 
 /**
  * A site navigation following the aria practices guide's disclosure navigation menu pattern: a list of top-level links
@@ -389,7 +390,9 @@ export interface NavigationMenuLinkProps extends NavigationLinkProps {}
  * `aria-current`, and closes the disclosed list when clicked.
  *
  * It closes on click, not once the navigation lands, so the click registers immediately - also for links to the page
- * already shown and for external urls, where no route change would ever follow.
+ * already shown and for external urls, where no route change would ever follow. A link in a disclosed list hides with
+ * it, so it first moves focus to the top of the page, which `FocusOnNavigation` would move it to anyway once the new
+ * page is shown - see `focusPageTop`.
  */
 export function NavigationMenuLink(props: Readonly<NavigationMenuLinkProps>): ReactNode {
 	const { className, onClick, ...rest } = props;
@@ -406,6 +409,10 @@ export function NavigationMenuLink(props: Readonly<NavigationMenuLinkProps>): Re
 
 				if (event.defaultPrevented) {
 					return;
+				}
+
+				if (!isTopLevel(event.currentTarget)) {
+					focusPageTop();
 				}
 
 				menu.setExpandedId(null);

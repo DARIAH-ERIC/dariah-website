@@ -3,6 +3,7 @@ import { useFormatter, useExtracted as useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { Fragment, type ReactNode, useId } from "react";
 
+import { ListPageNumber } from "#/app/(app)/(default)/_components/list-page-number.tsx";
 import { Pagination } from "#/app/(app)/(default)/_components/pagination.tsx";
 import { AnnouncementType } from "#/components/announcement-type.tsx";
 import { ApiImage } from "#/components/api-image.tsx";
@@ -34,7 +35,10 @@ export function NewsListFrame(props: Readonly<{ children: ReactNode }>): ReactNo
 	return (
 		<Fragment>
 			<div className="px-main pbe-16">
-				<h1 className="mbs-14 text-title-1">{t("News")}</h1>
+				<h1 className="mbs-14 text-title-1">
+					{t("News")}
+					<ListPageNumber />
+				</h1>
 				{children}
 			</div>
 			<SubscribeSection description={t("Follow the latest news, opportunities and funding calls in your feed reader.")}>

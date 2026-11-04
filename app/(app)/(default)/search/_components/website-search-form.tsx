@@ -8,7 +8,7 @@ import { href } from "#/lib/navigation/href.ts";
 
 /** Binds the search form to this page's search params codec, which lives on the client with it. */
 export function WebsiteSearchForm(
-	props: Readonly<{ children: ReactNode; className?: string; statusClassName?: string }>,
+	props: Readonly<{ children: ReactNode; className?: string; status?: ReactNode; statusClassName?: string }>,
 ): ReactNode {
 	return (
 		<SearchForm
@@ -18,6 +18,7 @@ export function WebsiteSearchForm(
 				const query = searchParams.safeParse(values);
 				return query.success ? href({ pathname: "/search", searchParams: searchParams.encode(query.output) }) : null;
 			}}
+			status={props.status}
 			statusClassName={props.statusClassName}
 		>
 			{props.children}

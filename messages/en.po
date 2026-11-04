@@ -71,6 +71,11 @@ msgctxt "xmcVZ0"
 msgid "Search"
 msgstr "Search"
 
+#: app/(app)/(default)/_components/list-page-number.tsx
+msgctxt "8QiSLW"
+msgid ", page {page}"
+msgstr ", page {page}"
+
 #: app/(app)/(default)/_components/mobile-navigation.tsx
 msgctxt "tKMlOc"
 msgid "Menu"
@@ -430,6 +435,13 @@ msgstr "Loading case studies…"
 msgctxt "_fSOKS"
 msgid "Case study"
 msgstr "Case study"
+
+#: app/(app)/(default)/about/impact-case-studies/(list)/page/[page]/page.tsx
+#: app/(app)/(default)/get-involved/funding-calls/(list)/page/[page]/page.tsx
+#: app/(app)/(default)/news/(list)/page/[page]/page.tsx
+msgctxt "hAInJW"
+msgid "{title}, page {page}"
+msgstr "{title}, page {page}"
 
 #: app/(app)/(default)/about/impact-case-studies/[slug]/page.tsx
 #: app/(app)/(default)/news/[slug]/page.tsx

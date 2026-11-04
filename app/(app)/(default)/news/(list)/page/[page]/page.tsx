@@ -30,11 +30,12 @@ export async function generateStaticParams(): Promise<Array<{ page: string }>> {
 }
 
 /**
- * Each page of the list is its own canonical url, so later pages are not folded into the first. A malformed or
- * out-of-range page is answered with `notFound()` here as well as in the page: html-limited bots (see `htmlLimitedBots` -
- * Bingbot and link previews, not Googlebot, which renders the page) get metadata before the response starts, so for
- * them that is a real `404` status, where the page's own call, inside a Suspense boundary, comes too late for anything
- * but a `noindex`.
+ * Each page of the list is its own canonical url, so later pages are not folded into the first. Its title has the page
+ * number, so the pages can be told apart, e.g. in search results, and next's route announcer says which one is shown. A
+ * malformed or out-of-range page is answered with `notFound()` here as well as in the page: html-limited bots (see
+ * `htmlLimitedBots` - Bingbot and link previews, not Googlebot, which renders the page) get metadata before the
+ * response starts, so for them that is a real `404` status, where the page's own call, inside a Suspense boundary,
+ * comes too late for anything but a `noindex`.
  */
 export async function generateMetadata(props: Readonly<NewsListPageProps>): Promise<Metadata> {
 	const { page } = await props.params;
@@ -48,7 +49,7 @@ export async function generateMetadata(props: Readonly<NewsListPageProps>): Prom
 
 	return createMetadata({
 		href: href({ pathname: "/news/page/[page]", params: { page } }),
-		title: t("News"),
+		title: t("{title}, page {page}", { title: t("News"), page: String(number) }),
 		description: t("News, announcements and stories from DARIAH-EU and its community across Europe."),
 	});
 }

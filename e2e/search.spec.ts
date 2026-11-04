@@ -80,6 +80,60 @@ test.describe("/search", () => {
 		await expect(page).toHaveURL("/");
 	});
 
+	test("keeps focus and what was typed in the search box while the results update", async ({ page }) => {
+		await page.goto("/search");
+
+		const searchbox = page.getByRole("searchbox", { name: "Search the website" });
+		await waitForHydration(searchbox);
+		await searchbox.pressSequentially("lexicography");
+
+		/** The first keystroke brings in the results' list, which must not remount the form. */
+		await expect(page.getByRole("heading", { level: 2, name: "4 results for “lexicography”" })).toBeVisible({
+			timeout: 15_000,
+		});
+		await expect(searchbox).toBeFocused();
+		await expect(searchbox).toHaveValue("lexicography");
+	});
+
+	/**
+	 * The results update in place, and the page's title stays the same, so neither a page load nor next's route announcer
+	 * tells a screen reader that they have: the form's status does, with "Loading results…" while a search is in flight,
+	 * and the count once it has rendered.
+	 */
+	test("announces the number of results once they have updated", async ({ page }) => {
+		await page.goto("/search");
+
+		const searchbox = page.getByRole("searchbox", { name: "Search the website" });
+		await waitForHydration(searchbox);
+		await searchbox.pressSequentially("lexicography");
+
+		await expect(page.getByRole("status").filter({ hasText: "4 results for “lexicography”" })).toBeAttached({
+			timeout: 15_000,
+		});
+	});
+
+	test("chooses a category with the keyboard, keeping focus on its button", async ({ page }) => {
+		await page.goto("/search?q=lexicography");
+
+		const button = page.getByRole("button", { name: /\bCategory$/ });
+		await waitForHydration(button);
+
+		await button.focus();
+		await page.keyboard.press("Enter");
+		await expect(page.getByRole("listbox")).toBeVisible();
+
+		/** Typeahead moves to the first option starting with what was typed. */
+		await page.keyboard.type("Event");
+		await expect(page.getByRole("option", { name: "Event" })).toBeFocused();
+		await page.keyboard.press("Enter");
+
+		await expect(page.getByRole("listbox")).toBeHidden();
+		await expect(button).toBeFocused();
+		await expect(button).toHaveAccessibleName(/^Event\b/);
+		await expect(page).toHaveURL("/search?q=lexicography&type=event");
+		await expect(getResults(page)).toHaveCount(1);
+	});
+
 	test("narrows the results to a category", async ({ page }) => {
 		await page.goto("/search?q=lexicography");
 

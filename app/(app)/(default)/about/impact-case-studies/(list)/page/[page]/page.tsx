@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getExtracted as getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { type ReactNode, Suspense } from "react";
 
@@ -32,12 +33,13 @@ export async function generateStaticParams(): Promise<Array<{ page: string }>> {
 }
 
 /**
- * Each page of the list is its own canonical url. A malformed or out-of-range page is answered with `notFound()` here
- * as well as in the page, as on the news list.
+ * Each page of the list is its own canonical url, with the page number in its title, as on the news list. A malformed
+ * or out-of-range page is answered with `notFound()` here as well as in the page, as on the news list.
  */
 export async function generateMetadata(props: Readonly<ImpactCaseStudiesListPageProps>): Promise<Metadata> {
 	const { page } = await props.params;
 
+	const t = await getTranslations();
 	const number = parsePageSegment(page);
 
 	if (number == null || (await getImpactCaseStudiesPage(number)) == null) {
@@ -52,7 +54,7 @@ export async function generateMetadata(props: Readonly<ImpactCaseStudiesListPage
 
 	return createMetadata({
 		href: href({ pathname: "/about/impact-case-studies/page/[page]", params: { page } }),
-		title: content.title,
+		title: t("{title}, page {page}", { title: content.title, page: String(number) }),
 		description: content.summary,
 		image: content.image,
 	});
