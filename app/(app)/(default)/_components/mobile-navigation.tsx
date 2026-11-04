@@ -200,7 +200,13 @@ export function MobileNavigation(props: Readonly<MobileNavigationProps>): ReactN
 					<MenuIcon aria-hidden={true} className="block-5 inline-5" />
 				</Button>
 				<Modal
-					className="fixed inset-0 z-50 bg-background-base duration-200 entering:animate-in entering:fade-in exiting:animate-out exiting:fade-out"
+					/**
+					 * `animation-duration`, not `duration`: that sets `transition-duration`, and with the default
+					 * `transition-property: all` webkit then runs an opacity transition alongside the fade. Closing the dialog
+					 * while it fades in cancels that transition, and react-aria, which waits for every animation on the element
+					 * to finish before unmounting it, never does - the dialog stays, covering the page.
+					 */
+					className="fixed inset-0 z-50 bg-background-base animation-duration-200 entering:animate-in entering:fade-in exiting:animate-out exiting:fade-out"
 					isDismissable={true}
 				>
 					<Dialog
