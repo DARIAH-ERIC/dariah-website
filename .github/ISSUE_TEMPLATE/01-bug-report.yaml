@@ -43,11 +43,13 @@ body:
       description: |
         Examples:
           - **Device**: Desktop
+          - **Device resolution**: 1920x1080
           - **OS**: Ubuntu 24.04
           - **Browser**: Firefox
           - **Browser version**: 144
       value: |
         - Device:
+        - Device resolution:
         - OS:
         - Browser:
         - Browser version:
