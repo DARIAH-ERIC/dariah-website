@@ -1147,6 +1147,11 @@ msgctxt "_UnJ3S"
 msgid "Zoom out"
 msgstr "Zoom out"
 
+#: app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.tsx
+msgctxt "mIyLIH"
+msgid "Map of members and partners"
+msgstr "Map of members and partners"
+
 #: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
 msgctxt "9BuJMX"
 msgid "{country} is a member of DARIAH-EU, the Digital Research Infrastructure for the Arts and Humanities."

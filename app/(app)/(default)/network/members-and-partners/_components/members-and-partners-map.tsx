@@ -3,7 +3,7 @@
 import "#/app/(app)/(default)/network/members-and-partners/_components/members-and-partners-map.css";
 
 import type { FeatureCollection, MultiPolygon, Polygon } from "geojson";
-import type { LeafletEvent, Map as LeafletMap, LeafletMouseEvent, Path } from "leaflet";
+import type { LeafletMap, LeafletPointerEvent, Path } from "leaflet";
 import { useExtracted as useTranslations } from "next-intl";
 import { type ReactNode, useEffect, useEffectEvent, useRef, useState } from "react";
 
@@ -226,16 +226,18 @@ interface CountriesMapProps {
 }
 
 /**
- * Leaflet reads `window` when it is imported, so it is imported on the client only, after mount. Paths are styled with
- * class names rather than Leaflet's colour options, so the colours come from the design tokens: an SVG presentation
- * attribute cannot reference a css custom property, but a css rule overrides the attribute. Leaflet's own styles are in
- * a lower cascade layer (see `members-and-partners-map.css`), so utilities override them.
+ * Leaflet is only needed once the map is created, so it is imported after mount, not with the page. Paths are styled
+ * with class names rather than Leaflet's colour options, so the colours come from the design tokens: an SVG
+ * presentation attribute cannot reference a css custom property, but a css rule overrides the attribute. Leaflet's own
+ * styles are in a lower cascade layer (see `members-and-partners-map.css`), so utilities override them.
  *
  * From `lg` up the map is at least 32rem tall, so on a short screen the list over it still shows more than a handful of
  * countries.
  *
  * The filter is applied with class names too, so narrowing the list does not rebuild the map. They are set on a
  * wrapper: Leaflet adds its own class names to the map's element, which React would drop when it sets `className`.
+ *
+ * The map's element is given a role and a label here, as otherwise Leaflet labels it "Map", which is not translated.
  */
 function CountriesMap(props: Readonly<CountriesMapProps>): ReactNode {
 	const { items, filter, getStatusLabel } = props;
@@ -324,7 +326,9 @@ function CountriesMap(props: Readonly<CountriesMapProps>): ReactNode {
 		<div className={filter !== "all" ? filterClassNames[filter] : undefined}>
 			<div
 				ref={elementRef}
+				aria-label={t("Map of members and partners")}
 				className={`${zoomControlClassNames} isolate bg-background-callout font-body block-96 lg:block-[clamp(32rem,85svh,56rem)] [&_.country]:fill-background-placeholder [&_.country]:stroke-stroke-inverse [&_.country-member]:fill-background-map-member [&_.country-observer]:fill-[color-mix(in_srgb,var(--color-background-map-member)_60%,var(--color-background-overlay))] [&_.country-partner]:fill-[url(#members-and-partners-map-partner)] [&_.country.leaflet-interactive]:hover:stroke-stroke-strong [&_.country.leaflet-interactive]:hover:stroke-2`}
+				role="region"
 			/>
 		</div>
 	);
@@ -366,7 +370,7 @@ async function createMap(element: HTMLElement, options: CreateMapOptions, signal
 		],
 	});
 
-	new leaflet.Control.Zoom({
+	new leaflet.ZoomControl({
 		position: "topright",
 		zoomInText: zoomInIcon,
 		zoomInTitle,
@@ -387,9 +391,9 @@ async function createMap(element: HTMLElement, options: CreateMapOptions, signal
 		offset: [0, -8],
 	});
 
-	new leaflet.GeoJSON<CountryProperties, Polygon | MultiPolygon>(countries, {
+	new leaflet.GeoJSON(countries, {
 		style(feature) {
-			const item = feature != null ? findItem(feature.properties) : undefined;
+			const item = findItem(feature.properties as CountryProperties);
 
 			return {
 				className: item != null ? `country ${countryClassNames[item.status]}` : "country",
@@ -399,7 +403,8 @@ async function createMap(element: HTMLElement, options: CreateMapOptions, signal
 			};
 		},
 		onEachFeature(feature, layer) {
-			const item = findItem(feature.properties);
+			const path = layer as Path;
+			const item = findItem(feature.properties as CountryProperties);
 
 			if (item == null) {
 				return;
@@ -412,28 +417,28 @@ async function createMap(element: HTMLElement, options: CreateMapOptions, signal
 			 * events, not mouse events. A touch fires `pointerover` too, as it starts - before the tap's `click` - so its
 			 * page is prefetched then, as a link's is on `touchstart`.
 			 */
-			layer.on("pointerover", (event) => {
+			path.on("pointerover", (event) => {
 				onIntent(item);
 
 				if (!isHovering(event)) {
 					return;
 				}
 
-				(layer as Path).bringToFront();
-				tooltip
-					.setContent(content)
-					.setLatLng((event as LeafletMouseEvent).latlng)
-					.openOn(map);
+				path.bringToFront();
+				tooltip.setContent(content).setLatLng(event.latlng).openOn(map);
 			});
-			layer.on("pointermove", (event) => {
-				if (tooltip.isOpen() && isHovering(event)) {
-					tooltip.setLatLng((event as LeafletMouseEvent).latlng);
+			/** Leaflet's types declare `pointermove` as optional in the event map, which loses the event's type. */
+			path.on("pointermove", (event) => {
+				const pointerEvent = event as unknown as LeafletPointerEvent;
+
+				if (tooltip.isOpen() && isHovering(pointerEvent)) {
+					tooltip.setLatLng(pointerEvent.latlng);
 				}
 			});
-			layer.on("pointerout", () => {
+			path.on("pointerout", () => {
 				tooltip.close();
 			});
-			layer.on("click", () => {
+			path.on("click", () => {
 				onSelect(item);
 			});
 		},
@@ -450,8 +455,8 @@ async function createMap(element: HTMLElement, options: CreateMapOptions, signal
 }
 
 /** Whether a Leaflet pointer event comes from a pointer which hovers - a mouse or a pen - rather than a touch. */
-function isHovering(event: LeafletEvent): boolean {
-	const { originalEvent } = event as LeafletMouseEvent;
+function isHovering(event: LeafletPointerEvent): boolean {
+	const { originalEvent } = event;
 
 	return !(originalEvent instanceof PointerEvent && originalEvent.pointerType === "touch");
 }
