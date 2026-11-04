@@ -133,6 +133,7 @@ test.describe("/network/members-and-partners map", () => {
 		/** Leaflet loads with the outlines after hydration. */
 		const countries = getCountryOutlines(page);
 		await expect.poll(() => countries.count(), { timeout: 15_000 }).toBeGreaterThan(0);
+		await expect(page.getByRole("region", { name: "Map of members and partners" })).toBeVisible();
 		await expect(page.getByRole("button", { name: "Zoom in" })).toBeVisible();
 		await expect(page.getByRole("button", { name: "Zoom out" })).toBeVisible();
 
