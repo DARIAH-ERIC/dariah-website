@@ -168,9 +168,9 @@ function renderLeadInNode(props: Readonly<{ children?: ReactNode | Array<ReactNo
 }
 
 /**
- * A call-to-action link, set as one of the site's buttons. `not-prose` keeps the typography plugin's link styles (and the
- * `prose-a:` ones on the wrapper) off it. The cms offers `primary`, `secondary` and `outline`; the design has a filled
- * and an outlined button, so anything but `primary` takes the outlined one.
+ * A call-to-action link, set as one of the site's buttons. `not-prose` keeps the typography plugin's link styles (and
+ * the `prose-a:` ones on the wrapper) off it. The cms offers `primary`, `secondary` and `outline`; the design has a
+ * filled and an outlined button, so anything but `primary` takes the outlined one.
  */
 function renderButtonLinkNode(props: Readonly<{ node: { attrs?: Record<string, unknown> | null } }>): ReactNode {
 	const attrs = props.node.attrs ?? null;
@@ -395,7 +395,8 @@ export function RichTextContent(props: Readonly<RichTextContentProps>): ReactNod
 		 * with none, or in a formatting context of its own, does not provide. On a phone each heading is a step smaller,
 		 * 24px and 20px: next to the page's title, 32px there and light, a bold 28px section heading reads as the stronger
 		 * one. Links take the accent colour and the site's focus outline. Lists are tight or loose as in markdown (see
-		 * `prose-tight-lists`). A heading 4 directly after another one keeps its space above it (see `prose-heading-runs`).
+		 * `prose-tight-lists`). A heading 4 directly after another one keeps its space above it (see
+		 * `prose-heading-runs`).
 		 */
 		<div
 			className={cn(

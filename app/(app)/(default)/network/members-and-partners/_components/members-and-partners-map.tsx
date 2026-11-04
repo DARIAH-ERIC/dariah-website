@@ -304,6 +304,7 @@ function CountriesMap(props: Readonly<CountriesMapProps>): ReactNode {
 				if (controller.signal.aborted) {
 					created.remove();
 				} else {
+					// oxlint-disable-next-line react/immutability -- False positive: `map` is local to the effect, see https://github.com/oxc-project/oxc/issues/28401.
 					map = created;
 				}
 			} catch (error) {
