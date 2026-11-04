@@ -430,7 +430,8 @@ function ResourceCard(props: Readonly<{ document: ResourceDocument | null }>): R
 				</div>
 				<h3 className="text-title-4 leading-heading">{document.label}</h3>
 				{document.description.length > 0 ? (
-					<p className="line-clamp-3 leading-body whitespace-pre-line">{document.description}</p>
+					// Even clamped away, a long url counts towards the paragraph's minimum width: `wrap-anywhere` keeps it in the card.
+					<p className="line-clamp-3 leading-body wrap-anywhere whitespace-pre-line">{document.description}</p>
 				) : null}
 			</div>
 			<ResourceLink className="shrink-0 self-start sm:self-center" document={document} size="small" />
