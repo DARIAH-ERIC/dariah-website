@@ -1007,7 +1007,7 @@
  */
 @utility prose-heading-runs {
 	& :where(h4) + h4 {
-		margin-block-start: 1.7777778em;
+		margin-block-start: 1.7778em;
 	}
 }
 

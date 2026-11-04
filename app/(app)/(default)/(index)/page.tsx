@@ -806,6 +806,11 @@ async function StatisticsSection(): Promise<ReactNode> {
 	return <StatisticsList statistics={statistics} />;
 }
 
+/** Sets one line of a statistic's label, for the `<line>` tags in its message. */
+function line(chunks: ReactNode): ReactNode {
+	return <span className="block">{chunks}</span>;
+}
+
 /**
  * Each figure's image and label make up its term: the image is decorative, and `display: contents` lets both sit in the
  * figure's flex row, the number between them in the source order screen readers follow, but below the image, which
@@ -826,10 +831,6 @@ function StatisticsList(props: Readonly<{ statistics: Awaited<ReturnType<typeof 
 	const { statistics } = props;
 
 	const t = useTranslations();
-
-	function line(chunks: ReactNode): ReactNode {
-		return <span className="block">{chunks}</span>;
-	}
 
 	const items = [
 		{
