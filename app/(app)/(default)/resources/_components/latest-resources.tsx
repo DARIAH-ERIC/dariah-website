@@ -118,7 +118,8 @@ function LatestResourceCard(props: Readonly<{ document: ResourceDocument | null 
 			{document == null ? (
 				<SkeletonText className="self-stretch leading-body" lines={5} />
 			) : document.description.length > 0 ? (
-				<p className="line-clamp-5 leading-body">{document.description}</p>
+				// Even clamped away, a long url counts towards the paragraph's minimum width: `wrap-anywhere` keeps it in the card.
+				<p className="line-clamp-5 leading-body wrap-anywhere">{document.description}</p>
 			) : null}
 			{/* The auto margin pushes the link to the card's end; the padding keeps it off a long description. */}
 			<div className="mbs-auto self-stretch pbs-4">
