@@ -135,7 +135,11 @@ async function SearchResults(props: Pick<SearchPageProps, "searchParams">): Prom
 	 */
 	return (
 		<Fragment>
-			<SearchForm query={q} type={type} />
+			<SearchForm
+				query={q}
+				status={result != null ? <ResultsCount query={q} total={result.pagination.total} /> : undefined}
+				type={type}
+			/>
 			{result != null ? <SearchResultsList page={page} query={q} result={result} type={type} /> : null}
 			<SearchTracker
 				count={result?.pagination.total ?? 0}
@@ -146,6 +150,17 @@ async function SearchResults(props: Pick<SearchPageProps, "searchParams">): Prom
 			/>
 		</Fragment>
 	);
+}
+
+/** The number of results, and what they are for: the results' heading, and what the form's status announces. */
+function ResultsCount(props: Readonly<{ query: string; total: number }>): ReactNode {
+	const { query, total } = props;
+
+	const t = useTranslations();
+
+	return query.length > 0
+		? t("{total, plural, one {# result} other {# results}} for “{query}”", { total, query })
+		: t("{total, plural, one {# result} other {# results}}", { total });
 }
 
 function SearchResultsList(
@@ -160,13 +175,9 @@ function SearchResultsList(
 
 	const t = useTranslations();
 
-	const total = result.pagination.total;
-
 	const heading = (
 		<h2 className="text-title-4">
-			{query.length > 0
-				? t("{total, plural, one {# result} other {# results}} for “{query}”", { total, query })
-				: t("{total, plural, one {# result} other {# results}}", { total })}
+			<ResultsCount query={query} total={result.pagination.total} />
 		</h2>
 	);
 
@@ -320,8 +331,8 @@ function SearchResult(props: Readonly<{ document: WebsiteDocument }>): ReactNode
  * Styled like the resource catalogue's search box, with the category to its end side from `md` up, each with its label
  * above it. The spinner shares the category label's row, at its end.
  */
-function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType }>): ReactNode {
-	const { query, type } = props;
+function SearchForm(props: Readonly<{ query: string; status?: ReactNode; type?: WebsiteDocumentType }>): ReactNode {
+	const { query, status, type } = props;
 
 	const t = useTranslations();
 	const typeLabels = useWebsiteTypeLabels();
@@ -330,6 +341,7 @@ function SearchForm(props: Readonly<{ query: string; type?: WebsiteDocumentType 
 	return (
 		<WebsiteSearchForm
 			className="mbs-12 grid grid-cols-1 items-end gap-x-columns gap-y-6 md:grid-cols-[minmax(0,1fr)_16rem]"
+			status={status}
 			statusClassName="col-start-1 row-start-2 self-start justify-self-end md:col-start-2 md:row-start-1"
 		>
 			<div className="col-start-1 row-start-1 flex flex-col gap-y-2">
