@@ -20,8 +20,11 @@ const activeHeadingOffset = 96;
  * An `IntersectionObserver` is only the trigger here, not the answer. Asking it which heading is _visible_ breaks in
  * the two cases that matter most - a section longer than the viewport has no heading in view at all, and a run of short
  * sections has several - so each callback recomputes the answer from the headings' positions instead. The observer's
- * root is inset by the same offset, which is exactly the line a heading has to cross for that answer to change, so the
- * recomputation runs when it can produce something new and not on every scroll frame.
+ * root starts at the same offset, which is exactly the line a heading has to cross for that answer to change, so the
+ * recomputation runs when it can produce something new and not on every scroll frame. The root extends far below the
+ * viewport, so a heading is intersecting whenever it is below the line, not only while it is on screen: a jump - e.g.
+ * following an entry, or the end key - can carry a heading from below the viewport to above the line in one frame, and
+ * would cause no callback with a root which ends at the bottom of the viewport.
  */
 function useActiveHeadingId(ids: Array<string>): string | null {
 	const [activeId, setActiveId] = useState<string | null>(null);
@@ -48,7 +51,7 @@ function useActiveHeadingId(ids: Array<string>): string | null {
 
 		/** Fires once per observed element on observe, which is what sets the initial answer. */
 		const observer = new IntersectionObserver(update, {
-			rootMargin: `-${String(activeHeadingOffset)}px 0px 0px 0px`,
+			rootMargin: `-${String(activeHeadingOffset)}px 0px 100000% 0px`,
 		});
 
 		for (const element of elements) {
