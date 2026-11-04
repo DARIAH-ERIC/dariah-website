@@ -3,6 +3,7 @@ import axe from "axe-core";
 import type { Pathname } from "next";
 
 import { config } from "#/configs/axe.config.ts";
+import { waitForHydration } from "#/e2e/lib/hydration.ts";
 import { expect, test } from "#/e2e/lib/test.ts";
 
 /** Where to find a url to audit for a route with dynamic segments. */
@@ -192,4 +193,25 @@ test.describe("accessibility", () => {
 			expect(await getViolations(page), `Accessibility violations at ${url}`).toStrictEqual([]);
 		});
 	}
+});
+
+/**
+ * The routes above are audited at the default desktop viewport, where the header shows the navigation bar. Below `xl`
+ * it shows a menu button instead, which opens the navigation in a modal dialog: audited here with the dialog open, on a
+ * page whose section starts out open, so a section's links are audited as well as the triggers.
+ */
+test.describe("accessibility on small screens", () => {
+	test.use({ viewport: { width: 390, height: 844 } });
+
+	test("the navigation dialog has no detectable accessibility violations", async ({ page }) => {
+		await page.goto("/about/strategy");
+
+		const button = page.getByRole("button", { exact: true, name: "Menu" });
+
+		await waitForHydration(button);
+		await button.click();
+		await expect(page.getByRole("dialog", { name: "Menu" }).getByRole("link", { name: "Strategy" })).toBeVisible();
+
+		expect(await getViolations(page), "Accessibility violations in the navigation dialog").toStrictEqual([]);
+	});
 });
