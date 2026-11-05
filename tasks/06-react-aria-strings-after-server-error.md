@@ -3,9 +3,14 @@
 Investigation of issue 1 in `tasks/05-e2e-known-issues.md` ("Try again" on the error page crashes react-aria
 components), 2026-10-05/06, next 16.3.8, react 19.3, react-aria-components 1.21.1 / react-aria 3.52.1.
 
-**Status: decision postponed.** Nothing is changed in the app; the test is still `test.fixme`. A fix was tried and works
-(appendix A), but it was not clear yet whether the underlying behaviour is a bug - in next, in react aria, or in neither -
-and which fix fits best.
+**Status: fixed with option A' (2026-11-05).** By then the hand-written locale loader had been replaced with
+`@react-aria/optimize-locales-plugin`, which empties every locale in the browser unless listed; it now keeps the app's
+languages (`en`, i.e. react aria's `en-US`) on the server and in the browser alike, and `<LocalizedStringProvider>` is
+gone. The test is no longer `test.fixme`, and opens the category select after the retry: since react-aria 3.53,
+`useMenuTrigger` no longer formats `longPressMessage` on every render (finding 6), and `SelectInner` throws only after
+the search page has shown for a frame or so - the error boundary catches it, so there is no `pageerror` either - which
+let the old assertions pass without the fix. Still open: whether next is meant to discard the layout here (the minimal
+reproduction below), which no longer blocks anything in this app.
 
 ## The symptom
 

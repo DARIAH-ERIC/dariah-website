@@ -1,7 +1,7 @@
 # Known issues from the e2e coverage work
 
 Found while extending the e2e suite (2026-10-05). The rss feed links missing from indexable pages were fixed already
-(`createAlternates` in `lib/metadata.ts`), and so were 3, 4, 5 and 11 below (marked as fixed); everything else is open. Each
+(`createAlternates` in `lib/metadata.ts`), and so were 1, 3, 4, 5 and 11 below (marked as fixed); everything else is open. Each
 issue names the test that covers it, if any, and how that test is marked.
 
 ## How to run the suite
@@ -38,7 +38,7 @@ subscription to the production api (it uses an `example.com` address).
 
 ## App bugs
 
-### 1. "Try again" on the error page crashes react-aria components in firefox and webkit
+### 1. "Try again" on the error page crashes react-aria components in firefox and webkit - fixed
 
 After the error boundary's retry, react-aria components throw because their localized strings are missing in the
 browser:
@@ -51,11 +51,11 @@ browser:
 `app/(app)/_components/providers.tsx` to supply the strings. After `retry()` in `app/(app)/(default)/error.tsx` they are
 no longer available. Chromium passed in some runs, so it may be timing-dependent rather than browser-specific.
 
-Investigated, decision postponed - see `tasks/06-react-aria-strings-after-server-error.md`. In short: the server render
-fails, the page is rendered in the browser, and `<LocalizedStringProvider>`'s script never runs; the strings are missing
-before the retry already.
+Cause: the server render fails, the page is rendered in the browser, and `<LocalizedStringProvider>`'s script never
+runs; the strings are missing before the retry already. Fixed by keeping react aria's `en-US` strings in the browser
+bundle and dropping the provider - see `tasks/06-react-aria-strings-after-server-error.md`.
 
-- Test: `e2e/errors.spec.ts` › "renders the page again on “Try again”" - `test.fixme`. Remove the `fixme` once fixed.
+- Test: `e2e/errors.spec.ts` › "renders the page again on “Try again”".
 - Note: that test only runs under `next dev`, see 7.
 
 ### 2. The search pages do not work without javascript
