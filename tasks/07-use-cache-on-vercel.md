@@ -1,8 +1,13 @@
 # Decision: `use cache` or `use cache: remote` on Vercel
 
 Where this app's `"use cache"` results live once deployed to Vercel, which cached calls that affects, and whether some
-of them should move to `"use cache: remote"`. Investigated on 2026-10-06 against next 16.3.8. Still open: read the
-docs listed at the end, then decide.
+of them should move to `"use cache: remote"`. Investigated on 2026-10-06 against next 16.3.8.
+
+**Status: decided for option B (2026-11-05).** The project is on Vercel Pro. The five request-time calls in the table
+below use `"use cache: remote"`; everything else stays on `"use cache"`. `vercel.json` pins the functions to `fra1`, as
+the project settings already do. Rough cost at this traffic: well under a dollar a month (iad1 $0.40 per 1M reads, $4.00
+per 1M writes; fra1 $0.52 and $5.20; 8 KB units; storage not billed). Still to check after the deploy: the hit rate and
+usage under Observability > Runtime Cache, and the open questions below that remain.
 
 ## Current state (2026-10-06)
 

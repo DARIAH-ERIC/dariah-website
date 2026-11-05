@@ -144,9 +144,12 @@ export async function getNewsFeed(): Promise<string> {
  * The events feed as rss: the events not yet over on `from`, `YYYY-MM-DD`, soonest first, dated by publication so
  * readers surface newly announced ones. `from` is today, read at request time by the feed's route, so an entry is
  * cached per day, and an event which is over never stays in the feed until the entry is refreshed.
+ *
+ * It runs at request time, outside the static shell, so its entries are kept in the platform's shared cache: an
+ * instance's memory, where `"use cache"` keeps them, rarely outlives a request on Vercel.
  */
 export async function getEventsFeed(from: string): Promise<string> {
-	"use cache";
+	"use cache: remote";
 	cacheLife("content");
 	cacheTag(...api.getEvents.cacheTags(), ...api.getSiteMetadata.cacheTags());
 

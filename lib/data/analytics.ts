@@ -129,9 +129,12 @@ async function callMatomo(method: string, params: Record<string, string>): Promi
  *
  * Matomo archives the current month's reports periodically - by default at most every 15 minutes, or on its cron job's
  * schedule - so an hour's cache leaves the numbers about an hour behind at most.
+ *
+ * It runs at request time, outside the static shell, so its entries are kept in the platform's shared cache: an
+ * instance's memory, where `"use cache"` keeps them, rarely outlives a request on Vercel.
  */
 export async function getMonthlyVisits(): Promise<Array<MonthlyVisits> | null> {
-	"use cache";
+	"use cache: remote";
 	cacheLife("hours");
 
 	const params = { period: "month", date: `last${String(analyticsMonths)}` };
