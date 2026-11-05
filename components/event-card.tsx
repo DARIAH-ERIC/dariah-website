@@ -105,9 +105,9 @@ export function EventCard(props: Readonly<EventCardProps>): ReactNode {
 					<Fragment>
 						<p className="flex flex-wrap content-center items-baseline gap-x-3">
 							{dates?.map(({ days, months }) => (
-								<span key={months} className="flex items-baseline gap-x-3">
-									<span className="font-heading text-figure-4">{days}</span>
-									<span className="text-title-5 font-regular uppercase">{months}</span>
+								<span key={months} className="flex flex-wrap items-baseline gap-x-3">
+									<span className="font-heading text-figure-4 whitespace-nowrap">{days}</span>
+									<span className="text-title-5 font-regular whitespace-nowrap uppercase">{months}</span>
 								</span>
 							))}
 						</p>
