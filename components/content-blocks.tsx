@@ -37,10 +37,15 @@ function asImage(value: unknown): BlockImage | null {
  * A float only floats once the content column - the `@container` {@link ContentBlocks} opens, not the viewport - can
  * spare the width, so a phone-width column gets the image on its own line instead of a caption-width sliver with three
  * words wrapping beside it.
+ *
+ * A float is capped rather than sized, so it is as wide as an image narrower than the cap and that image sits on the
+ * text's edge, not centred in a wider slot. `contain-inline-size` keeps a long caption from widening it to the cap.
  */
 const imageLayoutClassName: Record<string, string> = {
-	"float-start": "mbe-4 @lg:float-start @lg:mbe-2 @lg:me-6 @lg:inline-[min(18rem,45%)]",
-	"float-end": "mbe-4 @lg:float-end @lg:mbe-2 @lg:ms-6 @lg:inline-[min(18rem,45%)]",
+	"float-start":
+		"mbe-4 @lg:float-start @lg:mbe-2 @lg:me-6 @lg:max-inline-[min(18rem,45%)] @lg:[&>figcaption]:contain-inline-size",
+	"float-end":
+		"mbe-4 @lg:float-end @lg:mbe-2 @lg:ms-6 @lg:max-inline-[min(18rem,45%)] @lg:[&>figcaption]:contain-inline-size",
 	wide: "ms-auto me-auto inline-[min(56rem,92vw)]",
 	full: "ms-[calc(50%-50vw)] me-[calc(50%-50vw)] inline-[100vw]",
 	/**
@@ -131,7 +136,7 @@ function ContentBlockView(props: Readonly<ContentBlockViewProps>): ReactNode {
 					 * is as wide as its image, so the image must have its width before it loads, or the figure collapses until it does.
 					 */}
 					<ApiImage
-						className="ms-auto me-auto"
+						className="ms-auto me-auto border border-stroke-weak"
 						image={image}
 						sizes={imageLayoutSizes[layout] ?? imageLayoutSizes.default}
 					/>
@@ -166,7 +171,11 @@ function ContentBlockView(props: Readonly<ContentBlockViewProps>): ReactNode {
 						 * At its own aspect ratio, so a portrait keeps its head and a logo its ends; capped, so an unusually tall
 						 * image is cropped rather than towering beside the text.
 						 */}
-						<ApiImage className="object-cover block-auto inline-full max-block-56" image={image} sizes="9rem" />
+						<ApiImage
+							className="border border-stroke-weak object-cover block-auto inline-full max-block-56"
+							image={image}
+							sizes="9rem"
+						/>
 						<Caption content={block.caption} license={image.license} />
 					</figure>
 					<RichTextContent content={block.content} />
@@ -330,7 +339,7 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 					// oxlint-disable-next-line react/no-array-index-key -- Gallery items carry no id of their own.
 					<figure className="max-inline-[min(20rem,80vw)]" key={index}>
 						<ApiImage
-							className="ms-auto me-auto inline-auto max-block-96"
+							className="ms-auto me-auto border border-stroke-weak inline-auto max-block-96"
 							image={item.image}
 							sizes="min(20rem, 80vw)"
 						/>
@@ -352,7 +361,7 @@ function GalleryBlockView(props: Readonly<GalleryBlockViewProps>): ReactNode {
 					// oxlint-disable-next-line react/no-array-index-key -- Gallery items carry no id of their own.
 					<figure key={index}>
 						<ApiImage
-							className="ms-auto me-auto inline-auto max-block-96"
+							className="ms-auto me-auto border border-stroke-weak inline-auto max-block-96"
 							image={item.image}
 							sizes="(min-width: 36rem) 22rem, calc(100vw - 3rem)"
 						/>
@@ -444,12 +453,20 @@ export function ContentBlocks(props: Readonly<ContentBlocksProps>): ReactNode {
 				 * first child (see `RichTextContent`).
 				 */
 				const isFirst = index === 0;
+				/**
+				 * A float takes the space above it that the text before it dropped at its edge, and the text wrapping it starts
+				 * level with it. Padding rather than a margin: this wrapper clears the floats before it, and clearance swallows
+				 * a margin wherever an earlier float runs past its text. Only after text, because a set-apart block brings its
+				 * own.
+				 */
+				const isFloatAfterText = isFloatedImage(block) && blocks[index - 1]?.type === "rich_text";
 
 				return (
 					<div
 						className={cn(
 							!wrapsPrecedingFloat && "clear-both",
 							isSetApart && (isFirst ? "mbe-8" : setApartClassName),
+							isFloatAfterText && "pbs-8",
 							isFirst && block.type === "rich_text" && "[&>*>:first-child]:mbs-0",
 						)}
 						// oxlint-disable-next-line react/no-array-index-key -- Content blocks carry no id of their own.
