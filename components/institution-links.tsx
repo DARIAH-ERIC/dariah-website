@@ -19,7 +19,7 @@ interface InstitutionLinksProps {
 	/** The institution's name, which each link names for a screen reader. */
 	name: string;
 	website: string | null;
-	/** Its record in ROR. The api has none for a project's institutions. */
+	/** Its record in ROR, the Research Organization Registry. */
 	ror: string | null;
 	className?: string;
 }

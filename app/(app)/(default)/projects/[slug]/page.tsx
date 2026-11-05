@@ -263,8 +263,8 @@ interface InstitutionProps {
 }
 
 /**
- * An institution's name, with its website below it, as a member's partner institutions are listed (see
- * `InstitutionLinks`). The api has no ROR record for a project's institutions.
+ * An institution's name, with its website and ROR record below it, as a member's partner institutions are listed (see
+ * `InstitutionLinks`).
  */
 function Institution(props: Readonly<InstitutionProps>): ReactNode {
 	const { institution } = props;
@@ -274,7 +274,12 @@ function Institution(props: Readonly<InstitutionProps>): ReactNode {
 	return (
 		<Fragment>
 			{institution.name}
-			<InstitutionLinks className="mbs-1" name={institution.name} ror={null} website={website?.url ?? null} />
+			<InstitutionLinks
+				className="mbs-1"
+				name={institution.name}
+				ror={institution.ror}
+				website={website?.url ?? null}
+			/>
 		</Fragment>
 	);
 }
