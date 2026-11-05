@@ -132,6 +132,11 @@ interface CreateMetadataOptions {
 	description?: string | null;
 	/** Without one, the site's `ogImage` applies. */
 	image?: Image | null;
+	/**
+	 * The route has an `opengraph-image` file of its own. Next only uses one when the metadata has no `images` key at
+	 * all, so the site's `ogImage` has to be left out rather than overridden.
+	 */
+	hasImageFile?: boolean;
 	/** Marks dated editorial content - news, spotlight articles, impact case studies - as `og:type` `article`. */
 	publishedTime?: string;
 	/**
@@ -148,20 +153,26 @@ interface CreateMetadataOptions {
  * provides - so a missing value is left out rather than passed on.
  */
 export async function createMetadata(options: CreateMetadataOptions): Promise<Metadata> {
-	const { image, noindex = false, publishedTime, title } = options;
+	const { hasImageFile = false, image, noindex = false, publishedTime, title } = options;
 
 	const url = serializeHref(options.href);
 	const description = toDescription(options.description ?? "");
+
+	const openGraph = await createOpenGraph({
+		url,
+		...(publishedTime != null ? { type: "article", publishedTime } : {}),
+		...(image != null ? { images: [toOpenGraphImage(image)] } : {}),
+	});
+
+	if (hasImageFile) {
+		delete openGraph.images;
+	}
 
 	return {
 		title,
 		description: description !== "" ? description : toDescription((await getSiteMetadata()).description),
 		...(noindex ? { robots: { index: false } } : {}),
 		alternates: await createAlternates(noindex ? {} : { canonical: url }),
-		openGraph: await createOpenGraph({
-			url,
-			...(publishedTime != null ? { type: "article", publishedTime } : {}),
-			...(image != null ? { images: [toOpenGraphImage(image)] } : {}),
-		}),
+		openGraph,
 	};
 }
