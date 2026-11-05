@@ -87,7 +87,7 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 				<h1 className="text-title-1 max-inline-title min-inline-0">{title}</h1>
 				{logo != null ? (
 					<div className="hidden shrink-0 block-0 lg:block">
-						<Image alt="" className="block-auto inline-90" src={logo} />
+						<Image alt="" className="block-auto inline-80 xl:inline-90" src={logo} />
 					</div>
 				) : null}
 			</div>
