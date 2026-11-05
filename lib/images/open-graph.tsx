@@ -1,8 +1,5 @@
 import "server-only";
 
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
-
 import { cacheLife, cacheTag } from "next/cache";
 import { ImageResponse } from "next/og";
 
@@ -78,16 +75,6 @@ export function createSvgOpenGraphImage(svg: string): ImageResponse {
 		</div>,
 		openGraphImageSize,
 	);
-}
-
-/**
- * One of the svgs in `assets/images` as a png link preview, for an `opengraph-image` route - e.g. a resource source's
- * logo, which its page shows from the same file. Read from disk, since a static import gives a url, not the markup.
- */
-export async function createAssetOpenGraphImage(fileName: string): Promise<ImageResponse> {
-	const svg = await readFile(join(process.cwd(), "assets/images", fileName), "utf-8");
-
-	return createSvgOpenGraphImage(svg);
 }
 
 /**

@@ -89,6 +89,11 @@ const config: NextConfig = {
 				loaders: ["@tailwindcss/turbopack"],
 				as: "*.css",
 			},
+			/** An svg's markup, where a plain import gives a url - see `createSvgOpenGraphImage`. */
+			"*.svg": {
+				condition: { query: "?raw" },
+				type: "text",
+			},
 		},
 	},
 	typedRoutes: false,

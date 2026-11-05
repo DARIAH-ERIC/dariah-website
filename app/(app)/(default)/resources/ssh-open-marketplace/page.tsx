@@ -30,6 +30,7 @@ export async function generateMetadata(): Promise<Metadata> {
 		href: href({ pathname: "/resources/ssh-open-marketplace" }),
 		title: page.title,
 		description: page.summary,
+		hasImageFile: true,
 	});
 }
 
