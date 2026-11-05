@@ -39,13 +39,16 @@ export function today(): string {
  * api splits the timeline at the anchor so an event spanning it is `upcoming` only, and the two sides never overlap;
  * see `#/lib/data/news.ts` for the caching pattern. The anchor is part of the cache key, so it must be a resolved date,
  * not "today"; the caller resolves the default.
+ *
+ * It runs at request time, outside the static shell, so its entries are kept in the platform's shared cache: an
+ * instance's memory, where `"use cache"` keeps them, rarely outlives a request on Vercel.
  */
 export async function getEventsPage(params: {
 	anchor: string;
 	direction: EventsDirection;
 	page: number;
 }): Promise<EventsPage | null> {
-	"use cache";
+	"use cache: remote";
 	cacheLife("content");
 	cacheTag(...api.getEvents.cacheTags());
 
@@ -79,9 +82,12 @@ export async function getEventsPage(params: {
 /**
  * Every event overlapping the days `from` to `until`, both `YYYY-MM-DD` and inclusive, in chronological order - e.g.
  * the weeks a calendar month spans.
+ *
+ * It runs at request time, outside the static shell, so its entries are kept in the platform's shared cache: an
+ * instance's memory, where `"use cache"` keeps them, rarely outlives a request on Vercel.
  */
 export async function getEventsInRange(from: string, until: string): Promise<Array<EventBase>> {
-	"use cache";
+	"use cache: remote";
 	cacheLife("content");
 	cacheTag(...api.getEvents.cacheTags());
 
