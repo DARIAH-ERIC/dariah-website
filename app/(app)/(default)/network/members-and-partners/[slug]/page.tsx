@@ -1,4 +1,3 @@
-import cn from "clsx/lite";
 import { ExternalLinkIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { useLocale, useExtracted as useTranslations } from "next-intl";
@@ -10,6 +9,7 @@ import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { ContentLayout } from "#/components/content-layout.tsx";
 import { EntityIntro, EntityIntroSkeleton } from "#/components/entity-intro.tsx";
 import { Image } from "#/components/image.tsx";
+import { InstitutionLinks } from "#/components/institution-links.tsx";
 import { PageHeader, PageHeaderSkeleton } from "#/components/page-header.tsx";
 import { PersonGroup } from "#/components/person-card.tsx";
 import { socialMediaLogos } from "#/components/social-media-logos.ts";
@@ -281,7 +281,12 @@ function CooperatingPartners(props: Readonly<CooperatingPartnersProps>): ReactNo
 				{sorted.map((institution) => (
 					<li key={institution.slug}>
 						<p className="font-heading text-title-4 font-regular">{institution.name}</p>
-						<InstitutionLinks className="mbs-1" institution={institution} />
+						<InstitutionLinks
+							className="mbs-1"
+							name={institution.name}
+							ror={institution.ror}
+							website={institution.website}
+						/>
 					</li>
 				))}
 			</ul>
@@ -517,63 +522,15 @@ function Institutions(props: Readonly<InstitutionsProps>): ReactNode {
 				{sorted.map((institution) => (
 					<li key={institution.slug}>
 						{institution.name}
-						<InstitutionLinks className="mbs-1" institution={institution} />
+						<InstitutionLinks
+							className="mbs-1"
+							name={institution.name}
+							ror={institution.ror}
+							website={institution.website}
+						/>
 					</li>
 				))}
 			</ul>
 		</section>
-	);
-}
-
-/** Smaller than a website's link in the content (see `websiteLinkClassName`), being secondary to the name above it. */
-const institutionLinkClassName =
-	"inline-flex items-center gap-x-1.5 text-small font-medium text-text-accent underline-offset-4 hover:underline focus-visible-outline";
-
-/** For a link's text which only a screen reader is to hear (see `InstitutionLinks`). */
-function hidden(chunks: ReactNode): ReactNode {
-	return <span className="sr-only">{chunks}</span>;
-}
-
-interface InstitutionLinksProps {
-	institution: PartnerInstitution;
-	className?: string;
-}
-
-/**
- * An institution's website and its record in ROR, the Research Organization Registry, below its name - rather than the
- * name linking to its website, so an institution with links reads as one without them does. Each link names the
- * institution for a screen reader, which would otherwise hear a list of links all called "Website" or "ROR". Nothing
- * renders for an institution with neither.
- */
-function InstitutionLinks(props: Readonly<InstitutionLinksProps>): ReactNode {
-	const { institution, className } = props;
-
-	const t = useTranslations();
-
-	if (institution.website == null && institution.ror == null) {
-		return null;
-	}
-
-	return (
-		<ul className={cn("flex flex-wrap gap-x-5 gap-y-1", className)} role="list">
-			{institution.website != null ? (
-				<li>
-					<Link className={institutionLinkClassName} href={unsafeHref(institution.website, true)}>
-						{t.rich("Website<hidden> of {name}</hidden>", { name: institution.name, hidden })}
-						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
-					</Link>
-				</li>
-			) : null}
-			{institution.ror != null ? (
-				<li>
-					<Link className={institutionLinkClassName} href={unsafeHref(institution.ror, true)}>
-						{t.rich("ROR<hidden> record of {name}</hidden>", { name: institution.name, hidden })}
-						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="shrink-0 block-4 inline-4" />
-					</Link>
-				</li>
-			) : null}
-		</ul>
 	);
 }
