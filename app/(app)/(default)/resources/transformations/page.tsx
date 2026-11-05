@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { LatestResources } from "#/app/(app)/(default)/resources/_components/latest-resources.tsx";
+import { RelatedContentBand } from "#/app/(app)/(default)/resources/_components/related-content-band.tsx";
 import logoTransformations from "#/assets/images/logo-dariah-transformations.svg";
 import { ContentLayout } from "#/components/content-layout.tsx";
 import { PageHeader } from "#/components/page-header.tsx";
@@ -42,22 +43,19 @@ export default async function TransformationsPage(_props: Readonly<Transformatio
 	}
 
 	return (
-		<Main className="px-main">
-			<PageHeader
-				current={href({ pathname: "/resources/transformations" })}
-				image={null}
-				logo={logoTransformations}
-				title={page.title}
-			/>
-			<ContentLayout
-				related="quick-links"
-				blocks={page.content}
-				relatedEntities={page.relatedEntities}
-				relatedResources={page.relatedResources}
-				tableOfContents={page.showTableOfContents}
-			/>
-			{/* Transformations is published on episciences, which is ingested for this journal only. */}
-			<LatestResources source="episciences" upstreamUrl="https://transformations.episciences.org/" />
+		<Main>
+			<div className="px-main">
+				<PageHeader
+					current={href({ pathname: "/resources/transformations" })}
+					image={null}
+					logo={logoTransformations}
+					title={page.title}
+				/>
+				<ContentLayout related="quick-links" blocks={page.content} tableOfContents={page.showTableOfContents} />
+				{/* Transformations is published on episciences, which is ingested for this journal only. */}
+				<LatestResources source="episciences" upstreamUrl="https://transformations.episciences.org/" />
+			</div>
+			<RelatedContentBand entities={page.relatedEntities} resources={page.relatedResources} />
 		</Main>
 	);
 }

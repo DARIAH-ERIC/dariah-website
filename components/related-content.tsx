@@ -32,6 +32,8 @@ interface RelatedContentProps {
 	/** The item's `relatedResources` - see `lib/api/schemas.ts`. */
 	resources: Array<RelatedResource>;
 	className?: string;
+	/** How the cards are laid out: by default one below the other, as beside an item's content. */
+	listClassName?: string;
 }
 
 /** The icon beside an entity's kind, as on the kind's own cards where it has them (projects, working groups, news). */
@@ -79,7 +81,7 @@ interface Entry {
  * nowhere to go is still listed, as a card without a link, because the relation itself is information.
  */
 export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode {
-	const { title, entities, resources, className } = props;
+	const { title, entities, resources, className, listClassName = "flex flex-col gap-y-6" } = props;
 
 	const t = useTranslations();
 
@@ -165,13 +167,13 @@ export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode 
 			<h2 className="mbe-8 text-title-1" id="related-content">
 				{title}
 			</h2>
-			<ul className="flex flex-col gap-y-6" role="list">
+			<ul className={listClassName} role="list">
 				{entries.map((entry) => {
 					const Icon = entry.icon;
 
 					return (
 						<li key={entry.id}>
-							<article className="group relative bg-background-accent-weak">
+							<article className="group relative bg-background-accent-weak block-full">
 								<p className="flex items-center gap-x-3 bg-background-base px-6 py-4.5 inline-fit">
 									<Icon
 										aria-hidden={true}
