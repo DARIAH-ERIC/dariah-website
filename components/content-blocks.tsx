@@ -37,10 +37,15 @@ function asImage(value: unknown): BlockImage | null {
  * A float only floats once the content column - the `@container` {@link ContentBlocks} opens, not the viewport - can
  * spare the width, so a phone-width column gets the image on its own line instead of a caption-width sliver with three
  * words wrapping beside it.
+ *
+ * A float is capped rather than sized, so it is as wide as an image narrower than the cap and that image sits on the
+ * text's edge, not centred in a wider slot. `contain-inline-size` keeps a long caption from widening it to the cap.
  */
 const imageLayoutClassName: Record<string, string> = {
-	"float-start": "mbe-4 @lg:float-start @lg:mbe-2 @lg:me-6 @lg:inline-[min(18rem,45%)]",
-	"float-end": "mbe-4 @lg:float-end @lg:mbe-2 @lg:ms-6 @lg:inline-[min(18rem,45%)]",
+	"float-start":
+		"mbe-4 @lg:float-start @lg:mbe-2 @lg:me-6 @lg:max-inline-[min(18rem,45%)] @lg:[&>figcaption]:contain-inline-size",
+	"float-end":
+		"mbe-4 @lg:float-end @lg:mbe-2 @lg:ms-6 @lg:max-inline-[min(18rem,45%)] @lg:[&>figcaption]:contain-inline-size",
 	wide: "ms-auto me-auto inline-[min(56rem,92vw)]",
 	full: "ms-[calc(50%-50vw)] me-[calc(50%-50vw)] inline-[100vw]",
 	/**
