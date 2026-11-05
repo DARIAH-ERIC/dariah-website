@@ -32,9 +32,10 @@ export interface OpportunitiesPage {
  * range. See `#/lib/data/news.ts` for the pattern.
  *
  * The api filters by status relative to the time of the request. The items come without their own status, which the
- * page works out at request time with `getOpportunityStatus`, so it agrees with the filter - except after a deadline,
- * until the entry is refreshed (daily, or by the revalidation webhook), when the cached list may still hold an item
- * which has closed since.
+ * page works out at request time with `getOpportunityStatus`. Both go by the calendar day, so `day` - today,
+ * `YYYY-MM-DD`, read at request time by the caller - is part of the cache key, though not sent to the api: each day's
+ * lists are fetched afresh, and an opportunity whose deadline has passed never stays in the "open" list, with a
+ * "closed" badge, until the entry is refreshed.
  *
  * It runs at request time, outside the static shell, so its entries are kept in the platform's shared cache: an
  * instance's memory, where `"use cache"` keeps them, rarely outlives a request on Vercel.
@@ -43,6 +44,7 @@ export async function getOpportunitiesPage(params: {
 	page: number;
 	status?: OpportunityStatus;
 	source?: OpportunitySource;
+	day: string;
 }): Promise<OpportunitiesPage | null> {
 	"use cache: remote";
 	cacheLife("content");

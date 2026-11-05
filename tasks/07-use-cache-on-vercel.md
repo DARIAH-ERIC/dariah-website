@@ -114,6 +114,7 @@ The question is not which functions are cached, but **when they run**.
 - Webhook invalidation keeps working through the same tags.
 - Watch out: with remote caching, the opportunities list can be up to a `revalidate` behind the api's status filter
   (today the in-memory misses hide this). The badges are already worked out at request time, so they stay right.
+  Resolved since: `getOpportunitiesPage` takes the day as part of its cache key, so each day's lists are fetched afresh.
 
 ### Option C: a custom `cacheHandlers` entry
 
