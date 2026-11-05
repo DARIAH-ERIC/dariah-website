@@ -1,7 +1,7 @@
 # Known issues from the e2e coverage work
 
 Found while extending the e2e suite (2026-10-05). The rss feed links missing from indexable pages were fixed already
-(`createAlternates` in `lib/metadata.ts`), and so were 3 and 4 below (marked as fixed); everything else is open. Each
+(`createAlternates` in `lib/metadata.ts`), and so were 3, 4, 5 and 11 below (marked as fixed); everything else is open. Each
 issue names the test that covers it, if any, and how that test is marked.
 
 ## How to run the suite
@@ -105,11 +105,16 @@ request - which the instant lock withholds. ("Already existed" above only revert
 `next.config.ts`, where the proxy was added in `10d82f3`.) Fixed by giving the proxy its own switch,
 `E2E_TEST_PROXY` - see "How to run the suite". All 18 of these tests pass in firefox; webkit, see 10.
 
-### 5. Table of contents never marks the section being read in chromium
+### 5. Table of contents never marks the section being read in chromium - fixed
 
 `e2e/table-of-contents.spec.ts` › "links to the sections of a content page, and marks the one being read" fails on
 every chromium run, against both `next dev` and the production build: after clicking the last entry, it does not get
 `aria-current="true"`.
+
+Cause: the `IntersectionObserver` in `components/table-of-contents.tsx` only triggers the recomputation, and its root
+ended at the bottom of the viewport. Following the last entry carries its heading from below the viewport to above the
+root's top line in one frame - not intersecting before, not intersecting after - so no callback fired. Fixed by
+extending the root far below the viewport, so a heading is intersecting whenever it is below the line.
 
 ### 6. Flaky against `next dev`
 
@@ -117,6 +122,21 @@ Under `next dev` with several workers, webkit `instant()` tests fail and some na
 `e2e/navigation.spec.ts` › "closes when following a link…"). Several new tests wait up to 15s for a url change after
 typing or choosing a filter for the same reason. The `instant()` tests are meant to run against a production build (see
 `instant-nav.rig.md`), but see 4.
+
+### 11. The mobile menu dialog stays open in webkit after a navigation which closes it - fixed
+
+`e2e/navigation.spec.ts` › "primary navigation on small screens" fails in webkit, against both `next dev` and the
+production build:
+
+- "closes when the browser goes back" - every run: after `page.goBack()`, the url is `/` but the dialog is still shown.
+- "closes when following a link to the page already shown" - in some runs.
+
+Cause: the dialog was closed while it was still fading in. The modal in `mobile-navigation.tsx` had `duration-200`,
+which sets `transition-duration`; with the default `transition-property: all`, webkit runs an opacity transition
+alongside the fade animation (chromium does not). Closing cancels that transition, so its `finished` promise rejects,
+and react-aria's exit animation - which waits for every animation running on the element - never unmounts the dialog.
+Fixed with `animation-duration-200`, which sets only the fade's duration. Not checked in a real Safari, but nothing
+about it is specific to headless webkit.
 
 ## Limits of the test setup
 
