@@ -1,8 +1,7 @@
 # Known issues from the e2e coverage work
 
-Found while extending the e2e suite (2026-10-05). The rss feed links missing from indexable pages were fixed already
-(`createAlternates` in `lib/metadata.ts`), and so were 1, 3, 4, 5 and 11 below (marked as fixed); everything else is open. Each
-issue names the test that covers it, if any, and how that test is marked.
+Found while extending the e2e suite (2026-10-05). Only the open issues are listed; fixed ones were removed, and the
+remaining ones keep their numbers. Each issue names the test that covers it, if any, and how that test is marked.
 
 ## How to run the suite
 
@@ -12,8 +11,10 @@ is started:
 - `EXPOSE_TESTING_API=1` - next's instant navigation testing api, which `instant()` needs.
 - `E2E_TEST_PROXY=1` - next's test proxy, which `next.onFetch` needs (newsletter, revalidation and error tests). Set
   it for playwright too: the tests which use `next` are skipped otherwise (see `e2e/lib/test.ts`), so a server without
-  the proxy cannot send a real subscription. The proxy turns off the incremental cache in `next start`, which breaks
-  the `instant()` tests (see 4), so a production build is tested in two runs.
+  the proxy cannot send a real subscription. With the proxy, next sets `NEXT_PRIVATE_TEST_PROXY`, and
+  `IncrementalCache` returns nothing (`disableForTestmode`), so `next start` serves no prerendered page from the build:
+  a dynamic route's page is its generic shell, resumed per request, which the instant lock withholds. The `instant()`
+  tests fail against such a server, so a production build is tested in two runs.
 
 ```sh
 # A typesense for testing - not the knowledge base's on 8108: `search:fixtures:load` deletes the collections' content.
@@ -38,26 +39,6 @@ subscription to the production api (it uses an `example.com` address).
 
 ## App bugs
 
-### 1. "Try again" on the error page crashes react-aria components in firefox and webkit - fixed
-
-After the error boundary's retry, react-aria components throw because their localized strings are missing in the
-browser:
-
-- firefox: `TypeError: can't access property "longPressMessage", strings is undefined`
-- webkit: `TypeError: undefined is not an object (evaluating 'strings[key]')`
-
-`next.config.ts` replaces every react-aria locale module in the browser bundle with an empty one
-(`configs/turbopack/empty-locale-module-loader.cjs`, rule `reactAriaLocales`), relying on `<LocalizedStringProvider>` in
-`app/(app)/_components/providers.tsx` to supply the strings. After `retry()` in `app/(app)/(default)/error.tsx` they are
-no longer available. Chromium passed in some runs, so it may be timing-dependent rather than browser-specific.
-
-Cause: the server render fails, the page is rendered in the browser, and `<LocalizedStringProvider>`'s script never
-runs; the strings are missing before the retry already. Fixed by keeping react aria's `en-US` strings in the browser
-bundle and dropping the provider - see `tasks/06-react-aria-strings-after-server-error.md`.
-
-- Test: `e2e/errors.spec.ts` › "renders the page again on “Try again”".
-- Note: that test only runs under `next dev`, see 7.
-
 ### 2. The search pages do not work without javascript
 
 `/search` shows only its loading skeleton without javascript: the form and the results are inside a `<Suspense>`
@@ -68,75 +49,16 @@ rendered. The resource catalogue has the same problem - analysed in `tasks/04-re
 
 - Test: `e2e/search.spec.ts` › "/search without javascript" › "submits the query as an ordinary form" - `test.fixme`.
 
-### 3. `/search` answers an unknown category with `200` to html-limited bots - fixed
-
-`/search?type=unknown` renders the not-found page, but with status `200` for everyone. Other list pages call
-`notFound()` in `generateMetadata` for params their codec rejects, so html-limited bots (see `htmlLimitedBots`) get a
-real `404` - e.g. `resources/resource-catalogue/page.tsx` and `events/page.tsx`. `search/page.tsx`'s
-`generateMetadata` does not parse the search params. Browsers get `200` on every such page by design: the status is
-sent before the results stream in.
-
-Fixed: `generateMetadata` parses the search params and calls `notFound()` for ones the codec rejects.
-
-- Test: `e2e/search.spec.ts` › "shows the not-found page for an unknown category" checks the bot's `404` too
-  (`e2e/lib/bot.ts`). Under `next dev`, this - like the resource catalogue's - logs an `InvariantError: Route … did not
-  produce a static shell`; the response is right.
-
 ## Test failures that already existed
 
-Confirmed against the code from before the coverage work (`e2e/lib/test.ts` at `d3447b1`): these fail the same way.
-
-### 4. `instant()` tests fail against the production build - fixed
-
-Against `EXPOSE_TESTING_API=1 bun run build && bun run start`, on all three browsers:
-
-- `e2e/detail-pages.spec.ts` › every `…/[slug]` › "commits the skeleton instantly on a client-side navigation from
-  the list…" (7 routes)
-- `e2e/lib/paginated-list.ts` › `/news`, `/about/impact-case-studies`, `/get-involved/funding-calls` › `page/[page]` ›
-  "commits the whole page instantly…" and "navigates to the next page instantly"
-
-The navigation inside `instant()` never commits, e.g. `expect(page).toHaveURL(/\/news\/page\/2$/)` still sees the list's
-first page. 33 of the 40 failures in the last full run.
-
-Cause: `experimental.testProxy` was switched on by `EXPOSE_TESTING_API=1` as well. With the proxy, next sets
-`NEXT_PRIVATE_TEST_PROXY`, and `IncrementalCache` then returns nothing (`disableForTestmode`), so `next start` serves
-no prerendered page from the build: `/news/page/2` was the generic `/news/page/[page]` shell, with the list resumed per
-request - which the instant lock withholds. ("Already existed" above only reverted `e2e/lib/test.ts`, not
-`next.config.ts`, where the proxy was added in `10d82f3`.) Fixed by giving the proxy its own switch,
-`E2E_TEST_PROXY` - see "How to run the suite". All 18 of these tests pass in firefox; webkit, see 10.
-
-### 5. Table of contents never marks the section being read in chromium - fixed
-
-`e2e/table-of-contents.spec.ts` › "links to the sections of a content page, and marks the one being read" fails on
-every chromium run, against both `next dev` and the production build: after clicking the last entry, it does not get
-`aria-current="true"`.
-
-Cause: the `IntersectionObserver` in `components/table-of-contents.tsx` only triggers the recomputation, and its root
-ended at the bottom of the viewport. Following the last entry carries its heading from below the viewport to above the
-root's top line in one frame - not intersecting before, not intersecting after - so no callback fired. Fixed by
-extending the root far below the viewport, so a heading is intersecting whenever it is below the line.
+Confirmed against the code from before the coverage work (`e2e/lib/test.ts` at `d3447b1`): it fails the same way.
 
 ### 6. Flaky against `next dev`
 
 Under `next dev` with several workers, webkit `instant()` tests fail and some navigation tests are flaky (e.g.
 `e2e/navigation.spec.ts` › "closes when following a link…"). Several new tests wait up to 15s for a url change after
 typing or choosing a filter for the same reason. The `instant()` tests are meant to run against a production build (see
-`instant-nav.rig.md`), but see 4.
-
-### 11. The mobile menu dialog stays open in webkit after a navigation which closes it - fixed
-
-`e2e/navigation.spec.ts` › "primary navigation on small screens" fails in webkit, against both `next dev` and the
-production build:
-
-- "closes when the browser goes back" - every run: after `page.goBack()`, the url is `/` but the dialog is still shown.
-- "closes when following a link to the page already shown" - in some runs.
-
-Cause: the dialog was closed while it was still fading in. The modal in `mobile-navigation.tsx` had `duration-200`,
-which sets `transition-duration`; with the default `transition-property: all`, webkit runs an opacity transition
-alongside the fade animation (chromium does not). Closing cancels that transition, so its `finished` promise rejects,
-and react-aria's exit animation - which waits for every animation running on the element - never unmounts the dialog.
-Fixed with `animation-duration-200`, which sets only the fade's duration. Not checked in a real Safari, but nothing
-about it is specific to headless webkit.
+`instant-nav.rig.md`).
 
 ## Limits of the test setup
 

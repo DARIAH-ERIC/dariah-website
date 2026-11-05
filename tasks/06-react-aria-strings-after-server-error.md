@@ -1,6 +1,6 @@
 # React aria's strings are missing after a server error
 
-Investigation of issue 1 in `tasks/05-e2e-known-issues.md` ("Try again" on the error page crashes react-aria
+Investigation of a bug found while extending the e2e suite ("Try again" on the error page crashes react-aria
 components), 2026-10-05/06, next 16.3.8, react 19.3, react-aria-components 1.21.1 / react-aria 3.52.1.
 
 **Status: fixed with option A' (2026-11-05).** By then the hand-written locale loader had been replaced with
