@@ -487,9 +487,9 @@ interface InstitutionsProps {
 
 /**
  * The institutions, sorted by name as a project's participants are (see `DariahProjectPage`), each with its links below
- * it (see `InstitutionLinks`), in two columns where they fit, since a name and its links are short; with no
- * institutions it is left out. The api sorts them by name already, but by the database's collation, which puts e.g. a
- * name in quotation marks last.
+ * it (see `InstitutionLinks`), in a single column like those: in two, each row took the height of its taller entry, so
+ * an institution without links beside one with them left a gap; with no institutions it is left out. The api sorts them
+ * by name already, but by the database's collation, which puts e.g. a name in quotation marks last.
  *
  * A member's partner institutions are a section of their own after the content, as the contributors are (see
  * `ContentLayout`'s `sections`). A cooperating partner's institutions introduce the content instead (see
@@ -513,7 +513,7 @@ function Institutions(props: Readonly<InstitutionsProps>): ReactNode {
 			<h2 className="text-title-2" id={headingId}>
 				{title}
 			</h2>
-			<ul className="mbs-8 grid gap-x-10 gap-y-5 sm:grid-cols-2" role="list">
+			<ul className="mbs-8 flex flex-col gap-y-5" role="list">
 				{sorted.map((institution) => (
 					<li key={institution.slug}>
 						{institution.name}
