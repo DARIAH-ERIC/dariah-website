@@ -203,8 +203,9 @@ function EventFacts(props: Readonly<{ item: Event }>): ReactNode {
 
 /**
  * The events before and after this one, by start, each under its heading: the previous one at the start, the next one
- * at the end, as in the design, in the column's two halves. A missing one leaves its half empty, so the other keeps its
- * side. Their status is relative to today, so they are rendered at request time, after the page's static shell.
+ * at the end. Each is half the title column wide, and where the page is wider the two move apart, to its edges. A
+ * missing one leaves its place empty, so the other keeps its side. Their status is relative to today, so they are
+ * rendered at request time, after the page's static shell.
  */
 async function AdjacentEvents(props: Readonly<{ event: EventBase }>): Promise<ReactNode> {
 	const { event } = props;
@@ -235,7 +236,7 @@ function AdjacentEventsList(
 
 	return (
 		<div className="border-bs border-stroke-weak bg-background-subtle px-main pbs-12 pbe-16">
-			<div className="grid gap-x-columns gap-y-12 max-inline-title md:grid-cols-2">
+			<div className="grid gap-x-columns gap-y-12 md:grid-cols-[repeat(2,minmax(0,calc((var(--container-title)-var(--spacing-columns))/2)))] md:justify-between">
 				{items.map(({ id, label, event, className }) =>
 					event != null ? (
 						<section key={id} className={cn("@container flex flex-col gap-y-8", className)}>
