@@ -286,7 +286,7 @@ function SearchResult(props: Readonly<{ document: WebsiteDocument }>): ReactNode
 	return (
 		<article className="flex flex-col gap-y-4 max-inline-measure">
 			<p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-caption">
-				<span className="flex items-center gap-x-2 font-bold text-text-accent uppercase">
+				<span className="flex items-center gap-x-2 font-bold tracking-caps text-text-accent uppercase">
 					<Icon aria-hidden={true} className="shrink-0 block-5 inline-5" />
 					{typeLabels[document.type]}
 				</span>

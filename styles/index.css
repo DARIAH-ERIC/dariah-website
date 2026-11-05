@@ -281,6 +281,7 @@
 		--primitive-letter-spacing-tight: -0.01em;
 		--primitive-letter-spacing-normal: 0;
 		--primitive-letter-spacing-wide: 0.02em;
+		--primitive-letter-spacing-wider: 0.04em;
 	}
 }
 
@@ -323,6 +324,13 @@
 	--leading-body: var(--primitive-line-height-normal);
 	--leading-relaxed: var(--primitive-line-height-relaxed);
 	--leading-reading: var(--primitive-line-height-loose);
+
+	/**
+	 * Letter spacings, to set a text style looser than its own. `tracking-caps` for a short label in small bold capitals,
+	 * e.g. a card's kind above its title or the role above a group of person cards. The body's tight spacing suits
+	 * lowercase running text, but runs small capitals together.
+	 */
+	--tracking-caps: var(--primitive-letter-spacing-wider);
 
 	/**
 	 * Text styles, each a size with its line height and weight, as `text-*`. The utility sets them through tailwind's

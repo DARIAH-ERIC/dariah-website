@@ -146,7 +146,7 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 					<span className="flex items-baseline gap-x-2">
 						<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 						{item != null ? (
-							<span className="text-small font-bold text-text-accent uppercase">
+							<span className="text-small font-bold tracking-caps text-text-accent uppercase">
 								<AnnouncementType type={item.type} />
 							</span>
 						) : (

@@ -83,7 +83,7 @@ export function DatePicker(props: Readonly<DatePickerProps>): ReactNode {
 						<CalendarGrid className="border-collapse">
 							<CalendarGridHeader>
 								{(day) => (
-									<CalendarHeaderCell className="pbe-2 text-small font-bold text-text-weak uppercase">
+									<CalendarHeaderCell className="pbe-2 text-small font-bold tracking-caps text-text-weak uppercase">
 										{day}
 									</CalendarHeaderCell>
 								)}

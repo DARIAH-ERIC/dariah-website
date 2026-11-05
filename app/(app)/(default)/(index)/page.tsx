@@ -733,7 +733,7 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 						)}
 					>
 						<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
-						<span className="text-small font-bold text-text-accent uppercase">{labels[item.type]}</span>
+						<span className="text-small font-bold tracking-caps text-text-accent uppercase">{labels[item.type]}</span>
 						<time
 							className="border-s border-stroke-medium ps-3 text-small font-medium whitespace-nowrap text-text-weak"
 							dateTime={item.publishedAt}

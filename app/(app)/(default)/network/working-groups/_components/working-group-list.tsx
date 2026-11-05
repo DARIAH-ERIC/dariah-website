@@ -75,7 +75,7 @@ function WorkingGroupCard(props: Readonly<WorkingGroupCardProps>): ReactNode {
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex items-center gap-x-3">
 					<UsersIcon aria-hidden={true} className="shrink-0 fill-current text-icon-accent block-4 inline-4" />
-					<span className="text-small font-bold text-text-accent uppercase">{t("Working group")}</span>
+					<span className="text-small font-bold tracking-caps text-text-accent uppercase">{t("Working group")}</span>
 				</p>
 				{/** Unlike a project card's title, this one has no short rule under it: nothing follows it. */}
 				<h3 className="font-heading text-title-5 leading-heading group-hover:text-text-accent">
