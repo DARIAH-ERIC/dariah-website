@@ -61,7 +61,8 @@ interface PageHeaderProps {
  *
  * A logo sits at the end edge, top-aligned with the title, from `lg` up; narrower than that there is no room beside the
  * title, and the title already names what the logo shows. Its box has no height, so a logo taller than a one-line title
- * reaches into the space below the header rather than pushing the content down.
+ * reaches into the space below the header rather than pushing the content down. Logos differ in their proportions, so
+ * they share a width rather than a height, which would make the widest one look much the largest.
  */
 export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 	const {
@@ -86,7 +87,7 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 				<h1 className="text-title-1 max-inline-title min-inline-0">{title}</h1>
 				{logo != null ? (
 					<div className="hidden shrink-0 block-0 lg:block">
-						<Image alt="" className="block-22 inline-auto" src={logo} />
+						<Image alt="" className="block-auto inline-80 xl:inline-90" src={logo} />
 					</div>
 				) : null}
 			</div>
