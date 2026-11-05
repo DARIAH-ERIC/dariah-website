@@ -151,7 +151,7 @@ function ImpactCaseStudyCard(props: Readonly<ImpactCaseStudyCardProps>): ReactNo
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex items-center gap-x-3">
 					<BookOpenTextIcon aria-hidden={true} className="shrink-0 text-icon-accent block-4 inline-4" />
-					<span className="text-small font-bold text-text-accent uppercase">{t("Case study")}</span>
+					<span className="text-small font-bold tracking-caps text-text-accent uppercase">{t("Case study")}</span>
 				</p>
 				<h3 className="font-heading text-title-4 group-hover:text-text-accent">
 					{item != null ? (

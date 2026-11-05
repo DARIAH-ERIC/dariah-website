@@ -100,7 +100,9 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
 					<span className="flex items-baseline gap-x-3">
 						<SparklesIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
-						<span className="text-small font-bold text-text-accent uppercase">{t("Spotlight article")}</span>
+						<span className="text-small font-bold tracking-caps text-text-accent uppercase">
+							{t("Spotlight article")}
+						</span>
 					</span>
 					<time
 						className="border-s border-stroke-medium ps-3 text-small font-medium whitespace-nowrap text-text-weak"

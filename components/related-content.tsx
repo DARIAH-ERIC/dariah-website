@@ -180,7 +180,7 @@ export function RelatedContent(props: Readonly<RelatedContentProps>): ReactNode 
 											filledIcons.has(Icon) && "fill-current",
 										)}
 									/>
-									<span className="text-small font-bold text-text-accent uppercase">{entry.kind}</span>
+									<span className="text-small font-bold tracking-caps text-text-accent uppercase">{entry.kind}</span>
 								</p>
 								<h3 className="p-6 font-body text-body font-medium text-text-strong">{entry.link ?? entry.label}</h3>
 							</article>

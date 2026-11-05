@@ -240,7 +240,7 @@ function LatestNewsCard(props: Readonly<LatestNewsCardProps>): ReactNode {
 				<p className="absolute inset-s-0 inset-be-0 flex flex-wrap content-center items-baseline gap-x-3 gap-y-1 bg-background-base px-4 py-3 min-block-12">
 					<NewspaperIcon aria-hidden={true} className="shrink-0 self-center text-icon-accent block-4 inline-4" />
 					{item != null ? (
-						<span className="text-small font-bold text-text-accent uppercase">
+						<span className="text-small font-bold tracking-caps text-text-accent uppercase">
 							<AnnouncementType type={item.type} />
 						</span>
 					) : (

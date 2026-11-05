@@ -82,7 +82,9 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 	return (
 		<div className="pbs-8 pbe-12">
 			<Breadcrumbs current={current} label={title} parent={parent} />
-			{label != null ? <p className="mbs-14 text-small font-bold text-text-accent uppercase">{label}</p> : null}
+			{label != null ? (
+				<p className="mbs-14 text-small font-bold tracking-caps text-text-accent uppercase">{label}</p>
+			) : null}
 			<div className={cn(label != null ? "mbs-2" : "mbs-14", "flex items-start justify-between gap-x-columns")}>
 				<h1 className="text-title-1 max-inline-title min-inline-0">{title}</h1>
 				{logo != null ? (
