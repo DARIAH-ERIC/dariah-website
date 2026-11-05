@@ -55,10 +55,12 @@ test.describe("error page", () => {
 	});
 
 	/**
-	 * Known to fail in firefox and webkit: once retried, react-aria's components throw, as their localized strings are
-	 * missing in the browser - `strings is undefined` - see the locale modules emptied in `next.config.ts`.
+	 * The failed server render leaves the whole document to be rendered in the browser, so the retried page's react-aria
+	 * components need their localized strings from the bundle - see the locale optimization in `next.config.ts`. Without
+	 * them, the category select throws while rendering, and the error page replaces the search page again - after a frame
+	 * or so, which is why the select is used, rather than only the heading checked.
 	 */
-	test.fixme("renders the page again on “Try again”", async ({ page, next }) => {
+	test("renders the page again on “Try again”", async ({ page, next }) => {
 		const recover = await goToFailingPage(page, next);
 
 		recover();
@@ -67,6 +69,9 @@ test.describe("error page", () => {
 		await retry.click();
 
 		await expect(page.getByRole("heading", { level: 1, name: "Search" })).toBeVisible();
+		/** Named by its value, then its label. */
+		await page.getByRole("button", { name: /\bCategory$/ }).click();
+		await expect(page.getByRole("option", { name: "Event" })).toBeVisible();
 		await expect(page.getByRole("heading", { level: 1, name: "Something went wrong" })).toBeHidden();
 	});
 });

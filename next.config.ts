@@ -8,10 +8,16 @@ import { messages, srcPath } from "#/configs/i18n/messages.config.ts";
 import { imageQuality, imageVariantWidths } from "#/configs/image.config.ts";
 import { redirects } from "#/configs/redirects.config.ts";
 
-const localeOptimization = optimizeLocales.turbopack([
-	{ condition: { not: "browser" }, locales: languages },
-	{ condition: "browser", locales: [] },
-]);
+/**
+ * React Aria's translations, limited to the app's languages - for `en-GB` that is `en-US`, the only English ones it
+ * ships, which it falls back to by language.
+ *
+ * Kept in the browser bundle too, rather than sent with the html by `<LocalizedStringProvider>`: its inline script only
+ * runs when the html is parsed, so not when a document is rendered in the browser - e.g. after a failed server render,
+ * whose response is next's bare error document - and react aria's components then throw on the missing strings. See
+ * `tasks/06-react-aria-strings-after-server-error.md`.
+ */
+const localeOptimization = optimizeLocales.turbopack({ locales: languages });
 
 const config: NextConfig = {
 	cacheComponents: true,
