@@ -4,9 +4,8 @@ import { useFormatter, useExtracted as useTranslations } from "next-intl";
 import { getExtracted as getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
-import logo from "#/assets/images/logo-dariah-eu-white.svg";
 import { ApiImage } from "#/components/api-image.tsx";
-import { Image } from "#/components/image.tsx";
+import { CardImagePlaceholder } from "#/components/card-image-placeholder.tsx";
 import type { DariahProjectBase } from "#/lib/api/schemas.ts";
 import { type DariahProjectStatus, getDariahProjects } from "#/lib/data/dariah-projects.ts";
 import { href } from "#/lib/navigation/href.ts";
@@ -55,10 +54,8 @@ interface ProjectCardProps {
  * A coordinator's role tag is tinted blue, so the projects DARIAH leads stand out; the others are grey.
  *
  * The image is usually the project's logo, so it is shown whole, on white, rather than cropped, and inset a little, so
- * a logo drawn to the edge of its file does not touch the card's. A project without one gets the same placeholder as a
- * person without a portrait: the white DARIAH logo on grey, as wide relative to the box's height as on the square
- * portrait, so it is not blown up to the card's width. The title's link stretches over the whole card, so its focus
- * outline is drawn on the card's box.
+ * a logo drawn to the edge of its file does not touch the card's. A project without one gets the placeholder. The
+ * title's link stretches over the whole card, so its focus outline is drawn on the card's box.
  */
 function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 	const { project } = props;
@@ -97,9 +94,7 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 				{project.image != null ? (
 					<ApiImage alt="" className="object-contain p-3" fill={true} image={project.image} sizes={cardImageSizes} />
 				) : (
-					<div className="grid place-items-center bg-background-placeholder block-full inline-full">
-						<Image alt="" className="block-auto inline-[57%]" src={logo} />
-					</div>
+					<CardImagePlaceholder />
 				)}
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">

@@ -3,11 +3,11 @@ import type { ReactNode } from "react";
 
 import { RelatedContent } from "#/components/related-content.tsx";
 import type { RelatedResource } from "#/components/related-links.tsx";
-import type { EntityRef } from "#/lib/api/schemas.ts";
+import type { RelatedEntity } from "#/lib/api/schemas.ts";
 
 interface RelatedContentBandProps {
 	/** The page's `relatedEntities` - see `lib/api/schemas.ts`. */
-	entities?: Array<EntityRef>;
+	entities?: Array<RelatedEntity>;
 	/** The page's `relatedResources` - see `lib/api/schemas.ts`. */
 	resources?: Array<RelatedResource>;
 }
@@ -27,9 +27,10 @@ export function RelatedContentBand(props: Readonly<RelatedContentBandProps>): Re
 
 	return (
 		<RelatedContent
+			card="image"
 			className="border-bs border-stroke-weak bg-background-subtle px-main pbs-16 pbe-20"
 			entities={entities}
-			listClassName="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-16"
+			listClassName="mbs-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 xl:grid-cols-4 2xl:gap-x-16"
 			resources={resources}
 			title={t("Related Content")}
 		/>
