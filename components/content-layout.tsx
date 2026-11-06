@@ -6,7 +6,7 @@ import { ContentBlocks } from "#/components/content-blocks.tsx";
 import { RelatedContent } from "#/components/related-content.tsx";
 import { RelatedLinks, type RelatedResource } from "#/components/related-links.tsx";
 import { TableOfContents } from "#/components/table-of-contents.tsx";
-import type { EntityRef } from "#/lib/api/schemas.ts";
+import type { RelatedEntity } from "#/lib/api/schemas.ts";
 import { collectHeadings, identifyHeadings } from "#/lib/rich-text.ts";
 
 /**
@@ -25,7 +25,7 @@ interface ContentLayoutProps {
 	 */
 	related: "quick-links" | "related-content";
 	/** The entity's `relatedEntities`, listed beside the content. */
-	relatedEntities?: Array<EntityRef>;
+	relatedEntities?: Array<RelatedEntity>;
 	/** The entity's `relatedResources`, listed beside the content. */
 	relatedResources?: Array<RelatedResource>;
 	/**

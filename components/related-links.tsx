@@ -1,7 +1,7 @@
 import { ChevronRightIcon } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
 
-import type { EntityRef } from "#/lib/api/schemas.ts";
+import type { RelatedEntity } from "#/lib/api/schemas.ts";
 import { unsafeHref } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
 
@@ -18,7 +18,7 @@ interface RelatedLinksProps {
 	/** The heading above the list - "Quick links" beside a page, "Related content" beside a detail item. */
 	title: string;
 	/** The item's `relatedEntities` - see `lib/api/schemas.ts`. */
-	entities: Array<EntityRef>;
+	entities: Array<RelatedEntity>;
 	/** The item's `relatedResources` - see `lib/api/schemas.ts`. */
 	resources: Array<RelatedResource>;
 	className?: string;

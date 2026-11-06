@@ -5,7 +5,7 @@ import { ContentLayout } from "#/components/content-layout.tsx";
 import { type DatePrecision, PageHeader } from "#/components/page-header.tsx";
 import { PersonGroup } from "#/components/person-card.tsx";
 import type { RelatedResource } from "#/components/related-links.tsx";
-import type { EntityRef, Image, ImpactCaseStudy } from "#/lib/api/schemas.ts";
+import type { Image, ImpactCaseStudy, RelatedEntity } from "#/lib/api/schemas.ts";
 import type { Href } from "#/lib/navigation/href.ts";
 
 type Contributor = ImpactCaseStudy["contributors"][number];
@@ -26,7 +26,7 @@ interface ArticleProps {
 		content?: unknown;
 		/** Left out for an article without a byline, e.g. a news item. */
 		contributors?: Array<Contributor>;
-		relatedEntities?: Array<EntityRef>;
+		relatedEntities?: Array<RelatedEntity>;
 		relatedResources?: Array<RelatedResource>;
 		/** Left out for an article which has no such setting, e.g. a news item, which then has no outline. */
 		showTableOfContents?: boolean;

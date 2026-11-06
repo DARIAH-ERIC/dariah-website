@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { LatestResources } from "#/app/(app)/(default)/resources/_components/latest-resources.tsx";
+import { RelatedContentBand } from "#/app/(app)/(default)/resources/_components/related-content-band.tsx";
 import logoDariahCampus from "#/assets/images/logo-dariah-campus.svg";
 import { ContentLayout } from "#/components/content-layout.tsx";
 import { PageHeader } from "#/components/page-header.tsx";
@@ -42,21 +43,18 @@ export default async function DariahCampusPage(_props: Readonly<DariahCampusPage
 	}
 
 	return (
-		<Main className="px-main">
-			<PageHeader
-				current={href({ pathname: "/resources/dariah-campus" })}
-				image={null}
-				logo={logoDariahCampus}
-				title={page.title}
-			/>
-			<ContentLayout
-				related="quick-links"
-				blocks={page.content}
-				relatedEntities={page.relatedEntities}
-				relatedResources={page.relatedResources}
-				tableOfContents={page.showTableOfContents}
-			/>
-			<LatestResources source="dariah-campus" upstreamUrl="https://campus.dariah.eu/resources" />
+		<Main>
+			<div className="px-main">
+				<PageHeader
+					current={href({ pathname: "/resources/dariah-campus" })}
+					image={null}
+					logo={logoDariahCampus}
+					title={page.title}
+				/>
+				<ContentLayout related="quick-links" blocks={page.content} tableOfContents={page.showTableOfContents} />
+				<LatestResources source="dariah-campus" upstreamUrl="https://campus.dariah.eu/resources" />
+			</div>
+			<RelatedContentBand entities={page.relatedEntities} resources={page.relatedResources} />
 		</Main>
 	);
 }
