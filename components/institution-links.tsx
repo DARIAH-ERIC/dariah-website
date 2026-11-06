@@ -8,7 +8,7 @@ import { Link } from "#/lib/navigation/link.tsx";
 
 /** Smaller than a website's link in the content, being secondary to the name above it. */
 const institutionLinkClassName =
-	"inline-flex items-center gap-x-1.5 text-small font-medium text-text-accent underline-offset-4 hover:underline focus-visible-outline";
+	"inline-flex items-center gap-x-1.5 text-small text-text-accent underline-offset-4 hover:underline focus-visible-outline";
 
 /** For a link's text which only a screen reader is to hear (see `InstitutionLinks`). */
 function hidden(chunks: ReactNode): ReactNode {
