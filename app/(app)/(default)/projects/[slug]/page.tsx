@@ -6,6 +6,7 @@ import { Fragment, type ReactNode, Suspense, useId } from "react";
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { ContentLayout } from "#/components/content-layout.tsx";
 import { EntityIntro, EntityIntroSkeleton } from "#/components/entity-intro.tsx";
+import { InstitutionLinks } from "#/components/institution-links.tsx";
 import { PageHeader, PageHeaderSkeleton } from "#/components/page-header.tsx";
 import type { DariahProject, DariahProjectInstitution } from "#/lib/api/schemas.ts";
 import { getDariahProjectBySlug, getDariahProjectSlugs } from "#/lib/data/dariah-projects.ts";
@@ -152,10 +153,10 @@ function ProjectFacts(props: Readonly<ProjectFactsProps>): ReactNode {
 			label: t("{count, plural, one {Coordinator} other {Coordinators}}", { count: project.coordinators.length }),
 			value:
 				project.coordinators.length > 0 ? (
-					<ul className="flex flex-col gap-y-1" role="list">
+					<ul className="flex flex-col gap-y-3" role="list">
 						{project.coordinators.map((coordinator) => (
 							<li key={coordinator.id}>
-								<PartnerLink partner={coordinator} />
+								<Institution institution={coordinator} />
 							</li>
 						))}
 					</ul>
@@ -218,11 +219,10 @@ interface PartnersProps {
 }
 
 /**
- * The institutions taking part in the project, each linking to its website - or as plain text, without one. They are
- * sorted by name (see `sortByName`): the api has them in no order a reader would recognise - the grant agreement's, it
- * seems - and a reader mostly looks for an institution of their own. The coordinators are not among them: they are
- * listed with the project's facts (see `ProjectFacts`). The heading is set as a working group's chairs are (see
- * `PersonGroup`).
+ * The institutions taking part in the project, each with its website below it (see `Institution`). They are sorted by
+ * name (see `sortByName`): the api has them in no order a reader would recognise - the grant agreement's, it seems -
+ * and a reader mostly looks for an institution of their own. The coordinators are not among them: they are listed with
+ * the project's facts (see `ProjectFacts`). The heading is set as a working group's chairs are (see `PersonGroup`).
  */
 function Partners(props: Readonly<PartnersProps>): ReactNode {
 	const { project } = props;
@@ -242,15 +242,15 @@ function Partners(props: Readonly<PartnersProps>): ReactNode {
 	return (
 		<section aria-labelledby={headingId} className="mbs-16">
 			<h2
-				className="text-small font-bold text-text-strong after:mbs-4 after:block after:bg-stroke-weak after:block-0.5 after:inline-17.5"
+				className="text-small font-bold tracking-caps text-text-strong uppercase after:mbs-4 after:block after:bg-stroke-weak after:block-0.5 after:inline-17.5"
 				id={headingId}
 			>
 				{t("Participants")}
 			</h2>
-			<ul className="mbs-6 flex flex-col gap-y-3" role="list">
+			<ul className="mbs-6 flex flex-col gap-y-5" role="list">
 				{partners.map((partner) => (
 					<li key={partner.id}>
-						<PartnerLink partner={partner} />
+						<Institution institution={partner} />
 					</li>
 				))}
 			</ul>
@@ -258,22 +258,28 @@ function Partners(props: Readonly<PartnersProps>): ReactNode {
 	);
 }
 
-interface PartnerLinkProps {
-	partner: DariahProjectInstitution;
+interface InstitutionProps {
+	institution: DariahProjectInstitution;
 }
 
-function PartnerLink(props: Readonly<PartnerLinkProps>): ReactNode {
-	const { partner } = props;
+/**
+ * An institution's name, with its website and ROR record below it, as a member's partner institutions are listed (see
+ * `InstitutionLinks`).
+ */
+function Institution(props: Readonly<InstitutionProps>): ReactNode {
+	const { institution } = props;
 
-	const website = partner.socialMedia.find((link) => link.type === "website");
-
-	if (website == null) {
-		return partner.name;
-	}
+	const website = institution.socialMedia.find((link) => link.type === "website");
 
 	return (
-		<a className={linkClassName} href={website.url}>
-			{partner.name}
-		</a>
+		<Fragment>
+			{institution.name}
+			<InstitutionLinks
+				className="mbs-1"
+				name={institution.name}
+				ror={institution.ror}
+				website={website?.url ?? null}
+			/>
+		</Fragment>
 	);
 }

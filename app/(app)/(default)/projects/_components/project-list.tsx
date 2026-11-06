@@ -101,7 +101,7 @@ function ProjectCard(props: Readonly<ProjectCardProps>): ReactNode {
 				<div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
 					<p className="flex items-center gap-x-3">
 						<FolderIcon aria-hidden={true} className="shrink-0 fill-current text-icon-accent block-4 inline-4" />
-						<span className="text-small font-bold text-text-accent uppercase">{t("Project")}</span>
+						<span className="text-small font-bold tracking-caps text-text-accent uppercase">{t("Project")}</span>
 					</p>
 					{project.role != null ? (
 						<p

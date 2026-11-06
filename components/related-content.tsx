@@ -231,7 +231,7 @@ function TintedCard(props: Readonly<CardProps>): ReactNode {
 		<article className="group relative bg-background-accent-weak block-full">
 			<p className="flex items-center gap-x-3 bg-background-base px-6 py-4.5 inline-fit">
 				<EntryIcon icon={entry.icon} />
-				<span className="text-small font-bold text-text-accent uppercase">{entry.kind}</span>
+				<span className="text-small font-bold tracking-caps text-text-accent uppercase">{entry.kind}</span>
 			</p>
 			<h3 className="p-6 font-body text-body font-medium text-text-strong">{entry.renderTitle(linkClassName)}</h3>
 		</article>
@@ -266,7 +266,7 @@ function ImageCard(props: Readonly<CardProps>): ReactNode {
 				)}
 				<p className="absolute inset-s-0 inset-be-0 flex items-center gap-x-3 bg-background-base px-4 py-3 min-block-12">
 					<EntryIcon icon={entry.icon} />
-					<span className="text-small font-bold text-text-accent uppercase">{entry.kind}</span>
+					<span className="text-small font-bold tracking-caps text-text-accent uppercase">{entry.kind}</span>
 				</p>
 			</div>
 			<h3 className="pbs-6 font-heading text-title-4 leading-heading text-balance">

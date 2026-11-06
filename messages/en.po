@@ -401,6 +401,7 @@ msgstr "Download"
 #: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
 #: app/(app)/(default)/get-involved/opportunities/page.tsx
 #: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
+#: components/institution-links.tsx
 msgctxt "CGONVc"
 msgid "(external website)"
 msgstr "(external website)"
@@ -1233,16 +1234,6 @@ msgctxt "ZLmyG9"
 msgid "Contributors"
 msgstr "Contributors"
 
-#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
-msgctxt "0Ac9xY"
-msgid "Website<hidden> of {name}</hidden>"
-msgstr "Website<hidden> of {name}</hidden>"
-
-#: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
-msgctxt "q6z6ss"
-msgid "ROR<hidden> record of {name}</hidden>"
-msgstr "ROR<hidden> record of {name}</hidden>"
-
 #: app/(app)/(default)/network/working-groups/_components/working-group-list.tsx
 #: app/(app)/(default)/network/working-groups/(list)/layout.tsx
 msgctxt "D6m9La"
@@ -1727,6 +1718,16 @@ msgstr "From {date}"
 msgctxt "Y0MpZL"
 msgid "Subscribe via RSS"
 msgstr "Subscribe via RSS"
+
+#: components/institution-links.tsx
+msgctxt "0Ac9xY"
+msgid "Website<hidden> of {name}</hidden>"
+msgstr "Website<hidden> of {name}</hidden>"
+
+#: components/institution-links.tsx
+msgctxt "q6z6ss"
+msgid "ROR<hidden> record of {name}</hidden>"
+msgstr "ROR<hidden> record of {name}</hidden>"
 
 #: components/page-header.tsx
 msgctxt "ohgkvi"

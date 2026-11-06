@@ -55,7 +55,13 @@ export async function generateMetadata(props: Readonly<OpportunitiesPageProps>):
 	const page = await getPageBySlug("opportunities");
 	const query = searchParams.safeParse(await props.searchParams);
 
-	if (!query.success || (await getOpportunitiesPage(query.output)) == null) {
+	if (!query.success) {
+		notFound();
+	}
+
+	await connection();
+
+	if ((await getOpportunitiesPage({ ...query.output, day: today() })) == null) {
 		notFound();
 	}
 
@@ -124,15 +130,16 @@ async function OpportunitiesResults(props: Pick<OpportunitiesPageProps, "searchP
 
 	const { status, source } = query.output;
 
-	const list = await getOpportunitiesPage(query.output);
+	/** The list and each item's status are relative to today (see `getOpportunitiesPage`). */
+	await connection();
+	const now = today();
+
+	const list = await getOpportunitiesPage({ ...query.output, day: now });
 
 	if (list == null) {
 		notFound();
 	}
 
-	/** Each item's status is relative to today, so it is worked out here, outside the cached list. */
-	await connection();
-	const now = today();
 	const items = list.items.map((opportunity) => {
 		return { opportunity, status: getOpportunityStatus(opportunity, now) };
 	});

@@ -17,7 +17,7 @@ const copiedDurationMs = 2000;
 const itemClassName =
 	"flex cursor-default flex-col gap-y-0.5 px-4 py-2.5 outline-none hover:bg-background-accent focus:bg-background-accent";
 
-const sectionHeaderClassName = "px-4 pbs-2 pbe-1 text-small font-bold text-text-weak uppercase";
+const sectionHeaderClassName = "px-4 pbs-2 pbe-1 text-small font-bold text-text-weak tracking-caps uppercase";
 
 /**
  * Ways to subscribe to the events' calendar feed, below both the list and the calendar - where the legacy website

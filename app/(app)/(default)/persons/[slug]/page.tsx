@@ -416,7 +416,9 @@ function Articles(props: Readonly<{ articles: ReadonlyArray<PersonArticle> }>): 
 								/>
 							</div>
 							<div className="flex flex-col gap-y-3">
-								<p className="text-small font-bold text-text-accent uppercase">{kindLabels[article.type]}</p>
+								<p className="text-small font-bold tracking-caps text-text-accent uppercase">
+									{kindLabels[article.type]}
+								</p>
 								<h3 className="font-heading text-title-5 leading-heading">
 									{article.entity.href != null ? (
 										<Link

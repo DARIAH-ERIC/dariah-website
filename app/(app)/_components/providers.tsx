@@ -1,6 +1,5 @@
 import { NextIntlClientProvider, useLocale } from "next-intl";
 import type { ReactNode } from "react";
-import { LocalizedStringProvider } from "react-aria-components/i18n";
 
 import { ClientProviders } from "#/app/(app)/_components/client-providers.tsx";
 
@@ -15,7 +14,6 @@ export function Providers(props: Readonly<ProvidersProps>): ReactNode {
 
 	return (
 		<NextIntlClientProvider>
-			<LocalizedStringProvider locale={locale} />
 			<ClientProviders locale={locale}>{children}</ClientProviders>
 		</NextIntlClientProvider>
 	);
