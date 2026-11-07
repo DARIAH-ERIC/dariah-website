@@ -10,6 +10,9 @@ test.describe("feeds", () => {
 	 * A page which sets `alternates` of its own, e.g. its canonical, replaces the root layout's as a whole, so the feeds
 	 * have to be added back - see `createAlternates`. The home page sets its metadata itself, `/news` through
 	 * `createMetadata`, and `/search` is `noindex`, without a canonical.
+	 *
+	 * Looked up in the whole document: `/search` reads its search params in `generateMetadata`, so next streams its
+	 * metadata into the body.
 	 */
 	for (const { pathname, canonical } of [
 		{ pathname: "/", canonical: "/" },
@@ -19,25 +22,25 @@ test.describe("feeds", () => {
 		test(`are advertised on ${pathname}, next to its canonical url`, async ({ page }) => {
 			await page.goto(pathname);
 
-			const head = await page.evaluate(() => {
+			const links = await page.evaluate(() => {
 				// oxlint-disable-next-line unicorn/consistent-function-scoping -- Runs in the browser, where only this scope exists.
 				function getPathname(link: Element): string {
 					return new URL(link.getAttribute("href")!, document.baseURI).pathname;
 				}
 
-				const canonicalLink = document.head.querySelector('link[rel="canonical"]');
+				const canonicalLink = document.querySelector('link[rel="canonical"]');
 
 				return {
 					feeds: Array.from(
-						document.head.querySelectorAll('link[rel="alternate"][type="application/rss+xml"]'),
+						document.querySelectorAll('link[rel="alternate"][type="application/rss+xml"]'),
 						getPathname,
 					),
 					canonical: canonicalLink != null ? getPathname(canonicalLink) : null,
 				};
 			});
 
-			expect(head.feeds.toSorted()).toStrictEqual(["/feeds/events.xml", "/feeds/news.xml"]);
-			expect(head.canonical).toBe(canonical);
+			expect(links.feeds.toSorted()).toStrictEqual(["/feeds/events.xml", "/feeds/news.xml"]);
+			expect(links.canonical).toBe(canonical);
 		});
 	}
 
