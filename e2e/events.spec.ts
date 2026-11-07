@@ -47,7 +47,11 @@ test.describe("/events/calendar", () => {
 
 /** The months the events list is grouped by, as the first day of each, e.g. `2024-03-01`. */
 async function getListedMonths(page: Page): Promise<Array<string>> {
-	const headings = await page.getByRole("main").getByRole("heading", { level: 2 }).allTextContents();
+	/** By name, as the subscribe section at the end of the page has a heading of the same level. */
+	const headings = await page
+		.getByRole("main")
+		.getByRole("heading", { level: 2, name: /^\w+ \d{4}$/ })
+		.allTextContents();
 
 	return headings.map((heading) => {
 		const date = new Date(`1 ${heading} UTC`);
