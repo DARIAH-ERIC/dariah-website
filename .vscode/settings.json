@@ -25,6 +25,7 @@
 	"js/ts.inlayHints.parameterNames.enabled": "all",
 	"js/ts.preferences.autoImportSpecifierExcludeRegexes": ["^lucide-react(/|$)", "^next/dist/", "^next/router$"],
 	"js/ts.preferences.importModuleSpecifier": "non-relative",
+	"js/ts.preferences.importModuleSpecifierEnding": "js",
 	"js/ts.preferences.preferTypeOnlyAutoImports": true,
 	"js/ts.tsdk.path": "node_modules/typescript/lib",
 	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
