@@ -385,7 +385,8 @@ const config = defineConfig({
 		"no-void": "off",
 		"unicode-bom": "off",
 
-		"import/extensions": "off",
+		/** Subpath imports (`#/*`) are mapped verbatim by node and turbopack, which do not add extensions to them. */
+		"import/extensions": ["error", "always", { checkTypeImports: true, ignorePackages: true }],
 		"import/no-amd": "off",
 		"import/no-commonjs": "off",
 		"import/no-cycle": "off",
