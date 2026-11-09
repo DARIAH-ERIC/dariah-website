@@ -168,6 +168,21 @@ test.describe("legacy uploads", () => {
 	});
 });
 
+test.describe("renamed working groups", () => {
+	/** The redirect is not followed, so the test does not depend on the working group existing in the api. */
+	test("redirect a working group's previous slug to its current one", async ({ request }) => {
+		const response = await request.get(
+			"/network/working-groups/architectural-heritage-thesaurus-through-integrated-digital-procedures-and-open-data-archetipo",
+			{ maxRedirects: 0 },
+		);
+
+		expect(response.status()).toBe(308);
+		expect(new URL(response.headers()["location"]!, "http://localhost").pathname).toBe(
+			"/network/working-groups/architectural-heritage-thesaurus-through-integrated-digital-procedures-and-open-data",
+		);
+	});
+});
+
 test.describe("health checks", () => {
 	for (const pathname of ["/health/live", "/health/ready"]) {
 		test(`${pathname} reports the app as up`, async ({ request }) => {
