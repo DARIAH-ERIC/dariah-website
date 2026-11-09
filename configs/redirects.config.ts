@@ -119,4 +119,12 @@ export const redirects: Redirects = [
 		destination: documentUrl("dariah-strategic-plan-2019-2026"),
 		permanent: true,
 	},
+	/** Working groups whose slug changed after the new website launched. */
+	{
+		source:
+			"/network/working-groups/architectural-heritage-thesaurus-through-integrated-digital-procedures-and-open-data-archetipo",
+		destination:
+			"/network/working-groups/architectural-heritage-thesaurus-through-integrated-digital-procedures-and-open-data",
+		permanent: true,
+	},
 ];
