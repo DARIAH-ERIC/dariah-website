@@ -131,6 +131,7 @@ function NewsCard(props: Readonly<{ item: Announcement | null; isLead: boolean }
 						 * The first card's image is the page's largest contentful paint when no featured item leads the page:
 						 * loaded with the document rather than after layout, as a lazy image would be.
 						 */
+						coverAspectRatio={7 / 4}
 						fetchPriority={isLead ? "high" : undefined}
 						fill={true}
 						image={item.image}

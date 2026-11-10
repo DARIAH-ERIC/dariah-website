@@ -71,3 +71,73 @@ export function parseImageAssetUrl(
 export function isSvgImage(image: Readonly<{ mimeType: string }>): boolean {
 	return image.mimeType === "image/svg+xml";
 }
+
+/**
+ * How much wider than its box an `object-cover` image is drawn: a source proportionally wider than the box is scaled to
+ * the box's height, and the overflow cropped off its sides. `1` for one as wide or narrower, which fills the box's
+ * width exactly and is cropped top and bottom instead - and for one whose dimensions the api does not know.
+ *
+ * Rounded up, so the width a `sizes` scaled by it describes is never short of the drawn one.
+ */
+export function getCoverScale(
+	image: Readonly<{ width: number | null; height: number | null }>,
+	boxAspectRatio: number,
+): number {
+	const { width, height } = image;
+
+	if (width == null || height == null || width <= 0 || height <= 0 || boxAspectRatio <= 0) {
+		return 1;
+	}
+
+	return Math.max(1, Math.ceil((width / height / boxAspectRatio) * 100) / 100);
+}
+
+/**
+ * Multiply every slot width in a `sizes` attribute, leaving its media conditions alone - `(min-width: 40rem) 45vw,
+ * 90vw` by `2` is `(min-width: 40rem) calc(45vw * 2), calc(90vw * 2)`.
+ *
+ * Commas and spaces only separate entries, and an entry's condition from its width, outside parentheses: `min(90vw,
+ * 104rem)` and `calc(100vw - 3rem)` are each one width. The width is an entry's last such token.
+ */
+export function scaleSizes(sizes: string, factor: number): string {
+	if (factor === 1) {
+		return sizes;
+	}
+
+	return splitTopLevel(sizes, ",")
+		.map((entry) => {
+			const tokens = splitTopLevel(entry.trim(), " ").filter((token) => token !== "");
+			const length = tokens.pop();
+
+			if (length == null) {
+				return entry;
+			}
+
+			return [...tokens, `calc(${length} * ${String(factor)})`].join(" ");
+		})
+		.join(", ");
+}
+
+/** Split on a separator wherever it occurs outside parentheses. */
+function splitTopLevel(value: string, separator: string): Array<string> {
+	const parts: Array<string> = [];
+	let depth = 0;
+	let start = 0;
+
+	for (let index = 0; index < value.length; index++) {
+		const char = value[index];
+
+		if (char === "(") {
+			depth++;
+		} else if (char === ")") {
+			depth = Math.max(0, depth - 1);
+		} else if (char === separator && depth === 0) {
+			parts.push(value.slice(start, index));
+			start = index + 1;
+		}
+	}
+
+	parts.push(value.slice(start));
+
+	return parts;
+}

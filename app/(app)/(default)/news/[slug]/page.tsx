@@ -230,6 +230,7 @@ function LatestNewsCard(props: Readonly<LatestNewsCardProps>): ReactNode {
 					<ApiImage
 						alt=""
 						className="object-cover transition-transform duration-200 ease-out motion-safe:group-hover:scale-105 motion-safe:group-has-focus-visible:scale-105"
+						coverAspectRatio={3 / 2}
 						fill={true}
 						image={item.image}
 						sizes="(min-width: 120rem) 23rem, (min-width: 80rem) 22vw, (min-width: 40rem) 45vw, 90vw"

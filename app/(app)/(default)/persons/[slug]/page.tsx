@@ -165,6 +165,7 @@ function PersonHeader(props: Readonly<{ item: Person }>): ReactNode {
 					<ApiImage
 						alt=""
 						className="object-cover"
+						coverAspectRatio={1}
 						fetchPriority="high"
 						fill={true}
 						image={item.image}
@@ -410,6 +411,7 @@ function Articles(props: Readonly<{ articles: ReadonlyArray<PersonArticle> }>): 
 								<ApiImage
 									alt=""
 									className="object-cover"
+									coverAspectRatio={7 / 4}
 									fill={true}
 									image={article.image}
 									sizes="(min-width: 120rem) 24rem, (min-width: 96rem) 22vw, (min-width: 40rem) 45vw, 90vw"

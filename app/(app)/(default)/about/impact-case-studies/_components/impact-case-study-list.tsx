@@ -143,7 +143,14 @@ function ImpactCaseStudyCard(props: Readonly<ImpactCaseStudyCardProps>): ReactNo
 			{/** Taller on a phone, where a card is narrow and alone in its row. */}
 			<div className="relative aspect-4/3 border border-stroke-weak bg-background-base sm:aspect-5/3">
 				{item != null ? (
-					<ApiImage alt="" className="object-cover" fill={true} image={item.image} sizes={cardImageSizes} />
+					<ApiImage
+						alt=""
+						className="object-cover"
+						coverAspectRatio={4 / 3}
+						fill={true}
+						image={item.image}
+						sizes={cardImageSizes}
+					/>
 				) : (
 					<SkeletonShape className="absolute inset-0 rounded-none" />
 				)}

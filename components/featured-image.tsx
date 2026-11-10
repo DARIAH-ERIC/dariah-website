@@ -66,6 +66,7 @@ export function FeaturedImage(props: Readonly<FeaturedImageProps>): ReactNode {
 						variant === "wide-banner" ? "aspect-1652/620" : "aspect-4/3 sm:aspect-1652/620",
 						kind === "logos" ? "object-contain" : "object-cover",
 					)}
+					coverAspectRatio={kind === "logos" ? undefined : variant === "wide-banner" ? 1652 / 620 : 4 / 3}
 					{...loading}
 					image={image}
 					sizes="min(90vw, 104rem)"

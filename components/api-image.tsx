@@ -9,11 +9,21 @@ import { env } from "#/configs/env.config.ts";
 import { sourceWidthParam } from "#/configs/image.config.ts";
 import type { BlockImage } from "#/lib/api/schemas.ts";
 import { apiImageLoader } from "#/lib/images/loader.ts";
-import { appendSearchParams, isSvgImage } from "#/lib/images/variants.ts";
+import { appendSearchParams, getCoverScale, isSvgImage, scaleSizes } from "#/lib/images/variants.ts";
 
 interface ApiImageProps extends Omit<ImageProps, "alt" | "src"> {
 	/** Overrides the alt text the api records for the asset; pass `""` to mark it decorative. */
 	alt?: string;
+	/**
+	 * The width-to-height ratio of the box an `object-cover` image is cropped to - where it changes across breakpoints,
+	 * the smallest, i.e. the box at its proportionally tallest.
+	 *
+	 * A source proportionally wider than its box is drawn at the box's height, so wider than the box, by as much as their
+	 * ratios differ. `sizes` describes the box, and from it alone the browser would pick a rendition only as wide as
+	 * that, and enlarge it: a 4:1 banner in a 2:1 box is drawn at twice the width it was fetched at. With the ratio,
+	 * every width in `sizes` is scaled to the drawn one.
+	 */
+	coverAspectRatio?: number;
 	image: BlockImage;
 }
 
@@ -28,7 +38,7 @@ interface ApiImageProps extends Omit<ImageProps, "alt" | "src"> {
  * width at 1x and 2x, and a phone downloads the desktop rung.
  */
 export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
-	const { alt, image, style: ownStyle, ...rest } = props;
+	const { alt, coverAspectRatio, image, sizes, style: ownStyle, ...rest } = props;
 
 	const style = withFocalPoint(image, ownStyle);
 
@@ -75,7 +85,16 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 			);
 		}
 
-		return <NextImage {...rest} alt={alt ?? image.alt ?? ""} src={image.srcUrl} style={style} unoptimized={true} />;
+		return (
+			<NextImage
+				{...rest}
+				alt={alt ?? image.alt ?? ""}
+				sizes={sizes}
+				src={image.srcUrl}
+				style={style}
+				unoptimized={true}
+			/>
+		);
 	}
 
 	/**
@@ -91,6 +110,9 @@ export function ApiImage(props: Readonly<ApiImageProps>): ReactNode {
 			{...rest}
 			alt={alt ?? image.alt ?? ""}
 			loader={apiImageLoader}
+			sizes={
+				sizes != null && coverAspectRatio != null ? scaleSizes(sizes, getCoverScale(image, coverAspectRatio)) : sizes
+			}
 			src={appendSearchParams(image.srcUrl, { [sourceWidthParam]: String(image.width) })}
 			style={style}
 		/>

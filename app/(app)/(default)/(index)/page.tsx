@@ -718,6 +718,8 @@ function AnnouncementCard(props: Readonly<AnnouncementCardProps>): ReactNode {
 					<ApiImage
 						alt=""
 						className="object-cover transition-transform duration-200 ease-out motion-safe:group-hover:scale-105 motion-safe:group-has-focus-visible:scale-105"
+						/** At most 3:2: `max(10rem, 100cqi * 2/3)` tall, wider only from `sm` to `md`, and for the lead at `2xl`. */
+						coverAspectRatio={3 / 2}
 						fill={true}
 						image={item.image}
 						sizes={
