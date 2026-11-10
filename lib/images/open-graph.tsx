@@ -82,13 +82,10 @@ export function createSvgOpenGraphImage(svg: string): ImageResponse {
  * which renders one to a png takes an asset's name from its url, so it must not trust it.
  *
  * A plain `fetch` rather than the endpoint's `request`: the variant endpoint is public, and redirects to the image
- * proxy, which the api's access token has no business reaching.
+ * proxy, which the api's access token has no business reaching. Not cached itself: `getSvgOpenGraphImage` caches what
+ * it renders from it.
  */
-export async function getSvgImage(params: api.getAssetImage.Params): Promise<string | null> {
-	"use cache";
-	cacheLife("content");
-	cacheTag(...api.getAssetImage.cacheTags());
-
+async function getSvgImage(params: api.getAssetImage.Params): Promise<string | null> {
 	try {
 		const response = await fetch(api.getAssetImage.url({ params }));
 
@@ -100,4 +97,24 @@ export async function getSvgImage(params: api.getAssetImage.Params): Promise<str
 	} catch {
 		return null;
 	}
+}
+
+/**
+ * An svg from the api rendered to png bytes, or `null` if the asset is missing or is not an svg. The bytes are cached,
+ * not just the svg, so the satori render runs once per asset version rather than on every request - a self-hosted
+ * deployment has no cdn in front to honour the response's `immutable` header. Bytes, because a `Response` cannot be
+ * serialised into the cache; a name which is not an svg only caches its `null`.
+ */
+export async function getSvgOpenGraphImage(params: api.getAssetImage.Params): Promise<Uint8Array<ArrayBuffer> | null> {
+	"use cache";
+	cacheLife("content");
+	cacheTag(...api.getAssetImage.cacheTags());
+
+	const svg = await getSvgImage(params);
+
+	if (svg == null) {
+		return null;
+	}
+
+	return new Uint8Array(await createSvgOpenGraphImage(svg).arrayBuffer());
 }
