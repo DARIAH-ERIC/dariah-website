@@ -348,7 +348,14 @@ function EventItem(props: Readonly<{ event: EventBase; now: string } | { event: 
 				</div>
 				{/* Positioned, so it would paint above the link's overlay and catch its clicks. */}
 				<div className="pointer-events-none relative hidden aspect-2/1 shrink-0 self-center inline-80 md:block">
-					<ApiImage alt="" className="object-cover" fill={true} image={event.image} sizes="20rem" />
+					<ApiImage
+						alt=""
+						className="object-cover"
+						coverAspectRatio={2}
+						fill={true}
+						image={event.image}
+						sizes="20rem"
+					/>
 				</div>
 			</div>
 		</article>

@@ -94,7 +94,14 @@ function SpotlightArticleCard(props: Readonly<SpotlightArticleCardProps>): React
 	return (
 		<article className="group relative flex flex-col bg-background-base shadow-card-edge inline-full hover:bg-background-card-hover">
 			<div className="relative aspect-5/3 border border-stroke-weak bg-background-base">
-				<ApiImage alt="" className="object-cover" fill={true} image={item.image} sizes={cardImageSizes} />
+				<ApiImage
+					alt=""
+					className="object-cover"
+					coverAspectRatio={5 / 3}
+					fill={true}
+					image={item.image}
+					sizes={cardImageSizes}
+				/>
 			</div>
 			<div className="flex flex-col gap-y-3 px-4 pbs-5 pbe-8">
 				<p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">

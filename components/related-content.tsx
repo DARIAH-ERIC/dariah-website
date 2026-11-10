@@ -257,6 +257,7 @@ function ImageCard(props: Readonly<CardProps>): ReactNode {
 								? "object-cover transition-transform duration-200 ease-out motion-safe:group-hover:scale-105 motion-safe:group-has-focus-visible:scale-105"
 								: "object-contain px-3 pbs-3 pbe-14"
 						}
+						coverAspectRatio={entry.isPicture ? 3 / 2 : undefined}
 						fill={true}
 						image={entry.image}
 						sizes="(min-width: 120rem) 23rem, (min-width: 80rem) 22vw, (min-width: 40rem) 45vw, 90vw"
