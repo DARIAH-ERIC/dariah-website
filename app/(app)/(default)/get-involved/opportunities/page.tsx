@@ -1,10 +1,9 @@
 import cn from "clsx/lite";
-import { ExternalLinkIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { useExtracted as useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { connection } from "next/server";
-import { Fragment, type ReactNode, Suspense, useId } from "react";
+import { type ReactNode, Suspense, useId } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { Pagination } from "#/app/(app)/(default)/_components/pagination.tsx";
@@ -14,6 +13,7 @@ import {
 	useOpportunityStatusLabels,
 } from "#/app/(app)/(default)/get-involved/opportunities/_components/labels.ts";
 import { OpportunitiesFilterForm } from "#/app/(app)/(default)/get-involved/opportunities/_components/opportunities-filter-form.tsx";
+import { OpportunityDeadline } from "#/app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx";
 import {
 	opportunitySources,
 	opportunityStatuses,
@@ -22,7 +22,6 @@ import {
 import opportunitiesImage from "#/assets/images/opportunities.png";
 import { Breadcrumbs } from "#/components/breadcrumbs.tsx";
 import { ContentBlocks } from "#/components/content-blocks.tsx";
-import { DateRange } from "#/components/date-range.tsx";
 import { Image } from "#/components/image.tsx";
 import { NoResults } from "#/components/no-results.tsx";
 import { Badge } from "#/components/ui/badge.tsx";
@@ -38,7 +37,7 @@ import {
 } from "#/lib/data/opportunities.ts";
 import { getPageBySlug } from "#/lib/data/pages.ts";
 import { createMetadata } from "#/lib/metadata.ts";
-import { href, unsafeHref } from "#/lib/navigation/href.ts";
+import { href } from "#/lib/navigation/href.ts";
 import { Link } from "#/lib/navigation/link.tsx";
 
 interface OpportunitiesPageProps extends PageProps<"/get-involved/opportunities"> {}
@@ -317,8 +316,8 @@ function OpportunitiesList(
 }
 
 /**
- * The title, then the status, the source and the dates it runs between in a row, then the summary, cut off after three
- * lines. An external opportunity with a website links there, with an icon saying so; every other one to its own page.
+ * The title, then the status, the source and the deadline in a row, then the summary, cut off after three lines. Every
+ * opportunity links to its own page, an external one too: its website is linked from there, beside the deadline.
  *
  * DARIAH's own opportunities are highlighted, with an accent edge, as in the design, so they stand out from external
  * ones at a glance; an external one is set on a subtle gray background instead, so every card is a box, and its text is
@@ -331,7 +330,6 @@ function OpportunitiesList(
 function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null; status?: never }>): ReactNode {
 	const { opportunity, status } = props;
 
-	const t = useTranslations();
 	const headingId = useId();
 
 	if (opportunity == null) {
@@ -341,14 +339,12 @@ function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null
 				<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-caption">
 					<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-16" />
 					<SkeletonShape className="text-badge block-[calc(1lh+(--spacing(1)))] inline-16" />
-					<SkeletonText className="inline-48" />
+					<SkeletonText className="inline-40" />
 				</div>
 				<SkeletonText className="leading-body" lines={3} />
 			</div>
 		);
 	}
-
-	const website = opportunity.source.source === "external" ? opportunity.website : null;
 
 	return (
 		<article
@@ -363,29 +359,16 @@ function OpportunityCard(props: Readonly<ListedOpportunity | { opportunity: null
 			<h3 className="font-heading text-title-5 leading-heading" id={headingId}>
 				<Link
 					className="underline-offset-4 outline-none after:absolute after:inset-0 hover:underline focus-visible:after:outline-3 focus-visible:after:outline-offset-2 focus-visible:after:outline-focus-outline focus-visible:after:outline-solid"
-					href={
-						website != null
-							? unsafeHref(website, true)
-							: href({ pathname: "/get-involved/opportunities/[slug]", params: { slug: opportunity.entity.slug } })
-					}
+					href={href({ pathname: "/get-involved/opportunities/[slug]", params: { slug: opportunity.entity.slug } })}
 					prefetch="intent"
 				>
 					{opportunity.title}
-					{website != null ? (
-						<Fragment>
-							<span className="sr-only"> {t("(external website)")}</span>
-							<ExternalLinkIcon
-								aria-hidden={true}
-								className="ms-3 inline align-[-0.125em] text-icon-accent block-5 inline-5"
-							/>
-						</Fragment>
-					) : null}
 				</Link>
 			</h3>
 			<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-caption">
 				<StatusBadge status={status} />
 				<SourceBadge source={opportunity.source.source} />
-				<DateRange end={opportunity.duration.end} start={opportunity.duration.start} />
+				<OpportunityDeadline duration={opportunity.duration} />
 			</div>
 			<p className="line-clamp-3 leading-body text-text-weak">{opportunity.summary}</p>
 		</article>

@@ -1,13 +1,13 @@
-import { ExternalLinkIcon } from "lucide-react";
 import type { Metadata } from "next";
-import { getExtracted as getTranslations } from "next-intl/server";
+import { useExtracted as useTranslations } from "next-intl";
 import { notFound } from "next/navigation";
 import { Fragment, type ReactNode, Suspense } from "react";
 
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
+import { useOpportunityDeadline } from "#/app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx";
 import { ContentLayout } from "#/components/content-layout.tsx";
-import { DateRange } from "#/components/date-range.tsx";
 import { PageHeader, PageHeaderSkeleton } from "#/components/page-header.tsx";
+import type { Opportunity } from "#/lib/api/schemas.ts";
 import { getOpportunityBySlug, getOpportunitySlugs } from "#/lib/data/opportunities.ts";
 import { createMetadata } from "#/lib/metadata.ts";
 import { href, unsafeHref } from "#/lib/navigation/href.ts";
@@ -79,7 +79,6 @@ export default function OpportunityPage(props: Readonly<OpportunityPageProps>): 
 async function OpportunityContent(props: Pick<OpportunityPageProps, "params">): Promise<ReactNode> {
 	const { slug } = await props.params;
 
-	const t = await getTranslations();
 	const item = await getOpportunityBySlug(slug);
 
 	if (item == null) {
@@ -96,23 +95,51 @@ async function OpportunityContent(props: Pick<OpportunityPageProps, "params">): 
 			/>
 			<ContentLayout
 				related="quick-links"
-				meta={<DateRange className="font-bold" end={item.duration.end} start={item.duration.start} />}
+				meta={<OpportunityFacts item={item} />}
 				blocks={item.content}
 				relatedEntities={item.relatedEntities}
 				relatedResources={item.relatedResources}
 				tableOfContents={item.showTableOfContents}
-			>
-				{item.website != null ? (
-					<Link
-						className="inline-flex items-center gap-x-3 font-heading font-bold text-text-accent underline-offset-4 focus-visible-outline hover:underline"
-						href={unsafeHref(item.website, true)}
-					>
-						{t("Visit website")}
-						<span className="sr-only"> {t("(external website)")}</span>
-						<ExternalLinkIcon aria-hidden={true} className="block-5 inline-5" />
-					</Link>
-				) : null}
-			</ContentLayout>
+			/>
 		</Fragment>
+	);
+}
+
+/**
+ * The deadline and the website, each a term beside its value, as an event's facts are (see `EventFacts`): the deadline,
+ * or the day it opens when there is none (see `useOpportunityDeadline`), then the website, when there is one, spelled
+ * out, so a reader sees where it leads.
+ */
+function OpportunityFacts(props: Readonly<{ item: Opportunity }>): ReactNode {
+	const { item } = props;
+
+	const t = useTranslations();
+	const deadline = useOpportunityDeadline(item.duration);
+
+	const facts: Array<{ term: string; value: ReactNode }> = [{ term: deadline.term, value: deadline.date }];
+
+	if (item.website != null) {
+		facts.push({
+			term: t("Website"),
+			value: (
+				<Link
+					className="font-medium break-all text-text-accent underline focus-visible-outline hover:no-underline"
+					href={unsafeHref(item.website, true)}
+				>
+					{item.website}
+				</Link>
+			),
+		});
+	}
+
+	return (
+		<dl className="grid grid-cols-[max-content_minmax(0,1fr)] gap-x-8 gap-y-3">
+			{facts.map((fact) => (
+				<div key={fact.term} className="col-span-full grid grid-cols-subgrid">
+					<dt className="font-bold text-text-strong">{fact.term}</dt>
+					<dd>{fact.value}</dd>
+				</div>
+			))}
+		</dl>
 	);
 }
