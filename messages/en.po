@@ -398,8 +398,6 @@ msgid "Download"
 msgstr "Download"
 
 #: app/(app)/(default)/about/documents/page.tsx
-#: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
-#: app/(app)/(default)/get-involved/opportunities/page.tsx
 #: app/(app)/(default)/network/members-and-partners/[slug]/page.tsx
 #: components/institution-links.tsx
 msgctxt "CGONVc"
@@ -407,7 +405,6 @@ msgid "(external website)"
 msgstr "(external website)"
 
 #: app/(app)/(default)/about/documents/page.tsx
-#: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
 msgctxt "YXprDM"
 msgid "Visit website"
 msgstr "Visit website"
@@ -913,6 +910,7 @@ msgid "Venue"
 msgstr "Venue"
 
 #: app/(app)/(default)/events/[slug]/page.tsx
+#: app/(app)/(default)/get-involved/opportunities/[slug]/page.tsx
 #: app/(app)/(default)/persons/[slug]/page.tsx
 msgctxt "JkLHGw"
 msgid "Website"
@@ -1042,6 +1040,26 @@ msgstr "DARIAH"
 msgctxt "QG6-rR"
 msgid "External"
 msgstr "External"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx
+msgctxt "M7u3qD"
+msgid "Open from"
+msgstr "Open from"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx
+msgctxt "8_Da7A"
+msgid "Deadline"
+msgstr "Deadline"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx
+msgctxt "sNih54"
+msgid "Open from {date}"
+msgstr "Open from {date}"
+
+#: app/(app)/(default)/get-involved/opportunities/_components/opportunity-deadline.tsx
+msgctxt "SB_3Ky"
+msgid "Deadline: {date}"
+msgstr "Deadline: {date}"
 
 #: app/(app)/(default)/get-involved/opportunities/page.tsx
 msgctxt "00_TZT"
