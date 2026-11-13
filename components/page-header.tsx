@@ -32,6 +32,8 @@ interface PageHeaderProps {
 	/** The page which lists the current one, for a page the menu does not list itself - see `Breadcrumbs`. */
 	parent?: Href;
 	title: string;
+	/** Follows the title in the `<h1>`, but not in the breadcrumbs, e.g. a paginated list's page number. */
+	titleSuffix?: ReactNode;
 	/** A category above the title, e.g. a member's status - set as a card's type label is, not as part of the title. */
 	label?: string;
 	/**
@@ -69,6 +71,7 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 		current,
 		parent,
 		title,
+		titleSuffix,
 		label,
 		publishedAt,
 		datePrecision = "day",
@@ -86,7 +89,10 @@ export function PageHeader(props: Readonly<PageHeaderProps>): ReactNode {
 				<p className="mbs-14 text-small font-bold tracking-caps text-text-accent uppercase">{label}</p>
 			) : null}
 			<div className={cn(label != null ? "mbs-2" : "mbs-14", "flex items-start justify-between gap-x-columns")}>
-				<h1 className="text-title-1 max-inline-title min-inline-0">{title}</h1>
+				<h1 className="text-title-1 max-inline-title min-inline-0">
+					{title}
+					{titleSuffix}
+				</h1>
 				{logo != null ? (
 					<div className="hidden shrink-0 block-0 lg:block">
 						<Image alt="" className="block-auto inline-80 xl:inline-90" src={logo} />

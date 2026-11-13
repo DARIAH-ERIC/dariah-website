@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
+import { ListPageNumber } from "#/app/(app)/(default)/_components/list-page-number.tsx";
 import { Main } from "#/app/(app)/(default)/_components/main.tsx";
 import { ContentBlocks } from "#/components/content-blocks.tsx";
 import { PageHeader } from "#/components/page-header.tsx";
@@ -30,7 +31,12 @@ export default async function ImpactCaseStudiesLayout(
 
 	return (
 		<Main className="px-main pbe-24">
-			<PageHeader current={href({ pathname: "/about/impact-case-studies" })} image={page.image} title={page.title} />
+			<PageHeader
+				current={href({ pathname: "/about/impact-case-studies" })}
+				image={page.image}
+				title={page.title}
+				titleSuffix={<ListPageNumber />}
+			/>
 			<ContentBlocks
 				blocks={page.content}
 				className="gap-x-gutter lg:columns-2 [&_.prose]:text-lead [&_.prose]:leading-body [&_.prose]:font-regular [&_.prose_p]:break-inside-avoid"
