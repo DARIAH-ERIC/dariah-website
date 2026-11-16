@@ -1,6 +1,8 @@
 import slugify from "@sindresorhus/slugify";
 import type { JSONContent } from "@tiptap/core";
 
+import type { BlockImage } from "#/lib/api/schemas.ts";
+
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return value !== null && typeof value === "object";
 }
@@ -35,6 +37,54 @@ export function isEmptyRichTextDocument(content: JSONContent | null | undefined)
 
 		return false;
 	});
+}
+
+export interface QuoteAuthor {
+	name: string;
+	/**
+	 * Root-relative, locale-less page url of a person in the knowledge base; `null` for a typed-in name, or a person
+	 * without a published page.
+	 */
+	href: string | null;
+	image: BlockImage | null;
+}
+
+export interface QuoteAttribution {
+	authors: Array<QuoteAuthor>;
+	/** `{ doc > paragraph }` richtext saying who the authors are; `null` when there is none, or it is blank. */
+	description: JSONContent | null;
+}
+
+function isImage(value: unknown): value is BlockImage {
+	return isRecord(value) && typeof value.srcUrl === "string" && value.srcUrl !== "";
+}
+
+/**
+ * The byline of a `quoteBlock` node, read from its attributes as the api resolves them (`annotateQuoteAuthors` in
+ * `DARIAH-ERIC/knowledge-base`'s `apps/api`): authors in the order the editor set, each a person in the knowledge base
+ * (`kind: "person"`, linked through `entity.href` while they have a published page) or a typed-in name (`kind:
+ * "text"`), each optionally with a portrait.
+ *
+ * The api already drops malformed authors; this drops any it might still let through without a name, rather than render
+ * an empty list item.
+ */
+export function parseQuoteAttribution(attrs: Record<string, unknown> | null | undefined): QuoteAttribution {
+	const authors: Array<QuoteAuthor> = [];
+
+	for (const author of Array.isArray(attrs?.authors) ? (attrs.authors as Array<unknown>) : []) {
+		if (!isRecord(author) || typeof author.name !== "string" || author.name.trim() === "") {
+			continue;
+		}
+
+		const entity = author.kind === "person" && isRecord(author.entity) ? author.entity : null;
+		const href = typeof entity?.href === "string" && entity.href !== "" ? entity.href : null;
+
+		authors.push({ name: author.name.trim(), href, image: isImage(author.image) ? author.image : null });
+	}
+
+	const description = attrs?.description as JSONContent | null | undefined;
+
+	return { authors, description: isEmptyRichTextDocument(description) ? null : (description ?? null) };
 }
 
 /**
