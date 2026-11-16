@@ -125,12 +125,12 @@ async function EventContent(props: Pick<EventPageProps, "params">): Promise<Reac
 						<div className="flex flex-col items-start gap-y-8">
 							<EventFacts item={item} />
 							<a
-								className="inline-flex items-center gap-x-3 border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse focus-visible-outline hover:bg-background-base hover:text-text-accent"
+								className="inline-flex items-center gap-x-3 border-2 border-stroke-accent bg-background-accent-strong px-6 py-3 font-heading font-bold text-text-inverse focus-visible-outline min-block-15 hover:bg-background-base hover:text-text-accent"
 								download={`${slug}.ics`}
 								href={serializeHref(unsafeHref(`/events/${encodeURIComponent(slug)}/calendar.ics`, false))}
 							>
 								<CalendarPlusIcon aria-hidden={true} className="block-5 inline-5" />
-								{t("Add to calendar")}
+								<span className="[text-box:trim-both_cap_alphabetic]">{t("Add to calendar")}</span>
 							</a>
 						</div>
 					}
