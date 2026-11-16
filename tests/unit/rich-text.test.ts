@@ -1,13 +1,15 @@
 import { describe, expect, test } from "bun:test";
 
-import type { JSONContent } from "@tiptap/core";
+import { type JSONContent, getSchema } from "@tiptap/core";
 
+import { createRichTextExtensions } from "#/lib/rich-text-extensions.ts";
 import {
 	collectFootnotes,
 	collectHeadings,
 	identifyHeadings,
 	isEmptyRichTextDocument,
 	numberFootnotes,
+	parseQuoteAttribution,
 	toPlainText,
 } from "#/lib/rich-text.ts";
 
@@ -198,5 +200,96 @@ describe("identifyHeadings / collectHeadings", () => {
 
 		expect(collectHeadings(identified)).toEqual([{ id: "aims", level: 2, text: "Aims" }]);
 		expect(collectFootnotes(identified)).toEqual([paragraph(text("note"))]);
+	});
+});
+
+describe("quoteBlock", () => {
+	const image = {
+		url: "https://api.example.org/image?w=400",
+		srcUrl: "https://api.example.org/image",
+		width: 800,
+		height: 800,
+		aspectRatio: 1,
+		focalPoint: null,
+		mimeType: "image/jpeg",
+		alt: null,
+		license: null,
+	};
+
+	const description = { type: "doc", content: [paragraph(text("Senior Scientist, ACDH-CH"))] };
+
+	test("reads a person author, linked to their page and with their portrait", () => {
+		expect(
+			parseQuoteAttribution({
+				authors: [
+					{
+						kind: "person",
+						entityId: "0190",
+						name: "Ada Lovelace",
+						entity: {
+							id: "0190",
+							type: "persons",
+							slug: "ada-lovelace",
+							label: "Ada Lovelace",
+							href: "/persons/ada-lovelace",
+						},
+						image,
+					},
+				],
+				description,
+			}),
+		).toEqual({ authors: [{ name: "Ada Lovelace", href: "/persons/ada-lovelace", image }], description });
+	});
+
+	test("reads a typed-in author, and a person no longer published, without a link or portrait", () => {
+		expect(
+			parseQuoteAttribution({
+				authors: [
+					{ kind: "text", name: "Charles Babbage", image: null },
+					{ kind: "person", entityId: "0191", name: "Mary Somerville", entity: null, image: null },
+				],
+				description: null,
+			}),
+		).toEqual({
+			authors: [
+				{ name: "Charles Babbage", href: null, image: null },
+				{ name: "Mary Somerville", href: null, image: null },
+			],
+			description: null,
+		});
+	});
+
+	test("never links a typed-in author, even with an href-shaped entity", () => {
+		const { authors } = parseQuoteAttribution({
+			authors: [{ kind: "text", name: "Charles Babbage", entity: { href: "/persons/x" }, image: null }],
+		});
+
+		expect(authors).toEqual([{ name: "Charles Babbage", href: null, image: null }]);
+	});
+
+	test("reads an empty byline, dropping nameless authors and a blank description", () => {
+		expect(parseQuoteAttribution({ authors: [], description: null })).toEqual({ authors: [], description: null });
+		expect(parseQuoteAttribution(null)).toEqual({ authors: [], description: null });
+		expect(
+			parseQuoteAttribution({
+				authors: [{ kind: "text", name: "  ", image: null }, null, "Ada"],
+				description: { type: "doc", content: [paragraph()] },
+			}),
+		).toEqual({ authors: [], description: null });
+	});
+
+	test("keeps its attributes when the renderer's schema reads the json", () => {
+		const attrs = {
+			authors: [{ kind: "text", name: "Charles Babbage", image: null }],
+			description,
+		};
+		const schema = getSchema(createRichTextExtensions());
+		const node = schema.nodeFromJSON({
+			type: "doc",
+			content: [{ type: "quoteBlock", attrs, content: [paragraph(text("A quotation."))] }],
+		});
+
+		expect(node.firstChild?.type.name).toBe("quoteBlock");
+		expect(node.firstChild?.attrs).toEqual(attrs);
 	});
 });

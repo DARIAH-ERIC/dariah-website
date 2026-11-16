@@ -1,13 +1,22 @@
 import type { JSONContent } from "@tiptap/core";
 import { renderToReactElement } from "@tiptap/static-renderer/pm/react";
 import cn from "clsx/lite";
-import { useExtracted as useTranslations } from "next-intl";
+import { useFormatter, useExtracted as useTranslations } from "next-intl";
 import { Fragment, type ReactNode, useId } from "react";
 
 import quoteMark from "#/assets/images/quote-mark.svg";
+import { ApiImage } from "#/components/api-image.tsx";
 import { Image } from "#/components/image.tsx";
+import { unsafeHref } from "#/lib/navigation/href.ts";
+import { Link } from "#/lib/navigation/link.tsx";
 import { createRichTextExtensions } from "#/lib/rich-text-extensions.ts";
-import { collectFootnotes, identifyHeadings, isEmptyRichTextDocument, numberFootnotes } from "#/lib/rich-text.ts";
+import {
+	collectFootnotes,
+	identifyHeadings,
+	isEmptyRichTextDocument,
+	numberFootnotes,
+	parseQuoteAttribution,
+} from "#/lib/rich-text.ts";
 
 const extensions = createRichTextExtensions();
 
@@ -234,15 +243,53 @@ function parseByline(text: string): { name: string; role: string | null } {
 }
 
 /**
- * A quote, on a tinted panel with a large quote mark drawn behind it. The content has no node for a quote's source, so
- * by convention it is the last paragraph of a quote with more than one: it is set apart below the quote, as a byline of
- * the speaker's name in bold and their role below it. Its marks (the content often bolds it) are dropped, since the
- * byline has its own weights.
+ * Whether a quote's text opens with quote marks typed into the content itself, which the typography plugin's would
+ * double.
+ */
+function isQuotedText(firstChild: { textContent: string } | null): boolean {
+	return /^["“„«‘'‚‹]/u.test(firstChild?.textContent.trimStart() ?? "");
+}
+
+/**
+ * A quote, on a tinted panel with a large quote mark drawn behind it, with its byline, if any, set apart below it as
+ * the speaker's name in bold and who they are below that.
  *
  * The quote's paragraphs keep the typography plugin's curly quotes, which the byline, not being a paragraph, does not
  * get - unless the content already opens with a quote mark of its own, in which case the plugin's are dropped. The
  * plugin's italics, border and colour are reset, and so are italics authored on the quote itself, which the design sets
  * upright.
+ */
+function QuotePanel(
+	props: Readonly<{
+		byline: ReactNode;
+		children?: ReactNode;
+		isQuoted: boolean;
+	}>,
+): ReactNode {
+	const { byline, children, isQuoted } = props;
+
+	return (
+		<blockquote
+			className={cn(
+				"relative isolate overflow-clip border-0 bg-gradient-accent-subtle px-10 py-8 font-regular text-inherit not-italic shadow-light [&_em]:not-italic",
+				isQuoted && "[quotes:none]",
+			)}
+		>
+			<Image
+				alt=""
+				className="pointer-events-none absolute inset-s-[46%] inset-be-10 -z-10 m-0 inline-[223px]"
+				src={quoteMark}
+			/>
+			<div className="text-body leading-reading [&>p]:m-0 [&>p+p]:mbs-4">{children}</div>
+			{byline != null ? <footer className="mbs-10 text-caption">{byline}</footer> : null}
+		</blockquote>
+	);
+}
+
+/**
+ * A quote without structured attribution. Quotes from before the cms had one (see {@link QuoteBlockNode}) carry their
+ * source as prose, by convention the last paragraph of a quote with more than one: it is read back out as the byline.
+ * Its marks (the content often bolds it) are dropped, since the byline has its own weights.
  */
 function renderBlockquoteNode(
 	props: Readonly<{
@@ -257,38 +304,106 @@ function renderBlockquoteNode(
 	const { node, children } = props;
 
 	const paragraphs = Array.isArray(children) ? children : [children];
-	/** Quote marks typed into the content itself, which the typography plugin's would double. */
-	const isQuoted = /^["“„«‘'‚‹]/u.test(node.firstChild?.textContent.trimStart() ?? "");
 	const bylineText = node.childCount > 1 ? (node.lastChild?.textContent.trim() ?? "") : "";
 	const byline = bylineText !== "" ? parseByline(bylineText) : null;
 
 	return (
-		<blockquote
-			className={cn(
-				"relative isolate overflow-clip border-0 bg-gradient-accent-subtle px-10 py-8 font-regular text-inherit not-italic shadow-light [&_em]:not-italic",
-				isQuoted && "[quotes:none]",
-			)}
+		<QuotePanel
+			byline={
+				byline != null ? (
+					<Fragment>
+						<cite className="block font-bold not-italic">{byline.name}</cite>
+						{byline.role != null ? <span className="block">{byline.role}</span> : null}
+					</Fragment>
+				) : null
+			}
+			isQuoted={isQuotedText(node.firstChild)}
 		>
-			<Image
-				alt=""
-				className="pointer-events-none absolute inset-s-[46%] inset-be-10 -z-10 m-0 inline-[223px]"
-				src={quoteMark}
-			/>
-			<div className="text-body leading-reading [&>p]:m-0 [&>p+p]:mbs-4">
-				{byline != null ? paragraphs.slice(0, -1) : paragraphs}
+			{byline != null ? paragraphs.slice(0, -1) : paragraphs}
+		</QuotePanel>
+	);
+}
+
+/**
+ * A quote with structured attribution: its authors, in the editor's order, and a description of who they are (see
+ * `parseQuoteAttribution` in `lib/rich-text.ts`). Set like {@link renderBlockquoteNode}'s, with the byline read from the
+ * node's attributes instead of its last paragraph.
+ *
+ * Names are listed in the page's locale, each person in the knowledge base linked to their page while they have one.
+ * Their portraits sit in a row before the byline, decorative, since every name is written out next to them. The
+ * description may hold links, so it goes through the same renderer as a caption. A quote with neither authors nor a
+ * description has no byline.
+ */
+function QuoteBlockNode(
+	props: Readonly<{
+		node: {
+			attrs?: Record<string, unknown> | null;
+			firstChild: { textContent: string } | null;
+		};
+		children?: ReactNode | Array<ReactNode>;
+	}>,
+): ReactNode {
+	const { node, children } = props;
+
+	const format = useFormatter();
+
+	const { authors, description } = parseQuoteAttribution(node.attrs);
+	const portraits = authors.flatMap((author) => (author.image != null ? [author.image] : []));
+	const renderedDescription = description != null ? renderInlineRichText(description) : null;
+
+	const byline =
+		authors.length > 0 || renderedDescription != null ? (
+			<div className="flex items-center gap-x-4">
+				{portraits.length > 0 ? (
+					<div className="not-prose flex shrink-0 gap-x-2">
+						{portraits.map((image, index) => (
+							<ApiImage
+								alt=""
+								className="rounded-full object-cover block-12 inline-12"
+								coverAspectRatio={1}
+								height={48}
+								image={image}
+								// oxlint-disable-next-line react/no-array-index-key -- Authors carry no id of their own, and a typed-in name may repeat.
+								key={index}
+								sizes="3rem"
+								width={48}
+							/>
+						))}
+					</div>
+				) : null}
+				<div className="min-inline-0">
+					{authors.length > 0 ? (
+						<cite className="block font-bold not-italic [&_a]:font-bold">
+							{format.list(
+								authors.map((author, index) =>
+									author.href != null ? (
+										// oxlint-disable-next-line react/no-array-index-key -- See above.
+										<Link href={unsafeHref(author.href, false)} key={index}>
+											{author.name}
+										</Link>
+									) : (
+										// oxlint-disable-next-line react/no-array-index-key -- See above.
+										<Fragment key={index}>{author.name}</Fragment>
+									),
+								),
+							)}
+						</cite>
+					) : null}
+					{renderedDescription != null ? <span className="block">{renderedDescription}</span> : null}
+				</div>
 			</div>
-			{byline != null ? (
-				<footer className="mbs-10 text-caption">
-					<cite className="block font-bold not-italic">{byline.name}</cite>
-					{byline.role != null ? <span className="block">{byline.role}</span> : null}
-				</footer>
-			) : null}
-		</blockquote>
+		) : null;
+
+	return (
+		<QuotePanel byline={byline} isQuoted={isQuotedText(node.firstChild)}>
+			{children}
+		</QuotePanel>
 	);
 }
 
 const nodeMapping = {
 	blockquote: renderBlockquoteNode,
+	quoteBlock: QuoteBlockNode,
 	buttonLink: renderButtonLinkNode,
 	footnote: FootnoteNode,
 	heading: renderHeadingNode,

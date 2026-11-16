@@ -90,6 +90,26 @@ const LeadIn = Node.create({
 });
 
 /**
+ * A quotation with attribution, alongside the stock `blockquote`, which stays for quotations nobody is credited with.
+ * The quoted text is its content; the byline travels in attributes: `authors`, resolved by the api (see
+ * `parseQuoteAttribution` in `lib/rich-text.ts`), and `description`, richtext of the same `{ doc > paragraph }` shape a
+ * caption uses. Both must be declared, or the renderer never sees them.
+ */
+const QuoteBlock = Node.create({
+	name: "quoteBlock",
+	group: "block",
+	content: "paragraph+",
+	defining: true,
+
+	addAttributes() {
+		return {
+			authors: { default: [] },
+			description: { default: null },
+		};
+	},
+});
+
+/**
  * The stock table node, given a `caption` attribute: the cms's editor carries a table's caption as an attribute rather
  * than table content (so a caption editor can offer footnotes and formatting without those becoming part of the table's
  * own row content) - see `rich-text-editor.tsx` in `DARIAH-ERIC/knowledge-base`'s `packages/ui/lib`. The caption is
@@ -141,5 +161,6 @@ export function createRichTextExtensions(): Extensions {
 		PlaceholderValue,
 		ButtonLink,
 		LeadIn,
+		QuoteBlock,
 	];
 }
