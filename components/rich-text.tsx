@@ -330,7 +330,8 @@ function renderBlockquoteNode(
  * node's attributes instead of its last paragraph.
  *
  * Names are listed in the page's locale, each person in the knowledge base linked to their page while they have one.
- * Their portraits sit in a row before the byline, decorative, since every name is written out next to them. The
+ * Their portraits sit before the byline as an overlapping stack, each ringed to set it off from the one below, so
+ * several still leave the names room on a phone. They are decorative, since every name is written out next to them. The
  * description may hold links, so it goes through the same renderer as a caption. A quote with neither authors nor a
  * description has no byline.
  */
@@ -355,11 +356,11 @@ function QuoteBlockNode(
 		authors.length > 0 || renderedDescription != null ? (
 			<div className="flex items-center gap-x-4">
 				{portraits.length > 0 ? (
-					<div className="not-prose flex shrink-0 gap-x-2">
+					<div className="not-prose flex shrink-0 [&>*+*]:-ms-3">
 						{portraits.map((image, index) => (
 							<ApiImage
 								alt=""
-								className="rounded-full object-cover block-12 inline-12"
+								className="rounded-full object-cover ring-2 ring-background-base block-12 inline-12"
 								coverAspectRatio={1}
 								height={48}
 								image={image}
