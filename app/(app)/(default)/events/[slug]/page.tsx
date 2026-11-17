@@ -119,6 +119,8 @@ async function EventContent(props: Pick<EventPageProps, "params">): Promise<Reac
 				/>
 				<ContentLayout
 					related="related-content"
+					relatedEntities={item.relatedEntities}
+					relatedResources={item.relatedResources}
 					tableOfContents={false}
 					blocks={item.content}
 					intro={
