@@ -96,6 +96,35 @@ function asLayout(value: unknown): string {
 	return typeof value === "string" && value in imageLayoutClassName ? value : "default";
 }
 
+/**
+ * The slot an `embed` block claims, by its `layout` - an image's `default`, `wide` and `full` slots, without the
+ * floats. A frame has no natural width to fit, so unlike an image's, its `default` slot is the whole content column.
+ */
+const embedLayoutClassName: Record<string, string> = {
+	wide: imageLayoutClassName.wide!,
+	full: imageLayoutClassName.full!,
+	default: "",
+};
+
+function asEmbedLayout(value: unknown): string {
+	return typeof value === "string" && value in embedLayoutClassName ? value : "default";
+}
+
+/**
+ * An `embed` frame's shape, by its `aspectRatio` (width:height). An iframe has no intrinsic size the page could read,
+ * so the editor names one. A block from before the api carried one is `16:9`, the shape every embed had until then.
+ */
+const embedAspectRatioClassName: Record<string, string> = {
+	"16:9": "aspect-video",
+	"4:3": "aspect-[4/3]",
+	"1:1": "aspect-square",
+	"3:4": "aspect-[3/4]",
+};
+
+function asEmbedAspectRatio(value: unknown): string {
+	return typeof value === "string" && value in embedAspectRatioClassName ? value : "16:9";
+}
+
 interface ContentBlockViewProps {
 	block: Record<string, unknown>;
 }
@@ -204,11 +233,19 @@ function ContentBlockView(props: Readonly<ContentBlockViewProps>): ReactNode {
 			 */
 			const title = typeof block.title === "string" && block.title !== "" ? block.title : "Embedded content";
 
+			const layout = asEmbedLayout(block.layout);
+			const aspectRatio = asEmbedAspectRatio(block.aspectRatio);
+
 			return (
-				<figure>
+				/**
+				 * A tall shape in a broad slot - a portrait frame at full width - would run to several screens, so the frame
+				 * stops at most of the viewport's height and gives up its ratio there. What is framed is a page that reflows,
+				 * or a player that letterboxes, so a frame of another shape still shows all of it.
+				 */
+				<figure className={embedLayoutClassName[layout]}>
 					<iframe
 						allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-						className="aspect-video inline-full"
+						className={cn(embedAspectRatioClassName[aspectRatio], "inline-full max-block-[90svh]")}
 						loading="lazy"
 						referrerPolicy="strict-origin-when-cross-origin"
 						// oxlint-disable-next-line react/iframe-missing-sandbox -- A player needs both to run; the pair only lifts the sandbox for a document served from our own origin, and an embed is always third-party.
