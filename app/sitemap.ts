@@ -25,6 +25,7 @@ const staticPathnames = {
 	"/get-involved/funding-calls": true,
 	"/get-involved/join-dariah": true,
 	"/get-involved/opportunities": true,
+	"/helpdesk": true,
 	"/network/members-and-partners": true,
 	"/network/partnerships-and-collaborations": true,
 	"/network/regional-hubs": true,
