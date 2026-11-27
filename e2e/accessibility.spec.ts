@@ -38,6 +38,7 @@ const routes = {
 	"/get-involved/join-dariah": "",
 	"/get-involved/opportunities": "",
 	"/get-involved/opportunities/[slug]": { from: "sitemap" },
+	"/helpdesk": "",
 	"/network/members-and-partners": "",
 	"/network/members-and-partners/[slug]": { from: "sitemap" },
 	"/network/partnerships-and-collaborations": "",
